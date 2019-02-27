@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,6 +19,9 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * Google Cloud Messaging channel definition
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GCMChannelResponse" target="_top">AWS API
+ *      Documentation</a>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class GCMChannelResponse implements Serializable, Cloneable, StructuredPojo {
@@ -31,7 +34,9 @@ public class GCMChannelResponse implements Serializable, Cloneable, StructuredPo
     private String credential;
     /** If the channel is enabled for sending messages. */
     private Boolean enabled;
-    /** Channel ID. Not used, only for backwards compatibility. */
+    /** Not used. Retained for backwards compatibility. */
+    private Boolean hasCredential;
+    /** Channel ID. Not used. Present only for backwards compatibility. */
     private String id;
     /** Is this channel archived */
     private Boolean isArchived;
@@ -191,10 +196,54 @@ public class GCMChannelResponse implements Serializable, Cloneable, StructuredPo
     }
 
     /**
-     * Channel ID. Not used, only for backwards compatibility.
+     * Not used. Retained for backwards compatibility.
+     * 
+     * @param hasCredential
+     *        Not used. Retained for backwards compatibility.
+     */
+
+    public void setHasCredential(Boolean hasCredential) {
+        this.hasCredential = hasCredential;
+    }
+
+    /**
+     * Not used. Retained for backwards compatibility.
+     * 
+     * @return Not used. Retained for backwards compatibility.
+     */
+
+    public Boolean getHasCredential() {
+        return this.hasCredential;
+    }
+
+    /**
+     * Not used. Retained for backwards compatibility.
+     * 
+     * @param hasCredential
+     *        Not used. Retained for backwards compatibility.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GCMChannelResponse withHasCredential(Boolean hasCredential) {
+        setHasCredential(hasCredential);
+        return this;
+    }
+
+    /**
+     * Not used. Retained for backwards compatibility.
+     * 
+     * @return Not used. Retained for backwards compatibility.
+     */
+
+    public Boolean isHasCredential() {
+        return this.hasCredential;
+    }
+
+    /**
+     * Channel ID. Not used. Present only for backwards compatibility.
      * 
      * @param id
-     *        Channel ID. Not used, only for backwards compatibility.
+     *        Channel ID. Not used. Present only for backwards compatibility.
      */
 
     public void setId(String id) {
@@ -202,9 +251,9 @@ public class GCMChannelResponse implements Serializable, Cloneable, StructuredPo
     }
 
     /**
-     * Channel ID. Not used, only for backwards compatibility.
+     * Channel ID. Not used. Present only for backwards compatibility.
      * 
-     * @return Channel ID. Not used, only for backwards compatibility.
+     * @return Channel ID. Not used. Present only for backwards compatibility.
      */
 
     public String getId() {
@@ -212,10 +261,10 @@ public class GCMChannelResponse implements Serializable, Cloneable, StructuredPo
     }
 
     /**
-     * Channel ID. Not used, only for backwards compatibility.
+     * Channel ID. Not used. Present only for backwards compatibility.
      * 
      * @param id
-     *        Channel ID. Not used, only for backwards compatibility.
+     *        Channel ID. Not used. Present only for backwards compatibility.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -405,7 +454,8 @@ public class GCMChannelResponse implements Serializable, Cloneable, StructuredPo
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -423,6 +473,8 @@ public class GCMChannelResponse implements Serializable, Cloneable, StructuredPo
             sb.append("Credential: ").append(getCredential()).append(",");
         if (getEnabled() != null)
             sb.append("Enabled: ").append(getEnabled()).append(",");
+        if (getHasCredential() != null)
+            sb.append("HasCredential: ").append(getHasCredential()).append(",");
         if (getId() != null)
             sb.append("Id: ").append(getId()).append(",");
         if (getIsArchived() != null)
@@ -465,6 +517,10 @@ public class GCMChannelResponse implements Serializable, Cloneable, StructuredPo
             return false;
         if (other.getEnabled() != null && other.getEnabled().equals(this.getEnabled()) == false)
             return false;
+        if (other.getHasCredential() == null ^ this.getHasCredential() == null)
+            return false;
+        if (other.getHasCredential() != null && other.getHasCredential().equals(this.getHasCredential()) == false)
+            return false;
         if (other.getId() == null ^ this.getId() == null)
             return false;
         if (other.getId() != null && other.getId().equals(this.getId()) == false)
@@ -501,6 +557,7 @@ public class GCMChannelResponse implements Serializable, Cloneable, StructuredPo
         hashCode = prime * hashCode + ((getCreationDate() == null) ? 0 : getCreationDate().hashCode());
         hashCode = prime * hashCode + ((getCredential() == null) ? 0 : getCredential().hashCode());
         hashCode = prime * hashCode + ((getEnabled() == null) ? 0 : getEnabled().hashCode());
+        hashCode = prime * hashCode + ((getHasCredential() == null) ? 0 : getHasCredential().hashCode());
         hashCode = prime * hashCode + ((getId() == null) ? 0 : getId().hashCode());
         hashCode = prime * hashCode + ((getIsArchived() == null) ? 0 : getIsArchived().hashCode());
         hashCode = prime * hashCode + ((getLastModifiedBy() == null) ? 0 : getLastModifiedBy().hashCode());

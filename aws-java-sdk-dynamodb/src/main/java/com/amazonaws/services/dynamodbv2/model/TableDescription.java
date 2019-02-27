@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -164,6 +164,18 @@ public class TableDescription implements Serializable, Cloneable, StructuredPojo
      * </p>
      */
     private String tableArn;
+    /**
+     * <p>
+     * Unique identifier for the table for which the backup was created.
+     * </p>
+     */
+    private String tableId;
+    /**
+     * <p>
+     * Contains the details for the read/write capacity mode.
+     * </p>
+     */
+    private BillingModeSummary billingModeSummary;
     /**
      * <p>
      * Represents one or more local secondary indexes on the table. Each index is scoped to a given partition key value.
@@ -396,6 +408,18 @@ public class TableDescription implements Serializable, Cloneable, StructuredPojo
      * </p>
      */
     private String latestStreamArn;
+    /**
+     * <p>
+     * Contains details for the restore.
+     * </p>
+     */
+    private RestoreSummary restoreSummary;
+    /**
+     * <p>
+     * The description of the server-side encryption status on the specified table.
+     * </p>
+     */
+    private SSEDescription sSEDescription;
 
     /**
      * <p>
@@ -1526,6 +1550,86 @@ public class TableDescription implements Serializable, Cloneable, StructuredPojo
 
     public TableDescription withTableArn(String tableArn) {
         setTableArn(tableArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Unique identifier for the table for which the backup was created.
+     * </p>
+     * 
+     * @param tableId
+     *        Unique identifier for the table for which the backup was created.
+     */
+
+    public void setTableId(String tableId) {
+        this.tableId = tableId;
+    }
+
+    /**
+     * <p>
+     * Unique identifier for the table for which the backup was created.
+     * </p>
+     * 
+     * @return Unique identifier for the table for which the backup was created.
+     */
+
+    public String getTableId() {
+        return this.tableId;
+    }
+
+    /**
+     * <p>
+     * Unique identifier for the table for which the backup was created.
+     * </p>
+     * 
+     * @param tableId
+     *        Unique identifier for the table for which the backup was created.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public TableDescription withTableId(String tableId) {
+        setTableId(tableId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Contains the details for the read/write capacity mode.
+     * </p>
+     * 
+     * @param billingModeSummary
+     *        Contains the details for the read/write capacity mode.
+     */
+
+    public void setBillingModeSummary(BillingModeSummary billingModeSummary) {
+        this.billingModeSummary = billingModeSummary;
+    }
+
+    /**
+     * <p>
+     * Contains the details for the read/write capacity mode.
+     * </p>
+     * 
+     * @return Contains the details for the read/write capacity mode.
+     */
+
+    public BillingModeSummary getBillingModeSummary() {
+        return this.billingModeSummary;
+    }
+
+    /**
+     * <p>
+     * Contains the details for the read/write capacity mode.
+     * </p>
+     * 
+     * @param billingModeSummary
+     *        Contains the details for the read/write capacity mode.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public TableDescription withBillingModeSummary(BillingModeSummary billingModeSummary) {
+        setBillingModeSummary(billingModeSummary);
         return this;
     }
 
@@ -3360,7 +3464,88 @@ public class TableDescription implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * <p>
+     * Contains details for the restore.
+     * </p>
+     * 
+     * @param restoreSummary
+     *        Contains details for the restore.
+     */
+
+    public void setRestoreSummary(RestoreSummary restoreSummary) {
+        this.restoreSummary = restoreSummary;
+    }
+
+    /**
+     * <p>
+     * Contains details for the restore.
+     * </p>
+     * 
+     * @return Contains details for the restore.
+     */
+
+    public RestoreSummary getRestoreSummary() {
+        return this.restoreSummary;
+    }
+
+    /**
+     * <p>
+     * Contains details for the restore.
+     * </p>
+     * 
+     * @param restoreSummary
+     *        Contains details for the restore.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public TableDescription withRestoreSummary(RestoreSummary restoreSummary) {
+        setRestoreSummary(restoreSummary);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The description of the server-side encryption status on the specified table.
+     * </p>
+     * 
+     * @param sSEDescription
+     *        The description of the server-side encryption status on the specified table.
+     */
+
+    public void setSSEDescription(SSEDescription sSEDescription) {
+        this.sSEDescription = sSEDescription;
+    }
+
+    /**
+     * <p>
+     * The description of the server-side encryption status on the specified table.
+     * </p>
+     * 
+     * @return The description of the server-side encryption status on the specified table.
+     */
+
+    public SSEDescription getSSEDescription() {
+        return this.sSEDescription;
+    }
+
+    /**
+     * <p>
+     * The description of the server-side encryption status on the specified table.
+     * </p>
+     * 
+     * @param sSEDescription
+     *        The description of the server-side encryption status on the specified table.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public TableDescription withSSEDescription(SSEDescription sSEDescription) {
+        setSSEDescription(sSEDescription);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -3388,6 +3573,10 @@ public class TableDescription implements Serializable, Cloneable, StructuredPojo
             sb.append("ItemCount: ").append(getItemCount()).append(",");
         if (getTableArn() != null)
             sb.append("TableArn: ").append(getTableArn()).append(",");
+        if (getTableId() != null)
+            sb.append("TableId: ").append(getTableId()).append(",");
+        if (getBillingModeSummary() != null)
+            sb.append("BillingModeSummary: ").append(getBillingModeSummary()).append(",");
         if (getLocalSecondaryIndexes() != null)
             sb.append("LocalSecondaryIndexes: ").append(getLocalSecondaryIndexes()).append(",");
         if (getGlobalSecondaryIndexes() != null)
@@ -3397,7 +3586,11 @@ public class TableDescription implements Serializable, Cloneable, StructuredPojo
         if (getLatestStreamLabel() != null)
             sb.append("LatestStreamLabel: ").append(getLatestStreamLabel()).append(",");
         if (getLatestStreamArn() != null)
-            sb.append("LatestStreamArn: ").append(getLatestStreamArn());
+            sb.append("LatestStreamArn: ").append(getLatestStreamArn()).append(",");
+        if (getRestoreSummary() != null)
+            sb.append("RestoreSummary: ").append(getRestoreSummary()).append(",");
+        if (getSSEDescription() != null)
+            sb.append("SSEDescription: ").append(getSSEDescription());
         sb.append("}");
         return sb.toString();
     }
@@ -3448,6 +3641,14 @@ public class TableDescription implements Serializable, Cloneable, StructuredPojo
             return false;
         if (other.getTableArn() != null && other.getTableArn().equals(this.getTableArn()) == false)
             return false;
+        if (other.getTableId() == null ^ this.getTableId() == null)
+            return false;
+        if (other.getTableId() != null && other.getTableId().equals(this.getTableId()) == false)
+            return false;
+        if (other.getBillingModeSummary() == null ^ this.getBillingModeSummary() == null)
+            return false;
+        if (other.getBillingModeSummary() != null && other.getBillingModeSummary().equals(this.getBillingModeSummary()) == false)
+            return false;
         if (other.getLocalSecondaryIndexes() == null ^ this.getLocalSecondaryIndexes() == null)
             return false;
         if (other.getLocalSecondaryIndexes() != null && other.getLocalSecondaryIndexes().equals(this.getLocalSecondaryIndexes()) == false)
@@ -3468,6 +3669,14 @@ public class TableDescription implements Serializable, Cloneable, StructuredPojo
             return false;
         if (other.getLatestStreamArn() != null && other.getLatestStreamArn().equals(this.getLatestStreamArn()) == false)
             return false;
+        if (other.getRestoreSummary() == null ^ this.getRestoreSummary() == null)
+            return false;
+        if (other.getRestoreSummary() != null && other.getRestoreSummary().equals(this.getRestoreSummary()) == false)
+            return false;
+        if (other.getSSEDescription() == null ^ this.getSSEDescription() == null)
+            return false;
+        if (other.getSSEDescription() != null && other.getSSEDescription().equals(this.getSSEDescription()) == false)
+            return false;
         return true;
     }
 
@@ -3485,11 +3694,15 @@ public class TableDescription implements Serializable, Cloneable, StructuredPojo
         hashCode = prime * hashCode + ((getTableSizeBytes() == null) ? 0 : getTableSizeBytes().hashCode());
         hashCode = prime * hashCode + ((getItemCount() == null) ? 0 : getItemCount().hashCode());
         hashCode = prime * hashCode + ((getTableArn() == null) ? 0 : getTableArn().hashCode());
+        hashCode = prime * hashCode + ((getTableId() == null) ? 0 : getTableId().hashCode());
+        hashCode = prime * hashCode + ((getBillingModeSummary() == null) ? 0 : getBillingModeSummary().hashCode());
         hashCode = prime * hashCode + ((getLocalSecondaryIndexes() == null) ? 0 : getLocalSecondaryIndexes().hashCode());
         hashCode = prime * hashCode + ((getGlobalSecondaryIndexes() == null) ? 0 : getGlobalSecondaryIndexes().hashCode());
         hashCode = prime * hashCode + ((getStreamSpecification() == null) ? 0 : getStreamSpecification().hashCode());
         hashCode = prime * hashCode + ((getLatestStreamLabel() == null) ? 0 : getLatestStreamLabel().hashCode());
         hashCode = prime * hashCode + ((getLatestStreamArn() == null) ? 0 : getLatestStreamArn().hashCode());
+        hashCode = prime * hashCode + ((getRestoreSummary() == null) ? 0 : getRestoreSummary().hashCode());
+        hashCode = prime * hashCode + ((getSSEDescription() == null) ? 0 : getSSEDescription().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,6 +29,8 @@ public class CreateGroupVersionRequestMarshaller {
 
     private static final MarshallingInfo<String> AMZNCLIENTTOKEN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.HEADER).marshallLocationName("X-Amzn-Client-Token").build();
+    private static final MarshallingInfo<String> CONNECTORDEFINITIONVERSIONARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ConnectorDefinitionVersionArn").build();
     private static final MarshallingInfo<String> COREDEFINITIONVERSIONARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CoreDefinitionVersionArn").build();
     private static final MarshallingInfo<String> DEVICEDEFINITIONVERSIONARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
@@ -39,6 +41,8 @@ public class CreateGroupVersionRequestMarshaller {
             .marshallLocationName("GroupId").build();
     private static final MarshallingInfo<String> LOGGERDEFINITIONVERSIONARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("LoggerDefinitionVersionArn").build();
+    private static final MarshallingInfo<String> RESOURCEDEFINITIONVERSIONARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ResourceDefinitionVersionArn").build();
     private static final MarshallingInfo<String> SUBSCRIPTIONDEFINITIONVERSIONARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SubscriptionDefinitionVersionArn").build();
 
@@ -59,11 +63,13 @@ public class CreateGroupVersionRequestMarshaller {
 
         try {
             protocolMarshaller.marshall(createGroupVersionRequest.getAmznClientToken(), AMZNCLIENTTOKEN_BINDING);
+            protocolMarshaller.marshall(createGroupVersionRequest.getConnectorDefinitionVersionArn(), CONNECTORDEFINITIONVERSIONARN_BINDING);
             protocolMarshaller.marshall(createGroupVersionRequest.getCoreDefinitionVersionArn(), COREDEFINITIONVERSIONARN_BINDING);
             protocolMarshaller.marshall(createGroupVersionRequest.getDeviceDefinitionVersionArn(), DEVICEDEFINITIONVERSIONARN_BINDING);
             protocolMarshaller.marshall(createGroupVersionRequest.getFunctionDefinitionVersionArn(), FUNCTIONDEFINITIONVERSIONARN_BINDING);
             protocolMarshaller.marshall(createGroupVersionRequest.getGroupId(), GROUPID_BINDING);
             protocolMarshaller.marshall(createGroupVersionRequest.getLoggerDefinitionVersionArn(), LOGGERDEFINITIONVERSIONARN_BINDING);
+            protocolMarshaller.marshall(createGroupVersionRequest.getResourceDefinitionVersionArn(), RESOURCEDEFINITIONVERSIONARN_BINDING);
             protocolMarshaller.marshall(createGroupVersionRequest.getSubscriptionDefinitionVersionArn(), SUBSCRIPTIONDEFINITIONVERSIONARN_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);

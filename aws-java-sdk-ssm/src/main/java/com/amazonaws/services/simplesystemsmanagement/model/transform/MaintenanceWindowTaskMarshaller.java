@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -51,6 +51,10 @@ public class MaintenanceWindowTaskMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("MaxConcurrency").build();
     private static final MarshallingInfo<String> MAXERRORS_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("MaxErrors").build();
+    private static final MarshallingInfo<String> NAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Name").build();
+    private static final MarshallingInfo<String> DESCRIPTION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Description").build();
 
     private static final MaintenanceWindowTaskMarshaller instance = new MaintenanceWindowTaskMarshaller();
 
@@ -79,6 +83,8 @@ public class MaintenanceWindowTaskMarshaller {
             protocolMarshaller.marshall(maintenanceWindowTask.getServiceRoleArn(), SERVICEROLEARN_BINDING);
             protocolMarshaller.marshall(maintenanceWindowTask.getMaxConcurrency(), MAXCONCURRENCY_BINDING);
             protocolMarshaller.marshall(maintenanceWindowTask.getMaxErrors(), MAXERRORS_BINDING);
+            protocolMarshaller.marshall(maintenanceWindowTask.getName(), NAME_BINDING);
+            protocolMarshaller.marshall(maintenanceWindowTask.getDescription(), DESCRIPTION_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

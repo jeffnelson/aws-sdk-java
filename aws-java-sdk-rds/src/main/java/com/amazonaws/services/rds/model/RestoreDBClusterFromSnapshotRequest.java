@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,13 +28,14 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * Provides the list of EC2 Availability Zones that instances in the restored DB cluster can be created in.
+     * Provides the list of Amazon EC2 Availability Zones that instances in the restored DB cluster can be created in.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> availabilityZones;
     /**
      * <p>
-     * The name of the DB cluster to create from the DB cluster snapshot. This parameter isn't case-sensitive.
+     * The name of the DB cluster to create from the DB snapshot or DB cluster snapshot. This parameter isn't
+     * case-sensitive.
      * </p>
      * <p>
      * Constraints:
@@ -42,7 +43,7 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * <ul>
      * <li>
      * <p>
-     * Must contain from 1 to 255 alphanumeric characters or hyphens
+     * Must contain from 1 to 63 letters, numbers, or hyphens
      * </p>
      * </li>
      * <li>
@@ -52,7 +53,7 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * </li>
      * <li>
      * <p>
-     * Cannot end with a hyphen or contain two consecutive hyphens
+     * Can't end with a hyphen or contain two consecutive hyphens
      * </p>
      * </li>
      * </ul>
@@ -63,7 +64,11 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
     private String dBClusterIdentifier;
     /**
      * <p>
-     * The identifier for the DB cluster snapshot to restore from.
+     * The identifier for the DB snapshot or DB cluster snapshot to restore from.
+     * </p>
+     * <p>
+     * You can use either the name or the Amazon Resource Name (ARN) to specify a DB cluster snapshot. However, you can
+     * use only the ARN to specify a DB snapshot.
      * </p>
      * <p>
      * Constraints:
@@ -71,17 +76,7 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * <ul>
      * <li>
      * <p>
-     * Must contain from 1 to 63 alphanumeric characters or hyphens
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * First character must be a letter
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Cannot end with a hyphen or contain two consecutive hyphens
+     * Must match the identifier of an existing Snapshot.
      * </p>
      * </li>
      * </ul>
@@ -110,7 +105,7 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * The port number on which the new DB cluster accepts connections.
      * </p>
      * <p>
-     * Constraints: Value must be <code>1150-65535</code>
+     * Constraints: This value must be <code>1150-65535</code>
      * </p>
      * <p>
      * Default: The same port as the original DB cluster.
@@ -122,8 +117,7 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * The name of the DB subnet group to use for the new DB cluster.
      * </p>
      * <p>
-     * Constraints: Must contain no more than 255 alphanumeric characters, periods, underscores, spaces, or hyphens.
-     * Must not be default.
+     * Constraints: If supplied, must match the name of an existing DB subnet group.
      * </p>
      * <p>
      * Example: <code>mySubnetgroup</code>
@@ -156,7 +150,8 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
     private com.amazonaws.internal.SdkInternalList<Tag> tags;
     /**
      * <p>
-     * The KMS key identifier to use when restoring an encrypted DB cluster from a DB cluster snapshot.
+     * The AWS KMS key identifier to use when restoring an encrypted DB cluster from a DB snapshot or DB cluster
+     * snapshot.
      * </p>
      * <p>
      * The KMS key identifier is the Amazon Resource Name (ARN) for the KMS encryption key. If you are restoring a DB
@@ -164,19 +159,19 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * can use the KMS key alias instead of the ARN for the KMS encryption key.
      * </p>
      * <p>
-     * If you do not specify a value for the <code>KmsKeyId</code> parameter, then the following will occur:
+     * If you don't specify a value for the <code>KmsKeyId</code> parameter, then the following occurs:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * If the DB cluster snapshot is encrypted, then the restored DB cluster is encrypted using the KMS key that was
-     * used to encrypt the DB cluster snapshot.
+     * If the DB snapshot or DB cluster snapshot in <code>SnapshotIdentifier</code> is encrypted, then the restored DB
+     * cluster is encrypted using the KMS key that was used to encrypt the DB snapshot or DB cluster snapshot.
      * </p>
      * </li>
      * <li>
      * <p>
-     * If the DB cluster snapshot is not encrypted, then the restored DB cluster is encrypted using the specified
-     * encryption key.
+     * If the DB snapshot or DB cluster snapshot in <code>SnapshotIdentifier</code> is not encrypted, then the restored
+     * DB cluster is not encrypted.
      * </p>
      * </li>
      * </ul>
@@ -184,21 +179,102 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
     private String kmsKeyId;
     /**
      * <p>
-     * A Boolean value that is true to enable mapping of AWS Identity and Access Management (IAM) accounts to database
-     * accounts, and otherwise false.
+     * True to enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts, and otherwise
+     * false.
      * </p>
      * <p>
      * Default: <code>false</code>
      * </p>
      */
     private Boolean enableIAMDatabaseAuthentication;
+    /**
+     * <p>
+     * The target backtrack window, in seconds. To disable backtracking, set this value to 0.
+     * </p>
+     * <p>
+     * Default: 0
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If specified, this value must be set to a number from 0 to 259,200 (72 hours).
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private Long backtrackWindow;
+    /**
+     * <p>
+     * The list of logs that the restored DB cluster is to export to Amazon CloudWatch Logs. The values in the list
+     * depend on the DB engine being used. For more information, see <a href=
+     * "http://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
+     * >Publishing Database Logs to Amazon CloudWatch Logs </a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> enableCloudwatchLogsExports;
+    /**
+     * <p>
+     * The DB engine mode of the DB cluster, either <code>provisioned</code>, <code>serverless</code>, or
+     * <code>parallelquery</code>.
+     * </p>
+     */
+    private String engineMode;
+    /**
+     * <p>
+     * For DB clusters in <code>serverless</code> DB engine mode, the scaling properties of the DB cluster.
+     * </p>
+     */
+    private ScalingConfiguration scalingConfiguration;
+    /**
+     * <p>
+     * The name of the DB cluster parameter group to associate with this DB cluster. If this argument is omitted, the
+     * default DB cluster parameter group for the specified engine is used.
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If supplied, must match the name of an existing default DB cluster parameter group.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Must be 1 to 255 letters, numbers, or hyphens.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * First character must be a letter.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Can't end with a hyphen or contain two consecutive hyphens.
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private String dBClusterParameterGroupName;
+    /**
+     * <p>
+     * Indicates if the DB cluster should have deletion protection enabled. The database can't be deleted when this
+     * value is set to true. The default is false.
+     * </p>
+     */
+    private Boolean deletionProtection;
 
     /**
      * <p>
-     * Provides the list of EC2 Availability Zones that instances in the restored DB cluster can be created in.
+     * Provides the list of Amazon EC2 Availability Zones that instances in the restored DB cluster can be created in.
      * </p>
      * 
-     * @return Provides the list of EC2 Availability Zones that instances in the restored DB cluster can be created in.
+     * @return Provides the list of Amazon EC2 Availability Zones that instances in the restored DB cluster can be
+     *         created in.
      */
 
     public java.util.List<String> getAvailabilityZones() {
@@ -210,11 +286,12 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * Provides the list of EC2 Availability Zones that instances in the restored DB cluster can be created in.
+     * Provides the list of Amazon EC2 Availability Zones that instances in the restored DB cluster can be created in.
      * </p>
      * 
      * @param availabilityZones
-     *        Provides the list of EC2 Availability Zones that instances in the restored DB cluster can be created in.
+     *        Provides the list of Amazon EC2 Availability Zones that instances in the restored DB cluster can be
+     *        created in.
      */
 
     public void setAvailabilityZones(java.util.Collection<String> availabilityZones) {
@@ -228,7 +305,7 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * Provides the list of EC2 Availability Zones that instances in the restored DB cluster can be created in.
+     * Provides the list of Amazon EC2 Availability Zones that instances in the restored DB cluster can be created in.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -237,7 +314,8 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * </p>
      * 
      * @param availabilityZones
-     *        Provides the list of EC2 Availability Zones that instances in the restored DB cluster can be created in.
+     *        Provides the list of Amazon EC2 Availability Zones that instances in the restored DB cluster can be
+     *        created in.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -253,11 +331,12 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * Provides the list of EC2 Availability Zones that instances in the restored DB cluster can be created in.
+     * Provides the list of Amazon EC2 Availability Zones that instances in the restored DB cluster can be created in.
      * </p>
      * 
      * @param availabilityZones
-     *        Provides the list of EC2 Availability Zones that instances in the restored DB cluster can be created in.
+     *        Provides the list of Amazon EC2 Availability Zones that instances in the restored DB cluster can be
+     *        created in.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -268,7 +347,8 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * The name of the DB cluster to create from the DB cluster snapshot. This parameter isn't case-sensitive.
+     * The name of the DB cluster to create from the DB snapshot or DB cluster snapshot. This parameter isn't
+     * case-sensitive.
      * </p>
      * <p>
      * Constraints:
@@ -276,7 +356,7 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * <ul>
      * <li>
      * <p>
-     * Must contain from 1 to 255 alphanumeric characters or hyphens
+     * Must contain from 1 to 63 letters, numbers, or hyphens
      * </p>
      * </li>
      * <li>
@@ -286,7 +366,7 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * </li>
      * <li>
      * <p>
-     * Cannot end with a hyphen or contain two consecutive hyphens
+     * Can't end with a hyphen or contain two consecutive hyphens
      * </p>
      * </li>
      * </ul>
@@ -295,7 +375,7 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * </p>
      * 
      * @param dBClusterIdentifier
-     *        The name of the DB cluster to create from the DB cluster snapshot. This parameter isn't
+     *        The name of the DB cluster to create from the DB snapshot or DB cluster snapshot. This parameter isn't
      *        case-sensitive.</p>
      *        <p>
      *        Constraints:
@@ -303,7 +383,7 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      *        <ul>
      *        <li>
      *        <p>
-     *        Must contain from 1 to 255 alphanumeric characters or hyphens
+     *        Must contain from 1 to 63 letters, numbers, or hyphens
      *        </p>
      *        </li>
      *        <li>
@@ -313,7 +393,7 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      *        </li>
      *        <li>
      *        <p>
-     *        Cannot end with a hyphen or contain two consecutive hyphens
+     *        Can't end with a hyphen or contain two consecutive hyphens
      *        </p>
      *        </li>
      *        </ul>
@@ -327,7 +407,8 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * The name of the DB cluster to create from the DB cluster snapshot. This parameter isn't case-sensitive.
+     * The name of the DB cluster to create from the DB snapshot or DB cluster snapshot. This parameter isn't
+     * case-sensitive.
      * </p>
      * <p>
      * Constraints:
@@ -335,7 +416,7 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * <ul>
      * <li>
      * <p>
-     * Must contain from 1 to 255 alphanumeric characters or hyphens
+     * Must contain from 1 to 63 letters, numbers, or hyphens
      * </p>
      * </li>
      * <li>
@@ -345,7 +426,7 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * </li>
      * <li>
      * <p>
-     * Cannot end with a hyphen or contain two consecutive hyphens
+     * Can't end with a hyphen or contain two consecutive hyphens
      * </p>
      * </li>
      * </ul>
@@ -353,7 +434,7 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * Example: <code>my-snapshot-id</code>
      * </p>
      * 
-     * @return The name of the DB cluster to create from the DB cluster snapshot. This parameter isn't
+     * @return The name of the DB cluster to create from the DB snapshot or DB cluster snapshot. This parameter isn't
      *         case-sensitive.</p>
      *         <p>
      *         Constraints:
@@ -361,7 +442,7 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      *         <ul>
      *         <li>
      *         <p>
-     *         Must contain from 1 to 255 alphanumeric characters or hyphens
+     *         Must contain from 1 to 63 letters, numbers, or hyphens
      *         </p>
      *         </li>
      *         <li>
@@ -371,7 +452,7 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      *         </li>
      *         <li>
      *         <p>
-     *         Cannot end with a hyphen or contain two consecutive hyphens
+     *         Can't end with a hyphen or contain two consecutive hyphens
      *         </p>
      *         </li>
      *         </ul>
@@ -385,7 +466,8 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * The name of the DB cluster to create from the DB cluster snapshot. This parameter isn't case-sensitive.
+     * The name of the DB cluster to create from the DB snapshot or DB cluster snapshot. This parameter isn't
+     * case-sensitive.
      * </p>
      * <p>
      * Constraints:
@@ -393,7 +475,7 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * <ul>
      * <li>
      * <p>
-     * Must contain from 1 to 255 alphanumeric characters or hyphens
+     * Must contain from 1 to 63 letters, numbers, or hyphens
      * </p>
      * </li>
      * <li>
@@ -403,7 +485,7 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * </li>
      * <li>
      * <p>
-     * Cannot end with a hyphen or contain two consecutive hyphens
+     * Can't end with a hyphen or contain two consecutive hyphens
      * </p>
      * </li>
      * </ul>
@@ -412,7 +494,7 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * </p>
      * 
      * @param dBClusterIdentifier
-     *        The name of the DB cluster to create from the DB cluster snapshot. This parameter isn't
+     *        The name of the DB cluster to create from the DB snapshot or DB cluster snapshot. This parameter isn't
      *        case-sensitive.</p>
      *        <p>
      *        Constraints:
@@ -420,7 +502,7 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      *        <ul>
      *        <li>
      *        <p>
-     *        Must contain from 1 to 255 alphanumeric characters or hyphens
+     *        Must contain from 1 to 63 letters, numbers, or hyphens
      *        </p>
      *        </li>
      *        <li>
@@ -430,7 +512,7 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      *        </li>
      *        <li>
      *        <p>
-     *        Cannot end with a hyphen or contain two consecutive hyphens
+     *        Can't end with a hyphen or contain two consecutive hyphens
      *        </p>
      *        </li>
      *        </ul>
@@ -446,7 +528,11 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * The identifier for the DB cluster snapshot to restore from.
+     * The identifier for the DB snapshot or DB cluster snapshot to restore from.
+     * </p>
+     * <p>
+     * You can use either the name or the Amazon Resource Name (ARN) to specify a DB cluster snapshot. However, you can
+     * use only the ARN to specify a DB snapshot.
      * </p>
      * <p>
      * Constraints:
@@ -454,40 +540,24 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * <ul>
      * <li>
      * <p>
-     * Must contain from 1 to 63 alphanumeric characters or hyphens
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * First character must be a letter
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Cannot end with a hyphen or contain two consecutive hyphens
+     * Must match the identifier of an existing Snapshot.
      * </p>
      * </li>
      * </ul>
      * 
      * @param snapshotIdentifier
-     *        The identifier for the DB cluster snapshot to restore from.</p>
+     *        The identifier for the DB snapshot or DB cluster snapshot to restore from.</p>
+     *        <p>
+     *        You can use either the name or the Amazon Resource Name (ARN) to specify a DB cluster snapshot. However,
+     *        you can use only the ARN to specify a DB snapshot.
+     *        </p>
      *        <p>
      *        Constraints:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        Must contain from 1 to 63 alphanumeric characters or hyphens
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        First character must be a letter
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        Cannot end with a hyphen or contain two consecutive hyphens
+     *        Must match the identifier of an existing Snapshot.
      *        </p>
      *        </li>
      */
@@ -498,7 +568,11 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * The identifier for the DB cluster snapshot to restore from.
+     * The identifier for the DB snapshot or DB cluster snapshot to restore from.
+     * </p>
+     * <p>
+     * You can use either the name or the Amazon Resource Name (ARN) to specify a DB cluster snapshot. However, you can
+     * use only the ARN to specify a DB snapshot.
      * </p>
      * <p>
      * Constraints:
@@ -506,39 +580,23 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * <ul>
      * <li>
      * <p>
-     * Must contain from 1 to 63 alphanumeric characters or hyphens
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * First character must be a letter
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Cannot end with a hyphen or contain two consecutive hyphens
+     * Must match the identifier of an existing Snapshot.
      * </p>
      * </li>
      * </ul>
      * 
-     * @return The identifier for the DB cluster snapshot to restore from.</p>
+     * @return The identifier for the DB snapshot or DB cluster snapshot to restore from.</p>
+     *         <p>
+     *         You can use either the name or the Amazon Resource Name (ARN) to specify a DB cluster snapshot. However,
+     *         you can use only the ARN to specify a DB snapshot.
+     *         </p>
      *         <p>
      *         Constraints:
      *         </p>
      *         <ul>
      *         <li>
      *         <p>
-     *         Must contain from 1 to 63 alphanumeric characters or hyphens
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         First character must be a letter
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         Cannot end with a hyphen or contain two consecutive hyphens
+     *         Must match the identifier of an existing Snapshot.
      *         </p>
      *         </li>
      */
@@ -549,7 +607,11 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * The identifier for the DB cluster snapshot to restore from.
+     * The identifier for the DB snapshot or DB cluster snapshot to restore from.
+     * </p>
+     * <p>
+     * You can use either the name or the Amazon Resource Name (ARN) to specify a DB cluster snapshot. However, you can
+     * use only the ARN to specify a DB snapshot.
      * </p>
      * <p>
      * Constraints:
@@ -557,40 +619,24 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * <ul>
      * <li>
      * <p>
-     * Must contain from 1 to 63 alphanumeric characters or hyphens
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * First character must be a letter
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Cannot end with a hyphen or contain two consecutive hyphens
+     * Must match the identifier of an existing Snapshot.
      * </p>
      * </li>
      * </ul>
      * 
      * @param snapshotIdentifier
-     *        The identifier for the DB cluster snapshot to restore from.</p>
+     *        The identifier for the DB snapshot or DB cluster snapshot to restore from.</p>
+     *        <p>
+     *        You can use either the name or the Amazon Resource Name (ARN) to specify a DB cluster snapshot. However,
+     *        you can use only the ARN to specify a DB snapshot.
+     *        </p>
      *        <p>
      *        Constraints:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        Must contain from 1 to 63 alphanumeric characters or hyphens
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        First character must be a letter
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        Cannot end with a hyphen or contain two consecutive hyphens
+     *        Must match the identifier of an existing Snapshot.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -719,7 +765,7 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * The port number on which the new DB cluster accepts connections.
      * </p>
      * <p>
-     * Constraints: Value must be <code>1150-65535</code>
+     * Constraints: This value must be <code>1150-65535</code>
      * </p>
      * <p>
      * Default: The same port as the original DB cluster.
@@ -728,7 +774,7 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * @param port
      *        The port number on which the new DB cluster accepts connections.</p>
      *        <p>
-     *        Constraints: Value must be <code>1150-65535</code>
+     *        Constraints: This value must be <code>1150-65535</code>
      *        </p>
      *        <p>
      *        Default: The same port as the original DB cluster.
@@ -743,7 +789,7 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * The port number on which the new DB cluster accepts connections.
      * </p>
      * <p>
-     * Constraints: Value must be <code>1150-65535</code>
+     * Constraints: This value must be <code>1150-65535</code>
      * </p>
      * <p>
      * Default: The same port as the original DB cluster.
@@ -751,7 +797,7 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * 
      * @return The port number on which the new DB cluster accepts connections.</p>
      *         <p>
-     *         Constraints: Value must be <code>1150-65535</code>
+     *         Constraints: This value must be <code>1150-65535</code>
      *         </p>
      *         <p>
      *         Default: The same port as the original DB cluster.
@@ -766,7 +812,7 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * The port number on which the new DB cluster accepts connections.
      * </p>
      * <p>
-     * Constraints: Value must be <code>1150-65535</code>
+     * Constraints: This value must be <code>1150-65535</code>
      * </p>
      * <p>
      * Default: The same port as the original DB cluster.
@@ -775,7 +821,7 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * @param port
      *        The port number on which the new DB cluster accepts connections.</p>
      *        <p>
-     *        Constraints: Value must be <code>1150-65535</code>
+     *        Constraints: This value must be <code>1150-65535</code>
      *        </p>
      *        <p>
      *        Default: The same port as the original DB cluster.
@@ -792,8 +838,7 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * The name of the DB subnet group to use for the new DB cluster.
      * </p>
      * <p>
-     * Constraints: Must contain no more than 255 alphanumeric characters, periods, underscores, spaces, or hyphens.
-     * Must not be default.
+     * Constraints: If supplied, must match the name of an existing DB subnet group.
      * </p>
      * <p>
      * Example: <code>mySubnetgroup</code>
@@ -802,8 +847,7 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * @param dBSubnetGroupName
      *        The name of the DB subnet group to use for the new DB cluster.</p>
      *        <p>
-     *        Constraints: Must contain no more than 255 alphanumeric characters, periods, underscores, spaces, or
-     *        hyphens. Must not be default.
+     *        Constraints: If supplied, must match the name of an existing DB subnet group.
      *        </p>
      *        <p>
      *        Example: <code>mySubnetgroup</code>
@@ -818,8 +862,7 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * The name of the DB subnet group to use for the new DB cluster.
      * </p>
      * <p>
-     * Constraints: Must contain no more than 255 alphanumeric characters, periods, underscores, spaces, or hyphens.
-     * Must not be default.
+     * Constraints: If supplied, must match the name of an existing DB subnet group.
      * </p>
      * <p>
      * Example: <code>mySubnetgroup</code>
@@ -827,8 +870,7 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * 
      * @return The name of the DB subnet group to use for the new DB cluster.</p>
      *         <p>
-     *         Constraints: Must contain no more than 255 alphanumeric characters, periods, underscores, spaces, or
-     *         hyphens. Must not be default.
+     *         Constraints: If supplied, must match the name of an existing DB subnet group.
      *         </p>
      *         <p>
      *         Example: <code>mySubnetgroup</code>
@@ -843,8 +885,7 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * The name of the DB subnet group to use for the new DB cluster.
      * </p>
      * <p>
-     * Constraints: Must contain no more than 255 alphanumeric characters, periods, underscores, spaces, or hyphens.
-     * Must not be default.
+     * Constraints: If supplied, must match the name of an existing DB subnet group.
      * </p>
      * <p>
      * Example: <code>mySubnetgroup</code>
@@ -853,8 +894,7 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * @param dBSubnetGroupName
      *        The name of the DB subnet group to use for the new DB cluster.</p>
      *        <p>
-     *        Constraints: Must contain no more than 255 alphanumeric characters, periods, underscores, spaces, or
-     *        hyphens. Must not be default.
+     *        Constraints: If supplied, must match the name of an existing DB subnet group.
      *        </p>
      *        <p>
      *        Example: <code>mySubnetgroup</code>
@@ -1094,7 +1134,8 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * The KMS key identifier to use when restoring an encrypted DB cluster from a DB cluster snapshot.
+     * The AWS KMS key identifier to use when restoring an encrypted DB cluster from a DB snapshot or DB cluster
+     * snapshot.
      * </p>
      * <p>
      * The KMS key identifier is the Amazon Resource Name (ARN) for the KMS encryption key. If you are restoring a DB
@@ -1102,44 +1143,46 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * can use the KMS key alias instead of the ARN for the KMS encryption key.
      * </p>
      * <p>
-     * If you do not specify a value for the <code>KmsKeyId</code> parameter, then the following will occur:
+     * If you don't specify a value for the <code>KmsKeyId</code> parameter, then the following occurs:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * If the DB cluster snapshot is encrypted, then the restored DB cluster is encrypted using the KMS key that was
-     * used to encrypt the DB cluster snapshot.
+     * If the DB snapshot or DB cluster snapshot in <code>SnapshotIdentifier</code> is encrypted, then the restored DB
+     * cluster is encrypted using the KMS key that was used to encrypt the DB snapshot or DB cluster snapshot.
      * </p>
      * </li>
      * <li>
      * <p>
-     * If the DB cluster snapshot is not encrypted, then the restored DB cluster is encrypted using the specified
-     * encryption key.
+     * If the DB snapshot or DB cluster snapshot in <code>SnapshotIdentifier</code> is not encrypted, then the restored
+     * DB cluster is not encrypted.
      * </p>
      * </li>
      * </ul>
      * 
      * @param kmsKeyId
-     *        The KMS key identifier to use when restoring an encrypted DB cluster from a DB cluster snapshot.</p>
+     *        The AWS KMS key identifier to use when restoring an encrypted DB cluster from a DB snapshot or DB cluster
+     *        snapshot.</p>
      *        <p>
      *        The KMS key identifier is the Amazon Resource Name (ARN) for the KMS encryption key. If you are restoring
      *        a DB cluster with the same AWS account that owns the KMS encryption key used to encrypt the new DB
      *        cluster, then you can use the KMS key alias instead of the ARN for the KMS encryption key.
      *        </p>
      *        <p>
-     *        If you do not specify a value for the <code>KmsKeyId</code> parameter, then the following will occur:
+     *        If you don't specify a value for the <code>KmsKeyId</code> parameter, then the following occurs:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        If the DB cluster snapshot is encrypted, then the restored DB cluster is encrypted using the KMS key that
-     *        was used to encrypt the DB cluster snapshot.
+     *        If the DB snapshot or DB cluster snapshot in <code>SnapshotIdentifier</code> is encrypted, then the
+     *        restored DB cluster is encrypted using the KMS key that was used to encrypt the DB snapshot or DB cluster
+     *        snapshot.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        If the DB cluster snapshot is not encrypted, then the restored DB cluster is encrypted using the specified
-     *        encryption key.
+     *        If the DB snapshot or DB cluster snapshot in <code>SnapshotIdentifier</code> is not encrypted, then the
+     *        restored DB cluster is not encrypted.
      *        </p>
      *        </li>
      */
@@ -1150,7 +1193,8 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * The KMS key identifier to use when restoring an encrypted DB cluster from a DB cluster snapshot.
+     * The AWS KMS key identifier to use when restoring an encrypted DB cluster from a DB snapshot or DB cluster
+     * snapshot.
      * </p>
      * <p>
      * The KMS key identifier is the Amazon Resource Name (ARN) for the KMS encryption key. If you are restoring a DB
@@ -1158,43 +1202,45 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * can use the KMS key alias instead of the ARN for the KMS encryption key.
      * </p>
      * <p>
-     * If you do not specify a value for the <code>KmsKeyId</code> parameter, then the following will occur:
+     * If you don't specify a value for the <code>KmsKeyId</code> parameter, then the following occurs:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * If the DB cluster snapshot is encrypted, then the restored DB cluster is encrypted using the KMS key that was
-     * used to encrypt the DB cluster snapshot.
+     * If the DB snapshot or DB cluster snapshot in <code>SnapshotIdentifier</code> is encrypted, then the restored DB
+     * cluster is encrypted using the KMS key that was used to encrypt the DB snapshot or DB cluster snapshot.
      * </p>
      * </li>
      * <li>
      * <p>
-     * If the DB cluster snapshot is not encrypted, then the restored DB cluster is encrypted using the specified
-     * encryption key.
+     * If the DB snapshot or DB cluster snapshot in <code>SnapshotIdentifier</code> is not encrypted, then the restored
+     * DB cluster is not encrypted.
      * </p>
      * </li>
      * </ul>
      * 
-     * @return The KMS key identifier to use when restoring an encrypted DB cluster from a DB cluster snapshot.</p>
+     * @return The AWS KMS key identifier to use when restoring an encrypted DB cluster from a DB snapshot or DB cluster
+     *         snapshot.</p>
      *         <p>
      *         The KMS key identifier is the Amazon Resource Name (ARN) for the KMS encryption key. If you are restoring
      *         a DB cluster with the same AWS account that owns the KMS encryption key used to encrypt the new DB
      *         cluster, then you can use the KMS key alias instead of the ARN for the KMS encryption key.
      *         </p>
      *         <p>
-     *         If you do not specify a value for the <code>KmsKeyId</code> parameter, then the following will occur:
+     *         If you don't specify a value for the <code>KmsKeyId</code> parameter, then the following occurs:
      *         </p>
      *         <ul>
      *         <li>
      *         <p>
-     *         If the DB cluster snapshot is encrypted, then the restored DB cluster is encrypted using the KMS key that
-     *         was used to encrypt the DB cluster snapshot.
+     *         If the DB snapshot or DB cluster snapshot in <code>SnapshotIdentifier</code> is encrypted, then the
+     *         restored DB cluster is encrypted using the KMS key that was used to encrypt the DB snapshot or DB cluster
+     *         snapshot.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         If the DB cluster snapshot is not encrypted, then the restored DB cluster is encrypted using the
-     *         specified encryption key.
+     *         If the DB snapshot or DB cluster snapshot in <code>SnapshotIdentifier</code> is not encrypted, then the
+     *         restored DB cluster is not encrypted.
      *         </p>
      *         </li>
      */
@@ -1205,7 +1251,8 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * The KMS key identifier to use when restoring an encrypted DB cluster from a DB cluster snapshot.
+     * The AWS KMS key identifier to use when restoring an encrypted DB cluster from a DB snapshot or DB cluster
+     * snapshot.
      * </p>
      * <p>
      * The KMS key identifier is the Amazon Resource Name (ARN) for the KMS encryption key. If you are restoring a DB
@@ -1213,44 +1260,46 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
      * can use the KMS key alias instead of the ARN for the KMS encryption key.
      * </p>
      * <p>
-     * If you do not specify a value for the <code>KmsKeyId</code> parameter, then the following will occur:
+     * If you don't specify a value for the <code>KmsKeyId</code> parameter, then the following occurs:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * If the DB cluster snapshot is encrypted, then the restored DB cluster is encrypted using the KMS key that was
-     * used to encrypt the DB cluster snapshot.
+     * If the DB snapshot or DB cluster snapshot in <code>SnapshotIdentifier</code> is encrypted, then the restored DB
+     * cluster is encrypted using the KMS key that was used to encrypt the DB snapshot or DB cluster snapshot.
      * </p>
      * </li>
      * <li>
      * <p>
-     * If the DB cluster snapshot is not encrypted, then the restored DB cluster is encrypted using the specified
-     * encryption key.
+     * If the DB snapshot or DB cluster snapshot in <code>SnapshotIdentifier</code> is not encrypted, then the restored
+     * DB cluster is not encrypted.
      * </p>
      * </li>
      * </ul>
      * 
      * @param kmsKeyId
-     *        The KMS key identifier to use when restoring an encrypted DB cluster from a DB cluster snapshot.</p>
+     *        The AWS KMS key identifier to use when restoring an encrypted DB cluster from a DB snapshot or DB cluster
+     *        snapshot.</p>
      *        <p>
      *        The KMS key identifier is the Amazon Resource Name (ARN) for the KMS encryption key. If you are restoring
      *        a DB cluster with the same AWS account that owns the KMS encryption key used to encrypt the new DB
      *        cluster, then you can use the KMS key alias instead of the ARN for the KMS encryption key.
      *        </p>
      *        <p>
-     *        If you do not specify a value for the <code>KmsKeyId</code> parameter, then the following will occur:
+     *        If you don't specify a value for the <code>KmsKeyId</code> parameter, then the following occurs:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        If the DB cluster snapshot is encrypted, then the restored DB cluster is encrypted using the KMS key that
-     *        was used to encrypt the DB cluster snapshot.
+     *        If the DB snapshot or DB cluster snapshot in <code>SnapshotIdentifier</code> is encrypted, then the
+     *        restored DB cluster is encrypted using the KMS key that was used to encrypt the DB snapshot or DB cluster
+     *        snapshot.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        If the DB cluster snapshot is not encrypted, then the restored DB cluster is encrypted using the specified
-     *        encryption key.
+     *        If the DB snapshot or DB cluster snapshot in <code>SnapshotIdentifier</code> is not encrypted, then the
+     *        restored DB cluster is not encrypted.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -1263,16 +1312,16 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * A Boolean value that is true to enable mapping of AWS Identity and Access Management (IAM) accounts to database
-     * accounts, and otherwise false.
+     * True to enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts, and otherwise
+     * false.
      * </p>
      * <p>
      * Default: <code>false</code>
      * </p>
      * 
      * @param enableIAMDatabaseAuthentication
-     *        A Boolean value that is true to enable mapping of AWS Identity and Access Management (IAM) accounts to
-     *        database accounts, and otherwise false.</p>
+     *        True to enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts, and
+     *        otherwise false.</p>
      *        <p>
      *        Default: <code>false</code>
      */
@@ -1283,15 +1332,15 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * A Boolean value that is true to enable mapping of AWS Identity and Access Management (IAM) accounts to database
-     * accounts, and otherwise false.
+     * True to enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts, and otherwise
+     * false.
      * </p>
      * <p>
      * Default: <code>false</code>
      * </p>
      * 
-     * @return A Boolean value that is true to enable mapping of AWS Identity and Access Management (IAM) accounts to
-     *         database accounts, and otherwise false.</p>
+     * @return True to enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts, and
+     *         otherwise false.</p>
      *         <p>
      *         Default: <code>false</code>
      */
@@ -1302,16 +1351,16 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * A Boolean value that is true to enable mapping of AWS Identity and Access Management (IAM) accounts to database
-     * accounts, and otherwise false.
+     * True to enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts, and otherwise
+     * false.
      * </p>
      * <p>
      * Default: <code>false</code>
      * </p>
      * 
      * @param enableIAMDatabaseAuthentication
-     *        A Boolean value that is true to enable mapping of AWS Identity and Access Management (IAM) accounts to
-     *        database accounts, and otherwise false.</p>
+     *        True to enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts, and
+     *        otherwise false.</p>
      *        <p>
      *        Default: <code>false</code>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -1324,15 +1373,15 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
 
     /**
      * <p>
-     * A Boolean value that is true to enable mapping of AWS Identity and Access Management (IAM) accounts to database
-     * accounts, and otherwise false.
+     * True to enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts, and otherwise
+     * false.
      * </p>
      * <p>
      * Default: <code>false</code>
      * </p>
      * 
-     * @return A Boolean value that is true to enable mapping of AWS Identity and Access Management (IAM) accounts to
-     *         database accounts, and otherwise false.</p>
+     * @return True to enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts, and
+     *         otherwise false.</p>
      *         <p>
      *         Default: <code>false</code>
      */
@@ -1342,7 +1391,559 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * <p>
+     * The target backtrack window, in seconds. To disable backtracking, set this value to 0.
+     * </p>
+     * <p>
+     * Default: 0
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If specified, this value must be set to a number from 0 to 259,200 (72 hours).
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param backtrackWindow
+     *        The target backtrack window, in seconds. To disable backtracking, set this value to 0.</p>
+     *        <p>
+     *        Default: 0
+     *        </p>
+     *        <p>
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        If specified, this value must be set to a number from 0 to 259,200 (72 hours).
+     *        </p>
+     *        </li>
+     */
+
+    public void setBacktrackWindow(Long backtrackWindow) {
+        this.backtrackWindow = backtrackWindow;
+    }
+
+    /**
+     * <p>
+     * The target backtrack window, in seconds. To disable backtracking, set this value to 0.
+     * </p>
+     * <p>
+     * Default: 0
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If specified, this value must be set to a number from 0 to 259,200 (72 hours).
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return The target backtrack window, in seconds. To disable backtracking, set this value to 0.</p>
+     *         <p>
+     *         Default: 0
+     *         </p>
+     *         <p>
+     *         Constraints:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         If specified, this value must be set to a number from 0 to 259,200 (72 hours).
+     *         </p>
+     *         </li>
+     */
+
+    public Long getBacktrackWindow() {
+        return this.backtrackWindow;
+    }
+
+    /**
+     * <p>
+     * The target backtrack window, in seconds. To disable backtracking, set this value to 0.
+     * </p>
+     * <p>
+     * Default: 0
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If specified, this value must be set to a number from 0 to 259,200 (72 hours).
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param backtrackWindow
+     *        The target backtrack window, in seconds. To disable backtracking, set this value to 0.</p>
+     *        <p>
+     *        Default: 0
+     *        </p>
+     *        <p>
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        If specified, this value must be set to a number from 0 to 259,200 (72 hours).
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreDBClusterFromSnapshotRequest withBacktrackWindow(Long backtrackWindow) {
+        setBacktrackWindow(backtrackWindow);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The list of logs that the restored DB cluster is to export to Amazon CloudWatch Logs. The values in the list
+     * depend on the DB engine being used. For more information, see <a href=
+     * "http://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
+     * >Publishing Database Logs to Amazon CloudWatch Logs </a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * 
+     * @return The list of logs that the restored DB cluster is to export to Amazon CloudWatch Logs. The values in the
+     *         list depend on the DB engine being used. For more information, see <a href=
+     *         "http://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
+     *         >Publishing Database Logs to Amazon CloudWatch Logs </a> in the <i>Amazon Aurora User Guide</i>.
+     */
+
+    public java.util.List<String> getEnableCloudwatchLogsExports() {
+        if (enableCloudwatchLogsExports == null) {
+            enableCloudwatchLogsExports = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return enableCloudwatchLogsExports;
+    }
+
+    /**
+     * <p>
+     * The list of logs that the restored DB cluster is to export to Amazon CloudWatch Logs. The values in the list
+     * depend on the DB engine being used. For more information, see <a href=
+     * "http://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
+     * >Publishing Database Logs to Amazon CloudWatch Logs </a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * 
+     * @param enableCloudwatchLogsExports
+     *        The list of logs that the restored DB cluster is to export to Amazon CloudWatch Logs. The values in the
+     *        list depend on the DB engine being used. For more information, see <a href=
+     *        "http://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
+     *        >Publishing Database Logs to Amazon CloudWatch Logs </a> in the <i>Amazon Aurora User Guide</i>.
+     */
+
+    public void setEnableCloudwatchLogsExports(java.util.Collection<String> enableCloudwatchLogsExports) {
+        if (enableCloudwatchLogsExports == null) {
+            this.enableCloudwatchLogsExports = null;
+            return;
+        }
+
+        this.enableCloudwatchLogsExports = new com.amazonaws.internal.SdkInternalList<String>(enableCloudwatchLogsExports);
+    }
+
+    /**
+     * <p>
+     * The list of logs that the restored DB cluster is to export to Amazon CloudWatch Logs. The values in the list
+     * depend on the DB engine being used. For more information, see <a href=
+     * "http://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
+     * >Publishing Database Logs to Amazon CloudWatch Logs </a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setEnableCloudwatchLogsExports(java.util.Collection)} or
+     * {@link #withEnableCloudwatchLogsExports(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param enableCloudwatchLogsExports
+     *        The list of logs that the restored DB cluster is to export to Amazon CloudWatch Logs. The values in the
+     *        list depend on the DB engine being used. For more information, see <a href=
+     *        "http://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
+     *        >Publishing Database Logs to Amazon CloudWatch Logs </a> in the <i>Amazon Aurora User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreDBClusterFromSnapshotRequest withEnableCloudwatchLogsExports(String... enableCloudwatchLogsExports) {
+        if (this.enableCloudwatchLogsExports == null) {
+            setEnableCloudwatchLogsExports(new com.amazonaws.internal.SdkInternalList<String>(enableCloudwatchLogsExports.length));
+        }
+        for (String ele : enableCloudwatchLogsExports) {
+            this.enableCloudwatchLogsExports.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The list of logs that the restored DB cluster is to export to Amazon CloudWatch Logs. The values in the list
+     * depend on the DB engine being used. For more information, see <a href=
+     * "http://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
+     * >Publishing Database Logs to Amazon CloudWatch Logs </a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * 
+     * @param enableCloudwatchLogsExports
+     *        The list of logs that the restored DB cluster is to export to Amazon CloudWatch Logs. The values in the
+     *        list depend on the DB engine being used. For more information, see <a href=
+     *        "http://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
+     *        >Publishing Database Logs to Amazon CloudWatch Logs </a> in the <i>Amazon Aurora User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreDBClusterFromSnapshotRequest withEnableCloudwatchLogsExports(java.util.Collection<String> enableCloudwatchLogsExports) {
+        setEnableCloudwatchLogsExports(enableCloudwatchLogsExports);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The DB engine mode of the DB cluster, either <code>provisioned</code>, <code>serverless</code>, or
+     * <code>parallelquery</code>.
+     * </p>
+     * 
+     * @param engineMode
+     *        The DB engine mode of the DB cluster, either <code>provisioned</code>, <code>serverless</code>, or
+     *        <code>parallelquery</code>.
+     */
+
+    public void setEngineMode(String engineMode) {
+        this.engineMode = engineMode;
+    }
+
+    /**
+     * <p>
+     * The DB engine mode of the DB cluster, either <code>provisioned</code>, <code>serverless</code>, or
+     * <code>parallelquery</code>.
+     * </p>
+     * 
+     * @return The DB engine mode of the DB cluster, either <code>provisioned</code>, <code>serverless</code>, or
+     *         <code>parallelquery</code>.
+     */
+
+    public String getEngineMode() {
+        return this.engineMode;
+    }
+
+    /**
+     * <p>
+     * The DB engine mode of the DB cluster, either <code>provisioned</code>, <code>serverless</code>, or
+     * <code>parallelquery</code>.
+     * </p>
+     * 
+     * @param engineMode
+     *        The DB engine mode of the DB cluster, either <code>provisioned</code>, <code>serverless</code>, or
+     *        <code>parallelquery</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreDBClusterFromSnapshotRequest withEngineMode(String engineMode) {
+        setEngineMode(engineMode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * For DB clusters in <code>serverless</code> DB engine mode, the scaling properties of the DB cluster.
+     * </p>
+     * 
+     * @param scalingConfiguration
+     *        For DB clusters in <code>serverless</code> DB engine mode, the scaling properties of the DB cluster.
+     */
+
+    public void setScalingConfiguration(ScalingConfiguration scalingConfiguration) {
+        this.scalingConfiguration = scalingConfiguration;
+    }
+
+    /**
+     * <p>
+     * For DB clusters in <code>serverless</code> DB engine mode, the scaling properties of the DB cluster.
+     * </p>
+     * 
+     * @return For DB clusters in <code>serverless</code> DB engine mode, the scaling properties of the DB cluster.
+     */
+
+    public ScalingConfiguration getScalingConfiguration() {
+        return this.scalingConfiguration;
+    }
+
+    /**
+     * <p>
+     * For DB clusters in <code>serverless</code> DB engine mode, the scaling properties of the DB cluster.
+     * </p>
+     * 
+     * @param scalingConfiguration
+     *        For DB clusters in <code>serverless</code> DB engine mode, the scaling properties of the DB cluster.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreDBClusterFromSnapshotRequest withScalingConfiguration(ScalingConfiguration scalingConfiguration) {
+        setScalingConfiguration(scalingConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The name of the DB cluster parameter group to associate with this DB cluster. If this argument is omitted, the
+     * default DB cluster parameter group for the specified engine is used.
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If supplied, must match the name of an existing default DB cluster parameter group.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Must be 1 to 255 letters, numbers, or hyphens.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * First character must be a letter.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Can't end with a hyphen or contain two consecutive hyphens.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param dBClusterParameterGroupName
+     *        The name of the DB cluster parameter group to associate with this DB cluster. If this argument is omitted,
+     *        the default DB cluster parameter group for the specified engine is used.</p>
+     *        <p>
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        If supplied, must match the name of an existing default DB cluster parameter group.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Must be 1 to 255 letters, numbers, or hyphens.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        First character must be a letter.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Can't end with a hyphen or contain two consecutive hyphens.
+     *        </p>
+     *        </li>
+     */
+
+    public void setDBClusterParameterGroupName(String dBClusterParameterGroupName) {
+        this.dBClusterParameterGroupName = dBClusterParameterGroupName;
+    }
+
+    /**
+     * <p>
+     * The name of the DB cluster parameter group to associate with this DB cluster. If this argument is omitted, the
+     * default DB cluster parameter group for the specified engine is used.
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If supplied, must match the name of an existing default DB cluster parameter group.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Must be 1 to 255 letters, numbers, or hyphens.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * First character must be a letter.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Can't end with a hyphen or contain two consecutive hyphens.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return The name of the DB cluster parameter group to associate with this DB cluster. If this argument is
+     *         omitted, the default DB cluster parameter group for the specified engine is used.</p>
+     *         <p>
+     *         Constraints:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         If supplied, must match the name of an existing default DB cluster parameter group.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Must be 1 to 255 letters, numbers, or hyphens.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         First character must be a letter.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Can't end with a hyphen or contain two consecutive hyphens.
+     *         </p>
+     *         </li>
+     */
+
+    public String getDBClusterParameterGroupName() {
+        return this.dBClusterParameterGroupName;
+    }
+
+    /**
+     * <p>
+     * The name of the DB cluster parameter group to associate with this DB cluster. If this argument is omitted, the
+     * default DB cluster parameter group for the specified engine is used.
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If supplied, must match the name of an existing default DB cluster parameter group.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Must be 1 to 255 letters, numbers, or hyphens.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * First character must be a letter.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Can't end with a hyphen or contain two consecutive hyphens.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param dBClusterParameterGroupName
+     *        The name of the DB cluster parameter group to associate with this DB cluster. If this argument is omitted,
+     *        the default DB cluster parameter group for the specified engine is used.</p>
+     *        <p>
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        If supplied, must match the name of an existing default DB cluster parameter group.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Must be 1 to 255 letters, numbers, or hyphens.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        First character must be a letter.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Can't end with a hyphen or contain two consecutive hyphens.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreDBClusterFromSnapshotRequest withDBClusterParameterGroupName(String dBClusterParameterGroupName) {
+        setDBClusterParameterGroupName(dBClusterParameterGroupName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates if the DB cluster should have deletion protection enabled. The database can't be deleted when this
+     * value is set to true. The default is false.
+     * </p>
+     * 
+     * @param deletionProtection
+     *        Indicates if the DB cluster should have deletion protection enabled. The database can't be deleted when
+     *        this value is set to true. The default is false.
+     */
+
+    public void setDeletionProtection(Boolean deletionProtection) {
+        this.deletionProtection = deletionProtection;
+    }
+
+    /**
+     * <p>
+     * Indicates if the DB cluster should have deletion protection enabled. The database can't be deleted when this
+     * value is set to true. The default is false.
+     * </p>
+     * 
+     * @return Indicates if the DB cluster should have deletion protection enabled. The database can't be deleted when
+     *         this value is set to true. The default is false.
+     */
+
+    public Boolean getDeletionProtection() {
+        return this.deletionProtection;
+    }
+
+    /**
+     * <p>
+     * Indicates if the DB cluster should have deletion protection enabled. The database can't be deleted when this
+     * value is set to true. The default is false.
+     * </p>
+     * 
+     * @param deletionProtection
+     *        Indicates if the DB cluster should have deletion protection enabled. The database can't be deleted when
+     *        this value is set to true. The default is false.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreDBClusterFromSnapshotRequest withDeletionProtection(Boolean deletionProtection) {
+        setDeletionProtection(deletionProtection);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates if the DB cluster should have deletion protection enabled. The database can't be deleted when this
+     * value is set to true. The default is false.
+     * </p>
+     * 
+     * @return Indicates if the DB cluster should have deletion protection enabled. The database can't be deleted when
+     *         this value is set to true. The default is false.
+     */
+
+    public Boolean isDeletionProtection() {
+        return this.deletionProtection;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -1377,7 +1978,19 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
         if (getKmsKeyId() != null)
             sb.append("KmsKeyId: ").append(getKmsKeyId()).append(",");
         if (getEnableIAMDatabaseAuthentication() != null)
-            sb.append("EnableIAMDatabaseAuthentication: ").append(getEnableIAMDatabaseAuthentication());
+            sb.append("EnableIAMDatabaseAuthentication: ").append(getEnableIAMDatabaseAuthentication()).append(",");
+        if (getBacktrackWindow() != null)
+            sb.append("BacktrackWindow: ").append(getBacktrackWindow()).append(",");
+        if (getEnableCloudwatchLogsExports() != null)
+            sb.append("EnableCloudwatchLogsExports: ").append(getEnableCloudwatchLogsExports()).append(",");
+        if (getEngineMode() != null)
+            sb.append("EngineMode: ").append(getEngineMode()).append(",");
+        if (getScalingConfiguration() != null)
+            sb.append("ScalingConfiguration: ").append(getScalingConfiguration()).append(",");
+        if (getDBClusterParameterGroupName() != null)
+            sb.append("DBClusterParameterGroupName: ").append(getDBClusterParameterGroupName()).append(",");
+        if (getDeletionProtection() != null)
+            sb.append("DeletionProtection: ").append(getDeletionProtection());
         sb.append("}");
         return sb.toString();
     }
@@ -1445,6 +2058,30 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
         if (other.getEnableIAMDatabaseAuthentication() != null
                 && other.getEnableIAMDatabaseAuthentication().equals(this.getEnableIAMDatabaseAuthentication()) == false)
             return false;
+        if (other.getBacktrackWindow() == null ^ this.getBacktrackWindow() == null)
+            return false;
+        if (other.getBacktrackWindow() != null && other.getBacktrackWindow().equals(this.getBacktrackWindow()) == false)
+            return false;
+        if (other.getEnableCloudwatchLogsExports() == null ^ this.getEnableCloudwatchLogsExports() == null)
+            return false;
+        if (other.getEnableCloudwatchLogsExports() != null && other.getEnableCloudwatchLogsExports().equals(this.getEnableCloudwatchLogsExports()) == false)
+            return false;
+        if (other.getEngineMode() == null ^ this.getEngineMode() == null)
+            return false;
+        if (other.getEngineMode() != null && other.getEngineMode().equals(this.getEngineMode()) == false)
+            return false;
+        if (other.getScalingConfiguration() == null ^ this.getScalingConfiguration() == null)
+            return false;
+        if (other.getScalingConfiguration() != null && other.getScalingConfiguration().equals(this.getScalingConfiguration()) == false)
+            return false;
+        if (other.getDBClusterParameterGroupName() == null ^ this.getDBClusterParameterGroupName() == null)
+            return false;
+        if (other.getDBClusterParameterGroupName() != null && other.getDBClusterParameterGroupName().equals(this.getDBClusterParameterGroupName()) == false)
+            return false;
+        if (other.getDeletionProtection() == null ^ this.getDeletionProtection() == null)
+            return false;
+        if (other.getDeletionProtection() != null && other.getDeletionProtection().equals(this.getDeletionProtection()) == false)
+            return false;
         return true;
     }
 
@@ -1466,6 +2103,12 @@ public class RestoreDBClusterFromSnapshotRequest extends com.amazonaws.AmazonWeb
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         hashCode = prime * hashCode + ((getKmsKeyId() == null) ? 0 : getKmsKeyId().hashCode());
         hashCode = prime * hashCode + ((getEnableIAMDatabaseAuthentication() == null) ? 0 : getEnableIAMDatabaseAuthentication().hashCode());
+        hashCode = prime * hashCode + ((getBacktrackWindow() == null) ? 0 : getBacktrackWindow().hashCode());
+        hashCode = prime * hashCode + ((getEnableCloudwatchLogsExports() == null) ? 0 : getEnableCloudwatchLogsExports().hashCode());
+        hashCode = prime * hashCode + ((getEngineMode() == null) ? 0 : getEngineMode().hashCode());
+        hashCode = prime * hashCode + ((getScalingConfiguration() == null) ? 0 : getScalingConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getDBClusterParameterGroupName() == null) ? 0 : getDBClusterParameterGroupName().hashCode());
+        hashCode = prime * hashCode + ((getDeletionProtection() == null) ? 0 : getDeletionProtection().hashCode());
         return hashCode;
     }
 

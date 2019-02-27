@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -59,7 +59,7 @@ public class ActionConfigurationProperty implements Serializable, Cloneable, Str
     private Boolean secret;
     /**
      * <p>
-     * Indicates that the proprety will be used in conjunction with PollForJobs. When creating a custom action, an
+     * Indicates that the property will be used in conjunction with PollForJobs. When creating a custom action, an
      * action can have up to one queryable property. If it has one, that property must be both required and not secret.
      * </p>
      * <p>
@@ -316,7 +316,7 @@ public class ActionConfigurationProperty implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * Indicates that the proprety will be used in conjunction with PollForJobs. When creating a custom action, an
+     * Indicates that the property will be used in conjunction with PollForJobs. When creating a custom action, an
      * action can have up to one queryable property. If it has one, that property must be both required and not secret.
      * </p>
      * <p>
@@ -326,7 +326,7 @@ public class ActionConfigurationProperty implements Serializable, Cloneable, Str
      * </p>
      * 
      * @param queryable
-     *        Indicates that the proprety will be used in conjunction with PollForJobs. When creating a custom action,
+     *        Indicates that the property will be used in conjunction with PollForJobs. When creating a custom action,
      *        an action can have up to one queryable property. If it has one, that property must be both required and
      *        not secret.</p>
      *        <p>
@@ -342,7 +342,7 @@ public class ActionConfigurationProperty implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * Indicates that the proprety will be used in conjunction with PollForJobs. When creating a custom action, an
+     * Indicates that the property will be used in conjunction with PollForJobs. When creating a custom action, an
      * action can have up to one queryable property. If it has one, that property must be both required and not secret.
      * </p>
      * <p>
@@ -351,7 +351,7 @@ public class ActionConfigurationProperty implements Serializable, Cloneable, Str
      * to twenty (20) characters. The value can contain only alphanumeric characters, underscores, and hyphens.
      * </p>
      * 
-     * @return Indicates that the proprety will be used in conjunction with PollForJobs. When creating a custom action,
+     * @return Indicates that the property will be used in conjunction with PollForJobs. When creating a custom action,
      *         an action can have up to one queryable property. If it has one, that property must be both required and
      *         not secret.</p>
      *         <p>
@@ -367,7 +367,7 @@ public class ActionConfigurationProperty implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * Indicates that the proprety will be used in conjunction with PollForJobs. When creating a custom action, an
+     * Indicates that the property will be used in conjunction with PollForJobs. When creating a custom action, an
      * action can have up to one queryable property. If it has one, that property must be both required and not secret.
      * </p>
      * <p>
@@ -377,7 +377,7 @@ public class ActionConfigurationProperty implements Serializable, Cloneable, Str
      * </p>
      * 
      * @param queryable
-     *        Indicates that the proprety will be used in conjunction with PollForJobs. When creating a custom action,
+     *        Indicates that the property will be used in conjunction with PollForJobs. When creating a custom action,
      *        an action can have up to one queryable property. If it has one, that property must be both required and
      *        not secret.</p>
      *        <p>
@@ -395,7 +395,7 @@ public class ActionConfigurationProperty implements Serializable, Cloneable, Str
 
     /**
      * <p>
-     * Indicates that the proprety will be used in conjunction with PollForJobs. When creating a custom action, an
+     * Indicates that the property will be used in conjunction with PollForJobs. When creating a custom action, an
      * action can have up to one queryable property. If it has one, that property must be both required and not secret.
      * </p>
      * <p>
@@ -404,7 +404,7 @@ public class ActionConfigurationProperty implements Serializable, Cloneable, Str
      * to twenty (20) characters. The value can contain only alphanumeric characters, underscores, and hyphens.
      * </p>
      * 
-     * @return Indicates that the proprety will be used in conjunction with PollForJobs. When creating a custom action,
+     * @return Indicates that the property will be used in conjunction with PollForJobs. When creating a custom action,
      *         an action can have up to one queryable property. If it has one, that property must be both required and
      *         not secret.</p>
      *         <p>
@@ -532,7 +532,8 @@ public class ActionConfigurationProperty implements Serializable, Cloneable, Str
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

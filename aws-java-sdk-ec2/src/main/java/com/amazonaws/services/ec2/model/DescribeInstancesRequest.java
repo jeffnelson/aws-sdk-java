@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -20,9 +20,7 @@ import com.amazonaws.Request;
 import com.amazonaws.services.ec2.model.transform.DescribeInstancesRequestMarshaller;
 
 /**
- * <p>
- * Contains the parameters for DescribeInstances.
- * </p>
+ * 
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class DescribeInstancesRequest extends AmazonWebServiceRequest implements Serializable, Cloneable, DryRunSupportedRequest<DescribeInstancesRequest> {
@@ -62,8 +60,8 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * </li>
      * <li>
      * <p>
-     * <code>block-device-mapping.device-name</code> - The device name for the EBS volume (for example,
-     * <code>/dev/sdh</code> or <code>xvdh</code>).
+     * <code>block-device-mapping.device-name</code> - The device name specified in the block device mapping (for
+     * example, <code>/dev/sdh</code> or <code>xvdh</code>).
      * </p>
      * </li>
      * <li>
@@ -99,6 +97,12 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * </li>
      * <li>
      * <p>
+     * <code>hibernation-options.configured</code> - A Boolean that indicates whether the instance is enabled for
+     * hibernation. A value of <code>true</code> means that the instance is enabled for hibernation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>host-id</code> - The ID of the Dedicated Host on which the instance is running, if applicable.
      * </p>
      * </li>
@@ -130,8 +134,8 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * </li>
      * <li>
      * <p>
-     * <code>instance-state-code</code> - The state of the instance, as a 16-bit unsigned integer. The high byte is an
-     * opaque internal value and should be ignored. The low byte is set based on the state represented. The valid values
+     * <code>instance-state-code</code> - The state of the instance, as a 16-bit unsigned integer. The high byte is used
+     * for internal purposes and should be ignored. The low byte is set based on the state represented. The valid values
      * are: 0 (pending), 16 (running), 32 (shutting-down), 48 (terminated), 64 (stopping), and 80 (stopped).
      * </p>
      * </li>
@@ -343,9 +347,9 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * <li>
      * <p>
      * <code>network-interface.source-dest-check</code> - Whether the network interface performs source/destination
-     * checking. A value of <code>true</code> means checking is enabled, and <code>false</code> means checking is
-     * disabled. The value must be <code>false</code> for the network interface to perform network address translation
-     * (NAT) in your VPC.
+     * checking. A value of <code>true</code> means that checking is enabled, and <code>false</code> means that checking
+     * is disabled. The value must be <code>false</code> for the network interface to perform network address
+     * translation (NAT) in your VPC.
      * </p>
      * </li>
      * <li>
@@ -366,6 +370,11 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * <li>
      * <p>
      * <code>placement-group-name</code> - The name of the placement group for the instance.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>placement-partition-number</code> - The partition in which the instance is located.
      * </p>
      * </li>
      * <li>
@@ -416,32 +425,31 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * <code>reservation-id</code> - The ID of the instance's reservation. A reservation ID is created any time you
      * launch an instance. A reservation ID has a one-to-one relationship with an instance launch request, but can be
      * associated with more than one instance if you launch multiple instances using the same launch request. For
-     * example, if you launch one instance, you'll get one reservation ID. If you launch ten instances using the same
-     * launch request, you'll also get one reservation ID.
+     * example, if you launch one instance, you get one reservation ID. If you launch ten instances using the same
+     * launch request, you also get one reservation ID.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>root-device-name</code> - The name of the root device for the instance (for example, <code>/dev/sda1</code>
-     * or <code>/dev/xvda</code>).
+     * <code>root-device-name</code> - The device name of the root device volume (for example, <code>/dev/sda1</code>).
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>root-device-type</code> - The type of root device that the instance uses (<code>ebs</code> |
+     * <code>root-device-type</code> - The type of the root device volume (<code>ebs</code> |
      * <code>instance-store</code>).
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>source-dest-check</code> - Indicates whether the instance performs source/destination checking. A value of
-     * <code>true</code> means that checking is enabled, and <code>false</code> means checking is disabled. The value
-     * must be <code>false</code> for the instance to perform network address translation (NAT) in your VPC.
+     * <code>true</code> means that checking is enabled, and <code>false</code> means that checking is disabled. The
+     * value must be <code>false</code> for the instance to perform network address translation (NAT) in your VPC.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>spot-instance-request-id</code> - The ID of the Spot instance request.
+     * <code>spot-instance-request-id</code> - The ID of the Spot Instance request.
      * </p>
      * </li>
      * <li>
@@ -461,24 +469,16 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * </li>
      * <li>
      * <p>
-     * <code>tag</code>:<i>key</i>=<i>value</i> - The key/value combination of a tag assigned to the resource. Specify
-     * the key of the tag in the filter name and the value of the tag in the filter value. For example, for the tag
-     * Purpose=X, specify <code>tag:Purpose</code> for the filter name and <code>X</code> for the filter value.
+     * <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in
+     * the filter name and the tag value as the filter value. For example, to find all resources that have a tag with
+     * the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name
+     * and <code>TeamA</code> for the filter value.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>tag-key</code> - The key of a tag assigned to the resource. This filter is independent of the
-     * <code>tag-value</code> filter. For example, if you use both the filter "tag-key=Purpose" and the filter
-     * "tag-value=X", you get any resources assigned both the tag key Purpose (regardless of what the tag's value is),
-     * and the tag value X (regardless of what the tag's key is). If you want to list only resources where Purpose is X,
-     * see the <code>tag</code>:<i>key</i>=<i>value</i> filter.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>tag-value</code> - The value of a tag assigned to the resource. This filter is independent of the
-     * <code>tag-key</code> filter.
+     * <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources that have
+     * a tag with a specific key, regardless of the tag value.
      * </p>
      * </li>
      * <li>
@@ -514,7 +514,7 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * <p>
      * The maximum number of results to return in a single call. To retrieve the remaining results, make another call
      * with the returned <code>NextToken</code> value. This value can be between 5 and 1000. You cannot specify this
-     * parameter and the instance IDs parameter or tag filters in the same call.
+     * parameter and the instance IDs parameter in the same call.
      * </p>
      */
     private Integer maxResults;
@@ -560,8 +560,8 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * </li>
      * <li>
      * <p>
-     * <code>block-device-mapping.device-name</code> - The device name for the EBS volume (for example,
-     * <code>/dev/sdh</code> or <code>xvdh</code>).
+     * <code>block-device-mapping.device-name</code> - The device name specified in the block device mapping (for
+     * example, <code>/dev/sdh</code> or <code>xvdh</code>).
      * </p>
      * </li>
      * <li>
@@ -597,6 +597,12 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * </li>
      * <li>
      * <p>
+     * <code>hibernation-options.configured</code> - A Boolean that indicates whether the instance is enabled for
+     * hibernation. A value of <code>true</code> means that the instance is enabled for hibernation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>host-id</code> - The ID of the Dedicated Host on which the instance is running, if applicable.
      * </p>
      * </li>
@@ -628,8 +634,8 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * </li>
      * <li>
      * <p>
-     * <code>instance-state-code</code> - The state of the instance, as a 16-bit unsigned integer. The high byte is an
-     * opaque internal value and should be ignored. The low byte is set based on the state represented. The valid values
+     * <code>instance-state-code</code> - The state of the instance, as a 16-bit unsigned integer. The high byte is used
+     * for internal purposes and should be ignored. The low byte is set based on the state represented. The valid values
      * are: 0 (pending), 16 (running), 32 (shutting-down), 48 (terminated), 64 (stopping), and 80 (stopped).
      * </p>
      * </li>
@@ -841,9 +847,9 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * <li>
      * <p>
      * <code>network-interface.source-dest-check</code> - Whether the network interface performs source/destination
-     * checking. A value of <code>true</code> means checking is enabled, and <code>false</code> means checking is
-     * disabled. The value must be <code>false</code> for the network interface to perform network address translation
-     * (NAT) in your VPC.
+     * checking. A value of <code>true</code> means that checking is enabled, and <code>false</code> means that checking
+     * is disabled. The value must be <code>false</code> for the network interface to perform network address
+     * translation (NAT) in your VPC.
      * </p>
      * </li>
      * <li>
@@ -864,6 +870,11 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * <li>
      * <p>
      * <code>placement-group-name</code> - The name of the placement group for the instance.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>placement-partition-number</code> - The partition in which the instance is located.
      * </p>
      * </li>
      * <li>
@@ -914,32 +925,31 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * <code>reservation-id</code> - The ID of the instance's reservation. A reservation ID is created any time you
      * launch an instance. A reservation ID has a one-to-one relationship with an instance launch request, but can be
      * associated with more than one instance if you launch multiple instances using the same launch request. For
-     * example, if you launch one instance, you'll get one reservation ID. If you launch ten instances using the same
-     * launch request, you'll also get one reservation ID.
+     * example, if you launch one instance, you get one reservation ID. If you launch ten instances using the same
+     * launch request, you also get one reservation ID.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>root-device-name</code> - The name of the root device for the instance (for example, <code>/dev/sda1</code>
-     * or <code>/dev/xvda</code>).
+     * <code>root-device-name</code> - The device name of the root device volume (for example, <code>/dev/sda1</code>).
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>root-device-type</code> - The type of root device that the instance uses (<code>ebs</code> |
+     * <code>root-device-type</code> - The type of the root device volume (<code>ebs</code> |
      * <code>instance-store</code>).
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>source-dest-check</code> - Indicates whether the instance performs source/destination checking. A value of
-     * <code>true</code> means that checking is enabled, and <code>false</code> means checking is disabled. The value
-     * must be <code>false</code> for the instance to perform network address translation (NAT) in your VPC.
+     * <code>true</code> means that checking is enabled, and <code>false</code> means that checking is disabled. The
+     * value must be <code>false</code> for the instance to perform network address translation (NAT) in your VPC.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>spot-instance-request-id</code> - The ID of the Spot instance request.
+     * <code>spot-instance-request-id</code> - The ID of the Spot Instance request.
      * </p>
      * </li>
      * <li>
@@ -959,24 +969,16 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * </li>
      * <li>
      * <p>
-     * <code>tag</code>:<i>key</i>=<i>value</i> - The key/value combination of a tag assigned to the resource. Specify
-     * the key of the tag in the filter name and the value of the tag in the filter value. For example, for the tag
-     * Purpose=X, specify <code>tag:Purpose</code> for the filter name and <code>X</code> for the filter value.
+     * <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in
+     * the filter name and the tag value as the filter value. For example, to find all resources that have a tag with
+     * the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name
+     * and <code>TeamA</code> for the filter value.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>tag-key</code> - The key of a tag assigned to the resource. This filter is independent of the
-     * <code>tag-value</code> filter. For example, if you use both the filter "tag-key=Purpose" and the filter
-     * "tag-value=X", you get any resources assigned both the tag key Purpose (regardless of what the tag's value is),
-     * and the tag value X (regardless of what the tag's key is). If you want to list only resources where Purpose is X,
-     * see the <code>tag</code>:<i>key</i>=<i>value</i> filter.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>tag-value</code> - The value of a tag assigned to the resource. This filter is independent of the
-     * <code>tag-key</code> filter.
+     * <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources that have
+     * a tag with a specific key, regardless of the tag value.
      * </p>
      * </li>
      * <li>
@@ -1030,8 +1032,8 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      *         </li>
      *         <li>
      *         <p>
-     *         <code>block-device-mapping.device-name</code> - The device name for the EBS volume (for example,
-     *         <code>/dev/sdh</code> or <code>xvdh</code>).
+     *         <code>block-device-mapping.device-name</code> - The device name specified in the block device mapping
+     *         (for example, <code>/dev/sdh</code> or <code>xvdh</code>).
      *         </p>
      *         </li>
      *         <li>
@@ -1063,6 +1065,12 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      *         <li>
      *         <p>
      *         <code>group-name</code> - The name of the security group for the instance. EC2-Classic only.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>hibernation-options.configured</code> - A Boolean that indicates whether the instance is enabled
+     *         for hibernation. A value of <code>true</code> means that the instance is enabled for hibernation.
      *         </p>
      *         </li>
      *         <li>
@@ -1100,7 +1108,7 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      *         <li>
      *         <p>
      *         <code>instance-state-code</code> - The state of the instance, as a 16-bit unsigned integer. The high byte
-     *         is an opaque internal value and should be ignored. The low byte is set based on the state represented.
+     *         is used for internal purposes and should be ignored. The low byte is set based on the state represented.
      *         The valid values are: 0 (pending), 16 (running), 32 (shutting-down), 48 (terminated), 64 (stopping), and
      *         80 (stopped).
      *         </p>
@@ -1315,8 +1323,8 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      *         <li>
      *         <p>
      *         <code>network-interface.source-dest-check</code> - Whether the network interface performs
-     *         source/destination checking. A value of <code>true</code> means checking is enabled, and
-     *         <code>false</code> means checking is disabled. The value must be <code>false</code> for the network
+     *         source/destination checking. A value of <code>true</code> means that checking is enabled, and
+     *         <code>false</code> means that checking is disabled. The value must be <code>false</code> for the network
      *         interface to perform network address translation (NAT) in your VPC.
      *         </p>
      *         </li>
@@ -1338,6 +1346,11 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      *         <li>
      *         <p>
      *         <code>placement-group-name</code> - The name of the placement group for the instance.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>placement-partition-number</code> - The partition in which the instance is located.
      *         </p>
      *         </li>
      *         <li>
@@ -1390,33 +1403,33 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      *         <code>reservation-id</code> - The ID of the instance's reservation. A reservation ID is created any time
      *         you launch an instance. A reservation ID has a one-to-one relationship with an instance launch request,
      *         but can be associated with more than one instance if you launch multiple instances using the same launch
-     *         request. For example, if you launch one instance, you'll get one reservation ID. If you launch ten
-     *         instances using the same launch request, you'll also get one reservation ID.
+     *         request. For example, if you launch one instance, you get one reservation ID. If you launch ten instances
+     *         using the same launch request, you also get one reservation ID.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>root-device-name</code> - The name of the root device for the instance (for example,
-     *         <code>/dev/sda1</code> or <code>/dev/xvda</code>).
+     *         <code>root-device-name</code> - The device name of the root device volume (for example,
+     *         <code>/dev/sda1</code>).
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>root-device-type</code> - The type of root device that the instance uses (<code>ebs</code> |
+     *         <code>root-device-type</code> - The type of the root device volume (<code>ebs</code> |
      *         <code>instance-store</code>).
      *         </p>
      *         </li>
      *         <li>
      *         <p>
      *         <code>source-dest-check</code> - Indicates whether the instance performs source/destination checking. A
-     *         value of <code>true</code> means that checking is enabled, and <code>false</code> means checking is
+     *         value of <code>true</code> means that checking is enabled, and <code>false</code> means that checking is
      *         disabled. The value must be <code>false</code> for the instance to perform network address translation
      *         (NAT) in your VPC.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>spot-instance-request-id</code> - The ID of the Spot instance request.
+     *         <code>spot-instance-request-id</code> - The ID of the Spot Instance request.
      *         </p>
      *         </li>
      *         <li>
@@ -1436,25 +1449,16 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      *         </li>
      *         <li>
      *         <p>
-     *         <code>tag</code>:<i>key</i>=<i>value</i> - The key/value combination of a tag assigned to the resource.
-     *         Specify the key of the tag in the filter name and the value of the tag in the filter value. For example,
-     *         for the tag Purpose=X, specify <code>tag:Purpose</code> for the filter name and <code>X</code> for the
-     *         filter value.
+     *         <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag
+     *         key in the filter name and the tag value as the filter value. For example, to find all resources that
+     *         have a tag with the key <code>Owner</code> and the value <code>TeamA</code>, specify
+     *         <code>tag:Owner</code> for the filter name and <code>TeamA</code> for the filter value.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>tag-key</code> - The key of a tag assigned to the resource. This filter is independent of the
-     *         <code>tag-value</code> filter. For example, if you use both the filter "tag-key=Purpose" and the filter
-     *         "tag-value=X", you get any resources assigned both the tag key Purpose (regardless of what the tag's
-     *         value is), and the tag value X (regardless of what the tag's key is). If you want to list only resources
-     *         where Purpose is X, see the <code>tag</code>:<i>key</i>=<i>value</i> filter.
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         <code>tag-value</code> - The value of a tag assigned to the resource. This filter is independent of the
-     *         <code>tag-key</code> filter.
+     *         <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources
+     *         that have a tag with a specific key, regardless of the tag value.
      *         </p>
      *         </li>
      *         <li>
@@ -1518,8 +1522,8 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * </li>
      * <li>
      * <p>
-     * <code>block-device-mapping.device-name</code> - The device name for the EBS volume (for example,
-     * <code>/dev/sdh</code> or <code>xvdh</code>).
+     * <code>block-device-mapping.device-name</code> - The device name specified in the block device mapping (for
+     * example, <code>/dev/sdh</code> or <code>xvdh</code>).
      * </p>
      * </li>
      * <li>
@@ -1555,6 +1559,12 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * </li>
      * <li>
      * <p>
+     * <code>hibernation-options.configured</code> - A Boolean that indicates whether the instance is enabled for
+     * hibernation. A value of <code>true</code> means that the instance is enabled for hibernation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>host-id</code> - The ID of the Dedicated Host on which the instance is running, if applicable.
      * </p>
      * </li>
@@ -1586,8 +1596,8 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * </li>
      * <li>
      * <p>
-     * <code>instance-state-code</code> - The state of the instance, as a 16-bit unsigned integer. The high byte is an
-     * opaque internal value and should be ignored. The low byte is set based on the state represented. The valid values
+     * <code>instance-state-code</code> - The state of the instance, as a 16-bit unsigned integer. The high byte is used
+     * for internal purposes and should be ignored. The low byte is set based on the state represented. The valid values
      * are: 0 (pending), 16 (running), 32 (shutting-down), 48 (terminated), 64 (stopping), and 80 (stopped).
      * </p>
      * </li>
@@ -1799,9 +1809,9 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * <li>
      * <p>
      * <code>network-interface.source-dest-check</code> - Whether the network interface performs source/destination
-     * checking. A value of <code>true</code> means checking is enabled, and <code>false</code> means checking is
-     * disabled. The value must be <code>false</code> for the network interface to perform network address translation
-     * (NAT) in your VPC.
+     * checking. A value of <code>true</code> means that checking is enabled, and <code>false</code> means that checking
+     * is disabled. The value must be <code>false</code> for the network interface to perform network address
+     * translation (NAT) in your VPC.
      * </p>
      * </li>
      * <li>
@@ -1822,6 +1832,11 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * <li>
      * <p>
      * <code>placement-group-name</code> - The name of the placement group for the instance.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>placement-partition-number</code> - The partition in which the instance is located.
      * </p>
      * </li>
      * <li>
@@ -1872,32 +1887,31 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * <code>reservation-id</code> - The ID of the instance's reservation. A reservation ID is created any time you
      * launch an instance. A reservation ID has a one-to-one relationship with an instance launch request, but can be
      * associated with more than one instance if you launch multiple instances using the same launch request. For
-     * example, if you launch one instance, you'll get one reservation ID. If you launch ten instances using the same
-     * launch request, you'll also get one reservation ID.
+     * example, if you launch one instance, you get one reservation ID. If you launch ten instances using the same
+     * launch request, you also get one reservation ID.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>root-device-name</code> - The name of the root device for the instance (for example, <code>/dev/sda1</code>
-     * or <code>/dev/xvda</code>).
+     * <code>root-device-name</code> - The device name of the root device volume (for example, <code>/dev/sda1</code>).
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>root-device-type</code> - The type of root device that the instance uses (<code>ebs</code> |
+     * <code>root-device-type</code> - The type of the root device volume (<code>ebs</code> |
      * <code>instance-store</code>).
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>source-dest-check</code> - Indicates whether the instance performs source/destination checking. A value of
-     * <code>true</code> means that checking is enabled, and <code>false</code> means checking is disabled. The value
-     * must be <code>false</code> for the instance to perform network address translation (NAT) in your VPC.
+     * <code>true</code> means that checking is enabled, and <code>false</code> means that checking is disabled. The
+     * value must be <code>false</code> for the instance to perform network address translation (NAT) in your VPC.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>spot-instance-request-id</code> - The ID of the Spot instance request.
+     * <code>spot-instance-request-id</code> - The ID of the Spot Instance request.
      * </p>
      * </li>
      * <li>
@@ -1917,24 +1931,16 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * </li>
      * <li>
      * <p>
-     * <code>tag</code>:<i>key</i>=<i>value</i> - The key/value combination of a tag assigned to the resource. Specify
-     * the key of the tag in the filter name and the value of the tag in the filter value. For example, for the tag
-     * Purpose=X, specify <code>tag:Purpose</code> for the filter name and <code>X</code> for the filter value.
+     * <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in
+     * the filter name and the tag value as the filter value. For example, to find all resources that have a tag with
+     * the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name
+     * and <code>TeamA</code> for the filter value.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>tag-key</code> - The key of a tag assigned to the resource. This filter is independent of the
-     * <code>tag-value</code> filter. For example, if you use both the filter "tag-key=Purpose" and the filter
-     * "tag-value=X", you get any resources assigned both the tag key Purpose (regardless of what the tag's value is),
-     * and the tag value X (regardless of what the tag's key is). If you want to list only resources where Purpose is X,
-     * see the <code>tag</code>:<i>key</i>=<i>value</i> filter.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>tag-value</code> - The value of a tag assigned to the resource. This filter is independent of the
-     * <code>tag-key</code> filter.
+     * <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources that have
+     * a tag with a specific key, regardless of the tag value.
      * </p>
      * </li>
      * <li>
@@ -1989,8 +1995,8 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      *        </li>
      *        <li>
      *        <p>
-     *        <code>block-device-mapping.device-name</code> - The device name for the EBS volume (for example,
-     *        <code>/dev/sdh</code> or <code>xvdh</code>).
+     *        <code>block-device-mapping.device-name</code> - The device name specified in the block device mapping (for
+     *        example, <code>/dev/sdh</code> or <code>xvdh</code>).
      *        </p>
      *        </li>
      *        <li>
@@ -2022,6 +2028,12 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      *        <li>
      *        <p>
      *        <code>group-name</code> - The name of the security group for the instance. EC2-Classic only.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>hibernation-options.configured</code> - A Boolean that indicates whether the instance is enabled for
+     *        hibernation. A value of <code>true</code> means that the instance is enabled for hibernation.
      *        </p>
      *        </li>
      *        <li>
@@ -2059,9 +2071,9 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      *        <li>
      *        <p>
      *        <code>instance-state-code</code> - The state of the instance, as a 16-bit unsigned integer. The high byte
-     *        is an opaque internal value and should be ignored. The low byte is set based on the state represented. The
-     *        valid values are: 0 (pending), 16 (running), 32 (shutting-down), 48 (terminated), 64 (stopping), and 80
-     *        (stopped).
+     *        is used for internal purposes and should be ignored. The low byte is set based on the state represented.
+     *        The valid values are: 0 (pending), 16 (running), 32 (shutting-down), 48 (terminated), 64 (stopping), and
+     *        80 (stopped).
      *        </p>
      *        </li>
      *        <li>
@@ -2274,8 +2286,8 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      *        <li>
      *        <p>
      *        <code>network-interface.source-dest-check</code> - Whether the network interface performs
-     *        source/destination checking. A value of <code>true</code> means checking is enabled, and
-     *        <code>false</code> means checking is disabled. The value must be <code>false</code> for the network
+     *        source/destination checking. A value of <code>true</code> means that checking is enabled, and
+     *        <code>false</code> means that checking is disabled. The value must be <code>false</code> for the network
      *        interface to perform network address translation (NAT) in your VPC.
      *        </p>
      *        </li>
@@ -2297,6 +2309,11 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      *        <li>
      *        <p>
      *        <code>placement-group-name</code> - The name of the placement group for the instance.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>placement-partition-number</code> - The partition in which the instance is located.
      *        </p>
      *        </li>
      *        <li>
@@ -2348,33 +2365,33 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      *        <code>reservation-id</code> - The ID of the instance's reservation. A reservation ID is created any time
      *        you launch an instance. A reservation ID has a one-to-one relationship with an instance launch request,
      *        but can be associated with more than one instance if you launch multiple instances using the same launch
-     *        request. For example, if you launch one instance, you'll get one reservation ID. If you launch ten
-     *        instances using the same launch request, you'll also get one reservation ID.
+     *        request. For example, if you launch one instance, you get one reservation ID. If you launch ten instances
+     *        using the same launch request, you also get one reservation ID.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>root-device-name</code> - The name of the root device for the instance (for example,
-     *        <code>/dev/sda1</code> or <code>/dev/xvda</code>).
+     *        <code>root-device-name</code> - The device name of the root device volume (for example,
+     *        <code>/dev/sda1</code>).
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>root-device-type</code> - The type of root device that the instance uses (<code>ebs</code> |
+     *        <code>root-device-type</code> - The type of the root device volume (<code>ebs</code> |
      *        <code>instance-store</code>).
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>source-dest-check</code> - Indicates whether the instance performs source/destination checking. A
-     *        value of <code>true</code> means that checking is enabled, and <code>false</code> means checking is
+     *        value of <code>true</code> means that checking is enabled, and <code>false</code> means that checking is
      *        disabled. The value must be <code>false</code> for the instance to perform network address translation
      *        (NAT) in your VPC.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>spot-instance-request-id</code> - The ID of the Spot instance request.
+     *        <code>spot-instance-request-id</code> - The ID of the Spot Instance request.
      *        </p>
      *        </li>
      *        <li>
@@ -2394,25 +2411,16 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      *        </li>
      *        <li>
      *        <p>
-     *        <code>tag</code>:<i>key</i>=<i>value</i> - The key/value combination of a tag assigned to the resource.
-     *        Specify the key of the tag in the filter name and the value of the tag in the filter value. For example,
-     *        for the tag Purpose=X, specify <code>tag:Purpose</code> for the filter name and <code>X</code> for the
-     *        filter value.
+     *        <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag
+     *        key in the filter name and the tag value as the filter value. For example, to find all resources that have
+     *        a tag with the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for
+     *        the filter name and <code>TeamA</code> for the filter value.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>tag-key</code> - The key of a tag assigned to the resource. This filter is independent of the
-     *        <code>tag-value</code> filter. For example, if you use both the filter "tag-key=Purpose" and the filter
-     *        "tag-value=X", you get any resources assigned both the tag key Purpose (regardless of what the tag's value
-     *        is), and the tag value X (regardless of what the tag's key is). If you want to list only resources where
-     *        Purpose is X, see the <code>tag</code>:<i>key</i>=<i>value</i> filter.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        <code>tag-value</code> - The value of a tag assigned to the resource. This filter is independent of the
-     *        <code>tag-key</code> filter.
+     *        <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources
+     *        that have a tag with a specific key, regardless of the tag value.
      *        </p>
      *        </li>
      *        <li>
@@ -2478,8 +2486,8 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * </li>
      * <li>
      * <p>
-     * <code>block-device-mapping.device-name</code> - The device name for the EBS volume (for example,
-     * <code>/dev/sdh</code> or <code>xvdh</code>).
+     * <code>block-device-mapping.device-name</code> - The device name specified in the block device mapping (for
+     * example, <code>/dev/sdh</code> or <code>xvdh</code>).
      * </p>
      * </li>
      * <li>
@@ -2515,6 +2523,12 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * </li>
      * <li>
      * <p>
+     * <code>hibernation-options.configured</code> - A Boolean that indicates whether the instance is enabled for
+     * hibernation. A value of <code>true</code> means that the instance is enabled for hibernation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>host-id</code> - The ID of the Dedicated Host on which the instance is running, if applicable.
      * </p>
      * </li>
@@ -2546,8 +2560,8 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * </li>
      * <li>
      * <p>
-     * <code>instance-state-code</code> - The state of the instance, as a 16-bit unsigned integer. The high byte is an
-     * opaque internal value and should be ignored. The low byte is set based on the state represented. The valid values
+     * <code>instance-state-code</code> - The state of the instance, as a 16-bit unsigned integer. The high byte is used
+     * for internal purposes and should be ignored. The low byte is set based on the state represented. The valid values
      * are: 0 (pending), 16 (running), 32 (shutting-down), 48 (terminated), 64 (stopping), and 80 (stopped).
      * </p>
      * </li>
@@ -2759,9 +2773,9 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * <li>
      * <p>
      * <code>network-interface.source-dest-check</code> - Whether the network interface performs source/destination
-     * checking. A value of <code>true</code> means checking is enabled, and <code>false</code> means checking is
-     * disabled. The value must be <code>false</code> for the network interface to perform network address translation
-     * (NAT) in your VPC.
+     * checking. A value of <code>true</code> means that checking is enabled, and <code>false</code> means that checking
+     * is disabled. The value must be <code>false</code> for the network interface to perform network address
+     * translation (NAT) in your VPC.
      * </p>
      * </li>
      * <li>
@@ -2782,6 +2796,11 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * <li>
      * <p>
      * <code>placement-group-name</code> - The name of the placement group for the instance.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>placement-partition-number</code> - The partition in which the instance is located.
      * </p>
      * </li>
      * <li>
@@ -2832,32 +2851,31 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * <code>reservation-id</code> - The ID of the instance's reservation. A reservation ID is created any time you
      * launch an instance. A reservation ID has a one-to-one relationship with an instance launch request, but can be
      * associated with more than one instance if you launch multiple instances using the same launch request. For
-     * example, if you launch one instance, you'll get one reservation ID. If you launch ten instances using the same
-     * launch request, you'll also get one reservation ID.
+     * example, if you launch one instance, you get one reservation ID. If you launch ten instances using the same
+     * launch request, you also get one reservation ID.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>root-device-name</code> - The name of the root device for the instance (for example, <code>/dev/sda1</code>
-     * or <code>/dev/xvda</code>).
+     * <code>root-device-name</code> - The device name of the root device volume (for example, <code>/dev/sda1</code>).
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>root-device-type</code> - The type of root device that the instance uses (<code>ebs</code> |
+     * <code>root-device-type</code> - The type of the root device volume (<code>ebs</code> |
      * <code>instance-store</code>).
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>source-dest-check</code> - Indicates whether the instance performs source/destination checking. A value of
-     * <code>true</code> means that checking is enabled, and <code>false</code> means checking is disabled. The value
-     * must be <code>false</code> for the instance to perform network address translation (NAT) in your VPC.
+     * <code>true</code> means that checking is enabled, and <code>false</code> means that checking is disabled. The
+     * value must be <code>false</code> for the instance to perform network address translation (NAT) in your VPC.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>spot-instance-request-id</code> - The ID of the Spot instance request.
+     * <code>spot-instance-request-id</code> - The ID of the Spot Instance request.
      * </p>
      * </li>
      * <li>
@@ -2877,24 +2895,16 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * </li>
      * <li>
      * <p>
-     * <code>tag</code>:<i>key</i>=<i>value</i> - The key/value combination of a tag assigned to the resource. Specify
-     * the key of the tag in the filter name and the value of the tag in the filter value. For example, for the tag
-     * Purpose=X, specify <code>tag:Purpose</code> for the filter name and <code>X</code> for the filter value.
+     * <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in
+     * the filter name and the tag value as the filter value. For example, to find all resources that have a tag with
+     * the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name
+     * and <code>TeamA</code> for the filter value.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>tag-key</code> - The key of a tag assigned to the resource. This filter is independent of the
-     * <code>tag-value</code> filter. For example, if you use both the filter "tag-key=Purpose" and the filter
-     * "tag-value=X", you get any resources assigned both the tag key Purpose (regardless of what the tag's value is),
-     * and the tag value X (regardless of what the tag's key is). If you want to list only resources where Purpose is X,
-     * see the <code>tag</code>:<i>key</i>=<i>value</i> filter.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>tag-value</code> - The value of a tag assigned to the resource. This filter is independent of the
-     * <code>tag-key</code> filter.
+     * <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources that have
+     * a tag with a specific key, regardless of the tag value.
      * </p>
      * </li>
      * <li>
@@ -2954,8 +2964,8 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      *        </li>
      *        <li>
      *        <p>
-     *        <code>block-device-mapping.device-name</code> - The device name for the EBS volume (for example,
-     *        <code>/dev/sdh</code> or <code>xvdh</code>).
+     *        <code>block-device-mapping.device-name</code> - The device name specified in the block device mapping (for
+     *        example, <code>/dev/sdh</code> or <code>xvdh</code>).
      *        </p>
      *        </li>
      *        <li>
@@ -2987,6 +2997,12 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      *        <li>
      *        <p>
      *        <code>group-name</code> - The name of the security group for the instance. EC2-Classic only.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>hibernation-options.configured</code> - A Boolean that indicates whether the instance is enabled for
+     *        hibernation. A value of <code>true</code> means that the instance is enabled for hibernation.
      *        </p>
      *        </li>
      *        <li>
@@ -3024,9 +3040,9 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      *        <li>
      *        <p>
      *        <code>instance-state-code</code> - The state of the instance, as a 16-bit unsigned integer. The high byte
-     *        is an opaque internal value and should be ignored. The low byte is set based on the state represented. The
-     *        valid values are: 0 (pending), 16 (running), 32 (shutting-down), 48 (terminated), 64 (stopping), and 80
-     *        (stopped).
+     *        is used for internal purposes and should be ignored. The low byte is set based on the state represented.
+     *        The valid values are: 0 (pending), 16 (running), 32 (shutting-down), 48 (terminated), 64 (stopping), and
+     *        80 (stopped).
      *        </p>
      *        </li>
      *        <li>
@@ -3239,8 +3255,8 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      *        <li>
      *        <p>
      *        <code>network-interface.source-dest-check</code> - Whether the network interface performs
-     *        source/destination checking. A value of <code>true</code> means checking is enabled, and
-     *        <code>false</code> means checking is disabled. The value must be <code>false</code> for the network
+     *        source/destination checking. A value of <code>true</code> means that checking is enabled, and
+     *        <code>false</code> means that checking is disabled. The value must be <code>false</code> for the network
      *        interface to perform network address translation (NAT) in your VPC.
      *        </p>
      *        </li>
@@ -3262,6 +3278,11 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      *        <li>
      *        <p>
      *        <code>placement-group-name</code> - The name of the placement group for the instance.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>placement-partition-number</code> - The partition in which the instance is located.
      *        </p>
      *        </li>
      *        <li>
@@ -3313,33 +3334,33 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      *        <code>reservation-id</code> - The ID of the instance's reservation. A reservation ID is created any time
      *        you launch an instance. A reservation ID has a one-to-one relationship with an instance launch request,
      *        but can be associated with more than one instance if you launch multiple instances using the same launch
-     *        request. For example, if you launch one instance, you'll get one reservation ID. If you launch ten
-     *        instances using the same launch request, you'll also get one reservation ID.
+     *        request. For example, if you launch one instance, you get one reservation ID. If you launch ten instances
+     *        using the same launch request, you also get one reservation ID.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>root-device-name</code> - The name of the root device for the instance (for example,
-     *        <code>/dev/sda1</code> or <code>/dev/xvda</code>).
+     *        <code>root-device-name</code> - The device name of the root device volume (for example,
+     *        <code>/dev/sda1</code>).
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>root-device-type</code> - The type of root device that the instance uses (<code>ebs</code> |
+     *        <code>root-device-type</code> - The type of the root device volume (<code>ebs</code> |
      *        <code>instance-store</code>).
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>source-dest-check</code> - Indicates whether the instance performs source/destination checking. A
-     *        value of <code>true</code> means that checking is enabled, and <code>false</code> means checking is
+     *        value of <code>true</code> means that checking is enabled, and <code>false</code> means that checking is
      *        disabled. The value must be <code>false</code> for the instance to perform network address translation
      *        (NAT) in your VPC.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>spot-instance-request-id</code> - The ID of the Spot instance request.
+     *        <code>spot-instance-request-id</code> - The ID of the Spot Instance request.
      *        </p>
      *        </li>
      *        <li>
@@ -3359,25 +3380,16 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      *        </li>
      *        <li>
      *        <p>
-     *        <code>tag</code>:<i>key</i>=<i>value</i> - The key/value combination of a tag assigned to the resource.
-     *        Specify the key of the tag in the filter name and the value of the tag in the filter value. For example,
-     *        for the tag Purpose=X, specify <code>tag:Purpose</code> for the filter name and <code>X</code> for the
-     *        filter value.
+     *        <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag
+     *        key in the filter name and the tag value as the filter value. For example, to find all resources that have
+     *        a tag with the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for
+     *        the filter name and <code>TeamA</code> for the filter value.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>tag-key</code> - The key of a tag assigned to the resource. This filter is independent of the
-     *        <code>tag-value</code> filter. For example, if you use both the filter "tag-key=Purpose" and the filter
-     *        "tag-value=X", you get any resources assigned both the tag key Purpose (regardless of what the tag's value
-     *        is), and the tag value X (regardless of what the tag's key is). If you want to list only resources where
-     *        Purpose is X, see the <code>tag</code>:<i>key</i>=<i>value</i> filter.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        <code>tag-value</code> - The value of a tag assigned to the resource. This filter is independent of the
-     *        <code>tag-key</code> filter.
+     *        <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources
+     *        that have a tag with a specific key, regardless of the tag value.
      *        </p>
      *        </li>
      *        <li>
@@ -3445,8 +3457,8 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * </li>
      * <li>
      * <p>
-     * <code>block-device-mapping.device-name</code> - The device name for the EBS volume (for example,
-     * <code>/dev/sdh</code> or <code>xvdh</code>).
+     * <code>block-device-mapping.device-name</code> - The device name specified in the block device mapping (for
+     * example, <code>/dev/sdh</code> or <code>xvdh</code>).
      * </p>
      * </li>
      * <li>
@@ -3482,6 +3494,12 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * </li>
      * <li>
      * <p>
+     * <code>hibernation-options.configured</code> - A Boolean that indicates whether the instance is enabled for
+     * hibernation. A value of <code>true</code> means that the instance is enabled for hibernation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>host-id</code> - The ID of the Dedicated Host on which the instance is running, if applicable.
      * </p>
      * </li>
@@ -3513,8 +3531,8 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * </li>
      * <li>
      * <p>
-     * <code>instance-state-code</code> - The state of the instance, as a 16-bit unsigned integer. The high byte is an
-     * opaque internal value and should be ignored. The low byte is set based on the state represented. The valid values
+     * <code>instance-state-code</code> - The state of the instance, as a 16-bit unsigned integer. The high byte is used
+     * for internal purposes and should be ignored. The low byte is set based on the state represented. The valid values
      * are: 0 (pending), 16 (running), 32 (shutting-down), 48 (terminated), 64 (stopping), and 80 (stopped).
      * </p>
      * </li>
@@ -3726,9 +3744,9 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * <li>
      * <p>
      * <code>network-interface.source-dest-check</code> - Whether the network interface performs source/destination
-     * checking. A value of <code>true</code> means checking is enabled, and <code>false</code> means checking is
-     * disabled. The value must be <code>false</code> for the network interface to perform network address translation
-     * (NAT) in your VPC.
+     * checking. A value of <code>true</code> means that checking is enabled, and <code>false</code> means that checking
+     * is disabled. The value must be <code>false</code> for the network interface to perform network address
+     * translation (NAT) in your VPC.
      * </p>
      * </li>
      * <li>
@@ -3749,6 +3767,11 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * <li>
      * <p>
      * <code>placement-group-name</code> - The name of the placement group for the instance.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>placement-partition-number</code> - The partition in which the instance is located.
      * </p>
      * </li>
      * <li>
@@ -3799,32 +3822,31 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * <code>reservation-id</code> - The ID of the instance's reservation. A reservation ID is created any time you
      * launch an instance. A reservation ID has a one-to-one relationship with an instance launch request, but can be
      * associated with more than one instance if you launch multiple instances using the same launch request. For
-     * example, if you launch one instance, you'll get one reservation ID. If you launch ten instances using the same
-     * launch request, you'll also get one reservation ID.
+     * example, if you launch one instance, you get one reservation ID. If you launch ten instances using the same
+     * launch request, you also get one reservation ID.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>root-device-name</code> - The name of the root device for the instance (for example, <code>/dev/sda1</code>
-     * or <code>/dev/xvda</code>).
+     * <code>root-device-name</code> - The device name of the root device volume (for example, <code>/dev/sda1</code>).
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>root-device-type</code> - The type of root device that the instance uses (<code>ebs</code> |
+     * <code>root-device-type</code> - The type of the root device volume (<code>ebs</code> |
      * <code>instance-store</code>).
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>source-dest-check</code> - Indicates whether the instance performs source/destination checking. A value of
-     * <code>true</code> means that checking is enabled, and <code>false</code> means checking is disabled. The value
-     * must be <code>false</code> for the instance to perform network address translation (NAT) in your VPC.
+     * <code>true</code> means that checking is enabled, and <code>false</code> means that checking is disabled. The
+     * value must be <code>false</code> for the instance to perform network address translation (NAT) in your VPC.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>spot-instance-request-id</code> - The ID of the Spot instance request.
+     * <code>spot-instance-request-id</code> - The ID of the Spot Instance request.
      * </p>
      * </li>
      * <li>
@@ -3844,24 +3866,16 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * </li>
      * <li>
      * <p>
-     * <code>tag</code>:<i>key</i>=<i>value</i> - The key/value combination of a tag assigned to the resource. Specify
-     * the key of the tag in the filter name and the value of the tag in the filter value. For example, for the tag
-     * Purpose=X, specify <code>tag:Purpose</code> for the filter name and <code>X</code> for the filter value.
+     * <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in
+     * the filter name and the tag value as the filter value. For example, to find all resources that have a tag with
+     * the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name
+     * and <code>TeamA</code> for the filter value.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>tag-key</code> - The key of a tag assigned to the resource. This filter is independent of the
-     * <code>tag-value</code> filter. For example, if you use both the filter "tag-key=Purpose" and the filter
-     * "tag-value=X", you get any resources assigned both the tag key Purpose (regardless of what the tag's value is),
-     * and the tag value X (regardless of what the tag's key is). If you want to list only resources where Purpose is X,
-     * see the <code>tag</code>:<i>key</i>=<i>value</i> filter.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>tag-value</code> - The value of a tag assigned to the resource. This filter is independent of the
-     * <code>tag-key</code> filter.
+     * <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources that have
+     * a tag with a specific key, regardless of the tag value.
      * </p>
      * </li>
      * <li>
@@ -3916,8 +3930,8 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      *        </li>
      *        <li>
      *        <p>
-     *        <code>block-device-mapping.device-name</code> - The device name for the EBS volume (for example,
-     *        <code>/dev/sdh</code> or <code>xvdh</code>).
+     *        <code>block-device-mapping.device-name</code> - The device name specified in the block device mapping (for
+     *        example, <code>/dev/sdh</code> or <code>xvdh</code>).
      *        </p>
      *        </li>
      *        <li>
@@ -3949,6 +3963,12 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      *        <li>
      *        <p>
      *        <code>group-name</code> - The name of the security group for the instance. EC2-Classic only.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>hibernation-options.configured</code> - A Boolean that indicates whether the instance is enabled for
+     *        hibernation. A value of <code>true</code> means that the instance is enabled for hibernation.
      *        </p>
      *        </li>
      *        <li>
@@ -3986,9 +4006,9 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      *        <li>
      *        <p>
      *        <code>instance-state-code</code> - The state of the instance, as a 16-bit unsigned integer. The high byte
-     *        is an opaque internal value and should be ignored. The low byte is set based on the state represented. The
-     *        valid values are: 0 (pending), 16 (running), 32 (shutting-down), 48 (terminated), 64 (stopping), and 80
-     *        (stopped).
+     *        is used for internal purposes and should be ignored. The low byte is set based on the state represented.
+     *        The valid values are: 0 (pending), 16 (running), 32 (shutting-down), 48 (terminated), 64 (stopping), and
+     *        80 (stopped).
      *        </p>
      *        </li>
      *        <li>
@@ -4201,8 +4221,8 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      *        <li>
      *        <p>
      *        <code>network-interface.source-dest-check</code> - Whether the network interface performs
-     *        source/destination checking. A value of <code>true</code> means checking is enabled, and
-     *        <code>false</code> means checking is disabled. The value must be <code>false</code> for the network
+     *        source/destination checking. A value of <code>true</code> means that checking is enabled, and
+     *        <code>false</code> means that checking is disabled. The value must be <code>false</code> for the network
      *        interface to perform network address translation (NAT) in your VPC.
      *        </p>
      *        </li>
@@ -4224,6 +4244,11 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      *        <li>
      *        <p>
      *        <code>placement-group-name</code> - The name of the placement group for the instance.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>placement-partition-number</code> - The partition in which the instance is located.
      *        </p>
      *        </li>
      *        <li>
@@ -4275,33 +4300,33 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      *        <code>reservation-id</code> - The ID of the instance's reservation. A reservation ID is created any time
      *        you launch an instance. A reservation ID has a one-to-one relationship with an instance launch request,
      *        but can be associated with more than one instance if you launch multiple instances using the same launch
-     *        request. For example, if you launch one instance, you'll get one reservation ID. If you launch ten
-     *        instances using the same launch request, you'll also get one reservation ID.
+     *        request. For example, if you launch one instance, you get one reservation ID. If you launch ten instances
+     *        using the same launch request, you also get one reservation ID.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>root-device-name</code> - The name of the root device for the instance (for example,
-     *        <code>/dev/sda1</code> or <code>/dev/xvda</code>).
+     *        <code>root-device-name</code> - The device name of the root device volume (for example,
+     *        <code>/dev/sda1</code>).
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>root-device-type</code> - The type of root device that the instance uses (<code>ebs</code> |
+     *        <code>root-device-type</code> - The type of the root device volume (<code>ebs</code> |
      *        <code>instance-store</code>).
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>source-dest-check</code> - Indicates whether the instance performs source/destination checking. A
-     *        value of <code>true</code> means that checking is enabled, and <code>false</code> means checking is
+     *        value of <code>true</code> means that checking is enabled, and <code>false</code> means that checking is
      *        disabled. The value must be <code>false</code> for the instance to perform network address translation
      *        (NAT) in your VPC.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>spot-instance-request-id</code> - The ID of the Spot instance request.
+     *        <code>spot-instance-request-id</code> - The ID of the Spot Instance request.
      *        </p>
      *        </li>
      *        <li>
@@ -4321,25 +4346,16 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      *        </li>
      *        <li>
      *        <p>
-     *        <code>tag</code>:<i>key</i>=<i>value</i> - The key/value combination of a tag assigned to the resource.
-     *        Specify the key of the tag in the filter name and the value of the tag in the filter value. For example,
-     *        for the tag Purpose=X, specify <code>tag:Purpose</code> for the filter name and <code>X</code> for the
-     *        filter value.
+     *        <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag
+     *        key in the filter name and the tag value as the filter value. For example, to find all resources that have
+     *        a tag with the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for
+     *        the filter name and <code>TeamA</code> for the filter value.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>tag-key</code> - The key of a tag assigned to the resource. This filter is independent of the
-     *        <code>tag-value</code> filter. For example, if you use both the filter "tag-key=Purpose" and the filter
-     *        "tag-value=X", you get any resources assigned both the tag key Purpose (regardless of what the tag's value
-     *        is), and the tag value X (regardless of what the tag's key is). If you want to list only resources where
-     *        Purpose is X, see the <code>tag</code>:<i>key</i>=<i>value</i> filter.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        <code>tag-value</code> - The value of a tag assigned to the resource. This filter is independent of the
-     *        <code>tag-key</code> filter.
+     *        <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources
+     *        that have a tag with a specific key, regardless of the tag value.
      *        </p>
      *        </li>
      *        <li>
@@ -4464,13 +4480,13 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * <p>
      * The maximum number of results to return in a single call. To retrieve the remaining results, make another call
      * with the returned <code>NextToken</code> value. This value can be between 5 and 1000. You cannot specify this
-     * parameter and the instance IDs parameter or tag filters in the same call.
+     * parameter and the instance IDs parameter in the same call.
      * </p>
      * 
      * @param maxResults
      *        The maximum number of results to return in a single call. To retrieve the remaining results, make another
      *        call with the returned <code>NextToken</code> value. This value can be between 5 and 1000. You cannot
-     *        specify this parameter and the instance IDs parameter or tag filters in the same call.
+     *        specify this parameter and the instance IDs parameter in the same call.
      */
 
     public void setMaxResults(Integer maxResults) {
@@ -4481,12 +4497,12 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * <p>
      * The maximum number of results to return in a single call. To retrieve the remaining results, make another call
      * with the returned <code>NextToken</code> value. This value can be between 5 and 1000. You cannot specify this
-     * parameter and the instance IDs parameter or tag filters in the same call.
+     * parameter and the instance IDs parameter in the same call.
      * </p>
      * 
      * @return The maximum number of results to return in a single call. To retrieve the remaining results, make another
      *         call with the returned <code>NextToken</code> value. This value can be between 5 and 1000. You cannot
-     *         specify this parameter and the instance IDs parameter or tag filters in the same call.
+     *         specify this parameter and the instance IDs parameter in the same call.
      */
 
     public Integer getMaxResults() {
@@ -4497,13 +4513,13 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * <p>
      * The maximum number of results to return in a single call. To retrieve the remaining results, make another call
      * with the returned <code>NextToken</code> value. This value can be between 5 and 1000. You cannot specify this
-     * parameter and the instance IDs parameter or tag filters in the same call.
+     * parameter and the instance IDs parameter in the same call.
      * </p>
      * 
      * @param maxResults
      *        The maximum number of results to return in a single call. To retrieve the remaining results, make another
      *        call with the returned <code>NextToken</code> value. This value can be between 5 and 1000. You cannot
-     *        specify this parameter and the instance IDs parameter or tag filters in the same call.
+     *        specify this parameter and the instance IDs parameter in the same call.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -4564,7 +4580,8 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

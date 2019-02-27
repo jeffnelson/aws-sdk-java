@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -52,11 +52,35 @@ public class CreateVpnConnectionRequestMarshaller implements Marshaller<Request<
             request.addParameter("VpnGatewayId", StringUtils.fromString(createVpnConnectionRequest.getVpnGatewayId()));
         }
 
+        if (createVpnConnectionRequest.getTransitGatewayId() != null) {
+            request.addParameter("TransitGatewayId", StringUtils.fromString(createVpnConnectionRequest.getTransitGatewayId()));
+        }
+
         VpnConnectionOptionsSpecification options = createVpnConnectionRequest.getOptions();
         if (options != null) {
 
             if (options.getStaticRoutesOnly() != null) {
                 request.addParameter("Options.StaticRoutesOnly", StringUtils.fromBoolean(options.getStaticRoutesOnly()));
+            }
+
+            com.amazonaws.internal.SdkInternalList<VpnTunnelOptionsSpecification> vpnConnectionOptionsSpecificationTunnelOptionsList = (com.amazonaws.internal.SdkInternalList<VpnTunnelOptionsSpecification>) options
+                    .getTunnelOptions();
+            if (!vpnConnectionOptionsSpecificationTunnelOptionsList.isEmpty() || !vpnConnectionOptionsSpecificationTunnelOptionsList.isAutoConstruct()) {
+                int tunnelOptionsListIndex = 1;
+
+                for (VpnTunnelOptionsSpecification vpnConnectionOptionsSpecificationTunnelOptionsListValue : vpnConnectionOptionsSpecificationTunnelOptionsList) {
+
+                    if (vpnConnectionOptionsSpecificationTunnelOptionsListValue.getTunnelInsideCidr() != null) {
+                        request.addParameter("Options.TunnelOptions." + tunnelOptionsListIndex + ".TunnelInsideCidr",
+                                StringUtils.fromString(vpnConnectionOptionsSpecificationTunnelOptionsListValue.getTunnelInsideCidr()));
+                    }
+
+                    if (vpnConnectionOptionsSpecificationTunnelOptionsListValue.getPreSharedKey() != null) {
+                        request.addParameter("Options.TunnelOptions." + tunnelOptionsListIndex + ".PreSharedKey",
+                                StringUtils.fromString(vpnConnectionOptionsSpecificationTunnelOptionsListValue.getPreSharedKey()));
+                    }
+                    tunnelOptionsListIndex++;
+                }
             }
         }
 

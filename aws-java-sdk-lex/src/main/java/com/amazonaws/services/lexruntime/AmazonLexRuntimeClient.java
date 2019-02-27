@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -37,6 +37,8 @@ import com.amazonaws.protocol.json.*;
 import com.amazonaws.util.AWSRequestMetrics.Field;
 import com.amazonaws.annotation.ThreadSafe;
 import com.amazonaws.client.AwsSyncClientParams;
+import com.amazonaws.client.builder.AdvancedConfig;
+
 import com.amazonaws.services.lexruntime.AmazonLexRuntimeClientBuilder;
 
 import com.amazonaws.AmazonServiceException;
@@ -62,6 +64,7 @@ import com.amazonaws.services.lexruntime.model.transform.*;
 @ThreadSafe
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class AmazonLexRuntimeClient extends AmazonWebServiceClient implements AmazonLexRuntime {
+
     /** Provider for AWS credentials. */
     private final AWSCredentialsProvider awsCredentialsProvider;
 
@@ -73,7 +76,9 @@ public class AmazonLexRuntimeClient extends AmazonWebServiceClient implements Am
     /** Client configuration factory providing ClientConfigurations tailored to this client */
     protected static final ClientConfigurationFactory configFactory = new ClientConfigurationFactory();
 
-    private final com.amazonaws.protocol.json.SdkJsonProtocolFactory protocolFactory = new com.amazonaws.protocol.json.SdkJsonProtocolFactory(
+    private final AdvancedConfig advancedConfig;
+
+    private static final com.amazonaws.protocol.json.SdkJsonProtocolFactory protocolFactory = new com.amazonaws.protocol.json.SdkJsonProtocolFactory(
             new JsonClientMetadata()
                     .withProtocolVersion("1.1")
                     .withSupportsCbor(false)
@@ -129,8 +134,23 @@ public class AmazonLexRuntimeClient extends AmazonWebServiceClient implements Am
      *        Object providing client parameters.
      */
     AmazonLexRuntimeClient(AwsSyncClientParams clientParams) {
+        this(clientParams, false);
+    }
+
+    /**
+     * Constructs a new client to invoke service methods on Amazon Lex Runtime Service using the specified parameters.
+     *
+     * <p>
+     * All service calls made using this new client object are blocking, and will not return until the service call
+     * completes.
+     *
+     * @param clientParams
+     *        Object providing client parameters.
+     */
+    AmazonLexRuntimeClient(AwsSyncClientParams clientParams, boolean endpointDiscoveryEnabled) {
         super(clientParams);
         this.awsCredentialsProvider = clientParams.getCredentialsProvider();
+        this.advancedConfig = clientParams.getAdvancedConfig();
         init();
     }
 
@@ -147,8 +167,12 @@ public class AmazonLexRuntimeClient extends AmazonWebServiceClient implements Am
 
     /**
      * <p>
-     * Sends user input (text or speech) to Amazon Lex. Clients use this API to send requests to Amazon Lex at runtime.
-     * Amazon Lex interprets the user input using the machine learning model that it built for the bot.
+     * Sends user input (text or speech) to Amazon Lex. Clients use this API to send text and audio requests to Amazon
+     * Lex at runtime. Amazon Lex interprets the user input using the machine learning model that it built for the bot.
+     * </p>
+     * <p>
+     * The <code>PostContent</code> operation supports audio input at 8kHz and 16kHz. You can use 8kHz audio to achieve
+     * higher speech recognition accuracy in telephone audio applications.
      * </p>
      * <p>
      * In response, Amazon Lex returns the next message to convey to the user. Consider the following example messages:
@@ -233,7 +257,8 @@ public class AmazonLexRuntimeClient extends AmazonWebServiceClient implements Am
      * @throws NotFoundException
      *         The resource (such as the Amazon Lex bot or an alias) that is referred to is not found.
      * @throws BadRequestException
-     *         Request validation failed, there is no usable message in the context, or the bot build failed.
+     *         Request validation failed, there is no usable message in the context, or the bot build failed, is still
+     *         in progress, or contains unbuilt changes.
      * @throws LimitExceededException
      *         Exceeded a limit.
      * @throws InternalFailureException
@@ -247,15 +272,29 @@ public class AmazonLexRuntimeClient extends AmazonWebServiceClient implements Am
      * @throws RequestTimeoutException
      *         The input speech is too long.
      * @throws DependencyFailedException
-     *         One of the downstream dependencies, such as AWS Lambda or Amazon Polly, threw an exception. For example,
-     *         if Amazon Lex does not have sufficient permissions to call a Lambda function, it results in Lambda
-     *         throwing an exception.
+     *         One of the dependencies, such as AWS Lambda or Amazon Polly, threw an exception. For example, </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         If Amazon Lex does not have sufficient permissions to call a Lambda function.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         If a Lambda function takes longer than 30 seconds to execute.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         If a fulfillment Lambda function returns a <code>Delegate</code> dialog action without removing any slot
+     *         values.
+     *         </p>
+     *         </li>
      * @throws BadGatewayException
      *         Either the Amazon Lex bot is still building, or one of the dependent services (Amazon Polly, AWS Lambda)
      *         failed with an internal service error.
      * @throws LoopDetectedException
-     *         Lambda fulfilment function returned <code>DelegateDialogAction</code> to Amazon Lex without changing any
-     *         slot values.
+     *         This exception is not used.
      * @sample AmazonLexRuntime.PostContent
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/runtime.lex-2016-11-28/PostContent" target="_top">AWS API
      *      Documentation</a>
@@ -281,6 +320,10 @@ public class AmazonLexRuntimeClient extends AmazonWebServiceClient implements Am
                 request = new PostContentRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(postContentRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Lex Runtime Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PostContent");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -386,7 +429,8 @@ public class AmazonLexRuntimeClient extends AmazonWebServiceClient implements Am
      * @throws NotFoundException
      *         The resource (such as the Amazon Lex bot or an alias) that is referred to is not found.
      * @throws BadRequestException
-     *         Request validation failed, there is no usable message in the context, or the bot build failed.
+     *         Request validation failed, there is no usable message in the context, or the bot build failed, is still
+     *         in progress, or contains unbuilt changes.
      * @throws LimitExceededException
      *         Exceeded a limit.
      * @throws InternalFailureException
@@ -394,15 +438,29 @@ public class AmazonLexRuntimeClient extends AmazonWebServiceClient implements Am
      * @throws ConflictException
      *         Two clients are using the same AWS account, Amazon Lex bot, and user ID.
      * @throws DependencyFailedException
-     *         One of the downstream dependencies, such as AWS Lambda or Amazon Polly, threw an exception. For example,
-     *         if Amazon Lex does not have sufficient permissions to call a Lambda function, it results in Lambda
-     *         throwing an exception.
+     *         One of the dependencies, such as AWS Lambda or Amazon Polly, threw an exception. For example, </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         If Amazon Lex does not have sufficient permissions to call a Lambda function.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         If a Lambda function takes longer than 30 seconds to execute.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         If a fulfillment Lambda function returns a <code>Delegate</code> dialog action without removing any slot
+     *         values.
+     *         </p>
+     *         </li>
      * @throws BadGatewayException
      *         Either the Amazon Lex bot is still building, or one of the dependent services (Amazon Polly, AWS Lambda)
      *         failed with an internal service error.
      * @throws LoopDetectedException
-     *         Lambda fulfilment function returned <code>DelegateDialogAction</code> to Amazon Lex without changing any
-     *         slot values.
+     *         This exception is not used.
      * @sample AmazonLexRuntime.PostText
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/runtime.lex-2016-11-28/PostText" target="_top">AWS API
      *      Documentation</a>
@@ -428,6 +486,10 @@ public class AmazonLexRuntimeClient extends AmazonWebServiceClient implements Am
                 request = new PostTextRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(postTextRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Lex Runtime Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PostText");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -468,9 +530,18 @@ public class AmazonLexRuntimeClient extends AmazonWebServiceClient implements Am
     private <X, Y extends AmazonWebServiceRequest> Response<X> invoke(Request<Y> request, HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler,
             ExecutionContext executionContext) {
 
+        return invoke(request, responseHandler, executionContext, null, null);
+    }
+
+    /**
+     * Normal invoke with authentication. Credentials are required and may be overriden at the request level.
+     **/
+    private <X, Y extends AmazonWebServiceRequest> Response<X> invoke(Request<Y> request, HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler,
+            ExecutionContext executionContext, URI cachedEndpoint, URI uriFromEndpointTrait) {
+
         executionContext.setCredentialsProvider(CredentialUtils.getCredentialsProvider(request.getOriginalRequest(), awsCredentialsProvider));
 
-        return doInvoke(request, responseHandler, executionContext);
+        return doInvoke(request, responseHandler, executionContext, cachedEndpoint, uriFromEndpointTrait);
     }
 
     /**
@@ -480,7 +551,7 @@ public class AmazonLexRuntimeClient extends AmazonWebServiceClient implements Am
     private <X, Y extends AmazonWebServiceRequest> Response<X> anonymousInvoke(Request<Y> request,
             HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler, ExecutionContext executionContext) {
 
-        return doInvoke(request, responseHandler, executionContext);
+        return doInvoke(request, responseHandler, executionContext, null, null);
     }
 
     /**
@@ -488,13 +559,27 @@ public class AmazonLexRuntimeClient extends AmazonWebServiceClient implements Am
      * ExecutionContext beforehand.
      **/
     private <X, Y extends AmazonWebServiceRequest> Response<X> doInvoke(Request<Y> request, HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler,
-            ExecutionContext executionContext) {
-        request.setEndpoint(endpoint);
+            ExecutionContext executionContext, URI discoveredEndpoint, URI uriFromEndpointTrait) {
+
+        if (discoveredEndpoint != null) {
+            request.setEndpoint(discoveredEndpoint);
+            request.getOriginalRequest().getRequestClientOptions().appendUserAgent("endpoint-discovery");
+        } else if (uriFromEndpointTrait != null) {
+            request.setEndpoint(uriFromEndpointTrait);
+        } else {
+            request.setEndpoint(endpoint);
+        }
+
         request.setTimeOffset(timeOffset);
 
         HttpResponseHandler<AmazonServiceException> errorResponseHandler = protocolFactory.createErrorResponseHandler(new JsonErrorResponseMetadata());
 
         return client.execute(request, responseHandler, errorResponseHandler, executionContext);
+    }
+
+    @com.amazonaws.annotation.SdkInternalApi
+    static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
+        return protocolFactory;
     }
 
 }

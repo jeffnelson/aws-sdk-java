@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -37,6 +37,8 @@ import com.amazonaws.protocol.json.*;
 import com.amazonaws.util.AWSRequestMetrics.Field;
 import com.amazonaws.annotation.ThreadSafe;
 import com.amazonaws.client.AwsSyncClientParams;
+import com.amazonaws.client.builder.AdvancedConfig;
+
 import com.amazonaws.services.simplesystemsmanagement.AWSSimpleSystemsManagementClientBuilder;
 
 import com.amazonaws.AmazonServiceException;
@@ -48,27 +50,34 @@ import com.amazonaws.services.simplesystemsmanagement.model.transform.*;
  * Client for accessing Amazon SSM. All service calls made using this client are blocking, and will not return until the
  * service call completes.
  * <p>
- * <fullname>Amazon EC2 Systems Manager</fullname>
+ * <fullname>AWS Systems Manager</fullname>
  * <p>
- * Amazon EC2 Systems Manager is a collection of capabilities that helps you automate management tasks such as
- * collecting system inventory, applying operating system (OS) patches, automating the creation of Amazon Machine Images
- * (AMIs), and configuring operating systems (OSs) and applications at scale. Systems Manager lets you remotely and
- * securely manage the configuration of your managed instances. A <i>managed instance</i> is any Amazon EC2 instance or
+ * AWS Systems Manager is a collection of capabilities that helps you automate management tasks such as collecting
+ * system inventory, applying operating system (OS) patches, automating the creation of Amazon Machine Images (AMIs),
+ * and configuring operating systems (OSs) and applications at scale. Systems Manager lets you remotely and securely
+ * manage the configuration of your managed instances. A <i>managed instance</i> is any Amazon EC2 instance or
  * on-premises machine in your hybrid environment that has been configured for Systems Manager.
  * </p>
  * <p>
  * This reference is intended to be used with the <a
- * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/">Amazon EC2 Systems Manager User Guide</a>.
+ * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/">AWS Systems Manager User Guide</a>.
  * </p>
  * <p>
  * To get started, verify prerequisites and configure managed instances. For more information, see <a
  * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-setting-up.html">Systems Manager
- * Prerequisites</a>.
+ * Prerequisites</a> in the <i>AWS Systems Manager User Guide</i>.
+ * </p>
+ * <p>
+ * For information about other API actions you can perform on Amazon EC2 instances, see the <a
+ * href="http://docs.aws.amazon.com/AWSEC2/latest/APIReference/">Amazon EC2 API Reference</a>. For information about how
+ * to use a Query API, see <a
+ * href="http://docs.aws.amazon.com/AWSEC2/latest/APIReference/making-api-requests.html">Making API Requests</a>.
  * </p>
  */
 @ThreadSafe
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient implements AWSSimpleSystemsManagement {
+
     /** Provider for AWS credentials. */
     private final AWSCredentialsProvider awsCredentialsProvider;
 
@@ -80,14 +89,16 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
     /** Client configuration factory providing ClientConfigurations tailored to this client */
     protected static final ClientConfigurationFactory configFactory = new ClientConfigurationFactory();
 
-    private final com.amazonaws.protocol.json.SdkJsonProtocolFactory protocolFactory = new com.amazonaws.protocol.json.SdkJsonProtocolFactory(
+    private final AdvancedConfig advancedConfig;
+
+    private static final com.amazonaws.protocol.json.SdkJsonProtocolFactory protocolFactory = new com.amazonaws.protocol.json.SdkJsonProtocolFactory(
             new JsonClientMetadata()
                     .withProtocolVersion("1.1")
                     .withSupportsCbor(false)
                     .withSupportsIon(false)
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("TooManyTagsError").withModeledClass(
-                                    com.amazonaws.services.simplesystemsmanagement.model.TooManyTagsErrorException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("TargetNotConnected").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.TargetNotConnectedException.class))
                     .addErrorMetadata(
                             new JsonErrorShapeMetadata().withErrorCode("ItemSizeLimitExceededException").withModeledClass(
                                     com.amazonaws.services.simplesystemsmanagement.model.ItemSizeLimitExceededException.class))
@@ -95,14 +106,17 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                             new JsonErrorShapeMetadata().withErrorCode("InvalidParameters").withModeledClass(
                                     com.amazonaws.services.simplesystemsmanagement.model.InvalidParametersException.class))
                     .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ParameterMaxVersionLimitExceeded").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.ParameterMaxVersionLimitExceededException.class))
+                    .addErrorMetadata(
                             new JsonErrorShapeMetadata().withErrorCode("InvalidKeyId").withModeledClass(
                                     com.amazonaws.services.simplesystemsmanagement.model.InvalidKeyIdException.class))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("UnsupportedParameterType").withModeledClass(
-                                    com.amazonaws.services.simplesystemsmanagement.model.UnsupportedParameterTypeException.class))
-                    .addErrorMetadata(
                             new JsonErrorShapeMetadata().withErrorCode("InvalidFilter").withModeledClass(
                                     com.amazonaws.services.simplesystemsmanagement.model.InvalidFilterException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("AssociationExecutionDoesNotExist").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.AssociationExecutionDoesNotExistException.class))
                     .addErrorMetadata(
                             new JsonErrorShapeMetadata().withErrorCode("InvalidSchedule").withModeledClass(
                                     com.amazonaws.services.simplesystemsmanagement.model.InvalidScheduleException.class))
@@ -113,29 +127,20 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                             new JsonErrorShapeMetadata().withErrorCode("ResourceDataSyncAlreadyExistsException").withModeledClass(
                                     com.amazonaws.services.simplesystemsmanagement.model.ResourceDataSyncAlreadyExistsException.class))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidUpdate").withModeledClass(
-                                    com.amazonaws.services.simplesystemsmanagement.model.InvalidUpdateException.class))
-                    .addErrorMetadata(
                             new JsonErrorShapeMetadata().withErrorCode("InvalidPluginName").withModeledClass(
                                     com.amazonaws.services.simplesystemsmanagement.model.InvalidPluginNameException.class))
                     .addErrorMetadata(
                             new JsonErrorShapeMetadata().withErrorCode("HierarchyTypeMismatchException").withModeledClass(
                                     com.amazonaws.services.simplesystemsmanagement.model.HierarchyTypeMismatchException.class))
                     .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("FeatureNotAvailableException").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.FeatureNotAvailableException.class))
+                    .addErrorMetadata(
                             new JsonErrorShapeMetadata().withErrorCode("InvalidNextToken").withModeledClass(
                                     com.amazonaws.services.simplesystemsmanagement.model.InvalidNextTokenException.class))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("AssociationAlreadyExists").withModeledClass(
-                                    com.amazonaws.services.simplesystemsmanagement.model.AssociationAlreadyExistsException.class))
-                    .addErrorMetadata(
                             new JsonErrorShapeMetadata().withErrorCode("ResourceDataSyncInvalidConfigurationException").withModeledClass(
                                     com.amazonaws.services.simplesystemsmanagement.model.ResourceDataSyncInvalidConfigurationException.class))
-                    .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("DuplicateDocumentContent").withModeledClass(
-                                    com.amazonaws.services.simplesystemsmanagement.model.DuplicateDocumentContentException.class))
-                    .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidDocumentSchemaVersion").withModeledClass(
-                                    com.amazonaws.services.simplesystemsmanagement.model.InvalidDocumentSchemaVersionException.class))
                     .addErrorMetadata(
                             new JsonErrorShapeMetadata().withErrorCode("InvalidActivationId").withModeledClass(
                                     com.amazonaws.services.simplesystemsmanagement.model.InvalidActivationIdException.class))
@@ -146,29 +151,14 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                             new JsonErrorShapeMetadata().withErrorCode("AlreadyExistsException").withModeledClass(
                                     com.amazonaws.services.simplesystemsmanagement.model.AlreadyExistsException.class))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("IdempotentParameterMismatch").withModeledClass(
-                                    com.amazonaws.services.simplesystemsmanagement.model.IdempotentParameterMismatchException.class))
-                    .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidResultAttributeException").withModeledClass(
-                                    com.amazonaws.services.simplesystemsmanagement.model.InvalidResultAttributeException.class))
-                    .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("AutomationDefinitionVersionNotFoundException").withModeledClass(
-                                    com.amazonaws.services.simplesystemsmanagement.model.AutomationDefinitionVersionNotFoundException.class))
-                    .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidAutomationExecutionParametersException").withModeledClass(
-                                    com.amazonaws.services.simplesystemsmanagement.model.InvalidAutomationExecutionParametersException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("SubTypeCountLimitExceededException").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.SubTypeCountLimitExceededException.class))
                     .addErrorMetadata(
                             new JsonErrorShapeMetadata().withErrorCode("InvalidResourceId").withModeledClass(
                                     com.amazonaws.services.simplesystemsmanagement.model.InvalidResourceIdException.class))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceLimitExceededException").withModeledClass(
-                                    com.amazonaws.services.simplesystemsmanagement.model.ResourceLimitExceededException.class))
-                    .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidAllowedPatternException").withModeledClass(
-                                    com.amazonaws.services.simplesystemsmanagement.model.InvalidAllowedPatternException.class))
-                    .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidPermissionType").withModeledClass(
-                                    com.amazonaws.services.simplesystemsmanagement.model.InvalidPermissionTypeException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ParameterVersionNotFound").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.ParameterVersionNotFoundException.class))
                     .addErrorMetadata(
                             new JsonErrorShapeMetadata().withErrorCode("ResourceInUseException").withModeledClass(
                                     com.amazonaws.services.simplesystemsmanagement.model.ResourceInUseException.class))
@@ -179,11 +169,8 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                             new JsonErrorShapeMetadata().withErrorCode("InvalidDocumentVersion").withModeledClass(
                                     com.amazonaws.services.simplesystemsmanagement.model.InvalidDocumentVersionException.class))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("UnsupportedOperatingSystem").withModeledClass(
-                                    com.amazonaws.services.simplesystemsmanagement.model.UnsupportedOperatingSystemException.class))
-                    .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidOutputFolder").withModeledClass(
-                                    com.amazonaws.services.simplesystemsmanagement.model.InvalidOutputFolderException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidOptionException").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.InvalidOptionException.class))
                     .addErrorMetadata(
                             new JsonErrorShapeMetadata().withErrorCode("InvalidDocumentOperation").withModeledClass(
                                     com.amazonaws.services.simplesystemsmanagement.model.InvalidDocumentOperationException.class))
@@ -191,11 +178,128 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                             new JsonErrorShapeMetadata().withErrorCode("ResourceDataSyncCountExceededException").withModeledClass(
                                     com.amazonaws.services.simplesystemsmanagement.model.ResourceDataSyncCountExceededException.class))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("AutomationExecutionLimitExceededException").withModeledClass(
-                                    com.amazonaws.services.simplesystemsmanagement.model.AutomationExecutionLimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("ComplianceTypeCountLimitExceededException").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.ComplianceTypeCountLimitExceededException.class))
                     .addErrorMetadata(
                             new JsonErrorShapeMetadata().withErrorCode("InvalidResourceType").withModeledClass(
                                     com.amazonaws.services.simplesystemsmanagement.model.InvalidResourceTypeException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("AutomationDefinitionNotFoundException").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.AutomationDefinitionNotFoundException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidInstanceId").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.InvalidInstanceIdException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ItemContentMismatchException").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.ItemContentMismatchException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceDataSyncNotFoundException").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.ResourceDataSyncNotFoundException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("DuplicateInstanceId").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.DuplicateInstanceIdException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidDocumentContent").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.InvalidDocumentContentException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("AutomationExecutionNotFoundException").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.AutomationExecutionNotFoundException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("AssociationLimitExceeded").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.AssociationLimitExceededException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidInventoryGroupException").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.InvalidInventoryGroupException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("AssociationVersionLimitExceeded").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.AssociationVersionLimitExceededException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidTarget").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.InvalidTargetException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("AutomationStepNotFoundException").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.AutomationStepNotFoundException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidFilterValue").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.InvalidFilterValueException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("DocumentVersionLimitExceeded").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.DocumentVersionLimitExceededException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidItemContentException").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.InvalidItemContentException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("TooManyTagsError").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.TooManyTagsErrorException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("UnsupportedParameterType").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.UnsupportedParameterTypeException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidAggregatorException").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.InvalidAggregatorException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("UnsupportedInventoryItemContextException").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.UnsupportedInventoryItemContextException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidUpdate").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.InvalidUpdateException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("AssociationAlreadyExists").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.AssociationAlreadyExistsException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("DuplicateDocumentContent").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.DuplicateDocumentContentException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidDocumentSchemaVersion").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.InvalidDocumentSchemaVersionException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidInventoryItemContextException").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.InvalidInventoryItemContextException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidAssociation").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.InvalidAssociationException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidAutomationSignalException").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.InvalidAutomationSignalException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("IdempotentParameterMismatch").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.IdempotentParameterMismatchException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidInventoryRequestException").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.InvalidInventoryRequestException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidResultAttributeException").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.InvalidResultAttributeException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("AutomationDefinitionVersionNotFoundException").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.AutomationDefinitionVersionNotFoundException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidAutomationExecutionParametersException").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.InvalidAutomationExecutionParametersException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ResourceLimitExceededException").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.ResourceLimitExceededException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidAllowedPatternException").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.InvalidAllowedPatternException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidDeleteInventoryParametersException").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.InvalidDeleteInventoryParametersException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidPermissionType").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.InvalidPermissionTypeException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("UnsupportedOperatingSystem").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.UnsupportedOperatingSystemException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidOutputFolder").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.InvalidOutputFolderException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("AutomationExecutionLimitExceededException").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.AutomationExecutionLimitExceededException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("DuplicateDocumentVersionName").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.DuplicateDocumentVersionNameException.class))
                     .addErrorMetadata(
                             new JsonErrorShapeMetadata().withErrorCode("InvalidNotificationConfig").withModeledClass(
                                     com.amazonaws.services.simplesystemsmanagement.model.InvalidNotificationConfigException.class))
@@ -206,6 +310,9 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                             new JsonErrorShapeMetadata().withErrorCode("ParameterNotFound").withModeledClass(
                                     com.amazonaws.services.simplesystemsmanagement.model.ParameterNotFoundException.class))
                     .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ParameterVersionLabelLimitExceeded").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.ParameterVersionLabelLimitExceededException.class))
+                    .addErrorMetadata(
                             new JsonErrorShapeMetadata().withErrorCode("DocumentPermissionLimit").withModeledClass(
                                     com.amazonaws.services.simplesystemsmanagement.model.DocumentPermissionLimitException.class))
                     .addErrorMetadata(
@@ -215,26 +322,11 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                             new JsonErrorShapeMetadata().withErrorCode("HierarchyLevelLimitExceededException").withModeledClass(
                                     com.amazonaws.services.simplesystemsmanagement.model.HierarchyLevelLimitExceededException.class))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("AutomationDefinitionNotFoundException").withModeledClass(
-                                    com.amazonaws.services.simplesystemsmanagement.model.AutomationDefinitionNotFoundException.class))
-                    .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidInstanceId").withModeledClass(
-                                    com.amazonaws.services.simplesystemsmanagement.model.InvalidInstanceIdException.class))
-                    .addErrorMetadata(
                             new JsonErrorShapeMetadata().withErrorCode("TotalSizeLimitExceededException").withModeledClass(
                                     com.amazonaws.services.simplesystemsmanagement.model.TotalSizeLimitExceededException.class))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ItemContentMismatchException").withModeledClass(
-                                    com.amazonaws.services.simplesystemsmanagement.model.ItemContentMismatchException.class))
-                    .addErrorMetadata(
                             new JsonErrorShapeMetadata().withErrorCode("InvalidActivation").withModeledClass(
                                     com.amazonaws.services.simplesystemsmanagement.model.InvalidActivationException.class))
-                    .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ResourceDataSyncNotFoundException").withModeledClass(
-                                    com.amazonaws.services.simplesystemsmanagement.model.ResourceDataSyncNotFoundException.class))
-                    .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("DuplicateInstanceId").withModeledClass(
-                                    com.amazonaws.services.simplesystemsmanagement.model.DuplicateInstanceIdException.class))
                     .addErrorMetadata(
                             new JsonErrorShapeMetadata().withErrorCode("TooManyUpdates").withModeledClass(
                                     com.amazonaws.services.simplesystemsmanagement.model.TooManyUpdatesException.class))
@@ -242,26 +334,20 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                             new JsonErrorShapeMetadata().withErrorCode("DocumentAlreadyExists").withModeledClass(
                                     com.amazonaws.services.simplesystemsmanagement.model.DocumentAlreadyExistsException.class))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidDocumentContent").withModeledClass(
-                                    com.amazonaws.services.simplesystemsmanagement.model.InvalidDocumentContentException.class))
-                    .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("AutomationExecutionNotFoundException").withModeledClass(
-                                    com.amazonaws.services.simplesystemsmanagement.model.AutomationExecutionNotFoundException.class))
-                    .addErrorMetadata(
                             new JsonErrorShapeMetadata().withErrorCode("InvalidInstanceInformationFilterValue").withModeledClass(
                                     com.amazonaws.services.simplesystemsmanagement.model.InvalidInstanceInformationFilterValueException.class))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("AssociationLimitExceeded").withModeledClass(
-                                    com.amazonaws.services.simplesystemsmanagement.model.AssociationLimitExceededException.class))
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidAssociationVersion").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.InvalidAssociationVersionException.class))
                     .addErrorMetadata(
                             new JsonErrorShapeMetadata().withErrorCode("StatusUnchanged").withModeledClass(
                                     com.amazonaws.services.simplesystemsmanagement.model.StatusUnchangedException.class))
                     .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("TargetInUseException").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.TargetInUseException.class))
+                    .addErrorMetadata(
                             new JsonErrorShapeMetadata().withErrorCode("AssociationDoesNotExist").withModeledClass(
                                     com.amazonaws.services.simplesystemsmanagement.model.AssociationDoesNotExistException.class))
-                    .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidTarget").withModeledClass(
-                                    com.amazonaws.services.simplesystemsmanagement.model.InvalidTargetException.class))
                     .addErrorMetadata(
                             new JsonErrorShapeMetadata().withErrorCode("UnsupportedPlatformType").withModeledClass(
                                     com.amazonaws.services.simplesystemsmanagement.model.UnsupportedPlatformTypeException.class))
@@ -272,6 +358,9 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                             new JsonErrorShapeMetadata().withErrorCode("InvalidRole").withModeledClass(
                                     com.amazonaws.services.simplesystemsmanagement.model.InvalidRoleException.class))
                     .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidDeletionIdException").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.InvalidDeletionIdException.class))
+                    .addErrorMetadata(
                             new JsonErrorShapeMetadata().withErrorCode("AssociatedInstances").withModeledClass(
                                     com.amazonaws.services.simplesystemsmanagement.model.AssociatedInstancesException.class))
                     .addErrorMetadata(
@@ -281,14 +370,11 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                             new JsonErrorShapeMetadata().withErrorCode("ParameterLimitExceeded").withModeledClass(
                                     com.amazonaws.services.simplesystemsmanagement.model.ParameterLimitExceededException.class))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidFilterValue").withModeledClass(
-                                    com.amazonaws.services.simplesystemsmanagement.model.InvalidFilterValueException.class))
-                    .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("DocumentVersionLimitExceeded").withModeledClass(
-                                    com.amazonaws.services.simplesystemsmanagement.model.DocumentVersionLimitExceededException.class))
-                    .addErrorMetadata(
                             new JsonErrorShapeMetadata().withErrorCode("InvalidTypeNameException").withModeledClass(
                                     com.amazonaws.services.simplesystemsmanagement.model.InvalidTypeNameException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidAutomationStatusUpdateException").withModeledClass(
+                                    com.amazonaws.services.simplesystemsmanagement.model.InvalidAutomationStatusUpdateException.class))
                     .addErrorMetadata(
                             new JsonErrorShapeMetadata().withErrorCode("DoesNotExistException").withModeledClass(
                                     com.amazonaws.services.simplesystemsmanagement.model.DoesNotExistException.class))
@@ -310,9 +396,6 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                     .addErrorMetadata(
                             new JsonErrorShapeMetadata().withErrorCode("InternalServerError").withModeledClass(
                                     com.amazonaws.services.simplesystemsmanagement.model.InternalServerErrorException.class))
-                    .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidItemContentException").withModeledClass(
-                                    com.amazonaws.services.simplesystemsmanagement.model.InvalidItemContentException.class))
                     .withBaseServiceExceptionClass(com.amazonaws.services.simplesystemsmanagement.model.AWSSimpleSystemsManagementException.class));
 
     /**
@@ -399,6 +482,7 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
     public AWSSimpleSystemsManagementClient(AWSCredentials awsCredentials, ClientConfiguration clientConfiguration) {
         super(clientConfiguration);
         this.awsCredentialsProvider = new StaticCredentialsProvider(awsCredentials);
+        this.advancedConfig = AdvancedConfig.EMPTY;
         init();
     }
 
@@ -464,6 +548,7 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
             RequestMetricCollector requestMetricCollector) {
         super(clientConfiguration, requestMetricCollector);
         this.awsCredentialsProvider = awsCredentialsProvider;
+        this.advancedConfig = AdvancedConfig.EMPTY;
         init();
     }
 
@@ -482,8 +567,23 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      *        Object providing client parameters.
      */
     AWSSimpleSystemsManagementClient(AwsSyncClientParams clientParams) {
+        this(clientParams, false);
+    }
+
+    /**
+     * Constructs a new client to invoke service methods on Amazon SSM using the specified parameters.
+     *
+     * <p>
+     * All service calls made using this new client object are blocking, and will not return until the service call
+     * completes.
+     *
+     * @param clientParams
+     *        Object providing client parameters.
+     */
+    AWSSimpleSystemsManagementClient(AwsSyncClientParams clientParams, boolean endpointDiscoveryEnabled) {
         super(clientParams);
         this.awsCredentialsProvider = clientParams.getCredentialsProvider();
+        this.advancedConfig = clientParams.getAdvancedConfig();
         init();
     }
 
@@ -500,15 +600,15 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
 
     /**
      * <p>
-     * Adds or overwrites one or more tags for the specified resource. Tags are metadata that you assign to your managed
-     * instances, Maintenance Windows, or Parameter Store parameters. Tags enable you to categorize your resources in
-     * different ways, for example, by purpose, owner, or environment. Each tag consists of a key and an optional value,
-     * both of which you define. For example, you could define a set of tags for your account's managed instances that
-     * helps you track each instance's owner and stack level. For example: Key=Owner and Value=DbAdmin, SysAdmin, or
-     * Dev. Or Key=Stack and Value=Production, Pre-Production, or Test.
+     * Adds or overwrites one or more tags for the specified resource. Tags are metadata that you can assign to your
+     * documents, managed instances, Maintenance Windows, Parameter Store parameters, and patch baselines. Tags enable
+     * you to categorize your resources in different ways, for example, by purpose, owner, or environment. Each tag
+     * consists of a key and an optional value, both of which you define. For example, you could define a set of tags
+     * for your account's managed instances that helps you track each instance's owner and stack level. For example:
+     * Key=Owner and Value=DbAdmin, SysAdmin, or Dev. Or Key=Stack and Value=Production, Pre-Production, or Test.
      * </p>
      * <p>
-     * Each resource can have a maximum of 10 tags.
+     * Each resource can have a maximum of 50 tags.
      * </p>
      * <p>
      * We recommend that you devise a set of tag keys that meets your needs for each resource type. Using a consistent
@@ -525,14 +625,16 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      * @param addTagsToResourceRequest
      * @return Result of the AddTagsToResource operation returned by the service.
      * @throws InvalidResourceTypeException
-     *         The resource type is not valid. If you are attempting to tag an instance, the instance must be a
-     *         registered, managed instance.
+     *         The resource type is not valid. For example, if you are attempting to tag an instance, the instance must
+     *         be a registered, managed instance.
      * @throws InvalidResourceIdException
      *         The resource ID is not valid. Verify that you entered the correct ID and try again.
      * @throws InternalServerErrorException
      *         An error occurred on the server side.
      * @throws TooManyTagsErrorException
      *         The Targets parameter includes too many tags. Remove one or more tags and try the command again.
+     * @throws TooManyUpdatesException
+     *         There are concurrent updates for a resource that supports one update at a time.
      * @sample AWSSimpleSystemsManagement.AddTagsToResource
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/AddTagsToResource" target="_top">AWS API
      *      Documentation</a>
@@ -558,6 +660,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                 request = new AddTagsToResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(addTagsToResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AddTagsToResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -591,12 +697,12 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      *         You do not have permission to access the instance.
      *         </p>
      *         <p>
-     *         The SSM Agent is not running. On managed instances and Linux instances, verify that the SSM Agent is
-     *         running. On EC2 Windows instances, verify that the EC2Config service is running.
+     *         SSM Agent is not running. On managed instances and Linux instances, verify that the SSM Agent is running.
+     *         On EC2 Windows instances, verify that the EC2Config service is running.
      *         </p>
      *         <p>
-     *         The SSM Agent or EC2Config service is not registered to the SSM endpoint. Try reinstalling the SSM Agent
-     *         or EC2Config service.
+     *         SSM Agent or EC2Config service is not registered to the SSM endpoint. Try reinstalling SSM Agent or
+     *         EC2Config service.
      *         </p>
      *         <p>
      *         The instance is not in valid state. Valid states are: Running, Pending, Stopped, Stopping. Invalid states
@@ -628,12 +734,81 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                 request = new CancelCommandRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(cancelCommandRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CancelCommand");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
             HttpResponseHandler<AmazonWebServiceResponse<CancelCommandResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CancelCommandResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Stops a Maintenance Window execution that is already in progress and cancels any tasks in the window that have
+     * not already starting running. (Tasks already in progress will continue to completion.)
+     * </p>
+     * 
+     * @param cancelMaintenanceWindowExecutionRequest
+     * @return Result of the CancelMaintenanceWindowExecution operation returned by the service.
+     * @throws InternalServerErrorException
+     *         An error occurred on the server side.
+     * @throws DoesNotExistException
+     *         Error returned when the ID specified for a resource, such as a Maintenance Window or Patch baseline,
+     *         doesn't exist.</p>
+     *         <p>
+     *         For information about resource limits in Systems Manager, see <a
+     *         href="http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_ssm">AWS Systems
+     *         Manager Limits</a>.
+     * @sample AWSSimpleSystemsManagement.CancelMaintenanceWindowExecution
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/CancelMaintenanceWindowExecution"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CancelMaintenanceWindowExecutionResult cancelMaintenanceWindowExecution(CancelMaintenanceWindowExecutionRequest request) {
+        request = beforeClientExecution(request);
+        return executeCancelMaintenanceWindowExecution(request);
+    }
+
+    @SdkInternalApi
+    final CancelMaintenanceWindowExecutionResult executeCancelMaintenanceWindowExecution(
+            CancelMaintenanceWindowExecutionRequest cancelMaintenanceWindowExecutionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(cancelMaintenanceWindowExecutionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CancelMaintenanceWindowExecutionRequest> request = null;
+        Response<CancelMaintenanceWindowExecutionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CancelMaintenanceWindowExecutionRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(cancelMaintenanceWindowExecutionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CancelMaintenanceWindowExecution");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CancelMaintenanceWindowExecutionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new CancelMaintenanceWindowExecutionResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -682,6 +857,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                 request = new CreateActivationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createActivationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateActivation");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -703,11 +882,11 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      * Associates the specified Systems Manager document with the specified instances or targets.
      * </p>
      * <p>
-     * When you associate a document with one or more instances using instance IDs or tags, the SSM Agent running on the
+     * When you associate a document with one or more instances using instance IDs or tags, SSM Agent running on the
      * instance processes the document and configures the instance as specified.
      * </p>
      * <p>
-     * If you associate a document with an instance that already has an associated document, the system throws the
+     * If you associate a document with an instance that already has an associated document, the system returns the
      * AssociationAlreadyExists exception.
      * </p>
      * 
@@ -729,12 +908,12 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      *         You do not have permission to access the instance.
      *         </p>
      *         <p>
-     *         The SSM Agent is not running. On managed instances and Linux instances, verify that the SSM Agent is
-     *         running. On EC2 Windows instances, verify that the EC2Config service is running.
+     *         SSM Agent is not running. On managed instances and Linux instances, verify that the SSM Agent is running.
+     *         On EC2 Windows instances, verify that the EC2Config service is running.
      *         </p>
      *         <p>
-     *         The SSM Agent or EC2Config service is not registered to the SSM endpoint. Try reinstalling the SSM Agent
-     *         or EC2Config service.
+     *         SSM Agent or EC2Config service is not registered to the SSM endpoint. Try reinstalling SSM Agent or
+     *         EC2Config service.
      *         </p>
      *         <p>
      *         The instance is not in valid state. Valid states are: Running, Pending, Stopped, Stopping. Invalid states
@@ -745,8 +924,8 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      * @throws InvalidOutputLocationException
      *         The output location is not valid or does not exist.
      * @throws InvalidParametersException
-     *         You must specify values for all required parameters in the SSM document. You can only supply values to
-     *         parameters defined in the SSM document.
+     *         You must specify values for all required parameters in the Systems Manager document. You can only supply
+     *         values to parameters defined in the Systems Manager document.
      * @throws InvalidTargetException
      *         The target is not valid or does not exist. It might not be configured for EC2 Systems Manager or you
      *         might not have permission to perform the operation.
@@ -777,6 +956,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                 request = new CreateAssociationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createAssociationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateAssociation");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -798,11 +981,11 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      * Associates the specified Systems Manager document with the specified instances or targets.
      * </p>
      * <p>
-     * When you associate a document with one or more instances using instance IDs or tags, the SSM Agent running on the
+     * When you associate a document with one or more instances using instance IDs or tags, SSM Agent running on the
      * instance processes the document and configures the instance as specified.
      * </p>
      * <p>
-     * If you associate a document with an instance that already has an associated document, the system throws the
+     * If you associate a document with an instance that already has an associated document, the system returns the
      * AssociationAlreadyExists exception.
      * </p>
      * 
@@ -820,19 +1003,19 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      *         You do not have permission to access the instance.
      *         </p>
      *         <p>
-     *         The SSM Agent is not running. On managed instances and Linux instances, verify that the SSM Agent is
-     *         running. On EC2 Windows instances, verify that the EC2Config service is running.
+     *         SSM Agent is not running. On managed instances and Linux instances, verify that the SSM Agent is running.
+     *         On EC2 Windows instances, verify that the EC2Config service is running.
      *         </p>
      *         <p>
-     *         The SSM Agent or EC2Config service is not registered to the SSM endpoint. Try reinstalling the SSM Agent
-     *         or EC2Config service.
+     *         SSM Agent or EC2Config service is not registered to the SSM endpoint. Try reinstalling SSM Agent or
+     *         EC2Config service.
      *         </p>
      *         <p>
      *         The instance is not in valid state. Valid states are: Running, Pending, Stopped, Stopping. Invalid states
      *         are: Shutting-down and Terminated.
      * @throws InvalidParametersException
-     *         You must specify values for all required parameters in the SSM document. You can only supply values to
-     *         parameters defined in the SSM document.
+     *         You must specify values for all required parameters in the Systems Manager document. You can only supply
+     *         values to parameters defined in the Systems Manager document.
      * @throws DuplicateInstanceIdException
      *         You cannot specify an instance ID in more than one association.
      * @throws AssociationLimitExceededException
@@ -872,6 +1055,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                 request = new CreateAssociationBatchRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createAssociationBatchRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateAssociationBatch");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -908,7 +1095,7 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      * @throws InvalidDocumentContentException
      *         The content for the document is not valid.
      * @throws DocumentLimitExceededException
-     *         You can have at most 200 active SSM documents.
+     *         You can have at most 200 active Systems Manager documents.
      * @throws InvalidDocumentSchemaVersionException
      *         The version of the document schema is not supported.
      * @sample AWSSimpleSystemsManagement.CreateDocument
@@ -936,6 +1123,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                 request = new CreateDocumentRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createDocumentRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateDocument");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -963,8 +1154,12 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      *         Error returned when an idempotent operation is retried and the parameters don't match the original call
      *         to the API with the same idempotency token.
      * @throws ResourceLimitExceededException
-     *         Error returned when the caller has exceeded the default resource limits (e.g. too many Maintenance
-     *         Windows have been created).
+     *         Error returned when the caller has exceeded the default resource limits. For example, too many
+     *         Maintenance Windows or Patch baselines have been created.</p>
+     *         <p>
+     *         For information about resource limits in Systems Manager, see <a
+     *         href="http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_ssm">AWS Systems
+     *         Manager Limits</a>.
      * @throws InternalServerErrorException
      *         An error occurred on the server side.
      * @sample AWSSimpleSystemsManagement.CreateMaintenanceWindow
@@ -993,6 +1188,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                         .beforeMarshalling(createMaintenanceWindowRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateMaintenanceWindow");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1014,6 +1213,13 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      * <p>
      * Creates a patch baseline.
      * </p>
+     * <note>
+     * <p>
+     * For information about valid key and value pairs in <code>PatchFilters</code> for each supported operating system
+     * type, see <a
+     * href="http://docs.aws.amazon.com/systems-manager/latest/APIReference/API_PatchFilter.html">PatchFilter</a>.
+     * </p>
+     * </note>
      * 
      * @param createPatchBaselineRequest
      * @return Result of the CreatePatchBaseline operation returned by the service.
@@ -1021,8 +1227,12 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      *         Error returned when an idempotent operation is retried and the parameters don't match the original call
      *         to the API with the same idempotency token.
      * @throws ResourceLimitExceededException
-     *         Error returned when the caller has exceeded the default resource limits (e.g. too many Maintenance
-     *         Windows have been created).
+     *         Error returned when the caller has exceeded the default resource limits. For example, too many
+     *         Maintenance Windows or Patch baselines have been created.</p>
+     *         <p>
+     *         For information about resource limits in Systems Manager, see <a
+     *         href="http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_ssm">AWS Systems
+     *         Manager Limits</a>.
      * @throws InternalServerErrorException
      *         An error occurred on the server side.
      * @sample AWSSimpleSystemsManagement.CreatePatchBaseline
@@ -1050,6 +1260,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                 request = new CreatePatchBaselineRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createPatchBaselineRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreatePatchBaseline");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1070,16 +1284,15 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      * <p>
      * Creates a resource data sync configuration to a single bucket in Amazon S3. This is an asynchronous operation
      * that returns immediately. After a successful initial sync is completed, the system continuously syncs data to the
-     * Amazon S3 bucket. To check the status of the sync, use the <a
-     * href="API_ListResourceDataSync.html">ListResourceDataSync</a> operation.
+     * Amazon S3 bucket. To check the status of the sync, use the <a>ListResourceDataSync</a>.
      * </p>
      * <p>
      * By default, data is not encrypted in Amazon S3. We strongly recommend that you enable encryption in Amazon S3 to
      * ensure secure data storage. We also recommend that you secure access to the Amazon S3 bucket by creating a
      * restrictive bucket policy. To view an example of a restrictive Amazon S3 bucket policy for Resource Data Sync,
-     * see <a href=
-     * "http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-configuring.html#sysman-inventory-datasync"
-     * >Configuring Resource Data Sync for Inventory</a>.
+     * see <a
+     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-datasync-create.html">Create a
+     * Resource Data Sync for Inventory</a> in the <i>AWS Systems Manager User Guide</i>.
      * </p>
      * 
      * @param createResourceDataSyncRequest
@@ -1117,6 +1330,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                 request = new CreateResourceDataSyncRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createResourceDataSyncRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateResourceDataSync");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1151,6 +1368,8 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      *         ActivationCode do not match.
      * @throws InternalServerErrorException
      *         An error occurred on the server side.
+     * @throws TooManyUpdatesException
+     *         There are concurrent updates for a resource that supports one update at a time.
      * @sample AWSSimpleSystemsManagement.DeleteActivation
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DeleteActivation" target="_top">AWS API
      *      Documentation</a>
@@ -1176,6 +1395,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                 request = new DeleteActivationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteActivationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteActivation");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1216,12 +1439,12 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      *         You do not have permission to access the instance.
      *         </p>
      *         <p>
-     *         The SSM Agent is not running. On managed instances and Linux instances, verify that the SSM Agent is
-     *         running. On EC2 Windows instances, verify that the EC2Config service is running.
+     *         SSM Agent is not running. On managed instances and Linux instances, verify that the SSM Agent is running.
+     *         On EC2 Windows instances, verify that the EC2Config service is running.
      *         </p>
      *         <p>
-     *         The SSM Agent or EC2Config service is not registered to the SSM endpoint. Try reinstalling the SSM Agent
-     *         or EC2Config service.
+     *         SSM Agent or EC2Config service is not registered to the SSM endpoint. Try reinstalling SSM Agent or
+     *         EC2Config service.
      *         </p>
      *         <p>
      *         The instance is not in valid state. Valid states are: Running, Pending, Stopped, Stopping. Invalid states
@@ -1253,6 +1476,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                 request = new DeleteAssociationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteAssociationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteAssociation");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1314,12 +1541,80 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                 request = new DeleteDocumentRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteDocumentRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteDocument");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
             HttpResponseHandler<AmazonWebServiceResponse<DeleteDocumentResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteDocumentResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Delete a custom inventory type, or the data associated with a custom Inventory type. Deleting a custom inventory
+     * type is also referred to as deleting a custom inventory schema.
+     * </p>
+     * 
+     * @param deleteInventoryRequest
+     * @return Result of the DeleteInventory operation returned by the service.
+     * @throws InternalServerErrorException
+     *         An error occurred on the server side.
+     * @throws InvalidTypeNameException
+     *         The parameter type name is not valid.
+     * @throws InvalidOptionException
+     *         The delete inventory option specified is not valid. Verify the option and try again.
+     * @throws InvalidDeleteInventoryParametersException
+     *         One or more of the parameters specified for the delete operation is not valid. Verify all parameters and
+     *         try again.
+     * @throws InvalidInventoryRequestException
+     *         The request is not valid.
+     * @sample AWSSimpleSystemsManagement.DeleteInventory
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DeleteInventory" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public DeleteInventoryResult deleteInventory(DeleteInventoryRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteInventory(request);
+    }
+
+    @SdkInternalApi
+    final DeleteInventoryResult executeDeleteInventory(DeleteInventoryRequest deleteInventoryRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteInventoryRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteInventoryRequest> request = null;
+        Response<DeleteInventoryResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteInventoryRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteInventoryRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteInventory");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteInventoryResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteInventoryResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1365,6 +1660,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                         .beforeMarshalling(deleteMaintenanceWindowRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteMaintenanceWindow");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1418,6 +1717,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                 request = new DeleteParameterRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteParameterRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteParameter");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1436,7 +1739,7 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
 
     /**
      * <p>
-     * Delete a list of parameters.
+     * Delete a list of parameters. This API is used to delete parameters by using the Amazon EC2 console.
      * </p>
      * 
      * @param deleteParametersRequest
@@ -1468,6 +1771,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                 request = new DeleteParametersRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteParametersRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteParameters");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1520,6 +1827,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                 request = new DeletePatchBaselineRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deletePatchBaselineRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeletePatchBaseline");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1574,6 +1885,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                 request = new DeleteResourceDataSyncRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteResourceDataSyncRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteResourceDataSync");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1594,7 +1909,7 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
     /**
      * <p>
      * Removes the server or virtual machine from the list of registered servers. You can reregister the instance again
-     * at any time. If you don't plan to use Run Command on the server, we suggest uninstalling the SSM Agent first.
+     * at any time. If you don't plan to use Run Command on the server, we suggest uninstalling SSM Agent first.
      * </p>
      * 
      * @param deregisterManagedInstanceRequest
@@ -1605,12 +1920,12 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      *         You do not have permission to access the instance.
      *         </p>
      *         <p>
-     *         The SSM Agent is not running. On managed instances and Linux instances, verify that the SSM Agent is
-     *         running. On EC2 Windows instances, verify that the EC2Config service is running.
+     *         SSM Agent is not running. On managed instances and Linux instances, verify that the SSM Agent is running.
+     *         On EC2 Windows instances, verify that the EC2Config service is running.
      *         </p>
      *         <p>
-     *         The SSM Agent or EC2Config service is not registered to the SSM endpoint. Try reinstalling the SSM Agent
-     *         or EC2Config service.
+     *         SSM Agent or EC2Config service is not registered to the SSM endpoint. Try reinstalling SSM Agent or
+     *         EC2Config service.
      *         </p>
      *         <p>
      *         The instance is not in valid state. Valid states are: Running, Pending, Stopped, Stopping. Invalid states
@@ -1643,6 +1958,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                         .beforeMarshalling(deregisterManagedInstanceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeregisterManagedInstance");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1698,6 +2017,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                         .beforeMarshalling(deregisterPatchBaselineForPatchGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeregisterPatchBaselineForPatchGroup");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1723,9 +2046,17 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      * @param deregisterTargetFromMaintenanceWindowRequest
      * @return Result of the DeregisterTargetFromMaintenanceWindow operation returned by the service.
      * @throws DoesNotExistException
-     *         Error returned when the ID specified for a resource (e.g. a Maintenance Window) doesn't exist.
+     *         Error returned when the ID specified for a resource, such as a Maintenance Window or Patch baseline,
+     *         doesn't exist.</p>
+     *         <p>
+     *         For information about resource limits in Systems Manager, see <a
+     *         href="http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_ssm">AWS Systems
+     *         Manager Limits</a>.
      * @throws InternalServerErrorException
      *         An error occurred on the server side.
+     * @throws TargetInUseException
+     *         You specified the <code>Safe</code> option for the DeregisterTargetFromMaintenanceWindow operation, but
+     *         the target is still referenced in a task.
      * @sample AWSSimpleSystemsManagement.DeregisterTargetFromMaintenanceWindow
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DeregisterTargetFromMaintenanceWindow"
      *      target="_top">AWS API Documentation</a>
@@ -1753,6 +2084,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                         .beforeMarshalling(deregisterTargetFromMaintenanceWindowRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeregisterTargetFromMaintenanceWindow");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1778,7 +2113,12 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      * @param deregisterTaskFromMaintenanceWindowRequest
      * @return Result of the DeregisterTaskFromMaintenanceWindow operation returned by the service.
      * @throws DoesNotExistException
-     *         Error returned when the ID specified for a resource (e.g. a Maintenance Window) doesn't exist.
+     *         Error returned when the ID specified for a resource, such as a Maintenance Window or Patch baseline,
+     *         doesn't exist.</p>
+     *         <p>
+     *         For information about resource limits in Systems Manager, see <a
+     *         href="http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_ssm">AWS Systems
+     *         Manager Limits</a>.
      * @throws InternalServerErrorException
      *         An error occurred on the server side.
      * @sample AWSSimpleSystemsManagement.DeregisterTaskFromMaintenanceWindow
@@ -1808,6 +2148,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                         .beforeMarshalling(deregisterTaskFromMaintenanceWindowRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeregisterTaskFromMaintenanceWindow");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1864,6 +2208,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                 request = new DescribeActivationsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeActivationsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeActivations");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1882,13 +2230,20 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
 
     /**
      * <p>
-     * Describes the associations for the specified Systems Manager document or instance.
+     * Describes the association for the specified target or instance. If you created the association by using the
+     * <code>Targets</code> parameter, then you must retrieve the association by using the association ID. If you
+     * created the association by specifying an instance ID and a Systems Manager document, then you retrieve the
+     * association by specifying the document name and the instance ID.
      * </p>
      * 
      * @param describeAssociationRequest
      * @return Result of the DescribeAssociation operation returned by the service.
      * @throws AssociationDoesNotExistException
      *         The specified association does not exist.
+     * @throws InvalidAssociationVersionException
+     *         The version you specified is not valid. Use ListAssociationVersions to view all versions of an
+     *         association according to the association ID. Or, use the <code>$LATEST</code> parameter to view the
+     *         latest version of the association.
      * @throws InternalServerErrorException
      *         An error occurred on the server side.
      * @throws InvalidDocumentException
@@ -1899,12 +2254,12 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      *         You do not have permission to access the instance.
      *         </p>
      *         <p>
-     *         The SSM Agent is not running. On managed instances and Linux instances, verify that the SSM Agent is
-     *         running. On EC2 Windows instances, verify that the EC2Config service is running.
+     *         SSM Agent is not running. On managed instances and Linux instances, verify that the SSM Agent is running.
+     *         On EC2 Windows instances, verify that the EC2Config service is running.
      *         </p>
      *         <p>
-     *         The SSM Agent or EC2Config service is not registered to the SSM endpoint. Try reinstalling the SSM Agent
-     *         or EC2Config service.
+     *         SSM Agent or EC2Config service is not registered to the SSM endpoint. Try reinstalling SSM Agent or
+     *         EC2Config service.
      *         </p>
      *         <p>
      *         The instance is not in valid state. Valid states are: Running, Pending, Stopped, Stopping. Invalid states
@@ -1934,6 +2289,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                 request = new DescribeAssociationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeAssociationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeAssociation");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1952,11 +2311,138 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
 
     /**
      * <p>
+     * Use this API action to view information about a specific execution of a specific association.
+     * </p>
+     * 
+     * @param describeAssociationExecutionTargetsRequest
+     * @return Result of the DescribeAssociationExecutionTargets operation returned by the service.
+     * @throws InternalServerErrorException
+     *         An error occurred on the server side.
+     * @throws AssociationDoesNotExistException
+     *         The specified association does not exist.
+     * @throws InvalidNextTokenException
+     *         The specified token is not valid.
+     * @throws AssociationExecutionDoesNotExistException
+     *         The specified execution ID does not exist. Verify the ID number and try again.
+     * @sample AWSSimpleSystemsManagement.DescribeAssociationExecutionTargets
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribeAssociationExecutionTargets"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeAssociationExecutionTargetsResult describeAssociationExecutionTargets(DescribeAssociationExecutionTargetsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeAssociationExecutionTargets(request);
+    }
+
+    @SdkInternalApi
+    final DescribeAssociationExecutionTargetsResult executeDescribeAssociationExecutionTargets(
+            DescribeAssociationExecutionTargetsRequest describeAssociationExecutionTargetsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeAssociationExecutionTargetsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeAssociationExecutionTargetsRequest> request = null;
+        Response<DescribeAssociationExecutionTargetsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeAssociationExecutionTargetsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeAssociationExecutionTargetsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeAssociationExecutionTargets");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeAssociationExecutionTargetsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeAssociationExecutionTargetsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Use this API action to view all executions for a specific association ID.
+     * </p>
+     * 
+     * @param describeAssociationExecutionsRequest
+     * @return Result of the DescribeAssociationExecutions operation returned by the service.
+     * @throws InternalServerErrorException
+     *         An error occurred on the server side.
+     * @throws AssociationDoesNotExistException
+     *         The specified association does not exist.
+     * @throws InvalidNextTokenException
+     *         The specified token is not valid.
+     * @sample AWSSimpleSystemsManagement.DescribeAssociationExecutions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribeAssociationExecutions"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeAssociationExecutionsResult describeAssociationExecutions(DescribeAssociationExecutionsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeAssociationExecutions(request);
+    }
+
+    @SdkInternalApi
+    final DescribeAssociationExecutionsResult executeDescribeAssociationExecutions(DescribeAssociationExecutionsRequest describeAssociationExecutionsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeAssociationExecutionsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeAssociationExecutionsRequest> request = null;
+        Response<DescribeAssociationExecutionsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeAssociationExecutionsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeAssociationExecutionsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeAssociationExecutions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeAssociationExecutionsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeAssociationExecutionsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Provides details about all active and terminated Automation executions.
      * </p>
      * 
      * @param describeAutomationExecutionsRequest
      * @return Result of the DescribeAutomationExecutions operation returned by the service.
+     * @throws InvalidFilterKeyException
+     *         The specified key is not valid.
+     * @throws InvalidFilterValueException
+     *         The filter value is not valid. Verify the value and try again.
      * @throws InvalidNextTokenException
      *         The specified token is not valid.
      * @throws InternalServerErrorException
@@ -1987,6 +2473,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                         .beforeMarshalling(describeAutomationExecutionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeAutomationExecutions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1994,6 +2484,71 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
             HttpResponseHandler<AmazonWebServiceResponse<DescribeAutomationExecutionsResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
                     new DescribeAutomationExecutionsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Information about all active and terminated step executions in an Automation workflow.
+     * </p>
+     * 
+     * @param describeAutomationStepExecutionsRequest
+     * @return Result of the DescribeAutomationStepExecutions operation returned by the service.
+     * @throws AutomationExecutionNotFoundException
+     *         There is no automation execution information for the requested automation execution ID.
+     * @throws InvalidNextTokenException
+     *         The specified token is not valid.
+     * @throws InvalidFilterKeyException
+     *         The specified key is not valid.
+     * @throws InvalidFilterValueException
+     *         The filter value is not valid. Verify the value and try again.
+     * @throws InternalServerErrorException
+     *         An error occurred on the server side.
+     * @sample AWSSimpleSystemsManagement.DescribeAutomationStepExecutions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribeAutomationStepExecutions"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeAutomationStepExecutionsResult describeAutomationStepExecutions(DescribeAutomationStepExecutionsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeAutomationStepExecutions(request);
+    }
+
+    @SdkInternalApi
+    final DescribeAutomationStepExecutionsResult executeDescribeAutomationStepExecutions(
+            DescribeAutomationStepExecutionsRequest describeAutomationStepExecutionsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeAutomationStepExecutionsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeAutomationStepExecutionsRequest> request = null;
+        Response<DescribeAutomationStepExecutionsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeAutomationStepExecutionsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeAutomationStepExecutionsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeAutomationStepExecutions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeAutomationStepExecutionsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeAutomationStepExecutionsResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2039,6 +2594,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                         .beforeMarshalling(describeAvailablePatchesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeAvailablePatches");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2058,7 +2617,7 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
 
     /**
      * <p>
-     * Describes the specified SSM document.
+     * Describes the specified Systems Manager document.
      * </p>
      * 
      * @param describeDocumentRequest
@@ -2094,6 +2653,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                 request = new DescribeDocumentRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeDocumentRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeDocument");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2151,6 +2714,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                         .beforeMarshalling(describeDocumentPermissionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeDocumentPermission");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2183,12 +2750,12 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      *         You do not have permission to access the instance.
      *         </p>
      *         <p>
-     *         The SSM Agent is not running. On managed instances and Linux instances, verify that the SSM Agent is
-     *         running. On EC2 Windows instances, verify that the EC2Config service is running.
+     *         SSM Agent is not running. On managed instances and Linux instances, verify that the SSM Agent is running.
+     *         On EC2 Windows instances, verify that the EC2Config service is running.
      *         </p>
      *         <p>
-     *         The SSM Agent or EC2Config service is not registered to the SSM endpoint. Try reinstalling the SSM Agent
-     *         or EC2Config service.
+     *         SSM Agent or EC2Config service is not registered to the SSM endpoint. Try reinstalling SSM Agent or
+     *         EC2Config service.
      *         </p>
      *         <p>
      *         The instance is not in valid state. Valid states are: Running, Pending, Stopped, Stopping. Invalid states
@@ -2222,6 +2789,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                         .beforeMarshalling(describeEffectiveInstanceAssociationsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeEffectiveInstanceAssociations");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2250,7 +2821,12 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      * @throws InvalidResourceIdException
      *         The resource ID is not valid. Verify that you entered the correct ID and try again.
      * @throws DoesNotExistException
-     *         Error returned when the ID specified for a resource (e.g. a Maintenance Window) doesn't exist.
+     *         Error returned when the ID specified for a resource, such as a Maintenance Window or Patch baseline,
+     *         doesn't exist.</p>
+     *         <p>
+     *         For information about resource limits in Systems Manager, see <a
+     *         href="http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_ssm">AWS Systems
+     *         Manager Limits</a>.
      * @throws UnsupportedOperatingSystemException
      *         The operating systems you specified is not supported, or the operation is not supported for the operating
      *         system. Valid operating systems include: Windows, AmazonLinux, RedhatEnterpriseLinux, and Ubuntu.
@@ -2283,6 +2859,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                         .beforeMarshalling(describeEffectivePatchesForPatchBaselineRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeEffectivePatchesForPatchBaseline");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2315,12 +2895,12 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      *         You do not have permission to access the instance.
      *         </p>
      *         <p>
-     *         The SSM Agent is not running. On managed instances and Linux instances, verify that the SSM Agent is
-     *         running. On EC2 Windows instances, verify that the EC2Config service is running.
+     *         SSM Agent is not running. On managed instances and Linux instances, verify that the SSM Agent is running.
+     *         On EC2 Windows instances, verify that the EC2Config service is running.
      *         </p>
      *         <p>
-     *         The SSM Agent or EC2Config service is not registered to the SSM endpoint. Try reinstalling the SSM Agent
-     *         or EC2Config service.
+     *         SSM Agent or EC2Config service is not registered to the SSM endpoint. Try reinstalling SSM Agent or
+     *         EC2Config service.
      *         </p>
      *         <p>
      *         The instance is not in valid state. Valid states are: Running, Pending, Stopped, Stopping. Invalid states
@@ -2354,6 +2934,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                         .beforeMarshalling(describeInstanceAssociationsStatusRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeInstanceAssociationsStatus");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2379,6 +2963,12 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      * instances. If you specify an instance ID that is not valid or an instance that you do not own, you receive an
      * error.
      * </p>
+     * <note>
+     * <p>
+     * The IamRole field for this API action is the Amazon Identity and Access Management (IAM) role assigned to
+     * on-premises instances. This call does not return the IAM role for Amazon EC2 instances.
+     * </p>
+     * </note>
      * 
      * @param describeInstanceInformationRequest
      * @return Result of the DescribeInstanceInformation operation returned by the service.
@@ -2390,12 +2980,12 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      *         You do not have permission to access the instance.
      *         </p>
      *         <p>
-     *         The SSM Agent is not running. On managed instances and Linux instances, verify that the SSM Agent is
-     *         running. On EC2 Windows instances, verify that the EC2Config service is running.
+     *         SSM Agent is not running. On managed instances and Linux instances, verify that the SSM Agent is running.
+     *         On EC2 Windows instances, verify that the EC2Config service is running.
      *         </p>
      *         <p>
-     *         The SSM Agent or EC2Config service is not registered to the SSM endpoint. Try reinstalling the SSM Agent
-     *         or EC2Config service.
+     *         SSM Agent or EC2Config service is not registered to the SSM endpoint. Try reinstalling SSM Agent or
+     *         EC2Config service.
      *         </p>
      *         <p>
      *         The instance is not in valid state. Valid states are: Running, Pending, Stopped, Stopping. Invalid states
@@ -2432,6 +3022,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                         .beforeMarshalling(describeInstanceInformationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeInstanceInformation");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2486,6 +3080,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                         .beforeMarshalling(describeInstancePatchStatesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeInstancePatchStates");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2543,6 +3141,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                         .beforeMarshalling(describeInstancePatchStatesForPatchGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeInstancePatchStatesForPatchGroup");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2576,12 +3178,12 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      *         You do not have permission to access the instance.
      *         </p>
      *         <p>
-     *         The SSM Agent is not running. On managed instances and Linux instances, verify that the SSM Agent is
-     *         running. On EC2 Windows instances, verify that the EC2Config service is running.
+     *         SSM Agent is not running. On managed instances and Linux instances, verify that the SSM Agent is running.
+     *         On EC2 Windows instances, verify that the EC2Config service is running.
      *         </p>
      *         <p>
-     *         The SSM Agent or EC2Config service is not registered to the SSM endpoint. Try reinstalling the SSM Agent
-     *         or EC2Config service.
+     *         SSM Agent or EC2Config service is not registered to the SSM endpoint. Try reinstalling SSM Agent or
+     *         EC2Config service.
      *         </p>
      *         <p>
      *         The instance is not in valid state. Valid states are: Running, Pending, Stopped, Stopping. Invalid states
@@ -2616,6 +3218,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                         .beforeMarshalling(describeInstancePatchesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeInstancePatches");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2635,6 +3241,66 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
 
     /**
      * <p>
+     * Describes a specific delete inventory operation.
+     * </p>
+     * 
+     * @param describeInventoryDeletionsRequest
+     * @return Result of the DescribeInventoryDeletions operation returned by the service.
+     * @throws InternalServerErrorException
+     *         An error occurred on the server side.
+     * @throws InvalidDeletionIdException
+     *         The ID specified for the delete operation does not exist or is not valide. Verify the ID and try again.
+     * @throws InvalidNextTokenException
+     *         The specified token is not valid.
+     * @sample AWSSimpleSystemsManagement.DescribeInventoryDeletions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribeInventoryDeletions" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public DescribeInventoryDeletionsResult describeInventoryDeletions(DescribeInventoryDeletionsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeInventoryDeletions(request);
+    }
+
+    @SdkInternalApi
+    final DescribeInventoryDeletionsResult executeDescribeInventoryDeletions(DescribeInventoryDeletionsRequest describeInventoryDeletionsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeInventoryDeletionsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeInventoryDeletionsRequest> request = null;
+        Response<DescribeInventoryDeletionsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeInventoryDeletionsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeInventoryDeletionsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeInventoryDeletions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeInventoryDeletionsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeInventoryDeletionsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Retrieves the individual task executions (one per target) for a particular task executed as part of a Maintenance
      * Window execution.
      * </p>
@@ -2642,7 +3308,12 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      * @param describeMaintenanceWindowExecutionTaskInvocationsRequest
      * @return Result of the DescribeMaintenanceWindowExecutionTaskInvocations operation returned by the service.
      * @throws DoesNotExistException
-     *         Error returned when the ID specified for a resource (e.g. a Maintenance Window) doesn't exist.
+     *         Error returned when the ID specified for a resource, such as a Maintenance Window or Patch baseline,
+     *         doesn't exist.</p>
+     *         <p>
+     *         For information about resource limits in Systems Manager, see <a
+     *         href="http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_ssm">AWS Systems
+     *         Manager Limits</a>.
      * @throws InternalServerErrorException
      *         An error occurred on the server side.
      * @sample AWSSimpleSystemsManagement.DescribeMaintenanceWindowExecutionTaskInvocations
@@ -2674,6 +3345,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                         .beforeMarshalling(describeMaintenanceWindowExecutionTaskInvocationsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeMaintenanceWindowExecutionTaskInvocations");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2699,7 +3374,12 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      * @param describeMaintenanceWindowExecutionTasksRequest
      * @return Result of the DescribeMaintenanceWindowExecutionTasks operation returned by the service.
      * @throws DoesNotExistException
-     *         Error returned when the ID specified for a resource (e.g. a Maintenance Window) doesn't exist.
+     *         Error returned when the ID specified for a resource, such as a Maintenance Window or Patch baseline,
+     *         doesn't exist.</p>
+     *         <p>
+     *         For information about resource limits in Systems Manager, see <a
+     *         href="http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_ssm">AWS Systems
+     *         Manager Limits</a>.
      * @throws InternalServerErrorException
      *         An error occurred on the server side.
      * @sample AWSSimpleSystemsManagement.DescribeMaintenanceWindowExecutionTasks
@@ -2729,6 +3409,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                         .beforeMarshalling(describeMaintenanceWindowExecutionTasksRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeMaintenanceWindowExecutionTasks");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2748,8 +3432,8 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
 
     /**
      * <p>
-     * Lists the executions of a Maintenance Window (meaning, information about when the Maintenance Window was
-     * scheduled to be active and information about tasks registered and run with the Maintenance Window).
+     * Lists the executions of a Maintenance Window. This includes information about when the Maintenance Window was
+     * scheduled to be active, and information about tasks registered and run with the Maintenance Window.
      * </p>
      * 
      * @param describeMaintenanceWindowExecutionsRequest
@@ -2783,6 +3467,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                         .beforeMarshalling(describeMaintenanceWindowExecutionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeMaintenanceWindowExecutions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2802,13 +3490,82 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
 
     /**
      * <p>
+     * Retrieves information about upcoming executions of a Maintenance Window.
+     * </p>
+     * 
+     * @param describeMaintenanceWindowScheduleRequest
+     * @return Result of the DescribeMaintenanceWindowSchedule operation returned by the service.
+     * @throws InternalServerErrorException
+     *         An error occurred on the server side.
+     * @throws DoesNotExistException
+     *         Error returned when the ID specified for a resource, such as a Maintenance Window or Patch baseline,
+     *         doesn't exist.</p>
+     *         <p>
+     *         For information about resource limits in Systems Manager, see <a
+     *         href="http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_ssm">AWS Systems
+     *         Manager Limits</a>.
+     * @sample AWSSimpleSystemsManagement.DescribeMaintenanceWindowSchedule
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribeMaintenanceWindowSchedule"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeMaintenanceWindowScheduleResult describeMaintenanceWindowSchedule(DescribeMaintenanceWindowScheduleRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeMaintenanceWindowSchedule(request);
+    }
+
+    @SdkInternalApi
+    final DescribeMaintenanceWindowScheduleResult executeDescribeMaintenanceWindowSchedule(
+            DescribeMaintenanceWindowScheduleRequest describeMaintenanceWindowScheduleRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeMaintenanceWindowScheduleRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeMaintenanceWindowScheduleRequest> request = null;
+        Response<DescribeMaintenanceWindowScheduleResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeMaintenanceWindowScheduleRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeMaintenanceWindowScheduleRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeMaintenanceWindowSchedule");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeMaintenanceWindowScheduleResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeMaintenanceWindowScheduleResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Lists the targets registered with the Maintenance Window.
      * </p>
      * 
      * @param describeMaintenanceWindowTargetsRequest
      * @return Result of the DescribeMaintenanceWindowTargets operation returned by the service.
      * @throws DoesNotExistException
-     *         Error returned when the ID specified for a resource (e.g. a Maintenance Window) doesn't exist.
+     *         Error returned when the ID specified for a resource, such as a Maintenance Window or Patch baseline,
+     *         doesn't exist.</p>
+     *         <p>
+     *         For information about resource limits in Systems Manager, see <a
+     *         href="http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_ssm">AWS Systems
+     *         Manager Limits</a>.
      * @throws InternalServerErrorException
      *         An error occurred on the server side.
      * @sample AWSSimpleSystemsManagement.DescribeMaintenanceWindowTargets
@@ -2838,6 +3595,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                         .beforeMarshalling(describeMaintenanceWindowTargetsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeMaintenanceWindowTargets");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2863,7 +3624,12 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      * @param describeMaintenanceWindowTasksRequest
      * @return Result of the DescribeMaintenanceWindowTasks operation returned by the service.
      * @throws DoesNotExistException
-     *         Error returned when the ID specified for a resource (e.g. a Maintenance Window) doesn't exist.
+     *         Error returned when the ID specified for a resource, such as a Maintenance Window or Patch baseline,
+     *         doesn't exist.</p>
+     *         <p>
+     *         For information about resource limits in Systems Manager, see <a
+     *         href="http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_ssm">AWS Systems
+     *         Manager Limits</a>.
      * @throws InternalServerErrorException
      *         An error occurred on the server side.
      * @sample AWSSimpleSystemsManagement.DescribeMaintenanceWindowTasks
@@ -2892,6 +3658,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                         .beforeMarshalling(describeMaintenanceWindowTasksRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeMaintenanceWindowTasks");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2944,6 +3714,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                         .beforeMarshalling(describeMaintenanceWindowsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeMaintenanceWindows");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2963,7 +3737,71 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
 
     /**
      * <p>
+     * Retrieves information about the Maintenance Windows targets or tasks that an instance is associated with.
+     * </p>
+     * 
+     * @param describeMaintenanceWindowsForTargetRequest
+     * @return Result of the DescribeMaintenanceWindowsForTarget operation returned by the service.
+     * @throws InternalServerErrorException
+     *         An error occurred on the server side.
+     * @sample AWSSimpleSystemsManagement.DescribeMaintenanceWindowsForTarget
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribeMaintenanceWindowsForTarget"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeMaintenanceWindowsForTargetResult describeMaintenanceWindowsForTarget(DescribeMaintenanceWindowsForTargetRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeMaintenanceWindowsForTarget(request);
+    }
+
+    @SdkInternalApi
+    final DescribeMaintenanceWindowsForTargetResult executeDescribeMaintenanceWindowsForTarget(
+            DescribeMaintenanceWindowsForTargetRequest describeMaintenanceWindowsForTargetRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeMaintenanceWindowsForTargetRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeMaintenanceWindowsForTargetRequest> request = null;
+        Response<DescribeMaintenanceWindowsForTargetResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeMaintenanceWindowsForTargetRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeMaintenanceWindowsForTargetRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeMaintenanceWindowsForTarget");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeMaintenanceWindowsForTargetResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeMaintenanceWindowsForTargetResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Get information about a parameter.
+     * </p>
+     * <p>
+     * Request results are returned on a best-effort basis. If you specify <code>MaxResults</code> in the request, the
+     * response includes information up to the limit specified. The number of items returned, however, can be between
+     * zero and the value of <code>MaxResults</code>. If the service reaches an internal limit while processing the
+     * results, it stops the operation and returns the matching values up to that point and a <code>NextToken</code>.
+     * You can specify the <code>NextToken</code> in a subsequent call to get the next set of results.
      * </p>
      * 
      * @param describeParametersRequest
@@ -3004,6 +3842,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                 request = new DescribeParametersRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeParametersRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeParameters");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -3054,6 +3896,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                 request = new DescribePatchBaselinesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describePatchBaselinesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribePatchBaselines");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -3108,6 +3954,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                         .beforeMarshalling(describePatchGroupStateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribePatchGroupState");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -3159,12 +4009,75 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                 request = new DescribePatchGroupsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describePatchGroupsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribePatchGroups");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
             HttpResponseHandler<AmazonWebServiceResponse<DescribePatchGroupsResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DescribePatchGroupsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Retrieves a list of all active sessions (both connected and disconnected) or terminated sessions from the past 30
+     * days.
+     * </p>
+     * 
+     * @param describeSessionsRequest
+     * @return Result of the DescribeSessions operation returned by the service.
+     * @throws InternalServerErrorException
+     *         An error occurred on the server side.
+     * @throws InvalidFilterKeyException
+     *         The specified key is not valid.
+     * @throws InvalidNextTokenException
+     *         The specified token is not valid.
+     * @sample AWSSimpleSystemsManagement.DescribeSessions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribeSessions" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public DescribeSessionsResult describeSessions(DescribeSessionsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeSessions(request);
+    }
+
+    @SdkInternalApi
+    final DescribeSessionsResult executeDescribeSessions(DescribeSessionsRequest describeSessionsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeSessionsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeSessionsRequest> request = null;
+        Response<DescribeSessionsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeSessionsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeSessionsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeSessions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeSessionsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DescribeSessionsResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -3211,6 +4124,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                 request = new GetAutomationExecutionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getAutomationExecutionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetAutomationExecution");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -3244,12 +4161,12 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      *         You do not have permission to access the instance.
      *         </p>
      *         <p>
-     *         The SSM Agent is not running. On managed instances and Linux instances, verify that the SSM Agent is
-     *         running. On EC2 Windows instances, verify that the EC2Config service is running.
+     *         SSM Agent is not running. On managed instances and Linux instances, verify that the SSM Agent is running.
+     *         On EC2 Windows instances, verify that the EC2Config service is running.
      *         </p>
      *         <p>
-     *         The SSM Agent or EC2Config service is not registered to the SSM endpoint. Try reinstalling the SSM Agent
-     *         or EC2Config service.
+     *         SSM Agent or EC2Config service is not registered to the SSM endpoint. Try reinstalling SSM Agent or
+     *         EC2Config service.
      *         </p>
      *         <p>
      *         The instance is not in valid state. Valid states are: Running, Pending, Stopped, Stopping. Invalid states
@@ -3284,6 +4201,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                 request = new GetCommandInvocationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getCommandInvocationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetCommandInvocation");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -3302,8 +4223,66 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
 
     /**
      * <p>
+     * Retrieves the Session Manager connection status for an instance to determine whether it is connected and ready to
+     * receive Session Manager connections.
+     * </p>
+     * 
+     * @param getConnectionStatusRequest
+     * @return Result of the GetConnectionStatus operation returned by the service.
+     * @throws InternalServerErrorException
+     *         An error occurred on the server side.
+     * @sample AWSSimpleSystemsManagement.GetConnectionStatus
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/GetConnectionStatus" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public GetConnectionStatusResult getConnectionStatus(GetConnectionStatusRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetConnectionStatus(request);
+    }
+
+    @SdkInternalApi
+    final GetConnectionStatusResult executeGetConnectionStatus(GetConnectionStatusRequest getConnectionStatusRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getConnectionStatusRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetConnectionStatusRequest> request = null;
+        Response<GetConnectionStatusResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetConnectionStatusRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getConnectionStatusRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetConnectionStatus");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetConnectionStatusResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetConnectionStatusResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Retrieves the default patch baseline. Note that Systems Manager supports creating multiple default patch
      * baselines. For example, you can create a default patch baseline for each operating system.
+     * </p>
+     * <p>
+     * If you do not specify an operating system value, the default patch baseline for Windows is returned.
      * </p>
      * 
      * @param getDefaultPatchBaselineRequest
@@ -3336,6 +4315,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                         .beforeMarshalling(getDefaultPatchBaselineRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetDefaultPatchBaseline");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -3393,6 +4376,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                         .beforeMarshalling(getDeployablePatchSnapshotForInstanceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetDeployablePatchSnapshotForInstance");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -3412,7 +4399,7 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
 
     /**
      * <p>
-     * Gets the contents of the specified SSM document.
+     * Gets the contents of the specified Systems Manager document.
      * </p>
      * 
      * @param getDocumentRequest
@@ -3448,6 +4435,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                 request = new GetDocumentRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getDocumentRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetDocument");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -3475,10 +4466,15 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      *         An error occurred on the server side.
      * @throws InvalidFilterException
      *         The filter name is not valid. Verify the you entered the correct name and try again.
+     * @throws InvalidInventoryGroupException
+     *         The specified inventory group is not valid.
      * @throws InvalidNextTokenException
      *         The specified token is not valid.
      * @throws InvalidTypeNameException
      *         The parameter type name is not valid.
+     * @throws InvalidAggregatorException
+     *         The specified aggregator is not valid for inventory groups. Verify that the aggregator uses a valid
+     *         inventory type such as <code>AWS:Application</code> or <code>AWS:InstanceInformation</code>.
      * @throws InvalidResultAttributeException
      *         The specified inventory item result attribute is not valid.
      * @sample AWSSimpleSystemsManagement.GetInventory
@@ -3506,6 +4502,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                 request = new GetInventoryRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getInventoryRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetInventory");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -3561,6 +4561,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                 request = new GetInventorySchemaRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getInventorySchemaRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetInventorySchema");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -3585,7 +4589,12 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      * @param getMaintenanceWindowRequest
      * @return Result of the GetMaintenanceWindow operation returned by the service.
      * @throws DoesNotExistException
-     *         Error returned when the ID specified for a resource (e.g. a Maintenance Window) doesn't exist.
+     *         Error returned when the ID specified for a resource, such as a Maintenance Window or Patch baseline,
+     *         doesn't exist.</p>
+     *         <p>
+     *         For information about resource limits in Systems Manager, see <a
+     *         href="http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_ssm">AWS Systems
+     *         Manager Limits</a>.
      * @throws InternalServerErrorException
      *         An error occurred on the server side.
      * @sample AWSSimpleSystemsManagement.GetMaintenanceWindow
@@ -3613,6 +4622,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                 request = new GetMaintenanceWindowRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getMaintenanceWindowRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetMaintenanceWindow");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -3637,7 +4650,12 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      * @param getMaintenanceWindowExecutionRequest
      * @return Result of the GetMaintenanceWindowExecution operation returned by the service.
      * @throws DoesNotExistException
-     *         Error returned when the ID specified for a resource (e.g. a Maintenance Window) doesn't exist.
+     *         Error returned when the ID specified for a resource, such as a Maintenance Window or Patch baseline,
+     *         doesn't exist.</p>
+     *         <p>
+     *         For information about resource limits in Systems Manager, see <a
+     *         href="http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_ssm">AWS Systems
+     *         Manager Limits</a>.
      * @throws InternalServerErrorException
      *         An error occurred on the server side.
      * @sample AWSSimpleSystemsManagement.GetMaintenanceWindowExecution
@@ -3666,6 +4684,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                         .beforeMarshalling(getMaintenanceWindowExecutionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetMaintenanceWindowExecution");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -3691,7 +4713,12 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      * @param getMaintenanceWindowExecutionTaskRequest
      * @return Result of the GetMaintenanceWindowExecutionTask operation returned by the service.
      * @throws DoesNotExistException
-     *         Error returned when the ID specified for a resource (e.g. a Maintenance Window) doesn't exist.
+     *         Error returned when the ID specified for a resource, such as a Maintenance Window or Patch baseline,
+     *         doesn't exist.</p>
+     *         <p>
+     *         For information about resource limits in Systems Manager, see <a
+     *         href="http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_ssm">AWS Systems
+     *         Manager Limits</a>.
      * @throws InternalServerErrorException
      *         An error occurred on the server side.
      * @sample AWSSimpleSystemsManagement.GetMaintenanceWindowExecutionTask
@@ -3721,6 +4748,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                         .beforeMarshalling(getMaintenanceWindowExecutionTaskRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetMaintenanceWindowExecutionTask");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -3740,7 +4771,137 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
 
     /**
      * <p>
-     * Get information about a parameter by using the parameter name.
+     * Retrieves a task invocation. A task invocation is a specific task executing on a specific target. Maintenance
+     * Windows report status for all invocations.
+     * </p>
+     * 
+     * @param getMaintenanceWindowExecutionTaskInvocationRequest
+     * @return Result of the GetMaintenanceWindowExecutionTaskInvocation operation returned by the service.
+     * @throws DoesNotExistException
+     *         Error returned when the ID specified for a resource, such as a Maintenance Window or Patch baseline,
+     *         doesn't exist.</p>
+     *         <p>
+     *         For information about resource limits in Systems Manager, see <a
+     *         href="http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_ssm">AWS Systems
+     *         Manager Limits</a>.
+     * @throws InternalServerErrorException
+     *         An error occurred on the server side.
+     * @sample AWSSimpleSystemsManagement.GetMaintenanceWindowExecutionTaskInvocation
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/GetMaintenanceWindowExecutionTaskInvocation"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GetMaintenanceWindowExecutionTaskInvocationResult getMaintenanceWindowExecutionTaskInvocation(
+            GetMaintenanceWindowExecutionTaskInvocationRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetMaintenanceWindowExecutionTaskInvocation(request);
+    }
+
+    @SdkInternalApi
+    final GetMaintenanceWindowExecutionTaskInvocationResult executeGetMaintenanceWindowExecutionTaskInvocation(
+            GetMaintenanceWindowExecutionTaskInvocationRequest getMaintenanceWindowExecutionTaskInvocationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getMaintenanceWindowExecutionTaskInvocationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetMaintenanceWindowExecutionTaskInvocationRequest> request = null;
+        Response<GetMaintenanceWindowExecutionTaskInvocationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetMaintenanceWindowExecutionTaskInvocationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(getMaintenanceWindowExecutionTaskInvocationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetMaintenanceWindowExecutionTaskInvocation");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetMaintenanceWindowExecutionTaskInvocationResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new GetMaintenanceWindowExecutionTaskInvocationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Lists the tasks in a Maintenance Window.
+     * </p>
+     * 
+     * @param getMaintenanceWindowTaskRequest
+     * @return Result of the GetMaintenanceWindowTask operation returned by the service.
+     * @throws DoesNotExistException
+     *         Error returned when the ID specified for a resource, such as a Maintenance Window or Patch baseline,
+     *         doesn't exist.</p>
+     *         <p>
+     *         For information about resource limits in Systems Manager, see <a
+     *         href="http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_ssm">AWS Systems
+     *         Manager Limits</a>.
+     * @throws InternalServerErrorException
+     *         An error occurred on the server side.
+     * @sample AWSSimpleSystemsManagement.GetMaintenanceWindowTask
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/GetMaintenanceWindowTask" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public GetMaintenanceWindowTaskResult getMaintenanceWindowTask(GetMaintenanceWindowTaskRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetMaintenanceWindowTask(request);
+    }
+
+    @SdkInternalApi
+    final GetMaintenanceWindowTaskResult executeGetMaintenanceWindowTask(GetMaintenanceWindowTaskRequest getMaintenanceWindowTaskRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getMaintenanceWindowTaskRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetMaintenanceWindowTaskRequest> request = null;
+        Response<GetMaintenanceWindowTaskResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetMaintenanceWindowTaskRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(getMaintenanceWindowTaskRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetMaintenanceWindowTask");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetMaintenanceWindowTaskResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new GetMaintenanceWindowTaskResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Get information about a parameter by using the parameter name. Don't confuse this API action with the
+     * <a>GetParameters</a> API action.
      * </p>
      * 
      * @param getParameterRequest
@@ -3751,6 +4912,8 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      *         The query key ID is not valid.
      * @throws ParameterNotFoundException
      *         The parameter could not be found. Verify the name and try again.
+     * @throws ParameterVersionNotFoundException
+     *         The specified parameter version was not found. Verify the parameter name and version, and try again.
      * @sample AWSSimpleSystemsManagement.GetParameter
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/GetParameter" target="_top">AWS API
      *      Documentation</a>
@@ -3776,6 +4939,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                 request = new GetParameterRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getParameterRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetParameter");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -3832,6 +4999,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                 request = new GetParameterHistoryRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getParameterHistoryRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetParameterHistory");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -3850,7 +5021,7 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
 
     /**
      * <p>
-     * Get details of a parameter.
+     * Get details of a parameter. Don't confuse this API action with the <a>GetParameter</a> API action.
      * </p>
      * 
      * @param getParametersRequest
@@ -3884,6 +5055,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                 request = new GetParametersRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getParametersRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetParameters");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -3904,8 +5079,20 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      * <p>
      * Retrieve parameters in a specific hierarchy. For more information, see <a
      * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-working.html">Working with
-     * Systems Manager Parameters</a>.
+     * Systems Manager Parameters</a> in the <i>AWS Systems Manager User Guide</i>.
      * </p>
+     * <p>
+     * Request results are returned on a best-effort basis. If you specify <code>MaxResults</code> in the request, the
+     * response includes information up to the limit specified. The number of items returned, however, can be between
+     * zero and the value of <code>MaxResults</code>. If the service reaches an internal limit while processing the
+     * results, it stops the operation and returns the matching values up to that point and a <code>NextToken</code>.
+     * You can specify the <code>NextToken</code> in a subsequent call to get the next set of results.
+     * </p>
+     * <note>
+     * <p>
+     * This API action doesn't support filtering by tags.
+     * </p>
+     * </note>
      * 
      * @param getParametersByPathRequest
      * @return Result of the GetParametersByPath operation returned by the service.
@@ -3947,6 +5134,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                 request = new GetParametersByPathRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getParametersByPathRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetParametersByPath");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -3971,7 +5162,12 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      * @param getPatchBaselineRequest
      * @return Result of the GetPatchBaseline operation returned by the service.
      * @throws DoesNotExistException
-     *         Error returned when the ID specified for a resource (e.g. a Maintenance Window) doesn't exist.
+     *         Error returned when the ID specified for a resource, such as a Maintenance Window or Patch baseline,
+     *         doesn't exist.</p>
+     *         <p>
+     *         For information about resource limits in Systems Manager, see <a
+     *         href="http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_ssm">AWS Systems
+     *         Manager Limits</a>.
      * @throws InvalidResourceIdException
      *         The resource ID is not valid. Verify that you entered the correct ID and try again.
      * @throws InternalServerErrorException
@@ -4001,6 +5197,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                 request = new GetPatchBaselineRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getPatchBaselineRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetPatchBaseline");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -4052,6 +5252,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                         .beforeMarshalling(getPatchBaselineForPatchGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetPatchBaselineForPatchGroup");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -4059,6 +5263,181 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
             HttpResponseHandler<AmazonWebServiceResponse<GetPatchBaselineForPatchGroupResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
                     new GetPatchBaselineForPatchGroupResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * A parameter label is a user-defined alias to help you manage different versions of a parameter. When you modify a
+     * parameter, Systems Manager automatically saves a new version and increments the version number by one. A label
+     * can help you remember the purpose of a parameter when there are multiple versions.
+     * </p>
+     * <p>
+     * Parameter labels have the following requirements and restrictions.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * A version of a parameter can have a maximum of 10 labels.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * You can't attach the same label to different versions of the same parameter. For example, if version 1 has the
+     * label Production, then you can't attach Production to version 2.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * You can move a label from one version of a parameter to another.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * You can't create a label when you create a new parameter. You must attach a label to a specific version of a
+     * parameter.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * You can't delete a parameter label. If you no longer want to use a parameter label, then you must move it to a
+     * different version of a parameter.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * A label can have a maximum of 100 characters.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Labels can contain letters (case sensitive), numbers, periods (.), hyphens (-), or underscores (_).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Labels can't begin with a number, "aws," or "ssm" (not case sensitive). If a label fails to meet these
+     * requirements, then the label is not associated with a parameter and the system displays it in the list of
+     * InvalidLabels.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param labelParameterVersionRequest
+     * @return Result of the LabelParameterVersion operation returned by the service.
+     * @throws InternalServerErrorException
+     *         An error occurred on the server side.
+     * @throws TooManyUpdatesException
+     *         There are concurrent updates for a resource that supports one update at a time.
+     * @throws ParameterNotFoundException
+     *         The parameter could not be found. Verify the name and try again.
+     * @throws ParameterVersionNotFoundException
+     *         The specified parameter version was not found. Verify the parameter name and version, and try again.
+     * @throws ParameterVersionLabelLimitExceededException
+     *         A parameter version can have a maximum of ten labels.
+     * @sample AWSSimpleSystemsManagement.LabelParameterVersion
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/LabelParameterVersion" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public LabelParameterVersionResult labelParameterVersion(LabelParameterVersionRequest request) {
+        request = beforeClientExecution(request);
+        return executeLabelParameterVersion(request);
+    }
+
+    @SdkInternalApi
+    final LabelParameterVersionResult executeLabelParameterVersion(LabelParameterVersionRequest labelParameterVersionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(labelParameterVersionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<LabelParameterVersionRequest> request = null;
+        Response<LabelParameterVersionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new LabelParameterVersionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(labelParameterVersionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "LabelParameterVersion");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<LabelParameterVersionResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new LabelParameterVersionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Retrieves all versions of an association for a specific association ID.
+     * </p>
+     * 
+     * @param listAssociationVersionsRequest
+     * @return Result of the ListAssociationVersions operation returned by the service.
+     * @throws InternalServerErrorException
+     *         An error occurred on the server side.
+     * @throws InvalidNextTokenException
+     *         The specified token is not valid.
+     * @throws AssociationDoesNotExistException
+     *         The specified association does not exist.
+     * @sample AWSSimpleSystemsManagement.ListAssociationVersions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/ListAssociationVersions" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public ListAssociationVersionsResult listAssociationVersions(ListAssociationVersionsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListAssociationVersions(request);
+    }
+
+    @SdkInternalApi
+    final ListAssociationVersionsResult executeListAssociationVersions(ListAssociationVersionsRequest listAssociationVersionsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listAssociationVersionsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListAssociationVersionsRequest> request = null;
+        Response<ListAssociationVersionsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListAssociationVersionsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listAssociationVersionsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListAssociationVersions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListAssociationVersionsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListAssociationVersionsResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -4105,6 +5484,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                 request = new ListAssociationsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listAssociationsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListAssociations");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -4140,12 +5523,12 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      *         You do not have permission to access the instance.
      *         </p>
      *         <p>
-     *         The SSM Agent is not running. On managed instances and Linux instances, verify that the SSM Agent is
-     *         running. On EC2 Windows instances, verify that the EC2Config service is running.
+     *         SSM Agent is not running. On managed instances and Linux instances, verify that the SSM Agent is running.
+     *         On EC2 Windows instances, verify that the EC2Config service is running.
      *         </p>
      *         <p>
-     *         The SSM Agent or EC2Config service is not registered to the SSM endpoint. Try reinstalling the SSM Agent
-     *         or EC2Config service.
+     *         SSM Agent or EC2Config service is not registered to the SSM endpoint. Try reinstalling SSM Agent or
+     *         EC2Config service.
      *         </p>
      *         <p>
      *         The instance is not in valid state. Valid states are: Running, Pending, Stopped, Stopping. Invalid states
@@ -4179,6 +5562,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                 request = new ListCommandInvocationsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listCommandInvocationsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListCommandInvocations");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -4212,12 +5599,12 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      *         You do not have permission to access the instance.
      *         </p>
      *         <p>
-     *         The SSM Agent is not running. On managed instances and Linux instances, verify that the SSM Agent is
-     *         running. On EC2 Windows instances, verify that the EC2Config service is running.
+     *         SSM Agent is not running. On managed instances and Linux instances, verify that the SSM Agent is running.
+     *         On EC2 Windows instances, verify that the EC2Config service is running.
      *         </p>
      *         <p>
-     *         The SSM Agent or EC2Config service is not registered to the SSM endpoint. Try reinstalling the SSM Agent
-     *         or EC2Config service.
+     *         SSM Agent or EC2Config service is not registered to the SSM endpoint. Try reinstalling SSM Agent or
+     *         EC2Config service.
      *         </p>
      *         <p>
      *         The instance is not in valid state. Valid states are: Running, Pending, Stopped, Stopping. Invalid states
@@ -4251,12 +5638,143 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                 request = new ListCommandsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listCommandsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListCommands");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
             HttpResponseHandler<AmazonWebServiceResponse<ListCommandsResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListCommandsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * For a specified resource ID, this API action returns a list of compliance statuses for different resource types.
+     * Currently, you can only specify one resource ID per call. List results depend on the criteria specified in the
+     * filter.
+     * </p>
+     * 
+     * @param listComplianceItemsRequest
+     * @return Result of the ListComplianceItems operation returned by the service.
+     * @throws InvalidResourceTypeException
+     *         The resource type is not valid. For example, if you are attempting to tag an instance, the instance must
+     *         be a registered, managed instance.
+     * @throws InvalidResourceIdException
+     *         The resource ID is not valid. Verify that you entered the correct ID and try again.
+     * @throws InternalServerErrorException
+     *         An error occurred on the server side.
+     * @throws InvalidFilterException
+     *         The filter name is not valid. Verify the you entered the correct name and try again.
+     * @throws InvalidNextTokenException
+     *         The specified token is not valid.
+     * @sample AWSSimpleSystemsManagement.ListComplianceItems
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/ListComplianceItems" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public ListComplianceItemsResult listComplianceItems(ListComplianceItemsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListComplianceItems(request);
+    }
+
+    @SdkInternalApi
+    final ListComplianceItemsResult executeListComplianceItems(ListComplianceItemsRequest listComplianceItemsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listComplianceItemsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListComplianceItemsRequest> request = null;
+        Response<ListComplianceItemsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListComplianceItemsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listComplianceItemsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListComplianceItems");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListComplianceItemsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListComplianceItemsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a summary count of compliant and non-compliant resources for a compliance type. For example, this call
+     * can return State Manager associations, patches, or custom compliance types according to the filter criteria that
+     * you specify.
+     * </p>
+     * 
+     * @param listComplianceSummariesRequest
+     * @return Result of the ListComplianceSummaries operation returned by the service.
+     * @throws InvalidFilterException
+     *         The filter name is not valid. Verify the you entered the correct name and try again.
+     * @throws InvalidNextTokenException
+     *         The specified token is not valid.
+     * @throws InternalServerErrorException
+     *         An error occurred on the server side.
+     * @sample AWSSimpleSystemsManagement.ListComplianceSummaries
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/ListComplianceSummaries" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public ListComplianceSummariesResult listComplianceSummaries(ListComplianceSummariesRequest request) {
+        request = beforeClientExecution(request);
+        return executeListComplianceSummaries(request);
+    }
+
+    @SdkInternalApi
+    final ListComplianceSummariesResult executeListComplianceSummaries(ListComplianceSummariesRequest listComplianceSummariesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listComplianceSummariesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListComplianceSummariesRequest> request = null;
+        Response<ListComplianceSummariesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListComplianceSummariesRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listComplianceSummariesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListComplianceSummaries");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListComplianceSummariesResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListComplianceSummariesResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -4305,6 +5823,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                 request = new ListDocumentVersionsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listDocumentVersionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListDocumentVersions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -4323,7 +5845,7 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
 
     /**
      * <p>
-     * Describes one or more of your SSM documents.
+     * Describes one or more of your Systems Manager documents.
      * </p>
      * 
      * @param listDocumentsRequest
@@ -4359,6 +5881,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                 request = new ListDocumentsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listDocumentsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListDocuments");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -4395,12 +5921,12 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      *         You do not have permission to access the instance.
      *         </p>
      *         <p>
-     *         The SSM Agent is not running. On managed instances and Linux instances, verify that the SSM Agent is
-     *         running. On EC2 Windows instances, verify that the EC2Config service is running.
+     *         SSM Agent is not running. On managed instances and Linux instances, verify that the SSM Agent is running.
+     *         On EC2 Windows instances, verify that the EC2Config service is running.
      *         </p>
      *         <p>
-     *         The SSM Agent or EC2Config service is not registered to the SSM endpoint. Try reinstalling the SSM Agent
-     *         or EC2Config service.
+     *         SSM Agent or EC2Config service is not registered to the SSM endpoint. Try reinstalling SSM Agent or
+     *         EC2Config service.
      *         </p>
      *         <p>
      *         The instance is not in valid state. Valid states are: Running, Pending, Stopped, Stopping. Invalid states
@@ -4436,12 +5962,78 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                 request = new ListInventoryEntriesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listInventoryEntriesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListInventoryEntries");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
             HttpResponseHandler<AmazonWebServiceResponse<ListInventoryEntriesResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListInventoryEntriesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a resource-level summary count. The summary includes information about compliant and non-compliant
+     * statuses and detailed compliance-item severity counts, according to the filter criteria you specify.
+     * </p>
+     * 
+     * @param listResourceComplianceSummariesRequest
+     * @return Result of the ListResourceComplianceSummaries operation returned by the service.
+     * @throws InvalidFilterException
+     *         The filter name is not valid. Verify the you entered the correct name and try again.
+     * @throws InvalidNextTokenException
+     *         The specified token is not valid.
+     * @throws InternalServerErrorException
+     *         An error occurred on the server side.
+     * @sample AWSSimpleSystemsManagement.ListResourceComplianceSummaries
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/ListResourceComplianceSummaries"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListResourceComplianceSummariesResult listResourceComplianceSummaries(ListResourceComplianceSummariesRequest request) {
+        request = beforeClientExecution(request);
+        return executeListResourceComplianceSummaries(request);
+    }
+
+    @SdkInternalApi
+    final ListResourceComplianceSummariesResult executeListResourceComplianceSummaries(
+            ListResourceComplianceSummariesRequest listResourceComplianceSummariesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listResourceComplianceSummariesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListResourceComplianceSummariesRequest> request = null;
+        Response<ListResourceComplianceSummariesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListResourceComplianceSummariesRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listResourceComplianceSummariesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListResourceComplianceSummaries");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListResourceComplianceSummariesResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListResourceComplianceSummariesResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -4496,6 +6088,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                 request = new ListResourceDataSyncRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listResourceDataSyncRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListResourceDataSync");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -4520,8 +6116,8 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      * @param listTagsForResourceRequest
      * @return Result of the ListTagsForResource operation returned by the service.
      * @throws InvalidResourceTypeException
-     *         The resource type is not valid. If you are attempting to tag an instance, the instance must be a
-     *         registered, managed instance.
+     *         The resource type is not valid. For example, if you are attempting to tag an instance, the instance must
+     *         be a registered, managed instance.
      * @throws InvalidResourceIdException
      *         The resource ID is not valid. Verify that you entered the correct ID and try again.
      * @throws InternalServerErrorException
@@ -4551,6 +6147,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                 request = new ListTagsForResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTagsForResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTagsForResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -4587,7 +6187,7 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      *         accounts. You can publicly share up to five documents. If you need to increase this limit, contact AWS
      *         Support.
      * @throws DocumentLimitExceededException
-     *         You can have at most 200 active SSM documents.
+     *         You can have at most 200 active Systems Manager documents.
      * @sample AWSSimpleSystemsManagement.ModifyDocumentPermission
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/ModifyDocumentPermission" target="_top">AWS
      *      API Documentation</a>
@@ -4614,6 +6214,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                         .beforeMarshalling(modifyDocumentPermissionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ModifyDocumentPermission");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -4621,6 +6225,157 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
             HttpResponseHandler<AmazonWebServiceResponse<ModifyDocumentPermissionResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
                     new ModifyDocumentPermissionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Registers a compliance type and other compliance details on a designated resource. This action lets you register
+     * custom compliance details with a resource. This call overwrites existing compliance information on the resource,
+     * so you must provide a full list of compliance items each time that you send the request.
+     * </p>
+     * <p>
+     * ComplianceType can be one of the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * ExecutionId: The execution ID when the patch, association, or custom compliance item was applied.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ExecutionType: Specify patch, association, or Custom:<code>string</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ExecutionTime. The time the patch, association, or custom compliance item was applied to the instance.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Id: The patch, association, or custom compliance ID.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Title: A title.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Status: The status of the compliance item. For example, <code>approved</code> for patches, or <code>Failed</code>
+     * for associations.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Severity: A patch severity. For example, <code>critical</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * DocumentName: A SSM document name. For example, AWS-RunPatchBaseline.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * DocumentVersion: An SSM document version number. For example, 4.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Classification: A patch classification. For example, <code>security updates</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * PatchBaselineId: A patch baseline ID.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * PatchSeverity: A patch severity. For example, <code>Critical</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * PatchState: A patch state. For example, <code>InstancesWithFailedPatches</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * PatchGroup: The name of a patch group.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * InstalledTime: The time the association, patch, or custom compliance item was applied to the resource. Specify
+     * the time by using the following format: yyyy-MM-dd'T'HH:mm:ss'Z'
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param putComplianceItemsRequest
+     * @return Result of the PutComplianceItems operation returned by the service.
+     * @throws InternalServerErrorException
+     *         An error occurred on the server side.
+     * @throws InvalidItemContentException
+     *         One or more content items is not valid.
+     * @throws TotalSizeLimitExceededException
+     *         The size of inventory data has exceeded the total size limit for the resource.
+     * @throws ItemSizeLimitExceededException
+     *         The inventory item size has exceeded the size limit.
+     * @throws ComplianceTypeCountLimitExceededException
+     *         You specified too many custom compliance types. You can specify a maximum of 10 different types.
+     * @throws InvalidResourceTypeException
+     *         The resource type is not valid. For example, if you are attempting to tag an instance, the instance must
+     *         be a registered, managed instance.
+     * @throws InvalidResourceIdException
+     *         The resource ID is not valid. Verify that you entered the correct ID and try again.
+     * @sample AWSSimpleSystemsManagement.PutComplianceItems
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/PutComplianceItems" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public PutComplianceItemsResult putComplianceItems(PutComplianceItemsRequest request) {
+        request = beforeClientExecution(request);
+        return executePutComplianceItems(request);
+    }
+
+    @SdkInternalApi
+    final PutComplianceItemsResult executePutComplianceItems(PutComplianceItemsRequest putComplianceItemsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(putComplianceItemsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<PutComplianceItemsRequest> request = null;
+        Response<PutComplianceItemsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new PutComplianceItemsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(putComplianceItemsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutComplianceItems");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<PutComplianceItemsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new PutComplianceItemsResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -4647,12 +6402,12 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      *         You do not have permission to access the instance.
      *         </p>
      *         <p>
-     *         The SSM Agent is not running. On managed instances and Linux instances, verify that the SSM Agent is
-     *         running. On EC2 Windows instances, verify that the EC2Config service is running.
+     *         SSM Agent is not running. On managed instances and Linux instances, verify that the SSM Agent is running.
+     *         On EC2 Windows instances, verify that the EC2Config service is running.
      *         </p>
      *         <p>
-     *         The SSM Agent or EC2Config service is not registered to the SSM endpoint. Try reinstalling the SSM Agent
-     *         or EC2Config service.
+     *         SSM Agent or EC2Config service is not registered to the SSM endpoint. Try reinstalling SSM Agent or
+     *         EC2Config service.
      *         </p>
      *         <p>
      *         The instance is not in valid state. Valid states are: Running, Pending, Stopped, Stopping. Invalid states
@@ -4672,6 +6427,15 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      * @throws UnsupportedInventorySchemaVersionException
      *         Inventory item type schema version has to match supported versions in the service. Check output of
      *         GetInventorySchema to see the available schema version for each type.
+     * @throws UnsupportedInventoryItemContextException
+     *         The <code>Context</code> attribute that you specified for the <code>InventoryItem</code> is not allowed
+     *         for this inventory type. You can only use the <code>Context</code> attribute with inventory types like
+     *         <code>AWS:ComplianceItem</code>.
+     * @throws InvalidInventoryItemContextException
+     *         You specified invalid keys or values in the <code>Context</code> attribute for <code>InventoryItem</code>
+     *         . Verify the keys and values, and try again.
+     * @throws SubTypeCountLimitExceededException
+     *         The sub-type count exceeded the limit for the inventory type.
      * @sample AWSSimpleSystemsManagement.PutInventory
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/PutInventory" target="_top">AWS API
      *      Documentation</a>
@@ -4697,6 +6461,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                 request = new PutInventoryRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(putInventoryRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutInventory");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -4715,7 +6483,7 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
 
     /**
      * <p>
-     * Add one or more parameters to the system.
+     * Add a parameter to the system.
      * </p>
      * 
      * @param putParameterRequest
@@ -4732,19 +6500,16 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      * @throws ParameterAlreadyExistsException
      *         The parameter already exists. You can't create duplicate parameters.
      * @throws HierarchyLevelLimitExceededException
-     *         A hierarchy can have a maximum of five levels. For example:</p>
-     *         <p>
-     *         /Finance/Prod/IAD/OS/WinServ2016/license15
-     *         </p>
-     *         <p>
-     *         For more information, see <a
-     *         href="http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-working.html">Working
-     *         with Systems Manager Parameters</a>.
+     *         A hierarchy can have a maximum of 15 levels. For more information, see <a href=
+     *         "http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-parameter-name-constraints.html"
+     *         >Requirements and Constraints for Parameter Names</a> in the <i>AWS Systems Manager User Guide</i>.
      * @throws HierarchyTypeMismatchException
      *         Parameter Store does not support changing a parameter type in a hierarchy. For example, you can't change
      *         a parameter from a String type to a SecureString type. You must create a new, unique parameter.
      * @throws InvalidAllowedPatternException
      *         The request does not meet the regular expression requirement.
+     * @throws ParameterMaxVersionLimitExceededException
+     *         The parameter exceeded the maximum number of allowed versions.
      * @throws ParameterPatternMismatchException
      *         The parameter name is not valid.
      * @throws UnsupportedParameterTypeException
@@ -4774,6 +6539,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                 request = new PutParameterRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(putParameterRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutParameter");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -4800,7 +6569,12 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      * @throws InvalidResourceIdException
      *         The resource ID is not valid. Verify that you entered the correct ID and try again.
      * @throws DoesNotExistException
-     *         Error returned when the ID specified for a resource (e.g. a Maintenance Window) doesn't exist.
+     *         Error returned when the ID specified for a resource, such as a Maintenance Window or Patch baseline,
+     *         doesn't exist.</p>
+     *         <p>
+     *         For information about resource limits in Systems Manager, see <a
+     *         href="http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_ssm">AWS Systems
+     *         Manager Limits</a>.
      * @throws InternalServerErrorException
      *         An error occurred on the server side.
      * @sample AWSSimpleSystemsManagement.RegisterDefaultPatchBaseline
@@ -4829,6 +6603,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                         .beforeMarshalling(registerDefaultPatchBaselineRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RegisterDefaultPatchBaseline");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -4857,12 +6635,22 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      *         Error returned if an attempt is made to register a patch group with a patch baseline that is already
      *         registered with a different patch baseline.
      * @throws DoesNotExistException
-     *         Error returned when the ID specified for a resource (e.g. a Maintenance Window) doesn't exist.
+     *         Error returned when the ID specified for a resource, such as a Maintenance Window or Patch baseline,
+     *         doesn't exist.</p>
+     *         <p>
+     *         For information about resource limits in Systems Manager, see <a
+     *         href="http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_ssm">AWS Systems
+     *         Manager Limits</a>.
      * @throws InvalidResourceIdException
      *         The resource ID is not valid. Verify that you entered the correct ID and try again.
      * @throws ResourceLimitExceededException
-     *         Error returned when the caller has exceeded the default resource limits (e.g. too many Maintenance
-     *         Windows have been created).
+     *         Error returned when the caller has exceeded the default resource limits. For example, too many
+     *         Maintenance Windows or Patch baselines have been created.
+     *         </p>
+     *         <p>
+     *         For information about resource limits in Systems Manager, see <a
+     *         href="http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_ssm">AWS Systems
+     *         Manager Limits</a>.
      * @throws InternalServerErrorException
      *         An error occurred on the server side.
      * @sample AWSSimpleSystemsManagement.RegisterPatchBaselineForPatchGroup
@@ -4892,6 +6680,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                         .beforeMarshalling(registerPatchBaselineForPatchGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RegisterPatchBaselineForPatchGroup");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -4920,10 +6712,20 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      *         Error returned when an idempotent operation is retried and the parameters don't match the original call
      *         to the API with the same idempotency token.
      * @throws DoesNotExistException
-     *         Error returned when the ID specified for a resource (e.g. a Maintenance Window) doesn't exist.
+     *         Error returned when the ID specified for a resource, such as a Maintenance Window or Patch baseline,
+     *         doesn't exist.</p>
+     *         <p>
+     *         For information about resource limits in Systems Manager, see <a
+     *         href="http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_ssm">AWS Systems
+     *         Manager Limits</a>.
      * @throws ResourceLimitExceededException
-     *         Error returned when the caller has exceeded the default resource limits (e.g. too many Maintenance
-     *         Windows have been created).
+     *         Error returned when the caller has exceeded the default resource limits. For example, too many
+     *         Maintenance Windows or Patch baselines have been created.
+     *         </p>
+     *         <p>
+     *         For information about resource limits in Systems Manager, see <a
+     *         href="http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_ssm">AWS Systems
+     *         Manager Limits</a>.
      * @throws InternalServerErrorException
      *         An error occurred on the server side.
      * @sample AWSSimpleSystemsManagement.RegisterTargetWithMaintenanceWindow
@@ -4953,6 +6755,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                         .beforeMarshalling(registerTargetWithMaintenanceWindowRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RegisterTargetWithMaintenanceWindow");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -4981,10 +6787,23 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      *         Error returned when an idempotent operation is retried and the parameters don't match the original call
      *         to the API with the same idempotency token.
      * @throws DoesNotExistException
-     *         Error returned when the ID specified for a resource (e.g. a Maintenance Window) doesn't exist.
+     *         Error returned when the ID specified for a resource, such as a Maintenance Window or Patch baseline,
+     *         doesn't exist.</p>
+     *         <p>
+     *         For information about resource limits in Systems Manager, see <a
+     *         href="http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_ssm">AWS Systems
+     *         Manager Limits</a>.
      * @throws ResourceLimitExceededException
-     *         Error returned when the caller has exceeded the default resource limits (e.g. too many Maintenance
-     *         Windows have been created).
+     *         Error returned when the caller has exceeded the default resource limits. For example, too many
+     *         Maintenance Windows or Patch baselines have been created.
+     *         </p>
+     *         <p>
+     *         For information about resource limits in Systems Manager, see <a
+     *         href="http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_ssm">AWS Systems
+     *         Manager Limits</a>.
+     * @throws FeatureNotAvailableException
+     *         You attempted to register a LAMBDA or STEP_FUNCTION task in a region where the corresponding service is
+     *         not available.
      * @throws InternalServerErrorException
      *         An error occurred on the server side.
      * @sample AWSSimpleSystemsManagement.RegisterTaskWithMaintenanceWindow
@@ -5014,6 +6833,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                         .beforeMarshalling(registerTaskWithMaintenanceWindowRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RegisterTaskWithMaintenanceWindow");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -5039,12 +6862,14 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      * @param removeTagsFromResourceRequest
      * @return Result of the RemoveTagsFromResource operation returned by the service.
      * @throws InvalidResourceTypeException
-     *         The resource type is not valid. If you are attempting to tag an instance, the instance must be a
-     *         registered, managed instance.
+     *         The resource type is not valid. For example, if you are attempting to tag an instance, the instance must
+     *         be a registered, managed instance.
      * @throws InvalidResourceIdException
      *         The resource ID is not valid. Verify that you entered the correct ID and try again.
      * @throws InternalServerErrorException
      *         An error occurred on the server side.
+     * @throws TooManyUpdatesException
+     *         There are concurrent updates for a resource that supports one update at a time.
      * @sample AWSSimpleSystemsManagement.RemoveTagsFromResource
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/RemoveTagsFromResource" target="_top">AWS API
      *      Documentation</a>
@@ -5070,6 +6895,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                 request = new RemoveTagsFromResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(removeTagsFromResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RemoveTagsFromResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -5077,6 +6906,134 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
             HttpResponseHandler<AmazonWebServiceResponse<RemoveTagsFromResourceResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
                     new RemoveTagsFromResourceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Reconnects a session to an instance after it has been disconnected. Connections can be resumed for disconnected
+     * sessions, but not terminated sessions.
+     * </p>
+     * <note>
+     * <p>
+     * This command is primarily for use by client machines to automatically reconnect during intermittent network
+     * issues. It is not intended for any other use.
+     * </p>
+     * </note>
+     * 
+     * @param resumeSessionRequest
+     * @return Result of the ResumeSession operation returned by the service.
+     * @throws DoesNotExistException
+     *         Error returned when the ID specified for a resource, such as a Maintenance Window or Patch baseline,
+     *         doesn't exist.</p>
+     *         <p>
+     *         For information about resource limits in Systems Manager, see <a
+     *         href="http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_ssm">AWS Systems
+     *         Manager Limits</a>.
+     * @throws InternalServerErrorException
+     *         An error occurred on the server side.
+     * @sample AWSSimpleSystemsManagement.ResumeSession
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/ResumeSession" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public ResumeSessionResult resumeSession(ResumeSessionRequest request) {
+        request = beforeClientExecution(request);
+        return executeResumeSession(request);
+    }
+
+    @SdkInternalApi
+    final ResumeSessionResult executeResumeSession(ResumeSessionRequest resumeSessionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(resumeSessionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ResumeSessionRequest> request = null;
+        Response<ResumeSessionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ResumeSessionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(resumeSessionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ResumeSession");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ResumeSessionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ResumeSessionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Sends a signal to an Automation execution to change the current behavior or status of the execution.
+     * </p>
+     * 
+     * @param sendAutomationSignalRequest
+     * @return Result of the SendAutomationSignal operation returned by the service.
+     * @throws AutomationExecutionNotFoundException
+     *         There is no automation execution information for the requested automation execution ID.
+     * @throws AutomationStepNotFoundException
+     *         The specified step name and execution ID don't exist. Verify the information and try again.
+     * @throws InvalidAutomationSignalException
+     *         The signal is not valid for the current Automation execution.
+     * @throws InternalServerErrorException
+     *         An error occurred on the server side.
+     * @sample AWSSimpleSystemsManagement.SendAutomationSignal
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/SendAutomationSignal" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public SendAutomationSignalResult sendAutomationSignal(SendAutomationSignalRequest request) {
+        request = beforeClientExecution(request);
+        return executeSendAutomationSignal(request);
+    }
+
+    @SdkInternalApi
+    final SendAutomationSignalResult executeSendAutomationSignal(SendAutomationSignalRequest sendAutomationSignalRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(sendAutomationSignalRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<SendAutomationSignalRequest> request = null;
+        Response<SendAutomationSignalResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new SendAutomationSignalRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(sendAutomationSignalRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "SendAutomationSignal");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<SendAutomationSignalResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new SendAutomationSignalResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -5104,23 +7061,25 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      *         You do not have permission to access the instance.
      *         </p>
      *         <p>
-     *         The SSM Agent is not running. On managed instances and Linux instances, verify that the SSM Agent is
-     *         running. On EC2 Windows instances, verify that the EC2Config service is running.
+     *         SSM Agent is not running. On managed instances and Linux instances, verify that the SSM Agent is running.
+     *         On EC2 Windows instances, verify that the EC2Config service is running.
      *         </p>
      *         <p>
-     *         The SSM Agent or EC2Config service is not registered to the SSM endpoint. Try reinstalling the SSM Agent
-     *         or EC2Config service.
+     *         SSM Agent or EC2Config service is not registered to the SSM endpoint. Try reinstalling SSM Agent or
+     *         EC2Config service.
      *         </p>
      *         <p>
      *         The instance is not in valid state. Valid states are: Running, Pending, Stopped, Stopping. Invalid states
      *         are: Shutting-down and Terminated.
      * @throws InvalidDocumentException
      *         The specified document does not exist.
+     * @throws InvalidDocumentVersionException
+     *         The document version is not valid or does not exist.
      * @throws InvalidOutputFolderException
      *         The S3 bucket does not exist.
      * @throws InvalidParametersException
-     *         You must specify values for all required parameters in the SSM document. You can only supply values to
-     *         parameters defined in the SSM document.
+     *         You must specify values for all required parameters in the Systems Manager document. You can only supply
+     *         values to parameters defined in the Systems Manager document.
      * @throws UnsupportedPlatformTypeException
      *         The document does not support the platform type of the given instance ID(s). For example, you sent an
      *         document for a Windows instance to a Linux instance.
@@ -5131,7 +7090,7 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      *         notifications that includes the required trust policy. For information about configuring the IAM role for
      *         Run Command notifications, see <a
      *         href="http://docs.aws.amazon.com/systems-manager/latest/userguide/rc-sns-notifications.html">Configuring
-     *         Amazon SNS Notifications for Run Command</a> in the <i>Amazon EC2 Systems Manager User Guide</i>.
+     *         Amazon SNS Notifications for Run Command</a> in the <i>AWS Systems Manager User Guide</i>.
      * @throws InvalidNotificationConfigException
      *         One or more configuration items is not valid. Verify that a valid Amazon Resource Name (ARN) was provided
      *         for an Amazon SNS topic.
@@ -5160,12 +7119,74 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                 request = new SendCommandRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(sendCommandRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "SendCommand");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
             HttpResponseHandler<AmazonWebServiceResponse<SendCommandResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new SendCommandResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Use this API action to execute an association immediately and only one time. This action can be helpful when
+     * troubleshooting associations.
+     * </p>
+     * 
+     * @param startAssociationsOnceRequest
+     * @return Result of the StartAssociationsOnce operation returned by the service.
+     * @throws InvalidAssociationException
+     *         The association is not valid or does not exist.
+     * @throws AssociationDoesNotExistException
+     *         The specified association does not exist.
+     * @sample AWSSimpleSystemsManagement.StartAssociationsOnce
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/StartAssociationsOnce" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public StartAssociationsOnceResult startAssociationsOnce(StartAssociationsOnceRequest request) {
+        request = beforeClientExecution(request);
+        return executeStartAssociationsOnce(request);
+    }
+
+    @SdkInternalApi
+    final StartAssociationsOnceResult executeStartAssociationsOnce(StartAssociationsOnceRequest startAssociationsOnceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(startAssociationsOnceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<StartAssociationsOnceRequest> request = null;
+        Response<StartAssociationsOnceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new StartAssociationsOnceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(startAssociationsOnceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartAssociationsOnce");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<StartAssociationsOnceResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new StartAssociationsOnceResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -5192,6 +7213,12 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      *         The number of simultaneously running Automation executions exceeded the allowable limit.
      * @throws AutomationDefinitionVersionNotFoundException
      *         An Automation document with the specified name and version could not be found.
+     * @throws IdempotentParameterMismatchException
+     *         Error returned when an idempotent operation is retried and the parameters don't match the original call
+     *         to the API with the same idempotency token.
+     * @throws InvalidTargetException
+     *         The target is not valid or does not exist. It might not be configured for EC2 Systems Manager or you
+     *         might not have permission to perform the operation.
      * @throws InternalServerErrorException
      *         An error occurred on the server side.
      * @sample AWSSimpleSystemsManagement.StartAutomationExecution
@@ -5220,6 +7247,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                         .beforeMarshalling(startAutomationExecutionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartAutomationExecution");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -5239,6 +7270,76 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
 
     /**
      * <p>
+     * Initiates a connection to a target (for example, an instance) for a Session Manager session. Returns a URL and
+     * token that can be used to open a WebSocket connection for sending input and receiving outputs.
+     * </p>
+     * <note>
+     * <p>
+     * AWS CLI usage: <code>start-session</code> is an interactive command that requires the Session Manager plugin to
+     * be installed on the client machine making the call. For information, see <a href=
+     * "http://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html">
+     * Install the Session Manager Plugin for the AWS CLI</a> in the <i>AWS Systems Manager User Guide</i>.
+     * </p>
+     * </note>
+     * 
+     * @param startSessionRequest
+     * @return Result of the StartSession operation returned by the service.
+     * @throws InvalidDocumentException
+     *         The specified document does not exist.
+     * @throws TargetNotConnectedException
+     *         The specified target instance for the session is not fully configured for use with Session Manager. For
+     *         more information, see <a
+     *         href="http://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-getting-started.html"
+     *         >Getting Started with Session Manager</a> in the <i>AWS Systems Manager User Guide</i>.
+     * @throws InternalServerErrorException
+     *         An error occurred on the server side.
+     * @sample AWSSimpleSystemsManagement.StartSession
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/StartSession" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public StartSessionResult startSession(StartSessionRequest request) {
+        request = beforeClientExecution(request);
+        return executeStartSession(request);
+    }
+
+    @SdkInternalApi
+    final StartSessionResult executeStartSession(StartSessionRequest startSessionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(startSessionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<StartSessionRequest> request = null;
+        Response<StartSessionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new StartSessionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(startSessionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartSession");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<StartSessionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new StartSessionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Stop an Automation that is currently executing.
      * </p>
      * 
@@ -5246,6 +7347,8 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      * @return Result of the StopAutomationExecution operation returned by the service.
      * @throws AutomationExecutionNotFoundException
      *         There is no automation execution information for the requested automation execution ID.
+     * @throws InvalidAutomationStatusUpdateException
+     *         The specified update status operation is not valid.
      * @throws InternalServerErrorException
      *         An error occurred on the server side.
      * @sample AWSSimpleSystemsManagement.StopAutomationExecution
@@ -5274,6 +7377,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                         .beforeMarshalling(stopAutomationExecutionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StopAutomationExecution");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -5293,8 +7400,70 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
 
     /**
      * <p>
-     * Updates an association. You can only update the document version, schedule, parameters, and Amazon S3 output of
-     * an association.
+     * Permanently ends a session and closes the data connection between the Session Manager client and SSM Agent on the
+     * instance. A terminated session cannot be resumed.
+     * </p>
+     * 
+     * @param terminateSessionRequest
+     * @return Result of the TerminateSession operation returned by the service.
+     * @throws DoesNotExistException
+     *         Error returned when the ID specified for a resource, such as a Maintenance Window or Patch baseline,
+     *         doesn't exist.</p>
+     *         <p>
+     *         For information about resource limits in Systems Manager, see <a
+     *         href="http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_ssm">AWS Systems
+     *         Manager Limits</a>.
+     * @throws InternalServerErrorException
+     *         An error occurred on the server side.
+     * @sample AWSSimpleSystemsManagement.TerminateSession
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/TerminateSession" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public TerminateSessionResult terminateSession(TerminateSessionRequest request) {
+        request = beforeClientExecution(request);
+        return executeTerminateSession(request);
+    }
+
+    @SdkInternalApi
+    final TerminateSessionResult executeTerminateSession(TerminateSessionRequest terminateSessionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(terminateSessionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<TerminateSessionRequest> request = null;
+        Response<TerminateSessionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new TerminateSessionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(terminateSessionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TerminateSession");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<TerminateSessionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new TerminateSessionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates an association. You can update the association name and version, the document version, schedule,
+     * parameters, and Amazon S3 output.
      * </p>
      * 
      * @param updateAssociationRequest
@@ -5304,8 +7473,8 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      * @throws InvalidScheduleException
      *         The schedule is invalid. Verify your cron or rate expression and try again.
      * @throws InvalidParametersException
-     *         You must specify values for all required parameters in the SSM document. You can only supply values to
-     *         parameters defined in the SSM document.
+     *         You must specify values for all required parameters in the Systems Manager document. You can only supply
+     *         values to parameters defined in the Systems Manager document.
      * @throws InvalidOutputLocationException
      *         The output location is not valid or does not exist.
      * @throws InvalidDocumentVersionException
@@ -5321,6 +7490,13 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      * @throws InvalidTargetException
      *         The target is not valid or does not exist. It might not be configured for EC2 Systems Manager or you
      *         might not have permission to perform the operation.
+     * @throws InvalidAssociationVersionException
+     *         The version you specified is not valid. Use ListAssociationVersions to view all versions of an
+     *         association according to the association ID. Or, use the <code>$LATEST</code> parameter to view the
+     *         latest version of the association.
+     * @throws AssociationVersionLimitExceededException
+     *         You have reached the maximum number versions allowed for an association. Each association has a limit of
+     *         1,000 versions.
      * @sample AWSSimpleSystemsManagement.UpdateAssociation
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/UpdateAssociation" target="_top">AWS API
      *      Documentation</a>
@@ -5346,6 +7522,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                 request = new UpdateAssociationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateAssociationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateAssociation");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -5377,12 +7557,12 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      *         You do not have permission to access the instance.
      *         </p>
      *         <p>
-     *         The SSM Agent is not running. On managed instances and Linux instances, verify that the SSM Agent is
-     *         running. On EC2 Windows instances, verify that the EC2Config service is running.
+     *         SSM Agent is not running. On managed instances and Linux instances, verify that the SSM Agent is running.
+     *         On EC2 Windows instances, verify that the EC2Config service is running.
      *         </p>
      *         <p>
-     *         The SSM Agent or EC2Config service is not registered to the SSM endpoint. Try reinstalling the SSM Agent
-     *         or EC2Config service.
+     *         SSM Agent or EC2Config service is not registered to the SSM endpoint. Try reinstalling SSM Agent or
+     *         EC2Config service.
      *         </p>
      *         <p>
      *         The instance is not in valid state. Valid states are: Running, Pending, Stopped, Stopping. Invalid states
@@ -5421,6 +7601,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                         .beforeMarshalling(updateAssociationStatusRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateAssociationStatus");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -5454,6 +7638,9 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      * @throws DuplicateDocumentContentException
      *         The content of the association document matches another document. Change the content of the document and
      *         try again.
+     * @throws DuplicateDocumentVersionNameException
+     *         The version name has already been used in this document. Specify a different version name, and then try
+     *         again.
      * @throws InvalidDocumentContentException
      *         The content for the document is not valid.
      * @throws InvalidDocumentVersionException
@@ -5462,6 +7649,9 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      *         The version of the document schema is not supported.
      * @throws InvalidDocumentException
      *         The specified document does not exist.
+     * @throws InvalidDocumentOperationException
+     *         You attempted to delete a document while it is still shared. You must stop sharing the document before
+     *         you can delete it.
      * @sample AWSSimpleSystemsManagement.UpdateDocument
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/UpdateDocument" target="_top">AWS API
      *      Documentation</a>
@@ -5487,6 +7677,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                 request = new UpdateDocumentRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateDocumentRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateDocument");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -5544,6 +7738,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                         .beforeMarshalling(updateDocumentDefaultVersionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateDocumentDefaultVersion");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -5569,7 +7767,12 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      * @param updateMaintenanceWindowRequest
      * @return Result of the UpdateMaintenanceWindow operation returned by the service.
      * @throws DoesNotExistException
-     *         Error returned when the ID specified for a resource (e.g. a Maintenance Window) doesn't exist.
+     *         Error returned when the ID specified for a resource, such as a Maintenance Window or Patch baseline,
+     *         doesn't exist.</p>
+     *         <p>
+     *         For information about resource limits in Systems Manager, see <a
+     *         href="http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_ssm">AWS Systems
+     *         Manager Limits</a>.
      * @throws InternalServerErrorException
      *         An error occurred on the server side.
      * @sample AWSSimpleSystemsManagement.UpdateMaintenanceWindow
@@ -5598,6 +7801,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                         .beforeMarshalling(updateMaintenanceWindowRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateMaintenanceWindow");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -5605,6 +7812,192 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
             HttpResponseHandler<AmazonWebServiceResponse<UpdateMaintenanceWindowResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
                     new UpdateMaintenanceWindowResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Modifies the target of an existing Maintenance Window. You can't change the target type, but you can change the
+     * following:
+     * </p>
+     * <p>
+     * The target from being an ID target to a Tag target, or a Tag target to an ID target.
+     * </p>
+     * <p>
+     * IDs for an ID target.
+     * </p>
+     * <p>
+     * Tags for a Tag target.
+     * </p>
+     * <p>
+     * Owner.
+     * </p>
+     * <p>
+     * Name.
+     * </p>
+     * <p>
+     * Description.
+     * </p>
+     * <p>
+     * If a parameter is null, then the corresponding field is not modified.
+     * </p>
+     * 
+     * @param updateMaintenanceWindowTargetRequest
+     * @return Result of the UpdateMaintenanceWindowTarget operation returned by the service.
+     * @throws DoesNotExistException
+     *         Error returned when the ID specified for a resource, such as a Maintenance Window or Patch baseline,
+     *         doesn't exist.</p>
+     *         <p>
+     *         For information about resource limits in Systems Manager, see <a
+     *         href="http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_ssm">AWS Systems
+     *         Manager Limits</a>.
+     * @throws InternalServerErrorException
+     *         An error occurred on the server side.
+     * @sample AWSSimpleSystemsManagement.UpdateMaintenanceWindowTarget
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/UpdateMaintenanceWindowTarget"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdateMaintenanceWindowTargetResult updateMaintenanceWindowTarget(UpdateMaintenanceWindowTargetRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateMaintenanceWindowTarget(request);
+    }
+
+    @SdkInternalApi
+    final UpdateMaintenanceWindowTargetResult executeUpdateMaintenanceWindowTarget(UpdateMaintenanceWindowTargetRequest updateMaintenanceWindowTargetRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateMaintenanceWindowTargetRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateMaintenanceWindowTargetRequest> request = null;
+        Response<UpdateMaintenanceWindowTargetResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateMaintenanceWindowTargetRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(updateMaintenanceWindowTargetRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateMaintenanceWindowTarget");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateMaintenanceWindowTargetResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new UpdateMaintenanceWindowTargetResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Modifies a task assigned to a Maintenance Window. You can't change the task type, but you can change the
+     * following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * TaskARN. For example, you can change a RUN_COMMAND task from AWS-RunPowerShellScript to AWS-RunShellScript.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * ServiceRoleArn
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * TaskInvocationParameters
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Priority
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * MaxConcurrency
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * MaxErrors
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If a parameter is null, then the corresponding field is not modified. Also, if you set Replace to true, then all
+     * fields required by the <a>RegisterTaskWithMaintenanceWindow</a> action are required for this request. Optional
+     * fields that aren't specified are set to null.
+     * </p>
+     * 
+     * @param updateMaintenanceWindowTaskRequest
+     * @return Result of the UpdateMaintenanceWindowTask operation returned by the service.
+     * @throws DoesNotExistException
+     *         Error returned when the ID specified for a resource, such as a Maintenance Window or Patch baseline,
+     *         doesn't exist.</p>
+     *         <p>
+     *         For information about resource limits in Systems Manager, see <a
+     *         href="http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_ssm">AWS Systems
+     *         Manager Limits</a>.
+     * @throws InternalServerErrorException
+     *         An error occurred on the server side.
+     * @sample AWSSimpleSystemsManagement.UpdateMaintenanceWindowTask
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/UpdateMaintenanceWindowTask"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdateMaintenanceWindowTaskResult updateMaintenanceWindowTask(UpdateMaintenanceWindowTaskRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateMaintenanceWindowTask(request);
+    }
+
+    @SdkInternalApi
+    final UpdateMaintenanceWindowTaskResult executeUpdateMaintenanceWindowTask(UpdateMaintenanceWindowTaskRequest updateMaintenanceWindowTaskRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateMaintenanceWindowTaskRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateMaintenanceWindowTaskRequest> request = null;
+        Response<UpdateMaintenanceWindowTaskResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateMaintenanceWindowTaskRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(updateMaintenanceWindowTaskRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateMaintenanceWindowTask");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateMaintenanceWindowTaskResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new UpdateMaintenanceWindowTaskResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -5628,12 +8021,12 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      *         You do not have permission to access the instance.
      *         </p>
      *         <p>
-     *         The SSM Agent is not running. On managed instances and Linux instances, verify that the SSM Agent is
-     *         running. On EC2 Windows instances, verify that the EC2Config service is running.
+     *         SSM Agent is not running. On managed instances and Linux instances, verify that the SSM Agent is running.
+     *         On EC2 Windows instances, verify that the EC2Config service is running.
      *         </p>
      *         <p>
-     *         The SSM Agent or EC2Config service is not registered to the SSM endpoint. Try reinstalling the SSM Agent
-     *         or EC2Config service.
+     *         SSM Agent or EC2Config service is not registered to the SSM endpoint. Try reinstalling SSM Agent or
+     *         EC2Config service.
      *         </p>
      *         <p>
      *         The instance is not in valid state. Valid states are: Running, Pending, Stopped, Stopping. Invalid states
@@ -5666,6 +8059,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                         .beforeMarshalling(updateManagedInstanceRoleRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateManagedInstanceRole");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -5687,11 +8084,23 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      * <p>
      * Modifies an existing patch baseline. Fields not specified in the request are left unchanged.
      * </p>
+     * <note>
+     * <p>
+     * For information about valid key and value pairs in <code>PatchFilters</code> for each supported operating system
+     * type, see <a
+     * href="http://docs.aws.amazon.com/systems-manager/latest/APIReference/API_PatchFilter.html">PatchFilter</a>.
+     * </p>
+     * </note>
      * 
      * @param updatePatchBaselineRequest
      * @return Result of the UpdatePatchBaseline operation returned by the service.
      * @throws DoesNotExistException
-     *         Error returned when the ID specified for a resource (e.g. a Maintenance Window) doesn't exist.
+     *         Error returned when the ID specified for a resource, such as a Maintenance Window or Patch baseline,
+     *         doesn't exist.</p>
+     *         <p>
+     *         For information about resource limits in Systems Manager, see <a
+     *         href="http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_ssm">AWS Systems
+     *         Manager Limits</a>.
      * @throws InternalServerErrorException
      *         An error occurred on the server side.
      * @sample AWSSimpleSystemsManagement.UpdatePatchBaseline
@@ -5719,6 +8128,10 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
                 request = new UpdatePatchBaselineRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updatePatchBaselineRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "SSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdatePatchBaseline");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -5759,9 +8172,18 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
     private <X, Y extends AmazonWebServiceRequest> Response<X> invoke(Request<Y> request, HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler,
             ExecutionContext executionContext) {
 
+        return invoke(request, responseHandler, executionContext, null, null);
+    }
+
+    /**
+     * Normal invoke with authentication. Credentials are required and may be overriden at the request level.
+     **/
+    private <X, Y extends AmazonWebServiceRequest> Response<X> invoke(Request<Y> request, HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler,
+            ExecutionContext executionContext, URI cachedEndpoint, URI uriFromEndpointTrait) {
+
         executionContext.setCredentialsProvider(CredentialUtils.getCredentialsProvider(request.getOriginalRequest(), awsCredentialsProvider));
 
-        return doInvoke(request, responseHandler, executionContext);
+        return doInvoke(request, responseHandler, executionContext, cachedEndpoint, uriFromEndpointTrait);
     }
 
     /**
@@ -5771,7 +8193,7 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
     private <X, Y extends AmazonWebServiceRequest> Response<X> anonymousInvoke(Request<Y> request,
             HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler, ExecutionContext executionContext) {
 
-        return doInvoke(request, responseHandler, executionContext);
+        return doInvoke(request, responseHandler, executionContext, null, null);
     }
 
     /**
@@ -5779,13 +8201,27 @@ public class AWSSimpleSystemsManagementClient extends AmazonWebServiceClient imp
      * ExecutionContext beforehand.
      **/
     private <X, Y extends AmazonWebServiceRequest> Response<X> doInvoke(Request<Y> request, HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler,
-            ExecutionContext executionContext) {
-        request.setEndpoint(endpoint);
+            ExecutionContext executionContext, URI discoveredEndpoint, URI uriFromEndpointTrait) {
+
+        if (discoveredEndpoint != null) {
+            request.setEndpoint(discoveredEndpoint);
+            request.getOriginalRequest().getRequestClientOptions().appendUserAgent("endpoint-discovery");
+        } else if (uriFromEndpointTrait != null) {
+            request.setEndpoint(uriFromEndpointTrait);
+        } else {
+            request.setEndpoint(endpoint);
+        }
+
         request.setTimeOffset(timeOffset);
 
         HttpResponseHandler<AmazonServiceException> errorResponseHandler = protocolFactory.createErrorResponseHandler(new JsonErrorResponseMetadata());
 
         return client.execute(request, responseHandler, errorResponseHandler, executionContext);
+    }
+
+    @com.amazonaws.annotation.SdkInternalApi
+    static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
+        return protocolFactory;
     }
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -43,6 +43,8 @@ public class UpdateUserPoolRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("EmailVerificationMessage").build();
     private static final MarshallingInfo<String> EMAILVERIFICATIONSUBJECT_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("EmailVerificationSubject").build();
+    private static final MarshallingInfo<StructuredPojo> VERIFICATIONMESSAGETEMPLATE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("VerificationMessageTemplate").build();
     private static final MarshallingInfo<String> SMSAUTHENTICATIONMESSAGE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SmsAuthenticationMessage").build();
     private static final MarshallingInfo<String> MFACONFIGURATION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
@@ -57,6 +59,8 @@ public class UpdateUserPoolRequestMarshaller {
             .marshallLocationName("UserPoolTags").build();
     private static final MarshallingInfo<StructuredPojo> ADMINCREATEUSERCONFIG_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AdminCreateUserConfig").build();
+    private static final MarshallingInfo<StructuredPojo> USERPOOLADDONS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("UserPoolAddOns").build();
 
     private static final UpdateUserPoolRequestMarshaller instance = new UpdateUserPoolRequestMarshaller();
 
@@ -81,6 +85,7 @@ public class UpdateUserPoolRequestMarshaller {
             protocolMarshaller.marshall(updateUserPoolRequest.getSmsVerificationMessage(), SMSVERIFICATIONMESSAGE_BINDING);
             protocolMarshaller.marshall(updateUserPoolRequest.getEmailVerificationMessage(), EMAILVERIFICATIONMESSAGE_BINDING);
             protocolMarshaller.marshall(updateUserPoolRequest.getEmailVerificationSubject(), EMAILVERIFICATIONSUBJECT_BINDING);
+            protocolMarshaller.marshall(updateUserPoolRequest.getVerificationMessageTemplate(), VERIFICATIONMESSAGETEMPLATE_BINDING);
             protocolMarshaller.marshall(updateUserPoolRequest.getSmsAuthenticationMessage(), SMSAUTHENTICATIONMESSAGE_BINDING);
             protocolMarshaller.marshall(updateUserPoolRequest.getMfaConfiguration(), MFACONFIGURATION_BINDING);
             protocolMarshaller.marshall(updateUserPoolRequest.getDeviceConfiguration(), DEVICECONFIGURATION_BINDING);
@@ -88,6 +93,7 @@ public class UpdateUserPoolRequestMarshaller {
             protocolMarshaller.marshall(updateUserPoolRequest.getSmsConfiguration(), SMSCONFIGURATION_BINDING);
             protocolMarshaller.marshall(updateUserPoolRequest.getUserPoolTags(), USERPOOLTAGS_BINDING);
             protocolMarshaller.marshall(updateUserPoolRequest.getAdminCreateUserConfig(), ADMINCREATEUSERCONFIG_BINDING);
+            protocolMarshaller.marshall(updateUserPoolRequest.getUserPoolAddOns(), USERPOOLADDONS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

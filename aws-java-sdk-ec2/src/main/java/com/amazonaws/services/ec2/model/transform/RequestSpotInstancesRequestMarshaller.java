@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -91,11 +91,6 @@ public class RequestSpotInstancesRequestMarshaller implements Marshaller<Request
                     EbsBlockDevice ebs = launchSpecificationBlockDeviceMappingsListValue.getEbs();
                     if (ebs != null) {
 
-                        if (ebs.getEncrypted() != null) {
-                            request.addParameter("LaunchSpecification.BlockDeviceMapping." + blockDeviceMappingsListIndex + ".Ebs.Encrypted",
-                                    StringUtils.fromBoolean(ebs.getEncrypted()));
-                        }
-
                         if (ebs.getDeleteOnTermination() != null) {
                             request.addParameter("LaunchSpecification.BlockDeviceMapping." + blockDeviceMappingsListIndex + ".Ebs.DeleteOnTermination",
                                     StringUtils.fromBoolean(ebs.getDeleteOnTermination()));
@@ -119,6 +114,16 @@ public class RequestSpotInstancesRequestMarshaller implements Marshaller<Request
                         if (ebs.getVolumeType() != null) {
                             request.addParameter("LaunchSpecification.BlockDeviceMapping." + blockDeviceMappingsListIndex + ".Ebs.VolumeType",
                                     StringUtils.fromString(ebs.getVolumeType()));
+                        }
+
+                        if (ebs.getEncrypted() != null) {
+                            request.addParameter("LaunchSpecification.BlockDeviceMapping." + blockDeviceMappingsListIndex + ".Ebs.Encrypted",
+                                    StringUtils.fromBoolean(ebs.getEncrypted()));
+                        }
+
+                        if (ebs.getKmsKeyId() != null) {
+                            request.addParameter("LaunchSpecification.BlockDeviceMapping." + blockDeviceMappingsListIndex + ".Ebs.KmsKeyId",
+                                    StringUtils.fromString(ebs.getKmsKeyId()));
                         }
                     }
 
@@ -348,6 +353,10 @@ public class RequestSpotInstancesRequestMarshaller implements Marshaller<Request
 
         if (requestSpotInstancesRequest.getValidUntil() != null) {
             request.addParameter("ValidUntil", StringUtils.fromDate(requestSpotInstancesRequest.getValidUntil()));
+        }
+
+        if (requestSpotInstancesRequest.getInstanceInterruptionBehavior() != null) {
+            request.addParameter("InstanceInterruptionBehavior", StringUtils.fromString(requestSpotInstancesRequest.getInstanceInterruptionBehavior()));
         }
 
         return request;

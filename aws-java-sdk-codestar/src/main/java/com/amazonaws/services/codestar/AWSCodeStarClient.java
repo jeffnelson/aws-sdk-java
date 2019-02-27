@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -37,6 +37,8 @@ import com.amazonaws.protocol.json.*;
 import com.amazonaws.util.AWSRequestMetrics.Field;
 import com.amazonaws.annotation.ThreadSafe;
 import com.amazonaws.client.AwsSyncClientParams;
+import com.amazonaws.client.builder.AdvancedConfig;
+
 import com.amazonaws.services.codestar.AWSCodeStarClientBuilder;
 
 import com.amazonaws.AmazonServiceException;
@@ -62,27 +64,42 @@ import com.amazonaws.services.codestar.model.transform.*;
  * <ul>
  * <li>
  * <p>
- * <a>DeleteProject</a>, which deletes a project in AWS CodeStar.
+ * <code>DeleteProject</code>, which deletes a project.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>DescribeProject</a>, which lists the attributes of a project.
+ * <code>DescribeProject</code>, which lists the attributes of a project.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>ListProjects</a>, which lists all AWS CodeStar projects associated with your AWS account.
+ * <code>ListProjects</code>, which lists all projects associated with your AWS account.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>ListResources</a>, which lists the resources associated with an AWS CodeStar project.
+ * <code>ListResources</code>, which lists the resources associated with a project.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>UpdateProject</a>, which updates the attributes of an AWS CodeStar project.
+ * <code>ListTagsForProject</code>, which lists the tags associated with a project.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <code>TagProject</code>, which adds tags to a project.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <code>UntagProject</code>, which removes tags from a project.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <code>UpdateProject</code>, which updates the attributes of a project.
  * </p>
  * </li>
  * </ul>
@@ -92,18 +109,23 @@ import com.amazonaws.services.codestar.model.transform.*;
  * <ul>
  * <li>
  * <p>
- * <a>AssociateTeamMember</a>, which adds an IAM user to the team for an AWS CodeStar project.
+ * <code>AssociateTeamMember</code>, which adds an IAM user to the team for a project.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>DisassociateTeamMember</a>, which removes an IAM user from the team for an AWS CodeStar project.
+ * <code>DisassociateTeamMember</code>, which removes an IAM user from the team for a project.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>ListTeamMembers</a>, which lists all the IAM users in the team for an AWS CodeStar project, including their roles
- * and attributes.
+ * <code>ListTeamMembers</code>, which lists all the IAM users in the team for a project, including their roles and
+ * attributes.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <code>UpdateTeamMember</code>, which updates a team member's attributes in a project.
  * </p>
  * </li>
  * </ul>
@@ -113,28 +135,28 @@ import com.amazonaws.services.codestar.model.transform.*;
  * <ul>
  * <li>
  * <p>
- * <a>CreateUserProfile</a>, which creates a user profile that contains data associated with the user across all AWS
- * CodeStar projects.
+ * <code>CreateUserProfile</code>, which creates a user profile that contains data associated with the user across all
+ * projects.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>DeleteUserProfile</a>, which deletes all user profile information across all AWS CodeStar projects.
+ * <code>DeleteUserProfile</code>, which deletes all user profile information across all projects.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>DescribeUserProfile</a>, which describes the profile of a user.
+ * <code>DescribeUserProfile</code>, which describes the profile of a user.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>ListUserProfiles</a>, which lists all AWS CodeStar user profiles.
+ * <code>ListUserProfiles</code>, which lists all user profiles.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>UpdateUserProfile</a>, which updates the profile for an AWS CodeStar user.
+ * <code>UpdateUserProfile</code>, which updates the profile for a user.
  * </p>
  * </li>
  * </ul>
@@ -142,6 +164,7 @@ import com.amazonaws.services.codestar.model.transform.*;
 @ThreadSafe
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class AWSCodeStarClient extends AmazonWebServiceClient implements AWSCodeStar {
+
     /** Provider for AWS credentials. */
     private final AWSCredentialsProvider awsCredentialsProvider;
 
@@ -153,7 +176,9 @@ public class AWSCodeStarClient extends AmazonWebServiceClient implements AWSCode
     /** Client configuration factory providing ClientConfigurations tailored to this client */
     protected static final ClientConfigurationFactory configFactory = new ClientConfigurationFactory();
 
-    private final com.amazonaws.protocol.json.SdkJsonProtocolFactory protocolFactory = new com.amazonaws.protocol.json.SdkJsonProtocolFactory(
+    private final AdvancedConfig advancedConfig;
+
+    private static final com.amazonaws.protocol.json.SdkJsonProtocolFactory protocolFactory = new com.amazonaws.protocol.json.SdkJsonProtocolFactory(
             new JsonClientMetadata()
                     .withProtocolVersion("1.1")
                     .withSupportsCbor(false)
@@ -161,9 +186,6 @@ public class AWSCodeStarClient extends AmazonWebServiceClient implements AWSCode
                     .addErrorMetadata(
                             new JsonErrorShapeMetadata().withErrorCode("ConcurrentModificationException").withModeledClass(
                                     com.amazonaws.services.codestar.model.ConcurrentModificationException.class))
-                    .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("ValidationException").withModeledClass(
-                                    com.amazonaws.services.codestar.model.ValidationException.class))
                     .addErrorMetadata(
                             new JsonErrorShapeMetadata().withErrorCode("InvalidServiceRoleException").withModeledClass(
                                     com.amazonaws.services.codestar.model.InvalidServiceRoleException.class))
@@ -177,9 +199,6 @@ public class AWSCodeStarClient extends AmazonWebServiceClient implements AWSCode
                             new JsonErrorShapeMetadata().withErrorCode("ProjectConfigurationException").withModeledClass(
                                     com.amazonaws.services.codestar.model.ProjectConfigurationException.class))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("TeamMemberNotFoundException").withModeledClass(
-                                    com.amazonaws.services.codestar.model.TeamMemberNotFoundException.class))
-                    .addErrorMetadata(
                             new JsonErrorShapeMetadata().withErrorCode("ProjectNotFoundException").withModeledClass(
                                     com.amazonaws.services.codestar.model.ProjectNotFoundException.class))
                     .addErrorMetadata(
@@ -191,6 +210,12 @@ public class AWSCodeStarClient extends AmazonWebServiceClient implements AWSCode
                     .addErrorMetadata(
                             new JsonErrorShapeMetadata().withErrorCode("UserProfileNotFoundException").withModeledClass(
                                     com.amazonaws.services.codestar.model.UserProfileNotFoundException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ValidationException").withModeledClass(
+                                    com.amazonaws.services.codestar.model.ValidationException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("TeamMemberNotFoundException").withModeledClass(
+                                    com.amazonaws.services.codestar.model.TeamMemberNotFoundException.class))
                     .addErrorMetadata(
                             new JsonErrorShapeMetadata().withErrorCode("InvalidNextTokenException").withModeledClass(
                                     com.amazonaws.services.codestar.model.InvalidNextTokenException.class))
@@ -214,8 +239,23 @@ public class AWSCodeStarClient extends AmazonWebServiceClient implements AWSCode
      *        Object providing client parameters.
      */
     AWSCodeStarClient(AwsSyncClientParams clientParams) {
+        this(clientParams, false);
+    }
+
+    /**
+     * Constructs a new client to invoke service methods on CodeStar using the specified parameters.
+     *
+     * <p>
+     * All service calls made using this new client object are blocking, and will not return until the service call
+     * completes.
+     *
+     * @param clientParams
+     *        Object providing client parameters.
+     */
+    AWSCodeStarClient(AwsSyncClientParams clientParams, boolean endpointDiscoveryEnabled) {
         super(clientParams);
         this.awsCredentialsProvider = clientParams.getCredentialsProvider();
+        this.advancedConfig = clientParams.getAdvancedConfig();
         init();
     }
 
@@ -276,6 +316,10 @@ public class AWSCodeStarClient extends AmazonWebServiceClient implements AWSCode
                 request = new AssociateTeamMemberRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(associateTeamMemberRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeStar");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AssociateTeamMember");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -294,7 +338,9 @@ public class AWSCodeStarClient extends AmazonWebServiceClient implements AWSCode
 
     /**
      * <p>
-     * Reserved for future use. To create a project, use the AWS CodeStar console.
+     * Creates a project, including project resources. This action creates a project based on a submitted project
+     * request. A set of source code files and a toolchain template file can be included with the project request. If
+     * these are not provided, an empty project is created.
      * </p>
      * 
      * @param createProjectRequest
@@ -340,6 +386,10 @@ public class AWSCodeStarClient extends AmazonWebServiceClient implements AWSCode
                 request = new CreateProjectRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createProjectRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeStar");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateProject");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -395,6 +445,10 @@ public class AWSCodeStarClient extends AmazonWebServiceClient implements AWSCode
                 request = new CreateUserProfileRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createUserProfileRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeStar");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateUserProfile");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -450,6 +504,10 @@ public class AWSCodeStarClient extends AmazonWebServiceClient implements AWSCode
                 request = new DeleteProjectRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteProjectRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeStar");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteProject");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -502,6 +560,10 @@ public class AWSCodeStarClient extends AmazonWebServiceClient implements AWSCode
                 request = new DeleteUserProfileRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteUserProfileRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeStar");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteUserProfile");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -560,6 +622,10 @@ public class AWSCodeStarClient extends AmazonWebServiceClient implements AWSCode
                 request = new DescribeProjectRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeProjectRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeStar");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeProject");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -612,6 +678,10 @@ public class AWSCodeStarClient extends AmazonWebServiceClient implements AWSCode
                 request = new DescribeUserProfileRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeUserProfileRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeStar");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeUserProfile");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -670,6 +740,10 @@ public class AWSCodeStarClient extends AmazonWebServiceClient implements AWSCode
                 request = new DisassociateTeamMemberRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(disassociateTeamMemberRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeStar");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DisassociateTeamMember");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -723,6 +797,10 @@ public class AWSCodeStarClient extends AmazonWebServiceClient implements AWSCode
                 request = new ListProjectsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listProjectsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeStar");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListProjects");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -777,12 +855,74 @@ public class AWSCodeStarClient extends AmazonWebServiceClient implements AWSCode
                 request = new ListResourcesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listResourcesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeStar");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListResources");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
             HttpResponseHandler<AmazonWebServiceResponse<ListResourcesResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListResourcesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets the tags for a project.
+     * </p>
+     * 
+     * @param listTagsForProjectRequest
+     * @return Result of the ListTagsForProject operation returned by the service.
+     * @throws ProjectNotFoundException
+     *         The specified AWS CodeStar project was not found.
+     * @throws ValidationException
+     *         The specified input is either not valid, or it could not be validated.
+     * @throws InvalidNextTokenException
+     *         The next token is not valid.
+     * @sample AWSCodeStar.ListTagsForProject
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codestar-2017-04-19/ListTagsForProject" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public ListTagsForProjectResult listTagsForProject(ListTagsForProjectRequest request) {
+        request = beforeClientExecution(request);
+        return executeListTagsForProject(request);
+    }
+
+    @SdkInternalApi
+    final ListTagsForProjectResult executeListTagsForProject(ListTagsForProjectRequest listTagsForProjectRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listTagsForProjectRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListTagsForProjectRequest> request = null;
+        Response<ListTagsForProjectResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListTagsForProjectRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTagsForProjectRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeStar");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTagsForProject");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListTagsForProjectResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListTagsForProjectResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -831,6 +971,10 @@ public class AWSCodeStarClient extends AmazonWebServiceClient implements AWSCode
                 request = new ListTeamMembersRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTeamMembersRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeStar");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTeamMembers");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -883,12 +1027,136 @@ public class AWSCodeStarClient extends AmazonWebServiceClient implements AWSCode
                 request = new ListUserProfilesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listUserProfilesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeStar");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListUserProfiles");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
             HttpResponseHandler<AmazonWebServiceResponse<ListUserProfilesResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListUserProfilesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Adds tags to a project.
+     * </p>
+     * 
+     * @param tagProjectRequest
+     * @return Result of the TagProject operation returned by the service.
+     * @throws ProjectNotFoundException
+     *         The specified AWS CodeStar project was not found.
+     * @throws ValidationException
+     *         The specified input is either not valid, or it could not be validated.
+     * @throws LimitExceededException
+     *         A resource limit has been exceeded.
+     * @throws ConcurrentModificationException
+     *         Another modification is being made. That modification must complete before you can make your change.
+     * @sample AWSCodeStar.TagProject
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codestar-2017-04-19/TagProject" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public TagProjectResult tagProject(TagProjectRequest request) {
+        request = beforeClientExecution(request);
+        return executeTagProject(request);
+    }
+
+    @SdkInternalApi
+    final TagProjectResult executeTagProject(TagProjectRequest tagProjectRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(tagProjectRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<TagProjectRequest> request = null;
+        Response<TagProjectResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new TagProjectRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(tagProjectRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeStar");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TagProject");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<TagProjectResult>> responseHandler = protocolFactory.createResponseHandler(new JsonOperationMetadata()
+                    .withPayloadJson(true).withHasStreamingSuccessResponse(false), new TagProjectResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Removes tags from a project.
+     * </p>
+     * 
+     * @param untagProjectRequest
+     * @return Result of the UntagProject operation returned by the service.
+     * @throws ProjectNotFoundException
+     *         The specified AWS CodeStar project was not found.
+     * @throws ValidationException
+     *         The specified input is either not valid, or it could not be validated.
+     * @throws LimitExceededException
+     *         A resource limit has been exceeded.
+     * @throws ConcurrentModificationException
+     *         Another modification is being made. That modification must complete before you can make your change.
+     * @sample AWSCodeStar.UntagProject
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codestar-2017-04-19/UntagProject" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public UntagProjectResult untagProject(UntagProjectRequest request) {
+        request = beforeClientExecution(request);
+        return executeUntagProject(request);
+    }
+
+    @SdkInternalApi
+    final UntagProjectResult executeUntagProject(UntagProjectRequest untagProjectRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(untagProjectRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UntagProjectRequest> request = null;
+        Response<UntagProjectResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UntagProjectRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(untagProjectRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeStar");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UntagProject");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UntagProjectResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UntagProjectResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -935,6 +1203,10 @@ public class AWSCodeStarClient extends AmazonWebServiceClient implements AWSCode
                 request = new UpdateProjectRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateProjectRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeStar");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateProject");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -998,6 +1270,10 @@ public class AWSCodeStarClient extends AmazonWebServiceClient implements AWSCode
                 request = new UpdateTeamMemberRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateTeamMemberRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeStar");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateTeamMember");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1051,6 +1327,10 @@ public class AWSCodeStarClient extends AmazonWebServiceClient implements AWSCode
                 request = new UpdateUserProfileRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateUserProfileRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodeStar");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateUserProfile");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1091,9 +1371,18 @@ public class AWSCodeStarClient extends AmazonWebServiceClient implements AWSCode
     private <X, Y extends AmazonWebServiceRequest> Response<X> invoke(Request<Y> request, HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler,
             ExecutionContext executionContext) {
 
+        return invoke(request, responseHandler, executionContext, null, null);
+    }
+
+    /**
+     * Normal invoke with authentication. Credentials are required and may be overriden at the request level.
+     **/
+    private <X, Y extends AmazonWebServiceRequest> Response<X> invoke(Request<Y> request, HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler,
+            ExecutionContext executionContext, URI cachedEndpoint, URI uriFromEndpointTrait) {
+
         executionContext.setCredentialsProvider(CredentialUtils.getCredentialsProvider(request.getOriginalRequest(), awsCredentialsProvider));
 
-        return doInvoke(request, responseHandler, executionContext);
+        return doInvoke(request, responseHandler, executionContext, cachedEndpoint, uriFromEndpointTrait);
     }
 
     /**
@@ -1103,7 +1392,7 @@ public class AWSCodeStarClient extends AmazonWebServiceClient implements AWSCode
     private <X, Y extends AmazonWebServiceRequest> Response<X> anonymousInvoke(Request<Y> request,
             HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler, ExecutionContext executionContext) {
 
-        return doInvoke(request, responseHandler, executionContext);
+        return doInvoke(request, responseHandler, executionContext, null, null);
     }
 
     /**
@@ -1111,13 +1400,27 @@ public class AWSCodeStarClient extends AmazonWebServiceClient implements AWSCode
      * ExecutionContext beforehand.
      **/
     private <X, Y extends AmazonWebServiceRequest> Response<X> doInvoke(Request<Y> request, HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler,
-            ExecutionContext executionContext) {
-        request.setEndpoint(endpoint);
+            ExecutionContext executionContext, URI discoveredEndpoint, URI uriFromEndpointTrait) {
+
+        if (discoveredEndpoint != null) {
+            request.setEndpoint(discoveredEndpoint);
+            request.getOriginalRequest().getRequestClientOptions().appendUserAgent("endpoint-discovery");
+        } else if (uriFromEndpointTrait != null) {
+            request.setEndpoint(uriFromEndpointTrait);
+        } else {
+            request.setEndpoint(endpoint);
+        }
+
         request.setTimeOffset(timeOffset);
 
         HttpResponseHandler<AmazonServiceException> errorResponseHandler = protocolFactory.createErrorResponseHandler(new JsonErrorResponseMetadata());
 
         return client.execute(request, responseHandler, errorResponseHandler, executionContext);
+    }
+
+    @com.amazonaws.annotation.SdkInternalApi
+    static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
+        return protocolFactory;
     }
 
 }

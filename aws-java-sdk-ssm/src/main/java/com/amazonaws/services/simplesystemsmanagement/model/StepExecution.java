@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -40,6 +40,24 @@ public class StepExecution implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private String action;
+    /**
+     * <p>
+     * The timeout seconds of the step.
+     * </p>
+     */
+    private Long timeoutSeconds;
+    /**
+     * <p>
+     * The action to take if the step fails. The default value is Abort.
+     * </p>
+     */
+    private String onFailure;
+    /**
+     * <p>
+     * The maximum number of tries to run the action of the step. The default value is 1.
+     * </p>
+     */
+    private Integer maxAttempts;
     /**
      * <p>
      * If a step has begun execution, this contains the time the step started. If the step is in Pending status, this
@@ -97,6 +115,56 @@ public class StepExecution implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private FailureDetails failureDetails;
+    /**
+     * <p>
+     * The unique ID of a step execution.
+     * </p>
+     */
+    private String stepExecutionId;
+    /**
+     * <p>
+     * A user-specified list of parameters to override when executing a step.
+     * </p>
+     */
+    private java.util.Map<String, java.util.List<String>> overriddenParameters;
+    /**
+     * <p>
+     * The flag which can be used to end automation no matter whether the step succeeds or fails.
+     * </p>
+     */
+    private Boolean isEnd;
+    /**
+     * <p>
+     * The next step after the step succeeds.
+     * </p>
+     */
+    private String nextStep;
+    /**
+     * <p>
+     * The flag which can be used to help decide whether the failure of current step leads to the Automation failure.
+     * </p>
+     */
+    private Boolean isCritical;
+    /**
+     * <p>
+     * Strategies used when step fails, we support Continue and Abort. Abort will fail the automation when the step
+     * fails. Continue will ignore the failure of current step and allow automation to execute the next step. With
+     * conditional branching, we add step:stepName to support the automation to go to another specific step.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> validNextSteps;
+    /**
+     * <p>
+     * The targets for the step execution.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<Target> targets;
+    /**
+     * <p>
+     * The combination of AWS Regions and accounts targeted by the current Automation execution.
+     * </p>
+     */
+    private TargetLocation targetLocation;
 
     /**
      * <p>
@@ -175,6 +243,126 @@ public class StepExecution implements Serializable, Cloneable, StructuredPojo {
 
     public StepExecution withAction(String action) {
         setAction(action);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The timeout seconds of the step.
+     * </p>
+     * 
+     * @param timeoutSeconds
+     *        The timeout seconds of the step.
+     */
+
+    public void setTimeoutSeconds(Long timeoutSeconds) {
+        this.timeoutSeconds = timeoutSeconds;
+    }
+
+    /**
+     * <p>
+     * The timeout seconds of the step.
+     * </p>
+     * 
+     * @return The timeout seconds of the step.
+     */
+
+    public Long getTimeoutSeconds() {
+        return this.timeoutSeconds;
+    }
+
+    /**
+     * <p>
+     * The timeout seconds of the step.
+     * </p>
+     * 
+     * @param timeoutSeconds
+     *        The timeout seconds of the step.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StepExecution withTimeoutSeconds(Long timeoutSeconds) {
+        setTimeoutSeconds(timeoutSeconds);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The action to take if the step fails. The default value is Abort.
+     * </p>
+     * 
+     * @param onFailure
+     *        The action to take if the step fails. The default value is Abort.
+     */
+
+    public void setOnFailure(String onFailure) {
+        this.onFailure = onFailure;
+    }
+
+    /**
+     * <p>
+     * The action to take if the step fails. The default value is Abort.
+     * </p>
+     * 
+     * @return The action to take if the step fails. The default value is Abort.
+     */
+
+    public String getOnFailure() {
+        return this.onFailure;
+    }
+
+    /**
+     * <p>
+     * The action to take if the step fails. The default value is Abort.
+     * </p>
+     * 
+     * @param onFailure
+     *        The action to take if the step fails. The default value is Abort.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StepExecution withOnFailure(String onFailure) {
+        setOnFailure(onFailure);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The maximum number of tries to run the action of the step. The default value is 1.
+     * </p>
+     * 
+     * @param maxAttempts
+     *        The maximum number of tries to run the action of the step. The default value is 1.
+     */
+
+    public void setMaxAttempts(Integer maxAttempts) {
+        this.maxAttempts = maxAttempts;
+    }
+
+    /**
+     * <p>
+     * The maximum number of tries to run the action of the step. The default value is 1.
+     * </p>
+     * 
+     * @return The maximum number of tries to run the action of the step. The default value is 1.
+     */
+
+    public Integer getMaxAttempts() {
+        return this.maxAttempts;
+    }
+
+    /**
+     * <p>
+     * The maximum number of tries to run the action of the step. The default value is 1.
+     * </p>
+     * 
+     * @param maxAttempts
+     *        The maximum number of tries to run the action of the step. The default value is 1.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StepExecution withMaxAttempts(Integer maxAttempts) {
+        setMaxAttempts(maxAttempts);
         return this;
     }
 
@@ -636,7 +824,463 @@ public class StepExecution implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * <p>
+     * The unique ID of a step execution.
+     * </p>
+     * 
+     * @param stepExecutionId
+     *        The unique ID of a step execution.
+     */
+
+    public void setStepExecutionId(String stepExecutionId) {
+        this.stepExecutionId = stepExecutionId;
+    }
+
+    /**
+     * <p>
+     * The unique ID of a step execution.
+     * </p>
+     * 
+     * @return The unique ID of a step execution.
+     */
+
+    public String getStepExecutionId() {
+        return this.stepExecutionId;
+    }
+
+    /**
+     * <p>
+     * The unique ID of a step execution.
+     * </p>
+     * 
+     * @param stepExecutionId
+     *        The unique ID of a step execution.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StepExecution withStepExecutionId(String stepExecutionId) {
+        setStepExecutionId(stepExecutionId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A user-specified list of parameters to override when executing a step.
+     * </p>
+     * 
+     * @return A user-specified list of parameters to override when executing a step.
+     */
+
+    public java.util.Map<String, java.util.List<String>> getOverriddenParameters() {
+        return overriddenParameters;
+    }
+
+    /**
+     * <p>
+     * A user-specified list of parameters to override when executing a step.
+     * </p>
+     * 
+     * @param overriddenParameters
+     *        A user-specified list of parameters to override when executing a step.
+     */
+
+    public void setOverriddenParameters(java.util.Map<String, java.util.List<String>> overriddenParameters) {
+        this.overriddenParameters = overriddenParameters;
+    }
+
+    /**
+     * <p>
+     * A user-specified list of parameters to override when executing a step.
+     * </p>
+     * 
+     * @param overriddenParameters
+     *        A user-specified list of parameters to override when executing a step.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StepExecution withOverriddenParameters(java.util.Map<String, java.util.List<String>> overriddenParameters) {
+        setOverriddenParameters(overriddenParameters);
+        return this;
+    }
+
+    public StepExecution addOverriddenParametersEntry(String key, java.util.List<String> value) {
+        if (null == this.overriddenParameters) {
+            this.overriddenParameters = new java.util.HashMap<String, java.util.List<String>>();
+        }
+        if (this.overriddenParameters.containsKey(key))
+            throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
+        this.overriddenParameters.put(key, value);
+        return this;
+    }
+
+    /**
+     * Removes all the entries added into OverriddenParameters.
+     *
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StepExecution clearOverriddenParametersEntries() {
+        this.overriddenParameters = null;
+        return this;
+    }
+
+    /**
+     * <p>
+     * The flag which can be used to end automation no matter whether the step succeeds or fails.
+     * </p>
+     * 
+     * @param isEnd
+     *        The flag which can be used to end automation no matter whether the step succeeds or fails.
+     */
+
+    public void setIsEnd(Boolean isEnd) {
+        this.isEnd = isEnd;
+    }
+
+    /**
+     * <p>
+     * The flag which can be used to end automation no matter whether the step succeeds or fails.
+     * </p>
+     * 
+     * @return The flag which can be used to end automation no matter whether the step succeeds or fails.
+     */
+
+    public Boolean getIsEnd() {
+        return this.isEnd;
+    }
+
+    /**
+     * <p>
+     * The flag which can be used to end automation no matter whether the step succeeds or fails.
+     * </p>
+     * 
+     * @param isEnd
+     *        The flag which can be used to end automation no matter whether the step succeeds or fails.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StepExecution withIsEnd(Boolean isEnd) {
+        setIsEnd(isEnd);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The flag which can be used to end automation no matter whether the step succeeds or fails.
+     * </p>
+     * 
+     * @return The flag which can be used to end automation no matter whether the step succeeds or fails.
+     */
+
+    public Boolean isEnd() {
+        return this.isEnd;
+    }
+
+    /**
+     * <p>
+     * The next step after the step succeeds.
+     * </p>
+     * 
+     * @param nextStep
+     *        The next step after the step succeeds.
+     */
+
+    public void setNextStep(String nextStep) {
+        this.nextStep = nextStep;
+    }
+
+    /**
+     * <p>
+     * The next step after the step succeeds.
+     * </p>
+     * 
+     * @return The next step after the step succeeds.
+     */
+
+    public String getNextStep() {
+        return this.nextStep;
+    }
+
+    /**
+     * <p>
+     * The next step after the step succeeds.
+     * </p>
+     * 
+     * @param nextStep
+     *        The next step after the step succeeds.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StepExecution withNextStep(String nextStep) {
+        setNextStep(nextStep);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The flag which can be used to help decide whether the failure of current step leads to the Automation failure.
+     * </p>
+     * 
+     * @param isCritical
+     *        The flag which can be used to help decide whether the failure of current step leads to the Automation
+     *        failure.
+     */
+
+    public void setIsCritical(Boolean isCritical) {
+        this.isCritical = isCritical;
+    }
+
+    /**
+     * <p>
+     * The flag which can be used to help decide whether the failure of current step leads to the Automation failure.
+     * </p>
+     * 
+     * @return The flag which can be used to help decide whether the failure of current step leads to the Automation
+     *         failure.
+     */
+
+    public Boolean getIsCritical() {
+        return this.isCritical;
+    }
+
+    /**
+     * <p>
+     * The flag which can be used to help decide whether the failure of current step leads to the Automation failure.
+     * </p>
+     * 
+     * @param isCritical
+     *        The flag which can be used to help decide whether the failure of current step leads to the Automation
+     *        failure.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StepExecution withIsCritical(Boolean isCritical) {
+        setIsCritical(isCritical);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The flag which can be used to help decide whether the failure of current step leads to the Automation failure.
+     * </p>
+     * 
+     * @return The flag which can be used to help decide whether the failure of current step leads to the Automation
+     *         failure.
+     */
+
+    public Boolean isCritical() {
+        return this.isCritical;
+    }
+
+    /**
+     * <p>
+     * Strategies used when step fails, we support Continue and Abort. Abort will fail the automation when the step
+     * fails. Continue will ignore the failure of current step and allow automation to execute the next step. With
+     * conditional branching, we add step:stepName to support the automation to go to another specific step.
+     * </p>
+     * 
+     * @return Strategies used when step fails, we support Continue and Abort. Abort will fail the automation when the
+     *         step fails. Continue will ignore the failure of current step and allow automation to execute the next
+     *         step. With conditional branching, we add step:stepName to support the automation to go to another
+     *         specific step.
+     */
+
+    public java.util.List<String> getValidNextSteps() {
+        if (validNextSteps == null) {
+            validNextSteps = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return validNextSteps;
+    }
+
+    /**
+     * <p>
+     * Strategies used when step fails, we support Continue and Abort. Abort will fail the automation when the step
+     * fails. Continue will ignore the failure of current step and allow automation to execute the next step. With
+     * conditional branching, we add step:stepName to support the automation to go to another specific step.
+     * </p>
+     * 
+     * @param validNextSteps
+     *        Strategies used when step fails, we support Continue and Abort. Abort will fail the automation when the
+     *        step fails. Continue will ignore the failure of current step and allow automation to execute the next
+     *        step. With conditional branching, we add step:stepName to support the automation to go to another specific
+     *        step.
+     */
+
+    public void setValidNextSteps(java.util.Collection<String> validNextSteps) {
+        if (validNextSteps == null) {
+            this.validNextSteps = null;
+            return;
+        }
+
+        this.validNextSteps = new com.amazonaws.internal.SdkInternalList<String>(validNextSteps);
+    }
+
+    /**
+     * <p>
+     * Strategies used when step fails, we support Continue and Abort. Abort will fail the automation when the step
+     * fails. Continue will ignore the failure of current step and allow automation to execute the next step. With
+     * conditional branching, we add step:stepName to support the automation to go to another specific step.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setValidNextSteps(java.util.Collection)} or {@link #withValidNextSteps(java.util.Collection)} if you want
+     * to override the existing values.
+     * </p>
+     * 
+     * @param validNextSteps
+     *        Strategies used when step fails, we support Continue and Abort. Abort will fail the automation when the
+     *        step fails. Continue will ignore the failure of current step and allow automation to execute the next
+     *        step. With conditional branching, we add step:stepName to support the automation to go to another specific
+     *        step.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StepExecution withValidNextSteps(String... validNextSteps) {
+        if (this.validNextSteps == null) {
+            setValidNextSteps(new com.amazonaws.internal.SdkInternalList<String>(validNextSteps.length));
+        }
+        for (String ele : validNextSteps) {
+            this.validNextSteps.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Strategies used when step fails, we support Continue and Abort. Abort will fail the automation when the step
+     * fails. Continue will ignore the failure of current step and allow automation to execute the next step. With
+     * conditional branching, we add step:stepName to support the automation to go to another specific step.
+     * </p>
+     * 
+     * @param validNextSteps
+     *        Strategies used when step fails, we support Continue and Abort. Abort will fail the automation when the
+     *        step fails. Continue will ignore the failure of current step and allow automation to execute the next
+     *        step. With conditional branching, we add step:stepName to support the automation to go to another specific
+     *        step.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StepExecution withValidNextSteps(java.util.Collection<String> validNextSteps) {
+        setValidNextSteps(validNextSteps);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The targets for the step execution.
+     * </p>
+     * 
+     * @return The targets for the step execution.
+     */
+
+    public java.util.List<Target> getTargets() {
+        if (targets == null) {
+            targets = new com.amazonaws.internal.SdkInternalList<Target>();
+        }
+        return targets;
+    }
+
+    /**
+     * <p>
+     * The targets for the step execution.
+     * </p>
+     * 
+     * @param targets
+     *        The targets for the step execution.
+     */
+
+    public void setTargets(java.util.Collection<Target> targets) {
+        if (targets == null) {
+            this.targets = null;
+            return;
+        }
+
+        this.targets = new com.amazonaws.internal.SdkInternalList<Target>(targets);
+    }
+
+    /**
+     * <p>
+     * The targets for the step execution.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTargets(java.util.Collection)} or {@link #withTargets(java.util.Collection)} if you want to override
+     * the existing values.
+     * </p>
+     * 
+     * @param targets
+     *        The targets for the step execution.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StepExecution withTargets(Target... targets) {
+        if (this.targets == null) {
+            setTargets(new com.amazonaws.internal.SdkInternalList<Target>(targets.length));
+        }
+        for (Target ele : targets) {
+            this.targets.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The targets for the step execution.
+     * </p>
+     * 
+     * @param targets
+     *        The targets for the step execution.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StepExecution withTargets(java.util.Collection<Target> targets) {
+        setTargets(targets);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The combination of AWS Regions and accounts targeted by the current Automation execution.
+     * </p>
+     * 
+     * @param targetLocation
+     *        The combination of AWS Regions and accounts targeted by the current Automation execution.
+     */
+
+    public void setTargetLocation(TargetLocation targetLocation) {
+        this.targetLocation = targetLocation;
+    }
+
+    /**
+     * <p>
+     * The combination of AWS Regions and accounts targeted by the current Automation execution.
+     * </p>
+     * 
+     * @return The combination of AWS Regions and accounts targeted by the current Automation execution.
+     */
+
+    public TargetLocation getTargetLocation() {
+        return this.targetLocation;
+    }
+
+    /**
+     * <p>
+     * The combination of AWS Regions and accounts targeted by the current Automation execution.
+     * </p>
+     * 
+     * @param targetLocation
+     *        The combination of AWS Regions and accounts targeted by the current Automation execution.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public StepExecution withTargetLocation(TargetLocation targetLocation) {
+        setTargetLocation(targetLocation);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -650,6 +1294,12 @@ public class StepExecution implements Serializable, Cloneable, StructuredPojo {
             sb.append("StepName: ").append(getStepName()).append(",");
         if (getAction() != null)
             sb.append("Action: ").append(getAction()).append(",");
+        if (getTimeoutSeconds() != null)
+            sb.append("TimeoutSeconds: ").append(getTimeoutSeconds()).append(",");
+        if (getOnFailure() != null)
+            sb.append("OnFailure: ").append(getOnFailure()).append(",");
+        if (getMaxAttempts() != null)
+            sb.append("MaxAttempts: ").append(getMaxAttempts()).append(",");
         if (getExecutionStartTime() != null)
             sb.append("ExecutionStartTime: ").append(getExecutionStartTime()).append(",");
         if (getExecutionEndTime() != null)
@@ -667,7 +1317,23 @@ public class StepExecution implements Serializable, Cloneable, StructuredPojo {
         if (getFailureMessage() != null)
             sb.append("FailureMessage: ").append(getFailureMessage()).append(",");
         if (getFailureDetails() != null)
-            sb.append("FailureDetails: ").append(getFailureDetails());
+            sb.append("FailureDetails: ").append(getFailureDetails()).append(",");
+        if (getStepExecutionId() != null)
+            sb.append("StepExecutionId: ").append(getStepExecutionId()).append(",");
+        if (getOverriddenParameters() != null)
+            sb.append("OverriddenParameters: ").append(getOverriddenParameters()).append(",");
+        if (getIsEnd() != null)
+            sb.append("IsEnd: ").append(getIsEnd()).append(",");
+        if (getNextStep() != null)
+            sb.append("NextStep: ").append(getNextStep()).append(",");
+        if (getIsCritical() != null)
+            sb.append("IsCritical: ").append(getIsCritical()).append(",");
+        if (getValidNextSteps() != null)
+            sb.append("ValidNextSteps: ").append(getValidNextSteps()).append(",");
+        if (getTargets() != null)
+            sb.append("Targets: ").append(getTargets()).append(",");
+        if (getTargetLocation() != null)
+            sb.append("TargetLocation: ").append(getTargetLocation());
         sb.append("}");
         return sb.toString();
     }
@@ -689,6 +1355,18 @@ public class StepExecution implements Serializable, Cloneable, StructuredPojo {
         if (other.getAction() == null ^ this.getAction() == null)
             return false;
         if (other.getAction() != null && other.getAction().equals(this.getAction()) == false)
+            return false;
+        if (other.getTimeoutSeconds() == null ^ this.getTimeoutSeconds() == null)
+            return false;
+        if (other.getTimeoutSeconds() != null && other.getTimeoutSeconds().equals(this.getTimeoutSeconds()) == false)
+            return false;
+        if (other.getOnFailure() == null ^ this.getOnFailure() == null)
+            return false;
+        if (other.getOnFailure() != null && other.getOnFailure().equals(this.getOnFailure()) == false)
+            return false;
+        if (other.getMaxAttempts() == null ^ this.getMaxAttempts() == null)
+            return false;
+        if (other.getMaxAttempts() != null && other.getMaxAttempts().equals(this.getMaxAttempts()) == false)
             return false;
         if (other.getExecutionStartTime() == null ^ this.getExecutionStartTime() == null)
             return false;
@@ -726,6 +1404,38 @@ public class StepExecution implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getFailureDetails() != null && other.getFailureDetails().equals(this.getFailureDetails()) == false)
             return false;
+        if (other.getStepExecutionId() == null ^ this.getStepExecutionId() == null)
+            return false;
+        if (other.getStepExecutionId() != null && other.getStepExecutionId().equals(this.getStepExecutionId()) == false)
+            return false;
+        if (other.getOverriddenParameters() == null ^ this.getOverriddenParameters() == null)
+            return false;
+        if (other.getOverriddenParameters() != null && other.getOverriddenParameters().equals(this.getOverriddenParameters()) == false)
+            return false;
+        if (other.getIsEnd() == null ^ this.getIsEnd() == null)
+            return false;
+        if (other.getIsEnd() != null && other.getIsEnd().equals(this.getIsEnd()) == false)
+            return false;
+        if (other.getNextStep() == null ^ this.getNextStep() == null)
+            return false;
+        if (other.getNextStep() != null && other.getNextStep().equals(this.getNextStep()) == false)
+            return false;
+        if (other.getIsCritical() == null ^ this.getIsCritical() == null)
+            return false;
+        if (other.getIsCritical() != null && other.getIsCritical().equals(this.getIsCritical()) == false)
+            return false;
+        if (other.getValidNextSteps() == null ^ this.getValidNextSteps() == null)
+            return false;
+        if (other.getValidNextSteps() != null && other.getValidNextSteps().equals(this.getValidNextSteps()) == false)
+            return false;
+        if (other.getTargets() == null ^ this.getTargets() == null)
+            return false;
+        if (other.getTargets() != null && other.getTargets().equals(this.getTargets()) == false)
+            return false;
+        if (other.getTargetLocation() == null ^ this.getTargetLocation() == null)
+            return false;
+        if (other.getTargetLocation() != null && other.getTargetLocation().equals(this.getTargetLocation()) == false)
+            return false;
         return true;
     }
 
@@ -736,6 +1446,9 @@ public class StepExecution implements Serializable, Cloneable, StructuredPojo {
 
         hashCode = prime * hashCode + ((getStepName() == null) ? 0 : getStepName().hashCode());
         hashCode = prime * hashCode + ((getAction() == null) ? 0 : getAction().hashCode());
+        hashCode = prime * hashCode + ((getTimeoutSeconds() == null) ? 0 : getTimeoutSeconds().hashCode());
+        hashCode = prime * hashCode + ((getOnFailure() == null) ? 0 : getOnFailure().hashCode());
+        hashCode = prime * hashCode + ((getMaxAttempts() == null) ? 0 : getMaxAttempts().hashCode());
         hashCode = prime * hashCode + ((getExecutionStartTime() == null) ? 0 : getExecutionStartTime().hashCode());
         hashCode = prime * hashCode + ((getExecutionEndTime() == null) ? 0 : getExecutionEndTime().hashCode());
         hashCode = prime * hashCode + ((getStepStatus() == null) ? 0 : getStepStatus().hashCode());
@@ -745,6 +1458,14 @@ public class StepExecution implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getResponse() == null) ? 0 : getResponse().hashCode());
         hashCode = prime * hashCode + ((getFailureMessage() == null) ? 0 : getFailureMessage().hashCode());
         hashCode = prime * hashCode + ((getFailureDetails() == null) ? 0 : getFailureDetails().hashCode());
+        hashCode = prime * hashCode + ((getStepExecutionId() == null) ? 0 : getStepExecutionId().hashCode());
+        hashCode = prime * hashCode + ((getOverriddenParameters() == null) ? 0 : getOverriddenParameters().hashCode());
+        hashCode = prime * hashCode + ((getIsEnd() == null) ? 0 : getIsEnd().hashCode());
+        hashCode = prime * hashCode + ((getNextStep() == null) ? 0 : getNextStep().hashCode());
+        hashCode = prime * hashCode + ((getIsCritical() == null) ? 0 : getIsCritical().hashCode());
+        hashCode = prime * hashCode + ((getValidNextSteps() == null) ? 0 : getValidNextSteps().hashCode());
+        hashCode = prime * hashCode + ((getTargets() == null) ? 0 : getTargets().hashCode());
+        hashCode = prime * hashCode + ((getTargetLocation() == null) ? 0 : getTargetLocation().hashCode());
         return hashCode;
     }
 

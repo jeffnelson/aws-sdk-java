@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,6 +31,8 @@ public class MessageResponseMarshaller {
 
     private static final MarshallingInfo<String> APPLICATIONID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ApplicationId").build();
+    private static final MarshallingInfo<Map> ENDPOINTRESULT_BINDING = MarshallingInfo.builder(MarshallingType.MAP).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("EndpointResult").build();
     private static final MarshallingInfo<String> REQUESTID_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("RequestId").build();
     private static final MarshallingInfo<Map> RESULT_BINDING = MarshallingInfo.builder(MarshallingType.MAP).marshallLocation(MarshallLocation.PAYLOAD)
@@ -53,6 +55,7 @@ public class MessageResponseMarshaller {
 
         try {
             protocolMarshaller.marshall(messageResponse.getApplicationId(), APPLICATIONID_BINDING);
+            protocolMarshaller.marshall(messageResponse.getEndpointResult(), ENDPOINTRESULT_BINDING);
             protocolMarshaller.marshall(messageResponse.getRequestId(), REQUESTID_BINDING);
             protocolMarshaller.marshall(messageResponse.getResult(), RESULT_BINDING);
         } catch (Exception e) {

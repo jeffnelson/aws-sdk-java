@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,6 +19,9 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * APNS Message.
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/APNSMessage" target="_top">AWS API
+ *      Documentation</a>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class APNSMessage implements Serializable, Cloneable, StructuredPojo {
@@ -36,7 +39,7 @@ public class APNSMessage implements Serializable, Cloneable, StructuredPojo {
      * the dictionary, the badge is not changed. To remove the badge, set the value of this key to 0.
      */
     private Integer badge;
-    /** The message body of the notification, the email body or the text message. */
+    /** The message body of the notification. */
     private String body;
     /**
      * Provide this key with a string value that represents the notification's type. This value corresponds to the value
@@ -44,12 +47,38 @@ public class APNSMessage implements Serializable, Cloneable, StructuredPojo {
      */
     private String category;
     /**
+     * An ID that, if assigned to multiple messages, causes APNs to coalesce the messages into a single push
+     * notification instead of delivering each message individually. The value must not exceed 64 bytes. Amazon Pinpoint
+     * uses this value to set the apns-collapse-id request header when it sends the message to APNs.
+     */
+    private String collapseId;
+    /**
      * The data payload used for a silent push. This payload is added to the notifications' data.pinpoint.jsonBody'
      * object
      */
     private java.util.Map<String, String> data;
-    /** The URL that points to a video used in the push notification. */
+    /** A URL that refers to the location of an image or video that you want to display in the push notification. */
     private String mediaUrl;
+    /** The preferred authentication method, either "CERTIFICATE" or "TOKEN" */
+    private String preferredAuthenticationMethod;
+    /**
+     * The message priority. Amazon Pinpoint uses this value to set the apns-priority request header when it sends the
+     * message to APNs. Accepts the following values:
+     * 
+     * "5" - Low priority. Messages might be delayed, delivered in groups, and throttled.
+     * 
+     * "10" - High priority. Messages are sent immediately. High priority messages must cause an alert, sound, or badge
+     * on the receiving device.
+     * 
+     * The default value is "10".
+     * 
+     * The equivalent values for FCM or GCM messages are "normal" and "high". Amazon Pinpoint accepts these values for
+     * APNs messages and converts them.
+     * 
+     * For more information about the apns-priority parameter, see Communicating with APNs in the APNs Local and Remote
+     * Notification Programming Guide.
+     */
+    private String priority;
     /** The Raw JSON formatted string to be used as the payload. This value overrides the message. */
     private String rawContent;
     /**
@@ -70,6 +99,12 @@ public class APNSMessage implements Serializable, Cloneable, StructuredPojo {
      * you provide a Notification Content app extension, you can use this value to group your notifications together.
      */
     private String threadId;
+    /**
+     * The length of time (in seconds) that APNs stores and attempts to deliver the message. If the value is 0, APNs
+     * does not store the message or attempt to deliver it more than once. Amazon Pinpoint uses this value to set the
+     * apns-expiration request header when it sends the message to APNs.
+     */
+    private Integer timeToLive;
     /** The message title that displays above the message on the user's device. */
     private String title;
     /** The URL to open in the user's mobile browser. Used if the value for Action is URL. */
@@ -220,10 +255,10 @@ public class APNSMessage implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * The message body of the notification, the email body or the text message.
+     * The message body of the notification.
      * 
      * @param body
-     *        The message body of the notification, the email body or the text message.
+     *        The message body of the notification.
      */
 
     public void setBody(String body) {
@@ -231,9 +266,9 @@ public class APNSMessage implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * The message body of the notification, the email body or the text message.
+     * The message body of the notification.
      * 
-     * @return The message body of the notification, the email body or the text message.
+     * @return The message body of the notification.
      */
 
     public String getBody() {
@@ -241,10 +276,10 @@ public class APNSMessage implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * The message body of the notification, the email body or the text message.
+     * The message body of the notification.
      * 
      * @param body
-     *        The message body of the notification, the email body or the text message.
+     *        The message body of the notification.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -290,6 +325,52 @@ public class APNSMessage implements Serializable, Cloneable, StructuredPojo {
 
     public APNSMessage withCategory(String category) {
         setCategory(category);
+        return this;
+    }
+
+    /**
+     * An ID that, if assigned to multiple messages, causes APNs to coalesce the messages into a single push
+     * notification instead of delivering each message individually. The value must not exceed 64 bytes. Amazon Pinpoint
+     * uses this value to set the apns-collapse-id request header when it sends the message to APNs.
+     * 
+     * @param collapseId
+     *        An ID that, if assigned to multiple messages, causes APNs to coalesce the messages into a single push
+     *        notification instead of delivering each message individually. The value must not exceed 64 bytes. Amazon
+     *        Pinpoint uses this value to set the apns-collapse-id request header when it sends the message to APNs.
+     */
+
+    public void setCollapseId(String collapseId) {
+        this.collapseId = collapseId;
+    }
+
+    /**
+     * An ID that, if assigned to multiple messages, causes APNs to coalesce the messages into a single push
+     * notification instead of delivering each message individually. The value must not exceed 64 bytes. Amazon Pinpoint
+     * uses this value to set the apns-collapse-id request header when it sends the message to APNs.
+     * 
+     * @return An ID that, if assigned to multiple messages, causes APNs to coalesce the messages into a single push
+     *         notification instead of delivering each message individually. The value must not exceed 64 bytes. Amazon
+     *         Pinpoint uses this value to set the apns-collapse-id request header when it sends the message to APNs.
+     */
+
+    public String getCollapseId() {
+        return this.collapseId;
+    }
+
+    /**
+     * An ID that, if assigned to multiple messages, causes APNs to coalesce the messages into a single push
+     * notification instead of delivering each message individually. The value must not exceed 64 bytes. Amazon Pinpoint
+     * uses this value to set the apns-collapse-id request header when it sends the message to APNs.
+     * 
+     * @param collapseId
+     *        An ID that, if assigned to multiple messages, causes APNs to coalesce the messages into a single push
+     *        notification instead of delivering each message individually. The value must not exceed 64 bytes. Amazon
+     *        Pinpoint uses this value to set the apns-collapse-id request header when it sends the message to APNs.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public APNSMessage withCollapseId(String collapseId) {
+        setCollapseId(collapseId);
         return this;
     }
 
@@ -355,10 +436,10 @@ public class APNSMessage implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * The URL that points to a video used in the push notification.
+     * A URL that refers to the location of an image or video that you want to display in the push notification.
      * 
      * @param mediaUrl
-     *        The URL that points to a video used in the push notification.
+     *        A URL that refers to the location of an image or video that you want to display in the push notification.
      */
 
     public void setMediaUrl(String mediaUrl) {
@@ -366,9 +447,9 @@ public class APNSMessage implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * The URL that points to a video used in the push notification.
+     * A URL that refers to the location of an image or video that you want to display in the push notification.
      * 
-     * @return The URL that points to a video used in the push notification.
+     * @return A URL that refers to the location of an image or video that you want to display in the push notification.
      */
 
     public String getMediaUrl() {
@@ -376,15 +457,167 @@ public class APNSMessage implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * The URL that points to a video used in the push notification.
+     * A URL that refers to the location of an image or video that you want to display in the push notification.
      * 
      * @param mediaUrl
-     *        The URL that points to a video used in the push notification.
+     *        A URL that refers to the location of an image or video that you want to display in the push notification.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public APNSMessage withMediaUrl(String mediaUrl) {
         setMediaUrl(mediaUrl);
+        return this;
+    }
+
+    /**
+     * The preferred authentication method, either "CERTIFICATE" or "TOKEN"
+     * 
+     * @param preferredAuthenticationMethod
+     *        The preferred authentication method, either "CERTIFICATE" or "TOKEN"
+     */
+
+    public void setPreferredAuthenticationMethod(String preferredAuthenticationMethod) {
+        this.preferredAuthenticationMethod = preferredAuthenticationMethod;
+    }
+
+    /**
+     * The preferred authentication method, either "CERTIFICATE" or "TOKEN"
+     * 
+     * @return The preferred authentication method, either "CERTIFICATE" or "TOKEN"
+     */
+
+    public String getPreferredAuthenticationMethod() {
+        return this.preferredAuthenticationMethod;
+    }
+
+    /**
+     * The preferred authentication method, either "CERTIFICATE" or "TOKEN"
+     * 
+     * @param preferredAuthenticationMethod
+     *        The preferred authentication method, either "CERTIFICATE" or "TOKEN"
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public APNSMessage withPreferredAuthenticationMethod(String preferredAuthenticationMethod) {
+        setPreferredAuthenticationMethod(preferredAuthenticationMethod);
+        return this;
+    }
+
+    /**
+     * The message priority. Amazon Pinpoint uses this value to set the apns-priority request header when it sends the
+     * message to APNs. Accepts the following values:
+     * 
+     * "5" - Low priority. Messages might be delayed, delivered in groups, and throttled.
+     * 
+     * "10" - High priority. Messages are sent immediately. High priority messages must cause an alert, sound, or badge
+     * on the receiving device.
+     * 
+     * The default value is "10".
+     * 
+     * The equivalent values for FCM or GCM messages are "normal" and "high". Amazon Pinpoint accepts these values for
+     * APNs messages and converts them.
+     * 
+     * For more information about the apns-priority parameter, see Communicating with APNs in the APNs Local and Remote
+     * Notification Programming Guide.
+     * 
+     * @param priority
+     *        The message priority. Amazon Pinpoint uses this value to set the apns-priority request header when it
+     *        sends the message to APNs. Accepts the following values:
+     * 
+     *        "5" - Low priority. Messages might be delayed, delivered in groups, and throttled.
+     * 
+     *        "10" - High priority. Messages are sent immediately. High priority messages must cause an alert, sound, or
+     *        badge on the receiving device.
+     * 
+     *        The default value is "10".
+     * 
+     *        The equivalent values for FCM or GCM messages are "normal" and "high". Amazon Pinpoint accepts these
+     *        values for APNs messages and converts them.
+     * 
+     *        For more information about the apns-priority parameter, see Communicating with APNs in the APNs Local and
+     *        Remote Notification Programming Guide.
+     */
+
+    public void setPriority(String priority) {
+        this.priority = priority;
+    }
+
+    /**
+     * The message priority. Amazon Pinpoint uses this value to set the apns-priority request header when it sends the
+     * message to APNs. Accepts the following values:
+     * 
+     * "5" - Low priority. Messages might be delayed, delivered in groups, and throttled.
+     * 
+     * "10" - High priority. Messages are sent immediately. High priority messages must cause an alert, sound, or badge
+     * on the receiving device.
+     * 
+     * The default value is "10".
+     * 
+     * The equivalent values for FCM or GCM messages are "normal" and "high". Amazon Pinpoint accepts these values for
+     * APNs messages and converts them.
+     * 
+     * For more information about the apns-priority parameter, see Communicating with APNs in the APNs Local and Remote
+     * Notification Programming Guide.
+     * 
+     * @return The message priority. Amazon Pinpoint uses this value to set the apns-priority request header when it
+     *         sends the message to APNs. Accepts the following values:
+     * 
+     *         "5" - Low priority. Messages might be delayed, delivered in groups, and throttled.
+     * 
+     *         "10" - High priority. Messages are sent immediately. High priority messages must cause an alert, sound,
+     *         or badge on the receiving device.
+     * 
+     *         The default value is "10".
+     * 
+     *         The equivalent values for FCM or GCM messages are "normal" and "high". Amazon Pinpoint accepts these
+     *         values for APNs messages and converts them.
+     * 
+     *         For more information about the apns-priority parameter, see Communicating with APNs in the APNs Local and
+     *         Remote Notification Programming Guide.
+     */
+
+    public String getPriority() {
+        return this.priority;
+    }
+
+    /**
+     * The message priority. Amazon Pinpoint uses this value to set the apns-priority request header when it sends the
+     * message to APNs. Accepts the following values:
+     * 
+     * "5" - Low priority. Messages might be delayed, delivered in groups, and throttled.
+     * 
+     * "10" - High priority. Messages are sent immediately. High priority messages must cause an alert, sound, or badge
+     * on the receiving device.
+     * 
+     * The default value is "10".
+     * 
+     * The equivalent values for FCM or GCM messages are "normal" and "high". Amazon Pinpoint accepts these values for
+     * APNs messages and converts them.
+     * 
+     * For more information about the apns-priority parameter, see Communicating with APNs in the APNs Local and Remote
+     * Notification Programming Guide.
+     * 
+     * @param priority
+     *        The message priority. Amazon Pinpoint uses this value to set the apns-priority request header when it
+     *        sends the message to APNs. Accepts the following values:
+     * 
+     *        "5" - Low priority. Messages might be delayed, delivered in groups, and throttled.
+     * 
+     *        "10" - High priority. Messages are sent immediately. High priority messages must cause an alert, sound, or
+     *        badge on the receiving device.
+     * 
+     *        The default value is "10".
+     * 
+     *        The equivalent values for FCM or GCM messages are "normal" and "high". Amazon Pinpoint accepts these
+     *        values for APNs messages and converts them.
+     * 
+     *        For more information about the apns-priority parameter, see Communicating with APNs in the APNs Local and
+     *        Remote Notification Programming Guide.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public APNSMessage withPriority(String priority) {
+        setPriority(priority);
         return this;
     }
 
@@ -619,6 +852,52 @@ public class APNSMessage implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * The length of time (in seconds) that APNs stores and attempts to deliver the message. If the value is 0, APNs
+     * does not store the message or attempt to deliver it more than once. Amazon Pinpoint uses this value to set the
+     * apns-expiration request header when it sends the message to APNs.
+     * 
+     * @param timeToLive
+     *        The length of time (in seconds) that APNs stores and attempts to deliver the message. If the value is 0,
+     *        APNs does not store the message or attempt to deliver it more than once. Amazon Pinpoint uses this value
+     *        to set the apns-expiration request header when it sends the message to APNs.
+     */
+
+    public void setTimeToLive(Integer timeToLive) {
+        this.timeToLive = timeToLive;
+    }
+
+    /**
+     * The length of time (in seconds) that APNs stores and attempts to deliver the message. If the value is 0, APNs
+     * does not store the message or attempt to deliver it more than once. Amazon Pinpoint uses this value to set the
+     * apns-expiration request header when it sends the message to APNs.
+     * 
+     * @return The length of time (in seconds) that APNs stores and attempts to deliver the message. If the value is 0,
+     *         APNs does not store the message or attempt to deliver it more than once. Amazon Pinpoint uses this value
+     *         to set the apns-expiration request header when it sends the message to APNs.
+     */
+
+    public Integer getTimeToLive() {
+        return this.timeToLive;
+    }
+
+    /**
+     * The length of time (in seconds) that APNs stores and attempts to deliver the message. If the value is 0, APNs
+     * does not store the message or attempt to deliver it more than once. Amazon Pinpoint uses this value to set the
+     * apns-expiration request header when it sends the message to APNs.
+     * 
+     * @param timeToLive
+     *        The length of time (in seconds) that APNs stores and attempts to deliver the message. If the value is 0,
+     *        APNs does not store the message or attempt to deliver it more than once. Amazon Pinpoint uses this value
+     *        to set the apns-expiration request header when it sends the message to APNs.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public APNSMessage withTimeToLive(Integer timeToLive) {
+        setTimeToLive(timeToLive);
+        return this;
+    }
+
+    /**
      * The message title that displays above the message on the user's device.
      * 
      * @param title
@@ -687,7 +966,8 @@ public class APNSMessage implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -705,10 +985,16 @@ public class APNSMessage implements Serializable, Cloneable, StructuredPojo {
             sb.append("Body: ").append(getBody()).append(",");
         if (getCategory() != null)
             sb.append("Category: ").append(getCategory()).append(",");
+        if (getCollapseId() != null)
+            sb.append("CollapseId: ").append(getCollapseId()).append(",");
         if (getData() != null)
             sb.append("Data: ").append(getData()).append(",");
         if (getMediaUrl() != null)
             sb.append("MediaUrl: ").append(getMediaUrl()).append(",");
+        if (getPreferredAuthenticationMethod() != null)
+            sb.append("PreferredAuthenticationMethod: ").append(getPreferredAuthenticationMethod()).append(",");
+        if (getPriority() != null)
+            sb.append("Priority: ").append(getPriority()).append(",");
         if (getRawContent() != null)
             sb.append("RawContent: ").append(getRawContent()).append(",");
         if (getSilentPush() != null)
@@ -719,6 +1005,8 @@ public class APNSMessage implements Serializable, Cloneable, StructuredPojo {
             sb.append("Substitutions: ").append(getSubstitutions()).append(",");
         if (getThreadId() != null)
             sb.append("ThreadId: ").append(getThreadId()).append(",");
+        if (getTimeToLive() != null)
+            sb.append("TimeToLive: ").append(getTimeToLive()).append(",");
         if (getTitle() != null)
             sb.append("Title: ").append(getTitle()).append(",");
         if (getUrl() != null)
@@ -753,6 +1041,10 @@ public class APNSMessage implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getCategory() != null && other.getCategory().equals(this.getCategory()) == false)
             return false;
+        if (other.getCollapseId() == null ^ this.getCollapseId() == null)
+            return false;
+        if (other.getCollapseId() != null && other.getCollapseId().equals(this.getCollapseId()) == false)
+            return false;
         if (other.getData() == null ^ this.getData() == null)
             return false;
         if (other.getData() != null && other.getData().equals(this.getData()) == false)
@@ -760,6 +1052,15 @@ public class APNSMessage implements Serializable, Cloneable, StructuredPojo {
         if (other.getMediaUrl() == null ^ this.getMediaUrl() == null)
             return false;
         if (other.getMediaUrl() != null && other.getMediaUrl().equals(this.getMediaUrl()) == false)
+            return false;
+        if (other.getPreferredAuthenticationMethod() == null ^ this.getPreferredAuthenticationMethod() == null)
+            return false;
+        if (other.getPreferredAuthenticationMethod() != null
+                && other.getPreferredAuthenticationMethod().equals(this.getPreferredAuthenticationMethod()) == false)
+            return false;
+        if (other.getPriority() == null ^ this.getPriority() == null)
+            return false;
+        if (other.getPriority() != null && other.getPriority().equals(this.getPriority()) == false)
             return false;
         if (other.getRawContent() == null ^ this.getRawContent() == null)
             return false;
@@ -781,6 +1082,10 @@ public class APNSMessage implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getThreadId() != null && other.getThreadId().equals(this.getThreadId()) == false)
             return false;
+        if (other.getTimeToLive() == null ^ this.getTimeToLive() == null)
+            return false;
+        if (other.getTimeToLive() != null && other.getTimeToLive().equals(this.getTimeToLive()) == false)
+            return false;
         if (other.getTitle() == null ^ this.getTitle() == null)
             return false;
         if (other.getTitle() != null && other.getTitle().equals(this.getTitle()) == false)
@@ -801,13 +1106,17 @@ public class APNSMessage implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getBadge() == null) ? 0 : getBadge().hashCode());
         hashCode = prime * hashCode + ((getBody() == null) ? 0 : getBody().hashCode());
         hashCode = prime * hashCode + ((getCategory() == null) ? 0 : getCategory().hashCode());
+        hashCode = prime * hashCode + ((getCollapseId() == null) ? 0 : getCollapseId().hashCode());
         hashCode = prime * hashCode + ((getData() == null) ? 0 : getData().hashCode());
         hashCode = prime * hashCode + ((getMediaUrl() == null) ? 0 : getMediaUrl().hashCode());
+        hashCode = prime * hashCode + ((getPreferredAuthenticationMethod() == null) ? 0 : getPreferredAuthenticationMethod().hashCode());
+        hashCode = prime * hashCode + ((getPriority() == null) ? 0 : getPriority().hashCode());
         hashCode = prime * hashCode + ((getRawContent() == null) ? 0 : getRawContent().hashCode());
         hashCode = prime * hashCode + ((getSilentPush() == null) ? 0 : getSilentPush().hashCode());
         hashCode = prime * hashCode + ((getSound() == null) ? 0 : getSound().hashCode());
         hashCode = prime * hashCode + ((getSubstitutions() == null) ? 0 : getSubstitutions().hashCode());
         hashCode = prime * hashCode + ((getThreadId() == null) ? 0 : getThreadId().hashCode());
+        hashCode = prime * hashCode + ((getTimeToLive() == null) ? 0 : getTimeToLive().hashCode());
         hashCode = prime * hashCode + ((getTitle() == null) ? 0 : getTitle().hashCode());
         hashCode = prime * hashCode + ((getUrl() == null) ? 0 : getUrl().hashCode());
         return hashCode;

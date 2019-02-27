@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -50,17 +50,7 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
      * <ul>
      * <li>
      * <p>
-     * Must be 1 to 255 alphanumeric characters
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * First character must be a letter
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Cannot end with a hyphen or contain two consecutive hyphens
+     * If supplied, must match an existing DBParameterGroupFamily.
      * </p>
      * </li>
      * </ul>
@@ -68,7 +58,7 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
     private String dBParameterGroupFamily;
     /**
      * <p>
-     * Not currently supported.
+     * This parameter is not currently supported.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<Filter> filters;
@@ -220,17 +210,7 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
      * <ul>
      * <li>
      * <p>
-     * Must be 1 to 255 alphanumeric characters
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * First character must be a letter
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Cannot end with a hyphen or contain two consecutive hyphens
+     * If supplied, must match an existing DBParameterGroupFamily.
      * </p>
      * </li>
      * </ul>
@@ -243,17 +223,7 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
      *        <ul>
      *        <li>
      *        <p>
-     *        Must be 1 to 255 alphanumeric characters
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        First character must be a letter
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        Cannot end with a hyphen or contain two consecutive hyphens
+     *        If supplied, must match an existing DBParameterGroupFamily.
      *        </p>
      *        </li>
      */
@@ -272,17 +242,7 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
      * <ul>
      * <li>
      * <p>
-     * Must be 1 to 255 alphanumeric characters
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * First character must be a letter
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Cannot end with a hyphen or contain two consecutive hyphens
+     * If supplied, must match an existing DBParameterGroupFamily.
      * </p>
      * </li>
      * </ul>
@@ -294,17 +254,7 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
      *         <ul>
      *         <li>
      *         <p>
-     *         Must be 1 to 255 alphanumeric characters
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         First character must be a letter
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         Cannot end with a hyphen or contain two consecutive hyphens
+     *         If supplied, must match an existing DBParameterGroupFamily.
      *         </p>
      *         </li>
      */
@@ -323,17 +273,7 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
      * <ul>
      * <li>
      * <p>
-     * Must be 1 to 255 alphanumeric characters
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * First character must be a letter
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Cannot end with a hyphen or contain two consecutive hyphens
+     * If supplied, must match an existing DBParameterGroupFamily.
      * </p>
      * </li>
      * </ul>
@@ -346,17 +286,7 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
      *        <ul>
      *        <li>
      *        <p>
-     *        Must be 1 to 255 alphanumeric characters
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        First character must be a letter
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        Cannot end with a hyphen or contain two consecutive hyphens
+     *        If supplied, must match an existing DBParameterGroupFamily.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -369,10 +299,10 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * Not currently supported.
+     * This parameter is not currently supported.
      * </p>
      * 
-     * @return Not currently supported.
+     * @return This parameter is not currently supported.
      */
 
     public java.util.List<Filter> getFilters() {
@@ -384,11 +314,11 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * Not currently supported.
+     * This parameter is not currently supported.
      * </p>
      * 
      * @param filters
-     *        Not currently supported.
+     *        This parameter is not currently supported.
      */
 
     public void setFilters(java.util.Collection<Filter> filters) {
@@ -402,7 +332,7 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * Not currently supported.
+     * This parameter is not currently supported.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -411,7 +341,7 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
      * </p>
      * 
      * @param filters
-     *        Not currently supported.
+     *        This parameter is not currently supported.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -427,11 +357,11 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
 
     /**
      * <p>
-     * Not currently supported.
+     * This parameter is not currently supported.
      * </p>
      * 
      * @param filters
-     *        Not currently supported.
+     *        This parameter is not currently supported.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -760,7 +690,8 @@ public class DescribeDBEngineVersionsRequest extends com.amazonaws.AmazonWebServ
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

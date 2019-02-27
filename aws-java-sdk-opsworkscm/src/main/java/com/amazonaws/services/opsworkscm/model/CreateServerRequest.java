@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -41,19 +41,21 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
     private Boolean disableAutomatedBackup;
     /**
      * <p>
-     * The configuration management engine to use. Valid values include <code>Chef</code>.
+     * The configuration management engine to use. Valid values include <code>Chef</code> and <code>Puppet</code>.
      * </p>
      */
     private String engine;
     /**
      * <p>
-     * The engine model, or option. Valid values include <code>Single</code>.
+     * The engine model of the server. Valid values in this release include <code>Monolithic</code> for Puppet and
+     * <code>Single</code> for Chef.
      * </p>
      */
     private String engineModel;
     /**
      * <p>
-     * The major release version of the engine that you want to use. Values depend on the engine that you choose.
+     * The major release version of the engine that you want to use. For a Chef server, the valid value for
+     * EngineVersion is currently <code>12</code>. For a Puppet server, the valid value is <code>2017</code>.
      * </p>
      */
     private String engineVersion;
@@ -62,14 +64,13 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
      * Optional engine attributes on a specified server.
      * </p>
      * <p class="title">
-     * <b>Attributes accepted in a createServer request:</b>
+     * <b>Attributes accepted in a Chef createServer request:</b>
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>CHEF_PIVOTAL_KEY</code>: A base64-encoded RSA private key that is not stored by AWS OpsWorks for Chef. This
-     * private key is required to access the Chef API. When no CHEF_PIVOTAL_KEY is set, one is generated and returned in
-     * the response.
+     * <code>CHEF_PIVOTAL_KEY</code>: A base64-encoded RSA public key. The corresponding private key is required to
+     * access the Chef API. When no CHEF_PIVOTAL_KEY is set, a private key is generated and returned in the response.
      * </p>
      * </li>
      * <li>
@@ -82,12 +83,35 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </p>
      * </li>
      * </ul>
+     * <p class="title">
+     * <b>Attributes accepted in a Puppet createServer request:</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>PUPPET_ADMIN_PASSWORD</code>: To work with the Puppet Enterprise console, a password must use ASCII
+     * characters.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>PUPPET_R10K_REMOTE</code>: The r10k remote is the URL of your control repository (for example,
+     * ssh://git@your.git-repo.com:user/control-repo.git). Specifying an r10k remote opens TCP port 8170.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>PUPPET_R10K_PRIVATE_KEY</code>: If you are using a private Git repository, add PUPPET_R10K_PRIVATE_KEY to
+     * specify an SSH URL and a PEM-encoded private SSH key.
+     * </p>
+     * </li>
+     * </ul>
      */
     private java.util.List<EngineAttribute> engineAttributes;
     /**
      * <p>
-     * The number of automated backups that you want to keep. Whenever a new backup is created, AWS OpsWorks for Chef
-     * Automate deletes the oldest backups if this number is exceeded. The default value is <code>1</code>.
+     * The number of automated backups that you want to keep. Whenever a new backup is created, AWS OpsWorks CM deletes
+     * the oldest backups if this number is exceeded. The default value is <code>1</code>.
      * </p>
      */
     private Integer backupRetentionCount;
@@ -110,9 +134,8 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
     private String instanceProfileArn;
     /**
      * <p>
-     * The Amazon EC2 instance type to use. Valid values must be specified in the following format:
-     * <code>^([cm][34]|t2).*</code> For example, <code>m4.large</code>. Valid values are <code>t2.medium</code>,
-     * <code>m4.large</code>, or <code>m4.2xlarge</code>.
+     * The Amazon EC2 instance type to use. For example, <code>m4.large</code>. Recommended instance types include
+     * <code>t2.medium</code> and greater, <code>m4.*</code>, or <code>c4.xlarge</code> and greater.
      * </p>
      */
     private String instanceType;
@@ -125,10 +148,10 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
     private String keyPair;
     /**
      * <p>
-     * The start time for a one-hour period each week during which AWS OpsWorks for Chef Automate performs maintenance
-     * on the instance. Valid values must be specified in the following format: <code>DDD:HH:MM</code>. The specified
-     * time is in coordinated universal time (UTC). The default value is a random one-hour period on Tuesday, Wednesday,
-     * or Friday. See <code>TimeWindowDefinition</code> for more information.
+     * The start time for a one-hour period each week during which AWS OpsWorks CM performs maintenance on the instance.
+     * Valid values must be specified in the following format: <code>DDD:HH:MM</code>. The specified time is in
+     * coordinated universal time (UTC). The default value is a random one-hour period on Tuesday, Wednesday, or Friday.
+     * See <code>TimeWindowDefinition</code> for more information.
      * </p>
      * <p>
      * <b>Example:</b> <code>Mon:08:00</code>, which represents a start time of every Monday at 08:00 UTC. (8:00 a.m.)
@@ -137,8 +160,8 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
     private String preferredMaintenanceWindow;
     /**
      * <p>
-     * The start time for a one-hour period during which AWS OpsWorks for Chef Automate backs up application-level data
-     * on your server if automated backups are enabled. Valid values must be specified in one of the following formats:
+     * The start time for a one-hour period during which AWS OpsWorks CM backs up application-level data on your server
+     * if automated backups are enabled. Valid values must be specified in one of the following formats:
      * </p>
      * <ul>
      * <li>
@@ -169,18 +192,18 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
      * security groups must be within the VPC that is specified by <code>SubnetIds</code>.
      * </p>
      * <p>
-     * If you do not specify this parameter, AWS OpsWorks for Chef Automate creates one new security group that uses TCP
-     * ports 22 and 443, open to 0.0.0.0/0 (everyone).
+     * If you do not specify this parameter, AWS OpsWorks CM creates one new security group that uses TCP ports 22 and
+     * 443, open to 0.0.0.0/0 (everyone).
      * </p>
      */
     private java.util.List<String> securityGroupIds;
     /**
      * <p>
-     * The service role that the AWS OpsWorks for Chef Automate service backend uses to work with your account. Although
-     * the AWS OpsWorks management console typically creates the service role for you, if you are using the AWS CLI or
-     * API commands, run the service-role-creation.yaml AWS CloudFormation template, located at
-     * https://s3.amazonaws.com/opsworks-stuff/latest/service-role-creation.yaml. This template creates a CloudFormation
-     * stack that includes the service role that you need.
+     * The service role that the AWS OpsWorks CM service backend uses to work with your account. Although the AWS
+     * OpsWorks management console typically creates the service role for you, if you are using the AWS CLI or API
+     * commands, run the service-role-creation.yaml AWS CloudFormation template, located at
+     * https://s3.amazonaws.com/opsworks-cm-us-east-1-prod-default-assets/misc/opsworks-cm-roles.yaml. This template
+     * creates a CloudFormation stack that includes the service role and instance profile that you need.
      * </p>
      */
     private String serviceRoleArn;
@@ -198,16 +221,14 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
      * "Auto Assign Public IP" enabled.
      * </p>
      * <p>
-     * For more information about supported Amazon EC2 platforms, see <a href=
-     * "http://docs.aws.amazon.com/https:/docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html"
-     * >Supported Platforms</a>.
+     * For more information about supported Amazon EC2 platforms, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html">Supported Platforms</a>.
      * </p>
      */
     private java.util.List<String> subnetIds;
     /**
      * <p>
-     * If you specify this field, AWS OpsWorks for Chef Automate creates the server by using the backup represented by
-     * BackupId.
+     * If you specify this field, AWS OpsWorks CM creates the server by using the backup represented by BackupId.
      * </p>
      */
     private String backupId;
@@ -334,11 +355,12 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The configuration management engine to use. Valid values include <code>Chef</code>.
+     * The configuration management engine to use. Valid values include <code>Chef</code> and <code>Puppet</code>.
      * </p>
      * 
      * @param engine
-     *        The configuration management engine to use. Valid values include <code>Chef</code>.
+     *        The configuration management engine to use. Valid values include <code>Chef</code> and <code>Puppet</code>
+     *        .
      */
 
     public void setEngine(String engine) {
@@ -347,10 +369,11 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The configuration management engine to use. Valid values include <code>Chef</code>.
+     * The configuration management engine to use. Valid values include <code>Chef</code> and <code>Puppet</code>.
      * </p>
      * 
-     * @return The configuration management engine to use. Valid values include <code>Chef</code>.
+     * @return The configuration management engine to use. Valid values include <code>Chef</code> and
+     *         <code>Puppet</code>.
      */
 
     public String getEngine() {
@@ -359,11 +382,12 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The configuration management engine to use. Valid values include <code>Chef</code>.
+     * The configuration management engine to use. Valid values include <code>Chef</code> and <code>Puppet</code>.
      * </p>
      * 
      * @param engine
-     *        The configuration management engine to use. Valid values include <code>Chef</code>.
+     *        The configuration management engine to use. Valid values include <code>Chef</code> and <code>Puppet</code>
+     *        .
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -374,11 +398,13 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The engine model, or option. Valid values include <code>Single</code>.
+     * The engine model of the server. Valid values in this release include <code>Monolithic</code> for Puppet and
+     * <code>Single</code> for Chef.
      * </p>
      * 
      * @param engineModel
-     *        The engine model, or option. Valid values include <code>Single</code>.
+     *        The engine model of the server. Valid values in this release include <code>Monolithic</code> for Puppet
+     *        and <code>Single</code> for Chef.
      */
 
     public void setEngineModel(String engineModel) {
@@ -387,10 +413,12 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The engine model, or option. Valid values include <code>Single</code>.
+     * The engine model of the server. Valid values in this release include <code>Monolithic</code> for Puppet and
+     * <code>Single</code> for Chef.
      * </p>
      * 
-     * @return The engine model, or option. Valid values include <code>Single</code>.
+     * @return The engine model of the server. Valid values in this release include <code>Monolithic</code> for Puppet
+     *         and <code>Single</code> for Chef.
      */
 
     public String getEngineModel() {
@@ -399,11 +427,13 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The engine model, or option. Valid values include <code>Single</code>.
+     * The engine model of the server. Valid values in this release include <code>Monolithic</code> for Puppet and
+     * <code>Single</code> for Chef.
      * </p>
      * 
      * @param engineModel
-     *        The engine model, or option. Valid values include <code>Single</code>.
+     *        The engine model of the server. Valid values in this release include <code>Monolithic</code> for Puppet
+     *        and <code>Single</code> for Chef.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -414,11 +444,13 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The major release version of the engine that you want to use. Values depend on the engine that you choose.
+     * The major release version of the engine that you want to use. For a Chef server, the valid value for
+     * EngineVersion is currently <code>12</code>. For a Puppet server, the valid value is <code>2017</code>.
      * </p>
      * 
      * @param engineVersion
-     *        The major release version of the engine that you want to use. Values depend on the engine that you choose.
+     *        The major release version of the engine that you want to use. For a Chef server, the valid value for
+     *        EngineVersion is currently <code>12</code>. For a Puppet server, the valid value is <code>2017</code>.
      */
 
     public void setEngineVersion(String engineVersion) {
@@ -427,11 +459,12 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The major release version of the engine that you want to use. Values depend on the engine that you choose.
+     * The major release version of the engine that you want to use. For a Chef server, the valid value for
+     * EngineVersion is currently <code>12</code>. For a Puppet server, the valid value is <code>2017</code>.
      * </p>
      * 
-     * @return The major release version of the engine that you want to use. Values depend on the engine that you
-     *         choose.
+     * @return The major release version of the engine that you want to use. For a Chef server, the valid value for
+     *         EngineVersion is currently <code>12</code>. For a Puppet server, the valid value is <code>2017</code>.
      */
 
     public String getEngineVersion() {
@@ -440,11 +473,13 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The major release version of the engine that you want to use. Values depend on the engine that you choose.
+     * The major release version of the engine that you want to use. For a Chef server, the valid value for
+     * EngineVersion is currently <code>12</code>. For a Puppet server, the valid value is <code>2017</code>.
      * </p>
      * 
      * @param engineVersion
-     *        The major release version of the engine that you want to use. Values depend on the engine that you choose.
+     *        The major release version of the engine that you want to use. For a Chef server, the valid value for
+     *        EngineVersion is currently <code>12</code>. For a Puppet server, the valid value is <code>2017</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -458,14 +493,13 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
      * Optional engine attributes on a specified server.
      * </p>
      * <p class="title">
-     * <b>Attributes accepted in a createServer request:</b>
+     * <b>Attributes accepted in a Chef createServer request:</b>
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>CHEF_PIVOTAL_KEY</code>: A base64-encoded RSA private key that is not stored by AWS OpsWorks for Chef. This
-     * private key is required to access the Chef API. When no CHEF_PIVOTAL_KEY is set, one is generated and returned in
-     * the response.
+     * <code>CHEF_PIVOTAL_KEY</code>: A base64-encoded RSA public key. The corresponding private key is required to
+     * access the Chef API. When no CHEF_PIVOTAL_KEY is set, a private key is generated and returned in the response.
      * </p>
      * </li>
      * <li>
@@ -478,17 +512,40 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </p>
      * </li>
      * </ul>
+     * <p class="title">
+     * <b>Attributes accepted in a Puppet createServer request:</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>PUPPET_ADMIN_PASSWORD</code>: To work with the Puppet Enterprise console, a password must use ASCII
+     * characters.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>PUPPET_R10K_REMOTE</code>: The r10k remote is the URL of your control repository (for example,
+     * ssh://git@your.git-repo.com:user/control-repo.git). Specifying an r10k remote opens TCP port 8170.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>PUPPET_R10K_PRIVATE_KEY</code>: If you are using a private Git repository, add PUPPET_R10K_PRIVATE_KEY to
+     * specify an SSH URL and a PEM-encoded private SSH key.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @return Optional engine attributes on a specified server. </p>
      *         <p class="title">
-     *         <b>Attributes accepted in a createServer request:</b>
+     *         <b>Attributes accepted in a Chef createServer request:</b>
      *         </p>
      *         <ul>
      *         <li>
      *         <p>
-     *         <code>CHEF_PIVOTAL_KEY</code>: A base64-encoded RSA private key that is not stored by AWS OpsWorks for
-     *         Chef. This private key is required to access the Chef API. When no CHEF_PIVOTAL_KEY is set, one is
-     *         generated and returned in the response.
+     *         <code>CHEF_PIVOTAL_KEY</code>: A base64-encoded RSA public key. The corresponding private key is required
+     *         to access the Chef API. When no CHEF_PIVOTAL_KEY is set, a private key is generated and returned in the
+     *         response.
      *         </p>
      *         </li>
      *         <li>
@@ -498,6 +555,29 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
      *         letters, numbers, and special characters (!/@#$%^&amp;+=_). The password must contain at least one lower
      *         case letter, one upper case letter, one number, and one special character. When no
      *         CHEF_DELIVERY_ADMIN_PASSWORD is set, one is generated and returned in the response.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p class="title">
+     *         <b>Attributes accepted in a Puppet createServer request:</b>
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>PUPPET_ADMIN_PASSWORD</code>: To work with the Puppet Enterprise console, a password must use ASCII
+     *         characters.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>PUPPET_R10K_REMOTE</code>: The r10k remote is the URL of your control repository (for example,
+     *         ssh://git@your.git-repo.com:user/control-repo.git). Specifying an r10k remote opens TCP port 8170.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>PUPPET_R10K_PRIVATE_KEY</code>: If you are using a private Git repository, add
+     *         PUPPET_R10K_PRIVATE_KEY to specify an SSH URL and a PEM-encoded private SSH key.
      *         </p>
      *         </li>
      */
@@ -511,14 +591,13 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
      * Optional engine attributes on a specified server.
      * </p>
      * <p class="title">
-     * <b>Attributes accepted in a createServer request:</b>
+     * <b>Attributes accepted in a Chef createServer request:</b>
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>CHEF_PIVOTAL_KEY</code>: A base64-encoded RSA private key that is not stored by AWS OpsWorks for Chef. This
-     * private key is required to access the Chef API. When no CHEF_PIVOTAL_KEY is set, one is generated and returned in
-     * the response.
+     * <code>CHEF_PIVOTAL_KEY</code>: A base64-encoded RSA public key. The corresponding private key is required to
+     * access the Chef API. When no CHEF_PIVOTAL_KEY is set, a private key is generated and returned in the response.
      * </p>
      * </li>
      * <li>
@@ -531,18 +610,41 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </p>
      * </li>
      * </ul>
+     * <p class="title">
+     * <b>Attributes accepted in a Puppet createServer request:</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>PUPPET_ADMIN_PASSWORD</code>: To work with the Puppet Enterprise console, a password must use ASCII
+     * characters.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>PUPPET_R10K_REMOTE</code>: The r10k remote is the URL of your control repository (for example,
+     * ssh://git@your.git-repo.com:user/control-repo.git). Specifying an r10k remote opens TCP port 8170.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>PUPPET_R10K_PRIVATE_KEY</code>: If you are using a private Git repository, add PUPPET_R10K_PRIVATE_KEY to
+     * specify an SSH URL and a PEM-encoded private SSH key.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param engineAttributes
      *        Optional engine attributes on a specified server. </p>
      *        <p class="title">
-     *        <b>Attributes accepted in a createServer request:</b>
+     *        <b>Attributes accepted in a Chef createServer request:</b>
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>CHEF_PIVOTAL_KEY</code>: A base64-encoded RSA private key that is not stored by AWS OpsWorks for
-     *        Chef. This private key is required to access the Chef API. When no CHEF_PIVOTAL_KEY is set, one is
-     *        generated and returned in the response.
+     *        <code>CHEF_PIVOTAL_KEY</code>: A base64-encoded RSA public key. The corresponding private key is required
+     *        to access the Chef API. When no CHEF_PIVOTAL_KEY is set, a private key is generated and returned in the
+     *        response.
      *        </p>
      *        </li>
      *        <li>
@@ -552,6 +654,29 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
      *        letters, numbers, and special characters (!/@#$%^&amp;+=_). The password must contain at least one lower
      *        case letter, one upper case letter, one number, and one special character. When no
      *        CHEF_DELIVERY_ADMIN_PASSWORD is set, one is generated and returned in the response.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p class="title">
+     *        <b>Attributes accepted in a Puppet createServer request:</b>
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>PUPPET_ADMIN_PASSWORD</code>: To work with the Puppet Enterprise console, a password must use ASCII
+     *        characters.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>PUPPET_R10K_REMOTE</code>: The r10k remote is the URL of your control repository (for example,
+     *        ssh://git@your.git-repo.com:user/control-repo.git). Specifying an r10k remote opens TCP port 8170.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>PUPPET_R10K_PRIVATE_KEY</code>: If you are using a private Git repository, add
+     *        PUPPET_R10K_PRIVATE_KEY to specify an SSH URL and a PEM-encoded private SSH key.
      *        </p>
      *        </li>
      */
@@ -570,14 +695,13 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
      * Optional engine attributes on a specified server.
      * </p>
      * <p class="title">
-     * <b>Attributes accepted in a createServer request:</b>
+     * <b>Attributes accepted in a Chef createServer request:</b>
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>CHEF_PIVOTAL_KEY</code>: A base64-encoded RSA private key that is not stored by AWS OpsWorks for Chef. This
-     * private key is required to access the Chef API. When no CHEF_PIVOTAL_KEY is set, one is generated and returned in
-     * the response.
+     * <code>CHEF_PIVOTAL_KEY</code>: A base64-encoded RSA public key. The corresponding private key is required to
+     * access the Chef API. When no CHEF_PIVOTAL_KEY is set, a private key is generated and returned in the response.
      * </p>
      * </li>
      * <li>
@@ -590,6 +714,29 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </p>
      * </li>
      * </ul>
+     * <p class="title">
+     * <b>Attributes accepted in a Puppet createServer request:</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>PUPPET_ADMIN_PASSWORD</code>: To work with the Puppet Enterprise console, a password must use ASCII
+     * characters.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>PUPPET_R10K_REMOTE</code>: The r10k remote is the URL of your control repository (for example,
+     * ssh://git@your.git-repo.com:user/control-repo.git). Specifying an r10k remote opens TCP port 8170.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>PUPPET_R10K_PRIVATE_KEY</code>: If you are using a private Git repository, add PUPPET_R10K_PRIVATE_KEY to
+     * specify an SSH URL and a PEM-encoded private SSH key.
+     * </p>
+     * </li>
+     * </ul>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setEngineAttributes(java.util.Collection)} or {@link #withEngineAttributes(java.util.Collection)} if you
@@ -599,14 +746,14 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
      * @param engineAttributes
      *        Optional engine attributes on a specified server. </p>
      *        <p class="title">
-     *        <b>Attributes accepted in a createServer request:</b>
+     *        <b>Attributes accepted in a Chef createServer request:</b>
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>CHEF_PIVOTAL_KEY</code>: A base64-encoded RSA private key that is not stored by AWS OpsWorks for
-     *        Chef. This private key is required to access the Chef API. When no CHEF_PIVOTAL_KEY is set, one is
-     *        generated and returned in the response.
+     *        <code>CHEF_PIVOTAL_KEY</code>: A base64-encoded RSA public key. The corresponding private key is required
+     *        to access the Chef API. When no CHEF_PIVOTAL_KEY is set, a private key is generated and returned in the
+     *        response.
      *        </p>
      *        </li>
      *        <li>
@@ -616,6 +763,29 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
      *        letters, numbers, and special characters (!/@#$%^&amp;+=_). The password must contain at least one lower
      *        case letter, one upper case letter, one number, and one special character. When no
      *        CHEF_DELIVERY_ADMIN_PASSWORD is set, one is generated and returned in the response.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p class="title">
+     *        <b>Attributes accepted in a Puppet createServer request:</b>
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>PUPPET_ADMIN_PASSWORD</code>: To work with the Puppet Enterprise console, a password must use ASCII
+     *        characters.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>PUPPET_R10K_REMOTE</code>: The r10k remote is the URL of your control repository (for example,
+     *        ssh://git@your.git-repo.com:user/control-repo.git). Specifying an r10k remote opens TCP port 8170.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>PUPPET_R10K_PRIVATE_KEY</code>: If you are using a private Git repository, add
+     *        PUPPET_R10K_PRIVATE_KEY to specify an SSH URL and a PEM-encoded private SSH key.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -636,14 +806,13 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
      * Optional engine attributes on a specified server.
      * </p>
      * <p class="title">
-     * <b>Attributes accepted in a createServer request:</b>
+     * <b>Attributes accepted in a Chef createServer request:</b>
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <code>CHEF_PIVOTAL_KEY</code>: A base64-encoded RSA private key that is not stored by AWS OpsWorks for Chef. This
-     * private key is required to access the Chef API. When no CHEF_PIVOTAL_KEY is set, one is generated and returned in
-     * the response.
+     * <code>CHEF_PIVOTAL_KEY</code>: A base64-encoded RSA public key. The corresponding private key is required to
+     * access the Chef API. When no CHEF_PIVOTAL_KEY is set, a private key is generated and returned in the response.
      * </p>
      * </li>
      * <li>
@@ -656,18 +825,41 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </p>
      * </li>
      * </ul>
+     * <p class="title">
+     * <b>Attributes accepted in a Puppet createServer request:</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>PUPPET_ADMIN_PASSWORD</code>: To work with the Puppet Enterprise console, a password must use ASCII
+     * characters.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>PUPPET_R10K_REMOTE</code>: The r10k remote is the URL of your control repository (for example,
+     * ssh://git@your.git-repo.com:user/control-repo.git). Specifying an r10k remote opens TCP port 8170.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>PUPPET_R10K_PRIVATE_KEY</code>: If you are using a private Git repository, add PUPPET_R10K_PRIVATE_KEY to
+     * specify an SSH URL and a PEM-encoded private SSH key.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param engineAttributes
      *        Optional engine attributes on a specified server. </p>
      *        <p class="title">
-     *        <b>Attributes accepted in a createServer request:</b>
+     *        <b>Attributes accepted in a Chef createServer request:</b>
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>CHEF_PIVOTAL_KEY</code>: A base64-encoded RSA private key that is not stored by AWS OpsWorks for
-     *        Chef. This private key is required to access the Chef API. When no CHEF_PIVOTAL_KEY is set, one is
-     *        generated and returned in the response.
+     *        <code>CHEF_PIVOTAL_KEY</code>: A base64-encoded RSA public key. The corresponding private key is required
+     *        to access the Chef API. When no CHEF_PIVOTAL_KEY is set, a private key is generated and returned in the
+     *        response.
      *        </p>
      *        </li>
      *        <li>
@@ -677,6 +869,29 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
      *        letters, numbers, and special characters (!/@#$%^&amp;+=_). The password must contain at least one lower
      *        case letter, one upper case letter, one number, and one special character. When no
      *        CHEF_DELIVERY_ADMIN_PASSWORD is set, one is generated and returned in the response.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p class="title">
+     *        <b>Attributes accepted in a Puppet createServer request:</b>
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>PUPPET_ADMIN_PASSWORD</code>: To work with the Puppet Enterprise console, a password must use ASCII
+     *        characters.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>PUPPET_R10K_REMOTE</code>: The r10k remote is the URL of your control repository (for example,
+     *        ssh://git@your.git-repo.com:user/control-repo.git). Specifying an r10k remote opens TCP port 8170.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>PUPPET_R10K_PRIVATE_KEY</code>: If you are using a private Git repository, add
+     *        PUPPET_R10K_PRIVATE_KEY to specify an SSH URL and a PEM-encoded private SSH key.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -689,13 +904,13 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The number of automated backups that you want to keep. Whenever a new backup is created, AWS OpsWorks for Chef
-     * Automate deletes the oldest backups if this number is exceeded. The default value is <code>1</code>.
+     * The number of automated backups that you want to keep. Whenever a new backup is created, AWS OpsWorks CM deletes
+     * the oldest backups if this number is exceeded. The default value is <code>1</code>.
      * </p>
      * 
      * @param backupRetentionCount
-     *        The number of automated backups that you want to keep. Whenever a new backup is created, AWS OpsWorks for
-     *        Chef Automate deletes the oldest backups if this number is exceeded. The default value is <code>1</code>.
+     *        The number of automated backups that you want to keep. Whenever a new backup is created, AWS OpsWorks CM
+     *        deletes the oldest backups if this number is exceeded. The default value is <code>1</code>.
      */
 
     public void setBackupRetentionCount(Integer backupRetentionCount) {
@@ -704,12 +919,12 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The number of automated backups that you want to keep. Whenever a new backup is created, AWS OpsWorks for Chef
-     * Automate deletes the oldest backups if this number is exceeded. The default value is <code>1</code>.
+     * The number of automated backups that you want to keep. Whenever a new backup is created, AWS OpsWorks CM deletes
+     * the oldest backups if this number is exceeded. The default value is <code>1</code>.
      * </p>
      * 
-     * @return The number of automated backups that you want to keep. Whenever a new backup is created, AWS OpsWorks for
-     *         Chef Automate deletes the oldest backups if this number is exceeded. The default value is <code>1</code>.
+     * @return The number of automated backups that you want to keep. Whenever a new backup is created, AWS OpsWorks CM
+     *         deletes the oldest backups if this number is exceeded. The default value is <code>1</code>.
      */
 
     public Integer getBackupRetentionCount() {
@@ -718,13 +933,13 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The number of automated backups that you want to keep. Whenever a new backup is created, AWS OpsWorks for Chef
-     * Automate deletes the oldest backups if this number is exceeded. The default value is <code>1</code>.
+     * The number of automated backups that you want to keep. Whenever a new backup is created, AWS OpsWorks CM deletes
+     * the oldest backups if this number is exceeded. The default value is <code>1</code>.
      * </p>
      * 
      * @param backupRetentionCount
-     *        The number of automated backups that you want to keep. Whenever a new backup is created, AWS OpsWorks for
-     *        Chef Automate deletes the oldest backups if this number is exceeded. The default value is <code>1</code>.
+     *        The number of automated backups that you want to keep. Whenever a new backup is created, AWS OpsWorks CM
+     *        deletes the oldest backups if this number is exceeded. The default value is <code>1</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -848,15 +1063,13 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The Amazon EC2 instance type to use. Valid values must be specified in the following format:
-     * <code>^([cm][34]|t2).*</code> For example, <code>m4.large</code>. Valid values are <code>t2.medium</code>,
-     * <code>m4.large</code>, or <code>m4.2xlarge</code>.
+     * The Amazon EC2 instance type to use. For example, <code>m4.large</code>. Recommended instance types include
+     * <code>t2.medium</code> and greater, <code>m4.*</code>, or <code>c4.xlarge</code> and greater.
      * </p>
      * 
      * @param instanceType
-     *        The Amazon EC2 instance type to use. Valid values must be specified in the following format:
-     *        <code>^([cm][34]|t2).*</code> For example, <code>m4.large</code>. Valid values are <code>t2.medium</code>,
-     *        <code>m4.large</code>, or <code>m4.2xlarge</code>.
+     *        The Amazon EC2 instance type to use. For example, <code>m4.large</code>. Recommended instance types
+     *        include <code>t2.medium</code> and greater, <code>m4.*</code>, or <code>c4.xlarge</code> and greater.
      */
 
     public void setInstanceType(String instanceType) {
@@ -865,14 +1078,12 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The Amazon EC2 instance type to use. Valid values must be specified in the following format:
-     * <code>^([cm][34]|t2).*</code> For example, <code>m4.large</code>. Valid values are <code>t2.medium</code>,
-     * <code>m4.large</code>, or <code>m4.2xlarge</code>.
+     * The Amazon EC2 instance type to use. For example, <code>m4.large</code>. Recommended instance types include
+     * <code>t2.medium</code> and greater, <code>m4.*</code>, or <code>c4.xlarge</code> and greater.
      * </p>
      * 
-     * @return The Amazon EC2 instance type to use. Valid values must be specified in the following format:
-     *         <code>^([cm][34]|t2).*</code> For example, <code>m4.large</code>. Valid values are <code>t2.medium</code>
-     *         , <code>m4.large</code>, or <code>m4.2xlarge</code>.
+     * @return The Amazon EC2 instance type to use. For example, <code>m4.large</code>. Recommended instance types
+     *         include <code>t2.medium</code> and greater, <code>m4.*</code>, or <code>c4.xlarge</code> and greater.
      */
 
     public String getInstanceType() {
@@ -881,15 +1092,13 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The Amazon EC2 instance type to use. Valid values must be specified in the following format:
-     * <code>^([cm][34]|t2).*</code> For example, <code>m4.large</code>. Valid values are <code>t2.medium</code>,
-     * <code>m4.large</code>, or <code>m4.2xlarge</code>.
+     * The Amazon EC2 instance type to use. For example, <code>m4.large</code>. Recommended instance types include
+     * <code>t2.medium</code> and greater, <code>m4.*</code>, or <code>c4.xlarge</code> and greater.
      * </p>
      * 
      * @param instanceType
-     *        The Amazon EC2 instance type to use. Valid values must be specified in the following format:
-     *        <code>^([cm][34]|t2).*</code> For example, <code>m4.large</code>. Valid values are <code>t2.medium</code>,
-     *        <code>m4.large</code>, or <code>m4.2xlarge</code>.
+     *        The Amazon EC2 instance type to use. For example, <code>m4.large</code>. Recommended instance types
+     *        include <code>t2.medium</code> and greater, <code>m4.*</code>, or <code>c4.xlarge</code> and greater.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -946,21 +1155,20 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The start time for a one-hour period each week during which AWS OpsWorks for Chef Automate performs maintenance
-     * on the instance. Valid values must be specified in the following format: <code>DDD:HH:MM</code>. The specified
-     * time is in coordinated universal time (UTC). The default value is a random one-hour period on Tuesday, Wednesday,
-     * or Friday. See <code>TimeWindowDefinition</code> for more information.
+     * The start time for a one-hour period each week during which AWS OpsWorks CM performs maintenance on the instance.
+     * Valid values must be specified in the following format: <code>DDD:HH:MM</code>. The specified time is in
+     * coordinated universal time (UTC). The default value is a random one-hour period on Tuesday, Wednesday, or Friday.
+     * See <code>TimeWindowDefinition</code> for more information.
      * </p>
      * <p>
      * <b>Example:</b> <code>Mon:08:00</code>, which represents a start time of every Monday at 08:00 UTC. (8:00 a.m.)
      * </p>
      * 
      * @param preferredMaintenanceWindow
-     *        The start time for a one-hour period each week during which AWS OpsWorks for Chef Automate performs
-     *        maintenance on the instance. Valid values must be specified in the following format:
-     *        <code>DDD:HH:MM</code>. The specified time is in coordinated universal time (UTC). The default value is a
-     *        random one-hour period on Tuesday, Wednesday, or Friday. See <code>TimeWindowDefinition</code> for more
-     *        information. </p>
+     *        The start time for a one-hour period each week during which AWS OpsWorks CM performs maintenance on the
+     *        instance. Valid values must be specified in the following format: <code>DDD:HH:MM</code>. The specified
+     *        time is in coordinated universal time (UTC). The default value is a random one-hour period on Tuesday,
+     *        Wednesday, or Friday. See <code>TimeWindowDefinition</code> for more information. </p>
      *        <p>
      *        <b>Example:</b> <code>Mon:08:00</code>, which represents a start time of every Monday at 08:00 UTC. (8:00
      *        a.m.)
@@ -972,20 +1180,19 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The start time for a one-hour period each week during which AWS OpsWorks for Chef Automate performs maintenance
-     * on the instance. Valid values must be specified in the following format: <code>DDD:HH:MM</code>. The specified
-     * time is in coordinated universal time (UTC). The default value is a random one-hour period on Tuesday, Wednesday,
-     * or Friday. See <code>TimeWindowDefinition</code> for more information.
+     * The start time for a one-hour period each week during which AWS OpsWorks CM performs maintenance on the instance.
+     * Valid values must be specified in the following format: <code>DDD:HH:MM</code>. The specified time is in
+     * coordinated universal time (UTC). The default value is a random one-hour period on Tuesday, Wednesday, or Friday.
+     * See <code>TimeWindowDefinition</code> for more information.
      * </p>
      * <p>
      * <b>Example:</b> <code>Mon:08:00</code>, which represents a start time of every Monday at 08:00 UTC. (8:00 a.m.)
      * </p>
      * 
-     * @return The start time for a one-hour period each week during which AWS OpsWorks for Chef Automate performs
-     *         maintenance on the instance. Valid values must be specified in the following format:
-     *         <code>DDD:HH:MM</code>. The specified time is in coordinated universal time (UTC). The default value is a
-     *         random one-hour period on Tuesday, Wednesday, or Friday. See <code>TimeWindowDefinition</code> for more
-     *         information. </p>
+     * @return The start time for a one-hour period each week during which AWS OpsWorks CM performs maintenance on the
+     *         instance. Valid values must be specified in the following format: <code>DDD:HH:MM</code>. The specified
+     *         time is in coordinated universal time (UTC). The default value is a random one-hour period on Tuesday,
+     *         Wednesday, or Friday. See <code>TimeWindowDefinition</code> for more information. </p>
      *         <p>
      *         <b>Example:</b> <code>Mon:08:00</code>, which represents a start time of every Monday at 08:00 UTC. (8:00
      *         a.m.)
@@ -997,21 +1204,20 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The start time for a one-hour period each week during which AWS OpsWorks for Chef Automate performs maintenance
-     * on the instance. Valid values must be specified in the following format: <code>DDD:HH:MM</code>. The specified
-     * time is in coordinated universal time (UTC). The default value is a random one-hour period on Tuesday, Wednesday,
-     * or Friday. See <code>TimeWindowDefinition</code> for more information.
+     * The start time for a one-hour period each week during which AWS OpsWorks CM performs maintenance on the instance.
+     * Valid values must be specified in the following format: <code>DDD:HH:MM</code>. The specified time is in
+     * coordinated universal time (UTC). The default value is a random one-hour period on Tuesday, Wednesday, or Friday.
+     * See <code>TimeWindowDefinition</code> for more information.
      * </p>
      * <p>
      * <b>Example:</b> <code>Mon:08:00</code>, which represents a start time of every Monday at 08:00 UTC. (8:00 a.m.)
      * </p>
      * 
      * @param preferredMaintenanceWindow
-     *        The start time for a one-hour period each week during which AWS OpsWorks for Chef Automate performs
-     *        maintenance on the instance. Valid values must be specified in the following format:
-     *        <code>DDD:HH:MM</code>. The specified time is in coordinated universal time (UTC). The default value is a
-     *        random one-hour period on Tuesday, Wednesday, or Friday. See <code>TimeWindowDefinition</code> for more
-     *        information. </p>
+     *        The start time for a one-hour period each week during which AWS OpsWorks CM performs maintenance on the
+     *        instance. Valid values must be specified in the following format: <code>DDD:HH:MM</code>. The specified
+     *        time is in coordinated universal time (UTC). The default value is a random one-hour period on Tuesday,
+     *        Wednesday, or Friday. See <code>TimeWindowDefinition</code> for more information. </p>
      *        <p>
      *        <b>Example:</b> <code>Mon:08:00</code>, which represents a start time of every Monday at 08:00 UTC. (8:00
      *        a.m.)
@@ -1025,8 +1231,8 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The start time for a one-hour period during which AWS OpsWorks for Chef Automate backs up application-level data
-     * on your server if automated backups are enabled. Valid values must be specified in one of the following formats:
+     * The start time for a one-hour period during which AWS OpsWorks CM backs up application-level data on your server
+     * if automated backups are enabled. Valid values must be specified in one of the following formats:
      * </p>
      * <ul>
      * <li>
@@ -1051,9 +1257,9 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </p>
      * 
      * @param preferredBackupWindow
-     *        The start time for a one-hour period during which AWS OpsWorks for Chef Automate backs up
-     *        application-level data on your server if automated backups are enabled. Valid values must be specified in
-     *        one of the following formats: </p>
+     *        The start time for a one-hour period during which AWS OpsWorks CM backs up application-level data on your
+     *        server if automated backups are enabled. Valid values must be specified in one of the following formats:
+     *        </p>
      *        <ul>
      *        <li>
      *        <p>
@@ -1084,8 +1290,8 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The start time for a one-hour period during which AWS OpsWorks for Chef Automate backs up application-level data
-     * on your server if automated backups are enabled. Valid values must be specified in one of the following formats:
+     * The start time for a one-hour period during which AWS OpsWorks CM backs up application-level data on your server
+     * if automated backups are enabled. Valid values must be specified in one of the following formats:
      * </p>
      * <ul>
      * <li>
@@ -1109,9 +1315,9 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
      * <b>Example:</b> <code>Mon:08:00</code>, which represents a start time of every Monday at 08:00 UTC. (8:00 a.m.)
      * </p>
      * 
-     * @return The start time for a one-hour period during which AWS OpsWorks for Chef Automate backs up
-     *         application-level data on your server if automated backups are enabled. Valid values must be specified in
-     *         one of the following formats: </p>
+     * @return The start time for a one-hour period during which AWS OpsWorks CM backs up application-level data on your
+     *         server if automated backups are enabled. Valid values must be specified in one of the following formats:
+     *         </p>
      *         <ul>
      *         <li>
      *         <p>
@@ -1142,8 +1348,8 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The start time for a one-hour period during which AWS OpsWorks for Chef Automate backs up application-level data
-     * on your server if automated backups are enabled. Valid values must be specified in one of the following formats:
+     * The start time for a one-hour period during which AWS OpsWorks CM backs up application-level data on your server
+     * if automated backups are enabled. Valid values must be specified in one of the following formats:
      * </p>
      * <ul>
      * <li>
@@ -1168,9 +1374,9 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </p>
      * 
      * @param preferredBackupWindow
-     *        The start time for a one-hour period during which AWS OpsWorks for Chef Automate backs up
-     *        application-level data on your server if automated backups are enabled. Valid values must be specified in
-     *        one of the following formats: </p>
+     *        The start time for a one-hour period during which AWS OpsWorks CM backs up application-level data on your
+     *        server if automated backups are enabled. Valid values must be specified in one of the following formats:
+     *        </p>
      *        <ul>
      *        <li>
      *        <p>
@@ -1207,15 +1413,15 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
      * security groups must be within the VPC that is specified by <code>SubnetIds</code>.
      * </p>
      * <p>
-     * If you do not specify this parameter, AWS OpsWorks for Chef Automate creates one new security group that uses TCP
-     * ports 22 and 443, open to 0.0.0.0/0 (everyone).
+     * If you do not specify this parameter, AWS OpsWorks CM creates one new security group that uses TCP ports 22 and
+     * 443, open to 0.0.0.0/0 (everyone).
      * </p>
      * 
      * @return A list of security group IDs to attach to the Amazon EC2 instance. If you add this parameter, the
      *         specified security groups must be within the VPC that is specified by <code>SubnetIds</code>. </p>
      *         <p>
-     *         If you do not specify this parameter, AWS OpsWorks for Chef Automate creates one new security group that
-     *         uses TCP ports 22 and 443, open to 0.0.0.0/0 (everyone).
+     *         If you do not specify this parameter, AWS OpsWorks CM creates one new security group that uses TCP ports
+     *         22 and 443, open to 0.0.0.0/0 (everyone).
      */
 
     public java.util.List<String> getSecurityGroupIds() {
@@ -1228,16 +1434,16 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
      * security groups must be within the VPC that is specified by <code>SubnetIds</code>.
      * </p>
      * <p>
-     * If you do not specify this parameter, AWS OpsWorks for Chef Automate creates one new security group that uses TCP
-     * ports 22 and 443, open to 0.0.0.0/0 (everyone).
+     * If you do not specify this parameter, AWS OpsWorks CM creates one new security group that uses TCP ports 22 and
+     * 443, open to 0.0.0.0/0 (everyone).
      * </p>
      * 
      * @param securityGroupIds
      *        A list of security group IDs to attach to the Amazon EC2 instance. If you add this parameter, the
      *        specified security groups must be within the VPC that is specified by <code>SubnetIds</code>. </p>
      *        <p>
-     *        If you do not specify this parameter, AWS OpsWorks for Chef Automate creates one new security group that
-     *        uses TCP ports 22 and 443, open to 0.0.0.0/0 (everyone).
+     *        If you do not specify this parameter, AWS OpsWorks CM creates one new security group that uses TCP ports
+     *        22 and 443, open to 0.0.0.0/0 (everyone).
      */
 
     public void setSecurityGroupIds(java.util.Collection<String> securityGroupIds) {
@@ -1255,8 +1461,8 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
      * security groups must be within the VPC that is specified by <code>SubnetIds</code>.
      * </p>
      * <p>
-     * If you do not specify this parameter, AWS OpsWorks for Chef Automate creates one new security group that uses TCP
-     * ports 22 and 443, open to 0.0.0.0/0 (everyone).
+     * If you do not specify this parameter, AWS OpsWorks CM creates one new security group that uses TCP ports 22 and
+     * 443, open to 0.0.0.0/0 (everyone).
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -1268,8 +1474,8 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
      *        A list of security group IDs to attach to the Amazon EC2 instance. If you add this parameter, the
      *        specified security groups must be within the VPC that is specified by <code>SubnetIds</code>. </p>
      *        <p>
-     *        If you do not specify this parameter, AWS OpsWorks for Chef Automate creates one new security group that
-     *        uses TCP ports 22 and 443, open to 0.0.0.0/0 (everyone).
+     *        If you do not specify this parameter, AWS OpsWorks CM creates one new security group that uses TCP ports
+     *        22 and 443, open to 0.0.0.0/0 (everyone).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1289,16 +1495,16 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
      * security groups must be within the VPC that is specified by <code>SubnetIds</code>.
      * </p>
      * <p>
-     * If you do not specify this parameter, AWS OpsWorks for Chef Automate creates one new security group that uses TCP
-     * ports 22 and 443, open to 0.0.0.0/0 (everyone).
+     * If you do not specify this parameter, AWS OpsWorks CM creates one new security group that uses TCP ports 22 and
+     * 443, open to 0.0.0.0/0 (everyone).
      * </p>
      * 
      * @param securityGroupIds
      *        A list of security group IDs to attach to the Amazon EC2 instance. If you add this parameter, the
      *        specified security groups must be within the VPC that is specified by <code>SubnetIds</code>. </p>
      *        <p>
-     *        If you do not specify this parameter, AWS OpsWorks for Chef Automate creates one new security group that
-     *        uses TCP ports 22 and 443, open to 0.0.0.0/0 (everyone).
+     *        If you do not specify this parameter, AWS OpsWorks CM creates one new security group that uses TCP ports
+     *        22 and 443, open to 0.0.0.0/0 (everyone).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1309,19 +1515,19 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The service role that the AWS OpsWorks for Chef Automate service backend uses to work with your account. Although
-     * the AWS OpsWorks management console typically creates the service role for you, if you are using the AWS CLI or
-     * API commands, run the service-role-creation.yaml AWS CloudFormation template, located at
-     * https://s3.amazonaws.com/opsworks-stuff/latest/service-role-creation.yaml. This template creates a CloudFormation
-     * stack that includes the service role that you need.
+     * The service role that the AWS OpsWorks CM service backend uses to work with your account. Although the AWS
+     * OpsWorks management console typically creates the service role for you, if you are using the AWS CLI or API
+     * commands, run the service-role-creation.yaml AWS CloudFormation template, located at
+     * https://s3.amazonaws.com/opsworks-cm-us-east-1-prod-default-assets/misc/opsworks-cm-roles.yaml. This template
+     * creates a CloudFormation stack that includes the service role and instance profile that you need.
      * </p>
      * 
      * @param serviceRoleArn
-     *        The service role that the AWS OpsWorks for Chef Automate service backend uses to work with your account.
-     *        Although the AWS OpsWorks management console typically creates the service role for you, if you are using
-     *        the AWS CLI or API commands, run the service-role-creation.yaml AWS CloudFormation template, located at
-     *        https://s3.amazonaws.com/opsworks-stuff/latest/service-role-creation.yaml. This template creates a
-     *        CloudFormation stack that includes the service role that you need.
+     *        The service role that the AWS OpsWorks CM service backend uses to work with your account. Although the AWS
+     *        OpsWorks management console typically creates the service role for you, if you are using the AWS CLI or
+     *        API commands, run the service-role-creation.yaml AWS CloudFormation template, located at
+     *        https://s3.amazonaws.com/opsworks-cm-us-east-1-prod-default-assets/misc/opsworks-cm-roles.yaml. This
+     *        template creates a CloudFormation stack that includes the service role and instance profile that you need.
      */
 
     public void setServiceRoleArn(String serviceRoleArn) {
@@ -1330,18 +1536,19 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The service role that the AWS OpsWorks for Chef Automate service backend uses to work with your account. Although
-     * the AWS OpsWorks management console typically creates the service role for you, if you are using the AWS CLI or
-     * API commands, run the service-role-creation.yaml AWS CloudFormation template, located at
-     * https://s3.amazonaws.com/opsworks-stuff/latest/service-role-creation.yaml. This template creates a CloudFormation
-     * stack that includes the service role that you need.
+     * The service role that the AWS OpsWorks CM service backend uses to work with your account. Although the AWS
+     * OpsWorks management console typically creates the service role for you, if you are using the AWS CLI or API
+     * commands, run the service-role-creation.yaml AWS CloudFormation template, located at
+     * https://s3.amazonaws.com/opsworks-cm-us-east-1-prod-default-assets/misc/opsworks-cm-roles.yaml. This template
+     * creates a CloudFormation stack that includes the service role and instance profile that you need.
      * </p>
      * 
-     * @return The service role that the AWS OpsWorks for Chef Automate service backend uses to work with your account.
-     *         Although the AWS OpsWorks management console typically creates the service role for you, if you are using
-     *         the AWS CLI or API commands, run the service-role-creation.yaml AWS CloudFormation template, located at
-     *         https://s3.amazonaws.com/opsworks-stuff/latest/service-role-creation.yaml. This template creates a
-     *         CloudFormation stack that includes the service role that you need.
+     * @return The service role that the AWS OpsWorks CM service backend uses to work with your account. Although the
+     *         AWS OpsWorks management console typically creates the service role for you, if you are using the AWS CLI
+     *         or API commands, run the service-role-creation.yaml AWS CloudFormation template, located at
+     *         https://s3.amazonaws.com/opsworks-cm-us-east-1-prod-default-assets/misc/opsworks-cm-roles.yaml. This
+     *         template creates a CloudFormation stack that includes the service role and instance profile that you
+     *         need.
      */
 
     public String getServiceRoleArn() {
@@ -1350,19 +1557,19 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * The service role that the AWS OpsWorks for Chef Automate service backend uses to work with your account. Although
-     * the AWS OpsWorks management console typically creates the service role for you, if you are using the AWS CLI or
-     * API commands, run the service-role-creation.yaml AWS CloudFormation template, located at
-     * https://s3.amazonaws.com/opsworks-stuff/latest/service-role-creation.yaml. This template creates a CloudFormation
-     * stack that includes the service role that you need.
+     * The service role that the AWS OpsWorks CM service backend uses to work with your account. Although the AWS
+     * OpsWorks management console typically creates the service role for you, if you are using the AWS CLI or API
+     * commands, run the service-role-creation.yaml AWS CloudFormation template, located at
+     * https://s3.amazonaws.com/opsworks-cm-us-east-1-prod-default-assets/misc/opsworks-cm-roles.yaml. This template
+     * creates a CloudFormation stack that includes the service role and instance profile that you need.
      * </p>
      * 
      * @param serviceRoleArn
-     *        The service role that the AWS OpsWorks for Chef Automate service backend uses to work with your account.
-     *        Although the AWS OpsWorks management console typically creates the service role for you, if you are using
-     *        the AWS CLI or API commands, run the service-role-creation.yaml AWS CloudFormation template, located at
-     *        https://s3.amazonaws.com/opsworks-stuff/latest/service-role-creation.yaml. This template creates a
-     *        CloudFormation stack that includes the service role that you need.
+     *        The service role that the AWS OpsWorks CM service backend uses to work with your account. Although the AWS
+     *        OpsWorks management console typically creates the service role for you, if you are using the AWS CLI or
+     *        API commands, run the service-role-creation.yaml AWS CloudFormation template, located at
+     *        https://s3.amazonaws.com/opsworks-cm-us-east-1-prod-default-assets/misc/opsworks-cm-roles.yaml. This
+     *        template creates a CloudFormation stack that includes the service role and instance profile that you need.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1385,9 +1592,8 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
      * "Auto Assign Public IP" enabled.
      * </p>
      * <p>
-     * For more information about supported Amazon EC2 platforms, see <a href=
-     * "http://docs.aws.amazon.com/https:/docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html"
-     * >Supported Platforms</a>.
+     * For more information about supported Amazon EC2 platforms, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html">Supported Platforms</a>.
      * </p>
      * 
      * @return The IDs of subnets in which to launch the server EC2 instance. </p>
@@ -1401,9 +1607,9 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
      *         "Auto Assign Public IP" enabled.
      *         </p>
      *         <p>
-     *         For more information about supported Amazon EC2 platforms, see <a href=
-     *         "http://docs.aws.amazon.com/https:/docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html"
-     *         >Supported Platforms</a>.
+     *         For more information about supported Amazon EC2 platforms, see <a
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html">Supported
+     *         Platforms</a>.
      */
 
     public java.util.List<String> getSubnetIds() {
@@ -1424,9 +1630,8 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
      * "Auto Assign Public IP" enabled.
      * </p>
      * <p>
-     * For more information about supported Amazon EC2 platforms, see <a href=
-     * "http://docs.aws.amazon.com/https:/docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html"
-     * >Supported Platforms</a>.
+     * For more information about supported Amazon EC2 platforms, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html">Supported Platforms</a>.
      * </p>
      * 
      * @param subnetIds
@@ -1441,9 +1646,9 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
      *        "Auto Assign Public IP" enabled.
      *        </p>
      *        <p>
-     *        For more information about supported Amazon EC2 platforms, see <a href=
-     *        "http://docs.aws.amazon.com/https:/docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html"
-     *        >Supported Platforms</a>.
+     *        For more information about supported Amazon EC2 platforms, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html">Supported
+     *        Platforms</a>.
      */
 
     public void setSubnetIds(java.util.Collection<String> subnetIds) {
@@ -1469,9 +1674,8 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
      * "Auto Assign Public IP" enabled.
      * </p>
      * <p>
-     * For more information about supported Amazon EC2 platforms, see <a href=
-     * "http://docs.aws.amazon.com/https:/docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html"
-     * >Supported Platforms</a>.
+     * For more information about supported Amazon EC2 platforms, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html">Supported Platforms</a>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -1491,9 +1695,9 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
      *        "Auto Assign Public IP" enabled.
      *        </p>
      *        <p>
-     *        For more information about supported Amazon EC2 platforms, see <a href=
-     *        "http://docs.aws.amazon.com/https:/docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html"
-     *        >Supported Platforms</a>.
+     *        For more information about supported Amazon EC2 platforms, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html">Supported
+     *        Platforms</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1521,9 +1725,8 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
      * "Auto Assign Public IP" enabled.
      * </p>
      * <p>
-     * For more information about supported Amazon EC2 platforms, see <a href=
-     * "http://docs.aws.amazon.com/https:/docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html"
-     * >Supported Platforms</a>.
+     * For more information about supported Amazon EC2 platforms, see <a
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html">Supported Platforms</a>.
      * </p>
      * 
      * @param subnetIds
@@ -1538,9 +1741,9 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
      *        "Auto Assign Public IP" enabled.
      *        </p>
      *        <p>
-     *        For more information about supported Amazon EC2 platforms, see <a href=
-     *        "http://docs.aws.amazon.com/https:/docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html"
-     *        >Supported Platforms</a>.
+     *        For more information about supported Amazon EC2 platforms, see <a
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html">Supported
+     *        Platforms</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1551,13 +1754,11 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * If you specify this field, AWS OpsWorks for Chef Automate creates the server by using the backup represented by
-     * BackupId.
+     * If you specify this field, AWS OpsWorks CM creates the server by using the backup represented by BackupId.
      * </p>
      * 
      * @param backupId
-     *        If you specify this field, AWS OpsWorks for Chef Automate creates the server by using the backup
-     *        represented by BackupId.
+     *        If you specify this field, AWS OpsWorks CM creates the server by using the backup represented by BackupId.
      */
 
     public void setBackupId(String backupId) {
@@ -1566,12 +1767,11 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * If you specify this field, AWS OpsWorks for Chef Automate creates the server by using the backup represented by
-     * BackupId.
+     * If you specify this field, AWS OpsWorks CM creates the server by using the backup represented by BackupId.
      * </p>
      * 
-     * @return If you specify this field, AWS OpsWorks for Chef Automate creates the server by using the backup
-     *         represented by BackupId.
+     * @return If you specify this field, AWS OpsWorks CM creates the server by using the backup represented by
+     *         BackupId.
      */
 
     public String getBackupId() {
@@ -1580,13 +1780,11 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * If you specify this field, AWS OpsWorks for Chef Automate creates the server by using the backup represented by
-     * BackupId.
+     * If you specify this field, AWS OpsWorks CM creates the server by using the backup represented by BackupId.
      * </p>
      * 
      * @param backupId
-     *        If you specify this field, AWS OpsWorks for Chef Automate creates the server by using the backup
-     *        represented by BackupId.
+     *        If you specify this field, AWS OpsWorks CM creates the server by using the backup represented by BackupId.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1596,7 +1794,8 @@ public class CreateServerRequest extends com.amazonaws.AmazonWebServiceRequest i
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

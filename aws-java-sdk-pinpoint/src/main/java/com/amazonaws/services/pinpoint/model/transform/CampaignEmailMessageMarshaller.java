@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,6 +29,8 @@ public class CampaignEmailMessageMarshaller {
 
     private static final MarshallingInfo<String> BODY_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Body").build();
+    private static final MarshallingInfo<String> FROMADDRESS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("FromAddress").build();
     private static final MarshallingInfo<String> HTMLBODY_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("HtmlBody").build();
     private static final MarshallingInfo<String> TITLE_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
@@ -51,6 +53,7 @@ public class CampaignEmailMessageMarshaller {
 
         try {
             protocolMarshaller.marshall(campaignEmailMessage.getBody(), BODY_BINDING);
+            protocolMarshaller.marshall(campaignEmailMessage.getFromAddress(), FROMADDRESS_BINDING);
             protocolMarshaller.marshall(campaignEmailMessage.getHtmlBody(), HTMLBODY_BINDING);
             protocolMarshaller.marshall(campaignEmailMessage.getTitle(), TITLE_BINDING);
         } catch (Exception e) {

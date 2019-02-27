@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -20,7 +20,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 /**
  * <p>
  * A collection of server process configurations that describe what processes to run on each instance in a fleet. All
- * fleets must have a runtime configuration. Each instance in the fleet launches the server processes specified in the
+ * fleets must have a run-time configuration. Each instance in the fleet launches the server processes specified in the
  * run-time configuration and launches new ones as existing processes end. Each instance regularly checks for an updated
  * run-time configuration and follows the new instructions.
  * </p>
@@ -37,9 +37,6 @@ import com.amazonaws.protocol.ProtocolMarshaller;
  * values of the <code>ConcurrentExecutions</code> parameter for each <code> <a>ServerProcess</a> </code> object in the
  * run-time configuration.
  * </p>
- * <p>
- * Fleet-related operations include:
- * </p>
  * <ul>
  * <li>
  * <p>
@@ -53,12 +50,22 @@ import com.amazonaws.protocol.ProtocolMarshaller;
  * </li>
  * <li>
  * <p>
+ * <a>DeleteFleet</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
  * Describe fleets:
  * </p>
  * <ul>
  * <li>
  * <p>
  * <a>DescribeFleetAttributes</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>DescribeFleetCapacity</a>
  * </p>
  * </li>
  * <li>
@@ -74,6 +81,11 @@ import com.amazonaws.protocol.ProtocolMarshaller;
  * <li>
  * <p>
  * <a>DescribeRuntimeConfiguration</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>DescribeEC2InstanceLimits</a>
  * </p>
  * </li>
  * <li>
@@ -112,45 +124,20 @@ import com.amazonaws.protocol.ProtocolMarshaller;
  * </li>
  * <li>
  * <p>
- * Manage fleet capacity:
+ * Manage fleet actions:
  * </p>
  * <ul>
  * <li>
  * <p>
- * <a>DescribeFleetCapacity</a>
+ * <a>StartFleetActions</a>
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>UpdateFleetCapacity</a>
- * </p>
- * </li>
- * <li>
- * <p>
- * <a>PutScalingPolicy</a> (automatic scaling)
- * </p>
- * </li>
- * <li>
- * <p>
- * <a>DescribeScalingPolicies</a> (automatic scaling)
- * </p>
- * </li>
- * <li>
- * <p>
- * <a>DeleteScalingPolicy</a> (automatic scaling)
- * </p>
- * </li>
- * <li>
- * <p>
- * <a>DescribeEC2InstanceLimits</a>
+ * <a>StopFleetActions</a>
  * </p>
  * </li>
  * </ul>
- * </li>
- * <li>
- * <p>
- * <a>DeleteFleet</a>
- * </p>
  * </li>
  * </ul>
  * 
@@ -363,7 +350,8 @@ public class RuntimeConfiguration implements Serializable, Cloneable, Structured
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

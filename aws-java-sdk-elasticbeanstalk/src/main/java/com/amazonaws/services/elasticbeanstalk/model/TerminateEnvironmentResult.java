@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -58,7 +58,7 @@ public class TerminateEnvironmentResult extends com.amazonaws.AmazonWebServiceRe
     private String solutionStackName;
     /**
      * <p>
-     * The ARN of the custom platform.
+     * The ARN of the platform.
      * </p>
      */
     private String platformArn;
@@ -173,7 +173,7 @@ public class TerminateEnvironmentResult extends com.amazonaws.AmazonWebServiceRe
      * <p>
      * <code>Grey</code>: Default health for a new environment. The environment is not fully launched and health checks
      * have not started or health checks are suspended during an <code>UpdateEnvironment</code> or
-     * <code>RestartEnvironement</code> request.
+     * <code>RestartEnvironment</code> request.
      * </p>
      * </li>
      * </ul>
@@ -208,6 +208,12 @@ public class TerminateEnvironmentResult extends com.amazonaws.AmazonWebServiceRe
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<EnvironmentLink> environmentLinks;
+    /**
+     * <p>
+     * The environment's Amazon Resource Name (ARN), which can be used in other API requests that require an ARN.
+     * </p>
+     */
+    private String environmentArn;
 
     /**
      * <p>
@@ -411,11 +417,11 @@ public class TerminateEnvironmentResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The ARN of the custom platform.
+     * The ARN of the platform.
      * </p>
      * 
      * @param platformArn
-     *        The ARN of the custom platform.
+     *        The ARN of the platform.
      */
 
     public void setPlatformArn(String platformArn) {
@@ -424,10 +430,10 @@ public class TerminateEnvironmentResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The ARN of the custom platform.
+     * The ARN of the platform.
      * </p>
      * 
-     * @return The ARN of the custom platform.
+     * @return The ARN of the platform.
      */
 
     public String getPlatformArn() {
@@ -436,11 +442,11 @@ public class TerminateEnvironmentResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The ARN of the custom platform.
+     * The ARN of the platform.
      * </p>
      * 
      * @param platformArn
-     *        The ARN of the custom platform.
+     *        The ARN of the platform.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1179,7 +1185,7 @@ public class TerminateEnvironmentResult extends com.amazonaws.AmazonWebServiceRe
      * <p>
      * <code>Grey</code>: Default health for a new environment. The environment is not fully launched and health checks
      * have not started or health checks are suspended during an <code>UpdateEnvironment</code> or
-     * <code>RestartEnvironement</code> request.
+     * <code>RestartEnvironment</code> request.
      * </p>
      * </li>
      * </ul>
@@ -1212,7 +1218,7 @@ public class TerminateEnvironmentResult extends com.amazonaws.AmazonWebServiceRe
      *        <p>
      *        <code>Grey</code>: Default health for a new environment. The environment is not fully launched and health
      *        checks have not started or health checks are suspended during an <code>UpdateEnvironment</code> or
-     *        <code>RestartEnvironement</code> request.
+     *        <code>RestartEnvironment</code> request.
      *        </p>
      *        </li>
      *        </ul>
@@ -1252,7 +1258,7 @@ public class TerminateEnvironmentResult extends com.amazonaws.AmazonWebServiceRe
      * <p>
      * <code>Grey</code>: Default health for a new environment. The environment is not fully launched and health checks
      * have not started or health checks are suspended during an <code>UpdateEnvironment</code> or
-     * <code>RestartEnvironement</code> request.
+     * <code>RestartEnvironment</code> request.
      * </p>
      * </li>
      * </ul>
@@ -1284,7 +1290,7 @@ public class TerminateEnvironmentResult extends com.amazonaws.AmazonWebServiceRe
      *         <p>
      *         <code>Grey</code>: Default health for a new environment. The environment is not fully launched and health
      *         checks have not started or health checks are suspended during an <code>UpdateEnvironment</code> or
-     *         <code>RestartEnvironement</code> request.
+     *         <code>RestartEnvironment</code> request.
      *         </p>
      *         </li>
      *         </ul>
@@ -1324,7 +1330,7 @@ public class TerminateEnvironmentResult extends com.amazonaws.AmazonWebServiceRe
      * <p>
      * <code>Grey</code>: Default health for a new environment. The environment is not fully launched and health checks
      * have not started or health checks are suspended during an <code>UpdateEnvironment</code> or
-     * <code>RestartEnvironement</code> request.
+     * <code>RestartEnvironment</code> request.
      * </p>
      * </li>
      * </ul>
@@ -1357,7 +1363,7 @@ public class TerminateEnvironmentResult extends com.amazonaws.AmazonWebServiceRe
      *        <p>
      *        <code>Grey</code>: Default health for a new environment. The environment is not fully launched and health
      *        checks have not started or health checks are suspended during an <code>UpdateEnvironment</code> or
-     *        <code>RestartEnvironement</code> request.
+     *        <code>RestartEnvironment</code> request.
      *        </p>
      *        </li>
      *        </ul>
@@ -1399,7 +1405,7 @@ public class TerminateEnvironmentResult extends com.amazonaws.AmazonWebServiceRe
      * <p>
      * <code>Grey</code>: Default health for a new environment. The environment is not fully launched and health checks
      * have not started or health checks are suspended during an <code>UpdateEnvironment</code> or
-     * <code>RestartEnvironement</code> request.
+     * <code>RestartEnvironment</code> request.
      * </p>
      * </li>
      * </ul>
@@ -1432,7 +1438,7 @@ public class TerminateEnvironmentResult extends com.amazonaws.AmazonWebServiceRe
      *        <p>
      *        <code>Grey</code>: Default health for a new environment. The environment is not fully launched and health
      *        checks have not started or health checks are suspended during an <code>UpdateEnvironment</code> or
-     *        <code>RestartEnvironement</code> request.
+     *        <code>RestartEnvironment</code> request.
      *        </p>
      *        </li>
      *        </ul>
@@ -1472,7 +1478,7 @@ public class TerminateEnvironmentResult extends com.amazonaws.AmazonWebServiceRe
      * <p>
      * <code>Grey</code>: Default health for a new environment. The environment is not fully launched and health checks
      * have not started or health checks are suspended during an <code>UpdateEnvironment</code> or
-     * <code>RestartEnvironement</code> request.
+     * <code>RestartEnvironment</code> request.
      * </p>
      * </li>
      * </ul>
@@ -1505,7 +1511,7 @@ public class TerminateEnvironmentResult extends com.amazonaws.AmazonWebServiceRe
      *        <p>
      *        <code>Grey</code>: Default health for a new environment. The environment is not fully launched and health
      *        checks have not started or health checks are suspended during an <code>UpdateEnvironment</code> or
-     *        <code>RestartEnvironement</code> request.
+     *        <code>RestartEnvironment</code> request.
      *        </p>
      *        </li>
      *        </ul>
@@ -1767,7 +1773,49 @@ public class TerminateEnvironmentResult extends com.amazonaws.AmazonWebServiceRe
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * <p>
+     * The environment's Amazon Resource Name (ARN), which can be used in other API requests that require an ARN.
+     * </p>
+     * 
+     * @param environmentArn
+     *        The environment's Amazon Resource Name (ARN), which can be used in other API requests that require an ARN.
+     */
+
+    public void setEnvironmentArn(String environmentArn) {
+        this.environmentArn = environmentArn;
+    }
+
+    /**
+     * <p>
+     * The environment's Amazon Resource Name (ARN), which can be used in other API requests that require an ARN.
+     * </p>
+     * 
+     * @return The environment's Amazon Resource Name (ARN), which can be used in other API requests that require an
+     *         ARN.
+     */
+
+    public String getEnvironmentArn() {
+        return this.environmentArn;
+    }
+
+    /**
+     * <p>
+     * The environment's Amazon Resource Name (ARN), which can be used in other API requests that require an ARN.
+     * </p>
+     * 
+     * @param environmentArn
+     *        The environment's Amazon Resource Name (ARN), which can be used in other API requests that require an ARN.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public TerminateEnvironmentResult withEnvironmentArn(String environmentArn) {
+        setEnvironmentArn(environmentArn);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -1814,7 +1862,9 @@ public class TerminateEnvironmentResult extends com.amazonaws.AmazonWebServiceRe
         if (getTier() != null)
             sb.append("Tier: ").append(getTier()).append(",");
         if (getEnvironmentLinks() != null)
-            sb.append("EnvironmentLinks: ").append(getEnvironmentLinks());
+            sb.append("EnvironmentLinks: ").append(getEnvironmentLinks()).append(",");
+        if (getEnvironmentArn() != null)
+            sb.append("EnvironmentArn: ").append(getEnvironmentArn());
         sb.append("}");
         return sb.toString();
     }
@@ -1905,6 +1955,10 @@ public class TerminateEnvironmentResult extends com.amazonaws.AmazonWebServiceRe
             return false;
         if (other.getEnvironmentLinks() != null && other.getEnvironmentLinks().equals(this.getEnvironmentLinks()) == false)
             return false;
+        if (other.getEnvironmentArn() == null ^ this.getEnvironmentArn() == null)
+            return false;
+        if (other.getEnvironmentArn() != null && other.getEnvironmentArn().equals(this.getEnvironmentArn()) == false)
+            return false;
         return true;
     }
 
@@ -1932,6 +1986,7 @@ public class TerminateEnvironmentResult extends com.amazonaws.AmazonWebServiceRe
         hashCode = prime * hashCode + ((getResources() == null) ? 0 : getResources().hashCode());
         hashCode = prime * hashCode + ((getTier() == null) ? 0 : getTier().hashCode());
         hashCode = prime * hashCode + ((getEnvironmentLinks() == null) ? 0 : getEnvironmentLinks().hashCode());
+        hashCode = prime * hashCode + ((getEnvironmentArn() == null) ? 0 : getEnvironmentArn().hashCode());
         return hashCode;
     }
 

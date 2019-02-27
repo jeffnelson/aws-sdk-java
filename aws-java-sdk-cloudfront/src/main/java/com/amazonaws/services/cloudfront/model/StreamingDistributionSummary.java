@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -20,7 +20,7 @@ import javax.annotation.Generated;
  * A summary of the information for an Amazon CloudFront streaming distribution.
  * </p>
  * 
- * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2017-03-25/StreamingDistributionSummary"
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2018-11-05/StreamingDistributionSummary"
  *      target="_top">AWS API Documentation</a>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -28,7 +28,7 @@ public class StreamingDistributionSummary implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The identifier for the distribution. For example: <code>EDFDVBD632BHDS5</code>.
+     * The identifier for the distribution, for example, <code>EDFDVBD632BHDS5</code>.
      * </p>
      */
     private String id;
@@ -55,7 +55,7 @@ public class StreamingDistributionSummary implements Serializable, Cloneable {
     private java.util.Date lastModifiedTime;
     /**
      * <p>
-     * The domain name corresponding to the distribution. For example: <code>d604721fxaaqy9.cloudfront.net</code>.
+     * The domain name corresponding to the distribution, for example, <code>d111111abcdef8.cloudfront.net</code>.
      * </p>
      */
     private String domainName;
@@ -93,7 +93,7 @@ public class StreamingDistributionSummary implements Serializable, Cloneable {
      * </p>
      */
     private String comment;
-
+    /** <p/> */
     private String priceClass;
     /**
      * <p>
@@ -104,11 +104,11 @@ public class StreamingDistributionSummary implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The identifier for the distribution. For example: <code>EDFDVBD632BHDS5</code>.
+     * The identifier for the distribution, for example, <code>EDFDVBD632BHDS5</code>.
      * </p>
      * 
      * @param id
-     *        The identifier for the distribution. For example: <code>EDFDVBD632BHDS5</code>.
+     *        The identifier for the distribution, for example, <code>EDFDVBD632BHDS5</code>.
      */
 
     public void setId(String id) {
@@ -117,10 +117,10 @@ public class StreamingDistributionSummary implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The identifier for the distribution. For example: <code>EDFDVBD632BHDS5</code>.
+     * The identifier for the distribution, for example, <code>EDFDVBD632BHDS5</code>.
      * </p>
      * 
-     * @return The identifier for the distribution. For example: <code>EDFDVBD632BHDS5</code>.
+     * @return The identifier for the distribution, for example, <code>EDFDVBD632BHDS5</code>.
      */
 
     public String getId() {
@@ -129,11 +129,11 @@ public class StreamingDistributionSummary implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The identifier for the distribution. For example: <code>EDFDVBD632BHDS5</code>.
+     * The identifier for the distribution, for example, <code>EDFDVBD632BHDS5</code>.
      * </p>
      * 
      * @param id
-     *        The identifier for the distribution. For example: <code>EDFDVBD632BHDS5</code>.
+     *        The identifier for the distribution, for example, <code>EDFDVBD632BHDS5</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -282,11 +282,11 @@ public class StreamingDistributionSummary implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The domain name corresponding to the distribution. For example: <code>d604721fxaaqy9.cloudfront.net</code>.
+     * The domain name corresponding to the distribution, for example, <code>d111111abcdef8.cloudfront.net</code>.
      * </p>
      * 
      * @param domainName
-     *        The domain name corresponding to the distribution. For example: <code>d604721fxaaqy9.cloudfront.net</code>
+     *        The domain name corresponding to the distribution, for example, <code>d111111abcdef8.cloudfront.net</code>
      *        .
      */
 
@@ -296,11 +296,11 @@ public class StreamingDistributionSummary implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The domain name corresponding to the distribution. For example: <code>d604721fxaaqy9.cloudfront.net</code>.
+     * The domain name corresponding to the distribution, for example, <code>d111111abcdef8.cloudfront.net</code>.
      * </p>
      * 
-     * @return The domain name corresponding to the distribution. For example:
-     *         <code>d604721fxaaqy9.cloudfront.net</code>.
+     * @return The domain name corresponding to the distribution, for example,
+     *         <code>d111111abcdef8.cloudfront.net</code>.
      */
 
     public String getDomainName() {
@@ -309,11 +309,11 @@ public class StreamingDistributionSummary implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The domain name corresponding to the distribution. For example: <code>d604721fxaaqy9.cloudfront.net</code>.
+     * The domain name corresponding to the distribution, for example, <code>d111111abcdef8.cloudfront.net</code>.
      * </p>
      * 
      * @param domainName
-     *        The domain name corresponding to the distribution. For example: <code>d604721fxaaqy9.cloudfront.net</code>
+     *        The domain name corresponding to the distribution, for example, <code>d111111abcdef8.cloudfront.net</code>
      *        .
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -544,6 +544,8 @@ public class StreamingDistributionSummary implements Serializable, Cloneable {
     }
 
     /**
+     * <p/>
+     * 
      * @param priceClass
      * @see PriceClass
      */
@@ -553,6 +555,8 @@ public class StreamingDistributionSummary implements Serializable, Cloneable {
     }
 
     /**
+     * <p/>
+     * 
      * @return
      * @see PriceClass
      */
@@ -562,6 +566,8 @@ public class StreamingDistributionSummary implements Serializable, Cloneable {
     }
 
     /**
+     * <p/>
+     * 
      * @param priceClass
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see PriceClass
@@ -573,6 +579,8 @@ public class StreamingDistributionSummary implements Serializable, Cloneable {
     }
 
     /**
+     * <p/>
+     * 
      * @param priceClass
      * @see PriceClass
      */
@@ -582,6 +590,8 @@ public class StreamingDistributionSummary implements Serializable, Cloneable {
     }
 
     /**
+     * <p/>
+     * 
      * @param priceClass
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see PriceClass
@@ -645,7 +655,8 @@ public class StreamingDistributionSummary implements Serializable, Cloneable {
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

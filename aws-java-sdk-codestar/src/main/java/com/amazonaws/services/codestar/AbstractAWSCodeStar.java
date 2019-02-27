@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -78,12 +78,27 @@ public class AbstractAWSCodeStar implements AWSCodeStar {
     }
 
     @Override
+    public ListTagsForProjectResult listTagsForProject(ListTagsForProjectRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListTeamMembersResult listTeamMembers(ListTeamMembersRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
     public ListUserProfilesResult listUserProfiles(ListUserProfilesRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public TagProjectResult tagProject(TagProjectRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UntagProjectResult untagProject(UntagProjectRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

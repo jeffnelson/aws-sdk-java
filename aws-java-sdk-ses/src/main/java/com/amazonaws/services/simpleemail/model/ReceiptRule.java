@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -21,7 +21,7 @@ import javax.annotation.Generated;
  * more email addresses or domains that you own.
  * </p>
  * <p>
- * Each receipt rule defines a set of email addresses or domains to which it applies. If the email addresses or domains
+ * Each receipt rule defines a set of email addresses or domains that it applies to. If the email addresses or domains
  * match at least one recipient address of the message, Amazon SES executes all of the receipt rule's actions on the
  * message.
  * </p>
@@ -44,7 +44,7 @@ public class ReceiptRule implements Serializable, Cloneable {
      * <ul>
      * <li>
      * <p>
-     * Contain only ASCII letters (a-z, A-Z), numbers (0-9), periods (.), underscores (_), or dashes (-).
+     * This value can only contain ASCII letters (a-z, A-Z), numbers (0-9), underscores (_), or dashes (-).
      * </p>
      * </li>
      * <li>
@@ -76,7 +76,7 @@ public class ReceiptRule implements Serializable, Cloneable {
     private String tlsPolicy;
     /**
      * <p>
-     * The recipient domains and email addresses to which the receipt rule applies. If this field is not specified, this
+     * The recipient domains and email addresses that the receipt rule applies to. If this field is not specified, this
      * rule will match all recipients under all verified domains.
      * </p>
      */
@@ -90,7 +90,7 @@ public class ReceiptRule implements Serializable, Cloneable {
     private com.amazonaws.internal.SdkInternalList<ReceiptAction> actions;
     /**
      * <p>
-     * If <code>true</code>, then messages to which this receipt rule applies are scanned for spam and viruses. The
+     * If <code>true</code>, then messages that this receipt rule applies to are scanned for spam and viruses. The
      * default value is <code>false</code>.
      * </p>
      */
@@ -103,7 +103,7 @@ public class ReceiptRule implements Serializable, Cloneable {
      * <ul>
      * <li>
      * <p>
-     * Contain only ASCII letters (a-z, A-Z), numbers (0-9), periods (.), underscores (_), or dashes (-).
+     * This value can only contain ASCII letters (a-z, A-Z), numbers (0-9), underscores (_), or dashes (-).
      * </p>
      * </li>
      * <li>
@@ -123,7 +123,7 @@ public class ReceiptRule implements Serializable, Cloneable {
      *        <ul>
      *        <li>
      *        <p>
-     *        Contain only ASCII letters (a-z, A-Z), numbers (0-9), periods (.), underscores (_), or dashes (-).
+     *        This value can only contain ASCII letters (a-z, A-Z), numbers (0-9), underscores (_), or dashes (-).
      *        </p>
      *        </li>
      *        <li>
@@ -149,7 +149,7 @@ public class ReceiptRule implements Serializable, Cloneable {
      * <ul>
      * <li>
      * <p>
-     * Contain only ASCII letters (a-z, A-Z), numbers (0-9), periods (.), underscores (_), or dashes (-).
+     * This value can only contain ASCII letters (a-z, A-Z), numbers (0-9), underscores (_), or dashes (-).
      * </p>
      * </li>
      * <li>
@@ -168,7 +168,7 @@ public class ReceiptRule implements Serializable, Cloneable {
      *         <ul>
      *         <li>
      *         <p>
-     *         Contain only ASCII letters (a-z, A-Z), numbers (0-9), periods (.), underscores (_), or dashes (-).
+     *         This value can only contain ASCII letters (a-z, A-Z), numbers (0-9), underscores (_), or dashes (-).
      *         </p>
      *         </li>
      *         <li>
@@ -194,7 +194,7 @@ public class ReceiptRule implements Serializable, Cloneable {
      * <ul>
      * <li>
      * <p>
-     * Contain only ASCII letters (a-z, A-Z), numbers (0-9), periods (.), underscores (_), or dashes (-).
+     * This value can only contain ASCII letters (a-z, A-Z), numbers (0-9), underscores (_), or dashes (-).
      * </p>
      * </li>
      * <li>
@@ -214,7 +214,7 @@ public class ReceiptRule implements Serializable, Cloneable {
      *        <ul>
      *        <li>
      *        <p>
-     *        Contain only ASCII letters (a-z, A-Z), numbers (0-9), periods (.), underscores (_), or dashes (-).
+     *        This value can only contain ASCII letters (a-z, A-Z), numbers (0-9), underscores (_), or dashes (-).
      *        </p>
      *        </li>
      *        <li>
@@ -382,11 +382,11 @@ public class ReceiptRule implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The recipient domains and email addresses to which the receipt rule applies. If this field is not specified, this
+     * The recipient domains and email addresses that the receipt rule applies to. If this field is not specified, this
      * rule will match all recipients under all verified domains.
      * </p>
      * 
-     * @return The recipient domains and email addresses to which the receipt rule applies. If this field is not
+     * @return The recipient domains and email addresses that the receipt rule applies to. If this field is not
      *         specified, this rule will match all recipients under all verified domains.
      */
 
@@ -399,12 +399,12 @@ public class ReceiptRule implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The recipient domains and email addresses to which the receipt rule applies. If this field is not specified, this
+     * The recipient domains and email addresses that the receipt rule applies to. If this field is not specified, this
      * rule will match all recipients under all verified domains.
      * </p>
      * 
      * @param recipients
-     *        The recipient domains and email addresses to which the receipt rule applies. If this field is not
+     *        The recipient domains and email addresses that the receipt rule applies to. If this field is not
      *        specified, this rule will match all recipients under all verified domains.
      */
 
@@ -419,7 +419,7 @@ public class ReceiptRule implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The recipient domains and email addresses to which the receipt rule applies. If this field is not specified, this
+     * The recipient domains and email addresses that the receipt rule applies to. If this field is not specified, this
      * rule will match all recipients under all verified domains.
      * </p>
      * <p>
@@ -429,7 +429,7 @@ public class ReceiptRule implements Serializable, Cloneable {
      * </p>
      * 
      * @param recipients
-     *        The recipient domains and email addresses to which the receipt rule applies. If this field is not
+     *        The recipient domains and email addresses that the receipt rule applies to. If this field is not
      *        specified, this rule will match all recipients under all verified domains.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -446,12 +446,12 @@ public class ReceiptRule implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The recipient domains and email addresses to which the receipt rule applies. If this field is not specified, this
+     * The recipient domains and email addresses that the receipt rule applies to. If this field is not specified, this
      * rule will match all recipients under all verified domains.
      * </p>
      * 
      * @param recipients
-     *        The recipient domains and email addresses to which the receipt rule applies. If this field is not
+     *        The recipient domains and email addresses that the receipt rule applies to. If this field is not
      *        specified, this rule will match all recipients under all verified domains.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -544,12 +544,12 @@ public class ReceiptRule implements Serializable, Cloneable {
 
     /**
      * <p>
-     * If <code>true</code>, then messages to which this receipt rule applies are scanned for spam and viruses. The
+     * If <code>true</code>, then messages that this receipt rule applies to are scanned for spam and viruses. The
      * default value is <code>false</code>.
      * </p>
      * 
      * @param scanEnabled
-     *        If <code>true</code>, then messages to which this receipt rule applies are scanned for spam and viruses.
+     *        If <code>true</code>, then messages that this receipt rule applies to are scanned for spam and viruses.
      *        The default value is <code>false</code>.
      */
 
@@ -559,11 +559,11 @@ public class ReceiptRule implements Serializable, Cloneable {
 
     /**
      * <p>
-     * If <code>true</code>, then messages to which this receipt rule applies are scanned for spam and viruses. The
+     * If <code>true</code>, then messages that this receipt rule applies to are scanned for spam and viruses. The
      * default value is <code>false</code>.
      * </p>
      * 
-     * @return If <code>true</code>, then messages to which this receipt rule applies are scanned for spam and viruses.
+     * @return If <code>true</code>, then messages that this receipt rule applies to are scanned for spam and viruses.
      *         The default value is <code>false</code>.
      */
 
@@ -573,12 +573,12 @@ public class ReceiptRule implements Serializable, Cloneable {
 
     /**
      * <p>
-     * If <code>true</code>, then messages to which this receipt rule applies are scanned for spam and viruses. The
+     * If <code>true</code>, then messages that this receipt rule applies to are scanned for spam and viruses. The
      * default value is <code>false</code>.
      * </p>
      * 
      * @param scanEnabled
-     *        If <code>true</code>, then messages to which this receipt rule applies are scanned for spam and viruses.
+     *        If <code>true</code>, then messages that this receipt rule applies to are scanned for spam and viruses.
      *        The default value is <code>false</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -590,11 +590,11 @@ public class ReceiptRule implements Serializable, Cloneable {
 
     /**
      * <p>
-     * If <code>true</code>, then messages to which this receipt rule applies are scanned for spam and viruses. The
+     * If <code>true</code>, then messages that this receipt rule applies to are scanned for spam and viruses. The
      * default value is <code>false</code>.
      * </p>
      * 
-     * @return If <code>true</code>, then messages to which this receipt rule applies are scanned for spam and viruses.
+     * @return If <code>true</code>, then messages that this receipt rule applies to are scanned for spam and viruses.
      *         The default value is <code>false</code>.
      */
 
@@ -603,7 +603,8 @@ public class ReceiptRule implements Serializable, Cloneable {
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

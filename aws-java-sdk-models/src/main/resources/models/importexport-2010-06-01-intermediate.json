@@ -8,17 +8,26 @@
       "skip" : true
     },
     "calculateCRC32FromCompressedData" : false,
+    "contentTypeOverride" : null,
     "convenienceTypeOverloads" : [ ],
     "customClientConfigFactory" : null,
     "customCodeTemplates" : null,
     "customErrorCodeFieldName" : null,
     "customExceptionUnmarshallerImpl" : null,
     "customFileHeader" : null,
+    "customResponseHandlerFqcn" : null,
     "customResponseMetadataClassName" : null,
     "customServiceMetadata" : null,
     "customServiceNameForRequest" : null,
     "customSignerProvider" : null,
-    "deprecatedSuppressions" : null,
+    "deprecatedSuppressions" : [ "EnumSetterOverload" ],
+    "emitLegacyEnumSetterFor" : {
+      "CreateJobInput" : [ "JobType" ],
+      "CreateJobOutput" : [ "JobType" ],
+      "GetStatusOutput" : [ "JobType" ],
+      "Job" : [ "JobType" ],
+      "UpdateJobInput" : [ "JobType" ]
+    },
     "operationModifiers" : null,
     "operationsWithResponseStreamContentLengthValidation" : null,
     "presignersFqcn" : null,
@@ -37,12 +46,13 @@
         "methodForms" : [ [ ] ]
       }
     },
+    "skipClientMethodForOperations" : [ ],
     "skipInterfaceAdditions" : false,
     "skipSmokeTests" : true,
-    "supressEnumSetterFor" : null,
     "transformDirectory" : "transform",
     "useAutoConstructList" : true,
-    "useAutoConstructMap" : false
+    "useAutoConstructMap" : false,
+    "useUidAsFilePrefix" : false
   },
   "metadata" : {
     "apiVersion" : "2010-06-01",
@@ -72,6 +82,7 @@
     "requiresIamSigners" : false,
     "serviceAbbreviation" : null,
     "serviceFullName" : "AWS Import/Export",
+    "serviceId" : "ImportExport",
     "serviceName" : "AWS Import/Export",
     "signingName" : "importexport",
     "smokeTestsPackageName" : "com.amazonaws.services.importexport.smoketests",
@@ -92,6 +103,9 @@
       "authenticated" : true,
       "deprecated" : false,
       "documentation" : "This operation cancels a specified job. Only the job owner can cancel it. The operation fails if the job has already started or is complete.",
+      "endpointDiscovery" : null,
+      "endpointOperation" : false,
+      "endpointTrait" : null,
       "exceptions" : [ {
         "exceptionName" : "InvalidJobIdException",
         "documentation" : "The JOBID was missing, not found, or not associated with the AWS account.",
@@ -118,7 +132,9 @@
         "httpStatusCode" : null
       } ],
       "hasBlobMemberAsPayload" : false,
+      "hostPrefixProcessor" : null,
       "input" : {
+        "timestampFormat" : null,
         "variableDeclarationType" : "CancelJobRequest",
         "variableName" : "cancelJobRequest",
         "variableType" : "CancelJobRequest",
@@ -143,6 +159,9 @@
       "authenticated" : true,
       "deprecated" : false,
       "documentation" : "This operation initiates the process of scheduling an upload or download of your data. You include in the request a manifest that describes the data transfer specifics. The response to the request includes a job ID, which you can use in other operations, a signature that you use to identify your storage device, and the address where you should ship your storage device.",
+      "endpointDiscovery" : null,
+      "endpointOperation" : false,
+      "endpointTrait" : null,
       "exceptions" : [ {
         "exceptionName" : "MissingParameterException",
         "documentation" : "One or more required parameters was missing from the request.",
@@ -209,7 +228,9 @@
         "httpStatusCode" : null
       } ],
       "hasBlobMemberAsPayload" : false,
+      "hostPrefixProcessor" : null,
       "input" : {
+        "timestampFormat" : null,
         "variableDeclarationType" : "CreateJobRequest",
         "variableName" : "createJobRequest",
         "variableType" : "CreateJobRequest",
@@ -234,6 +255,9 @@
       "authenticated" : true,
       "deprecated" : false,
       "documentation" : "This operation generates a pre-paid UPS shipping label that you will use to ship your device to AWS for processing.",
+      "endpointDiscovery" : null,
+      "endpointOperation" : false,
+      "endpointTrait" : null,
       "exceptions" : [ {
         "exceptionName" : "InvalidJobIdException",
         "documentation" : "The JOBID was missing, not found, or not associated with the AWS account.",
@@ -264,7 +288,9 @@
         "httpStatusCode" : null
       } ],
       "hasBlobMemberAsPayload" : false,
+      "hostPrefixProcessor" : null,
       "input" : {
+        "timestampFormat" : null,
         "variableDeclarationType" : "GetShippingLabelRequest",
         "variableName" : "getShippingLabelRequest",
         "variableType" : "GetShippingLabelRequest",
@@ -289,6 +315,9 @@
       "authenticated" : true,
       "deprecated" : false,
       "documentation" : "This operation returns information about a job, including where the job is in the processing pipeline, the status of the results, and the signature value associated with the job. You can only return information about jobs you own.",
+      "endpointDiscovery" : null,
+      "endpointOperation" : false,
+      "endpointTrait" : null,
       "exceptions" : [ {
         "exceptionName" : "InvalidJobIdException",
         "documentation" : "The JOBID was missing, not found, or not associated with the AWS account.",
@@ -311,7 +340,9 @@
         "httpStatusCode" : null
       } ],
       "hasBlobMemberAsPayload" : false,
+      "hostPrefixProcessor" : null,
       "input" : {
+        "timestampFormat" : null,
         "variableDeclarationType" : "GetStatusRequest",
         "variableName" : "getStatusRequest",
         "variableType" : "GetStatusRequest",
@@ -336,6 +367,9 @@
       "authenticated" : true,
       "deprecated" : false,
       "documentation" : "This operation returns the jobs associated with the requester. AWS Import/Export lists the jobs in reverse chronological order based on the date of creation. For example if Job Test1 was created 2009Dec30 and Test2 was created 2010Feb05, the ListJobs operation would return Test2 followed by Test1.",
+      "endpointDiscovery" : null,
+      "endpointOperation" : false,
+      "endpointTrait" : null,
       "exceptions" : [ {
         "exceptionName" : "InvalidParameterException",
         "documentation" : "One or more parameters had an invalid value.",
@@ -350,7 +384,9 @@
         "httpStatusCode" : null
       } ],
       "hasBlobMemberAsPayload" : false,
+      "hostPrefixProcessor" : null,
       "input" : {
+        "timestampFormat" : null,
         "variableDeclarationType" : "ListJobsRequest",
         "variableName" : "listJobsRequest",
         "variableType" : "ListJobsRequest",
@@ -375,6 +411,9 @@
       "authenticated" : true,
       "deprecated" : false,
       "documentation" : "You use this operation to change the parameters specified in the original manifest file by supplying a new manifest file. The manifest file attached to this request replaces the original manifest file. You can only use the operation after a CreateJob request but before the data transfer starts and you can only use it on jobs you own.",
+      "endpointDiscovery" : null,
+      "endpointOperation" : false,
+      "endpointTrait" : null,
       "exceptions" : [ {
         "exceptionName" : "MissingParameterException",
         "documentation" : "One or more required parameters was missing from the request.",
@@ -449,7 +488,9 @@
         "httpStatusCode" : null
       } ],
       "hasBlobMemberAsPayload" : false,
+      "hostPrefixProcessor" : null,
       "input" : {
+        "timestampFormat" : null,
         "variableDeclarationType" : "UpdateJobRequest",
         "variableName" : "updateJobRequest",
         "variableType" : "UpdateJobRequest",
@@ -525,9 +566,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "Description",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param description */",
         "setterMethodName" : "setDescription",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "description",
           "variableType" : "String",
@@ -535,11 +578,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : false,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param description \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "description",
           "variableType" : "String",
@@ -588,9 +632,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "URL",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param uRL */",
         "setterMethodName" : "setURL",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "uRL",
           "variableType" : "String",
@@ -598,11 +644,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : false,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param uRL \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "uRL",
           "variableType" : "String",
@@ -653,9 +700,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "Description",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param description */",
           "setterMethodName" : "setDescription",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "description",
             "variableType" : "String",
@@ -663,11 +712,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : false,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param description \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "description",
             "variableType" : "String",
@@ -717,9 +767,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "URL",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param uRL */",
           "setterMethodName" : "setURL",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "uRL",
             "variableType" : "String",
@@ -727,11 +779,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : false,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param uRL \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "uRL",
             "variableType" : "String",
@@ -753,6 +806,7 @@
         "resultWrapper" : null
       },
       "variable" : {
+        "timestampFormat" : null,
         "variableDeclarationType" : "Artifact",
         "variableName" : "artifact",
         "variableType" : "Artifact",
@@ -789,6 +843,7 @@
       "signerType" : null,
       "unmarshaller" : null,
       "variable" : {
+        "timestampFormat" : null,
         "variableDeclarationType" : "BucketPermissionException",
         "variableName" : "bucketPermissionException",
         "variableType" : "BucketPermissionException",
@@ -862,9 +917,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "JobId",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param jobId */",
         "setterMethodName" : "setJobId",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "jobId",
           "variableType" : "String",
@@ -872,11 +929,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : false,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param jobId \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "jobId",
           "variableType" : "String",
@@ -925,9 +983,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "APIVersion",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param aPIVersion */",
         "setterMethodName" : "setAPIVersion",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "aPIVersion",
           "variableType" : "String",
@@ -935,11 +995,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : false,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param aPIVersion \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "aPIVersion",
           "variableType" : "String",
@@ -990,9 +1051,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "APIVersion",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param aPIVersion */",
           "setterMethodName" : "setAPIVersion",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "aPIVersion",
             "variableType" : "String",
@@ -1000,11 +1063,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : false,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param aPIVersion \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "aPIVersion",
             "variableType" : "String",
@@ -1054,9 +1118,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "JobId",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param jobId */",
           "setterMethodName" : "setJobId",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "jobId",
             "variableType" : "String",
@@ -1064,11 +1130,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : false,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param jobId \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "jobId",
             "variableType" : "String",
@@ -1087,6 +1154,7 @@
       "signerType" : null,
       "unmarshaller" : null,
       "variable" : {
+        "timestampFormat" : null,
         "variableDeclarationType" : "CancelJobRequest",
         "variableName" : "cancelJobRequest",
         "variableType" : "CancelJobRequest",
@@ -1153,9 +1221,11 @@
         "marshallingTargetClass" : "Boolean",
         "marshallingType" : "BOOLEAN",
         "name" : "Success",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param success */",
         "setterMethodName" : "setSuccess",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "Boolean",
           "variableName" : "success",
           "variableType" : "Boolean",
@@ -1163,11 +1233,12 @@
           "simpleType" : "Boolean",
           "variableSetterType" : "Boolean"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : false,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param success \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "Boolean",
           "variableName" : "success",
           "variableType" : "Boolean",
@@ -1218,9 +1289,11 @@
           "marshallingTargetClass" : "Boolean",
           "marshallingType" : "BOOLEAN",
           "name" : "Success",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param success */",
           "setterMethodName" : "setSuccess",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "Boolean",
             "variableName" : "success",
             "variableType" : "Boolean",
@@ -1228,11 +1301,12 @@
             "simpleType" : "Boolean",
             "variableSetterType" : "Boolean"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : false,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param success \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "Boolean",
             "variableName" : "success",
             "variableType" : "Boolean",
@@ -1254,6 +1328,7 @@
         "resultWrapper" : "CancelJobResult"
       },
       "variable" : {
+        "timestampFormat" : null,
         "variableDeclarationType" : "CancelJobResult",
         "variableName" : "cancelJobResult",
         "variableType" : "CancelJobResult",
@@ -1290,6 +1365,7 @@
       "signerType" : null,
       "unmarshaller" : null,
       "variable" : {
+        "timestampFormat" : null,
         "variableDeclarationType" : "CanceledJobIdException",
         "variableName" : "canceledJobIdException",
         "variableType" : "CanceledJobIdException",
@@ -1326,6 +1402,7 @@
       "signerType" : null,
       "unmarshaller" : null,
       "variable" : {
+        "timestampFormat" : null,
         "variableDeclarationType" : "CreateJobQuotaExceededException",
         "variableName" : "createJobQuotaExceededException",
         "variableType" : "CreateJobQuotaExceededException",
@@ -1399,9 +1476,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "JobType",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param jobType \n@see JobType*/",
         "setterMethodName" : "setJobType",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "jobType",
           "variableType" : "String",
@@ -1409,11 +1488,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : true,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param jobType \n@return Returns a reference to this object so that method calls can be chained together.\n@see JobType*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "jobType",
           "variableType" : "String",
@@ -1462,9 +1542,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "Manifest",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param manifest */",
         "setterMethodName" : "setManifest",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "manifest",
           "variableType" : "String",
@@ -1472,11 +1554,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : true,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param manifest \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "manifest",
           "variableType" : "String",
@@ -1525,9 +1608,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "ManifestAddendum",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param manifestAddendum */",
         "setterMethodName" : "setManifestAddendum",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "manifestAddendum",
           "variableType" : "String",
@@ -1535,11 +1620,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : true,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param manifestAddendum \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "manifestAddendum",
           "variableType" : "String",
@@ -1588,9 +1674,11 @@
         "marshallingTargetClass" : "Boolean",
         "marshallingType" : "BOOLEAN",
         "name" : "ValidateOnly",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param validateOnly */",
         "setterMethodName" : "setValidateOnly",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "Boolean",
           "variableName" : "validateOnly",
           "variableType" : "Boolean",
@@ -1598,11 +1686,12 @@
           "simpleType" : "Boolean",
           "variableSetterType" : "Boolean"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : true,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param validateOnly \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "Boolean",
           "variableName" : "validateOnly",
           "variableType" : "Boolean",
@@ -1651,9 +1740,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "APIVersion",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param aPIVersion */",
         "setterMethodName" : "setAPIVersion",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "aPIVersion",
           "variableType" : "String",
@@ -1661,11 +1752,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : true,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param aPIVersion \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "aPIVersion",
           "variableType" : "String",
@@ -1716,9 +1808,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "APIVersion",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param aPIVersion */",
           "setterMethodName" : "setAPIVersion",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "aPIVersion",
             "variableType" : "String",
@@ -1726,11 +1820,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : true,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param aPIVersion \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "aPIVersion",
             "variableType" : "String",
@@ -1780,9 +1875,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "JobType",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param jobType \n@see JobType*/",
           "setterMethodName" : "setJobType",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "jobType",
             "variableType" : "String",
@@ -1790,11 +1887,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : true,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param jobType \n@return Returns a reference to this object so that method calls can be chained together.\n@see JobType*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "jobType",
             "variableType" : "String",
@@ -1844,9 +1942,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "Manifest",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param manifest */",
           "setterMethodName" : "setManifest",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "manifest",
             "variableType" : "String",
@@ -1854,11 +1954,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : true,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param manifest \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "manifest",
             "variableType" : "String",
@@ -1908,9 +2009,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "ManifestAddendum",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param manifestAddendum */",
           "setterMethodName" : "setManifestAddendum",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "manifestAddendum",
             "variableType" : "String",
@@ -1918,11 +2021,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : true,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param manifestAddendum \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "manifestAddendum",
             "variableType" : "String",
@@ -1972,9 +2076,11 @@
           "marshallingTargetClass" : "Boolean",
           "marshallingType" : "BOOLEAN",
           "name" : "ValidateOnly",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param validateOnly */",
           "setterMethodName" : "setValidateOnly",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "Boolean",
             "variableName" : "validateOnly",
             "variableType" : "Boolean",
@@ -1982,11 +2088,12 @@
             "simpleType" : "Boolean",
             "variableSetterType" : "Boolean"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : true,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param validateOnly \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "Boolean",
             "variableName" : "validateOnly",
             "variableType" : "Boolean",
@@ -2005,6 +2112,7 @@
       "signerType" : null,
       "unmarshaller" : null,
       "variable" : {
+        "timestampFormat" : null,
         "variableDeclarationType" : "CreateJobRequest",
         "variableName" : "createJobRequest",
         "variableType" : "CreateJobRequest",
@@ -2071,9 +2179,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "JobId",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param jobId */",
         "setterMethodName" : "setJobId",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "jobId",
           "variableType" : "String",
@@ -2081,11 +2191,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : true,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param jobId \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "jobId",
           "variableType" : "String",
@@ -2134,9 +2245,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "JobType",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param jobType \n@see JobType*/",
         "setterMethodName" : "setJobType",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "jobType",
           "variableType" : "String",
@@ -2144,11 +2257,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : true,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param jobType \n@return Returns a reference to this object so that method calls can be chained together.\n@see JobType*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "jobType",
           "variableType" : "String",
@@ -2197,9 +2311,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "Signature",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param signature */",
         "setterMethodName" : "setSignature",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "signature",
           "variableType" : "String",
@@ -2207,11 +2323,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : true,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param signature \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "signature",
           "variableType" : "String",
@@ -2260,9 +2377,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "SignatureFileContents",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param signatureFileContents */",
         "setterMethodName" : "setSignatureFileContents",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "signatureFileContents",
           "variableType" : "String",
@@ -2270,11 +2389,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : true,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param signatureFileContents \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "signatureFileContents",
           "variableType" : "String",
@@ -2323,9 +2443,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "WarningMessage",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param warningMessage */",
         "setterMethodName" : "setWarningMessage",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "warningMessage",
           "variableType" : "String",
@@ -2333,11 +2455,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : true,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param warningMessage \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "warningMessage",
           "variableType" : "String",
@@ -2423,9 +2546,11 @@
             "marshallingTargetClass" : "StructuredPojo",
             "marshallingType" : "STRUCTURED",
             "name" : "Member",
+            "sensitive" : false,
             "setterDocumentation" : "/**\n@param member */",
             "setterMethodName" : "setMember",
             "setterModel" : {
+              "timestampFormat" : null,
               "variableDeclarationType" : "Artifact",
               "variableName" : "member",
               "variableType" : "Artifact",
@@ -2433,11 +2558,12 @@
               "simpleType" : "Artifact",
               "variableSetterType" : "Artifact"
             },
-            "shouldSupressEnumSetter" : false,
+            "shouldEmitLegacyEnumSetter" : false,
             "simple" : false,
             "unmarshallingType" : null,
             "varargSetterDocumentation" : "/**\n@param member \n@return Returns a reference to this object so that method calls can be chained together.*/",
             "variable" : {
+              "timestampFormat" : null,
               "variableDeclarationType" : "Artifact",
               "variableName" : "member",
               "variableType" : "Artifact",
@@ -2464,9 +2590,11 @@
         "marshallingTargetClass" : "List",
         "marshallingType" : "LIST",
         "name" : "ArtifactList",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param artifactList */",
         "setterMethodName" : "setArtifactList",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "com.amazonaws.internal.SdkInternalList<Artifact>",
           "variableName" : "artifactList",
           "variableType" : "java.util.List<Artifact>",
@@ -2474,11 +2602,12 @@
           "simpleType" : "List<Artifact>",
           "variableSetterType" : "java.util.Collection<Artifact>"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : true,
         "simple" : false,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n<p><b>NOTE:</b> This method appends the values to the existing list (if any). Use {@link #setArtifactList(java.util.Collection)} or {@link #withArtifactList(java.util.Collection)} if you want to override the existing values.</p>\n@param artifactList \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "com.amazonaws.internal.SdkInternalList<Artifact>",
           "variableName" : "artifactList",
           "variableType" : "java.util.List<Artifact>",
@@ -2566,9 +2695,11 @@
               "marshallingTargetClass" : "StructuredPojo",
               "marshallingType" : "STRUCTURED",
               "name" : "Member",
+              "sensitive" : false,
               "setterDocumentation" : "/**\n@param member */",
               "setterMethodName" : "setMember",
               "setterModel" : {
+                "timestampFormat" : null,
                 "variableDeclarationType" : "Artifact",
                 "variableName" : "member",
                 "variableType" : "Artifact",
@@ -2576,11 +2707,12 @@
                 "simpleType" : "Artifact",
                 "variableSetterType" : "Artifact"
               },
-              "shouldSupressEnumSetter" : false,
+              "shouldEmitLegacyEnumSetter" : false,
               "simple" : false,
               "unmarshallingType" : null,
               "varargSetterDocumentation" : "/**\n@param member \n@return Returns a reference to this object so that method calls can be chained together.*/",
               "variable" : {
+                "timestampFormat" : null,
                 "variableDeclarationType" : "Artifact",
                 "variableName" : "member",
                 "variableType" : "Artifact",
@@ -2607,9 +2739,11 @@
           "marshallingTargetClass" : "List",
           "marshallingType" : "LIST",
           "name" : "ArtifactList",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param artifactList */",
           "setterMethodName" : "setArtifactList",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "com.amazonaws.internal.SdkInternalList<Artifact>",
             "variableName" : "artifactList",
             "variableType" : "java.util.List<Artifact>",
@@ -2617,11 +2751,12 @@
             "simpleType" : "List<Artifact>",
             "variableSetterType" : "java.util.Collection<Artifact>"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : true,
           "simple" : false,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n<p><b>NOTE:</b> This method appends the values to the existing list (if any). Use {@link #setArtifactList(java.util.Collection)} or {@link #withArtifactList(java.util.Collection)} if you want to override the existing values.</p>\n@param artifactList \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "com.amazonaws.internal.SdkInternalList<Artifact>",
             "variableName" : "artifactList",
             "variableType" : "java.util.List<Artifact>",
@@ -2671,9 +2806,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "JobId",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param jobId */",
           "setterMethodName" : "setJobId",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "jobId",
             "variableType" : "String",
@@ -2681,11 +2818,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : true,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param jobId \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "jobId",
             "variableType" : "String",
@@ -2735,9 +2873,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "JobType",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param jobType \n@see JobType*/",
           "setterMethodName" : "setJobType",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "jobType",
             "variableType" : "String",
@@ -2745,11 +2885,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : true,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param jobType \n@return Returns a reference to this object so that method calls can be chained together.\n@see JobType*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "jobType",
             "variableType" : "String",
@@ -2799,9 +2940,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "Signature",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param signature */",
           "setterMethodName" : "setSignature",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "signature",
             "variableType" : "String",
@@ -2809,11 +2952,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : true,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param signature \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "signature",
             "variableType" : "String",
@@ -2863,9 +3007,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "SignatureFileContents",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param signatureFileContents */",
           "setterMethodName" : "setSignatureFileContents",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "signatureFileContents",
             "variableType" : "String",
@@ -2873,11 +3019,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : true,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param signatureFileContents \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "signatureFileContents",
             "variableType" : "String",
@@ -2927,9 +3074,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "WarningMessage",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param warningMessage */",
           "setterMethodName" : "setWarningMessage",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "warningMessage",
             "variableType" : "String",
@@ -2937,11 +3086,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : true,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param warningMessage \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "warningMessage",
             "variableType" : "String",
@@ -2963,6 +3113,7 @@
         "resultWrapper" : "CreateJobResult"
       },
       "variable" : {
+        "timestampFormat" : null,
         "variableDeclarationType" : "CreateJobResult",
         "variableName" : "createJobResult",
         "variableType" : "CreateJobResult",
@@ -2999,6 +3150,7 @@
       "signerType" : null,
       "unmarshaller" : null,
       "variable" : {
+        "timestampFormat" : null,
         "variableDeclarationType" : "ExpiredJobIdException",
         "variableName" : "expiredJobIdException",
         "variableType" : "ExpiredJobIdException",
@@ -3109,9 +3261,11 @@
             "marshallingTargetClass" : "String",
             "marshallingType" : "STRING",
             "name" : "Member",
+            "sensitive" : false,
             "setterDocumentation" : "/**\n@param member */",
             "setterMethodName" : "setMember",
             "setterModel" : {
+              "timestampFormat" : null,
               "variableDeclarationType" : "String",
               "variableName" : "member",
               "variableType" : "String",
@@ -3119,11 +3273,12 @@
               "simpleType" : "String",
               "variableSetterType" : "String"
             },
-            "shouldSupressEnumSetter" : false,
+            "shouldEmitLegacyEnumSetter" : false,
             "simple" : true,
             "unmarshallingType" : null,
             "varargSetterDocumentation" : "/**\n@param member \n@return Returns a reference to this object so that method calls can be chained together.*/",
             "variable" : {
+              "timestampFormat" : null,
               "variableDeclarationType" : "String",
               "variableName" : "member",
               "variableType" : "String",
@@ -3150,9 +3305,11 @@
         "marshallingTargetClass" : "List",
         "marshallingType" : "LIST",
         "name" : "JobIds",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param jobIds */",
         "setterMethodName" : "setJobIds",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "com.amazonaws.internal.SdkInternalList<String>",
           "variableName" : "jobIds",
           "variableType" : "java.util.List<String>",
@@ -3160,11 +3317,12 @@
           "simpleType" : "List<String>",
           "variableSetterType" : "java.util.Collection<String>"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : false,
         "simple" : false,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n<p><b>NOTE:</b> This method appends the values to the existing list (if any). Use {@link #setJobIds(java.util.Collection)} or {@link #withJobIds(java.util.Collection)} if you want to override the existing values.</p>\n@param jobIds \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "com.amazonaws.internal.SdkInternalList<String>",
           "variableName" : "jobIds",
           "variableType" : "java.util.List<String>",
@@ -3213,9 +3371,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "Name",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param name */",
         "setterMethodName" : "setName",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "name",
           "variableType" : "String",
@@ -3223,11 +3383,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : false,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param name \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "name",
           "variableType" : "String",
@@ -3276,9 +3437,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "Company",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param company */",
         "setterMethodName" : "setCompany",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "company",
           "variableType" : "String",
@@ -3286,11 +3449,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : false,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param company \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "company",
           "variableType" : "String",
@@ -3339,9 +3503,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "PhoneNumber",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param phoneNumber */",
         "setterMethodName" : "setPhoneNumber",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "phoneNumber",
           "variableType" : "String",
@@ -3349,11 +3515,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : false,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param phoneNumber \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "phoneNumber",
           "variableType" : "String",
@@ -3402,9 +3569,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "Country",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param country */",
         "setterMethodName" : "setCountry",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "country",
           "variableType" : "String",
@@ -3412,11 +3581,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : false,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param country \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "country",
           "variableType" : "String",
@@ -3465,9 +3635,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "StateOrProvince",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param stateOrProvince */",
         "setterMethodName" : "setStateOrProvince",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "stateOrProvince",
           "variableType" : "String",
@@ -3475,11 +3647,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : false,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param stateOrProvince \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "stateOrProvince",
           "variableType" : "String",
@@ -3528,9 +3701,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "City",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param city */",
         "setterMethodName" : "setCity",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "city",
           "variableType" : "String",
@@ -3538,11 +3713,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : false,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param city \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "city",
           "variableType" : "String",
@@ -3591,9 +3767,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "PostalCode",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param postalCode */",
         "setterMethodName" : "setPostalCode",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "postalCode",
           "variableType" : "String",
@@ -3601,11 +3779,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : false,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param postalCode \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "postalCode",
           "variableType" : "String",
@@ -3654,9 +3833,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "Street1",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param street1 */",
         "setterMethodName" : "setStreet1",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "street1",
           "variableType" : "String",
@@ -3664,11 +3845,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : false,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param street1 \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "street1",
           "variableType" : "String",
@@ -3717,9 +3899,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "Street2",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param street2 */",
         "setterMethodName" : "setStreet2",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "street2",
           "variableType" : "String",
@@ -3727,11 +3911,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : false,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param street2 \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "street2",
           "variableType" : "String",
@@ -3780,9 +3965,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "Street3",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param street3 */",
         "setterMethodName" : "setStreet3",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "street3",
           "variableType" : "String",
@@ -3790,11 +3977,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : false,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param street3 \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "street3",
           "variableType" : "String",
@@ -3843,9 +4031,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "APIVersion",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param aPIVersion */",
         "setterMethodName" : "setAPIVersion",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "aPIVersion",
           "variableType" : "String",
@@ -3853,11 +4043,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : false,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param aPIVersion \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "aPIVersion",
           "variableType" : "String",
@@ -3908,9 +4099,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "APIVersion",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param aPIVersion */",
           "setterMethodName" : "setAPIVersion",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "aPIVersion",
             "variableType" : "String",
@@ -3918,11 +4111,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : false,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param aPIVersion \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "aPIVersion",
             "variableType" : "String",
@@ -3972,9 +4166,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "City",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param city */",
           "setterMethodName" : "setCity",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "city",
             "variableType" : "String",
@@ -3982,11 +4178,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : false,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param city \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "city",
             "variableType" : "String",
@@ -4036,9 +4233,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "Company",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param company */",
           "setterMethodName" : "setCompany",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "company",
             "variableType" : "String",
@@ -4046,11 +4245,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : false,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param company \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "company",
             "variableType" : "String",
@@ -4100,9 +4300,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "Country",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param country */",
           "setterMethodName" : "setCountry",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "country",
             "variableType" : "String",
@@ -4110,11 +4312,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : false,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param country \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "country",
             "variableType" : "String",
@@ -4201,9 +4404,11 @@
               "marshallingTargetClass" : "String",
               "marshallingType" : "STRING",
               "name" : "Member",
+              "sensitive" : false,
               "setterDocumentation" : "/**\n@param member */",
               "setterMethodName" : "setMember",
               "setterModel" : {
+                "timestampFormat" : null,
                 "variableDeclarationType" : "String",
                 "variableName" : "member",
                 "variableType" : "String",
@@ -4211,11 +4416,12 @@
                 "simpleType" : "String",
                 "variableSetterType" : "String"
               },
-              "shouldSupressEnumSetter" : false,
+              "shouldEmitLegacyEnumSetter" : false,
               "simple" : true,
               "unmarshallingType" : null,
               "varargSetterDocumentation" : "/**\n@param member \n@return Returns a reference to this object so that method calls can be chained together.*/",
               "variable" : {
+                "timestampFormat" : null,
                 "variableDeclarationType" : "String",
                 "variableName" : "member",
                 "variableType" : "String",
@@ -4242,9 +4448,11 @@
           "marshallingTargetClass" : "List",
           "marshallingType" : "LIST",
           "name" : "JobIds",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param jobIds */",
           "setterMethodName" : "setJobIds",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "com.amazonaws.internal.SdkInternalList<String>",
             "variableName" : "jobIds",
             "variableType" : "java.util.List<String>",
@@ -4252,11 +4460,12 @@
             "simpleType" : "List<String>",
             "variableSetterType" : "java.util.Collection<String>"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : false,
           "simple" : false,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n<p><b>NOTE:</b> This method appends the values to the existing list (if any). Use {@link #setJobIds(java.util.Collection)} or {@link #withJobIds(java.util.Collection)} if you want to override the existing values.</p>\n@param jobIds \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "com.amazonaws.internal.SdkInternalList<String>",
             "variableName" : "jobIds",
             "variableType" : "java.util.List<String>",
@@ -4306,9 +4515,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "Name",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param name */",
           "setterMethodName" : "setName",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "name",
             "variableType" : "String",
@@ -4316,11 +4527,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : false,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param name \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "name",
             "variableType" : "String",
@@ -4370,9 +4582,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "PhoneNumber",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param phoneNumber */",
           "setterMethodName" : "setPhoneNumber",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "phoneNumber",
             "variableType" : "String",
@@ -4380,11 +4594,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : false,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param phoneNumber \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "phoneNumber",
             "variableType" : "String",
@@ -4434,9 +4649,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "PostalCode",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param postalCode */",
           "setterMethodName" : "setPostalCode",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "postalCode",
             "variableType" : "String",
@@ -4444,11 +4661,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : false,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param postalCode \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "postalCode",
             "variableType" : "String",
@@ -4498,9 +4716,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "StateOrProvince",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param stateOrProvince */",
           "setterMethodName" : "setStateOrProvince",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "stateOrProvince",
             "variableType" : "String",
@@ -4508,11 +4728,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : false,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param stateOrProvince \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "stateOrProvince",
             "variableType" : "String",
@@ -4562,9 +4783,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "Street1",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param street1 */",
           "setterMethodName" : "setStreet1",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "street1",
             "variableType" : "String",
@@ -4572,11 +4795,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : false,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param street1 \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "street1",
             "variableType" : "String",
@@ -4626,9 +4850,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "Street2",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param street2 */",
           "setterMethodName" : "setStreet2",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "street2",
             "variableType" : "String",
@@ -4636,11 +4862,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : false,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param street2 \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "street2",
             "variableType" : "String",
@@ -4690,9 +4917,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "Street3",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param street3 */",
           "setterMethodName" : "setStreet3",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "street3",
             "variableType" : "String",
@@ -4700,11 +4929,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : false,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param street3 \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "street3",
             "variableType" : "String",
@@ -4723,6 +4953,7 @@
       "signerType" : null,
       "unmarshaller" : null,
       "variable" : {
+        "timestampFormat" : null,
         "variableDeclarationType" : "GetShippingLabelRequest",
         "variableName" : "getShippingLabelRequest",
         "variableType" : "GetShippingLabelRequest",
@@ -4789,9 +5020,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "ShippingLabelURL",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param shippingLabelURL */",
         "setterMethodName" : "setShippingLabelURL",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "shippingLabelURL",
           "variableType" : "String",
@@ -4799,11 +5032,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : false,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param shippingLabelURL \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "shippingLabelURL",
           "variableType" : "String",
@@ -4852,9 +5086,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "Warning",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param warning */",
         "setterMethodName" : "setWarning",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "warning",
           "variableType" : "String",
@@ -4862,11 +5098,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : false,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param warning \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "warning",
           "variableType" : "String",
@@ -4917,9 +5154,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "ShippingLabelURL",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param shippingLabelURL */",
           "setterMethodName" : "setShippingLabelURL",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "shippingLabelURL",
             "variableType" : "String",
@@ -4927,11 +5166,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : false,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param shippingLabelURL \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "shippingLabelURL",
             "variableType" : "String",
@@ -4981,9 +5221,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "Warning",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param warning */",
           "setterMethodName" : "setWarning",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "warning",
             "variableType" : "String",
@@ -4991,11 +5233,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : false,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param warning \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "warning",
             "variableType" : "String",
@@ -5017,6 +5260,7 @@
         "resultWrapper" : "GetShippingLabelResult"
       },
       "variable" : {
+        "timestampFormat" : null,
         "variableDeclarationType" : "GetShippingLabelResult",
         "variableName" : "getShippingLabelResult",
         "variableType" : "GetShippingLabelResult",
@@ -5090,9 +5334,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "JobId",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param jobId */",
         "setterMethodName" : "setJobId",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "jobId",
           "variableType" : "String",
@@ -5100,11 +5346,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : false,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param jobId \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "jobId",
           "variableType" : "String",
@@ -5153,9 +5400,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "APIVersion",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param aPIVersion */",
         "setterMethodName" : "setAPIVersion",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "aPIVersion",
           "variableType" : "String",
@@ -5163,11 +5412,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : false,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param aPIVersion \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "aPIVersion",
           "variableType" : "String",
@@ -5218,9 +5468,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "APIVersion",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param aPIVersion */",
           "setterMethodName" : "setAPIVersion",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "aPIVersion",
             "variableType" : "String",
@@ -5228,11 +5480,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : false,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param aPIVersion \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "aPIVersion",
             "variableType" : "String",
@@ -5282,9 +5535,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "JobId",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param jobId */",
           "setterMethodName" : "setJobId",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "jobId",
             "variableType" : "String",
@@ -5292,11 +5547,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : false,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param jobId \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "jobId",
             "variableType" : "String",
@@ -5315,6 +5571,7 @@
       "signerType" : null,
       "unmarshaller" : null,
       "variable" : {
+        "timestampFormat" : null,
         "variableDeclarationType" : "GetStatusRequest",
         "variableName" : "getStatusRequest",
         "variableType" : "GetStatusRequest",
@@ -5381,9 +5638,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "JobId",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param jobId */",
         "setterMethodName" : "setJobId",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "jobId",
           "variableType" : "String",
@@ -5391,11 +5650,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : true,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param jobId \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "jobId",
           "variableType" : "String",
@@ -5444,9 +5704,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "JobType",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param jobType \n@see JobType*/",
         "setterMethodName" : "setJobType",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "jobType",
           "variableType" : "String",
@@ -5454,11 +5716,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : true,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param jobType \n@return Returns a reference to this object so that method calls can be chained together.\n@see JobType*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "jobType",
           "variableType" : "String",
@@ -5507,9 +5770,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "LocationCode",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param locationCode */",
         "setterMethodName" : "setLocationCode",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "locationCode",
           "variableType" : "String",
@@ -5517,11 +5782,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : true,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param locationCode \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "locationCode",
           "variableType" : "String",
@@ -5570,9 +5836,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "LocationMessage",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param locationMessage */",
         "setterMethodName" : "setLocationMessage",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "locationMessage",
           "variableType" : "String",
@@ -5580,11 +5848,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : true,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param locationMessage \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "locationMessage",
           "variableType" : "String",
@@ -5633,9 +5902,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "ProgressCode",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param progressCode */",
         "setterMethodName" : "setProgressCode",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "progressCode",
           "variableType" : "String",
@@ -5643,11 +5914,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : true,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param progressCode \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "progressCode",
           "variableType" : "String",
@@ -5696,9 +5968,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "ProgressMessage",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param progressMessage */",
         "setterMethodName" : "setProgressMessage",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "progressMessage",
           "variableType" : "String",
@@ -5706,11 +5980,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : true,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param progressMessage \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "progressMessage",
           "variableType" : "String",
@@ -5759,9 +6034,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "Carrier",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param carrier */",
         "setterMethodName" : "setCarrier",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "carrier",
           "variableType" : "String",
@@ -5769,11 +6046,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : true,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param carrier \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "carrier",
           "variableType" : "String",
@@ -5822,9 +6100,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "TrackingNumber",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param trackingNumber */",
         "setterMethodName" : "setTrackingNumber",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "trackingNumber",
           "variableType" : "String",
@@ -5832,11 +6112,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : true,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param trackingNumber \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "trackingNumber",
           "variableType" : "String",
@@ -5885,9 +6166,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "LogBucket",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param logBucket */",
         "setterMethodName" : "setLogBucket",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "logBucket",
           "variableType" : "String",
@@ -5895,11 +6178,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : true,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param logBucket \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "logBucket",
           "variableType" : "String",
@@ -5948,9 +6232,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "LogKey",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param logKey */",
         "setterMethodName" : "setLogKey",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "logKey",
           "variableType" : "String",
@@ -5958,11 +6244,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : true,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param logKey \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "logKey",
           "variableType" : "String",
@@ -6011,9 +6298,11 @@
         "marshallingTargetClass" : "Integer",
         "marshallingType" : "INTEGER",
         "name" : "ErrorCount",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param errorCount */",
         "setterMethodName" : "setErrorCount",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "Integer",
           "variableName" : "errorCount",
           "variableType" : "Integer",
@@ -6021,11 +6310,12 @@
           "simpleType" : "Integer",
           "variableSetterType" : "Integer"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : true,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param errorCount \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "Integer",
           "variableName" : "errorCount",
           "variableType" : "Integer",
@@ -6074,9 +6364,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "Signature",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param signature */",
         "setterMethodName" : "setSignature",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "signature",
           "variableType" : "String",
@@ -6084,11 +6376,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : true,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param signature \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "signature",
           "variableType" : "String",
@@ -6137,9 +6430,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "SignatureFileContents",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param signatureFileContents */",
         "setterMethodName" : "setSignatureFileContents",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "signatureFileContents",
           "variableType" : "String",
@@ -6147,11 +6442,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : true,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param signatureFileContents \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "signatureFileContents",
           "variableType" : "String",
@@ -6200,9 +6496,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "CurrentManifest",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param currentManifest */",
         "setterMethodName" : "setCurrentManifest",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "currentManifest",
           "variableType" : "String",
@@ -6210,11 +6508,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : true,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param currentManifest \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "currentManifest",
           "variableType" : "String",
@@ -6263,9 +6562,11 @@
         "marshallingTargetClass" : "java.util.Date",
         "marshallingType" : "DATE",
         "name" : "CreationDate",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param creationDate */",
         "setterMethodName" : "setCreationDate",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "java.util.Date",
           "variableName" : "creationDate",
           "variableType" : "java.util.Date",
@@ -6273,11 +6574,12 @@
           "simpleType" : "Date",
           "variableSetterType" : "java.util.Date"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : true,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param creationDate \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : "iso8601",
           "variableDeclarationType" : "java.util.Date",
           "variableName" : "creationDate",
           "variableType" : "java.util.Date",
@@ -6363,9 +6665,11 @@
             "marshallingTargetClass" : "StructuredPojo",
             "marshallingType" : "STRUCTURED",
             "name" : "Member",
+            "sensitive" : false,
             "setterDocumentation" : "/**\n@param member */",
             "setterMethodName" : "setMember",
             "setterModel" : {
+              "timestampFormat" : null,
               "variableDeclarationType" : "Artifact",
               "variableName" : "member",
               "variableType" : "Artifact",
@@ -6373,11 +6677,12 @@
               "simpleType" : "Artifact",
               "variableSetterType" : "Artifact"
             },
-            "shouldSupressEnumSetter" : false,
+            "shouldEmitLegacyEnumSetter" : false,
             "simple" : false,
             "unmarshallingType" : null,
             "varargSetterDocumentation" : "/**\n@param member \n@return Returns a reference to this object so that method calls can be chained together.*/",
             "variable" : {
+              "timestampFormat" : null,
               "variableDeclarationType" : "Artifact",
               "variableName" : "member",
               "variableType" : "Artifact",
@@ -6404,9 +6709,11 @@
         "marshallingTargetClass" : "List",
         "marshallingType" : "LIST",
         "name" : "ArtifactList",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param artifactList */",
         "setterMethodName" : "setArtifactList",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "com.amazonaws.internal.SdkInternalList<Artifact>",
           "variableName" : "artifactList",
           "variableType" : "java.util.List<Artifact>",
@@ -6414,11 +6721,12 @@
           "simpleType" : "List<Artifact>",
           "variableSetterType" : "java.util.Collection<Artifact>"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : true,
         "simple" : false,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n<p><b>NOTE:</b> This method appends the values to the existing list (if any). Use {@link #setArtifactList(java.util.Collection)} or {@link #withArtifactList(java.util.Collection)} if you want to override the existing values.</p>\n@param artifactList \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "com.amazonaws.internal.SdkInternalList<Artifact>",
           "variableName" : "artifactList",
           "variableType" : "java.util.List<Artifact>",
@@ -6506,9 +6814,11 @@
               "marshallingTargetClass" : "StructuredPojo",
               "marshallingType" : "STRUCTURED",
               "name" : "Member",
+              "sensitive" : false,
               "setterDocumentation" : "/**\n@param member */",
               "setterMethodName" : "setMember",
               "setterModel" : {
+                "timestampFormat" : null,
                 "variableDeclarationType" : "Artifact",
                 "variableName" : "member",
                 "variableType" : "Artifact",
@@ -6516,11 +6826,12 @@
                 "simpleType" : "Artifact",
                 "variableSetterType" : "Artifact"
               },
-              "shouldSupressEnumSetter" : false,
+              "shouldEmitLegacyEnumSetter" : false,
               "simple" : false,
               "unmarshallingType" : null,
               "varargSetterDocumentation" : "/**\n@param member \n@return Returns a reference to this object so that method calls can be chained together.*/",
               "variable" : {
+                "timestampFormat" : null,
                 "variableDeclarationType" : "Artifact",
                 "variableName" : "member",
                 "variableType" : "Artifact",
@@ -6547,9 +6858,11 @@
           "marshallingTargetClass" : "List",
           "marshallingType" : "LIST",
           "name" : "ArtifactList",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param artifactList */",
           "setterMethodName" : "setArtifactList",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "com.amazonaws.internal.SdkInternalList<Artifact>",
             "variableName" : "artifactList",
             "variableType" : "java.util.List<Artifact>",
@@ -6557,11 +6870,12 @@
             "simpleType" : "List<Artifact>",
             "variableSetterType" : "java.util.Collection<Artifact>"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : true,
           "simple" : false,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n<p><b>NOTE:</b> This method appends the values to the existing list (if any). Use {@link #setArtifactList(java.util.Collection)} or {@link #withArtifactList(java.util.Collection)} if you want to override the existing values.</p>\n@param artifactList \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "com.amazonaws.internal.SdkInternalList<Artifact>",
             "variableName" : "artifactList",
             "variableType" : "java.util.List<Artifact>",
@@ -6611,9 +6925,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "Carrier",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param carrier */",
           "setterMethodName" : "setCarrier",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "carrier",
             "variableType" : "String",
@@ -6621,11 +6937,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : true,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param carrier \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "carrier",
             "variableType" : "String",
@@ -6675,9 +6992,11 @@
           "marshallingTargetClass" : "java.util.Date",
           "marshallingType" : "DATE",
           "name" : "CreationDate",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param creationDate */",
           "setterMethodName" : "setCreationDate",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "java.util.Date",
             "variableName" : "creationDate",
             "variableType" : "java.util.Date",
@@ -6685,11 +7004,12 @@
             "simpleType" : "Date",
             "variableSetterType" : "java.util.Date"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : true,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param creationDate \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : "iso8601",
             "variableDeclarationType" : "java.util.Date",
             "variableName" : "creationDate",
             "variableType" : "java.util.Date",
@@ -6739,9 +7059,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "CurrentManifest",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param currentManifest */",
           "setterMethodName" : "setCurrentManifest",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "currentManifest",
             "variableType" : "String",
@@ -6749,11 +7071,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : true,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param currentManifest \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "currentManifest",
             "variableType" : "String",
@@ -6803,9 +7126,11 @@
           "marshallingTargetClass" : "Integer",
           "marshallingType" : "INTEGER",
           "name" : "ErrorCount",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param errorCount */",
           "setterMethodName" : "setErrorCount",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "Integer",
             "variableName" : "errorCount",
             "variableType" : "Integer",
@@ -6813,11 +7138,12 @@
             "simpleType" : "Integer",
             "variableSetterType" : "Integer"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : true,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param errorCount \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "Integer",
             "variableName" : "errorCount",
             "variableType" : "Integer",
@@ -6867,9 +7193,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "JobId",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param jobId */",
           "setterMethodName" : "setJobId",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "jobId",
             "variableType" : "String",
@@ -6877,11 +7205,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : true,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param jobId \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "jobId",
             "variableType" : "String",
@@ -6931,9 +7260,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "JobType",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param jobType \n@see JobType*/",
           "setterMethodName" : "setJobType",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "jobType",
             "variableType" : "String",
@@ -6941,11 +7272,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : true,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param jobType \n@return Returns a reference to this object so that method calls can be chained together.\n@see JobType*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "jobType",
             "variableType" : "String",
@@ -6995,9 +7327,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "LocationCode",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param locationCode */",
           "setterMethodName" : "setLocationCode",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "locationCode",
             "variableType" : "String",
@@ -7005,11 +7339,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : true,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param locationCode \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "locationCode",
             "variableType" : "String",
@@ -7059,9 +7394,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "LocationMessage",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param locationMessage */",
           "setterMethodName" : "setLocationMessage",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "locationMessage",
             "variableType" : "String",
@@ -7069,11 +7406,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : true,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param locationMessage \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "locationMessage",
             "variableType" : "String",
@@ -7123,9 +7461,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "LogBucket",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param logBucket */",
           "setterMethodName" : "setLogBucket",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "logBucket",
             "variableType" : "String",
@@ -7133,11 +7473,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : true,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param logBucket \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "logBucket",
             "variableType" : "String",
@@ -7187,9 +7528,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "LogKey",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param logKey */",
           "setterMethodName" : "setLogKey",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "logKey",
             "variableType" : "String",
@@ -7197,11 +7540,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : true,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param logKey \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "logKey",
             "variableType" : "String",
@@ -7251,9 +7595,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "ProgressCode",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param progressCode */",
           "setterMethodName" : "setProgressCode",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "progressCode",
             "variableType" : "String",
@@ -7261,11 +7607,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : true,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param progressCode \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "progressCode",
             "variableType" : "String",
@@ -7315,9 +7662,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "ProgressMessage",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param progressMessage */",
           "setterMethodName" : "setProgressMessage",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "progressMessage",
             "variableType" : "String",
@@ -7325,11 +7674,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : true,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param progressMessage \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "progressMessage",
             "variableType" : "String",
@@ -7379,9 +7729,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "Signature",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param signature */",
           "setterMethodName" : "setSignature",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "signature",
             "variableType" : "String",
@@ -7389,11 +7741,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : true,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param signature \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "signature",
             "variableType" : "String",
@@ -7443,9 +7796,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "SignatureFileContents",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param signatureFileContents */",
           "setterMethodName" : "setSignatureFileContents",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "signatureFileContents",
             "variableType" : "String",
@@ -7453,11 +7808,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : true,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param signatureFileContents \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "signatureFileContents",
             "variableType" : "String",
@@ -7507,9 +7863,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "TrackingNumber",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param trackingNumber */",
           "setterMethodName" : "setTrackingNumber",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "trackingNumber",
             "variableType" : "String",
@@ -7517,11 +7875,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : true,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param trackingNumber \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "trackingNumber",
             "variableType" : "String",
@@ -7543,6 +7902,7 @@
         "resultWrapper" : "GetStatusResult"
       },
       "variable" : {
+        "timestampFormat" : null,
         "variableDeclarationType" : "GetStatusResult",
         "variableName" : "getStatusResult",
         "variableType" : "GetStatusResult",
@@ -7579,6 +7939,7 @@
       "signerType" : null,
       "unmarshaller" : null,
       "variable" : {
+        "timestampFormat" : null,
         "variableDeclarationType" : "InvalidAccessKeyIdException",
         "variableName" : "invalidAccessKeyIdException",
         "variableType" : "InvalidAccessKeyIdException",
@@ -7615,6 +7976,7 @@
       "signerType" : null,
       "unmarshaller" : null,
       "variable" : {
+        "timestampFormat" : null,
         "variableDeclarationType" : "InvalidAddressException",
         "variableName" : "invalidAddressException",
         "variableType" : "InvalidAddressException",
@@ -7651,6 +8013,7 @@
       "signerType" : null,
       "unmarshaller" : null,
       "variable" : {
+        "timestampFormat" : null,
         "variableDeclarationType" : "InvalidCustomsException",
         "variableName" : "invalidCustomsException",
         "variableType" : "InvalidCustomsException",
@@ -7687,6 +8050,7 @@
       "signerType" : null,
       "unmarshaller" : null,
       "variable" : {
+        "timestampFormat" : null,
         "variableDeclarationType" : "InvalidFileSystemException",
         "variableName" : "invalidFileSystemException",
         "variableType" : "InvalidFileSystemException",
@@ -7723,6 +8087,7 @@
       "signerType" : null,
       "unmarshaller" : null,
       "variable" : {
+        "timestampFormat" : null,
         "variableDeclarationType" : "InvalidJobIdException",
         "variableName" : "invalidJobIdException",
         "variableType" : "InvalidJobIdException",
@@ -7759,6 +8124,7 @@
       "signerType" : null,
       "unmarshaller" : null,
       "variable" : {
+        "timestampFormat" : null,
         "variableDeclarationType" : "InvalidManifestFieldException",
         "variableName" : "invalidManifestFieldException",
         "variableType" : "InvalidManifestFieldException",
@@ -7795,6 +8161,7 @@
       "signerType" : null,
       "unmarshaller" : null,
       "variable" : {
+        "timestampFormat" : null,
         "variableDeclarationType" : "InvalidParameterException",
         "variableName" : "invalidParameterException",
         "variableType" : "InvalidParameterException",
@@ -7831,6 +8198,7 @@
       "signerType" : null,
       "unmarshaller" : null,
       "variable" : {
+        "timestampFormat" : null,
         "variableDeclarationType" : "InvalidVersionException",
         "variableName" : "invalidVersionException",
         "variableType" : "InvalidVersionException",
@@ -7897,9 +8265,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "JobId",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param jobId */",
         "setterMethodName" : "setJobId",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "jobId",
           "variableType" : "String",
@@ -7907,11 +8277,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : true,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param jobId \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "jobId",
           "variableType" : "String",
@@ -7960,9 +8331,11 @@
         "marshallingTargetClass" : "java.util.Date",
         "marshallingType" : "DATE",
         "name" : "CreationDate",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param creationDate */",
         "setterMethodName" : "setCreationDate",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "java.util.Date",
           "variableName" : "creationDate",
           "variableType" : "java.util.Date",
@@ -7970,11 +8343,12 @@
           "simpleType" : "Date",
           "variableSetterType" : "java.util.Date"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : true,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param creationDate \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : "iso8601",
           "variableDeclarationType" : "java.util.Date",
           "variableName" : "creationDate",
           "variableType" : "java.util.Date",
@@ -8023,9 +8397,11 @@
         "marshallingTargetClass" : "Boolean",
         "marshallingType" : "BOOLEAN",
         "name" : "IsCanceled",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param isCanceled */",
         "setterMethodName" : "setIsCanceled",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "Boolean",
           "variableName" : "isCanceled",
           "variableType" : "Boolean",
@@ -8033,11 +8409,12 @@
           "simpleType" : "Boolean",
           "variableSetterType" : "Boolean"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : true,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param isCanceled \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "Boolean",
           "variableName" : "isCanceled",
           "variableType" : "Boolean",
@@ -8086,9 +8463,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "JobType",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param jobType \n@see JobType*/",
         "setterMethodName" : "setJobType",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "jobType",
           "variableType" : "String",
@@ -8096,11 +8475,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : true,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param jobType \n@return Returns a reference to this object so that method calls can be chained together.\n@see JobType*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "jobType",
           "variableType" : "String",
@@ -8151,9 +8531,11 @@
           "marshallingTargetClass" : "java.util.Date",
           "marshallingType" : "DATE",
           "name" : "CreationDate",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param creationDate */",
           "setterMethodName" : "setCreationDate",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "java.util.Date",
             "variableName" : "creationDate",
             "variableType" : "java.util.Date",
@@ -8161,11 +8543,12 @@
             "simpleType" : "Date",
             "variableSetterType" : "java.util.Date"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : true,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param creationDate \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : "iso8601",
             "variableDeclarationType" : "java.util.Date",
             "variableName" : "creationDate",
             "variableType" : "java.util.Date",
@@ -8215,9 +8598,11 @@
           "marshallingTargetClass" : "Boolean",
           "marshallingType" : "BOOLEAN",
           "name" : "IsCanceled",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param isCanceled */",
           "setterMethodName" : "setIsCanceled",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "Boolean",
             "variableName" : "isCanceled",
             "variableType" : "Boolean",
@@ -8225,11 +8610,12 @@
             "simpleType" : "Boolean",
             "variableSetterType" : "Boolean"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : true,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param isCanceled \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "Boolean",
             "variableName" : "isCanceled",
             "variableType" : "Boolean",
@@ -8279,9 +8665,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "JobId",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param jobId */",
           "setterMethodName" : "setJobId",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "jobId",
             "variableType" : "String",
@@ -8289,11 +8677,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : true,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param jobId \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "jobId",
             "variableType" : "String",
@@ -8343,9 +8732,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "JobType",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param jobType \n@see JobType*/",
           "setterMethodName" : "setJobType",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "jobType",
             "variableType" : "String",
@@ -8353,11 +8744,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : true,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param jobType \n@return Returns a reference to this object so that method calls can be chained together.\n@see JobType*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "jobType",
             "variableType" : "String",
@@ -8379,6 +8771,7 @@
         "resultWrapper" : null
       },
       "variable" : {
+        "timestampFormat" : null,
         "variableDeclarationType" : "Job",
         "variableName" : "job",
         "variableType" : "Job",
@@ -8424,6 +8817,7 @@
         "resultWrapper" : null
       },
       "variable" : {
+        "timestampFormat" : null,
         "variableDeclarationType" : "JobType",
         "variableName" : "jobType",
         "variableType" : "JobType",
@@ -8497,9 +8891,11 @@
         "marshallingTargetClass" : "Integer",
         "marshallingType" : "INTEGER",
         "name" : "MaxJobs",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param maxJobs */",
         "setterMethodName" : "setMaxJobs",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "Integer",
           "variableName" : "maxJobs",
           "variableType" : "Integer",
@@ -8507,11 +8903,12 @@
           "simpleType" : "Integer",
           "variableSetterType" : "Integer"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : false,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param maxJobs \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "Integer",
           "variableName" : "maxJobs",
           "variableType" : "Integer",
@@ -8560,9 +8957,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "Marker",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param marker */",
         "setterMethodName" : "setMarker",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "marker",
           "variableType" : "String",
@@ -8570,11 +8969,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : false,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param marker \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "marker",
           "variableType" : "String",
@@ -8623,9 +9023,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "APIVersion",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param aPIVersion */",
         "setterMethodName" : "setAPIVersion",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "aPIVersion",
           "variableType" : "String",
@@ -8633,11 +9035,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : false,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param aPIVersion \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "aPIVersion",
           "variableType" : "String",
@@ -8688,9 +9091,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "APIVersion",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param aPIVersion */",
           "setterMethodName" : "setAPIVersion",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "aPIVersion",
             "variableType" : "String",
@@ -8698,11 +9103,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : false,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param aPIVersion \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "aPIVersion",
             "variableType" : "String",
@@ -8752,9 +9158,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "Marker",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param marker */",
           "setterMethodName" : "setMarker",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "marker",
             "variableType" : "String",
@@ -8762,11 +9170,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : false,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param marker \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "marker",
             "variableType" : "String",
@@ -8816,9 +9225,11 @@
           "marshallingTargetClass" : "Integer",
           "marshallingType" : "INTEGER",
           "name" : "MaxJobs",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param maxJobs */",
           "setterMethodName" : "setMaxJobs",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "Integer",
             "variableName" : "maxJobs",
             "variableType" : "Integer",
@@ -8826,11 +9237,12 @@
             "simpleType" : "Integer",
             "variableSetterType" : "Integer"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : false,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param maxJobs \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "Integer",
             "variableName" : "maxJobs",
             "variableType" : "Integer",
@@ -8849,6 +9261,7 @@
       "signerType" : null,
       "unmarshaller" : null,
       "variable" : {
+        "timestampFormat" : null,
         "variableDeclarationType" : "ListJobsRequest",
         "variableName" : "listJobsRequest",
         "variableType" : "ListJobsRequest",
@@ -8952,9 +9365,11 @@
             "marshallingTargetClass" : "StructuredPojo",
             "marshallingType" : "STRUCTURED",
             "name" : "Member",
+            "sensitive" : false,
             "setterDocumentation" : "/**\n@param member */",
             "setterMethodName" : "setMember",
             "setterModel" : {
+              "timestampFormat" : null,
               "variableDeclarationType" : "Job",
               "variableName" : "member",
               "variableType" : "Job",
@@ -8962,11 +9377,12 @@
               "simpleType" : "Job",
               "variableSetterType" : "Job"
             },
-            "shouldSupressEnumSetter" : false,
+            "shouldEmitLegacyEnumSetter" : false,
             "simple" : false,
             "unmarshallingType" : null,
             "varargSetterDocumentation" : "/**\n@param member \n@return Returns a reference to this object so that method calls can be chained together.*/",
             "variable" : {
+              "timestampFormat" : null,
               "variableDeclarationType" : "Job",
               "variableName" : "member",
               "variableType" : "Job",
@@ -8993,9 +9409,11 @@
         "marshallingTargetClass" : "List",
         "marshallingType" : "LIST",
         "name" : "Jobs",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param jobs */",
         "setterMethodName" : "setJobs",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "com.amazonaws.internal.SdkInternalList<Job>",
           "variableName" : "jobs",
           "variableType" : "java.util.List<Job>",
@@ -9003,11 +9421,12 @@
           "simpleType" : "List<Job>",
           "variableSetterType" : "java.util.Collection<Job>"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : false,
         "simple" : false,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n<p><b>NOTE:</b> This method appends the values to the existing list (if any). Use {@link #setJobs(java.util.Collection)} or {@link #withJobs(java.util.Collection)} if you want to override the existing values.</p>\n@param jobs \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "com.amazonaws.internal.SdkInternalList<Job>",
           "variableName" : "jobs",
           "variableType" : "java.util.List<Job>",
@@ -9056,9 +9475,11 @@
         "marshallingTargetClass" : "Boolean",
         "marshallingType" : "BOOLEAN",
         "name" : "IsTruncated",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param isTruncated */",
         "setterMethodName" : "setIsTruncated",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "Boolean",
           "variableName" : "isTruncated",
           "variableType" : "Boolean",
@@ -9066,11 +9487,12 @@
           "simpleType" : "Boolean",
           "variableSetterType" : "Boolean"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : false,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param isTruncated \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "Boolean",
           "variableName" : "isTruncated",
           "variableType" : "Boolean",
@@ -9121,9 +9543,11 @@
           "marshallingTargetClass" : "Boolean",
           "marshallingType" : "BOOLEAN",
           "name" : "IsTruncated",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param isTruncated */",
           "setterMethodName" : "setIsTruncated",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "Boolean",
             "variableName" : "isTruncated",
             "variableType" : "Boolean",
@@ -9131,11 +9555,12 @@
             "simpleType" : "Boolean",
             "variableSetterType" : "Boolean"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : false,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param isTruncated \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "Boolean",
             "variableName" : "isTruncated",
             "variableType" : "Boolean",
@@ -9222,9 +9647,11 @@
               "marshallingTargetClass" : "StructuredPojo",
               "marshallingType" : "STRUCTURED",
               "name" : "Member",
+              "sensitive" : false,
               "setterDocumentation" : "/**\n@param member */",
               "setterMethodName" : "setMember",
               "setterModel" : {
+                "timestampFormat" : null,
                 "variableDeclarationType" : "Job",
                 "variableName" : "member",
                 "variableType" : "Job",
@@ -9232,11 +9659,12 @@
                 "simpleType" : "Job",
                 "variableSetterType" : "Job"
               },
-              "shouldSupressEnumSetter" : false,
+              "shouldEmitLegacyEnumSetter" : false,
               "simple" : false,
               "unmarshallingType" : null,
               "varargSetterDocumentation" : "/**\n@param member \n@return Returns a reference to this object so that method calls can be chained together.*/",
               "variable" : {
+                "timestampFormat" : null,
                 "variableDeclarationType" : "Job",
                 "variableName" : "member",
                 "variableType" : "Job",
@@ -9263,9 +9691,11 @@
           "marshallingTargetClass" : "List",
           "marshallingType" : "LIST",
           "name" : "Jobs",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param jobs */",
           "setterMethodName" : "setJobs",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "com.amazonaws.internal.SdkInternalList<Job>",
             "variableName" : "jobs",
             "variableType" : "java.util.List<Job>",
@@ -9273,11 +9703,12 @@
             "simpleType" : "List<Job>",
             "variableSetterType" : "java.util.Collection<Job>"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : false,
           "simple" : false,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n<p><b>NOTE:</b> This method appends the values to the existing list (if any). Use {@link #setJobs(java.util.Collection)} or {@link #withJobs(java.util.Collection)} if you want to override the existing values.</p>\n@param jobs \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "com.amazonaws.internal.SdkInternalList<Job>",
             "variableName" : "jobs",
             "variableType" : "java.util.List<Job>",
@@ -9299,6 +9730,7 @@
         "resultWrapper" : "ListJobsResult"
       },
       "variable" : {
+        "timestampFormat" : null,
         "variableDeclarationType" : "ListJobsResult",
         "variableName" : "listJobsResult",
         "variableType" : "ListJobsResult",
@@ -9335,6 +9767,7 @@
       "signerType" : null,
       "unmarshaller" : null,
       "variable" : {
+        "timestampFormat" : null,
         "variableDeclarationType" : "MalformedManifestException",
         "variableName" : "malformedManifestException",
         "variableType" : "MalformedManifestException",
@@ -9371,6 +9804,7 @@
       "signerType" : null,
       "unmarshaller" : null,
       "variable" : {
+        "timestampFormat" : null,
         "variableDeclarationType" : "MissingCustomsException",
         "variableName" : "missingCustomsException",
         "variableType" : "MissingCustomsException",
@@ -9407,6 +9841,7 @@
       "signerType" : null,
       "unmarshaller" : null,
       "variable" : {
+        "timestampFormat" : null,
         "variableDeclarationType" : "MissingManifestFieldException",
         "variableName" : "missingManifestFieldException",
         "variableType" : "MissingManifestFieldException",
@@ -9443,6 +9878,7 @@
       "signerType" : null,
       "unmarshaller" : null,
       "variable" : {
+        "timestampFormat" : null,
         "variableDeclarationType" : "MissingParameterException",
         "variableName" : "missingParameterException",
         "variableType" : "MissingParameterException",
@@ -9479,6 +9915,7 @@
       "signerType" : null,
       "unmarshaller" : null,
       "variable" : {
+        "timestampFormat" : null,
         "variableDeclarationType" : "MultipleRegionsException",
         "variableName" : "multipleRegionsException",
         "variableType" : "MultipleRegionsException",
@@ -9515,6 +9952,7 @@
       "signerType" : null,
       "unmarshaller" : null,
       "variable" : {
+        "timestampFormat" : null,
         "variableDeclarationType" : "NoSuchBucketException",
         "variableName" : "noSuchBucketException",
         "variableType" : "NoSuchBucketException",
@@ -9551,6 +9989,7 @@
       "signerType" : null,
       "unmarshaller" : null,
       "variable" : {
+        "timestampFormat" : null,
         "variableDeclarationType" : "UnableToCancelJobIdException",
         "variableName" : "unableToCancelJobIdException",
         "variableType" : "UnableToCancelJobIdException",
@@ -9587,6 +10026,7 @@
       "signerType" : null,
       "unmarshaller" : null,
       "variable" : {
+        "timestampFormat" : null,
         "variableDeclarationType" : "UnableToUpdateJobIdException",
         "variableName" : "unableToUpdateJobIdException",
         "variableType" : "UnableToUpdateJobIdException",
@@ -9660,9 +10100,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "JobId",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param jobId */",
         "setterMethodName" : "setJobId",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "jobId",
           "variableType" : "String",
@@ -9670,11 +10112,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : true,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param jobId \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "jobId",
           "variableType" : "String",
@@ -9723,9 +10166,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "Manifest",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param manifest */",
         "setterMethodName" : "setManifest",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "manifest",
           "variableType" : "String",
@@ -9733,11 +10178,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : true,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param manifest \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "manifest",
           "variableType" : "String",
@@ -9786,9 +10232,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "JobType",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param jobType \n@see JobType*/",
         "setterMethodName" : "setJobType",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "jobType",
           "variableType" : "String",
@@ -9796,11 +10244,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : true,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param jobType \n@return Returns a reference to this object so that method calls can be chained together.\n@see JobType*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "jobType",
           "variableType" : "String",
@@ -9849,9 +10298,11 @@
         "marshallingTargetClass" : "Boolean",
         "marshallingType" : "BOOLEAN",
         "name" : "ValidateOnly",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param validateOnly */",
         "setterMethodName" : "setValidateOnly",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "Boolean",
           "variableName" : "validateOnly",
           "variableType" : "Boolean",
@@ -9859,11 +10310,12 @@
           "simpleType" : "Boolean",
           "variableSetterType" : "Boolean"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : true,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param validateOnly \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "Boolean",
           "variableName" : "validateOnly",
           "variableType" : "Boolean",
@@ -9912,9 +10364,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "APIVersion",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param aPIVersion */",
         "setterMethodName" : "setAPIVersion",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "aPIVersion",
           "variableType" : "String",
@@ -9922,11 +10376,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : true,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param aPIVersion \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "aPIVersion",
           "variableType" : "String",
@@ -9977,9 +10432,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "APIVersion",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param aPIVersion */",
           "setterMethodName" : "setAPIVersion",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "aPIVersion",
             "variableType" : "String",
@@ -9987,11 +10444,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : true,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param aPIVersion \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "aPIVersion",
             "variableType" : "String",
@@ -10041,9 +10499,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "JobId",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param jobId */",
           "setterMethodName" : "setJobId",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "jobId",
             "variableType" : "String",
@@ -10051,11 +10511,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : true,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param jobId \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "jobId",
             "variableType" : "String",
@@ -10105,9 +10566,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "JobType",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param jobType \n@see JobType*/",
           "setterMethodName" : "setJobType",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "jobType",
             "variableType" : "String",
@@ -10115,11 +10578,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : true,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param jobType \n@return Returns a reference to this object so that method calls can be chained together.\n@see JobType*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "jobType",
             "variableType" : "String",
@@ -10169,9 +10633,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "Manifest",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param manifest */",
           "setterMethodName" : "setManifest",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "manifest",
             "variableType" : "String",
@@ -10179,11 +10645,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : true,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param manifest \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "manifest",
             "variableType" : "String",
@@ -10233,9 +10700,11 @@
           "marshallingTargetClass" : "Boolean",
           "marshallingType" : "BOOLEAN",
           "name" : "ValidateOnly",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param validateOnly */",
           "setterMethodName" : "setValidateOnly",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "Boolean",
             "variableName" : "validateOnly",
             "variableType" : "Boolean",
@@ -10243,11 +10712,12 @@
             "simpleType" : "Boolean",
             "variableSetterType" : "Boolean"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : true,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param validateOnly \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "Boolean",
             "variableName" : "validateOnly",
             "variableType" : "Boolean",
@@ -10266,6 +10736,7 @@
       "signerType" : null,
       "unmarshaller" : null,
       "variable" : {
+        "timestampFormat" : null,
         "variableDeclarationType" : "UpdateJobRequest",
         "variableName" : "updateJobRequest",
         "variableType" : "UpdateJobRequest",
@@ -10332,9 +10803,11 @@
         "marshallingTargetClass" : "Boolean",
         "marshallingType" : "BOOLEAN",
         "name" : "Success",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param success */",
         "setterMethodName" : "setSuccess",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "Boolean",
           "variableName" : "success",
           "variableType" : "Boolean",
@@ -10342,11 +10815,12 @@
           "simpleType" : "Boolean",
           "variableSetterType" : "Boolean"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : false,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param success \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "Boolean",
           "variableName" : "success",
           "variableType" : "Boolean",
@@ -10395,9 +10869,11 @@
         "marshallingTargetClass" : "String",
         "marshallingType" : "STRING",
         "name" : "WarningMessage",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param warningMessage */",
         "setterMethodName" : "setWarningMessage",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "warningMessage",
           "variableType" : "String",
@@ -10405,11 +10881,12 @@
           "simpleType" : "String",
           "variableSetterType" : "String"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : false,
         "simple" : true,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n@param warningMessage \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "String",
           "variableName" : "warningMessage",
           "variableType" : "String",
@@ -10495,9 +10972,11 @@
             "marshallingTargetClass" : "StructuredPojo",
             "marshallingType" : "STRUCTURED",
             "name" : "Member",
+            "sensitive" : false,
             "setterDocumentation" : "/**\n@param member */",
             "setterMethodName" : "setMember",
             "setterModel" : {
+              "timestampFormat" : null,
               "variableDeclarationType" : "Artifact",
               "variableName" : "member",
               "variableType" : "Artifact",
@@ -10505,11 +10984,12 @@
               "simpleType" : "Artifact",
               "variableSetterType" : "Artifact"
             },
-            "shouldSupressEnumSetter" : false,
+            "shouldEmitLegacyEnumSetter" : false,
             "simple" : false,
             "unmarshallingType" : null,
             "varargSetterDocumentation" : "/**\n@param member \n@return Returns a reference to this object so that method calls can be chained together.*/",
             "variable" : {
+              "timestampFormat" : null,
               "variableDeclarationType" : "Artifact",
               "variableName" : "member",
               "variableType" : "Artifact",
@@ -10536,9 +11016,11 @@
         "marshallingTargetClass" : "List",
         "marshallingType" : "LIST",
         "name" : "ArtifactList",
+        "sensitive" : false,
         "setterDocumentation" : "/**\n@param artifactList */",
         "setterMethodName" : "setArtifactList",
         "setterModel" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "com.amazonaws.internal.SdkInternalList<Artifact>",
           "variableName" : "artifactList",
           "variableType" : "java.util.List<Artifact>",
@@ -10546,11 +11028,12 @@
           "simpleType" : "List<Artifact>",
           "variableSetterType" : "java.util.Collection<Artifact>"
         },
-        "shouldSupressEnumSetter" : false,
+        "shouldEmitLegacyEnumSetter" : false,
         "simple" : false,
         "unmarshallingType" : null,
         "varargSetterDocumentation" : "/**\n<p><b>NOTE:</b> This method appends the values to the existing list (if any). Use {@link #setArtifactList(java.util.Collection)} or {@link #withArtifactList(java.util.Collection)} if you want to override the existing values.</p>\n@param artifactList \n@return Returns a reference to this object so that method calls can be chained together.*/",
         "variable" : {
+          "timestampFormat" : null,
           "variableDeclarationType" : "com.amazonaws.internal.SdkInternalList<Artifact>",
           "variableName" : "artifactList",
           "variableType" : "java.util.List<Artifact>",
@@ -10638,9 +11121,11 @@
               "marshallingTargetClass" : "StructuredPojo",
               "marshallingType" : "STRUCTURED",
               "name" : "Member",
+              "sensitive" : false,
               "setterDocumentation" : "/**\n@param member */",
               "setterMethodName" : "setMember",
               "setterModel" : {
+                "timestampFormat" : null,
                 "variableDeclarationType" : "Artifact",
                 "variableName" : "member",
                 "variableType" : "Artifact",
@@ -10648,11 +11133,12 @@
                 "simpleType" : "Artifact",
                 "variableSetterType" : "Artifact"
               },
-              "shouldSupressEnumSetter" : false,
+              "shouldEmitLegacyEnumSetter" : false,
               "simple" : false,
               "unmarshallingType" : null,
               "varargSetterDocumentation" : "/**\n@param member \n@return Returns a reference to this object so that method calls can be chained together.*/",
               "variable" : {
+                "timestampFormat" : null,
                 "variableDeclarationType" : "Artifact",
                 "variableName" : "member",
                 "variableType" : "Artifact",
@@ -10679,9 +11165,11 @@
           "marshallingTargetClass" : "List",
           "marshallingType" : "LIST",
           "name" : "ArtifactList",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param artifactList */",
           "setterMethodName" : "setArtifactList",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "com.amazonaws.internal.SdkInternalList<Artifact>",
             "variableName" : "artifactList",
             "variableType" : "java.util.List<Artifact>",
@@ -10689,11 +11177,12 @@
             "simpleType" : "List<Artifact>",
             "variableSetterType" : "java.util.Collection<Artifact>"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : false,
           "simple" : false,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n<p><b>NOTE:</b> This method appends the values to the existing list (if any). Use {@link #setArtifactList(java.util.Collection)} or {@link #withArtifactList(java.util.Collection)} if you want to override the existing values.</p>\n@param artifactList \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "com.amazonaws.internal.SdkInternalList<Artifact>",
             "variableName" : "artifactList",
             "variableType" : "java.util.List<Artifact>",
@@ -10743,9 +11232,11 @@
           "marshallingTargetClass" : "Boolean",
           "marshallingType" : "BOOLEAN",
           "name" : "Success",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param success */",
           "setterMethodName" : "setSuccess",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "Boolean",
             "variableName" : "success",
             "variableType" : "Boolean",
@@ -10753,11 +11244,12 @@
             "simpleType" : "Boolean",
             "variableSetterType" : "Boolean"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : false,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param success \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "Boolean",
             "variableName" : "success",
             "variableType" : "Boolean",
@@ -10807,9 +11299,11 @@
           "marshallingTargetClass" : "String",
           "marshallingType" : "STRING",
           "name" : "WarningMessage",
+          "sensitive" : false,
           "setterDocumentation" : "/**\n@param warningMessage */",
           "setterMethodName" : "setWarningMessage",
           "setterModel" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "warningMessage",
             "variableType" : "String",
@@ -10817,11 +11311,12 @@
             "simpleType" : "String",
             "variableSetterType" : "String"
           },
-          "shouldSupressEnumSetter" : false,
+          "shouldEmitLegacyEnumSetter" : false,
           "simple" : true,
           "unmarshallingType" : null,
           "varargSetterDocumentation" : "/**\n@param warningMessage \n@return Returns a reference to this object so that method calls can be chained together.*/",
           "variable" : {
+            "timestampFormat" : null,
             "variableDeclarationType" : "String",
             "variableName" : "warningMessage",
             "variableType" : "String",
@@ -10843,6 +11338,7 @@
         "resultWrapper" : "UpdateJobResult"
       },
       "variable" : {
+        "timestampFormat" : null,
         "variableDeclarationType" : "UpdateJobResult",
         "variableName" : "updateJobResult",
         "variableType" : "UpdateJobResult",
@@ -10854,13 +11350,12 @@
     }
   },
   "clientConfigFactory" : "ClientConfigurationFactory",
-  "customAuthorizers" : { },
   "examples" : {
     "examples" : { },
     "version" : "1.0"
   },
   "exceptionUnmarshallerImpl" : "StandardErrorUnmarshaller",
-  "fileHeader" : "/*\n * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights\n * Reserved.\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\").\n * You may not use this file except in compliance with the License.\n * A copy of the License is located at\n *\n *  http://aws.amazon.com/apache2.0\n *\n * or in the \"license\" file accompanying this file. This file is distributed\n * on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either\n * express or implied. See the License for the specific language governing\n * permissions and limitations under the License.\n */",
+  "fileHeader" : "/*\n * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights\n * Reserved.\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\").\n * You may not use this file except in compliance with the License.\n * A copy of the License is located at\n *\n *  http://aws.amazon.com/apache2.0\n *\n * or in the \"license\" file accompanying this file. This file is distributed\n * on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either\n * express or implied. See the License for the specific language governing\n * permissions and limitations under the License.\n */",
   "hasWaiters" : false,
   "sdkBaseResponseFqcn" : "com.amazonaws.AmazonWebServiceResult<com.amazonaws.ResponseMetadata>",
   "sdkModeledExceptionBaseClassName" : "AmazonImportExportException",

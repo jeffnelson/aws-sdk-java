@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,6 +29,8 @@ public class ListDeliveryStreamsRequestMarshaller {
 
     private static final MarshallingInfo<Integer> LIMIT_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Limit").build();
+    private static final MarshallingInfo<String> DELIVERYSTREAMTYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DeliveryStreamType").build();
     private static final MarshallingInfo<String> EXCLUSIVESTARTDELIVERYSTREAMNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ExclusiveStartDeliveryStreamName").build();
 
@@ -49,6 +51,7 @@ public class ListDeliveryStreamsRequestMarshaller {
 
         try {
             protocolMarshaller.marshall(listDeliveryStreamsRequest.getLimit(), LIMIT_BINDING);
+            protocolMarshaller.marshall(listDeliveryStreamsRequest.getDeliveryStreamType(), DELIVERYSTREAMTYPE_BINDING);
             protocolMarshaller.marshall(listDeliveryStreamsRequest.getExclusiveStartDeliveryStreamName(), EXCLUSIVESTARTDELIVERYSTREAMNAME_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);

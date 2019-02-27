@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,9 +18,6 @@ import javax.annotation.Generated;
 import com.amazonaws.AmazonWebServiceRequest;
 
 /**
- * <p>
- * Contains the parameters for PutScalingPolicy.
- * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/PutScalingPolicy" target="_top">AWS API
  *      Documentation</a>
@@ -30,7 +27,7 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The name or ARN of the group.
+     * The name of the Auto Scaling group.
      * </p>
      */
     private String autoScalingGroupName;
@@ -58,8 +55,8 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      * <p>
      * For more information, see <a
-     * href="http://docs.aws.amazon.com/autoscaling/latest/userguide/as-scale-based-on-demand.html">Dynamic Scaling</a>
-     * in the <i>Auto Scaling User Guide</i>.
+     * href="http://docs.aws.amazon.com/autoscaling/ec2/userguide/as-scale-based-on-demand.html">Dynamic Scaling</a> in
+     * the <i>Amazon EC2 Auto Scaling User Guide</i>.
      * </p>
      */
     private String adjustmentType;
@@ -99,8 +96,8 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
      * This parameter is supported if the policy type is <code>SimpleScaling</code>.
      * </p>
      * <p>
-     * For more information, see <a href="http://docs.aws.amazon.com/autoscaling/latest/userguide/Cooldown.html">Auto
-     * Scaling Cooldowns</a> in the <i>Auto Scaling User Guide</i>.
+     * For more information, see <a href="http://docs.aws.amazon.com/autoscaling/ec2/userguide/Cooldown.html">Scaling
+     * Cooldowns</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
      * </p>
      */
     private Integer cooldown;
@@ -135,7 +132,7 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
     private Integer estimatedInstanceWarmup;
     /**
      * <p>
-     * The configuration of a target tracking policy.
+     * A target tracking policy.
      * </p>
      * <p>
      * This parameter is required if the policy type is <code>TargetTrackingScaling</code> and not supported otherwise.
@@ -145,11 +142,11 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The name or ARN of the group.
+     * The name of the Auto Scaling group.
      * </p>
      * 
      * @param autoScalingGroupName
-     *        The name or ARN of the group.
+     *        The name of the Auto Scaling group.
      */
 
     public void setAutoScalingGroupName(String autoScalingGroupName) {
@@ -158,10 +155,10 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The name or ARN of the group.
+     * The name of the Auto Scaling group.
      * </p>
      * 
-     * @return The name or ARN of the group.
+     * @return The name of the Auto Scaling group.
      */
 
     public String getAutoScalingGroupName() {
@@ -170,11 +167,11 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The name or ARN of the group.
+     * The name of the Auto Scaling group.
      * </p>
      * 
      * @param autoScalingGroupName
-     *        The name or ARN of the group.
+     *        The name of the Auto Scaling group.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -285,8 +282,8 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      * <p>
      * For more information, see <a
-     * href="http://docs.aws.amazon.com/autoscaling/latest/userguide/as-scale-based-on-demand.html">Dynamic Scaling</a>
-     * in the <i>Auto Scaling User Guide</i>.
+     * href="http://docs.aws.amazon.com/autoscaling/ec2/userguide/as-scale-based-on-demand.html">Dynamic Scaling</a> in
+     * the <i>Amazon EC2 Auto Scaling User Guide</i>.
      * </p>
      * 
      * @param adjustmentType
@@ -297,8 +294,8 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
      *        </p>
      *        <p>
      *        For more information, see <a
-     *        href="http://docs.aws.amazon.com/autoscaling/latest/userguide/as-scale-based-on-demand.html">Dynamic
-     *        Scaling</a> in the <i>Auto Scaling User Guide</i>.
+     *        href="http://docs.aws.amazon.com/autoscaling/ec2/userguide/as-scale-based-on-demand.html">Dynamic
+     *        Scaling</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
      */
 
     public void setAdjustmentType(String adjustmentType) {
@@ -315,8 +312,8 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      * <p>
      * For more information, see <a
-     * href="http://docs.aws.amazon.com/autoscaling/latest/userguide/as-scale-based-on-demand.html">Dynamic Scaling</a>
-     * in the <i>Auto Scaling User Guide</i>.
+     * href="http://docs.aws.amazon.com/autoscaling/ec2/userguide/as-scale-based-on-demand.html">Dynamic Scaling</a> in
+     * the <i>Amazon EC2 Auto Scaling User Guide</i>.
      * </p>
      * 
      * @return The adjustment type. The valid values are <code>ChangeInCapacity</code>, <code>ExactCapacity</code>, and
@@ -326,8 +323,8 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
      *         </p>
      *         <p>
      *         For more information, see <a
-     *         href="http://docs.aws.amazon.com/autoscaling/latest/userguide/as-scale-based-on-demand.html">Dynamic
-     *         Scaling</a> in the <i>Auto Scaling User Guide</i>.
+     *         href="http://docs.aws.amazon.com/autoscaling/ec2/userguide/as-scale-based-on-demand.html">Dynamic
+     *         Scaling</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
      */
 
     public String getAdjustmentType() {
@@ -344,8 +341,8 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
      * </p>
      * <p>
      * For more information, see <a
-     * href="http://docs.aws.amazon.com/autoscaling/latest/userguide/as-scale-based-on-demand.html">Dynamic Scaling</a>
-     * in the <i>Auto Scaling User Guide</i>.
+     * href="http://docs.aws.amazon.com/autoscaling/ec2/userguide/as-scale-based-on-demand.html">Dynamic Scaling</a> in
+     * the <i>Amazon EC2 Auto Scaling User Guide</i>.
      * </p>
      * 
      * @param adjustmentType
@@ -356,8 +353,8 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
      *        </p>
      *        <p>
      *        For more information, see <a
-     *        href="http://docs.aws.amazon.com/autoscaling/latest/userguide/as-scale-based-on-demand.html">Dynamic
-     *        Scaling</a> in the <i>Auto Scaling User Guide</i>.
+     *        href="http://docs.aws.amazon.com/autoscaling/ec2/userguide/as-scale-based-on-demand.html">Dynamic
+     *        Scaling</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -546,8 +543,8 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
      * This parameter is supported if the policy type is <code>SimpleScaling</code>.
      * </p>
      * <p>
-     * For more information, see <a href="http://docs.aws.amazon.com/autoscaling/latest/userguide/Cooldown.html">Auto
-     * Scaling Cooldowns</a> in the <i>Auto Scaling User Guide</i>.
+     * For more information, see <a href="http://docs.aws.amazon.com/autoscaling/ec2/userguide/Cooldown.html">Scaling
+     * Cooldowns</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
      * </p>
      * 
      * @param cooldown
@@ -558,8 +555,8 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
      *        </p>
      *        <p>
      *        For more information, see <a
-     *        href="http://docs.aws.amazon.com/autoscaling/latest/userguide/Cooldown.html">Auto Scaling Cooldowns</a> in
-     *        the <i>Auto Scaling User Guide</i>.
+     *        href="http://docs.aws.amazon.com/autoscaling/ec2/userguide/Cooldown.html">Scaling Cooldowns</a> in the
+     *        <i>Amazon EC2 Auto Scaling User Guide</i>.
      */
 
     public void setCooldown(Integer cooldown) {
@@ -575,8 +572,8 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
      * This parameter is supported if the policy type is <code>SimpleScaling</code>.
      * </p>
      * <p>
-     * For more information, see <a href="http://docs.aws.amazon.com/autoscaling/latest/userguide/Cooldown.html">Auto
-     * Scaling Cooldowns</a> in the <i>Auto Scaling User Guide</i>.
+     * For more information, see <a href="http://docs.aws.amazon.com/autoscaling/ec2/userguide/Cooldown.html">Scaling
+     * Cooldowns</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
      * </p>
      * 
      * @return The amount of time, in seconds, after a scaling activity completes and before the next scaling activity
@@ -586,8 +583,8 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
      *         </p>
      *         <p>
      *         For more information, see <a
-     *         href="http://docs.aws.amazon.com/autoscaling/latest/userguide/Cooldown.html">Auto Scaling Cooldowns</a>
-     *         in the <i>Auto Scaling User Guide</i>.
+     *         href="http://docs.aws.amazon.com/autoscaling/ec2/userguide/Cooldown.html">Scaling Cooldowns</a> in the
+     *         <i>Amazon EC2 Auto Scaling User Guide</i>.
      */
 
     public Integer getCooldown() {
@@ -603,8 +600,8 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
      * This parameter is supported if the policy type is <code>SimpleScaling</code>.
      * </p>
      * <p>
-     * For more information, see <a href="http://docs.aws.amazon.com/autoscaling/latest/userguide/Cooldown.html">Auto
-     * Scaling Cooldowns</a> in the <i>Auto Scaling User Guide</i>.
+     * For more information, see <a href="http://docs.aws.amazon.com/autoscaling/ec2/userguide/Cooldown.html">Scaling
+     * Cooldowns</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
      * </p>
      * 
      * @param cooldown
@@ -615,8 +612,8 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
      *        </p>
      *        <p>
      *        For more information, see <a
-     *        href="http://docs.aws.amazon.com/autoscaling/latest/userguide/Cooldown.html">Auto Scaling Cooldowns</a> in
-     *        the <i>Auto Scaling User Guide</i>.
+     *        href="http://docs.aws.amazon.com/autoscaling/ec2/userguide/Cooldown.html">Scaling Cooldowns</a> in the
+     *        <i>Amazon EC2 Auto Scaling User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -848,14 +845,14 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The configuration of a target tracking policy.
+     * A target tracking policy.
      * </p>
      * <p>
      * This parameter is required if the policy type is <code>TargetTrackingScaling</code> and not supported otherwise.
      * </p>
      * 
      * @param targetTrackingConfiguration
-     *        The configuration of a target tracking policy.</p>
+     *        A target tracking policy.</p>
      *        <p>
      *        This parameter is required if the policy type is <code>TargetTrackingScaling</code> and not supported
      *        otherwise.
@@ -867,13 +864,13 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The configuration of a target tracking policy.
+     * A target tracking policy.
      * </p>
      * <p>
      * This parameter is required if the policy type is <code>TargetTrackingScaling</code> and not supported otherwise.
      * </p>
      * 
-     * @return The configuration of a target tracking policy.</p>
+     * @return A target tracking policy.</p>
      *         <p>
      *         This parameter is required if the policy type is <code>TargetTrackingScaling</code> and not supported
      *         otherwise.
@@ -885,14 +882,14 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The configuration of a target tracking policy.
+     * A target tracking policy.
      * </p>
      * <p>
      * This parameter is required if the policy type is <code>TargetTrackingScaling</code> and not supported otherwise.
      * </p>
      * 
      * @param targetTrackingConfiguration
-     *        The configuration of a target tracking policy.</p>
+     *        A target tracking policy.</p>
      *        <p>
      *        This parameter is required if the policy type is <code>TargetTrackingScaling</code> and not supported
      *        otherwise.
@@ -905,7 +902,8 @@ public class PutScalingPolicyRequest extends com.amazonaws.AmazonWebServiceReque
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

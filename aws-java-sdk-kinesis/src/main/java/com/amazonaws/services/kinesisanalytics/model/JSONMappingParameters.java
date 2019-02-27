@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -32,13 +32,6 @@ public class JSONMappingParameters implements Serializable, Cloneable, Structure
      * <p>
      * Path to the top-level parent that contains the records.
      * </p>
-     * <p>
-     * For example, consider the following JSON record:
-     * </p>
-     * <p>
-     * In the <code>RecordRowPath</code>, <code>"$"</code> refers to the root and path <code>"$.vehicle.Model"</code>
-     * refers to the specific <code>"Model"</code> key in the JSON.
-     * </p>
      */
     private String recordRowPath;
 
@@ -46,22 +39,9 @@ public class JSONMappingParameters implements Serializable, Cloneable, Structure
      * <p>
      * Path to the top-level parent that contains the records.
      * </p>
-     * <p>
-     * For example, consider the following JSON record:
-     * </p>
-     * <p>
-     * In the <code>RecordRowPath</code>, <code>"$"</code> refers to the root and path <code>"$.vehicle.Model"</code>
-     * refers to the specific <code>"Model"</code> key in the JSON.
-     * </p>
      * 
      * @param recordRowPath
-     *        Path to the top-level parent that contains the records.</p>
-     *        <p>
-     *        For example, consider the following JSON record:
-     *        </p>
-     *        <p>
-     *        In the <code>RecordRowPath</code>, <code>"$"</code> refers to the root and path
-     *        <code>"$.vehicle.Model"</code> refers to the specific <code>"Model"</code> key in the JSON.
+     *        Path to the top-level parent that contains the records.
      */
 
     public void setRecordRowPath(String recordRowPath) {
@@ -72,21 +52,8 @@ public class JSONMappingParameters implements Serializable, Cloneable, Structure
      * <p>
      * Path to the top-level parent that contains the records.
      * </p>
-     * <p>
-     * For example, consider the following JSON record:
-     * </p>
-     * <p>
-     * In the <code>RecordRowPath</code>, <code>"$"</code> refers to the root and path <code>"$.vehicle.Model"</code>
-     * refers to the specific <code>"Model"</code> key in the JSON.
-     * </p>
      * 
-     * @return Path to the top-level parent that contains the records.</p>
-     *         <p>
-     *         For example, consider the following JSON record:
-     *         </p>
-     *         <p>
-     *         In the <code>RecordRowPath</code>, <code>"$"</code> refers to the root and path
-     *         <code>"$.vehicle.Model"</code> refers to the specific <code>"Model"</code> key in the JSON.
+     * @return Path to the top-level parent that contains the records.
      */
 
     public String getRecordRowPath() {
@@ -97,22 +64,9 @@ public class JSONMappingParameters implements Serializable, Cloneable, Structure
      * <p>
      * Path to the top-level parent that contains the records.
      * </p>
-     * <p>
-     * For example, consider the following JSON record:
-     * </p>
-     * <p>
-     * In the <code>RecordRowPath</code>, <code>"$"</code> refers to the root and path <code>"$.vehicle.Model"</code>
-     * refers to the specific <code>"Model"</code> key in the JSON.
-     * </p>
      * 
      * @param recordRowPath
-     *        Path to the top-level parent that contains the records.</p>
-     *        <p>
-     *        For example, consider the following JSON record:
-     *        </p>
-     *        <p>
-     *        In the <code>RecordRowPath</code>, <code>"$"</code> refers to the root and path
-     *        <code>"$.vehicle.Model"</code> refers to the specific <code>"Model"</code> key in the JSON.
+     *        Path to the top-level parent that contains the records.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -122,7 +76,8 @@ public class JSONMappingParameters implements Serializable, Cloneable, Structure
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

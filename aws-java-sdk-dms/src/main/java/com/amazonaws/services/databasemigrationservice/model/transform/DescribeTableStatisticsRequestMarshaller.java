@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,6 +12,7 @@
  */
 package com.amazonaws.services.databasemigrationservice.model.transform;
 
+import java.util.List;
 import javax.annotation.Generated;
 
 import com.amazonaws.SdkClientException;
@@ -33,6 +34,8 @@ public class DescribeTableStatisticsRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("MaxRecords").build();
     private static final MarshallingInfo<String> MARKER_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Marker").build();
+    private static final MarshallingInfo<List> FILTERS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Filters").build();
 
     private static final DescribeTableStatisticsRequestMarshaller instance = new DescribeTableStatisticsRequestMarshaller();
 
@@ -53,6 +56,7 @@ public class DescribeTableStatisticsRequestMarshaller {
             protocolMarshaller.marshall(describeTableStatisticsRequest.getReplicationTaskArn(), REPLICATIONTASKARN_BINDING);
             protocolMarshaller.marshall(describeTableStatisticsRequest.getMaxRecords(), MAXRECORDS_BINDING);
             protocolMarshaller.marshall(describeTableStatisticsRequest.getMarker(), MARKER_BINDING);
+            protocolMarshaller.marshall(describeTableStatisticsRequest.getFilters(), FILTERS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

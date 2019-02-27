@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -32,8 +32,8 @@ public interface AmazonKinesisAnalyticsAsync extends AmazonKinesisAnalytics {
      * <p>
      * Adds a CloudWatch log stream to monitor application configuration errors. For more information about using
      * CloudWatch log streams with Amazon Kinesis Analytics applications, see <a
-     * href="http://docs.aws.amazon.com/kinesisanalytics/latest/dev/cloudwatch-monitor-configuration.html">Monitoring
-     * Configuration Errors</a>.
+     * href="http://docs.aws.amazon.com/kinesisanalytics/latest/dev/cloudwatch-logs.html">Working with Amazon CloudWatch
+     * Logs</a>.
      * </p>
      * 
      * @param addApplicationCloudWatchLoggingOptionRequest
@@ -51,8 +51,8 @@ public interface AmazonKinesisAnalyticsAsync extends AmazonKinesisAnalytics {
      * <p>
      * Adds a CloudWatch log stream to monitor application configuration errors. For more information about using
      * CloudWatch log streams with Amazon Kinesis Analytics applications, see <a
-     * href="http://docs.aws.amazon.com/kinesisanalytics/latest/dev/cloudwatch-monitor-configuration.html">Monitoring
-     * Configuration Errors</a>.
+     * href="http://docs.aws.amazon.com/kinesisanalytics/latest/dev/cloudwatch-logs.html">Working with Amazon CloudWatch
+     * Logs</a>.
      * </p>
      * 
      * @param addApplicationCloudWatchLoggingOptionRequest
@@ -130,24 +130,65 @@ public interface AmazonKinesisAnalyticsAsync extends AmazonKinesisAnalytics {
 
     /**
      * <p>
+     * Adds an <a>InputProcessingConfiguration</a> to an application. An input processor preprocesses records on the
+     * input stream before the application's SQL code executes. Currently, the only input processor available is <a
+     * href="https://aws.amazon.com/documentation/lambda/">AWS Lambda</a>.
+     * </p>
+     * 
+     * @param addApplicationInputProcessingConfigurationRequest
+     * @return A Java Future containing the result of the AddApplicationInputProcessingConfiguration operation returned
+     *         by the service.
+     * @sample AmazonKinesisAnalyticsAsync.AddApplicationInputProcessingConfiguration
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/kinesisanalytics-2015-08-14/AddApplicationInputProcessingConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<AddApplicationInputProcessingConfigurationResult> addApplicationInputProcessingConfigurationAsync(
+            AddApplicationInputProcessingConfigurationRequest addApplicationInputProcessingConfigurationRequest);
+
+    /**
+     * <p>
+     * Adds an <a>InputProcessingConfiguration</a> to an application. An input processor preprocesses records on the
+     * input stream before the application's SQL code executes. Currently, the only input processor available is <a
+     * href="https://aws.amazon.com/documentation/lambda/">AWS Lambda</a>.
+     * </p>
+     * 
+     * @param addApplicationInputProcessingConfigurationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the AddApplicationInputProcessingConfiguration operation returned
+     *         by the service.
+     * @sample AmazonKinesisAnalyticsAsyncHandler.AddApplicationInputProcessingConfiguration
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/kinesisanalytics-2015-08-14/AddApplicationInputProcessingConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<AddApplicationInputProcessingConfigurationResult> addApplicationInputProcessingConfigurationAsync(
+            AddApplicationInputProcessingConfigurationRequest addApplicationInputProcessingConfigurationRequest,
+            com.amazonaws.handlers.AsyncHandler<AddApplicationInputProcessingConfigurationRequest, AddApplicationInputProcessingConfigurationResult> asyncHandler);
+
+    /**
+     * <p>
      * Adds an external destination to your Amazon Kinesis Analytics application.
      * </p>
      * <p>
      * If you want Amazon Kinesis Analytics to deliver data from an in-application stream within your application to an
-     * external destination (such as an Amazon Kinesis stream or a Firehose delivery stream), you add the relevant
-     * configuration to your application using this operation. You can configure one or more outputs for your
-     * application. Each output configuration maps an in-application stream and an external destination.
+     * external destination (such as an Amazon Kinesis stream, an Amazon Kinesis Firehose delivery stream, or an AWS
+     * Lambda function), you add the relevant configuration to your application using this operation. You can configure
+     * one or more outputs for your application. Each output configuration maps an in-application stream and an external
+     * destination.
      * </p>
      * <p>
      * You can use one of the output configurations to deliver data from your in-application error stream to an external
-     * destination so that you can analyze the errors. For conceptual information, see <a
+     * destination so that you can analyze the errors. For more information, see <a
      * href="http://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-output.html">Understanding Application
      * Output (Destination)</a>.
      * </p>
      * <p>
-     * Note that any configuration update, including adding a streaming source using this operation, results in a new
-     * version of the application. You can use the <a>DescribeApplication</a> operation to find the current application
-     * version.
+     * Any configuration update, including adding a streaming source using this operation, results in a new version of
+     * the application. You can use the <a>DescribeApplication</a> operation to find the current application version.
      * </p>
      * <p>
      * For the limits on the number of application inputs and outputs you can configure, see <a
@@ -171,20 +212,20 @@ public interface AmazonKinesisAnalyticsAsync extends AmazonKinesisAnalytics {
      * </p>
      * <p>
      * If you want Amazon Kinesis Analytics to deliver data from an in-application stream within your application to an
-     * external destination (such as an Amazon Kinesis stream or a Firehose delivery stream), you add the relevant
-     * configuration to your application using this operation. You can configure one or more outputs for your
-     * application. Each output configuration maps an in-application stream and an external destination.
+     * external destination (such as an Amazon Kinesis stream, an Amazon Kinesis Firehose delivery stream, or an AWS
+     * Lambda function), you add the relevant configuration to your application using this operation. You can configure
+     * one or more outputs for your application. Each output configuration maps an in-application stream and an external
+     * destination.
      * </p>
      * <p>
      * You can use one of the output configurations to deliver data from your in-application error stream to an external
-     * destination so that you can analyze the errors. For conceptual information, see <a
+     * destination so that you can analyze the errors. For more information, see <a
      * href="http://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-output.html">Understanding Application
      * Output (Destination)</a>.
      * </p>
      * <p>
-     * Note that any configuration update, including adding a streaming source using this operation, results in a new
-     * version of the application. You can use the <a>DescribeApplication</a> operation to find the current application
-     * version.
+     * Any configuration update, including adding a streaming source using this operation, results in a new version of
+     * the application. You can use the <a>DescribeApplication</a> operation to find the current application version.
      * </p>
      * <p>
      * For the limits on the number of application inputs and outputs you can configure, see <a
@@ -277,7 +318,7 @@ public interface AmazonKinesisAnalyticsAsync extends AmazonKinesisAnalytics {
     /**
      * <p>
      * Creates an Amazon Kinesis Analytics application. You can configure each application with one streaming source as
-     * input, application code to process the input, and up to five streaming destinations where you want Amazon Kinesis
+     * input, application code to process the input, and up to three destinations where you want Amazon Kinesis
      * Analytics to write the output data from your application. For an overview, see <a
      * href="http://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works.html">How it Works</a>.
      * </p>
@@ -292,7 +333,7 @@ public interface AmazonKinesisAnalyticsAsync extends AmazonKinesisAnalytics {
      * </p>
      * <p>
      * In the output configuration, you can configure the application to write data from in-application streams created
-     * in your applications to up to five streaming destinations.
+     * in your applications to up to three destinations.
      * </p>
      * <p>
      * To read data from your source stream or write data to destination streams, Amazon Kinesis Analytics needs your
@@ -316,7 +357,7 @@ public interface AmazonKinesisAnalyticsAsync extends AmazonKinesisAnalytics {
     /**
      * <p>
      * Creates an Amazon Kinesis Analytics application. You can configure each application with one streaming source as
-     * input, application code to process the input, and up to five streaming destinations where you want Amazon Kinesis
+     * input, application code to process the input, and up to three destinations where you want Amazon Kinesis
      * Analytics to write the output data from your application. For an overview, see <a
      * href="http://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works.html">How it Works</a>.
      * </p>
@@ -331,7 +372,7 @@ public interface AmazonKinesisAnalyticsAsync extends AmazonKinesisAnalytics {
      * </p>
      * <p>
      * In the output configuration, you can configure the application to write data from in-application streams created
-     * in your applications to up to five streaming destinations.
+     * in your applications to up to three destinations.
      * </p>
      * <p>
      * To read data from your source stream or write data to destination streams, Amazon Kinesis Analytics needs your
@@ -402,8 +443,8 @@ public interface AmazonKinesisAnalyticsAsync extends AmazonKinesisAnalytics {
      * <p>
      * Deletes a CloudWatch log stream from an application. For more information about using CloudWatch log streams with
      * Amazon Kinesis Analytics applications, see <a
-     * href="http://docs.aws.amazon.com/kinesisanalytics/latest/dev/cloudwatch-monitor-configuration.html">Monitoring
-     * Configuration Errors</a>.
+     * href="http://docs.aws.amazon.com/kinesisanalytics/latest/dev/cloudwatch-logs.html">Working with Amazon CloudWatch
+     * Logs</a>.
      * </p>
      * 
      * @param deleteApplicationCloudWatchLoggingOptionRequest
@@ -421,8 +462,8 @@ public interface AmazonKinesisAnalyticsAsync extends AmazonKinesisAnalytics {
      * <p>
      * Deletes a CloudWatch log stream from an application. For more information about using CloudWatch log streams with
      * Amazon Kinesis Analytics applications, see <a
-     * href="http://docs.aws.amazon.com/kinesisanalytics/latest/dev/cloudwatch-monitor-configuration.html">Monitoring
-     * Configuration Errors</a>.
+     * href="http://docs.aws.amazon.com/kinesisanalytics/latest/dev/cloudwatch-logs.html">Working with Amazon CloudWatch
+     * Logs</a>.
      * </p>
      * 
      * @param deleteApplicationCloudWatchLoggingOptionRequest
@@ -440,6 +481,43 @@ public interface AmazonKinesisAnalyticsAsync extends AmazonKinesisAnalytics {
     java.util.concurrent.Future<DeleteApplicationCloudWatchLoggingOptionResult> deleteApplicationCloudWatchLoggingOptionAsync(
             DeleteApplicationCloudWatchLoggingOptionRequest deleteApplicationCloudWatchLoggingOptionRequest,
             com.amazonaws.handlers.AsyncHandler<DeleteApplicationCloudWatchLoggingOptionRequest, DeleteApplicationCloudWatchLoggingOptionResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes an <a>InputProcessingConfiguration</a> from an input.
+     * </p>
+     * 
+     * @param deleteApplicationInputProcessingConfigurationRequest
+     * @return A Java Future containing the result of the DeleteApplicationInputProcessingConfiguration operation
+     *         returned by the service.
+     * @sample AmazonKinesisAnalyticsAsync.DeleteApplicationInputProcessingConfiguration
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/kinesisanalytics-2015-08-14/DeleteApplicationInputProcessingConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteApplicationInputProcessingConfigurationResult> deleteApplicationInputProcessingConfigurationAsync(
+            DeleteApplicationInputProcessingConfigurationRequest deleteApplicationInputProcessingConfigurationRequest);
+
+    /**
+     * <p>
+     * Deletes an <a>InputProcessingConfiguration</a> from an input.
+     * </p>
+     * 
+     * @param deleteApplicationInputProcessingConfigurationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteApplicationInputProcessingConfiguration operation
+     *         returned by the service.
+     * @sample AmazonKinesisAnalyticsAsyncHandler.DeleteApplicationInputProcessingConfiguration
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/kinesisanalytics-2015-08-14/DeleteApplicationInputProcessingConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteApplicationInputProcessingConfigurationResult> deleteApplicationInputProcessingConfigurationAsync(
+            DeleteApplicationInputProcessingConfigurationRequest deleteApplicationInputProcessingConfigurationRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteApplicationInputProcessingConfigurationRequest, DeleteApplicationInputProcessingConfigurationResult> asyncHandler);
 
     /**
      * <p>
@@ -583,8 +661,8 @@ public interface AmazonKinesisAnalyticsAsync extends AmazonKinesisAnalytics {
     /**
      * <p>
      * Infers a schema by evaluating sample records on the specified streaming source (Amazon Kinesis stream or Amazon
-     * Kinesis Firehose delivery stream). In the response, the operation returns the inferred schema and also the sample
-     * records that the operation used to infer the schema.
+     * Kinesis Firehose delivery stream) or S3 object. In the response, the operation returns the inferred schema and
+     * also the sample records that the operation used to infer the schema.
      * </p>
      * <p>
      * You can use the inferred schema when configuring a streaming source for your application. For conceptual
@@ -608,8 +686,8 @@ public interface AmazonKinesisAnalyticsAsync extends AmazonKinesisAnalytics {
     /**
      * <p>
      * Infers a schema by evaluating sample records on the specified streaming source (Amazon Kinesis stream or Amazon
-     * Kinesis Firehose delivery stream). In the response, the operation returns the inferred schema and also the sample
-     * records that the operation used to infer the schema.
+     * Kinesis Firehose delivery stream) or S3 object. In the response, the operation returns the inferred schema and
+     * also the sample records that the operation used to infer the schema.
      * </p>
      * <p>
      * You can use the inferred schema when configuring a streaming source for your application. For conceptual

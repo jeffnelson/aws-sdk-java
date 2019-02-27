@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,9 +18,6 @@ import javax.annotation.Generated;
 import com.amazonaws.AmazonWebServiceRequest;
 
 /**
- * <p>
- * The request of the <a>DeleteTags</a> operation.
- * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workspaces-2015-04-08/DeleteTags" target="_top">AWS API
  *      Documentation</a>
@@ -30,24 +27,24 @@ public class DeleteTagsRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The resource ID of the request.
+     * The identifier of the WorkSpace. To find this ID, use <a>DescribeWorkspaces</a>.
      * </p>
      */
     private String resourceId;
     /**
      * <p>
-     * The tag keys of the request.
+     * The tag keys.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> tagKeys;
 
     /**
      * <p>
-     * The resource ID of the request.
+     * The identifier of the WorkSpace. To find this ID, use <a>DescribeWorkspaces</a>.
      * </p>
      * 
      * @param resourceId
-     *        The resource ID of the request.
+     *        The identifier of the WorkSpace. To find this ID, use <a>DescribeWorkspaces</a>.
      */
 
     public void setResourceId(String resourceId) {
@@ -56,10 +53,10 @@ public class DeleteTagsRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The resource ID of the request.
+     * The identifier of the WorkSpace. To find this ID, use <a>DescribeWorkspaces</a>.
      * </p>
      * 
-     * @return The resource ID of the request.
+     * @return The identifier of the WorkSpace. To find this ID, use <a>DescribeWorkspaces</a>.
      */
 
     public String getResourceId() {
@@ -68,11 +65,11 @@ public class DeleteTagsRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The resource ID of the request.
+     * The identifier of the WorkSpace. To find this ID, use <a>DescribeWorkspaces</a>.
      * </p>
      * 
      * @param resourceId
-     *        The resource ID of the request.
+     *        The identifier of the WorkSpace. To find this ID, use <a>DescribeWorkspaces</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -83,10 +80,10 @@ public class DeleteTagsRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The tag keys of the request.
+     * The tag keys.
      * </p>
      * 
-     * @return The tag keys of the request.
+     * @return The tag keys.
      */
 
     public java.util.List<String> getTagKeys() {
@@ -98,11 +95,11 @@ public class DeleteTagsRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The tag keys of the request.
+     * The tag keys.
      * </p>
      * 
      * @param tagKeys
-     *        The tag keys of the request.
+     *        The tag keys.
      */
 
     public void setTagKeys(java.util.Collection<String> tagKeys) {
@@ -116,7 +113,7 @@ public class DeleteTagsRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The tag keys of the request.
+     * The tag keys.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -125,7 +122,7 @@ public class DeleteTagsRequest extends com.amazonaws.AmazonWebServiceRequest imp
      * </p>
      * 
      * @param tagKeys
-     *        The tag keys of the request.
+     *        The tag keys.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -141,11 +138,11 @@ public class DeleteTagsRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * The tag keys of the request.
+     * The tag keys.
      * </p>
      * 
      * @param tagKeys
-     *        The tag keys of the request.
+     *        The tag keys.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -155,7 +152,8 @@ public class DeleteTagsRequest extends com.amazonaws.AmazonWebServiceRequest imp
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

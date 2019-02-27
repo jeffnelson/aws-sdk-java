@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -55,6 +55,54 @@ public class BatchReadOperationJsonUnmarshaller implements Unmarshaller<BatchRea
                 if (context.testExpression("ListObjectChildren", targetDepth)) {
                     context.nextToken();
                     batchReadOperation.setListObjectChildren(BatchListObjectChildrenJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("ListAttachedIndices", targetDepth)) {
+                    context.nextToken();
+                    batchReadOperation.setListAttachedIndices(BatchListAttachedIndicesJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("ListObjectParentPaths", targetDepth)) {
+                    context.nextToken();
+                    batchReadOperation.setListObjectParentPaths(BatchListObjectParentPathsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("GetObjectInformation", targetDepth)) {
+                    context.nextToken();
+                    batchReadOperation.setGetObjectInformation(BatchGetObjectInformationJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("GetObjectAttributes", targetDepth)) {
+                    context.nextToken();
+                    batchReadOperation.setGetObjectAttributes(BatchGetObjectAttributesJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("ListObjectParents", targetDepth)) {
+                    context.nextToken();
+                    batchReadOperation.setListObjectParents(BatchListObjectParentsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("ListObjectPolicies", targetDepth)) {
+                    context.nextToken();
+                    batchReadOperation.setListObjectPolicies(BatchListObjectPoliciesJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("ListPolicyAttachments", targetDepth)) {
+                    context.nextToken();
+                    batchReadOperation.setListPolicyAttachments(BatchListPolicyAttachmentsJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("LookupPolicy", targetDepth)) {
+                    context.nextToken();
+                    batchReadOperation.setLookupPolicy(BatchLookupPolicyJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("ListIndex", targetDepth)) {
+                    context.nextToken();
+                    batchReadOperation.setListIndex(BatchListIndexJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("ListOutgoingTypedLinks", targetDepth)) {
+                    context.nextToken();
+                    batchReadOperation.setListOutgoingTypedLinks(BatchListOutgoingTypedLinksJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("ListIncomingTypedLinks", targetDepth)) {
+                    context.nextToken();
+                    batchReadOperation.setListIncomingTypedLinks(BatchListIncomingTypedLinksJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("GetLinkAttributes", targetDepth)) {
+                    context.nextToken();
+                    batchReadOperation.setGetLinkAttributes(BatchGetLinkAttributesJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

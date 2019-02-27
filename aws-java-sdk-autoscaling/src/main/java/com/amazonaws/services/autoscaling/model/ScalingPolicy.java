@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,7 +28,7 @@ public class ScalingPolicy implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The name of the Auto Scaling group associated with this scaling policy.
+     * The name of the Auto Scaling group.
      * </p>
      */
     private String autoScalingGroupName;
@@ -80,8 +80,8 @@ public class ScalingPolicy implements Serializable, Cloneable {
     private Integer scalingAdjustment;
     /**
      * <p>
-     * The amount of time, in seconds, after a scaling activity completes before any further trigger-related scaling
-     * activities can start.
+     * The amount of time, in seconds, after a scaling activity completes before any further dynamic scaling activities
+     * can start.
      * </p>
      */
     private Integer cooldown;
@@ -119,11 +119,11 @@ public class ScalingPolicy implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The name of the Auto Scaling group associated with this scaling policy.
+     * The name of the Auto Scaling group.
      * </p>
      * 
      * @param autoScalingGroupName
-     *        The name of the Auto Scaling group associated with this scaling policy.
+     *        The name of the Auto Scaling group.
      */
 
     public void setAutoScalingGroupName(String autoScalingGroupName) {
@@ -132,10 +132,10 @@ public class ScalingPolicy implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The name of the Auto Scaling group associated with this scaling policy.
+     * The name of the Auto Scaling group.
      * </p>
      * 
-     * @return The name of the Auto Scaling group associated with this scaling policy.
+     * @return The name of the Auto Scaling group.
      */
 
     public String getAutoScalingGroupName() {
@@ -144,11 +144,11 @@ public class ScalingPolicy implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The name of the Auto Scaling group associated with this scaling policy.
+     * The name of the Auto Scaling group.
      * </p>
      * 
      * @param autoScalingGroupName
-     *        The name of the Auto Scaling group associated with this scaling policy.
+     *        The name of the Auto Scaling group.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -463,13 +463,13 @@ public class ScalingPolicy implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The amount of time, in seconds, after a scaling activity completes before any further trigger-related scaling
-     * activities can start.
+     * The amount of time, in seconds, after a scaling activity completes before any further dynamic scaling activities
+     * can start.
      * </p>
      * 
      * @param cooldown
-     *        The amount of time, in seconds, after a scaling activity completes before any further trigger-related
-     *        scaling activities can start.
+     *        The amount of time, in seconds, after a scaling activity completes before any further dynamic scaling
+     *        activities can start.
      */
 
     public void setCooldown(Integer cooldown) {
@@ -478,12 +478,12 @@ public class ScalingPolicy implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The amount of time, in seconds, after a scaling activity completes before any further trigger-related scaling
-     * activities can start.
+     * The amount of time, in seconds, after a scaling activity completes before any further dynamic scaling activities
+     * can start.
      * </p>
      * 
-     * @return The amount of time, in seconds, after a scaling activity completes before any further trigger-related
-     *         scaling activities can start.
+     * @return The amount of time, in seconds, after a scaling activity completes before any further dynamic scaling
+     *         activities can start.
      */
 
     public Integer getCooldown() {
@@ -492,13 +492,13 @@ public class ScalingPolicy implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The amount of time, in seconds, after a scaling activity completes before any further trigger-related scaling
-     * activities can start.
+     * The amount of time, in seconds, after a scaling activity completes before any further dynamic scaling activities
+     * can start.
      * </p>
      * 
      * @param cooldown
-     *        The amount of time, in seconds, after a scaling activity completes before any further trigger-related
-     *        scaling activities can start.
+     *        The amount of time, in seconds, after a scaling activity completes before any further dynamic scaling
+     *        activities can start.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -780,7 +780,8 @@ public class ScalingPolicy implements Serializable, Cloneable {
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

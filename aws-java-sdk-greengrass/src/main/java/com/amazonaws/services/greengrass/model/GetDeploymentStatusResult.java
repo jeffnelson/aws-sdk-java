@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -23,18 +23,22 @@ import javax.annotation.Generated;
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class GetDeploymentStatusResult extends com.amazonaws.AmazonWebServiceResult<com.amazonaws.ResponseMetadata> implements Serializable, Cloneable {
 
-    /** Status of the deployment. */
+    /** The status of the deployment: ''Pending'', ''InProgress'', ''Success'', or ''Failure''. */
     private String deploymentStatus;
-    /** Error Message */
+    /** The type of the deployment. */
+    private String deploymentType;
+    /** Error details */
+    private java.util.List<ErrorDetail> errorDetails;
+    /** Error message */
     private String errorMessage;
-    /** Last time the deployment status was updated. */
+    /** The time, in milliseconds since the epoch, when the deployment status was updated. */
     private String updatedAt;
 
     /**
-     * Status of the deployment.
+     * The status of the deployment: ''Pending'', ''InProgress'', ''Success'', or ''Failure''.
      * 
      * @param deploymentStatus
-     *        Status of the deployment.
+     *        The status of the deployment: ''Pending'', ''InProgress'', ''Success'', or ''Failure''.
      */
 
     public void setDeploymentStatus(String deploymentStatus) {
@@ -42,9 +46,9 @@ public class GetDeploymentStatusResult extends com.amazonaws.AmazonWebServiceRes
     }
 
     /**
-     * Status of the deployment.
+     * The status of the deployment: ''Pending'', ''InProgress'', ''Success'', or ''Failure''.
      * 
-     * @return Status of the deployment.
+     * @return The status of the deployment: ''Pending'', ''InProgress'', ''Success'', or ''Failure''.
      */
 
     public String getDeploymentStatus() {
@@ -52,10 +56,10 @@ public class GetDeploymentStatusResult extends com.amazonaws.AmazonWebServiceRes
     }
 
     /**
-     * Status of the deployment.
+     * The status of the deployment: ''Pending'', ''InProgress'', ''Success'', or ''Failure''.
      * 
      * @param deploymentStatus
-     *        Status of the deployment.
+     *        The status of the deployment: ''Pending'', ''InProgress'', ''Success'', or ''Failure''.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -65,10 +69,123 @@ public class GetDeploymentStatusResult extends com.amazonaws.AmazonWebServiceRes
     }
 
     /**
-     * Error Message
+     * The type of the deployment.
+     * 
+     * @param deploymentType
+     *        The type of the deployment.
+     * @see DeploymentType
+     */
+
+    public void setDeploymentType(String deploymentType) {
+        this.deploymentType = deploymentType;
+    }
+
+    /**
+     * The type of the deployment.
+     * 
+     * @return The type of the deployment.
+     * @see DeploymentType
+     */
+
+    public String getDeploymentType() {
+        return this.deploymentType;
+    }
+
+    /**
+     * The type of the deployment.
+     * 
+     * @param deploymentType
+     *        The type of the deployment.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DeploymentType
+     */
+
+    public GetDeploymentStatusResult withDeploymentType(String deploymentType) {
+        setDeploymentType(deploymentType);
+        return this;
+    }
+
+    /**
+     * The type of the deployment.
+     * 
+     * @param deploymentType
+     *        The type of the deployment.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see DeploymentType
+     */
+
+    public GetDeploymentStatusResult withDeploymentType(DeploymentType deploymentType) {
+        this.deploymentType = deploymentType.toString();
+        return this;
+    }
+
+    /**
+     * Error details
+     * 
+     * @return Error details
+     */
+
+    public java.util.List<ErrorDetail> getErrorDetails() {
+        return errorDetails;
+    }
+
+    /**
+     * Error details
+     * 
+     * @param errorDetails
+     *        Error details
+     */
+
+    public void setErrorDetails(java.util.Collection<ErrorDetail> errorDetails) {
+        if (errorDetails == null) {
+            this.errorDetails = null;
+            return;
+        }
+
+        this.errorDetails = new java.util.ArrayList<ErrorDetail>(errorDetails);
+    }
+
+    /**
+     * Error details
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setErrorDetails(java.util.Collection)} or {@link #withErrorDetails(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param errorDetails
+     *        Error details
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetDeploymentStatusResult withErrorDetails(ErrorDetail... errorDetails) {
+        if (this.errorDetails == null) {
+            setErrorDetails(new java.util.ArrayList<ErrorDetail>(errorDetails.length));
+        }
+        for (ErrorDetail ele : errorDetails) {
+            this.errorDetails.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * Error details
+     * 
+     * @param errorDetails
+     *        Error details
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetDeploymentStatusResult withErrorDetails(java.util.Collection<ErrorDetail> errorDetails) {
+        setErrorDetails(errorDetails);
+        return this;
+    }
+
+    /**
+     * Error message
      * 
      * @param errorMessage
-     *        Error Message
+     *        Error message
      */
 
     public void setErrorMessage(String errorMessage) {
@@ -76,9 +193,9 @@ public class GetDeploymentStatusResult extends com.amazonaws.AmazonWebServiceRes
     }
 
     /**
-     * Error Message
+     * Error message
      * 
-     * @return Error Message
+     * @return Error message
      */
 
     public String getErrorMessage() {
@@ -86,10 +203,10 @@ public class GetDeploymentStatusResult extends com.amazonaws.AmazonWebServiceRes
     }
 
     /**
-     * Error Message
+     * Error message
      * 
      * @param errorMessage
-     *        Error Message
+     *        Error message
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -99,10 +216,10 @@ public class GetDeploymentStatusResult extends com.amazonaws.AmazonWebServiceRes
     }
 
     /**
-     * Last time the deployment status was updated.
+     * The time, in milliseconds since the epoch, when the deployment status was updated.
      * 
      * @param updatedAt
-     *        Last time the deployment status was updated.
+     *        The time, in milliseconds since the epoch, when the deployment status was updated.
      */
 
     public void setUpdatedAt(String updatedAt) {
@@ -110,9 +227,9 @@ public class GetDeploymentStatusResult extends com.amazonaws.AmazonWebServiceRes
     }
 
     /**
-     * Last time the deployment status was updated.
+     * The time, in milliseconds since the epoch, when the deployment status was updated.
      * 
-     * @return Last time the deployment status was updated.
+     * @return The time, in milliseconds since the epoch, when the deployment status was updated.
      */
 
     public String getUpdatedAt() {
@@ -120,10 +237,10 @@ public class GetDeploymentStatusResult extends com.amazonaws.AmazonWebServiceRes
     }
 
     /**
-     * Last time the deployment status was updated.
+     * The time, in milliseconds since the epoch, when the deployment status was updated.
      * 
      * @param updatedAt
-     *        Last time the deployment status was updated.
+     *        The time, in milliseconds since the epoch, when the deployment status was updated.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -133,7 +250,8 @@ public class GetDeploymentStatusResult extends com.amazonaws.AmazonWebServiceRes
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -145,6 +263,10 @@ public class GetDeploymentStatusResult extends com.amazonaws.AmazonWebServiceRes
         sb.append("{");
         if (getDeploymentStatus() != null)
             sb.append("DeploymentStatus: ").append(getDeploymentStatus()).append(",");
+        if (getDeploymentType() != null)
+            sb.append("DeploymentType: ").append(getDeploymentType()).append(",");
+        if (getErrorDetails() != null)
+            sb.append("ErrorDetails: ").append(getErrorDetails()).append(",");
         if (getErrorMessage() != null)
             sb.append("ErrorMessage: ").append(getErrorMessage()).append(",");
         if (getUpdatedAt() != null)
@@ -167,6 +289,14 @@ public class GetDeploymentStatusResult extends com.amazonaws.AmazonWebServiceRes
             return false;
         if (other.getDeploymentStatus() != null && other.getDeploymentStatus().equals(this.getDeploymentStatus()) == false)
             return false;
+        if (other.getDeploymentType() == null ^ this.getDeploymentType() == null)
+            return false;
+        if (other.getDeploymentType() != null && other.getDeploymentType().equals(this.getDeploymentType()) == false)
+            return false;
+        if (other.getErrorDetails() == null ^ this.getErrorDetails() == null)
+            return false;
+        if (other.getErrorDetails() != null && other.getErrorDetails().equals(this.getErrorDetails()) == false)
+            return false;
         if (other.getErrorMessage() == null ^ this.getErrorMessage() == null)
             return false;
         if (other.getErrorMessage() != null && other.getErrorMessage().equals(this.getErrorMessage()) == false)
@@ -184,6 +314,8 @@ public class GetDeploymentStatusResult extends com.amazonaws.AmazonWebServiceRes
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getDeploymentStatus() == null) ? 0 : getDeploymentStatus().hashCode());
+        hashCode = prime * hashCode + ((getDeploymentType() == null) ? 0 : getDeploymentType().hashCode());
+        hashCode = prime * hashCode + ((getErrorDetails() == null) ? 0 : getErrorDetails().hashCode());
         hashCode = prime * hashCode + ((getErrorMessage() == null) ? 0 : getErrorMessage().hashCode());
         hashCode = prime * hashCode + ((getUpdatedAt() == null) ? 0 : getUpdatedAt().hashCode());
         return hashCode;

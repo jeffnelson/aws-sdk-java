@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,13 +28,13 @@ public class AutoScalingGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The name of the group.
+     * The name of the Auto Scaling group.
      * </p>
      */
     private String autoScalingGroupName;
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the group.
+     * The Amazon Resource Name (ARN) of the Auto Scaling group.
      * </p>
      */
     private String autoScalingGroupARN;
@@ -44,6 +44,18 @@ public class AutoScalingGroup implements Serializable, Cloneable {
      * </p>
      */
     private String launchConfigurationName;
+    /**
+     * <p>
+     * The launch template for the group.
+     * </p>
+     */
+    private LaunchTemplateSpecification launchTemplate;
+    /**
+     * <p>
+     * The mixed instances policy for the group.
+     * </p>
+     */
+    private MixedInstancesPolicy mixedInstancesPolicy;
     /**
      * <p>
      * The minimum size of the group.
@@ -94,8 +106,8 @@ public class AutoScalingGroup implements Serializable, Cloneable {
     private String healthCheckType;
     /**
      * <p>
-     * The amount of time, in seconds, that Auto Scaling waits before checking the health status of an EC2 instance that
-     * has come into service.
+     * The amount of time, in seconds, that Amazon EC2 Auto Scaling waits before checking the health status of an EC2
+     * instance that has come into service.
      * </p>
      */
     private Integer healthCheckGracePeriod;
@@ -119,9 +131,9 @@ public class AutoScalingGroup implements Serializable, Cloneable {
     private com.amazonaws.internal.SdkInternalList<SuspendedProcess> suspendedProcesses;
     /**
      * <p>
-     * The name of the placement group into which you'll launch your instances, if any. For more information, see <a
+     * The name of the placement group into which to launch your instances, if any. For more information, see <a
      * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html">Placement Groups</a> in the
-     * <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * <i>Amazon EC2 User Guide for Linux Instances</i>.
      * </p>
      */
     private String placementGroup;
@@ -163,16 +175,28 @@ public class AutoScalingGroup implements Serializable, Cloneable {
      * <p>
      * Indicates whether newly launched instances are protected from termination by Auto Scaling when scaling in.
      * </p>
+     * <p>
+     * For more information, see <a
+     * href="http://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.html#instance-protection"
+     * >Instance Protection</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
+     * </p>
      */
     private Boolean newInstancesProtectedFromScaleIn;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the service-linked role that the Auto Scaling group uses to call other AWS
+     * services on your behalf.
+     * </p>
+     */
+    private String serviceLinkedRoleARN;
 
     /**
      * <p>
-     * The name of the group.
+     * The name of the Auto Scaling group.
      * </p>
      * 
      * @param autoScalingGroupName
-     *        The name of the group.
+     *        The name of the Auto Scaling group.
      */
 
     public void setAutoScalingGroupName(String autoScalingGroupName) {
@@ -181,10 +205,10 @@ public class AutoScalingGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The name of the group.
+     * The name of the Auto Scaling group.
      * </p>
      * 
-     * @return The name of the group.
+     * @return The name of the Auto Scaling group.
      */
 
     public String getAutoScalingGroupName() {
@@ -193,11 +217,11 @@ public class AutoScalingGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The name of the group.
+     * The name of the Auto Scaling group.
      * </p>
      * 
      * @param autoScalingGroupName
-     *        The name of the group.
+     *        The name of the Auto Scaling group.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -208,11 +232,11 @@ public class AutoScalingGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the group.
+     * The Amazon Resource Name (ARN) of the Auto Scaling group.
      * </p>
      * 
      * @param autoScalingGroupARN
-     *        The Amazon Resource Name (ARN) of the group.
+     *        The Amazon Resource Name (ARN) of the Auto Scaling group.
      */
 
     public void setAutoScalingGroupARN(String autoScalingGroupARN) {
@@ -221,10 +245,10 @@ public class AutoScalingGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the group.
+     * The Amazon Resource Name (ARN) of the Auto Scaling group.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) of the group.
+     * @return The Amazon Resource Name (ARN) of the Auto Scaling group.
      */
 
     public String getAutoScalingGroupARN() {
@@ -233,11 +257,11 @@ public class AutoScalingGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) of the group.
+     * The Amazon Resource Name (ARN) of the Auto Scaling group.
      * </p>
      * 
      * @param autoScalingGroupARN
-     *        The Amazon Resource Name (ARN) of the group.
+     *        The Amazon Resource Name (ARN) of the Auto Scaling group.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -283,6 +307,86 @@ public class AutoScalingGroup implements Serializable, Cloneable {
 
     public AutoScalingGroup withLaunchConfigurationName(String launchConfigurationName) {
         setLaunchConfigurationName(launchConfigurationName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The launch template for the group.
+     * </p>
+     * 
+     * @param launchTemplate
+     *        The launch template for the group.
+     */
+
+    public void setLaunchTemplate(LaunchTemplateSpecification launchTemplate) {
+        this.launchTemplate = launchTemplate;
+    }
+
+    /**
+     * <p>
+     * The launch template for the group.
+     * </p>
+     * 
+     * @return The launch template for the group.
+     */
+
+    public LaunchTemplateSpecification getLaunchTemplate() {
+        return this.launchTemplate;
+    }
+
+    /**
+     * <p>
+     * The launch template for the group.
+     * </p>
+     * 
+     * @param launchTemplate
+     *        The launch template for the group.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AutoScalingGroup withLaunchTemplate(LaunchTemplateSpecification launchTemplate) {
+        setLaunchTemplate(launchTemplate);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The mixed instances policy for the group.
+     * </p>
+     * 
+     * @param mixedInstancesPolicy
+     *        The mixed instances policy for the group.
+     */
+
+    public void setMixedInstancesPolicy(MixedInstancesPolicy mixedInstancesPolicy) {
+        this.mixedInstancesPolicy = mixedInstancesPolicy;
+    }
+
+    /**
+     * <p>
+     * The mixed instances policy for the group.
+     * </p>
+     * 
+     * @return The mixed instances policy for the group.
+     */
+
+    public MixedInstancesPolicy getMixedInstancesPolicy() {
+        return this.mixedInstancesPolicy;
+    }
+
+    /**
+     * <p>
+     * The mixed instances policy for the group.
+     * </p>
+     * 
+     * @param mixedInstancesPolicy
+     *        The mixed instances policy for the group.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AutoScalingGroup withMixedInstancesPolicy(MixedInstancesPolicy mixedInstancesPolicy) {
+        setMixedInstancesPolicy(mixedInstancesPolicy);
         return this;
     }
 
@@ -710,13 +814,13 @@ public class AutoScalingGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The amount of time, in seconds, that Auto Scaling waits before checking the health status of an EC2 instance that
-     * has come into service.
+     * The amount of time, in seconds, that Amazon EC2 Auto Scaling waits before checking the health status of an EC2
+     * instance that has come into service.
      * </p>
      * 
      * @param healthCheckGracePeriod
-     *        The amount of time, in seconds, that Auto Scaling waits before checking the health status of an EC2
-     *        instance that has come into service.
+     *        The amount of time, in seconds, that Amazon EC2 Auto Scaling waits before checking the health status of an
+     *        EC2 instance that has come into service.
      */
 
     public void setHealthCheckGracePeriod(Integer healthCheckGracePeriod) {
@@ -725,12 +829,12 @@ public class AutoScalingGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The amount of time, in seconds, that Auto Scaling waits before checking the health status of an EC2 instance that
-     * has come into service.
+     * The amount of time, in seconds, that Amazon EC2 Auto Scaling waits before checking the health status of an EC2
+     * instance that has come into service.
      * </p>
      * 
-     * @return The amount of time, in seconds, that Auto Scaling waits before checking the health status of an EC2
-     *         instance that has come into service.
+     * @return The amount of time, in seconds, that Amazon EC2 Auto Scaling waits before checking the health status of
+     *         an EC2 instance that has come into service.
      */
 
     public Integer getHealthCheckGracePeriod() {
@@ -739,13 +843,13 @@ public class AutoScalingGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The amount of time, in seconds, that Auto Scaling waits before checking the health status of an EC2 instance that
-     * has come into service.
+     * The amount of time, in seconds, that Amazon EC2 Auto Scaling waits before checking the health status of an EC2
+     * instance that has come into service.
      * </p>
      * 
      * @param healthCheckGracePeriod
-     *        The amount of time, in seconds, that Auto Scaling waits before checking the health status of an EC2
-     *        instance that has come into service.
+     *        The amount of time, in seconds, that Amazon EC2 Auto Scaling waits before checking the health status of an
+     *        EC2 instance that has come into service.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -942,15 +1046,15 @@ public class AutoScalingGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The name of the placement group into which you'll launch your instances, if any. For more information, see <a
+     * The name of the placement group into which to launch your instances, if any. For more information, see <a
      * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html">Placement Groups</a> in the
-     * <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * <i>Amazon EC2 User Guide for Linux Instances</i>.
      * </p>
      * 
      * @param placementGroup
-     *        The name of the placement group into which you'll launch your instances, if any. For more information, see
-     *        <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html">Placement Groups</a> in
-     *        the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     *        The name of the placement group into which to launch your instances, if any. For more information, see <a
+     *        href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html">Placement Groups</a> in
+     *        the <i>Amazon EC2 User Guide for Linux Instances</i>.
      */
 
     public void setPlacementGroup(String placementGroup) {
@@ -959,14 +1063,14 @@ public class AutoScalingGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The name of the placement group into which you'll launch your instances, if any. For more information, see <a
+     * The name of the placement group into which to launch your instances, if any. For more information, see <a
      * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html">Placement Groups</a> in the
-     * <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * <i>Amazon EC2 User Guide for Linux Instances</i>.
      * </p>
      * 
-     * @return The name of the placement group into which you'll launch your instances, if any. For more information,
-     *         see <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html">Placement
-     *         Groups</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * @return The name of the placement group into which to launch your instances, if any. For more information, see <a
+     *         href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html">Placement Groups</a> in
+     *         the <i>Amazon EC2 User Guide for Linux Instances</i>.
      */
 
     public String getPlacementGroup() {
@@ -975,15 +1079,15 @@ public class AutoScalingGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The name of the placement group into which you'll launch your instances, if any. For more information, see <a
+     * The name of the placement group into which to launch your instances, if any. For more information, see <a
      * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html">Placement Groups</a> in the
-     * <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * <i>Amazon EC2 User Guide for Linux Instances</i>.
      * </p>
      * 
      * @param placementGroup
-     *        The name of the placement group into which you'll launch your instances, if any. For more information, see
-     *        <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html">Placement Groups</a> in
-     *        the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     *        The name of the placement group into which to launch your instances, if any. For more information, see <a
+     *        href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html">Placement Groups</a> in
+     *        the <i>Amazon EC2 User Guide for Linux Instances</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1316,9 +1420,19 @@ public class AutoScalingGroup implements Serializable, Cloneable {
      * <p>
      * Indicates whether newly launched instances are protected from termination by Auto Scaling when scaling in.
      * </p>
+     * <p>
+     * For more information, see <a
+     * href="http://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.html#instance-protection"
+     * >Instance Protection</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
+     * </p>
      * 
      * @param newInstancesProtectedFromScaleIn
-     *        Indicates whether newly launched instances are protected from termination by Auto Scaling when scaling in.
+     *        Indicates whether newly launched instances are protected from termination by Auto Scaling when scaling
+     *        in.</p>
+     *        <p>
+     *        For more information, see <a href=
+     *        "http://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.html#instance-protection"
+     *        >Instance Protection</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
      */
 
     public void setNewInstancesProtectedFromScaleIn(Boolean newInstancesProtectedFromScaleIn) {
@@ -1329,9 +1443,18 @@ public class AutoScalingGroup implements Serializable, Cloneable {
      * <p>
      * Indicates whether newly launched instances are protected from termination by Auto Scaling when scaling in.
      * </p>
+     * <p>
+     * For more information, see <a
+     * href="http://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.html#instance-protection"
+     * >Instance Protection</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
+     * </p>
      * 
      * @return Indicates whether newly launched instances are protected from termination by Auto Scaling when scaling
-     *         in.
+     *         in.</p>
+     *         <p>
+     *         For more information, see <a href=
+     *         "http://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.html#instance-protection"
+     *         >Instance Protection</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
      */
 
     public Boolean getNewInstancesProtectedFromScaleIn() {
@@ -1342,9 +1465,19 @@ public class AutoScalingGroup implements Serializable, Cloneable {
      * <p>
      * Indicates whether newly launched instances are protected from termination by Auto Scaling when scaling in.
      * </p>
+     * <p>
+     * For more information, see <a
+     * href="http://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.html#instance-protection"
+     * >Instance Protection</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
+     * </p>
      * 
      * @param newInstancesProtectedFromScaleIn
-     *        Indicates whether newly launched instances are protected from termination by Auto Scaling when scaling in.
+     *        Indicates whether newly launched instances are protected from termination by Auto Scaling when scaling
+     *        in.</p>
+     *        <p>
+     *        For more information, see <a href=
+     *        "http://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.html#instance-protection"
+     *        >Instance Protection</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1357,9 +1490,18 @@ public class AutoScalingGroup implements Serializable, Cloneable {
      * <p>
      * Indicates whether newly launched instances are protected from termination by Auto Scaling when scaling in.
      * </p>
+     * <p>
+     * For more information, see <a
+     * href="http://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.html#instance-protection"
+     * >Instance Protection</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
+     * </p>
      * 
      * @return Indicates whether newly launched instances are protected from termination by Auto Scaling when scaling
-     *         in.
+     *         in.</p>
+     *         <p>
+     *         For more information, see <a href=
+     *         "http://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.html#instance-protection"
+     *         >Instance Protection</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
      */
 
     public Boolean isNewInstancesProtectedFromScaleIn() {
@@ -1367,7 +1509,54 @@ public class AutoScalingGroup implements Serializable, Cloneable {
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * <p>
+     * The Amazon Resource Name (ARN) of the service-linked role that the Auto Scaling group uses to call other AWS
+     * services on your behalf.
+     * </p>
+     * 
+     * @param serviceLinkedRoleARN
+     *        The Amazon Resource Name (ARN) of the service-linked role that the Auto Scaling group uses to call other
+     *        AWS services on your behalf.
+     */
+
+    public void setServiceLinkedRoleARN(String serviceLinkedRoleARN) {
+        this.serviceLinkedRoleARN = serviceLinkedRoleARN;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the service-linked role that the Auto Scaling group uses to call other AWS
+     * services on your behalf.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of the service-linked role that the Auto Scaling group uses to call other
+     *         AWS services on your behalf.
+     */
+
+    public String getServiceLinkedRoleARN() {
+        return this.serviceLinkedRoleARN;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the service-linked role that the Auto Scaling group uses to call other AWS
+     * services on your behalf.
+     * </p>
+     * 
+     * @param serviceLinkedRoleARN
+     *        The Amazon Resource Name (ARN) of the service-linked role that the Auto Scaling group uses to call other
+     *        AWS services on your behalf.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AutoScalingGroup withServiceLinkedRoleARN(String serviceLinkedRoleARN) {
+        setServiceLinkedRoleARN(serviceLinkedRoleARN);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -1383,6 +1572,10 @@ public class AutoScalingGroup implements Serializable, Cloneable {
             sb.append("AutoScalingGroupARN: ").append(getAutoScalingGroupARN()).append(",");
         if (getLaunchConfigurationName() != null)
             sb.append("LaunchConfigurationName: ").append(getLaunchConfigurationName()).append(",");
+        if (getLaunchTemplate() != null)
+            sb.append("LaunchTemplate: ").append(getLaunchTemplate()).append(",");
+        if (getMixedInstancesPolicy() != null)
+            sb.append("MixedInstancesPolicy: ").append(getMixedInstancesPolicy()).append(",");
         if (getMinSize() != null)
             sb.append("MinSize: ").append(getMinSize()).append(",");
         if (getMaxSize() != null)
@@ -1420,7 +1613,9 @@ public class AutoScalingGroup implements Serializable, Cloneable {
         if (getTerminationPolicies() != null)
             sb.append("TerminationPolicies: ").append(getTerminationPolicies()).append(",");
         if (getNewInstancesProtectedFromScaleIn() != null)
-            sb.append("NewInstancesProtectedFromScaleIn: ").append(getNewInstancesProtectedFromScaleIn());
+            sb.append("NewInstancesProtectedFromScaleIn: ").append(getNewInstancesProtectedFromScaleIn()).append(",");
+        if (getServiceLinkedRoleARN() != null)
+            sb.append("ServiceLinkedRoleARN: ").append(getServiceLinkedRoleARN());
         sb.append("}");
         return sb.toString();
     }
@@ -1446,6 +1641,14 @@ public class AutoScalingGroup implements Serializable, Cloneable {
         if (other.getLaunchConfigurationName() == null ^ this.getLaunchConfigurationName() == null)
             return false;
         if (other.getLaunchConfigurationName() != null && other.getLaunchConfigurationName().equals(this.getLaunchConfigurationName()) == false)
+            return false;
+        if (other.getLaunchTemplate() == null ^ this.getLaunchTemplate() == null)
+            return false;
+        if (other.getLaunchTemplate() != null && other.getLaunchTemplate().equals(this.getLaunchTemplate()) == false)
+            return false;
+        if (other.getMixedInstancesPolicy() == null ^ this.getMixedInstancesPolicy() == null)
+            return false;
+        if (other.getMixedInstancesPolicy() != null && other.getMixedInstancesPolicy().equals(this.getMixedInstancesPolicy()) == false)
             return false;
         if (other.getMinSize() == null ^ this.getMinSize() == null)
             return false;
@@ -1524,6 +1727,10 @@ public class AutoScalingGroup implements Serializable, Cloneable {
         if (other.getNewInstancesProtectedFromScaleIn() != null
                 && other.getNewInstancesProtectedFromScaleIn().equals(this.getNewInstancesProtectedFromScaleIn()) == false)
             return false;
+        if (other.getServiceLinkedRoleARN() == null ^ this.getServiceLinkedRoleARN() == null)
+            return false;
+        if (other.getServiceLinkedRoleARN() != null && other.getServiceLinkedRoleARN().equals(this.getServiceLinkedRoleARN()) == false)
+            return false;
         return true;
     }
 
@@ -1535,6 +1742,8 @@ public class AutoScalingGroup implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getAutoScalingGroupName() == null) ? 0 : getAutoScalingGroupName().hashCode());
         hashCode = prime * hashCode + ((getAutoScalingGroupARN() == null) ? 0 : getAutoScalingGroupARN().hashCode());
         hashCode = prime * hashCode + ((getLaunchConfigurationName() == null) ? 0 : getLaunchConfigurationName().hashCode());
+        hashCode = prime * hashCode + ((getLaunchTemplate() == null) ? 0 : getLaunchTemplate().hashCode());
+        hashCode = prime * hashCode + ((getMixedInstancesPolicy() == null) ? 0 : getMixedInstancesPolicy().hashCode());
         hashCode = prime * hashCode + ((getMinSize() == null) ? 0 : getMinSize().hashCode());
         hashCode = prime * hashCode + ((getMaxSize() == null) ? 0 : getMaxSize().hashCode());
         hashCode = prime * hashCode + ((getDesiredCapacity() == null) ? 0 : getDesiredCapacity().hashCode());
@@ -1554,6 +1763,7 @@ public class AutoScalingGroup implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         hashCode = prime * hashCode + ((getTerminationPolicies() == null) ? 0 : getTerminationPolicies().hashCode());
         hashCode = prime * hashCode + ((getNewInstancesProtectedFromScaleIn() == null) ? 0 : getNewInstancesProtectedFromScaleIn().hashCode());
+        hashCode = prime * hashCode + ((getServiceLinkedRoleARN() == null) ? 0 : getServiceLinkedRoleARN().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -54,6 +54,12 @@ public class MaintenanceWindowExecutionTaskInvocationIdentity implements Seriali
      * </p>
      */
     private String executionId;
+    /**
+     * <p>
+     * The task type.
+     * </p>
+     */
+    private String taskType;
     /**
      * <p>
      * The parameters that were provided for the invocation when it was executed.
@@ -261,6 +267,79 @@ public class MaintenanceWindowExecutionTaskInvocationIdentity implements Seriali
 
     public MaintenanceWindowExecutionTaskInvocationIdentity withExecutionId(String executionId) {
         setExecutionId(executionId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The task type.
+     * </p>
+     * 
+     * @param taskType
+     *        The task type.
+     * @see MaintenanceWindowTaskType
+     */
+
+    public void setTaskType(String taskType) {
+        this.taskType = taskType;
+    }
+
+    /**
+     * <p>
+     * The task type.
+     * </p>
+     * 
+     * @return The task type.
+     * @see MaintenanceWindowTaskType
+     */
+
+    public String getTaskType() {
+        return this.taskType;
+    }
+
+    /**
+     * <p>
+     * The task type.
+     * </p>
+     * 
+     * @param taskType
+     *        The task type.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see MaintenanceWindowTaskType
+     */
+
+    public MaintenanceWindowExecutionTaskInvocationIdentity withTaskType(String taskType) {
+        setTaskType(taskType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The task type.
+     * </p>
+     * 
+     * @param taskType
+     *        The task type.
+     * @see MaintenanceWindowTaskType
+     */
+
+    public void setTaskType(MaintenanceWindowTaskType taskType) {
+        withTaskType(taskType);
+    }
+
+    /**
+     * <p>
+     * The task type.
+     * </p>
+     * 
+     * @param taskType
+     *        The task type.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see MaintenanceWindowTaskType
+     */
+
+    public MaintenanceWindowExecutionTaskInvocationIdentity withTaskType(MaintenanceWindowTaskType taskType) {
+        this.taskType = taskType.toString();
         return this;
     }
 
@@ -584,7 +663,8 @@ public class MaintenanceWindowExecutionTaskInvocationIdentity implements Seriali
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -602,8 +682,10 @@ public class MaintenanceWindowExecutionTaskInvocationIdentity implements Seriali
             sb.append("InvocationId: ").append(getInvocationId()).append(",");
         if (getExecutionId() != null)
             sb.append("ExecutionId: ").append(getExecutionId()).append(",");
+        if (getTaskType() != null)
+            sb.append("TaskType: ").append(getTaskType()).append(",");
         if (getParameters() != null)
-            sb.append("Parameters: ").append(getParameters()).append(",");
+            sb.append("Parameters: ").append("***Sensitive Data Redacted***").append(",");
         if (getStatus() != null)
             sb.append("Status: ").append(getStatus()).append(",");
         if (getStatusDetails() != null)
@@ -613,7 +695,7 @@ public class MaintenanceWindowExecutionTaskInvocationIdentity implements Seriali
         if (getEndTime() != null)
             sb.append("EndTime: ").append(getEndTime()).append(",");
         if (getOwnerInformation() != null)
-            sb.append("OwnerInformation: ").append(getOwnerInformation()).append(",");
+            sb.append("OwnerInformation: ").append("***Sensitive Data Redacted***").append(",");
         if (getWindowTargetId() != null)
             sb.append("WindowTargetId: ").append(getWindowTargetId());
         sb.append("}");
@@ -645,6 +727,10 @@ public class MaintenanceWindowExecutionTaskInvocationIdentity implements Seriali
         if (other.getExecutionId() == null ^ this.getExecutionId() == null)
             return false;
         if (other.getExecutionId() != null && other.getExecutionId().equals(this.getExecutionId()) == false)
+            return false;
+        if (other.getTaskType() == null ^ this.getTaskType() == null)
+            return false;
+        if (other.getTaskType() != null && other.getTaskType().equals(this.getTaskType()) == false)
             return false;
         if (other.getParameters() == null ^ this.getParameters() == null)
             return false;
@@ -686,6 +772,7 @@ public class MaintenanceWindowExecutionTaskInvocationIdentity implements Seriali
         hashCode = prime * hashCode + ((getTaskExecutionId() == null) ? 0 : getTaskExecutionId().hashCode());
         hashCode = prime * hashCode + ((getInvocationId() == null) ? 0 : getInvocationId().hashCode());
         hashCode = prime * hashCode + ((getExecutionId() == null) ? 0 : getExecutionId().hashCode());
+        hashCode = prime * hashCode + ((getTaskType() == null) ? 0 : getTaskType().hashCode());
         hashCode = prime * hashCode + ((getParameters() == null) ? 0 : getParameters().hashCode());
         hashCode = prime * hashCode + ((getStatus() == null) ? 0 : getStatus().hashCode());
         hashCode = prime * hashCode + ((getStatusDetails() == null) ? 0 : getStatusDetails().hashCode());

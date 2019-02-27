@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -50,15 +50,11 @@ public class SubscriptionFilter implements Serializable, Cloneable, StructuredPo
     private String destinationArn;
     /** <p/> */
     private String roleArn;
-    /**
-     * <p>
-     * The method used to distribute log data to the destination, when the destination is an Amazon Kinesis stream.
-     * </p>
-     */
+
     private String distribution;
     /**
      * <p>
-     * The creation time of the subscription filter, expressed as the number of milliseconds since Jan 1, 1970 00:00:00
+     * The creation time of the subscription filter, expressed as the number of milliseconds after Jan 1, 1970 00:00:00
      * UTC.
      * </p>
      */
@@ -243,13 +239,7 @@ public class SubscriptionFilter implements Serializable, Cloneable, StructuredPo
     }
 
     /**
-     * <p>
-     * The method used to distribute log data to the destination, when the destination is an Amazon Kinesis stream.
-     * </p>
-     * 
      * @param distribution
-     *        The method used to distribute log data to the destination, when the destination is an Amazon Kinesis
-     *        stream.
      * @see Distribution
      */
 
@@ -258,12 +248,7 @@ public class SubscriptionFilter implements Serializable, Cloneable, StructuredPo
     }
 
     /**
-     * <p>
-     * The method used to distribute log data to the destination, when the destination is an Amazon Kinesis stream.
-     * </p>
-     * 
-     * @return The method used to distribute log data to the destination, when the destination is an Amazon Kinesis
-     *         stream.
+     * @return
      * @see Distribution
      */
 
@@ -272,13 +257,7 @@ public class SubscriptionFilter implements Serializable, Cloneable, StructuredPo
     }
 
     /**
-     * <p>
-     * The method used to distribute log data to the destination, when the destination is an Amazon Kinesis stream.
-     * </p>
-     * 
      * @param distribution
-     *        The method used to distribute log data to the destination, when the destination is an Amazon Kinesis
-     *        stream.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see Distribution
      */
@@ -289,13 +268,7 @@ public class SubscriptionFilter implements Serializable, Cloneable, StructuredPo
     }
 
     /**
-     * <p>
-     * The method used to distribute log data to the destination, when the destination is an Amazon Kinesis stream.
-     * </p>
-     * 
      * @param distribution
-     *        The method used to distribute log data to the destination, when the destination is an Amazon Kinesis
-     *        stream.
      * @see Distribution
      */
 
@@ -304,13 +277,7 @@ public class SubscriptionFilter implements Serializable, Cloneable, StructuredPo
     }
 
     /**
-     * <p>
-     * The method used to distribute log data to the destination, when the destination is an Amazon Kinesis stream.
-     * </p>
-     * 
      * @param distribution
-     *        The method used to distribute log data to the destination, when the destination is an Amazon Kinesis
-     *        stream.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see Distribution
      */
@@ -322,12 +289,12 @@ public class SubscriptionFilter implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The creation time of the subscription filter, expressed as the number of milliseconds since Jan 1, 1970 00:00:00
+     * The creation time of the subscription filter, expressed as the number of milliseconds after Jan 1, 1970 00:00:00
      * UTC.
      * </p>
      * 
      * @param creationTime
-     *        The creation time of the subscription filter, expressed as the number of milliseconds since Jan 1, 1970
+     *        The creation time of the subscription filter, expressed as the number of milliseconds after Jan 1, 1970
      *        00:00:00 UTC.
      */
 
@@ -337,11 +304,11 @@ public class SubscriptionFilter implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The creation time of the subscription filter, expressed as the number of milliseconds since Jan 1, 1970 00:00:00
+     * The creation time of the subscription filter, expressed as the number of milliseconds after Jan 1, 1970 00:00:00
      * UTC.
      * </p>
      * 
-     * @return The creation time of the subscription filter, expressed as the number of milliseconds since Jan 1, 1970
+     * @return The creation time of the subscription filter, expressed as the number of milliseconds after Jan 1, 1970
      *         00:00:00 UTC.
      */
 
@@ -351,12 +318,12 @@ public class SubscriptionFilter implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * The creation time of the subscription filter, expressed as the number of milliseconds since Jan 1, 1970 00:00:00
+     * The creation time of the subscription filter, expressed as the number of milliseconds after Jan 1, 1970 00:00:00
      * UTC.
      * </p>
      * 
      * @param creationTime
-     *        The creation time of the subscription filter, expressed as the number of milliseconds since Jan 1, 1970
+     *        The creation time of the subscription filter, expressed as the number of milliseconds after Jan 1, 1970
      *        00:00:00 UTC.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -367,7 +334,8 @@ public class SubscriptionFilter implements Serializable, Cloneable, StructuredPo
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

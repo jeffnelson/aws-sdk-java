@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -20,9 +20,7 @@ import com.amazonaws.Request;
 import com.amazonaws.services.ec2.model.transform.ReportInstanceStatusRequestMarshaller;
 
 /**
- * <p>
- * Contains the parameters for ReportInstanceStatus.
- * </p>
+ * 
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class ReportInstanceStatusRequest extends AmazonWebServiceRequest implements Serializable, Cloneable,
@@ -48,7 +46,7 @@ public class ReportInstanceStatusRequest extends AmazonWebServiceRequest impleme
     private com.amazonaws.internal.SdkInternalList<String> instances;
     /**
      * <p>
-     * One or more reason codes that describes the health state of your instance.
+     * One or more reason codes that describe the health state of your instance.
      * </p>
      * <ul>
      * <li>
@@ -73,19 +71,19 @@ public class ReportInstanceStatusRequest extends AmazonWebServiceRequest impleme
      * </li>
      * <li>
      * <p>
-     * <code>performance-network</code>: My instance is experiencing performance problems which I believe are network
+     * <code>performance-network</code>: My instance is experiencing performance problems that I believe are network
      * related.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>performance-instance-store</code>: My instance is experiencing performance problems which I believe are
+     * <code>performance-instance-store</code>: My instance is experiencing performance problems that I believe are
      * related to the instance stores.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>performance-ebs-volume</code>: My instance is experiencing performance problems which I believe are related
+     * <code>performance-ebs-volume</code>: My instance is experiencing performance problems that I believe are related
      * to an EBS volume.
      * </p>
      * </li>
@@ -270,7 +268,7 @@ public class ReportInstanceStatusRequest extends AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * One or more reason codes that describes the health state of your instance.
+     * One or more reason codes that describe the health state of your instance.
      * </p>
      * <ul>
      * <li>
@@ -295,19 +293,19 @@ public class ReportInstanceStatusRequest extends AmazonWebServiceRequest impleme
      * </li>
      * <li>
      * <p>
-     * <code>performance-network</code>: My instance is experiencing performance problems which I believe are network
+     * <code>performance-network</code>: My instance is experiencing performance problems that I believe are network
      * related.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>performance-instance-store</code>: My instance is experiencing performance problems which I believe are
+     * <code>performance-instance-store</code>: My instance is experiencing performance problems that I believe are
      * related to the instance stores.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>performance-ebs-volume</code>: My instance is experiencing performance problems which I believe are related
+     * <code>performance-ebs-volume</code>: My instance is experiencing performance problems that I believe are related
      * to an EBS volume.
      * </p>
      * </li>
@@ -323,7 +321,7 @@ public class ReportInstanceStatusRequest extends AmazonWebServiceRequest impleme
      * </li>
      * </ul>
      * 
-     * @return One or more reason codes that describes the health state of your instance.</p>
+     * @return One or more reason codes that describe the health state of your instance.</p>
      *         <ul>
      *         <li>
      *         <p>
@@ -347,19 +345,19 @@ public class ReportInstanceStatusRequest extends AmazonWebServiceRequest impleme
      *         </li>
      *         <li>
      *         <p>
-     *         <code>performance-network</code>: My instance is experiencing performance problems which I believe are
+     *         <code>performance-network</code>: My instance is experiencing performance problems that I believe are
      *         network related.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>performance-instance-store</code>: My instance is experiencing performance problems which I believe
+     *         <code>performance-instance-store</code>: My instance is experiencing performance problems that I believe
      *         are related to the instance stores.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>performance-ebs-volume</code>: My instance is experiencing performance problems which I believe are
+     *         <code>performance-ebs-volume</code>: My instance is experiencing performance problems that I believe are
      *         related to an EBS volume.
      *         </p>
      *         </li>
@@ -385,7 +383,7 @@ public class ReportInstanceStatusRequest extends AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * One or more reason codes that describes the health state of your instance.
+     * One or more reason codes that describe the health state of your instance.
      * </p>
      * <ul>
      * <li>
@@ -410,19 +408,19 @@ public class ReportInstanceStatusRequest extends AmazonWebServiceRequest impleme
      * </li>
      * <li>
      * <p>
-     * <code>performance-network</code>: My instance is experiencing performance problems which I believe are network
+     * <code>performance-network</code>: My instance is experiencing performance problems that I believe are network
      * related.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>performance-instance-store</code>: My instance is experiencing performance problems which I believe are
+     * <code>performance-instance-store</code>: My instance is experiencing performance problems that I believe are
      * related to the instance stores.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>performance-ebs-volume</code>: My instance is experiencing performance problems which I believe are related
+     * <code>performance-ebs-volume</code>: My instance is experiencing performance problems that I believe are related
      * to an EBS volume.
      * </p>
      * </li>
@@ -439,7 +437,7 @@ public class ReportInstanceStatusRequest extends AmazonWebServiceRequest impleme
      * </ul>
      * 
      * @param reasonCodes
-     *        One or more reason codes that describes the health state of your instance.</p>
+     *        One or more reason codes that describe the health state of your instance.</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -463,19 +461,19 @@ public class ReportInstanceStatusRequest extends AmazonWebServiceRequest impleme
      *        </li>
      *        <li>
      *        <p>
-     *        <code>performance-network</code>: My instance is experiencing performance problems which I believe are
+     *        <code>performance-network</code>: My instance is experiencing performance problems that I believe are
      *        network related.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>performance-instance-store</code>: My instance is experiencing performance problems which I believe
+     *        <code>performance-instance-store</code>: My instance is experiencing performance problems that I believe
      *        are related to the instance stores.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>performance-ebs-volume</code>: My instance is experiencing performance problems which I believe are
+     *        <code>performance-ebs-volume</code>: My instance is experiencing performance problems that I believe are
      *        related to an EBS volume.
      *        </p>
      *        </li>
@@ -503,7 +501,7 @@ public class ReportInstanceStatusRequest extends AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * One or more reason codes that describes the health state of your instance.
+     * One or more reason codes that describe the health state of your instance.
      * </p>
      * <ul>
      * <li>
@@ -528,19 +526,19 @@ public class ReportInstanceStatusRequest extends AmazonWebServiceRequest impleme
      * </li>
      * <li>
      * <p>
-     * <code>performance-network</code>: My instance is experiencing performance problems which I believe are network
+     * <code>performance-network</code>: My instance is experiencing performance problems that I believe are network
      * related.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>performance-instance-store</code>: My instance is experiencing performance problems which I believe are
+     * <code>performance-instance-store</code>: My instance is experiencing performance problems that I believe are
      * related to the instance stores.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>performance-ebs-volume</code>: My instance is experiencing performance problems which I believe are related
+     * <code>performance-ebs-volume</code>: My instance is experiencing performance problems that I believe are related
      * to an EBS volume.
      * </p>
      * </li>
@@ -562,7 +560,7 @@ public class ReportInstanceStatusRequest extends AmazonWebServiceRequest impleme
      * </p>
      * 
      * @param reasonCodes
-     *        One or more reason codes that describes the health state of your instance.</p>
+     *        One or more reason codes that describe the health state of your instance.</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -586,19 +584,19 @@ public class ReportInstanceStatusRequest extends AmazonWebServiceRequest impleme
      *        </li>
      *        <li>
      *        <p>
-     *        <code>performance-network</code>: My instance is experiencing performance problems which I believe are
+     *        <code>performance-network</code>: My instance is experiencing performance problems that I believe are
      *        network related.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>performance-instance-store</code>: My instance is experiencing performance problems which I believe
+     *        <code>performance-instance-store</code>: My instance is experiencing performance problems that I believe
      *        are related to the instance stores.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>performance-ebs-volume</code>: My instance is experiencing performance problems which I believe are
+     *        <code>performance-ebs-volume</code>: My instance is experiencing performance problems that I believe are
      *        related to an EBS volume.
      *        </p>
      *        </li>
@@ -628,7 +626,7 @@ public class ReportInstanceStatusRequest extends AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * One or more reason codes that describes the health state of your instance.
+     * One or more reason codes that describe the health state of your instance.
      * </p>
      * <ul>
      * <li>
@@ -653,19 +651,19 @@ public class ReportInstanceStatusRequest extends AmazonWebServiceRequest impleme
      * </li>
      * <li>
      * <p>
-     * <code>performance-network</code>: My instance is experiencing performance problems which I believe are network
+     * <code>performance-network</code>: My instance is experiencing performance problems that I believe are network
      * related.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>performance-instance-store</code>: My instance is experiencing performance problems which I believe are
+     * <code>performance-instance-store</code>: My instance is experiencing performance problems that I believe are
      * related to the instance stores.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>performance-ebs-volume</code>: My instance is experiencing performance problems which I believe are related
+     * <code>performance-ebs-volume</code>: My instance is experiencing performance problems that I believe are related
      * to an EBS volume.
      * </p>
      * </li>
@@ -682,7 +680,7 @@ public class ReportInstanceStatusRequest extends AmazonWebServiceRequest impleme
      * </ul>
      * 
      * @param reasonCodes
-     *        One or more reason codes that describes the health state of your instance.</p>
+     *        One or more reason codes that describe the health state of your instance.</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -706,19 +704,19 @@ public class ReportInstanceStatusRequest extends AmazonWebServiceRequest impleme
      *        </li>
      *        <li>
      *        <p>
-     *        <code>performance-network</code>: My instance is experiencing performance problems which I believe are
+     *        <code>performance-network</code>: My instance is experiencing performance problems that I believe are
      *        network related.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>performance-instance-store</code>: My instance is experiencing performance problems which I believe
+     *        <code>performance-instance-store</code>: My instance is experiencing performance problems that I believe
      *        are related to the instance stores.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>performance-ebs-volume</code>: My instance is experiencing performance problems which I believe are
+     *        <code>performance-ebs-volume</code>: My instance is experiencing performance problems that I believe are
      *        related to an EBS volume.
      *        </p>
      *        </li>
@@ -743,7 +741,7 @@ public class ReportInstanceStatusRequest extends AmazonWebServiceRequest impleme
 
     /**
      * <p>
-     * One or more reason codes that describes the health state of your instance.
+     * One or more reason codes that describe the health state of your instance.
      * </p>
      * <ul>
      * <li>
@@ -768,19 +766,19 @@ public class ReportInstanceStatusRequest extends AmazonWebServiceRequest impleme
      * </li>
      * <li>
      * <p>
-     * <code>performance-network</code>: My instance is experiencing performance problems which I believe are network
+     * <code>performance-network</code>: My instance is experiencing performance problems that I believe are network
      * related.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>performance-instance-store</code>: My instance is experiencing performance problems which I believe are
+     * <code>performance-instance-store</code>: My instance is experiencing performance problems that I believe are
      * related to the instance stores.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>performance-ebs-volume</code>: My instance is experiencing performance problems which I believe are related
+     * <code>performance-ebs-volume</code>: My instance is experiencing performance problems that I believe are related
      * to an EBS volume.
      * </p>
      * </li>
@@ -797,7 +795,7 @@ public class ReportInstanceStatusRequest extends AmazonWebServiceRequest impleme
      * </ul>
      * 
      * @param reasonCodes
-     *        One or more reason codes that describes the health state of your instance.</p>
+     *        One or more reason codes that describe the health state of your instance.</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -821,19 +819,19 @@ public class ReportInstanceStatusRequest extends AmazonWebServiceRequest impleme
      *        </li>
      *        <li>
      *        <p>
-     *        <code>performance-network</code>: My instance is experiencing performance problems which I believe are
+     *        <code>performance-network</code>: My instance is experiencing performance problems that I believe are
      *        network related.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>performance-instance-store</code>: My instance is experiencing performance problems which I believe
+     *        <code>performance-instance-store</code>: My instance is experiencing performance problems that I believe
      *        are related to the instance stores.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>performance-ebs-volume</code>: My instance is experiencing performance problems which I believe are
+     *        <code>performance-ebs-volume</code>: My instance is experiencing performance problems that I believe are
      *        related to an EBS volume.
      *        </p>
      *        </li>
@@ -989,7 +987,8 @@ public class ReportInstanceStatusRequest extends AmazonWebServiceRequest impleme
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

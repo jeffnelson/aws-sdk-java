@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -38,6 +38,7 @@ public enum VoiceId {
     Justin("Justin"),
     Kendra("Kendra"),
     Kimberly("Kimberly"),
+    Matthew("Matthew"),
     Salli("Salli"),
     Conchita("Conchita"),
     Enrique("Enrique"),
@@ -45,6 +46,7 @@ public enum VoiceId {
     Penelope("Penelope"),
     Chantal("Chantal"),
     Celine("Celine"),
+    Lea("Lea"),
     Mathieu("Mathieu"),
     Dora("Dora"),
     Karl("Karl"),
@@ -67,7 +69,14 @@ public enum VoiceId {
     Tatyana("Tatyana"),
     Astrid("Astrid"),
     Filiz("Filiz"),
-    Vicki("Vicki");
+    Vicki("Vicki"),
+    Takumi("Takumi"),
+    Seoyeon("Seoyeon"),
+    Aditi("Aditi"),
+    Zhiyu("Zhiyu"),
+    Bianca("Bianca"),
+    Lucia("Lucia"),
+    Mia("Mia");
 
     private String value;
 
@@ -86,6 +95,9 @@ public enum VoiceId {
      * @param value
      *        real value
      * @return VoiceId corresponding to the value
+     *
+     * @throws IllegalArgumentException
+     *         If the specified value does not map to one of the known values in this enum.
      */
     public static VoiceId fromValue(String value) {
         if (value == null || "".equals(value)) {

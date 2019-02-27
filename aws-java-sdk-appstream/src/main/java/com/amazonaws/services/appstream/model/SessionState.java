@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -15,9 +15,7 @@ package com.amazonaws.services.appstream.model;
 import javax.annotation.Generated;
 
 /**
- * <p>
- * Possible values for the state of a streaming session.
- * </p>
+ * 
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public enum SessionState {
@@ -43,6 +41,9 @@ public enum SessionState {
      * @param value
      *        real value
      * @return SessionState corresponding to the value
+     *
+     * @throws IllegalArgumentException
+     *         If the specified value does not map to one of the known values in this enum.
      */
     public static SessionState fromValue(String value) {
         if (value == null || "".equals(value)) {

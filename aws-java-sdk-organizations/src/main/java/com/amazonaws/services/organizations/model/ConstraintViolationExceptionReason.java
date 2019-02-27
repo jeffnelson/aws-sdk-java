@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,7 +33,11 @@ public enum ConstraintViolationExceptionReason {
     MASTER_ACCOUNT_PAYMENT_INSTRUMENT_REQUIRED("MASTER_ACCOUNT_PAYMENT_INSTRUMENT_REQUIRED"),
     MEMBER_ACCOUNT_PAYMENT_INSTRUMENT_REQUIRED("MEMBER_ACCOUNT_PAYMENT_INSTRUMENT_REQUIRED"),
     ACCOUNT_CREATION_RATE_LIMIT_EXCEEDED("ACCOUNT_CREATION_RATE_LIMIT_EXCEEDED"),
-    MASTER_ACCOUNT_ADDRESS_DOES_NOT_MATCH_MARKETPLACE("MASTER_ACCOUNT_ADDRESS_DOES_NOT_MATCH_MARKETPLACE");
+    MASTER_ACCOUNT_ADDRESS_DOES_NOT_MATCH_MARKETPLACE("MASTER_ACCOUNT_ADDRESS_DOES_NOT_MATCH_MARKETPLACE"),
+    MASTER_ACCOUNT_MISSING_CONTACT_INFO("MASTER_ACCOUNT_MISSING_CONTACT_INFO"),
+    ORGANIZATION_NOT_IN_ALL_FEATURES_MODE("ORGANIZATION_NOT_IN_ALL_FEATURES_MODE"),
+    EMAIL_VERIFICATION_CODE_EXPIRED("EMAIL_VERIFICATION_CODE_EXPIRED"),
+    WAIT_PERIOD_ACTIVE("WAIT_PERIOD_ACTIVE");
 
     private String value;
 
@@ -52,6 +56,9 @@ public enum ConstraintViolationExceptionReason {
      * @param value
      *        real value
      * @return ConstraintViolationExceptionReason corresponding to the value
+     *
+     * @throws IllegalArgumentException
+     *         If the specified value does not map to one of the known values in this enum.
      */
     public static ConstraintViolationExceptionReason fromValue(String value) {
         if (value == null || "".equals(value)) {

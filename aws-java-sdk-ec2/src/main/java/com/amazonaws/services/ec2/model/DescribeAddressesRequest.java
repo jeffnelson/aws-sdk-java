@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -20,9 +20,7 @@ import com.amazonaws.Request;
 import com.amazonaws.services.ec2.model.transform.DescribeAddressesRequestMarshaller;
 
 /**
- * <p>
- * Contains the parameters for DescribeAddresses.
- * </p>
+ * 
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class DescribeAddressesRequest extends AmazonWebServiceRequest implements Serializable, Cloneable, DryRunSupportedRequest<DescribeAddressesRequest> {
@@ -74,12 +72,26 @@ public class DescribeAddressesRequest extends AmazonWebServiceRequest implements
      * <code>public-ip</code> - The Elastic IP address.
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in
+     * the filter name and the tag value as the filter value. For example, to find all resources that have a tag with
+     * the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name
+     * and <code>TeamA</code> for the filter value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources assigned
+     * a tag with a specific key, regardless of the tag value.
+     * </p>
+     * </li>
      * </ul>
      */
     private com.amazonaws.internal.SdkInternalList<Filter> filters;
     /**
      * <p>
-     * [EC2-Classic] One or more Elastic IP addresses.
+     * One or more Elastic IP addresses.
      * </p>
      * <p>
      * Default: Describes all your Elastic IP addresses.
@@ -143,6 +155,20 @@ public class DescribeAddressesRequest extends AmazonWebServiceRequest implements
      * <code>public-ip</code> - The Elastic IP address.
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in
+     * the filter name and the tag value as the filter value. For example, to find all resources that have a tag with
+     * the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name
+     * and <code>TeamA</code> for the filter value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources assigned
+     * a tag with a specific key, regardless of the tag value.
+     * </p>
+     * </li>
      * </ul>
      * 
      * @return One or more filters. Filter names and values are case-sensitive.</p>
@@ -188,6 +214,20 @@ public class DescribeAddressesRequest extends AmazonWebServiceRequest implements
      *         <li>
      *         <p>
      *         <code>public-ip</code> - The Elastic IP address.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag
+     *         key in the filter name and the tag value as the filter value. For example, to find all resources that
+     *         have a tag with the key <code>Owner</code> and the value <code>TeamA</code>, specify
+     *         <code>tag:Owner</code> for the filter name and <code>TeamA</code> for the filter value.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources
+     *         assigned a tag with a specific key, regardless of the tag value.
      *         </p>
      *         </li>
      */
@@ -246,6 +286,20 @@ public class DescribeAddressesRequest extends AmazonWebServiceRequest implements
      * <code>public-ip</code> - The Elastic IP address.
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in
+     * the filter name and the tag value as the filter value. For example, to find all resources that have a tag with
+     * the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name
+     * and <code>TeamA</code> for the filter value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources assigned
+     * a tag with a specific key, regardless of the tag value.
+     * </p>
+     * </li>
      * </ul>
      * 
      * @param filters
@@ -291,6 +345,20 @@ public class DescribeAddressesRequest extends AmazonWebServiceRequest implements
      *        <li>
      *        <p>
      *        <code>public-ip</code> - The Elastic IP address.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag
+     *        key in the filter name and the tag value as the filter value. For example, to find all resources that have
+     *        a tag with the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for
+     *        the filter name and <code>TeamA</code> for the filter value.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources
+     *        assigned a tag with a specific key, regardless of the tag value.
      *        </p>
      *        </li>
      */
@@ -351,6 +419,20 @@ public class DescribeAddressesRequest extends AmazonWebServiceRequest implements
      * <code>public-ip</code> - The Elastic IP address.
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in
+     * the filter name and the tag value as the filter value. For example, to find all resources that have a tag with
+     * the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name
+     * and <code>TeamA</code> for the filter value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources assigned
+     * a tag with a specific key, regardless of the tag value.
+     * </p>
+     * </li>
      * </ul>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -401,6 +483,20 @@ public class DescribeAddressesRequest extends AmazonWebServiceRequest implements
      *        <li>
      *        <p>
      *        <code>public-ip</code> - The Elastic IP address.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag
+     *        key in the filter name and the tag value as the filter value. For example, to find all resources that have
+     *        a tag with the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for
+     *        the filter name and <code>TeamA</code> for the filter value.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources
+     *        assigned a tag with a specific key, regardless of the tag value.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -463,6 +559,20 @@ public class DescribeAddressesRequest extends AmazonWebServiceRequest implements
      * <code>public-ip</code> - The Elastic IP address.
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in
+     * the filter name and the tag value as the filter value. For example, to find all resources that have a tag with
+     * the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name
+     * and <code>TeamA</code> for the filter value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources assigned
+     * a tag with a specific key, regardless of the tag value.
+     * </p>
+     * </li>
      * </ul>
      * 
      * @param filters
@@ -510,6 +620,20 @@ public class DescribeAddressesRequest extends AmazonWebServiceRequest implements
      *        <code>public-ip</code> - The Elastic IP address.
      *        </p>
      *        </li>
+     *        <li>
+     *        <p>
+     *        <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag
+     *        key in the filter name and the tag value as the filter value. For example, to find all resources that have
+     *        a tag with the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for
+     *        the filter name and <code>TeamA</code> for the filter value.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources
+     *        assigned a tag with a specific key, regardless of the tag value.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -520,13 +644,13 @@ public class DescribeAddressesRequest extends AmazonWebServiceRequest implements
 
     /**
      * <p>
-     * [EC2-Classic] One or more Elastic IP addresses.
+     * One or more Elastic IP addresses.
      * </p>
      * <p>
      * Default: Describes all your Elastic IP addresses.
      * </p>
      * 
-     * @return [EC2-Classic] One or more Elastic IP addresses.</p>
+     * @return One or more Elastic IP addresses.</p>
      *         <p>
      *         Default: Describes all your Elastic IP addresses.
      */
@@ -540,14 +664,14 @@ public class DescribeAddressesRequest extends AmazonWebServiceRequest implements
 
     /**
      * <p>
-     * [EC2-Classic] One or more Elastic IP addresses.
+     * One or more Elastic IP addresses.
      * </p>
      * <p>
      * Default: Describes all your Elastic IP addresses.
      * </p>
      * 
      * @param publicIps
-     *        [EC2-Classic] One or more Elastic IP addresses.</p>
+     *        One or more Elastic IP addresses.</p>
      *        <p>
      *        Default: Describes all your Elastic IP addresses.
      */
@@ -563,7 +687,7 @@ public class DescribeAddressesRequest extends AmazonWebServiceRequest implements
 
     /**
      * <p>
-     * [EC2-Classic] One or more Elastic IP addresses.
+     * One or more Elastic IP addresses.
      * </p>
      * <p>
      * Default: Describes all your Elastic IP addresses.
@@ -575,7 +699,7 @@ public class DescribeAddressesRequest extends AmazonWebServiceRequest implements
      * </p>
      * 
      * @param publicIps
-     *        [EC2-Classic] One or more Elastic IP addresses.</p>
+     *        One or more Elastic IP addresses.</p>
      *        <p>
      *        Default: Describes all your Elastic IP addresses.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -593,14 +717,14 @@ public class DescribeAddressesRequest extends AmazonWebServiceRequest implements
 
     /**
      * <p>
-     * [EC2-Classic] One or more Elastic IP addresses.
+     * One or more Elastic IP addresses.
      * </p>
      * <p>
      * Default: Describes all your Elastic IP addresses.
      * </p>
      * 
      * @param publicIps
-     *        [EC2-Classic] One or more Elastic IP addresses.</p>
+     *        One or more Elastic IP addresses.</p>
      *        <p>
      *        Default: Describes all your Elastic IP addresses.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -716,7 +840,8 @@ public class DescribeAddressesRequest extends AmazonWebServiceRequest implements
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

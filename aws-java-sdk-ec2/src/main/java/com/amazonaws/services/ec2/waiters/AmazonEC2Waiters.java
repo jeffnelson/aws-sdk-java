@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -339,9 +339,11 @@ public class AmazonEC2Waiters {
 
         return new WaiterBuilder<DescribeSpotInstanceRequestsRequest, DescribeSpotInstanceRequestsResult>()
                 .withSdkFunction(new DescribeSpotInstanceRequestsFunction(client))
-                .withAcceptors(new SpotInstanceRequestFulfilled.IsFulfilledMatcher(), new SpotInstanceRequestFulfilled.IsScheduleexpiredMatcher(),
-                        new SpotInstanceRequestFulfilled.IsCanceledbeforefulfillmentMatcher(), new SpotInstanceRequestFulfilled.IsBadparametersMatcher(),
-                        new SpotInstanceRequestFulfilled.IsSystemerrorMatcher())
+                .withAcceptors(new SpotInstanceRequestFulfilled.IsFulfilledMatcher(),
+                        new SpotInstanceRequestFulfilled.IsRequestcanceledandinstancerunningMatcher(),
+                        new SpotInstanceRequestFulfilled.IsScheduleexpiredMatcher(), new SpotInstanceRequestFulfilled.IsCanceledbeforefulfillmentMatcher(),
+                        new SpotInstanceRequestFulfilled.IsBadparametersMatcher(), new SpotInstanceRequestFulfilled.IsSystemerrorMatcher(),
+                        new SpotInstanceRequestFulfilled.IsInvalidSpotInstanceRequestIDNotFoundMatcher())
                 .withDefaultPollingStrategy(new PollingStrategy(new MaxAttemptsRetryStrategy(40), new FixedDelayStrategy(15)))
                 .withExecutorService(executorService).build();
     }

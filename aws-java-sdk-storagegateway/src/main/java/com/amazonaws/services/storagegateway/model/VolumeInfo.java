@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,7 +33,7 @@ public class VolumeInfo implements Serializable, Cloneable, StructuredPojo {
      * The Amazon Resource Name (ARN) for the storage volume. For example, the following is a valid ARN:
      * </p>
      * <p>
-     * <code>arn:aws:storagegateway:us-east-1:111122223333:gateway/sgw-12A3456B/volume/vol-1122AABB</code>
+     * <code>arn:aws:storagegateway:us-east-2:111122223333:gateway/sgw-12A3456B/volume/vol-1122AABB</code>
      * </p>
      * <p>
      * Valid Values: 50 to 500 lowercase letters, numbers, periods (.), and hyphens (-).
@@ -74,12 +74,14 @@ public class VolumeInfo implements Serializable, Cloneable, StructuredPojo {
      */
     private Long volumeSizeInBytes;
 
+    private String volumeAttachmentStatus;
+
     /**
      * <p>
      * The Amazon Resource Name (ARN) for the storage volume. For example, the following is a valid ARN:
      * </p>
      * <p>
-     * <code>arn:aws:storagegateway:us-east-1:111122223333:gateway/sgw-12A3456B/volume/vol-1122AABB</code>
+     * <code>arn:aws:storagegateway:us-east-2:111122223333:gateway/sgw-12A3456B/volume/vol-1122AABB</code>
      * </p>
      * <p>
      * Valid Values: 50 to 500 lowercase letters, numbers, periods (.), and hyphens (-).
@@ -88,7 +90,7 @@ public class VolumeInfo implements Serializable, Cloneable, StructuredPojo {
      * @param volumeARN
      *        The Amazon Resource Name (ARN) for the storage volume. For example, the following is a valid ARN:</p>
      *        <p>
-     *        <code>arn:aws:storagegateway:us-east-1:111122223333:gateway/sgw-12A3456B/volume/vol-1122AABB</code>
+     *        <code>arn:aws:storagegateway:us-east-2:111122223333:gateway/sgw-12A3456B/volume/vol-1122AABB</code>
      *        </p>
      *        <p>
      *        Valid Values: 50 to 500 lowercase letters, numbers, periods (.), and hyphens (-).
@@ -103,7 +105,7 @@ public class VolumeInfo implements Serializable, Cloneable, StructuredPojo {
      * The Amazon Resource Name (ARN) for the storage volume. For example, the following is a valid ARN:
      * </p>
      * <p>
-     * <code>arn:aws:storagegateway:us-east-1:111122223333:gateway/sgw-12A3456B/volume/vol-1122AABB</code>
+     * <code>arn:aws:storagegateway:us-east-2:111122223333:gateway/sgw-12A3456B/volume/vol-1122AABB</code>
      * </p>
      * <p>
      * Valid Values: 50 to 500 lowercase letters, numbers, periods (.), and hyphens (-).
@@ -111,7 +113,7 @@ public class VolumeInfo implements Serializable, Cloneable, StructuredPojo {
      * 
      * @return The Amazon Resource Name (ARN) for the storage volume. For example, the following is a valid ARN:</p>
      *         <p>
-     *         <code>arn:aws:storagegateway:us-east-1:111122223333:gateway/sgw-12A3456B/volume/vol-1122AABB</code>
+     *         <code>arn:aws:storagegateway:us-east-2:111122223333:gateway/sgw-12A3456B/volume/vol-1122AABB</code>
      *         </p>
      *         <p>
      *         Valid Values: 50 to 500 lowercase letters, numbers, periods (.), and hyphens (-).
@@ -126,7 +128,7 @@ public class VolumeInfo implements Serializable, Cloneable, StructuredPojo {
      * The Amazon Resource Name (ARN) for the storage volume. For example, the following is a valid ARN:
      * </p>
      * <p>
-     * <code>arn:aws:storagegateway:us-east-1:111122223333:gateway/sgw-12A3456B/volume/vol-1122AABB</code>
+     * <code>arn:aws:storagegateway:us-east-2:111122223333:gateway/sgw-12A3456B/volume/vol-1122AABB</code>
      * </p>
      * <p>
      * Valid Values: 50 to 500 lowercase letters, numbers, periods (.), and hyphens (-).
@@ -135,7 +137,7 @@ public class VolumeInfo implements Serializable, Cloneable, StructuredPojo {
      * @param volumeARN
      *        The Amazon Resource Name (ARN) for the storage volume. For example, the following is a valid ARN:</p>
      *        <p>
-     *        <code>arn:aws:storagegateway:us-east-1:111122223333:gateway/sgw-12A3456B/volume/vol-1122AABB</code>
+     *        <code>arn:aws:storagegateway:us-east-2:111122223333:gateway/sgw-12A3456B/volume/vol-1122AABB</code>
      *        </p>
      *        <p>
      *        Valid Values: 50 to 500 lowercase letters, numbers, periods (.), and hyphens (-).
@@ -377,7 +379,34 @@ public class VolumeInfo implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * @param volumeAttachmentStatus
+     */
+
+    public void setVolumeAttachmentStatus(String volumeAttachmentStatus) {
+        this.volumeAttachmentStatus = volumeAttachmentStatus;
+    }
+
+    /**
+     * @return
+     */
+
+    public String getVolumeAttachmentStatus() {
+        return this.volumeAttachmentStatus;
+    }
+
+    /**
+     * @param volumeAttachmentStatus
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public VolumeInfo withVolumeAttachmentStatus(String volumeAttachmentStatus) {
+        setVolumeAttachmentStatus(volumeAttachmentStatus);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -398,7 +427,9 @@ public class VolumeInfo implements Serializable, Cloneable, StructuredPojo {
         if (getVolumeType() != null)
             sb.append("VolumeType: ").append(getVolumeType()).append(",");
         if (getVolumeSizeInBytes() != null)
-            sb.append("VolumeSizeInBytes: ").append(getVolumeSizeInBytes());
+            sb.append("VolumeSizeInBytes: ").append(getVolumeSizeInBytes()).append(",");
+        if (getVolumeAttachmentStatus() != null)
+            sb.append("VolumeAttachmentStatus: ").append(getVolumeAttachmentStatus());
         sb.append("}");
         return sb.toString();
     }
@@ -437,6 +468,10 @@ public class VolumeInfo implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getVolumeSizeInBytes() != null && other.getVolumeSizeInBytes().equals(this.getVolumeSizeInBytes()) == false)
             return false;
+        if (other.getVolumeAttachmentStatus() == null ^ this.getVolumeAttachmentStatus() == null)
+            return false;
+        if (other.getVolumeAttachmentStatus() != null && other.getVolumeAttachmentStatus().equals(this.getVolumeAttachmentStatus()) == false)
+            return false;
         return true;
     }
 
@@ -451,6 +486,7 @@ public class VolumeInfo implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getGatewayId() == null) ? 0 : getGatewayId().hashCode());
         hashCode = prime * hashCode + ((getVolumeType() == null) ? 0 : getVolumeType().hashCode());
         hashCode = prime * hashCode + ((getVolumeSizeInBytes() == null) ? 0 : getVolumeSizeInBytes().hashCode());
+        hashCode = prime * hashCode + ((getVolumeAttachmentStatus() == null) ? 0 : getVolumeAttachmentStatus().hashCode());
         return hashCode;
     }
 

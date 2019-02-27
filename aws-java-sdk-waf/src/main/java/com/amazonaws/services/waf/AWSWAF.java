@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -55,9 +55,10 @@ public interface AWSWAF {
      * {@link ClientConfiguration} will be used, which by default is HTTPS.
      * <p>
      * For more information on using AWS regions with the AWS SDK for Java, and a complete list of all available
-     * endpoints for all AWS services, see: <a
-     * href="http://developer.amazonwebservices.com/connect/entry.jspa?externalID=3912">
-     * http://developer.amazonwebservices.com/connect/entry.jspa?externalID=3912</a>
+     * endpoints for all AWS services, see: <a href=
+     * "https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/java-dg-region-selection.html#region-selection-choose-endpoint"
+     * > https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/java-dg-region-selection.html#region-selection-
+     * choose-endpoint</a>
      * <p>
      * <b>This method is not threadsafe. An endpoint should be configured when the client is created and before any
      * service requests are made. Changing it afterwards creates inevitable race conditions for any service requests in
@@ -185,7 +186,7 @@ public interface AWSWAF {
      *         <li>
      *         <p>
      *         You tried to update a <code>ByteMatchSet</code> with a <code>FieldToMatch</code> <code>Type</code> other
-     *         than HEADER, QUERY_STRING, or URI.
+     *         than HEADER, METHOD, QUERY_STRING, URI, or BODY.
      *         </p>
      *         </li>
      *         <li>
@@ -216,10 +217,127 @@ public interface AWSWAF {
 
     /**
      * <p>
-     * Creates an <a>IPSet</a>, which you use to specify which web requests you want to allow or block based on the IP
-     * addresses that the requests originate from. For example, if you're receiving a lot of requests from one or more
-     * individual IP addresses or one or more ranges of IP addresses and you want to block the requests, you can create
-     * an <code>IPSet</code> that contains those IP addresses and then configure AWS WAF to block the requests.
+     * Creates an <a>GeoMatchSet</a>, which you use to specify which web requests you want to allow or block based on
+     * the country that the requests originate from. For example, if you're receiving a lot of requests from one or more
+     * countries and you want to block the requests, you can create an <code>GeoMatchSet</code> that contains those
+     * countries and then configure AWS WAF to block the requests.
+     * </p>
+     * <p>
+     * To create and configure a <code>GeoMatchSet</code>, perform the following steps:
+     * </p>
+     * <ol>
+     * <li>
+     * <p>
+     * Use <a>GetChangeToken</a> to get the change token that you provide in the <code>ChangeToken</code> parameter of a
+     * <code>CreateGeoMatchSet</code> request.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Submit a <code>CreateGeoMatchSet</code> request.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Use <code>GetChangeToken</code> to get the change token that you provide in the <code>ChangeToken</code>
+     * parameter of an <a>UpdateGeoMatchSet</a> request.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Submit an <code>UpdateGeoMatchSetSet</code> request to specify the countries that you want AWS WAF to watch for.
+     * </p>
+     * </li>
+     * </ol>
+     * <p>
+     * For more information about how to use the AWS WAF API to allow or block HTTP requests, see the <a
+     * href="http://docs.aws.amazon.com/waf/latest/developerguide/">AWS WAF Developer Guide</a>.
+     * </p>
+     * 
+     * @param createGeoMatchSetRequest
+     * @return Result of the CreateGeoMatchSet operation returned by the service.
+     * @throws WAFStaleDataException
+     *         The operation failed because you tried to create, update, or delete an object by using a change token
+     *         that has already been used.
+     * @throws WAFInternalErrorException
+     *         The operation failed because of a system problem, even though the request was valid. Retry your request.
+     * @throws WAFInvalidAccountException
+     *         The operation failed because you tried to create, update, or delete an object by using an invalid account
+     *         identifier.
+     * @throws WAFDisallowedNameException
+     *         The name specified is invalid.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because AWS WAF didn't recognize a parameter in the request. For example:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified an invalid parameter name.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You specified an invalid value.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update an object (<code>ByteMatchSet</code>, <code>IPSet</code>, <code>Rule</code>, or
+     *         <code>WebACL</code>) using an action other than <code>INSERT</code> or <code>DELETE</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to create a <code>WebACL</code> with a <code>DefaultAction</code> <code>Type</code> other than
+     *         <code>ALLOW</code>, <code>BLOCK</code>, or <code>COUNT</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to create a <code>RateBasedRule</code> with a <code>RateKey</code> value other than
+     *         <code>IP</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>WafAction</code> <code>Type</code> other than
+     *         <code>ALLOW</code>, <code>BLOCK</code>, or <code>COUNT</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>ByteMatchSet</code> with a <code>FieldToMatch</code> <code>Type</code> other
+     *         than HEADER, METHOD, QUERY_STRING, URI, or BODY.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>ByteMatchSet</code> with a <code>Field</code> of <code>HEADER</code> but no
+     *         value for <code>Data</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL
+     *         cannot be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFLimitsExceededException
+     *         The operation exceeds a resource limit, for example, the maximum number of <code>WebACL</code> objects
+     *         that you can create for an AWS account. For more information, see <a
+     *         href="http://docs.aws.amazon.com/waf/latest/developerguide/limits.html">Limits</a> in the <i>AWS WAF
+     *         Developer Guide</i>.
+     * @sample AWSWAF.CreateGeoMatchSet
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/CreateGeoMatchSet" target="_top">AWS API
+     *      Documentation</a>
+     */
+    CreateGeoMatchSetResult createGeoMatchSet(CreateGeoMatchSetRequest createGeoMatchSetRequest);
+
+    /**
+     * <p>
+     * Creates an <a>IPSet</a>, which you use to specify which web requests that you want to allow or block based on the
+     * IP addresses that the requests originate from. For example, if you're receiving a lot of requests from one or
+     * more individual IP addresses or one or more ranges of IP addresses and you want to block the requests, you can
+     * create an <code>IPSet</code> that contains those IP addresses and then configure AWS WAF to block the requests.
      * </p>
      * <p>
      * To create and configure an <code>IPSet</code>, perform the following steps:
@@ -305,7 +423,7 @@ public interface AWSWAF {
      *         <li>
      *         <p>
      *         You tried to update a <code>ByteMatchSet</code> with a <code>FieldToMatch</code> <code>Type</code> other
-     *         than HEADER, QUERY_STRING, or URI.
+     *         than HEADER, METHOD, QUERY_STRING, URI, or BODY.
      *         </p>
      *         </li>
      *         <li>
@@ -489,7 +607,7 @@ public interface AWSWAF {
      *         <li>
      *         <p>
      *         You tried to update a <code>ByteMatchSet</code> with a <code>FieldToMatch</code> <code>Type</code> other
-     *         than HEADER, QUERY_STRING, or URI.
+     *         than HEADER, METHOD, QUERY_STRING, URI, or BODY.
      *         </p>
      *         </li>
      *         <li>
@@ -517,10 +635,130 @@ public interface AWSWAF {
 
     /**
      * <p>
+     * Creates a <a>RegexMatchSet</a>. You then use <a>UpdateRegexMatchSet</a> to identify the part of a web request
+     * that you want AWS WAF to inspect, such as the values of the <code>User-Agent</code> header or the query string.
+     * For example, you can create a <code>RegexMatchSet</code> that contains a <code>RegexMatchTuple</code> that looks
+     * for any requests with <code>User-Agent</code> headers that match a <code>RegexPatternSet</code> with pattern
+     * <code>B[a@]dB[o0]t</code>. You can then configure AWS WAF to reject those requests.
+     * </p>
+     * <p>
+     * To create and configure a <code>RegexMatchSet</code>, perform the following steps:
+     * </p>
+     * <ol>
+     * <li>
+     * <p>
+     * Use <a>GetChangeToken</a> to get the change token that you provide in the <code>ChangeToken</code> parameter of a
+     * <code>CreateRegexMatchSet</code> request.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Submit a <code>CreateRegexMatchSet</code> request.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Use <code>GetChangeToken</code> to get the change token that you provide in the <code>ChangeToken</code>
+     * parameter of an <code>UpdateRegexMatchSet</code> request.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Submit an <a>UpdateRegexMatchSet</a> request to specify the part of the request that you want AWS WAF to inspect
+     * (for example, the header or the URI) and the value, using a <code>RegexPatternSet</code>, that you want AWS WAF
+     * to watch for.
+     * </p>
+     * </li>
+     * </ol>
+     * <p>
+     * For more information about how to use the AWS WAF API to allow or block HTTP requests, see the <a
+     * href="http://docs.aws.amazon.com/waf/latest/developerguide/">AWS WAF Developer Guide</a>.
+     * </p>
+     * 
+     * @param createRegexMatchSetRequest
+     * @return Result of the CreateRegexMatchSet operation returned by the service.
+     * @throws WAFStaleDataException
+     *         The operation failed because you tried to create, update, or delete an object by using a change token
+     *         that has already been used.
+     * @throws WAFInternalErrorException
+     *         The operation failed because of a system problem, even though the request was valid. Retry your request.
+     * @throws WAFDisallowedNameException
+     *         The name specified is invalid.
+     * @throws WAFLimitsExceededException
+     *         The operation exceeds a resource limit, for example, the maximum number of <code>WebACL</code> objects
+     *         that you can create for an AWS account. For more information, see <a
+     *         href="http://docs.aws.amazon.com/waf/latest/developerguide/limits.html">Limits</a> in the <i>AWS WAF
+     *         Developer Guide</i>.
+     * @sample AWSWAF.CreateRegexMatchSet
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/CreateRegexMatchSet" target="_top">AWS API
+     *      Documentation</a>
+     */
+    CreateRegexMatchSetResult createRegexMatchSet(CreateRegexMatchSetRequest createRegexMatchSetRequest);
+
+    /**
+     * <p>
+     * Creates a <code>RegexPatternSet</code>. You then use <a>UpdateRegexPatternSet</a> to specify the regular
+     * expression (regex) pattern that you want AWS WAF to search for, such as <code>B[a@]dB[o0]t</code>. You can then
+     * configure AWS WAF to reject those requests.
+     * </p>
+     * <p>
+     * To create and configure a <code>RegexPatternSet</code>, perform the following steps:
+     * </p>
+     * <ol>
+     * <li>
+     * <p>
+     * Use <a>GetChangeToken</a> to get the change token that you provide in the <code>ChangeToken</code> parameter of a
+     * <code>CreateRegexPatternSet</code> request.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Submit a <code>CreateRegexPatternSet</code> request.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Use <code>GetChangeToken</code> to get the change token that you provide in the <code>ChangeToken</code>
+     * parameter of an <code>UpdateRegexPatternSet</code> request.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Submit an <a>UpdateRegexPatternSet</a> request to specify the string that you want AWS WAF to watch for.
+     * </p>
+     * </li>
+     * </ol>
+     * <p>
+     * For more information about how to use the AWS WAF API to allow or block HTTP requests, see the <a
+     * href="http://docs.aws.amazon.com/waf/latest/developerguide/">AWS WAF Developer Guide</a>.
+     * </p>
+     * 
+     * @param createRegexPatternSetRequest
+     * @return Result of the CreateRegexPatternSet operation returned by the service.
+     * @throws WAFStaleDataException
+     *         The operation failed because you tried to create, update, or delete an object by using a change token
+     *         that has already been used.
+     * @throws WAFInternalErrorException
+     *         The operation failed because of a system problem, even though the request was valid. Retry your request.
+     * @throws WAFDisallowedNameException
+     *         The name specified is invalid.
+     * @throws WAFLimitsExceededException
+     *         The operation exceeds a resource limit, for example, the maximum number of <code>WebACL</code> objects
+     *         that you can create for an AWS account. For more information, see <a
+     *         href="http://docs.aws.amazon.com/waf/latest/developerguide/limits.html">Limits</a> in the <i>AWS WAF
+     *         Developer Guide</i>.
+     * @sample AWSWAF.CreateRegexPatternSet
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/CreateRegexPatternSet" target="_top">AWS API
+     *      Documentation</a>
+     */
+    CreateRegexPatternSetResult createRegexPatternSet(CreateRegexPatternSetRequest createRegexPatternSetRequest);
+
+    /**
+     * <p>
      * Creates a <code>Rule</code>, which contains the <code>IPSet</code> objects, <code>ByteMatchSet</code> objects,
      * and other predicates that identify the requests that you want to block. If you add more than one predicate to a
      * <code>Rule</code>, a request must match all of the specifications to be allowed or blocked. For example, suppose
-     * you add the following to a <code>Rule</code>:
+     * that you add the following to a <code>Rule</code>:
      * </p>
      * <ul>
      * <li>
@@ -633,7 +871,7 @@ public interface AWSWAF {
      *         <li>
      *         <p>
      *         You tried to update a <code>ByteMatchSet</code> with a <code>FieldToMatch</code> <code>Type</code> other
-     *         than HEADER, QUERY_STRING, or URI.
+     *         than HEADER, METHOD, QUERY_STRING, URI, or BODY.
      *         </p>
      *         </li>
      *         <li>
@@ -658,6 +896,56 @@ public interface AWSWAF {
      *      Documentation</a>
      */
     CreateRuleResult createRule(CreateRuleRequest createRuleRequest);
+
+    /**
+     * <p>
+     * Creates a <code>RuleGroup</code>. A rule group is a collection of predefined rules that you add to a web ACL. You
+     * use <a>UpdateRuleGroup</a> to add rules to the rule group.
+     * </p>
+     * <p>
+     * Rule groups are subject to the following limits:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Three rule groups per account. You can request an increase to this limit by contacting customer support.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * One rule group per web ACL.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Ten rules per rule group.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information about how to use the AWS WAF API to allow or block HTTP requests, see the <a
+     * href="http://docs.aws.amazon.com/waf/latest/developerguide/">AWS WAF Developer Guide</a>.
+     * </p>
+     * 
+     * @param createRuleGroupRequest
+     * @return Result of the CreateRuleGroup operation returned by the service.
+     * @throws WAFStaleDataException
+     *         The operation failed because you tried to create, update, or delete an object by using a change token
+     *         that has already been used.
+     * @throws WAFInternalErrorException
+     *         The operation failed because of a system problem, even though the request was valid. Retry your request.
+     * @throws WAFDisallowedNameException
+     *         The name specified is invalid.
+     * @throws WAFLimitsExceededException
+     *         The operation exceeds a resource limit, for example, the maximum number of <code>WebACL</code> objects
+     *         that you can create for an AWS account. For more information, see <a
+     *         href="http://docs.aws.amazon.com/waf/latest/developerguide/limits.html">Limits</a> in the <i>AWS WAF
+     *         Developer Guide</i>.
+     * @sample AWSWAF.CreateRuleGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/CreateRuleGroup" target="_top">AWS API
+     *      Documentation</a>
+     */
+    CreateRuleGroupResult createRuleGroup(CreateRuleGroupRequest createRuleGroupRequest);
 
     /**
      * <p>
@@ -752,7 +1040,7 @@ public interface AWSWAF {
      *         <li>
      *         <p>
      *         You tried to update a <code>ByteMatchSet</code> with a <code>FieldToMatch</code> <code>Type</code> other
-     *         than HEADER, QUERY_STRING, or URI.
+     *         than HEADER, METHOD, QUERY_STRING, URI, or BODY.
      *         </p>
      *         </li>
      *         <li>
@@ -867,7 +1155,7 @@ public interface AWSWAF {
      *         <li>
      *         <p>
      *         You tried to update a <code>ByteMatchSet</code> with a <code>FieldToMatch</code> <code>Type</code> other
-     *         than HEADER, QUERY_STRING, or URI.
+     *         than HEADER, METHOD, QUERY_STRING, URI, or BODY.
      *         </p>
      *         </li>
      *         <li>
@@ -1006,7 +1294,7 @@ public interface AWSWAF {
      *         <li>
      *         <p>
      *         You tried to update a <code>ByteMatchSet</code> with a <code>FieldToMatch</code> <code>Type</code> other
-     *         than HEADER, QUERY_STRING, or URI.
+     *         than HEADER, METHOD, QUERY_STRING, URI, or BODY.
      *         </p>
      *         </li>
      *         <li>
@@ -1121,7 +1409,7 @@ public interface AWSWAF {
      *         <li>
      *         <p>
      *         You tried to update a <code>ByteMatchSet</code> with a <code>FieldToMatch</code> <code>Type</code> other
-     *         than HEADER, QUERY_STRING, or URI.
+     *         than HEADER, METHOD, QUERY_STRING, URI, or BODY.
      *         </p>
      *         </li>
      *         <li>
@@ -1239,6 +1527,92 @@ public interface AWSWAF {
 
     /**
      * <p>
+     * Permanently deletes a <a>GeoMatchSet</a>. You can't delete a <code>GeoMatchSet</code> if it's still used in any
+     * <code>Rules</code> or if it still includes any countries.
+     * </p>
+     * <p>
+     * If you just want to remove a <code>GeoMatchSet</code> from a <code>Rule</code>, use <a>UpdateRule</a>.
+     * </p>
+     * <p>
+     * To permanently delete a <code>GeoMatchSet</code> from AWS WAF, perform the following steps:
+     * </p>
+     * <ol>
+     * <li>
+     * <p>
+     * Update the <code>GeoMatchSet</code> to remove any countries. For more information, see <a>UpdateGeoMatchSet</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Use <a>GetChangeToken</a> to get the change token that you provide in the <code>ChangeToken</code> parameter of a
+     * <code>DeleteGeoMatchSet</code> request.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Submit a <code>DeleteGeoMatchSet</code> request.
+     * </p>
+     * </li>
+     * </ol>
+     * 
+     * @param deleteGeoMatchSetRequest
+     * @return Result of the DeleteGeoMatchSet operation returned by the service.
+     * @throws WAFStaleDataException
+     *         The operation failed because you tried to create, update, or delete an object by using a change token
+     *         that has already been used.
+     * @throws WAFInternalErrorException
+     *         The operation failed because of a system problem, even though the request was valid. Retry your request.
+     * @throws WAFInvalidAccountException
+     *         The operation failed because you tried to create, update, or delete an object by using an invalid account
+     *         identifier.
+     * @throws WAFNonexistentItemException
+     *         The operation failed because the referenced object doesn't exist.
+     * @throws WAFReferencedItemException
+     *         The operation failed because you tried to delete an object that is still in use. For example:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You tried to delete a <code>ByteMatchSet</code> that is still referenced by a <code>Rule</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to delete a <code>Rule</code> that is still referenced by a <code>WebACL</code>.
+     *         </p>
+     *         </li>
+     * @throws WAFNonEmptyEntityException
+     *         The operation failed because you tried to delete an object that isn't empty. For example:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You tried to delete a <code>WebACL</code> that still contains one or more <code>Rule</code> objects.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to delete a <code>Rule</code> that still contains one or more <code>ByteMatchSet</code> objects
+     *         or other predicates.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to delete a <code>ByteMatchSet</code> that contains one or more <code>ByteMatchTuple</code>
+     *         objects.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to delete an <code>IPSet</code> that references one or more IP addresses.
+     *         </p>
+     *         </li>
+     * @sample AWSWAF.DeleteGeoMatchSet
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/DeleteGeoMatchSet" target="_top">AWS API
+     *      Documentation</a>
+     */
+    DeleteGeoMatchSetResult deleteGeoMatchSet(DeleteGeoMatchSetRequest deleteGeoMatchSetRequest);
+
+    /**
+     * <p>
      * Permanently deletes an <a>IPSet</a>. You can't delete an <code>IPSet</code> if it's still used in any
      * <code>Rules</code> or if it still includes any IP addresses.
      * </p>
@@ -1322,6 +1696,49 @@ public interface AWSWAF {
      *      Documentation</a>
      */
     DeleteIPSetResult deleteIPSet(DeleteIPSetRequest deleteIPSetRequest);
+
+    /**
+     * <p>
+     * Permanently deletes the <a>LoggingConfiguration</a> from the specified web ACL.
+     * </p>
+     * 
+     * @param deleteLoggingConfigurationRequest
+     * @return Result of the DeleteLoggingConfiguration operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         The operation failed because of a system problem, even though the request was valid. Retry your request.
+     * @throws WAFNonexistentItemException
+     *         The operation failed because the referenced object doesn't exist.
+     * @throws WAFStaleDataException
+     *         The operation failed because you tried to create, update, or delete an object by using a change token
+     *         that has already been used.
+     * @sample AWSWAF.DeleteLoggingConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/DeleteLoggingConfiguration" target="_top">AWS
+     *      API Documentation</a>
+     */
+    DeleteLoggingConfigurationResult deleteLoggingConfiguration(DeleteLoggingConfigurationRequest deleteLoggingConfigurationRequest);
+
+    /**
+     * <p>
+     * Permanently deletes an IAM policy from the specified RuleGroup.
+     * </p>
+     * <p>
+     * The user making the request must be the owner of the RuleGroup.
+     * </p>
+     * 
+     * @param deletePermissionPolicyRequest
+     * @return Result of the DeletePermissionPolicy operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         The operation failed because of a system problem, even though the request was valid. Retry your request.
+     * @throws WAFStaleDataException
+     *         The operation failed because you tried to create, update, or delete an object by using a change token
+     *         that has already been used.
+     * @throws WAFNonexistentItemException
+     *         The operation failed because the referenced object doesn't exist.
+     * @sample AWSWAF.DeletePermissionPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/DeletePermissionPolicy" target="_top">AWS API
+     *      Documentation</a>
+     */
+    DeletePermissionPolicyResult deletePermissionPolicy(DeletePermissionPolicyRequest deletePermissionPolicyRequest);
 
     /**
      * <p>
@@ -1412,6 +1829,155 @@ public interface AWSWAF {
 
     /**
      * <p>
+     * Permanently deletes a <a>RegexMatchSet</a>. You can't delete a <code>RegexMatchSet</code> if it's still used in
+     * any <code>Rules</code> or if it still includes any <code>RegexMatchTuples</code> objects (any filters).
+     * </p>
+     * <p>
+     * If you just want to remove a <code>RegexMatchSet</code> from a <code>Rule</code>, use <a>UpdateRule</a>.
+     * </p>
+     * <p>
+     * To permanently delete a <code>RegexMatchSet</code>, perform the following steps:
+     * </p>
+     * <ol>
+     * <li>
+     * <p>
+     * Update the <code>RegexMatchSet</code> to remove filters, if any. For more information, see
+     * <a>UpdateRegexMatchSet</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Use <a>GetChangeToken</a> to get the change token that you provide in the <code>ChangeToken</code> parameter of a
+     * <code>DeleteRegexMatchSet</code> request.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Submit a <code>DeleteRegexMatchSet</code> request.
+     * </p>
+     * </li>
+     * </ol>
+     * 
+     * @param deleteRegexMatchSetRequest
+     * @return Result of the DeleteRegexMatchSet operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         The operation failed because of a system problem, even though the request was valid. Retry your request.
+     * @throws WAFInvalidAccountException
+     *         The operation failed because you tried to create, update, or delete an object by using an invalid account
+     *         identifier.
+     * @throws WAFNonexistentItemException
+     *         The operation failed because the referenced object doesn't exist.
+     * @throws WAFReferencedItemException
+     *         The operation failed because you tried to delete an object that is still in use. For example:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You tried to delete a <code>ByteMatchSet</code> that is still referenced by a <code>Rule</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to delete a <code>Rule</code> that is still referenced by a <code>WebACL</code>.
+     *         </p>
+     *         </li>
+     * @throws WAFStaleDataException
+     *         The operation failed because you tried to create, update, or delete an object by using a change token
+     *         that has already been used.
+     * @throws WAFNonEmptyEntityException
+     *         The operation failed because you tried to delete an object that isn't empty. For example:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You tried to delete a <code>WebACL</code> that still contains one or more <code>Rule</code> objects.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to delete a <code>Rule</code> that still contains one or more <code>ByteMatchSet</code> objects
+     *         or other predicates.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to delete a <code>ByteMatchSet</code> that contains one or more <code>ByteMatchTuple</code>
+     *         objects.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to delete an <code>IPSet</code> that references one or more IP addresses.
+     *         </p>
+     *         </li>
+     * @sample AWSWAF.DeleteRegexMatchSet
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/DeleteRegexMatchSet" target="_top">AWS API
+     *      Documentation</a>
+     */
+    DeleteRegexMatchSetResult deleteRegexMatchSet(DeleteRegexMatchSetRequest deleteRegexMatchSetRequest);
+
+    /**
+     * <p>
+     * Permanently deletes a <a>RegexPatternSet</a>. You can't delete a <code>RegexPatternSet</code> if it's still used
+     * in any <code>RegexMatchSet</code> or if the <code>RegexPatternSet</code> is not empty.
+     * </p>
+     * 
+     * @param deleteRegexPatternSetRequest
+     * @return Result of the DeleteRegexPatternSet operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         The operation failed because of a system problem, even though the request was valid. Retry your request.
+     * @throws WAFInvalidAccountException
+     *         The operation failed because you tried to create, update, or delete an object by using an invalid account
+     *         identifier.
+     * @throws WAFNonexistentItemException
+     *         The operation failed because the referenced object doesn't exist.
+     * @throws WAFReferencedItemException
+     *         The operation failed because you tried to delete an object that is still in use. For example:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You tried to delete a <code>ByteMatchSet</code> that is still referenced by a <code>Rule</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to delete a <code>Rule</code> that is still referenced by a <code>WebACL</code>.
+     *         </p>
+     *         </li>
+     * @throws WAFStaleDataException
+     *         The operation failed because you tried to create, update, or delete an object by using a change token
+     *         that has already been used.
+     * @throws WAFNonEmptyEntityException
+     *         The operation failed because you tried to delete an object that isn't empty. For example:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You tried to delete a <code>WebACL</code> that still contains one or more <code>Rule</code> objects.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to delete a <code>Rule</code> that still contains one or more <code>ByteMatchSet</code> objects
+     *         or other predicates.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to delete a <code>ByteMatchSet</code> that contains one or more <code>ByteMatchTuple</code>
+     *         objects.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to delete an <code>IPSet</code> that references one or more IP addresses.
+     *         </p>
+     *         </li>
+     * @sample AWSWAF.DeleteRegexPatternSet
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/DeleteRegexPatternSet" target="_top">AWS API
+     *      Documentation</a>
+     */
+    DeleteRegexPatternSetResult deleteRegexPatternSet(DeleteRegexPatternSetRequest deleteRegexPatternSetRequest);
+
+    /**
+     * <p>
      * Permanently deletes a <a>Rule</a>. You can't delete a <code>Rule</code> if it's still used in any
      * <code>WebACL</code> objects or if it still includes any predicates, such as <code>ByteMatchSet</code> objects.
      * </p>
@@ -1495,6 +2061,122 @@ public interface AWSWAF {
      *      Documentation</a>
      */
     DeleteRuleResult deleteRule(DeleteRuleRequest deleteRuleRequest);
+
+    /**
+     * <p>
+     * Permanently deletes a <a>RuleGroup</a>. You can't delete a <code>RuleGroup</code> if it's still used in any
+     * <code>WebACL</code> objects or if it still includes any rules.
+     * </p>
+     * <p>
+     * If you just want to remove a <code>RuleGroup</code> from a <code>WebACL</code>, use <a>UpdateWebACL</a>.
+     * </p>
+     * <p>
+     * To permanently delete a <code>RuleGroup</code> from AWS WAF, perform the following steps:
+     * </p>
+     * <ol>
+     * <li>
+     * <p>
+     * Update the <code>RuleGroup</code> to remove rules, if any. For more information, see <a>UpdateRuleGroup</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Use <a>GetChangeToken</a> to get the change token that you provide in the <code>ChangeToken</code> parameter of a
+     * <code>DeleteRuleGroup</code> request.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Submit a <code>DeleteRuleGroup</code> request.
+     * </p>
+     * </li>
+     * </ol>
+     * 
+     * @param deleteRuleGroupRequest
+     * @return Result of the DeleteRuleGroup operation returned by the service.
+     * @throws WAFStaleDataException
+     *         The operation failed because you tried to create, update, or delete an object by using a change token
+     *         that has already been used.
+     * @throws WAFInternalErrorException
+     *         The operation failed because of a system problem, even though the request was valid. Retry your request.
+     * @throws WAFNonexistentItemException
+     *         The operation failed because the referenced object doesn't exist.
+     * @throws WAFReferencedItemException
+     *         The operation failed because you tried to delete an object that is still in use. For example:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You tried to delete a <code>ByteMatchSet</code> that is still referenced by a <code>Rule</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to delete a <code>Rule</code> that is still referenced by a <code>WebACL</code>.
+     *         </p>
+     *         </li>
+     * @throws WAFNonEmptyEntityException
+     *         The operation failed because you tried to delete an object that isn't empty. For example:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You tried to delete a <code>WebACL</code> that still contains one or more <code>Rule</code> objects.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to delete a <code>Rule</code> that still contains one or more <code>ByteMatchSet</code> objects
+     *         or other predicates.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to delete a <code>ByteMatchSet</code> that contains one or more <code>ByteMatchTuple</code>
+     *         objects.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to delete an <code>IPSet</code> that references one or more IP addresses.
+     *         </p>
+     *         </li>
+     * @throws WAFInvalidOperationException
+     *         The operation failed because there was nothing to do. For example:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You tried to remove a <code>Rule</code> from a <code>WebACL</code>, but the <code>Rule</code> isn't in
+     *         the specified <code>WebACL</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to remove an IP address from an <code>IPSet</code>, but the IP address isn't in the specified
+     *         <code>IPSet</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to remove a <code>ByteMatchTuple</code> from a <code>ByteMatchSet</code>, but the
+     *         <code>ByteMatchTuple</code> isn't in the specified <code>WebACL</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to add a <code>Rule</code> to a <code>WebACL</code>, but the <code>Rule</code> already exists
+     *         in the specified <code>WebACL</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to add a <code>ByteMatchTuple</code> to a <code>ByteMatchSet</code>, but the
+     *         <code>ByteMatchTuple</code> already exists in the specified <code>WebACL</code>.
+     *         </p>
+     *         </li>
+     * @sample AWSWAF.DeleteRuleGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/DeleteRuleGroup" target="_top">AWS API
+     *      Documentation</a>
+     */
+    DeleteRuleGroupResult deleteRuleGroup(DeleteRuleGroupRequest deleteRuleGroupRequest);
 
     /**
      * <p>
@@ -1929,6 +2611,26 @@ public interface AWSWAF {
 
     /**
      * <p>
+     * Returns the <a>GeoMatchSet</a> that is specified by <code>GeoMatchSetId</code>.
+     * </p>
+     * 
+     * @param getGeoMatchSetRequest
+     * @return Result of the GetGeoMatchSet operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         The operation failed because of a system problem, even though the request was valid. Retry your request.
+     * @throws WAFInvalidAccountException
+     *         The operation failed because you tried to create, update, or delete an object by using an invalid account
+     *         identifier.
+     * @throws WAFNonexistentItemException
+     *         The operation failed because the referenced object doesn't exist.
+     * @sample AWSWAF.GetGeoMatchSet
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/GetGeoMatchSet" target="_top">AWS API
+     *      Documentation</a>
+     */
+    GetGeoMatchSetResult getGeoMatchSet(GetGeoMatchSetRequest getGeoMatchSetRequest);
+
+    /**
+     * <p>
      * Returns the <a>IPSet</a> that is specified by <code>IPSetId</code>.
      * </p>
      * 
@@ -1946,6 +2648,40 @@ public interface AWSWAF {
      *      Documentation</a>
      */
     GetIPSetResult getIPSet(GetIPSetRequest getIPSetRequest);
+
+    /**
+     * <p>
+     * Returns the <a>LoggingConfiguration</a> for the specified web ACL.
+     * </p>
+     * 
+     * @param getLoggingConfigurationRequest
+     * @return Result of the GetLoggingConfiguration operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         The operation failed because of a system problem, even though the request was valid. Retry your request.
+     * @throws WAFNonexistentItemException
+     *         The operation failed because the referenced object doesn't exist.
+     * @sample AWSWAF.GetLoggingConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/GetLoggingConfiguration" target="_top">AWS
+     *      API Documentation</a>
+     */
+    GetLoggingConfigurationResult getLoggingConfiguration(GetLoggingConfigurationRequest getLoggingConfigurationRequest);
+
+    /**
+     * <p>
+     * Returns the IAM policy attached to the RuleGroup.
+     * </p>
+     * 
+     * @param getPermissionPolicyRequest
+     * @return Result of the GetPermissionPolicy operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         The operation failed because of a system problem, even though the request was valid. Retry your request.
+     * @throws WAFNonexistentItemException
+     *         The operation failed because the referenced object doesn't exist.
+     * @sample AWSWAF.GetPermissionPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/GetPermissionPolicy" target="_top">AWS API
+     *      Documentation</a>
+     */
+    GetPermissionPolicyResult getPermissionPolicy(GetPermissionPolicyRequest getPermissionPolicyRequest);
 
     /**
      * <p>
@@ -2024,7 +2760,7 @@ public interface AWSWAF {
      *         <li>
      *         <p>
      *         You tried to update a <code>ByteMatchSet</code> with a <code>FieldToMatch</code> <code>Type</code> other
-     *         than HEADER, QUERY_STRING, or URI.
+     *         than HEADER, METHOD, QUERY_STRING, URI, or BODY.
      *         </p>
      *         </li>
      *         <li>
@@ -2047,6 +2783,46 @@ public interface AWSWAF {
 
     /**
      * <p>
+     * Returns the <a>RegexMatchSet</a> specified by <code>RegexMatchSetId</code>.
+     * </p>
+     * 
+     * @param getRegexMatchSetRequest
+     * @return Result of the GetRegexMatchSet operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         The operation failed because of a system problem, even though the request was valid. Retry your request.
+     * @throws WAFInvalidAccountException
+     *         The operation failed because you tried to create, update, or delete an object by using an invalid account
+     *         identifier.
+     * @throws WAFNonexistentItemException
+     *         The operation failed because the referenced object doesn't exist.
+     * @sample AWSWAF.GetRegexMatchSet
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/GetRegexMatchSet" target="_top">AWS API
+     *      Documentation</a>
+     */
+    GetRegexMatchSetResult getRegexMatchSet(GetRegexMatchSetRequest getRegexMatchSetRequest);
+
+    /**
+     * <p>
+     * Returns the <a>RegexPatternSet</a> specified by <code>RegexPatternSetId</code>.
+     * </p>
+     * 
+     * @param getRegexPatternSetRequest
+     * @return Result of the GetRegexPatternSet operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         The operation failed because of a system problem, even though the request was valid. Retry your request.
+     * @throws WAFInvalidAccountException
+     *         The operation failed because you tried to create, update, or delete an object by using an invalid account
+     *         identifier.
+     * @throws WAFNonexistentItemException
+     *         The operation failed because the referenced object doesn't exist.
+     * @sample AWSWAF.GetRegexPatternSet
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/GetRegexPatternSet" target="_top">AWS API
+     *      Documentation</a>
+     */
+    GetRegexPatternSetResult getRegexPatternSet(GetRegexPatternSetRequest getRegexPatternSetRequest);
+
+    /**
+     * <p>
      * Returns the <a>Rule</a> that is specified by the <code>RuleId</code> that you included in the
      * <code>GetRule</code> request.
      * </p>
@@ -2065,6 +2841,27 @@ public interface AWSWAF {
      *      Documentation</a>
      */
     GetRuleResult getRule(GetRuleRequest getRuleRequest);
+
+    /**
+     * <p>
+     * Returns the <a>RuleGroup</a> that is specified by the <code>RuleGroupId</code> that you included in the
+     * <code>GetRuleGroup</code> request.
+     * </p>
+     * <p>
+     * To view the rules in a rule group, use <a>ListActivatedRulesInRuleGroup</a>.
+     * </p>
+     * 
+     * @param getRuleGroupRequest
+     * @return Result of the GetRuleGroup operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         The operation failed because of a system problem, even though the request was valid. Retry your request.
+     * @throws WAFNonexistentItemException
+     *         The operation failed because the referenced object doesn't exist.
+     * @sample AWSWAF.GetRuleGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/GetRuleGroup" target="_top">AWS API
+     *      Documentation</a>
+     */
+    GetRuleGroupResult getRuleGroup(GetRuleGroupRequest getRuleGroupRequest);
 
     /**
      * <p>
@@ -2175,6 +2972,78 @@ public interface AWSWAF {
 
     /**
      * <p>
+     * Returns an array of <a>ActivatedRule</a> objects.
+     * </p>
+     * 
+     * @param listActivatedRulesInRuleGroupRequest
+     * @return Result of the ListActivatedRulesInRuleGroup operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         The operation failed because of a system problem, even though the request was valid. Retry your request.
+     * @throws WAFNonexistentItemException
+     *         The operation failed because the referenced object doesn't exist.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because AWS WAF didn't recognize a parameter in the request. For example:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified an invalid parameter name.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You specified an invalid value.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update an object (<code>ByteMatchSet</code>, <code>IPSet</code>, <code>Rule</code>, or
+     *         <code>WebACL</code>) using an action other than <code>INSERT</code> or <code>DELETE</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to create a <code>WebACL</code> with a <code>DefaultAction</code> <code>Type</code> other than
+     *         <code>ALLOW</code>, <code>BLOCK</code>, or <code>COUNT</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to create a <code>RateBasedRule</code> with a <code>RateKey</code> value other than
+     *         <code>IP</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>WafAction</code> <code>Type</code> other than
+     *         <code>ALLOW</code>, <code>BLOCK</code>, or <code>COUNT</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>ByteMatchSet</code> with a <code>FieldToMatch</code> <code>Type</code> other
+     *         than HEADER, METHOD, QUERY_STRING, URI, or BODY.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>ByteMatchSet</code> with a <code>Field</code> of <code>HEADER</code> but no
+     *         value for <code>Data</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL
+     *         cannot be associated.
+     *         </p>
+     *         </li>
+     * @sample AWSWAF.ListActivatedRulesInRuleGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/ListActivatedRulesInRuleGroup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ListActivatedRulesInRuleGroupResult listActivatedRulesInRuleGroup(ListActivatedRulesInRuleGroupRequest listActivatedRulesInRuleGroupRequest);
+
+    /**
+     * <p>
      * Returns an array of <a>ByteMatchSetSummary</a> objects.
      * </p>
      * 
@@ -2190,6 +3059,24 @@ public interface AWSWAF {
      *      Documentation</a>
      */
     ListByteMatchSetsResult listByteMatchSets(ListByteMatchSetsRequest listByteMatchSetsRequest);
+
+    /**
+     * <p>
+     * Returns an array of <a>GeoMatchSetSummary</a> objects in the response.
+     * </p>
+     * 
+     * @param listGeoMatchSetsRequest
+     * @return Result of the ListGeoMatchSets operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         The operation failed because of a system problem, even though the request was valid. Retry your request.
+     * @throws WAFInvalidAccountException
+     *         The operation failed because you tried to create, update, or delete an object by using an invalid account
+     *         identifier.
+     * @sample AWSWAF.ListGeoMatchSets
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/ListGeoMatchSets" target="_top">AWS API
+     *      Documentation</a>
+     */
+    ListGeoMatchSetsResult listGeoMatchSets(ListGeoMatchSetsRequest listGeoMatchSetsRequest);
 
     /**
      * <p>
@@ -2211,6 +3098,78 @@ public interface AWSWAF {
 
     /**
      * <p>
+     * Returns an array of <a>LoggingConfiguration</a> objects.
+     * </p>
+     * 
+     * @param listLoggingConfigurationsRequest
+     * @return Result of the ListLoggingConfigurations operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         The operation failed because of a system problem, even though the request was valid. Retry your request.
+     * @throws WAFNonexistentItemException
+     *         The operation failed because the referenced object doesn't exist.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because AWS WAF didn't recognize a parameter in the request. For example:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified an invalid parameter name.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You specified an invalid value.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update an object (<code>ByteMatchSet</code>, <code>IPSet</code>, <code>Rule</code>, or
+     *         <code>WebACL</code>) using an action other than <code>INSERT</code> or <code>DELETE</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to create a <code>WebACL</code> with a <code>DefaultAction</code> <code>Type</code> other than
+     *         <code>ALLOW</code>, <code>BLOCK</code>, or <code>COUNT</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to create a <code>RateBasedRule</code> with a <code>RateKey</code> value other than
+     *         <code>IP</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>WafAction</code> <code>Type</code> other than
+     *         <code>ALLOW</code>, <code>BLOCK</code>, or <code>COUNT</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>ByteMatchSet</code> with a <code>FieldToMatch</code> <code>Type</code> other
+     *         than HEADER, METHOD, QUERY_STRING, URI, or BODY.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>ByteMatchSet</code> with a <code>Field</code> of <code>HEADER</code> but no
+     *         value for <code>Data</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL
+     *         cannot be associated.
+     *         </p>
+     *         </li>
+     * @sample AWSWAF.ListLoggingConfigurations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/ListLoggingConfigurations" target="_top">AWS
+     *      API Documentation</a>
+     */
+    ListLoggingConfigurationsResult listLoggingConfigurations(ListLoggingConfigurationsRequest listLoggingConfigurationsRequest);
+
+    /**
+     * <p>
      * Returns an array of <a>RuleSummary</a> objects.
      * </p>
      * 
@@ -2226,6 +3185,57 @@ public interface AWSWAF {
      *      Documentation</a>
      */
     ListRateBasedRulesResult listRateBasedRules(ListRateBasedRulesRequest listRateBasedRulesRequest);
+
+    /**
+     * <p>
+     * Returns an array of <a>RegexMatchSetSummary</a> objects.
+     * </p>
+     * 
+     * @param listRegexMatchSetsRequest
+     * @return Result of the ListRegexMatchSets operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         The operation failed because of a system problem, even though the request was valid. Retry your request.
+     * @throws WAFInvalidAccountException
+     *         The operation failed because you tried to create, update, or delete an object by using an invalid account
+     *         identifier.
+     * @sample AWSWAF.ListRegexMatchSets
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/ListRegexMatchSets" target="_top">AWS API
+     *      Documentation</a>
+     */
+    ListRegexMatchSetsResult listRegexMatchSets(ListRegexMatchSetsRequest listRegexMatchSetsRequest);
+
+    /**
+     * <p>
+     * Returns an array of <a>RegexPatternSetSummary</a> objects.
+     * </p>
+     * 
+     * @param listRegexPatternSetsRequest
+     * @return Result of the ListRegexPatternSets operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         The operation failed because of a system problem, even though the request was valid. Retry your request.
+     * @throws WAFInvalidAccountException
+     *         The operation failed because you tried to create, update, or delete an object by using an invalid account
+     *         identifier.
+     * @sample AWSWAF.ListRegexPatternSets
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/ListRegexPatternSets" target="_top">AWS API
+     *      Documentation</a>
+     */
+    ListRegexPatternSetsResult listRegexPatternSets(ListRegexPatternSetsRequest listRegexPatternSetsRequest);
+
+    /**
+     * <p>
+     * Returns an array of <a>RuleGroup</a> objects.
+     * </p>
+     * 
+     * @param listRuleGroupsRequest
+     * @return Result of the ListRuleGroups operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         The operation failed because of a system problem, even though the request was valid. Retry your request.
+     * @sample AWSWAF.ListRuleGroups
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/ListRuleGroups" target="_top">AWS API
+     *      Documentation</a>
+     */
+    ListRuleGroupsResult listRuleGroups(ListRuleGroupsRequest listRuleGroupsRequest);
 
     /**
      * <p>
@@ -2284,6 +3294,23 @@ public interface AWSWAF {
 
     /**
      * <p>
+     * Returns an array of <a>RuleGroup</a> objects that you are subscribed to.
+     * </p>
+     * 
+     * @param listSubscribedRuleGroupsRequest
+     * @return Result of the ListSubscribedRuleGroups operation returned by the service.
+     * @throws WAFNonexistentItemException
+     *         The operation failed because the referenced object doesn't exist.
+     * @throws WAFInternalErrorException
+     *         The operation failed because of a system problem, even though the request was valid. Retry your request.
+     * @sample AWSWAF.ListSubscribedRuleGroups
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/ListSubscribedRuleGroups" target="_top">AWS
+     *      API Documentation</a>
+     */
+    ListSubscribedRuleGroupsResult listSubscribedRuleGroups(ListSubscribedRuleGroupsRequest listSubscribedRuleGroupsRequest);
+
+    /**
+     * <p>
      * Returns an array of <a>WebACLSummary</a> objects in the response.
      * </p>
      * 
@@ -2318,6 +3345,178 @@ public interface AWSWAF {
      *      Documentation</a>
      */
     ListXssMatchSetsResult listXssMatchSets(ListXssMatchSetsRequest listXssMatchSetsRequest);
+
+    /**
+     * <p>
+     * Associates a <a>LoggingConfiguration</a> with a specified web ACL.
+     * </p>
+     * <p>
+     * You can access information about all traffic that AWS WAF inspects using the following steps:
+     * </p>
+     * <ol>
+     * <li>
+     * <p>
+     * Create an Amazon Kinesis Data Firehose .
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Associate that firehose to your web ACL using a <code>PutLoggingConfiguration</code> request.
+     * </p>
+     * </li>
+     * </ol>
+     * <p>
+     * When you successfully enable logging using a <code>PutLoggingConfiguration</code> request, AWS WAF will create a
+     * service linked role with the necessary permissions to write logs to the Amazon Kinesis Data Firehose. For more
+     * information, see <a href="http://docs.aws.amazon.com/waf/latest/developerguide/logging.html">Logging Web ACL
+     * Traffic Information</a> in the <i>AWS WAF Developer Guide</i>.
+     * </p>
+     * 
+     * @param putLoggingConfigurationRequest
+     * @return Result of the PutLoggingConfiguration operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         The operation failed because of a system problem, even though the request was valid. Retry your request.
+     * @throws WAFNonexistentItemException
+     *         The operation failed because the referenced object doesn't exist.
+     * @throws WAFStaleDataException
+     *         The operation failed because you tried to create, update, or delete an object by using a change token
+     *         that has already been used.
+     * @throws WAFServiceLinkedRoleErrorException
+     *         AWS WAF is not able to access the service linked role. This can be caused by a previous
+     *         <code>PutLoggingConfiguration</code> request, which can lock the service linked role for about 20
+     *         seconds. Please try your request again. The service linked role can also be locked by a previous
+     *         <code>DeleteServiceLinkedRole</code> request, which can lock the role for 15 minutes or more. If you
+     *         recently made a <code>DeleteServiceLinkedRole</code>, wait at least 15 minutes and try the request again.
+     *         If you receive this same exception again, you will have to wait additional time until the role is
+     *         unlocked.
+     * @sample AWSWAF.PutLoggingConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/PutLoggingConfiguration" target="_top">AWS
+     *      API Documentation</a>
+     */
+    PutLoggingConfigurationResult putLoggingConfiguration(PutLoggingConfigurationRequest putLoggingConfigurationRequest);
+
+    /**
+     * <p>
+     * Attaches a IAM policy to the specified resource. The only supported use for this action is to share a RuleGroup
+     * across accounts.
+     * </p>
+     * <p>
+     * The <code>PutPermissionPolicy</code> is subject to the following restrictions:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * You can attach only one policy with each <code>PutPermissionPolicy</code> request.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The policy must include an <code>Effect</code>, <code>Action</code> and <code>Principal</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Effect</code> must specify <code>Allow</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The <code>Action</code> in the policy must be <code>waf:UpdateWebACL</code>,
+     * <code>waf-regional:UpdateWebACL</code>, <code>waf:GetRuleGroup</code> and <code>waf-regional:GetRuleGroup</code>
+     * . Any extra or wildcard actions in the policy will be rejected.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The policy cannot include a <code>Resource</code> parameter.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The ARN in the request must be a valid WAF RuleGroup ARN and the RuleGroup must exist in the same region.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The user making the request must be the owner of the RuleGroup.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Your policy must be composed using IAM Policy version 2012-10-17.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html">IAM
+     * Policies</a>.
+     * </p>
+     * <p>
+     * An example of a valid policy parameter is shown in the Examples section below.
+     * </p>
+     * 
+     * @param putPermissionPolicyRequest
+     * @return Result of the PutPermissionPolicy operation returned by the service.
+     * @throws WAFInternalErrorException
+     *         The operation failed because of a system problem, even though the request was valid. Retry your request.
+     * @throws WAFStaleDataException
+     *         The operation failed because you tried to create, update, or delete an object by using a change token
+     *         that has already been used.
+     * @throws WAFNonexistentItemException
+     *         The operation failed because the referenced object doesn't exist.
+     * @throws WAFInvalidPermissionPolicyException
+     *         The operation failed because the specified policy is not in the proper format. </p>
+     *         <p>
+     *         The policy is subject to the following restrictions:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You can attach only one policy with each <code>PutPermissionPolicy</code> request.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         The policy must include an <code>Effect</code>, <code>Action</code> and <code>Principal</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>Effect</code> must specify <code>Allow</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         The <code>Action</code> in the policy must be <code>waf:UpdateWebACL</code>,
+     *         <code>waf-regional:UpdateWebACL</code>, <code>waf:GetRuleGroup</code> and
+     *         <code>waf-regional:GetRuleGroup</code> . Any extra or wildcard actions in the policy will be rejected.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         The policy cannot include a <code>Resource</code> parameter.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         The ARN in the request must be a valid WAF RuleGroup ARN and the RuleGroup must exist in the same region.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         The user making the request must be the owner of the RuleGroup.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your policy must be composed using IAM Policy version 2012-10-17.
+     *         </p>
+     *         </li>
+     * @sample AWSWAF.PutPermissionPolicy
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/PutPermissionPolicy" target="_top">AWS API
+     *      Documentation</a>
+     */
+    PutPermissionPolicyResult putPermissionPolicy(PutPermissionPolicyRequest putPermissionPolicyRequest);
 
     /**
      * <p>
@@ -2424,12 +3623,6 @@ public interface AWSWAF {
      *         </li>
      *         <li>
      *         <p>
-     *         You tried to add an IP address to an <code>IPSet</code>, but the IP address already exists in the
-     *         specified <code>IPSet</code>.
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
      *         You tried to add a <code>ByteMatchTuple</code> to a <code>ByteMatchSet</code>, but the
      *         <code>ByteMatchTuple</code> already exists in the specified <code>WebACL</code>.
      *         </p>
@@ -2474,7 +3667,7 @@ public interface AWSWAF {
      *         <li>
      *         <p>
      *         You tried to update a <code>ByteMatchSet</code> with a <code>FieldToMatch</code> <code>Type</code> other
-     *         than HEADER, QUERY_STRING, or URI.
+     *         than HEADER, METHOD, QUERY_STRING, URI, or BODY.
      *         </p>
      *         </li>
      *         <li>
@@ -2534,6 +3727,211 @@ public interface AWSWAF {
 
     /**
      * <p>
+     * Inserts or deletes <a>GeoMatchConstraint</a> objects in an <code>GeoMatchSet</code>. For each
+     * <code>GeoMatchConstraint</code> object, you specify the following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Whether to insert or delete the object from the array. If you want to change an <code>GeoMatchConstraint</code>
+     * object, you delete the existing object and add a new one.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The <code>Type</code>. The only valid value for <code>Type</code> is <code>Country</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The <code>Value</code>, which is a two character code for the country to add to the
+     * <code>GeoMatchConstraint</code> object. Valid codes are listed in <a>GeoMatchConstraint$Value</a>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * To create and configure an <code>GeoMatchSet</code>, perform the following steps:
+     * </p>
+     * <ol>
+     * <li>
+     * <p>
+     * Submit a <a>CreateGeoMatchSet</a> request.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Use <a>GetChangeToken</a> to get the change token that you provide in the <code>ChangeToken</code> parameter of
+     * an <a>UpdateGeoMatchSet</a> request.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Submit an <code>UpdateGeoMatchSet</code> request to specify the country that you want AWS WAF to watch for.
+     * </p>
+     * </li>
+     * </ol>
+     * <p>
+     * When you update an <code>GeoMatchSet</code>, you specify the country that you want to add and/or the country that
+     * you want to delete. If you want to change a country, you delete the existing country and add the new one.
+     * </p>
+     * <p>
+     * For more information about how to use the AWS WAF API to allow or block HTTP requests, see the <a
+     * href="http://docs.aws.amazon.com/waf/latest/developerguide/">AWS WAF Developer Guide</a>.
+     * </p>
+     * 
+     * @param updateGeoMatchSetRequest
+     * @return Result of the UpdateGeoMatchSet operation returned by the service.
+     * @throws WAFStaleDataException
+     *         The operation failed because you tried to create, update, or delete an object by using a change token
+     *         that has already been used.
+     * @throws WAFInternalErrorException
+     *         The operation failed because of a system problem, even though the request was valid. Retry your request.
+     * @throws WAFInvalidAccountException
+     *         The operation failed because you tried to create, update, or delete an object by using an invalid account
+     *         identifier.
+     * @throws WAFInvalidOperationException
+     *         The operation failed because there was nothing to do. For example:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You tried to remove a <code>Rule</code> from a <code>WebACL</code>, but the <code>Rule</code> isn't in
+     *         the specified <code>WebACL</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to remove an IP address from an <code>IPSet</code>, but the IP address isn't in the specified
+     *         <code>IPSet</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to remove a <code>ByteMatchTuple</code> from a <code>ByteMatchSet</code>, but the
+     *         <code>ByteMatchTuple</code> isn't in the specified <code>WebACL</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to add a <code>Rule</code> to a <code>WebACL</code>, but the <code>Rule</code> already exists
+     *         in the specified <code>WebACL</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to add a <code>ByteMatchTuple</code> to a <code>ByteMatchSet</code>, but the
+     *         <code>ByteMatchTuple</code> already exists in the specified <code>WebACL</code>.
+     *         </p>
+     *         </li>
+     * @throws WAFInvalidParameterException
+     *         The operation failed because AWS WAF didn't recognize a parameter in the request. For example:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified an invalid parameter name.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You specified an invalid value.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update an object (<code>ByteMatchSet</code>, <code>IPSet</code>, <code>Rule</code>, or
+     *         <code>WebACL</code>) using an action other than <code>INSERT</code> or <code>DELETE</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to create a <code>WebACL</code> with a <code>DefaultAction</code> <code>Type</code> other than
+     *         <code>ALLOW</code>, <code>BLOCK</code>, or <code>COUNT</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to create a <code>RateBasedRule</code> with a <code>RateKey</code> value other than
+     *         <code>IP</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>WafAction</code> <code>Type</code> other than
+     *         <code>ALLOW</code>, <code>BLOCK</code>, or <code>COUNT</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>ByteMatchSet</code> with a <code>FieldToMatch</code> <code>Type</code> other
+     *         than HEADER, METHOD, QUERY_STRING, URI, or BODY.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>ByteMatchSet</code> with a <code>Field</code> of <code>HEADER</code> but no
+     *         value for <code>Data</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL
+     *         cannot be associated.
+     *         </p>
+     *         </li>
+     * @throws WAFNonexistentContainerException
+     *         The operation failed because you tried to add an object to or delete an object from another object that
+     *         doesn't exist. For example:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You tried to add a <code>Rule</code> to or delete a <code>Rule</code> from a <code>WebACL</code> that
+     *         doesn't exist.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to add a <code>ByteMatchSet</code> to or delete a <code>ByteMatchSet</code> from a
+     *         <code>Rule</code> that doesn't exist.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to add an IP address to or delete an IP address from an <code>IPSet</code> that doesn't exist.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to add a <code>ByteMatchTuple</code> to or delete a <code>ByteMatchTuple</code> from a
+     *         <code>ByteMatchSet</code> that doesn't exist.
+     *         </p>
+     *         </li>
+     * @throws WAFNonexistentItemException
+     *         The operation failed because the referenced object doesn't exist.
+     * @throws WAFReferencedItemException
+     *         The operation failed because you tried to delete an object that is still in use. For example:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You tried to delete a <code>ByteMatchSet</code> that is still referenced by a <code>Rule</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to delete a <code>Rule</code> that is still referenced by a <code>WebACL</code>.
+     *         </p>
+     *         </li>
+     * @throws WAFLimitsExceededException
+     *         The operation exceeds a resource limit, for example, the maximum number of <code>WebACL</code> objects
+     *         that you can create for an AWS account. For more information, see <a
+     *         href="http://docs.aws.amazon.com/waf/latest/developerguide/limits.html">Limits</a> in the <i>AWS WAF
+     *         Developer Guide</i>.
+     * @sample AWSWAF.UpdateGeoMatchSet
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/UpdateGeoMatchSet" target="_top">AWS API
+     *      Documentation</a>
+     */
+    UpdateGeoMatchSetResult updateGeoMatchSet(UpdateGeoMatchSetRequest updateGeoMatchSetRequest);
+
+    /**
+     * <p>
      * Inserts or deletes <a>IPSetDescriptor</a> objects in an <code>IPSet</code>. For each <code>IPSetDescriptor</code>
      * object, you specify the following values:
      * </p>
@@ -2558,9 +3956,9 @@ public interface AWSWAF {
      * </li>
      * </ul>
      * <p>
-     * AWS WAF supports /8, /16, /24, and /32 IP address ranges for IPv4, and /24, /32, /48, /56, /64 and /128 for IPv6.
-     * For more information about CIDR notation, see the Wikipedia entry <a
-     * href="https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing">Classless Inter-Domain Routing</a>.
+     * AWS WAF supports IPv4 address ranges: /8 and any range between /16 through /32. AWS WAF supports IPv6 address
+     * ranges: /16, /24, /32, /48, /56, /64, and /128. For more information about CIDR notation, see the Wikipedia entry
+     * <a href="https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing">Classless Inter-Domain Routing</a>.
      * </p>
      * <p>
      * IPv6 addresses can be represented using any of the following formats:
@@ -2620,6 +4018,9 @@ public interface AWSWAF {
      * one.
      * </p>
      * <p>
+     * You can insert a maximum of 1000 addresses in a single request.
+     * </p>
+     * <p>
      * For more information about how to use the AWS WAF API to allow or block HTTP requests, see the <a
      * href="http://docs.aws.amazon.com/waf/latest/developerguide/">AWS WAF Developer Guide</a>.
      * </p>
@@ -2659,12 +4060,6 @@ public interface AWSWAF {
      *         <p>
      *         You tried to add a <code>Rule</code> to a <code>WebACL</code>, but the <code>Rule</code> already exists
      *         in the specified <code>WebACL</code>.
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         You tried to add an IP address to an <code>IPSet</code>, but the IP address already exists in the
-     *         specified <code>IPSet</code>.
      *         </p>
      *         </li>
      *         <li>
@@ -2713,7 +4108,7 @@ public interface AWSWAF {
      *         <li>
      *         <p>
      *         You tried to update a <code>ByteMatchSet</code> with a <code>FieldToMatch</code> <code>Type</code> other
-     *         than HEADER, QUERY_STRING, or URI.
+     *         than HEADER, METHOD, QUERY_STRING, URI, or BODY.
      *         </p>
      *         </li>
      *         <li>
@@ -2885,12 +4280,6 @@ public interface AWSWAF {
      *         </li>
      *         <li>
      *         <p>
-     *         You tried to add an IP address to an <code>IPSet</code>, but the IP address already exists in the
-     *         specified <code>IPSet</code>.
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
      *         You tried to add a <code>ByteMatchTuple</code> to a <code>ByteMatchSet</code>, but the
      *         <code>ByteMatchTuple</code> already exists in the specified <code>WebACL</code>.
      *         </p>
@@ -2935,7 +4324,7 @@ public interface AWSWAF {
      *         <li>
      *         <p>
      *         You tried to update a <code>ByteMatchSet</code> with a <code>FieldToMatch</code> <code>Type</code> other
-     *         than HEADER, QUERY_STRING, or URI.
+     *         than HEADER, METHOD, QUERY_STRING, URI, or BODY.
      *         </p>
      *         </li>
      *         <li>
@@ -3005,10 +4394,315 @@ public interface AWSWAF {
 
     /**
      * <p>
+     * Inserts or deletes <a>RegexMatchTuple</a> objects (filters) in a <a>RegexMatchSet</a>. For each
+     * <code>RegexMatchSetUpdate</code> object, you specify the following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Whether to insert or delete the object from the array. If you want to change a <code>RegexMatchSetUpdate</code>
+     * object, you delete the existing object and add a new one.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The part of a web request that you want AWS WAF to inspectupdate, such as a query string or the value of the
+     * <code>User-Agent</code> header.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The identifier of the pattern (a regular expression) that you want AWS WAF to look for. For more information, see
+     * <a>RegexPatternSet</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Whether to perform any conversions on the request, such as converting it to lowercase, before inspecting it for
+     * the specified string.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For example, you can create a <code>RegexPatternSet</code> that matches any requests with <code>User-Agent</code>
+     * headers that contain the string <code>B[a@]dB[o0]t</code>. You can then configure AWS WAF to reject those
+     * requests.
+     * </p>
+     * <p>
+     * To create and configure a <code>RegexMatchSet</code>, perform the following steps:
+     * </p>
+     * <ol>
+     * <li>
+     * <p>
+     * Create a <code>RegexMatchSet.</code> For more information, see <a>CreateRegexMatchSet</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Use <a>GetChangeToken</a> to get the change token that you provide in the <code>ChangeToken</code> parameter of
+     * an <code>UpdateRegexMatchSet</code> request.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Submit an <code>UpdateRegexMatchSet</code> request to specify the part of the request that you want AWS WAF to
+     * inspect (for example, the header or the URI) and the identifier of the <code>RegexPatternSet</code> that contain
+     * the regular expression patters you want AWS WAF to watch for.
+     * </p>
+     * </li>
+     * </ol>
+     * <p>
+     * For more information about how to use the AWS WAF API to allow or block HTTP requests, see the <a
+     * href="http://docs.aws.amazon.com/waf/latest/developerguide/">AWS WAF Developer Guide</a>.
+     * </p>
+     * 
+     * @param updateRegexMatchSetRequest
+     * @return Result of the UpdateRegexMatchSet operation returned by the service.
+     * @throws WAFStaleDataException
+     *         The operation failed because you tried to create, update, or delete an object by using a change token
+     *         that has already been used.
+     * @throws WAFInternalErrorException
+     *         The operation failed because of a system problem, even though the request was valid. Retry your request.
+     * @throws WAFDisallowedNameException
+     *         The name specified is invalid.
+     * @throws WAFLimitsExceededException
+     *         The operation exceeds a resource limit, for example, the maximum number of <code>WebACL</code> objects
+     *         that you can create for an AWS account. For more information, see <a
+     *         href="http://docs.aws.amazon.com/waf/latest/developerguide/limits.html">Limits</a> in the <i>AWS WAF
+     *         Developer Guide</i>.
+     * @throws WAFNonexistentItemException
+     *         The operation failed because the referenced object doesn't exist.
+     * @throws WAFNonexistentContainerException
+     *         The operation failed because you tried to add an object to or delete an object from another object that
+     *         doesn't exist. For example:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You tried to add a <code>Rule</code> to or delete a <code>Rule</code> from a <code>WebACL</code> that
+     *         doesn't exist.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to add a <code>ByteMatchSet</code> to or delete a <code>ByteMatchSet</code> from a
+     *         <code>Rule</code> that doesn't exist.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to add an IP address to or delete an IP address from an <code>IPSet</code> that doesn't exist.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to add a <code>ByteMatchTuple</code> to or delete a <code>ByteMatchTuple</code> from a
+     *         <code>ByteMatchSet</code> that doesn't exist.
+     *         </p>
+     *         </li>
+     * @throws WAFInvalidOperationException
+     *         The operation failed because there was nothing to do. For example:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You tried to remove a <code>Rule</code> from a <code>WebACL</code>, but the <code>Rule</code> isn't in
+     *         the specified <code>WebACL</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to remove an IP address from an <code>IPSet</code>, but the IP address isn't in the specified
+     *         <code>IPSet</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to remove a <code>ByteMatchTuple</code> from a <code>ByteMatchSet</code>, but the
+     *         <code>ByteMatchTuple</code> isn't in the specified <code>WebACL</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to add a <code>Rule</code> to a <code>WebACL</code>, but the <code>Rule</code> already exists
+     *         in the specified <code>WebACL</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to add a <code>ByteMatchTuple</code> to a <code>ByteMatchSet</code>, but the
+     *         <code>ByteMatchTuple</code> already exists in the specified <code>WebACL</code>.
+     *         </p>
+     *         </li>
+     * @throws WAFInvalidAccountException
+     *         The operation failed because you tried to create, update, or delete an object by using an invalid account
+     *         identifier.
+     * @sample AWSWAF.UpdateRegexMatchSet
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/UpdateRegexMatchSet" target="_top">AWS API
+     *      Documentation</a>
+     */
+    UpdateRegexMatchSetResult updateRegexMatchSet(UpdateRegexMatchSetRequest updateRegexMatchSetRequest);
+
+    /**
+     * <p>
+     * Inserts or deletes <code>RegexPatternString</code> objects in a <a>RegexPatternSet</a>. For each
+     * <code>RegexPatternString</code> object, you specify the following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Whether to insert or delete the <code>RegexPatternString</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The regular expression pattern that you want to insert or delete. For more information, see
+     * <a>RegexPatternSet</a>.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * For example, you can create a <code>RegexPatternString</code> such as <code>B[a@]dB[o0]t</code>. AWS WAF will
+     * match this <code>RegexPatternString</code> to:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * BadBot
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * BadB0t
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * B@dBot
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * B@dB0t
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * To create and configure a <code>RegexPatternSet</code>, perform the following steps:
+     * </p>
+     * <ol>
+     * <li>
+     * <p>
+     * Create a <code>RegexPatternSet.</code> For more information, see <a>CreateRegexPatternSet</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Use <a>GetChangeToken</a> to get the change token that you provide in the <code>ChangeToken</code> parameter of
+     * an <code>UpdateRegexPatternSet</code> request.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Submit an <code>UpdateRegexPatternSet</code> request to specify the regular expression pattern that you want AWS
+     * WAF to watch for.
+     * </p>
+     * </li>
+     * </ol>
+     * <p>
+     * For more information about how to use the AWS WAF API to allow or block HTTP requests, see the <a
+     * href="http://docs.aws.amazon.com/waf/latest/developerguide/">AWS WAF Developer Guide</a>.
+     * </p>
+     * 
+     * @param updateRegexPatternSetRequest
+     * @return Result of the UpdateRegexPatternSet operation returned by the service.
+     * @throws WAFStaleDataException
+     *         The operation failed because you tried to create, update, or delete an object by using a change token
+     *         that has already been used.
+     * @throws WAFInternalErrorException
+     *         The operation failed because of a system problem, even though the request was valid. Retry your request.
+     * @throws WAFLimitsExceededException
+     *         The operation exceeds a resource limit, for example, the maximum number of <code>WebACL</code> objects
+     *         that you can create for an AWS account. For more information, see <a
+     *         href="http://docs.aws.amazon.com/waf/latest/developerguide/limits.html">Limits</a> in the <i>AWS WAF
+     *         Developer Guide</i>.
+     * @throws WAFNonexistentItemException
+     *         The operation failed because the referenced object doesn't exist.
+     * @throws WAFNonexistentContainerException
+     *         The operation failed because you tried to add an object to or delete an object from another object that
+     *         doesn't exist. For example:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You tried to add a <code>Rule</code> to or delete a <code>Rule</code> from a <code>WebACL</code> that
+     *         doesn't exist.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to add a <code>ByteMatchSet</code> to or delete a <code>ByteMatchSet</code> from a
+     *         <code>Rule</code> that doesn't exist.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to add an IP address to or delete an IP address from an <code>IPSet</code> that doesn't exist.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to add a <code>ByteMatchTuple</code> to or delete a <code>ByteMatchTuple</code> from a
+     *         <code>ByteMatchSet</code> that doesn't exist.
+     *         </p>
+     *         </li>
+     * @throws WAFInvalidOperationException
+     *         The operation failed because there was nothing to do. For example:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You tried to remove a <code>Rule</code> from a <code>WebACL</code>, but the <code>Rule</code> isn't in
+     *         the specified <code>WebACL</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to remove an IP address from an <code>IPSet</code>, but the IP address isn't in the specified
+     *         <code>IPSet</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to remove a <code>ByteMatchTuple</code> from a <code>ByteMatchSet</code>, but the
+     *         <code>ByteMatchTuple</code> isn't in the specified <code>WebACL</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to add a <code>Rule</code> to a <code>WebACL</code>, but the <code>Rule</code> already exists
+     *         in the specified <code>WebACL</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to add a <code>ByteMatchTuple</code> to a <code>ByteMatchSet</code>, but the
+     *         <code>ByteMatchTuple</code> already exists in the specified <code>WebACL</code>.
+     *         </p>
+     *         </li>
+     * @throws WAFInvalidAccountException
+     *         The operation failed because you tried to create, update, or delete an object by using an invalid account
+     *         identifier.
+     * @throws WAFInvalidRegexPatternException
+     *         The regular expression (regex) you specified in <code>RegexPatternString</code> is invalid.
+     * @sample AWSWAF.UpdateRegexPatternSet
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/UpdateRegexPatternSet" target="_top">AWS API
+     *      Documentation</a>
+     */
+    UpdateRegexPatternSetResult updateRegexPatternSet(UpdateRegexPatternSetRequest updateRegexPatternSetRequest);
+
+    /**
+     * <p>
      * Inserts or deletes <a>Predicate</a> objects in a <code>Rule</code>. Each <code>Predicate</code> object identifies
      * a predicate, such as a <a>ByteMatchSet</a> or an <a>IPSet</a>, that specifies the web requests that you want to
      * allow, block, or count. If you add more than one predicate to a <code>Rule</code>, a request must match all of
-     * the specifications to be allowed, blocked, or counted. For example, suppose you add the following to a
+     * the specifications to be allowed, blocked, or counted. For example, suppose that you add the following to a
      * <code>Rule</code>:
      * </p>
      * <ul>
@@ -3107,12 +4801,6 @@ public interface AWSWAF {
      *         </li>
      *         <li>
      *         <p>
-     *         You tried to add an IP address to an <code>IPSet</code>, but the IP address already exists in the
-     *         specified <code>IPSet</code>.
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
      *         You tried to add a <code>ByteMatchTuple</code> to a <code>ByteMatchSet</code>, but the
      *         <code>ByteMatchTuple</code> already exists in the specified <code>WebACL</code>.
      *         </p>
@@ -3157,7 +4845,7 @@ public interface AWSWAF {
      *         <li>
      *         <p>
      *         You tried to update a <code>ByteMatchSet</code> with a <code>FieldToMatch</code> <code>Type</code> other
-     *         than HEADER, QUERY_STRING, or URI.
+     *         than HEADER, METHOD, QUERY_STRING, URI, or BODY.
      *         </p>
      *         </li>
      *         <li>
@@ -3227,6 +4915,186 @@ public interface AWSWAF {
 
     /**
      * <p>
+     * Inserts or deletes <a>ActivatedRule</a> objects in a <code>RuleGroup</code>.
+     * </p>
+     * <p>
+     * You can only insert <code>REGULAR</code> rules into a rule group.
+     * </p>
+     * <p>
+     * You can have a maximum of ten rules per rule group.
+     * </p>
+     * <p>
+     * To create and configure a <code>RuleGroup</code>, perform the following steps:
+     * </p>
+     * <ol>
+     * <li>
+     * <p>
+     * Create and update the <code>Rules</code> that you want to include in the <code>RuleGroup</code>. See
+     * <a>CreateRule</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Use <code>GetChangeToken</code> to get the change token that you provide in the <code>ChangeToken</code>
+     * parameter of an <a>UpdateRuleGroup</a> request.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Submit an <code>UpdateRuleGroup</code> request to add <code>Rules</code> to the <code>RuleGroup</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Create and update a <code>WebACL</code> that contains the <code>RuleGroup</code>. See <a>CreateWebACL</a>.
+     * </p>
+     * </li>
+     * </ol>
+     * <p>
+     * If you want to replace one <code>Rule</code> with another, you delete the existing one and add the new one.
+     * </p>
+     * <p>
+     * For more information about how to use the AWS WAF API to allow or block HTTP requests, see the <a
+     * href="http://docs.aws.amazon.com/waf/latest/developerguide/">AWS WAF Developer Guide</a>.
+     * </p>
+     * 
+     * @param updateRuleGroupRequest
+     * @return Result of the UpdateRuleGroup operation returned by the service.
+     * @throws WAFStaleDataException
+     *         The operation failed because you tried to create, update, or delete an object by using a change token
+     *         that has already been used.
+     * @throws WAFInternalErrorException
+     *         The operation failed because of a system problem, even though the request was valid. Retry your request.
+     * @throws WAFNonexistentContainerException
+     *         The operation failed because you tried to add an object to or delete an object from another object that
+     *         doesn't exist. For example:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You tried to add a <code>Rule</code> to or delete a <code>Rule</code> from a <code>WebACL</code> that
+     *         doesn't exist.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to add a <code>ByteMatchSet</code> to or delete a <code>ByteMatchSet</code> from a
+     *         <code>Rule</code> that doesn't exist.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to add an IP address to or delete an IP address from an <code>IPSet</code> that doesn't exist.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to add a <code>ByteMatchTuple</code> to or delete a <code>ByteMatchTuple</code> from a
+     *         <code>ByteMatchSet</code> that doesn't exist.
+     *         </p>
+     *         </li>
+     * @throws WAFNonexistentItemException
+     *         The operation failed because the referenced object doesn't exist.
+     * @throws WAFInvalidOperationException
+     *         The operation failed because there was nothing to do. For example:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You tried to remove a <code>Rule</code> from a <code>WebACL</code>, but the <code>Rule</code> isn't in
+     *         the specified <code>WebACL</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to remove an IP address from an <code>IPSet</code>, but the IP address isn't in the specified
+     *         <code>IPSet</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to remove a <code>ByteMatchTuple</code> from a <code>ByteMatchSet</code>, but the
+     *         <code>ByteMatchTuple</code> isn't in the specified <code>WebACL</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to add a <code>Rule</code> to a <code>WebACL</code>, but the <code>Rule</code> already exists
+     *         in the specified <code>WebACL</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to add a <code>ByteMatchTuple</code> to a <code>ByteMatchSet</code>, but the
+     *         <code>ByteMatchTuple</code> already exists in the specified <code>WebACL</code>.
+     *         </p>
+     *         </li>
+     * @throws WAFLimitsExceededException
+     *         The operation exceeds a resource limit, for example, the maximum number of <code>WebACL</code> objects
+     *         that you can create for an AWS account. For more information, see <a
+     *         href="http://docs.aws.amazon.com/waf/latest/developerguide/limits.html">Limits</a> in the <i>AWS WAF
+     *         Developer Guide</i>.
+     * @throws WAFInvalidParameterException
+     *         The operation failed because AWS WAF didn't recognize a parameter in the request. For example:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         You specified an invalid parameter name.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You specified an invalid value.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update an object (<code>ByteMatchSet</code>, <code>IPSet</code>, <code>Rule</code>, or
+     *         <code>WebACL</code>) using an action other than <code>INSERT</code> or <code>DELETE</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to create a <code>WebACL</code> with a <code>DefaultAction</code> <code>Type</code> other than
+     *         <code>ALLOW</code>, <code>BLOCK</code>, or <code>COUNT</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to create a <code>RateBasedRule</code> with a <code>RateKey</code> value other than
+     *         <code>IP</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>WebACL</code> with a <code>WafAction</code> <code>Type</code> other than
+     *         <code>ALLOW</code>, <code>BLOCK</code>, or <code>COUNT</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>ByteMatchSet</code> with a <code>FieldToMatch</code> <code>Type</code> other
+     *         than HEADER, METHOD, QUERY_STRING, URI, or BODY.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         You tried to update a <code>ByteMatchSet</code> with a <code>Field</code> of <code>HEADER</code> but no
+     *         value for <code>Data</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Your request references an ARN that is malformed, or corresponds to a resource with which a web ACL
+     *         cannot be associated.
+     *         </p>
+     *         </li>
+     * @sample AWSWAF.UpdateRuleGroup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/UpdateRuleGroup" target="_top">AWS API
+     *      Documentation</a>
+     */
+    UpdateRuleGroupResult updateRuleGroup(UpdateRuleGroupRequest updateRuleGroupRequest);
+
+    /**
+     * <p>
      * Inserts or deletes <a>SizeConstraint</a> objects (filters) in a <a>SizeConstraintSet</a>. For each
      * <code>SizeConstraint</code> object, you specify the following values:
      * </p>
@@ -3248,6 +5116,9 @@ public interface AWSWAF {
      * Whether to perform any transformations on the request, such as converting it to lowercase, before checking its
      * length. Note that transformations of the request body are not supported because the AWS resource forwards only
      * the first <code>8192</code> bytes of your request to AWS WAF.
+     * </p>
+     * <p>
+     * You can only specify a single type of TextTransformation.
      * </p>
      * </li>
      * <li>
@@ -3334,12 +5205,6 @@ public interface AWSWAF {
      *         </li>
      *         <li>
      *         <p>
-     *         You tried to add an IP address to an <code>IPSet</code>, but the IP address already exists in the
-     *         specified <code>IPSet</code>.
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
      *         You tried to add a <code>ByteMatchTuple</code> to a <code>ByteMatchSet</code>, but the
      *         <code>ByteMatchTuple</code> already exists in the specified <code>WebACL</code>.
      *         </p>
@@ -3384,7 +5249,7 @@ public interface AWSWAF {
      *         <li>
      *         <p>
      *         You tried to update a <code>ByteMatchSet</code> with a <code>FieldToMatch</code> <code>Type</code> other
-     *         than HEADER, QUERY_STRING, or URI.
+     *         than HEADER, METHOD, QUERY_STRING, URI, or BODY.
      *         </p>
      *         </li>
      *         <li>
@@ -3467,7 +5332,7 @@ public interface AWSWAF {
      * <li>
      * <p>
      * <code>FieldToMatch</code>: The part of web requests that you want AWS WAF to inspect and, if you want AWS WAF to
-     * inspect a header, the name of the header.
+     * inspect a header or custom query parameter, the name of the header or parameter.
      * </p>
      * </li>
      * <li>
@@ -3475,13 +5340,16 @@ public interface AWSWAF {
      * <code>TextTransformation</code>: Which text transformation, if any, to perform on the web request before
      * inspecting the request for snippets of malicious SQL code.
      * </p>
+     * <p>
+     * You can only specify a single type of TextTransformation.
+     * </p>
      * </li>
      * </ul>
      * <p>
-     * You use <code>SqlInjectionMatchSet</code> objects to specify which CloudFront requests you want to allow, block,
-     * or count. For example, if you're receiving requests that contain snippets of SQL code in the query string and you
-     * want to block the requests, you can create a <code>SqlInjectionMatchSet</code> with the applicable settings, and
-     * then configure AWS WAF to block the requests.
+     * You use <code>SqlInjectionMatchSet</code> objects to specify which CloudFront requests that you want to allow,
+     * block, or count. For example, if you're receiving requests that contain snippets of SQL code in the query string
+     * and you want to block the requests, you can create a <code>SqlInjectionMatchSet</code> with the applicable
+     * settings, and then configure AWS WAF to block the requests.
      * </p>
      * <p>
      * To create and configure a <code>SqlInjectionMatchSet</code>, perform the following steps:
@@ -3547,12 +5415,6 @@ public interface AWSWAF {
      *         </li>
      *         <li>
      *         <p>
-     *         You tried to add an IP address to an <code>IPSet</code>, but the IP address already exists in the
-     *         specified <code>IPSet</code>.
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
      *         You tried to add a <code>ByteMatchTuple</code> to a <code>ByteMatchSet</code>, but the
      *         <code>ByteMatchTuple</code> already exists in the specified <code>WebACL</code>.
      *         </p>
@@ -3597,7 +5459,7 @@ public interface AWSWAF {
      *         <li>
      *         <p>
      *         You tried to update a <code>ByteMatchSet</code> with a <code>FieldToMatch</code> <code>Type</code> other
-     *         than HEADER, QUERY_STRING, or URI.
+     *         than HEADER, METHOD, QUERY_STRING, URI, or BODY.
      *         </p>
      *         </li>
      *         <li>
@@ -3671,8 +5533,8 @@ public interface AWSWAF {
      * </li>
      * <li>
      * <p>
-     * The <code>Rules</code> that you want to add and/or delete. If you want to replace one <code>Rule</code> with
-     * another, you delete the existing <code>Rule</code> and add the new one.
+     * The <code>Rules</code> that you want to add or delete. If you want to replace one <code>Rule</code> with another,
+     * you delete the existing <code>Rule</code> and add the new one.
      * </p>
      * </li>
      * <li>
@@ -3686,10 +5548,10 @@ public interface AWSWAF {
      * The order in which you want AWS WAF to evaluate the <code>Rules</code> in a <code>WebACL</code>. If you add more
      * than one <code>Rule</code> to a <code>WebACL</code>, AWS WAF evaluates each request against the
      * <code>Rules</code> in order based on the value of <code>Priority</code>. (The <code>Rule</code> that has the
-     * lowest value for <code>Priority</code> is evaluated first.) When a web request matches all of the predicates
-     * (such as <code>ByteMatchSets</code> and <code>IPSets</code>) in a <code>Rule</code>, AWS WAF immediately takes
-     * the corresponding action, allow or block, and doesn't evaluate the request against the remaining
-     * <code>Rules</code> in the <code>WebACL</code>, if any.
+     * lowest value for <code>Priority</code> is evaluated first.) When a web request matches all the predicates (such
+     * as <code>ByteMatchSets</code> and <code>IPSets</code>) in a <code>Rule</code>, AWS WAF immediately takes the
+     * corresponding action, allow or block, and doesn't evaluate the request against the remaining <code>Rules</code>
+     * in the <code>WebACL</code>, if any.
      * </p>
      * </li>
      * </ul>
@@ -3726,6 +5588,15 @@ public interface AWSWAF {
      * Submit an <code>UpdateWebACL</code> request to specify the <code>Rules</code> that you want to include in the
      * <code>WebACL</code>, to specify the default action, and to associate the <code>WebACL</code> with a CloudFront
      * distribution.
+     * </p>
+     * <p>
+     * The <code>ActivatedRule</code> can be a rule group. If you specify a rule group as your
+     * <code>ActivatedRule</code>, you can exclude specific rules from that rule group.
+     * </p>
+     * <p>
+     * If you already have a rule group associated with a web ACL and want to submit an <code>UpdateWebACL</code>
+     * request to exclude certain rules from that rule group, you must first remove the rule group from the web ACL, the
+     * re-insert it again, specifying the excluded rules. For details, see <a>ActivatedRule$ExcludedRules</a>.
      * </p>
      * </li>
      * </ol>
@@ -3778,12 +5649,6 @@ public interface AWSWAF {
      *         </li>
      *         <li>
      *         <p>
-     *         You tried to add an IP address to an <code>IPSet</code>, but the IP address already exists in the
-     *         specified <code>IPSet</code>.
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
      *         You tried to add a <code>ByteMatchTuple</code> to a <code>ByteMatchSet</code>, but the
      *         <code>ByteMatchTuple</code> already exists in the specified <code>WebACL</code>.
      *         </p>
@@ -3828,7 +5693,7 @@ public interface AWSWAF {
      *         <li>
      *         <p>
      *         You tried to update a <code>ByteMatchSet</code> with a <code>FieldToMatch</code> <code>Type</code> other
-     *         than HEADER, QUERY_STRING, or URI.
+     *         than HEADER, METHOD, QUERY_STRING, URI, or BODY.
      *         </p>
      *         </li>
      *         <li>
@@ -3890,6 +5755,8 @@ public interface AWSWAF {
      *         that you can create for an AWS account. For more information, see <a
      *         href="http://docs.aws.amazon.com/waf/latest/developerguide/limits.html">Limits</a> in the <i>AWS WAF
      *         Developer Guide</i>.
+     * @throws WAFSubscriptionNotFoundException
+     *         The specified subscription does not exist.
      * @sample AWSWAF.UpdateWebACL
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/waf-2015-08-24/UpdateWebACL" target="_top">AWS API
      *      Documentation</a>
@@ -3904,14 +5771,14 @@ public interface AWSWAF {
      * <ul>
      * <li>
      * <p>
-     * <code>Action</code>: Whether to insert the object into or delete the object from the array. To change a
+     * <code>Action</code>: Whether to insert the object into or delete the object from the array. To change an
      * <code>XssMatchTuple</code>, you delete the existing object and add a new one.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>FieldToMatch</code>: The part of web requests that you want AWS WAF to inspect and, if you want AWS WAF to
-     * inspect a header, the name of the header.
+     * inspect a header or custom query parameter, the name of the header or parameter.
      * </p>
      * </li>
      * <li>
@@ -3919,13 +5786,16 @@ public interface AWSWAF {
      * <code>TextTransformation</code>: Which text transformation, if any, to perform on the web request before
      * inspecting the request for cross-site scripting attacks.
      * </p>
+     * <p>
+     * You can only specify a single type of TextTransformation.
+     * </p>
      * </li>
      * </ul>
      * <p>
-     * You use <code>XssMatchSet</code> objects to specify which CloudFront requests you want to allow, block, or count.
-     * For example, if you're receiving requests that contain cross-site scripting attacks in the request body and you
-     * want to block the requests, you can create an <code>XssMatchSet</code> with the applicable settings, and then
-     * configure AWS WAF to block the requests.
+     * You use <code>XssMatchSet</code> objects to specify which CloudFront requests that you want to allow, block, or
+     * count. For example, if you're receiving requests that contain cross-site scripting attacks in the request body
+     * and you want to block the requests, you can create an <code>XssMatchSet</code> with the applicable settings, and
+     * then configure AWS WAF to block the requests.
      * </p>
      * <p>
      * To create and configure an <code>XssMatchSet</code>, perform the following steps:
@@ -3991,12 +5861,6 @@ public interface AWSWAF {
      *         </li>
      *         <li>
      *         <p>
-     *         You tried to add an IP address to an <code>IPSet</code>, but the IP address already exists in the
-     *         specified <code>IPSet</code>.
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
      *         You tried to add a <code>ByteMatchTuple</code> to a <code>ByteMatchSet</code>, but the
      *         <code>ByteMatchTuple</code> already exists in the specified <code>WebACL</code>.
      *         </p>
@@ -4041,7 +5905,7 @@ public interface AWSWAF {
      *         <li>
      *         <p>
      *         You tried to update a <code>ByteMatchSet</code> with a <code>FieldToMatch</code> <code>Type</code> other
-     *         than HEADER, QUERY_STRING, or URI.
+     *         than HEADER, METHOD, QUERY_STRING, URI, or BODY.
      *         </p>
      *         </li>
      *         <li>

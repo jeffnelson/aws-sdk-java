@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -35,6 +35,8 @@ public class MaintenanceWindowExecutionTaskInvocationIdentityMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("InvocationId").build();
     private static final MarshallingInfo<String> EXECUTIONID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ExecutionId").build();
+    private static final MarshallingInfo<String> TASKTYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("TaskType").build();
     private static final MarshallingInfo<String> PARAMETERS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Parameters").build();
     private static final MarshallingInfo<String> STATUS_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
@@ -42,9 +44,9 @@ public class MaintenanceWindowExecutionTaskInvocationIdentityMarshaller {
     private static final MarshallingInfo<String> STATUSDETAILS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("StatusDetails").build();
     private static final MarshallingInfo<java.util.Date> STARTTIME_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
-            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("StartTime").build();
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("StartTime").timestampFormat("unixTimestamp").build();
     private static final MarshallingInfo<java.util.Date> ENDTIME_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
-            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("EndTime").build();
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("EndTime").timestampFormat("unixTimestamp").build();
     private static final MarshallingInfo<String> OWNERINFORMATION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("OwnerInformation").build();
     private static final MarshallingInfo<String> WINDOWTARGETID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
@@ -71,6 +73,7 @@ public class MaintenanceWindowExecutionTaskInvocationIdentityMarshaller {
             protocolMarshaller.marshall(maintenanceWindowExecutionTaskInvocationIdentity.getTaskExecutionId(), TASKEXECUTIONID_BINDING);
             protocolMarshaller.marshall(maintenanceWindowExecutionTaskInvocationIdentity.getInvocationId(), INVOCATIONID_BINDING);
             protocolMarshaller.marshall(maintenanceWindowExecutionTaskInvocationIdentity.getExecutionId(), EXECUTIONID_BINDING);
+            protocolMarshaller.marshall(maintenanceWindowExecutionTaskInvocationIdentity.getTaskType(), TASKTYPE_BINDING);
             protocolMarshaller.marshall(maintenanceWindowExecutionTaskInvocationIdentity.getParameters(), PARAMETERS_BINDING);
             protocolMarshaller.marshall(maintenanceWindowExecutionTaskInvocationIdentity.getStatus(), STATUS_BINDING);
             protocolMarshaller.marshall(maintenanceWindowExecutionTaskInvocationIdentity.getStatusDetails(), STATUSDETAILS_BINDING);

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,6 +18,7 @@ import com.amazonaws.*;
 import com.amazonaws.regions.*;
 
 import com.amazonaws.services.databasemigrationservice.model.*;
+import com.amazonaws.services.databasemigrationservice.waiters.AWSDatabaseMigrationServiceWaiters;
 
 /**
  * Interface for accessing AWS Database Migration Service.
@@ -35,8 +36,8 @@ import com.amazonaws.services.databasemigrationservice.model.*;
  * Server to PostgreSQL.
  * </p>
  * <p>
- * For more information about AWS DMS, see the AWS DMS user guide at <a
- * href="http://docs.aws.amazon.com/dms/latest/userguide/Welcome.html"> What Is AWS Database Migration Service? </a>
+ * For more information about AWS DMS, see <a href="http://docs.aws.amazon.com/dms/latest/userguide/Welcome.html">What
+ * Is AWS Database Migration Service?</a> in the <i>AWS Database Migration User Guide.</i>
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -59,9 +60,10 @@ public interface AWSDatabaseMigrationService {
      * client's {@link ClientConfiguration} will be used, which by default is HTTPS.
      * <p>
      * For more information on using AWS regions with the AWS SDK for Java, and a complete list of all available
-     * endpoints for all AWS services, see: <a
-     * href="http://developer.amazonwebservices.com/connect/entry.jspa?externalID=3912">
-     * http://developer.amazonwebservices.com/connect/entry.jspa?externalID=3912</a>
+     * endpoints for all AWS services, see: <a href=
+     * "https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/java-dg-region-selection.html#region-selection-choose-endpoint"
+     * > https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/java-dg-region-selection.html#region-selection-
+     * choose-endpoint</a>
      * <p>
      * <b>This method is not threadsafe. An endpoint should be configured when the client is created and before any
      * service requests are made. Changing it afterwards creates inevitable race conditions for any service requests in
@@ -102,9 +104,9 @@ public interface AWSDatabaseMigrationService {
 
     /**
      * <p>
-     * Adds metadata tags to a DMS resource, including replication instance, endpoint, security group, and migration
-     * task. These tags can also be used with cost allocation reporting to track cost associated with DMS resources, or
-     * used in a Condition statement in an IAM policy for DMS.
+     * Adds metadata tags to an AWS DMS resource, including replication instance, endpoint, security group, and
+     * migration task. These tags can also be used with cost allocation reporting to track cost associated with DMS
+     * resources, or used in a Condition statement in an IAM policy for DMS.
      * </p>
      * 
      * @param addTagsToResourceRequest
@@ -159,8 +161,8 @@ public interface AWSDatabaseMigrationService {
      * </p>
      * <p>
      * For more information about AWS DMS events, see <a
-     * href="http://docs.aws.amazon.com/dms/latest/userguide/CHAP_Events.html"> Working with Events and Notifications
-     * </a> in the AWS Database MIgration Service User Guide.
+     * href="http://docs.aws.amazon.com/dms/latest/userguide/CHAP_Events.html">Working with Events and Notifications</a>
+     * in the <i>AWS Database Migration Service User Guide.</i>
      * </p>
      * 
      * @param createEventSubscriptionRequest
@@ -461,8 +463,8 @@ public interface AWSDatabaseMigrationService {
      * <p>
      * Lists categories for all event source types, or, if specified, for a specified source type. You can see a list of
      * the event categories and source types in <a
-     * href="http://docs.aws.amazon.com/dms/latest/userguide/CHAP_Events.html"> Working with Events and Notifications
-     * </a> in the AWS Database Migration Service User Guide.
+     * href="http://docs.aws.amazon.com/dms/latest/userguide/CHAP_Events.html">Working with Events and Notifications</a>
+     * in the <i>AWS Database Migration Service User Guide.</i>
      * </p>
      * 
      * @param describeEventCategoriesRequest
@@ -496,8 +498,9 @@ public interface AWSDatabaseMigrationService {
     /**
      * <p>
      * Lists events for a given source identifier and source type. You can also specify a start and end time. For more
-     * information on AWS DMS events, see <a href="http://docs.aws.amazon.com/dms/latest/userguide/CHAP_Events.html">
-     * Working with Events and Notifications </a>.
+     * information on AWS DMS events, see <a
+     * href="http://docs.aws.amazon.com/dms/latest/userguide/CHAP_Events.html">Working with Events and Notifications</a>
+     * in the <i>AWS Database Migration User Guide.</i>
      * </p>
      * 
      * @param describeEventsRequest
@@ -541,6 +544,24 @@ public interface AWSDatabaseMigrationService {
 
     /**
      * <p>
+     * Returns information about the task logs for the specified task.
+     * </p>
+     * 
+     * @param describeReplicationInstanceTaskLogsRequest
+     * @return Result of the DescribeReplicationInstanceTaskLogs operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws InvalidResourceStateException
+     *         The resource is in a state that prevents it from being used for database migration.
+     * @sample AWSDatabaseMigrationService.DescribeReplicationInstanceTaskLogs
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeReplicationInstanceTaskLogs"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribeReplicationInstanceTaskLogsResult describeReplicationInstanceTaskLogs(
+            DescribeReplicationInstanceTaskLogsRequest describeReplicationInstanceTaskLogsRequest);
+
+    /**
+     * <p>
      * Returns information about replication instances for your account in the current region.
      * </p>
      * 
@@ -568,6 +589,22 @@ public interface AWSDatabaseMigrationService {
      *      target="_top">AWS API Documentation</a>
      */
     DescribeReplicationSubnetGroupsResult describeReplicationSubnetGroups(DescribeReplicationSubnetGroupsRequest describeReplicationSubnetGroupsRequest);
+
+    /**
+     * <p>
+     * Returns the task assessment results from Amazon S3. This action always returns the latest results.
+     * </p>
+     * 
+     * @param describeReplicationTaskAssessmentResultsRequest
+     * @return Result of the DescribeReplicationTaskAssessmentResults operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @sample AWSDatabaseMigrationService.DescribeReplicationTaskAssessmentResults
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeReplicationTaskAssessmentResults"
+     *      target="_top">AWS API Documentation</a>
+     */
+    DescribeReplicationTaskAssessmentResultsResult describeReplicationTaskAssessmentResults(
+            DescribeReplicationTaskAssessmentResultsRequest describeReplicationTaskAssessmentResultsRequest);
 
     /**
      * <p>
@@ -607,6 +644,10 @@ public interface AWSDatabaseMigrationService {
      * Returns table statistics on the database migration task, including table name, rows inserted, rows updated, and
      * rows deleted.
      * </p>
+     * <p>
+     * Note that the "last updated" column the DMS console only indicates the time that AWS DMS last updated the table
+     * statistics record for a table. It does not indicate the time of the last update to the table.
+     * </p>
      * 
      * @param describeTableStatisticsRequest
      * @return Result of the DescribeTableStatistics operation returned by the service.
@@ -631,6 +672,8 @@ public interface AWSDatabaseMigrationService {
      *         The resource you are attempting to create already exists.
      * @throws InvalidCertificateException
      *         The certificate was not valid.
+     * @throws ResourceQuotaExceededException
+     *         The quota for this resource quota has been exceeded.
      * @sample AWSDatabaseMigrationService.ImportCertificate
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/ImportCertificate" target="_top">AWS API
      *      Documentation</a>
@@ -760,8 +803,9 @@ public interface AWSDatabaseMigrationService {
      * You can't modify the task endpoints. The task must be stopped before you can modify it.
      * </p>
      * <p>
-     * For more information about AWS DMS tasks, see the AWS DMS user guide at <a
-     * href="http://docs.aws.amazon.com/dms/latest/userguide/CHAP_Tasks.html"> Working with Migration Tasks </a>
+     * For more information about AWS DMS tasks, see <a
+     * href="http://docs.aws.amazon.com/dms/latest/userguide/CHAP_Tasks.html">Working with Migration Tasks</a> in the
+     * <i>AWS Database Migration Service User Guide</i>.
      * </p>
      * 
      * @param modifyReplicationTaskRequest
@@ -779,6 +823,24 @@ public interface AWSDatabaseMigrationService {
      *      Documentation</a>
      */
     ModifyReplicationTaskResult modifyReplicationTask(ModifyReplicationTaskRequest modifyReplicationTaskRequest);
+
+    /**
+     * <p>
+     * Reboots a replication instance. Rebooting results in a momentary outage, until the replication instance becomes
+     * available again.
+     * </p>
+     * 
+     * @param rebootReplicationInstanceRequest
+     * @return Result of the RebootReplicationInstance operation returned by the service.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @throws InvalidResourceStateException
+     *         The resource is in a state that prevents it from being used for database migration.
+     * @sample AWSDatabaseMigrationService.RebootReplicationInstance
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/RebootReplicationInstance" target="_top">AWS
+     *      API Documentation</a>
+     */
+    RebootReplicationInstanceResult rebootReplicationInstance(RebootReplicationInstanceRequest rebootReplicationInstanceRequest);
 
     /**
      * <p>
@@ -839,8 +901,9 @@ public interface AWSDatabaseMigrationService {
      * Starts the replication task.
      * </p>
      * <p>
-     * For more information about AWS DMS tasks, see the AWS DMS user guide at <a
-     * href="http://docs.aws.amazon.com/dms/latest/userguide/CHAP_Tasks.html"> Working with Migration Tasks </a>
+     * For more information about AWS DMS tasks, see <a
+     * href="http://docs.aws.amazon.com/dms/latest/userguide/CHAP_Tasks.html">Working with Migration Tasks </a> in the
+     * <i>AWS Database Migration Service User Guide.</i>
      * </p>
      * 
      * @param startReplicationTaskRequest
@@ -849,11 +912,30 @@ public interface AWSDatabaseMigrationService {
      *         The resource could not be found.
      * @throws InvalidResourceStateException
      *         The resource is in a state that prevents it from being used for database migration.
+     * @throws AccessDeniedException
+     *         AWS DMS was denied access to the endpoint.
      * @sample AWSDatabaseMigrationService.StartReplicationTask
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/StartReplicationTask" target="_top">AWS API
      *      Documentation</a>
      */
     StartReplicationTaskResult startReplicationTask(StartReplicationTaskRequest startReplicationTaskRequest);
+
+    /**
+     * <p>
+     * Starts the replication task assessment for unsupported data types in the source database.
+     * </p>
+     * 
+     * @param startReplicationTaskAssessmentRequest
+     * @return Result of the StartReplicationTaskAssessment operation returned by the service.
+     * @throws InvalidResourceStateException
+     *         The resource is in a state that prevents it from being used for database migration.
+     * @throws ResourceNotFoundException
+     *         The resource could not be found.
+     * @sample AWSDatabaseMigrationService.StartReplicationTaskAssessment
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/StartReplicationTaskAssessment"
+     *      target="_top">AWS API Documentation</a>
+     */
+    StartReplicationTaskAssessmentResult startReplicationTaskAssessment(StartReplicationTaskAssessmentRequest startReplicationTaskAssessmentRequest);
 
     /**
      * <p>
@@ -916,5 +998,7 @@ public interface AWSDatabaseMigrationService {
      * @return The response metadata for the specified request, or null if none is available.
      */
     ResponseMetadata getCachedResponseMetadata(AmazonWebServiceRequest request);
+
+    AWSDatabaseMigrationServiceWaiters waiters();
 
 }

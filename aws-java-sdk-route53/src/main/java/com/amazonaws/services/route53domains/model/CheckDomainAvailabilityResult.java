@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -32,7 +32,7 @@ public class CheckDomainAvailabilityResult extends com.amazonaws.AmazonWebServic
      * </p>
      * <note>
      * <p>
-     * You can only register domains designated as <code>AVAILABLE</code>.
+     * You can register only domains designated as <code>AVAILABLE</code>.
      * </p>
      * </note>
      * <p>
@@ -106,7 +106,7 @@ public class CheckDomainAvailabilityResult extends com.amazonaws.AmazonWebServic
      * </p>
      * <note>
      * <p>
-     * You can only register domains designated as <code>AVAILABLE</code>.
+     * You can register only domains designated as <code>AVAILABLE</code>.
      * </p>
      * </note>
      * <p>
@@ -175,7 +175,7 @@ public class CheckDomainAvailabilityResult extends com.amazonaws.AmazonWebServic
      * @param availability
      *        Whether the domain name is available for registering.</p> <note>
      *        <p>
-     *        You can only register domains designated as <code>AVAILABLE</code>.
+     *        You can register only domains designated as <code>AVAILABLE</code>.
      *        </p>
      *        </note>
      *        <p>
@@ -252,7 +252,7 @@ public class CheckDomainAvailabilityResult extends com.amazonaws.AmazonWebServic
      * </p>
      * <note>
      * <p>
-     * You can only register domains designated as <code>AVAILABLE</code>.
+     * You can register only domains designated as <code>AVAILABLE</code>.
      * </p>
      * </note>
      * <p>
@@ -320,7 +320,7 @@ public class CheckDomainAvailabilityResult extends com.amazonaws.AmazonWebServic
      * 
      * @return Whether the domain name is available for registering.</p> <note>
      *         <p>
-     *         You can only register domains designated as <code>AVAILABLE</code>.
+     *         You can register only domains designated as <code>AVAILABLE</code>.
      *         </p>
      *         </note>
      *         <p>
@@ -397,7 +397,7 @@ public class CheckDomainAvailabilityResult extends com.amazonaws.AmazonWebServic
      * </p>
      * <note>
      * <p>
-     * You can only register domains designated as <code>AVAILABLE</code>.
+     * You can register only domains designated as <code>AVAILABLE</code>.
      * </p>
      * </note>
      * <p>
@@ -466,7 +466,7 @@ public class CheckDomainAvailabilityResult extends com.amazonaws.AmazonWebServic
      * @param availability
      *        Whether the domain name is available for registering.</p> <note>
      *        <p>
-     *        You can only register domains designated as <code>AVAILABLE</code>.
+     *        You can register only domains designated as <code>AVAILABLE</code>.
      *        </p>
      *        </note>
      *        <p>
@@ -545,7 +545,7 @@ public class CheckDomainAvailabilityResult extends com.amazonaws.AmazonWebServic
      * </p>
      * <note>
      * <p>
-     * You can only register domains designated as <code>AVAILABLE</code>.
+     * You can register only domains designated as <code>AVAILABLE</code>.
      * </p>
      * </note>
      * <p>
@@ -614,7 +614,7 @@ public class CheckDomainAvailabilityResult extends com.amazonaws.AmazonWebServic
      * @param availability
      *        Whether the domain name is available for registering.</p> <note>
      *        <p>
-     *        You can only register domains designated as <code>AVAILABLE</code>.
+     *        You can register only domains designated as <code>AVAILABLE</code>.
      *        </p>
      *        </note>
      *        <p>
@@ -691,7 +691,7 @@ public class CheckDomainAvailabilityResult extends com.amazonaws.AmazonWebServic
      * </p>
      * <note>
      * <p>
-     * You can only register domains designated as <code>AVAILABLE</code>.
+     * You can register only domains designated as <code>AVAILABLE</code>.
      * </p>
      * </note>
      * <p>
@@ -760,7 +760,7 @@ public class CheckDomainAvailabilityResult extends com.amazonaws.AmazonWebServic
      * @param availability
      *        Whether the domain name is available for registering.</p> <note>
      *        <p>
-     *        You can only register domains designated as <code>AVAILABLE</code>.
+     *        You can register only domains designated as <code>AVAILABLE</code>.
      *        </p>
      *        </note>
      *        <p>
@@ -834,7 +834,8 @@ public class CheckDomainAvailabilityResult extends com.amazonaws.AmazonWebServic
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

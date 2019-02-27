@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -50,8 +50,8 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
     private String primaryClusterId;
     /**
      * <p>
-     * The cache cluster ID that is used as the daily snapshot source for the replication group. This parameter cannot
-     * be set for Redis (cluster mode enabled) replication groups.
+     * The cluster ID that is used as the daily snapshot source for the replication group. This parameter cannot be set
+     * for Redis (cluster mode enabled) replication groups.
      * </p>
      */
     private String snapshottingClusterId;
@@ -63,9 +63,8 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
      * <p>
      * Valid values: <code>true</code> | <code>false</code>
      * </p>
-     * <note>
      * <p>
-     * ElastiCache Multi-AZ replication groups are not supported on:
+     * Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
      * </p>
      * <ul>
      * <li>
@@ -75,14 +74,15 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
      * </li>
      * <li>
      * <p>
-     * Redis (cluster mode disabled):T1 and T2 cache node types.
+     * Redis (cluster mode disabled): T1 and T2 cache node types.
      * </p>
+     * </li>
+     * <li>
      * <p>
      * Redis (cluster mode enabled): T1 node types.
      * </p>
      * </li>
      * </ul>
-     * </note>
      */
     private Boolean automaticFailoverEnabled;
     /**
@@ -91,8 +91,8 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
      * asynchronously applied as soon as possible.
      * </p>
      * <p>
-     * This parameter can be used only with replication group containing cache clusters running outside of an Amazon
-     * Virtual Private Cloud (Amazon VPC).
+     * This parameter can be used only with replication group containing clusters running outside of an Amazon Virtual
+     * Private Cloud (Amazon VPC).
      * </p>
      * <p>
      * Constraints: Must contain no more than 255 alphanumeric characters. Must not be <code>Default</code>.
@@ -101,11 +101,11 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
     private com.amazonaws.internal.SdkInternalList<String> cacheSecurityGroupNames;
     /**
      * <p>
-     * Specifies the VPC Security Groups associated with the cache clusters in the replication group.
+     * Specifies the VPC Security Groups associated with the clusters in the replication group.
      * </p>
      * <p>
-     * This parameter can be used only with replication group containing cache clusters running in an Amazon Virtual
-     * Private Cloud (Amazon VPC).
+     * This parameter can be used only with replication group containing clusters running in an Amazon Virtual Private
+     * Cloud (Amazon VPC).
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> securityGroupIds;
@@ -208,14 +208,14 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
     private Boolean applyImmediately;
     /**
      * <p>
-     * The upgraded version of the cache engine to be run on the cache clusters in the replication group.
+     * The upgraded version of the cache engine to be run on the clusters in the replication group.
      * </p>
      * <p>
      * <b>Important:</b> You can upgrade to a newer engine version (see <a
-     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/SelectEngine.html#VersionManagement"
-     * >Selecting a Cache Engine and Version</a>), but you cannot downgrade to an earlier engine version. If you want to
-     * use an earlier engine version, you must delete the existing replication group and create it anew with the earlier
-     * engine version.
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/SelectEngine.html#VersionManagement">Selecting a
+     * Cache Engine and Version</a>), but you cannot downgrade to an earlier engine version. If you want to use an
+     * earlier engine version, you must delete the existing replication group and create it anew with the earlier engine
+     * version.
      * </p>
      */
     private String engineVersion;
@@ -257,9 +257,10 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
     private String cacheNodeType;
     /**
      * <p>
-     * The name of the Node Group (called shard in the console).
+     * Deprecated. This parameter is not used.
      * </p>
      */
+    @Deprecated
     private String nodeGroupId;
 
     /**
@@ -396,13 +397,13 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The cache cluster ID that is used as the daily snapshot source for the replication group. This parameter cannot
-     * be set for Redis (cluster mode enabled) replication groups.
+     * The cluster ID that is used as the daily snapshot source for the replication group. This parameter cannot be set
+     * for Redis (cluster mode enabled) replication groups.
      * </p>
      * 
      * @param snapshottingClusterId
-     *        The cache cluster ID that is used as the daily snapshot source for the replication group. This parameter
-     *        cannot be set for Redis (cluster mode enabled) replication groups.
+     *        The cluster ID that is used as the daily snapshot source for the replication group. This parameter cannot
+     *        be set for Redis (cluster mode enabled) replication groups.
      */
 
     public void setSnapshottingClusterId(String snapshottingClusterId) {
@@ -411,12 +412,12 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The cache cluster ID that is used as the daily snapshot source for the replication group. This parameter cannot
-     * be set for Redis (cluster mode enabled) replication groups.
+     * The cluster ID that is used as the daily snapshot source for the replication group. This parameter cannot be set
+     * for Redis (cluster mode enabled) replication groups.
      * </p>
      * 
-     * @return The cache cluster ID that is used as the daily snapshot source for the replication group. This parameter
-     *         cannot be set for Redis (cluster mode enabled) replication groups.
+     * @return The cluster ID that is used as the daily snapshot source for the replication group. This parameter cannot
+     *         be set for Redis (cluster mode enabled) replication groups.
      */
 
     public String getSnapshottingClusterId() {
@@ -425,13 +426,13 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The cache cluster ID that is used as the daily snapshot source for the replication group. This parameter cannot
-     * be set for Redis (cluster mode enabled) replication groups.
+     * The cluster ID that is used as the daily snapshot source for the replication group. This parameter cannot be set
+     * for Redis (cluster mode enabled) replication groups.
      * </p>
      * 
      * @param snapshottingClusterId
-     *        The cache cluster ID that is used as the daily snapshot source for the replication group. This parameter
-     *        cannot be set for Redis (cluster mode enabled) replication groups.
+     *        The cluster ID that is used as the daily snapshot source for the replication group. This parameter cannot
+     *        be set for Redis (cluster mode enabled) replication groups.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -448,9 +449,8 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
      * <p>
      * Valid values: <code>true</code> | <code>false</code>
      * </p>
-     * <note>
      * <p>
-     * ElastiCache Multi-AZ replication groups are not supported on:
+     * Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
      * </p>
      * <ul>
      * <li>
@@ -460,14 +460,15 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
      * </li>
      * <li>
      * <p>
-     * Redis (cluster mode disabled):T1 and T2 cache node types.
+     * Redis (cluster mode disabled): T1 and T2 cache node types.
      * </p>
+     * </li>
+     * <li>
      * <p>
      * Redis (cluster mode enabled): T1 node types.
      * </p>
      * </li>
      * </ul>
-     * </note>
      * 
      * @param automaticFailoverEnabled
      *        Determines whether a read replica is automatically promoted to read/write primary if the existing primary
@@ -475,9 +476,8 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
      *        <p>
      *        Valid values: <code>true</code> | <code>false</code>
      *        </p>
-     *        <note>
      *        <p>
-     *        ElastiCache Multi-AZ replication groups are not supported on:
+     *        Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
      *        </p>
      *        <ul>
      *        <li>
@@ -487,13 +487,14 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
      *        </li>
      *        <li>
      *        <p>
-     *        Redis (cluster mode disabled):T1 and T2 cache node types.
+     *        Redis (cluster mode disabled): T1 and T2 cache node types.
      *        </p>
+     *        </li>
+     *        <li>
      *        <p>
      *        Redis (cluster mode enabled): T1 node types.
      *        </p>
      *        </li>
-     *        </ul>
      */
 
     public void setAutomaticFailoverEnabled(Boolean automaticFailoverEnabled) {
@@ -508,9 +509,8 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
      * <p>
      * Valid values: <code>true</code> | <code>false</code>
      * </p>
-     * <note>
      * <p>
-     * ElastiCache Multi-AZ replication groups are not supported on:
+     * Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
      * </p>
      * <ul>
      * <li>
@@ -520,23 +520,23 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
      * </li>
      * <li>
      * <p>
-     * Redis (cluster mode disabled):T1 and T2 cache node types.
+     * Redis (cluster mode disabled): T1 and T2 cache node types.
      * </p>
+     * </li>
+     * <li>
      * <p>
      * Redis (cluster mode enabled): T1 node types.
      * </p>
      * </li>
      * </ul>
-     * </note>
      * 
      * @return Determines whether a read replica is automatically promoted to read/write primary if the existing primary
      *         encounters a failure.</p>
      *         <p>
      *         Valid values: <code>true</code> | <code>false</code>
      *         </p>
-     *         <note>
      *         <p>
-     *         ElastiCache Multi-AZ replication groups are not supported on:
+     *         Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
      *         </p>
      *         <ul>
      *         <li>
@@ -546,13 +546,14 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
      *         </li>
      *         <li>
      *         <p>
-     *         Redis (cluster mode disabled):T1 and T2 cache node types.
+     *         Redis (cluster mode disabled): T1 and T2 cache node types.
      *         </p>
+     *         </li>
+     *         <li>
      *         <p>
      *         Redis (cluster mode enabled): T1 node types.
      *         </p>
      *         </li>
-     *         </ul>
      */
 
     public Boolean getAutomaticFailoverEnabled() {
@@ -567,9 +568,8 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
      * <p>
      * Valid values: <code>true</code> | <code>false</code>
      * </p>
-     * <note>
      * <p>
-     * ElastiCache Multi-AZ replication groups are not supported on:
+     * Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
      * </p>
      * <ul>
      * <li>
@@ -579,14 +579,15 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
      * </li>
      * <li>
      * <p>
-     * Redis (cluster mode disabled):T1 and T2 cache node types.
+     * Redis (cluster mode disabled): T1 and T2 cache node types.
      * </p>
+     * </li>
+     * <li>
      * <p>
      * Redis (cluster mode enabled): T1 node types.
      * </p>
      * </li>
      * </ul>
-     * </note>
      * 
      * @param automaticFailoverEnabled
      *        Determines whether a read replica is automatically promoted to read/write primary if the existing primary
@@ -594,9 +595,8 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
      *        <p>
      *        Valid values: <code>true</code> | <code>false</code>
      *        </p>
-     *        <note>
      *        <p>
-     *        ElastiCache Multi-AZ replication groups are not supported on:
+     *        Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
      *        </p>
      *        <ul>
      *        <li>
@@ -606,13 +606,14 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
      *        </li>
      *        <li>
      *        <p>
-     *        Redis (cluster mode disabled):T1 and T2 cache node types.
+     *        Redis (cluster mode disabled): T1 and T2 cache node types.
      *        </p>
+     *        </li>
+     *        <li>
      *        <p>
      *        Redis (cluster mode enabled): T1 node types.
      *        </p>
      *        </li>
-     *        </ul>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -629,9 +630,8 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
      * <p>
      * Valid values: <code>true</code> | <code>false</code>
      * </p>
-     * <note>
      * <p>
-     * ElastiCache Multi-AZ replication groups are not supported on:
+     * Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
      * </p>
      * <ul>
      * <li>
@@ -641,23 +641,23 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
      * </li>
      * <li>
      * <p>
-     * Redis (cluster mode disabled):T1 and T2 cache node types.
+     * Redis (cluster mode disabled): T1 and T2 cache node types.
      * </p>
+     * </li>
+     * <li>
      * <p>
      * Redis (cluster mode enabled): T1 node types.
      * </p>
      * </li>
      * </ul>
-     * </note>
      * 
      * @return Determines whether a read replica is automatically promoted to read/write primary if the existing primary
      *         encounters a failure.</p>
      *         <p>
      *         Valid values: <code>true</code> | <code>false</code>
      *         </p>
-     *         <note>
      *         <p>
-     *         ElastiCache Multi-AZ replication groups are not supported on:
+     *         Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
      *         </p>
      *         <ul>
      *         <li>
@@ -667,13 +667,14 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
      *         </li>
      *         <li>
      *         <p>
-     *         Redis (cluster mode disabled):T1 and T2 cache node types.
+     *         Redis (cluster mode disabled): T1 and T2 cache node types.
      *         </p>
+     *         </li>
+     *         <li>
      *         <p>
      *         Redis (cluster mode enabled): T1 node types.
      *         </p>
      *         </li>
-     *         </ul>
      */
 
     public Boolean isAutomaticFailoverEnabled() {
@@ -686,8 +687,8 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
      * asynchronously applied as soon as possible.
      * </p>
      * <p>
-     * This parameter can be used only with replication group containing cache clusters running outside of an Amazon
-     * Virtual Private Cloud (Amazon VPC).
+     * This parameter can be used only with replication group containing clusters running outside of an Amazon Virtual
+     * Private Cloud (Amazon VPC).
      * </p>
      * <p>
      * Constraints: Must contain no more than 255 alphanumeric characters. Must not be <code>Default</code>.
@@ -696,8 +697,8 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
      * @return A list of cache security group names to authorize for the clusters in this replication group. This change
      *         is asynchronously applied as soon as possible.</p>
      *         <p>
-     *         This parameter can be used only with replication group containing cache clusters running outside of an
-     *         Amazon Virtual Private Cloud (Amazon VPC).
+     *         This parameter can be used only with replication group containing clusters running outside of an Amazon
+     *         Virtual Private Cloud (Amazon VPC).
      *         </p>
      *         <p>
      *         Constraints: Must contain no more than 255 alphanumeric characters. Must not be <code>Default</code>.
@@ -716,8 +717,8 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
      * asynchronously applied as soon as possible.
      * </p>
      * <p>
-     * This parameter can be used only with replication group containing cache clusters running outside of an Amazon
-     * Virtual Private Cloud (Amazon VPC).
+     * This parameter can be used only with replication group containing clusters running outside of an Amazon Virtual
+     * Private Cloud (Amazon VPC).
      * </p>
      * <p>
      * Constraints: Must contain no more than 255 alphanumeric characters. Must not be <code>Default</code>.
@@ -727,8 +728,8 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
      *        A list of cache security group names to authorize for the clusters in this replication group. This change
      *        is asynchronously applied as soon as possible.</p>
      *        <p>
-     *        This parameter can be used only with replication group containing cache clusters running outside of an
-     *        Amazon Virtual Private Cloud (Amazon VPC).
+     *        This parameter can be used only with replication group containing clusters running outside of an Amazon
+     *        Virtual Private Cloud (Amazon VPC).
      *        </p>
      *        <p>
      *        Constraints: Must contain no more than 255 alphanumeric characters. Must not be <code>Default</code>.
@@ -749,8 +750,8 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
      * asynchronously applied as soon as possible.
      * </p>
      * <p>
-     * This parameter can be used only with replication group containing cache clusters running outside of an Amazon
-     * Virtual Private Cloud (Amazon VPC).
+     * This parameter can be used only with replication group containing clusters running outside of an Amazon Virtual
+     * Private Cloud (Amazon VPC).
      * </p>
      * <p>
      * Constraints: Must contain no more than 255 alphanumeric characters. Must not be <code>Default</code>.
@@ -765,8 +766,8 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
      *        A list of cache security group names to authorize for the clusters in this replication group. This change
      *        is asynchronously applied as soon as possible.</p>
      *        <p>
-     *        This parameter can be used only with replication group containing cache clusters running outside of an
-     *        Amazon Virtual Private Cloud (Amazon VPC).
+     *        This parameter can be used only with replication group containing clusters running outside of an Amazon
+     *        Virtual Private Cloud (Amazon VPC).
      *        </p>
      *        <p>
      *        Constraints: Must contain no more than 255 alphanumeric characters. Must not be <code>Default</code>.
@@ -789,8 +790,8 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
      * asynchronously applied as soon as possible.
      * </p>
      * <p>
-     * This parameter can be used only with replication group containing cache clusters running outside of an Amazon
-     * Virtual Private Cloud (Amazon VPC).
+     * This parameter can be used only with replication group containing clusters running outside of an Amazon Virtual
+     * Private Cloud (Amazon VPC).
      * </p>
      * <p>
      * Constraints: Must contain no more than 255 alphanumeric characters. Must not be <code>Default</code>.
@@ -800,8 +801,8 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
      *        A list of cache security group names to authorize for the clusters in this replication group. This change
      *        is asynchronously applied as soon as possible.</p>
      *        <p>
-     *        This parameter can be used only with replication group containing cache clusters running outside of an
-     *        Amazon Virtual Private Cloud (Amazon VPC).
+     *        This parameter can be used only with replication group containing clusters running outside of an Amazon
+     *        Virtual Private Cloud (Amazon VPC).
      *        </p>
      *        <p>
      *        Constraints: Must contain no more than 255 alphanumeric characters. Must not be <code>Default</code>.
@@ -815,17 +816,17 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Specifies the VPC Security Groups associated with the cache clusters in the replication group.
+     * Specifies the VPC Security Groups associated with the clusters in the replication group.
      * </p>
      * <p>
-     * This parameter can be used only with replication group containing cache clusters running in an Amazon Virtual
-     * Private Cloud (Amazon VPC).
+     * This parameter can be used only with replication group containing clusters running in an Amazon Virtual Private
+     * Cloud (Amazon VPC).
      * </p>
      * 
-     * @return Specifies the VPC Security Groups associated with the cache clusters in the replication group.</p>
+     * @return Specifies the VPC Security Groups associated with the clusters in the replication group.</p>
      *         <p>
-     *         This parameter can be used only with replication group containing cache clusters running in an Amazon
-     *         Virtual Private Cloud (Amazon VPC).
+     *         This parameter can be used only with replication group containing clusters running in an Amazon Virtual
+     *         Private Cloud (Amazon VPC).
      */
 
     public java.util.List<String> getSecurityGroupIds() {
@@ -837,18 +838,18 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Specifies the VPC Security Groups associated with the cache clusters in the replication group.
+     * Specifies the VPC Security Groups associated with the clusters in the replication group.
      * </p>
      * <p>
-     * This parameter can be used only with replication group containing cache clusters running in an Amazon Virtual
-     * Private Cloud (Amazon VPC).
+     * This parameter can be used only with replication group containing clusters running in an Amazon Virtual Private
+     * Cloud (Amazon VPC).
      * </p>
      * 
      * @param securityGroupIds
-     *        Specifies the VPC Security Groups associated with the cache clusters in the replication group.</p>
+     *        Specifies the VPC Security Groups associated with the clusters in the replication group.</p>
      *        <p>
-     *        This parameter can be used only with replication group containing cache clusters running in an Amazon
-     *        Virtual Private Cloud (Amazon VPC).
+     *        This parameter can be used only with replication group containing clusters running in an Amazon Virtual
+     *        Private Cloud (Amazon VPC).
      */
 
     public void setSecurityGroupIds(java.util.Collection<String> securityGroupIds) {
@@ -862,11 +863,11 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Specifies the VPC Security Groups associated with the cache clusters in the replication group.
+     * Specifies the VPC Security Groups associated with the clusters in the replication group.
      * </p>
      * <p>
-     * This parameter can be used only with replication group containing cache clusters running in an Amazon Virtual
-     * Private Cloud (Amazon VPC).
+     * This parameter can be used only with replication group containing clusters running in an Amazon Virtual Private
+     * Cloud (Amazon VPC).
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -875,10 +876,10 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
      * </p>
      * 
      * @param securityGroupIds
-     *        Specifies the VPC Security Groups associated with the cache clusters in the replication group.</p>
+     *        Specifies the VPC Security Groups associated with the clusters in the replication group.</p>
      *        <p>
-     *        This parameter can be used only with replication group containing cache clusters running in an Amazon
-     *        Virtual Private Cloud (Amazon VPC).
+     *        This parameter can be used only with replication group containing clusters running in an Amazon Virtual
+     *        Private Cloud (Amazon VPC).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -894,18 +895,18 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * Specifies the VPC Security Groups associated with the cache clusters in the replication group.
+     * Specifies the VPC Security Groups associated with the clusters in the replication group.
      * </p>
      * <p>
-     * This parameter can be used only with replication group containing cache clusters running in an Amazon Virtual
-     * Private Cloud (Amazon VPC).
+     * This parameter can be used only with replication group containing clusters running in an Amazon Virtual Private
+     * Cloud (Amazon VPC).
      * </p>
      * 
      * @param securityGroupIds
-     *        Specifies the VPC Security Groups associated with the cache clusters in the replication group.</p>
+     *        Specifies the VPC Security Groups associated with the clusters in the replication group.</p>
      *        <p>
-     *        This parameter can be used only with replication group containing cache clusters running in an Amazon
-     *        Virtual Private Cloud (Amazon VPC).
+     *        This parameter can be used only with replication group containing clusters running in an Amazon Virtual
+     *        Private Cloud (Amazon VPC).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1541,21 +1542,21 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The upgraded version of the cache engine to be run on the cache clusters in the replication group.
+     * The upgraded version of the cache engine to be run on the clusters in the replication group.
      * </p>
      * <p>
      * <b>Important:</b> You can upgrade to a newer engine version (see <a
-     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/SelectEngine.html#VersionManagement"
-     * >Selecting a Cache Engine and Version</a>), but you cannot downgrade to an earlier engine version. If you want to
-     * use an earlier engine version, you must delete the existing replication group and create it anew with the earlier
-     * engine version.
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/SelectEngine.html#VersionManagement">Selecting a
+     * Cache Engine and Version</a>), but you cannot downgrade to an earlier engine version. If you want to use an
+     * earlier engine version, you must delete the existing replication group and create it anew with the earlier engine
+     * version.
      * </p>
      * 
      * @param engineVersion
-     *        The upgraded version of the cache engine to be run on the cache clusters in the replication group.</p>
+     *        The upgraded version of the cache engine to be run on the clusters in the replication group.</p>
      *        <p>
      *        <b>Important:</b> You can upgrade to a newer engine version (see <a
-     *        href="http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/SelectEngine.html#VersionManagement"
+     *        href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/SelectEngine.html#VersionManagement"
      *        >Selecting a Cache Engine and Version</a>), but you cannot downgrade to an earlier engine version. If you
      *        want to use an earlier engine version, you must delete the existing replication group and create it anew
      *        with the earlier engine version.
@@ -1567,20 +1568,20 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The upgraded version of the cache engine to be run on the cache clusters in the replication group.
+     * The upgraded version of the cache engine to be run on the clusters in the replication group.
      * </p>
      * <p>
      * <b>Important:</b> You can upgrade to a newer engine version (see <a
-     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/SelectEngine.html#VersionManagement"
-     * >Selecting a Cache Engine and Version</a>), but you cannot downgrade to an earlier engine version. If you want to
-     * use an earlier engine version, you must delete the existing replication group and create it anew with the earlier
-     * engine version.
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/SelectEngine.html#VersionManagement">Selecting a
+     * Cache Engine and Version</a>), but you cannot downgrade to an earlier engine version. If you want to use an
+     * earlier engine version, you must delete the existing replication group and create it anew with the earlier engine
+     * version.
      * </p>
      * 
-     * @return The upgraded version of the cache engine to be run on the cache clusters in the replication group.</p>
+     * @return The upgraded version of the cache engine to be run on the clusters in the replication group.</p>
      *         <p>
-     *         <b>Important:</b> You can upgrade to a newer engine version (see <a href=
-     *         "http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/SelectEngine.html#VersionManagement"
+     *         <b>Important:</b> You can upgrade to a newer engine version (see <a
+     *         href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/SelectEngine.html#VersionManagement"
      *         >Selecting a Cache Engine and Version</a>), but you cannot downgrade to an earlier engine version. If you
      *         want to use an earlier engine version, you must delete the existing replication group and create it anew
      *         with the earlier engine version.
@@ -1592,21 +1593,21 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The upgraded version of the cache engine to be run on the cache clusters in the replication group.
+     * The upgraded version of the cache engine to be run on the clusters in the replication group.
      * </p>
      * <p>
      * <b>Important:</b> You can upgrade to a newer engine version (see <a
-     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/SelectEngine.html#VersionManagement"
-     * >Selecting a Cache Engine and Version</a>), but you cannot downgrade to an earlier engine version. If you want to
-     * use an earlier engine version, you must delete the existing replication group and create it anew with the earlier
-     * engine version.
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/SelectEngine.html#VersionManagement">Selecting a
+     * Cache Engine and Version</a>), but you cannot downgrade to an earlier engine version. If you want to use an
+     * earlier engine version, you must delete the existing replication group and create it anew with the earlier engine
+     * version.
      * </p>
      * 
      * @param engineVersion
-     *        The upgraded version of the cache engine to be run on the cache clusters in the replication group.</p>
+     *        The upgraded version of the cache engine to be run on the clusters in the replication group.</p>
      *        <p>
      *        <b>Important:</b> You can upgrade to a newer engine version (see <a
-     *        href="http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/SelectEngine.html#VersionManagement"
+     *        href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/SelectEngine.html#VersionManagement"
      *        >Selecting a Cache Engine and Version</a>), but you cannot downgrade to an earlier engine version. If you
      *        want to use an earlier engine version, you must delete the existing replication group and create it anew
      *        with the earlier engine version.
@@ -1858,46 +1859,47 @@ public class ModifyReplicationGroupRequest extends com.amazonaws.AmazonWebServic
 
     /**
      * <p>
-     * The name of the Node Group (called shard in the console).
+     * Deprecated. This parameter is not used.
      * </p>
      * 
      * @param nodeGroupId
-     *        The name of the Node Group (called shard in the console).
+     *        Deprecated. This parameter is not used.
      */
-
+    @Deprecated
     public void setNodeGroupId(String nodeGroupId) {
         this.nodeGroupId = nodeGroupId;
     }
 
     /**
      * <p>
-     * The name of the Node Group (called shard in the console).
+     * Deprecated. This parameter is not used.
      * </p>
      * 
-     * @return The name of the Node Group (called shard in the console).
+     * @return Deprecated. This parameter is not used.
      */
-
+    @Deprecated
     public String getNodeGroupId() {
         return this.nodeGroupId;
     }
 
     /**
      * <p>
-     * The name of the Node Group (called shard in the console).
+     * Deprecated. This parameter is not used.
      * </p>
      * 
      * @param nodeGroupId
-     *        The name of the Node Group (called shard in the console).
+     *        Deprecated. This parameter is not used.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
-
+    @Deprecated
     public ModifyReplicationGroupRequest withNodeGroupId(String nodeGroupId) {
         setNodeGroupId(nodeGroupId);
         return this;
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

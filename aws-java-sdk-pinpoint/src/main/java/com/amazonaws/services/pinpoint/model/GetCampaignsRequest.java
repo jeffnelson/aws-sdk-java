@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,17 +17,29 @@ import javax.annotation.Generated;
 
 import com.amazonaws.AmazonWebServiceRequest;
 
+/**
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetCampaigns" target="_top">AWS API
+ *      Documentation</a>
+ */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class GetCampaignsRequest extends com.amazonaws.AmazonWebServiceRequest implements Serializable, Cloneable {
 
+    /** The unique ID of your Amazon Pinpoint application. */
     private String applicationId;
-
+    /** The number of entries you want on each page in the response. */
     private String pageSize;
-
+    /**
+     * The NextToken string returned on a previous page that you use to get the next page of results in a paginated
+     * response.
+     */
     private String token;
 
     /**
+     * The unique ID of your Amazon Pinpoint application.
+     * 
      * @param applicationId
+     *        The unique ID of your Amazon Pinpoint application.
      */
 
     public void setApplicationId(String applicationId) {
@@ -35,7 +47,9 @@ public class GetCampaignsRequest extends com.amazonaws.AmazonWebServiceRequest i
     }
 
     /**
-     * @return
+     * The unique ID of your Amazon Pinpoint application.
+     * 
+     * @return The unique ID of your Amazon Pinpoint application.
      */
 
     public String getApplicationId() {
@@ -43,7 +57,10 @@ public class GetCampaignsRequest extends com.amazonaws.AmazonWebServiceRequest i
     }
 
     /**
+     * The unique ID of your Amazon Pinpoint application.
+     * 
      * @param applicationId
+     *        The unique ID of your Amazon Pinpoint application.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -53,7 +70,10 @@ public class GetCampaignsRequest extends com.amazonaws.AmazonWebServiceRequest i
     }
 
     /**
+     * The number of entries you want on each page in the response.
+     * 
      * @param pageSize
+     *        The number of entries you want on each page in the response.
      */
 
     public void setPageSize(String pageSize) {
@@ -61,7 +81,9 @@ public class GetCampaignsRequest extends com.amazonaws.AmazonWebServiceRequest i
     }
 
     /**
-     * @return
+     * The number of entries you want on each page in the response.
+     * 
+     * @return The number of entries you want on each page in the response.
      */
 
     public String getPageSize() {
@@ -69,7 +91,10 @@ public class GetCampaignsRequest extends com.amazonaws.AmazonWebServiceRequest i
     }
 
     /**
+     * The number of entries you want on each page in the response.
+     * 
      * @param pageSize
+     *        The number of entries you want on each page in the response.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -79,7 +104,12 @@ public class GetCampaignsRequest extends com.amazonaws.AmazonWebServiceRequest i
     }
 
     /**
+     * The NextToken string returned on a previous page that you use to get the next page of results in a paginated
+     * response.
+     * 
      * @param token
+     *        The NextToken string returned on a previous page that you use to get the next page of results in a
+     *        paginated response.
      */
 
     public void setToken(String token) {
@@ -87,7 +117,11 @@ public class GetCampaignsRequest extends com.amazonaws.AmazonWebServiceRequest i
     }
 
     /**
-     * @return
+     * The NextToken string returned on a previous page that you use to get the next page of results in a paginated
+     * response.
+     * 
+     * @return The NextToken string returned on a previous page that you use to get the next page of results in a
+     *         paginated response.
      */
 
     public String getToken() {
@@ -95,7 +129,12 @@ public class GetCampaignsRequest extends com.amazonaws.AmazonWebServiceRequest i
     }
 
     /**
+     * The NextToken string returned on a previous page that you use to get the next page of results in a paginated
+     * response.
+     * 
      * @param token
+     *        The NextToken string returned on a previous page that you use to get the next page of results in a
+     *        paginated response.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -105,7 +144,8 @@ public class GetCampaignsRequest extends com.amazonaws.AmazonWebServiceRequest i
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

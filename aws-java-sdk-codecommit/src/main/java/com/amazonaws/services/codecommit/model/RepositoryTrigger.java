@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -50,9 +50,14 @@ public class RepositoryTrigger implements Serializable, Cloneable, StructuredPoj
     private String customData;
     /**
      * <p>
-     * The branches that will be included in the trigger configuration. If no branches are specified, the trigger will
+     * The branches that will be included in the trigger configuration. If you specify an empty array, the trigger will
      * apply to all branches.
      * </p>
+     * <note>
+     * <p>
+     * While no content is required in the array, you must include the array itself.
+     * </p>
+     * </note>
      */
     private java.util.List<String> branches;
     /**
@@ -202,12 +207,20 @@ public class RepositoryTrigger implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The branches that will be included in the trigger configuration. If no branches are specified, the trigger will
+     * The branches that will be included in the trigger configuration. If you specify an empty array, the trigger will
      * apply to all branches.
      * </p>
+     * <note>
+     * <p>
+     * While no content is required in the array, you must include the array itself.
+     * </p>
+     * </note>
      * 
-     * @return The branches that will be included in the trigger configuration. If no branches are specified, the
-     *         trigger will apply to all branches.
+     * @return The branches that will be included in the trigger configuration. If you specify an empty array, the
+     *         trigger will apply to all branches.</p> <note>
+     *         <p>
+     *         While no content is required in the array, you must include the array itself.
+     *         </p>
      */
 
     public java.util.List<String> getBranches() {
@@ -216,13 +229,21 @@ public class RepositoryTrigger implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The branches that will be included in the trigger configuration. If no branches are specified, the trigger will
+     * The branches that will be included in the trigger configuration. If you specify an empty array, the trigger will
      * apply to all branches.
      * </p>
+     * <note>
+     * <p>
+     * While no content is required in the array, you must include the array itself.
+     * </p>
+     * </note>
      * 
      * @param branches
-     *        The branches that will be included in the trigger configuration. If no branches are specified, the trigger
-     *        will apply to all branches.
+     *        The branches that will be included in the trigger configuration. If you specify an empty array, the
+     *        trigger will apply to all branches.</p> <note>
+     *        <p>
+     *        While no content is required in the array, you must include the array itself.
+     *        </p>
      */
 
     public void setBranches(java.util.Collection<String> branches) {
@@ -236,9 +257,14 @@ public class RepositoryTrigger implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The branches that will be included in the trigger configuration. If no branches are specified, the trigger will
+     * The branches that will be included in the trigger configuration. If you specify an empty array, the trigger will
      * apply to all branches.
      * </p>
+     * <note>
+     * <p>
+     * While no content is required in the array, you must include the array itself.
+     * </p>
+     * </note>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setBranches(java.util.Collection)} or {@link #withBranches(java.util.Collection)} if you want to override
@@ -246,8 +272,11 @@ public class RepositoryTrigger implements Serializable, Cloneable, StructuredPoj
      * </p>
      * 
      * @param branches
-     *        The branches that will be included in the trigger configuration. If no branches are specified, the trigger
-     *        will apply to all branches.
+     *        The branches that will be included in the trigger configuration. If you specify an empty array, the
+     *        trigger will apply to all branches.</p> <note>
+     *        <p>
+     *        While no content is required in the array, you must include the array itself.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -263,13 +292,21 @@ public class RepositoryTrigger implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * The branches that will be included in the trigger configuration. If no branches are specified, the trigger will
+     * The branches that will be included in the trigger configuration. If you specify an empty array, the trigger will
      * apply to all branches.
      * </p>
+     * <note>
+     * <p>
+     * While no content is required in the array, you must include the array itself.
+     * </p>
+     * </note>
      * 
      * @param branches
-     *        The branches that will be included in the trigger configuration. If no branches are specified, the trigger
-     *        will apply to all branches.
+     *        The branches that will be included in the trigger configuration. If you specify an empty array, the
+     *        trigger will apply to all branches.</p> <note>
+     *        <p>
+     *        While no content is required in the array, you must include the array itself.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -427,7 +464,8 @@ public class RepositoryTrigger implements Serializable, Cloneable, StructuredPoj
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

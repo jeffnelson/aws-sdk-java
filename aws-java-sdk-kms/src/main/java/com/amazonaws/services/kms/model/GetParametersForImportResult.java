@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -46,7 +46,7 @@ public class GetParametersForImportResult extends com.amazonaws.AmazonWebService
      * <p>
      * The time at which the import token and public key are no longer valid. After this time, you cannot use them to
      * make an <a>ImportKeyMaterial</a> request and you must send another <code>GetParametersForImport</code> request to
-     * retrieve new ones.
+     * get new ones.
      * </p>
      */
     private java.util.Date parametersValidTo;
@@ -235,13 +235,13 @@ public class GetParametersForImportResult extends com.amazonaws.AmazonWebService
      * <p>
      * The time at which the import token and public key are no longer valid. After this time, you cannot use them to
      * make an <a>ImportKeyMaterial</a> request and you must send another <code>GetParametersForImport</code> request to
-     * retrieve new ones.
+     * get new ones.
      * </p>
      * 
      * @param parametersValidTo
      *        The time at which the import token and public key are no longer valid. After this time, you cannot use
      *        them to make an <a>ImportKeyMaterial</a> request and you must send another
-     *        <code>GetParametersForImport</code> request to retrieve new ones.
+     *        <code>GetParametersForImport</code> request to get new ones.
      */
 
     public void setParametersValidTo(java.util.Date parametersValidTo) {
@@ -252,12 +252,12 @@ public class GetParametersForImportResult extends com.amazonaws.AmazonWebService
      * <p>
      * The time at which the import token and public key are no longer valid. After this time, you cannot use them to
      * make an <a>ImportKeyMaterial</a> request and you must send another <code>GetParametersForImport</code> request to
-     * retrieve new ones.
+     * get new ones.
      * </p>
      * 
      * @return The time at which the import token and public key are no longer valid. After this time, you cannot use
      *         them to make an <a>ImportKeyMaterial</a> request and you must send another
-     *         <code>GetParametersForImport</code> request to retrieve new ones.
+     *         <code>GetParametersForImport</code> request to get new ones.
      */
 
     public java.util.Date getParametersValidTo() {
@@ -268,13 +268,13 @@ public class GetParametersForImportResult extends com.amazonaws.AmazonWebService
      * <p>
      * The time at which the import token and public key are no longer valid. After this time, you cannot use them to
      * make an <a>ImportKeyMaterial</a> request and you must send another <code>GetParametersForImport</code> request to
-     * retrieve new ones.
+     * get new ones.
      * </p>
      * 
      * @param parametersValidTo
      *        The time at which the import token and public key are no longer valid. After this time, you cannot use
      *        them to make an <a>ImportKeyMaterial</a> request and you must send another
-     *        <code>GetParametersForImport</code> request to retrieve new ones.
+     *        <code>GetParametersForImport</code> request to get new ones.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -284,7 +284,8 @@ public class GetParametersForImportResult extends com.amazonaws.AmazonWebService
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -299,7 +300,7 @@ public class GetParametersForImportResult extends com.amazonaws.AmazonWebService
         if (getImportToken() != null)
             sb.append("ImportToken: ").append(getImportToken()).append(",");
         if (getPublicKey() != null)
-            sb.append("PublicKey: ").append(getPublicKey()).append(",");
+            sb.append("PublicKey: ").append("***Sensitive Data Redacted***").append(",");
         if (getParametersValidTo() != null)
             sb.append("ParametersValidTo: ").append(getParametersValidTo());
         sb.append("}");

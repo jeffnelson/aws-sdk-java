@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -51,20 +51,30 @@ public class InputDescription implements Serializable, Cloneable, StructuredPojo
     private java.util.List<String> inAppStreamNames;
     /**
      * <p>
-     * If an Amazon Kinesis stream is configured as streaming source, provides Amazon Kinesis stream's ARN and an IAM
-     * role that enables Amazon Kinesis Analytics to access the stream on your behalf.
+     * The description of the preprocessor that executes on records in this input before the application's code is run.
+     * </p>
+     */
+    private InputProcessingConfigurationDescription inputProcessingConfigurationDescription;
+    /**
+     * <p>
+     * If an Amazon Kinesis stream is configured as streaming source, provides Amazon Kinesis stream's Amazon Resource
+     * Name (ARN) and an IAM role that enables Amazon Kinesis Analytics to access the stream on your behalf.
      * </p>
      */
     private KinesisStreamsInputDescription kinesisStreamsInputDescription;
     /**
      * <p>
-     * If an Amazon Kinesis Firehose delivery stream is configured as a streaming source, provides the Firehose delivery
-     * stream's Amazon Resource Name (ARN) and an IAM role that enables Amazon Kinesis Analytics to access the stream on
-     * your behalf.
+     * If an Amazon Kinesis Firehose delivery stream is configured as a streaming source, provides the delivery stream's
+     * ARN and an IAM role that enables Amazon Kinesis Analytics to access the stream on your behalf.
      * </p>
      */
     private KinesisFirehoseInputDescription kinesisFirehoseInputDescription;
-
+    /**
+     * <p>
+     * Describes the format of the data in the streaming source, and how each data element maps to corresponding columns
+     * in the in-application stream that is being created.
+     * </p>
+     */
     private SourceSchema inputSchema;
     /**
      * <p>
@@ -237,13 +247,57 @@ public class InputDescription implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * If an Amazon Kinesis stream is configured as streaming source, provides Amazon Kinesis stream's ARN and an IAM
-     * role that enables Amazon Kinesis Analytics to access the stream on your behalf.
+     * The description of the preprocessor that executes on records in this input before the application's code is run.
+     * </p>
+     * 
+     * @param inputProcessingConfigurationDescription
+     *        The description of the preprocessor that executes on records in this input before the application's code
+     *        is run.
+     */
+
+    public void setInputProcessingConfigurationDescription(InputProcessingConfigurationDescription inputProcessingConfigurationDescription) {
+        this.inputProcessingConfigurationDescription = inputProcessingConfigurationDescription;
+    }
+
+    /**
+     * <p>
+     * The description of the preprocessor that executes on records in this input before the application's code is run.
+     * </p>
+     * 
+     * @return The description of the preprocessor that executes on records in this input before the application's code
+     *         is run.
+     */
+
+    public InputProcessingConfigurationDescription getInputProcessingConfigurationDescription() {
+        return this.inputProcessingConfigurationDescription;
+    }
+
+    /**
+     * <p>
+     * The description of the preprocessor that executes on records in this input before the application's code is run.
+     * </p>
+     * 
+     * @param inputProcessingConfigurationDescription
+     *        The description of the preprocessor that executes on records in this input before the application's code
+     *        is run.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public InputDescription withInputProcessingConfigurationDescription(InputProcessingConfigurationDescription inputProcessingConfigurationDescription) {
+        setInputProcessingConfigurationDescription(inputProcessingConfigurationDescription);
+        return this;
+    }
+
+    /**
+     * <p>
+     * If an Amazon Kinesis stream is configured as streaming source, provides Amazon Kinesis stream's Amazon Resource
+     * Name (ARN) and an IAM role that enables Amazon Kinesis Analytics to access the stream on your behalf.
      * </p>
      * 
      * @param kinesisStreamsInputDescription
-     *        If an Amazon Kinesis stream is configured as streaming source, provides Amazon Kinesis stream's ARN and an
-     *        IAM role that enables Amazon Kinesis Analytics to access the stream on your behalf.
+     *        If an Amazon Kinesis stream is configured as streaming source, provides Amazon Kinesis stream's Amazon
+     *        Resource Name (ARN) and an IAM role that enables Amazon Kinesis Analytics to access the stream on your
+     *        behalf.
      */
 
     public void setKinesisStreamsInputDescription(KinesisStreamsInputDescription kinesisStreamsInputDescription) {
@@ -252,12 +306,13 @@ public class InputDescription implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * If an Amazon Kinesis stream is configured as streaming source, provides Amazon Kinesis stream's ARN and an IAM
-     * role that enables Amazon Kinesis Analytics to access the stream on your behalf.
+     * If an Amazon Kinesis stream is configured as streaming source, provides Amazon Kinesis stream's Amazon Resource
+     * Name (ARN) and an IAM role that enables Amazon Kinesis Analytics to access the stream on your behalf.
      * </p>
      * 
-     * @return If an Amazon Kinesis stream is configured as streaming source, provides Amazon Kinesis stream's ARN and
-     *         an IAM role that enables Amazon Kinesis Analytics to access the stream on your behalf.
+     * @return If an Amazon Kinesis stream is configured as streaming source, provides Amazon Kinesis stream's Amazon
+     *         Resource Name (ARN) and an IAM role that enables Amazon Kinesis Analytics to access the stream on your
+     *         behalf.
      */
 
     public KinesisStreamsInputDescription getKinesisStreamsInputDescription() {
@@ -266,13 +321,14 @@ public class InputDescription implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * If an Amazon Kinesis stream is configured as streaming source, provides Amazon Kinesis stream's ARN and an IAM
-     * role that enables Amazon Kinesis Analytics to access the stream on your behalf.
+     * If an Amazon Kinesis stream is configured as streaming source, provides Amazon Kinesis stream's Amazon Resource
+     * Name (ARN) and an IAM role that enables Amazon Kinesis Analytics to access the stream on your behalf.
      * </p>
      * 
      * @param kinesisStreamsInputDescription
-     *        If an Amazon Kinesis stream is configured as streaming source, provides Amazon Kinesis stream's ARN and an
-     *        IAM role that enables Amazon Kinesis Analytics to access the stream on your behalf.
+     *        If an Amazon Kinesis stream is configured as streaming source, provides Amazon Kinesis stream's Amazon
+     *        Resource Name (ARN) and an IAM role that enables Amazon Kinesis Analytics to access the stream on your
+     *        behalf.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -283,15 +339,13 @@ public class InputDescription implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * If an Amazon Kinesis Firehose delivery stream is configured as a streaming source, provides the Firehose delivery
-     * stream's Amazon Resource Name (ARN) and an IAM role that enables Amazon Kinesis Analytics to access the stream on
-     * your behalf.
+     * If an Amazon Kinesis Firehose delivery stream is configured as a streaming source, provides the delivery stream's
+     * ARN and an IAM role that enables Amazon Kinesis Analytics to access the stream on your behalf.
      * </p>
      * 
      * @param kinesisFirehoseInputDescription
-     *        If an Amazon Kinesis Firehose delivery stream is configured as a streaming source, provides the Firehose
-     *        delivery stream's Amazon Resource Name (ARN) and an IAM role that enables Amazon Kinesis Analytics to
-     *        access the stream on your behalf.
+     *        If an Amazon Kinesis Firehose delivery stream is configured as a streaming source, provides the delivery
+     *        stream's ARN and an IAM role that enables Amazon Kinesis Analytics to access the stream on your behalf.
      */
 
     public void setKinesisFirehoseInputDescription(KinesisFirehoseInputDescription kinesisFirehoseInputDescription) {
@@ -300,14 +354,12 @@ public class InputDescription implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * If an Amazon Kinesis Firehose delivery stream is configured as a streaming source, provides the Firehose delivery
-     * stream's Amazon Resource Name (ARN) and an IAM role that enables Amazon Kinesis Analytics to access the stream on
-     * your behalf.
+     * If an Amazon Kinesis Firehose delivery stream is configured as a streaming source, provides the delivery stream's
+     * ARN and an IAM role that enables Amazon Kinesis Analytics to access the stream on your behalf.
      * </p>
      * 
-     * @return If an Amazon Kinesis Firehose delivery stream is configured as a streaming source, provides the Firehose
-     *         delivery stream's Amazon Resource Name (ARN) and an IAM role that enables Amazon Kinesis Analytics to
-     *         access the stream on your behalf.
+     * @return If an Amazon Kinesis Firehose delivery stream is configured as a streaming source, provides the delivery
+     *         stream's ARN and an IAM role that enables Amazon Kinesis Analytics to access the stream on your behalf.
      */
 
     public KinesisFirehoseInputDescription getKinesisFirehoseInputDescription() {
@@ -316,15 +368,13 @@ public class InputDescription implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * If an Amazon Kinesis Firehose delivery stream is configured as a streaming source, provides the Firehose delivery
-     * stream's Amazon Resource Name (ARN) and an IAM role that enables Amazon Kinesis Analytics to access the stream on
-     * your behalf.
+     * If an Amazon Kinesis Firehose delivery stream is configured as a streaming source, provides the delivery stream's
+     * ARN and an IAM role that enables Amazon Kinesis Analytics to access the stream on your behalf.
      * </p>
      * 
      * @param kinesisFirehoseInputDescription
-     *        If an Amazon Kinesis Firehose delivery stream is configured as a streaming source, provides the Firehose
-     *        delivery stream's Amazon Resource Name (ARN) and an IAM role that enables Amazon Kinesis Analytics to
-     *        access the stream on your behalf.
+     *        If an Amazon Kinesis Firehose delivery stream is configured as a streaming source, provides the delivery
+     *        stream's ARN and an IAM role that enables Amazon Kinesis Analytics to access the stream on your behalf.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -334,7 +384,14 @@ public class InputDescription implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
+     * <p>
+     * Describes the format of the data in the streaming source, and how each data element maps to corresponding columns
+     * in the in-application stream that is being created.
+     * </p>
+     * 
      * @param inputSchema
+     *        Describes the format of the data in the streaming source, and how each data element maps to corresponding
+     *        columns in the in-application stream that is being created.
      */
 
     public void setInputSchema(SourceSchema inputSchema) {
@@ -342,7 +399,13 @@ public class InputDescription implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * @return
+     * <p>
+     * Describes the format of the data in the streaming source, and how each data element maps to corresponding columns
+     * in the in-application stream that is being created.
+     * </p>
+     * 
+     * @return Describes the format of the data in the streaming source, and how each data element maps to corresponding
+     *         columns in the in-application stream that is being created.
      */
 
     public SourceSchema getInputSchema() {
@@ -350,7 +413,14 @@ public class InputDescription implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
+     * <p>
+     * Describes the format of the data in the streaming source, and how each data element maps to corresponding columns
+     * in the in-application stream that is being created.
+     * </p>
+     * 
      * @param inputSchema
+     *        Describes the format of the data in the streaming source, and how each data element maps to corresponding
+     *        columns in the in-application stream that is being created.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -440,7 +510,8 @@ public class InputDescription implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -456,6 +527,8 @@ public class InputDescription implements Serializable, Cloneable, StructuredPojo
             sb.append("NamePrefix: ").append(getNamePrefix()).append(",");
         if (getInAppStreamNames() != null)
             sb.append("InAppStreamNames: ").append(getInAppStreamNames()).append(",");
+        if (getInputProcessingConfigurationDescription() != null)
+            sb.append("InputProcessingConfigurationDescription: ").append(getInputProcessingConfigurationDescription()).append(",");
         if (getKinesisStreamsInputDescription() != null)
             sb.append("KinesisStreamsInputDescription: ").append(getKinesisStreamsInputDescription()).append(",");
         if (getKinesisFirehoseInputDescription() != null)
@@ -492,6 +565,11 @@ public class InputDescription implements Serializable, Cloneable, StructuredPojo
             return false;
         if (other.getInAppStreamNames() != null && other.getInAppStreamNames().equals(this.getInAppStreamNames()) == false)
             return false;
+        if (other.getInputProcessingConfigurationDescription() == null ^ this.getInputProcessingConfigurationDescription() == null)
+            return false;
+        if (other.getInputProcessingConfigurationDescription() != null
+                && other.getInputProcessingConfigurationDescription().equals(this.getInputProcessingConfigurationDescription()) == false)
+            return false;
         if (other.getKinesisStreamsInputDescription() == null ^ this.getKinesisStreamsInputDescription() == null)
             return false;
         if (other.getKinesisStreamsInputDescription() != null
@@ -526,6 +604,7 @@ public class InputDescription implements Serializable, Cloneable, StructuredPojo
         hashCode = prime * hashCode + ((getInputId() == null) ? 0 : getInputId().hashCode());
         hashCode = prime * hashCode + ((getNamePrefix() == null) ? 0 : getNamePrefix().hashCode());
         hashCode = prime * hashCode + ((getInAppStreamNames() == null) ? 0 : getInAppStreamNames().hashCode());
+        hashCode = prime * hashCode + ((getInputProcessingConfigurationDescription() == null) ? 0 : getInputProcessingConfigurationDescription().hashCode());
         hashCode = prime * hashCode + ((getKinesisStreamsInputDescription() == null) ? 0 : getKinesisStreamsInputDescription().hashCode());
         hashCode = prime * hashCode + ((getKinesisFirehoseInputDescription() == null) ? 0 : getKinesisFirehoseInputDescription().hashCode());
         hashCode = prime * hashCode + ((getInputSchema() == null) ? 0 : getInputSchema().hashCode());

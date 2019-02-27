@@ -54,6 +54,8 @@ public class MemberModel extends DocumentationModel {
 
     private boolean deprecated;
 
+    private boolean sensitive;
+
     private ListModel listModel;
 
     private MapModel mapModel;
@@ -68,7 +70,7 @@ public class MemberModel extends DocumentationModel {
 
     private boolean isJsonValue;
 
-    private boolean shouldSupressEnumSetter = false;
+    private boolean shouldEmitLegacyEnumSetter;
 
     public String getName() {
         return name;
@@ -213,6 +215,14 @@ public class MemberModel extends DocumentationModel {
 
     public void setDeprecated(boolean deprecated) {
         this.deprecated = deprecated;
+    }
+
+    public boolean isSensitive() {
+        return sensitive;
+    }
+
+    public void setSensitive(boolean sensitive) {
+        this.sensitive = sensitive;
     }
 
     public ListModel getListModel() {
@@ -547,17 +557,16 @@ public class MemberModel extends DocumentationModel {
         this.shape = shape;
     }
 
+    public boolean getShouldEmitLegacyEnumSetter() {
+        return shouldEmitLegacyEnumSetter;
+    }
+
+    public void setShouldEmitLegacyEnumSetter(boolean shouldEmitLegacyEnumSetter) {
+        this.shouldEmitLegacyEnumSetter = shouldEmitLegacyEnumSetter;
+    }
+
     @Override
     public String toString() {
         return c2jName;
-    }
-
-    public boolean getShouldSupressEnumSetter() {
-        return shouldSupressEnumSetter;
-    }
-
-    public MemberModel setShouldSupressEnumSetter(boolean shouldSupressEnumSetter) {
-        this.shouldSupressEnumSetter = shouldSupressEnumSetter;
-        return this;
     }
 }

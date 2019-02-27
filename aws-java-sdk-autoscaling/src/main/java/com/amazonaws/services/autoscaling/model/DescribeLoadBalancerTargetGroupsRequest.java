@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,9 +18,6 @@ import javax.annotation.Generated;
 import com.amazonaws.AmazonWebServiceRequest;
 
 /**
- * <p>
- * Contains the parameters for DescribeLoadBalancerTargetGroups.
- * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DescribeLoadBalancerTargetGroups"
  *      target="_top">AWS API Documentation</a>
@@ -42,7 +39,7 @@ public class DescribeLoadBalancerTargetGroupsRequest extends com.amazonaws.Amazo
     private String nextToken;
     /**
      * <p>
-     * The maximum number of items to return with this call. The default value is 50 and the maximum value is 100.
+     * The maximum number of items to return with this call. The default value is 100 and the maximum value is 100.
      * </p>
      */
     private Integer maxRecords;
@@ -129,11 +126,11 @@ public class DescribeLoadBalancerTargetGroupsRequest extends com.amazonaws.Amazo
 
     /**
      * <p>
-     * The maximum number of items to return with this call. The default value is 50 and the maximum value is 100.
+     * The maximum number of items to return with this call. The default value is 100 and the maximum value is 100.
      * </p>
      * 
      * @param maxRecords
-     *        The maximum number of items to return with this call. The default value is 50 and the maximum value is
+     *        The maximum number of items to return with this call. The default value is 100 and the maximum value is
      *        100.
      */
 
@@ -143,10 +140,10 @@ public class DescribeLoadBalancerTargetGroupsRequest extends com.amazonaws.Amazo
 
     /**
      * <p>
-     * The maximum number of items to return with this call. The default value is 50 and the maximum value is 100.
+     * The maximum number of items to return with this call. The default value is 100 and the maximum value is 100.
      * </p>
      * 
-     * @return The maximum number of items to return with this call. The default value is 50 and the maximum value is
+     * @return The maximum number of items to return with this call. The default value is 100 and the maximum value is
      *         100.
      */
 
@@ -156,11 +153,11 @@ public class DescribeLoadBalancerTargetGroupsRequest extends com.amazonaws.Amazo
 
     /**
      * <p>
-     * The maximum number of items to return with this call. The default value is 50 and the maximum value is 100.
+     * The maximum number of items to return with this call. The default value is 100 and the maximum value is 100.
      * </p>
      * 
      * @param maxRecords
-     *        The maximum number of items to return with this call. The default value is 50 and the maximum value is
+     *        The maximum number of items to return with this call. The default value is 100 and the maximum value is
      *        100.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -171,7 +168,8 @@ public class DescribeLoadBalancerTargetGroupsRequest extends com.amazonaws.Amazo
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

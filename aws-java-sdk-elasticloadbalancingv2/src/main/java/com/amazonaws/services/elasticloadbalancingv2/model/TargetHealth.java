@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,7 +34,10 @@ public class TargetHealth implements Serializable, Cloneable {
     private String state;
     /**
      * <p>
-     * The reason code. If the target state is <code>healthy</code>, a reason code is not provided.
+     * The reason code.
+     * </p>
+     * <p>
+     * If the target state is <code>healthy</code>, a reason code is not provided.
      * </p>
      * <p>
      * If the target state is <code>initial</code>, the reason code can be one of the following values:
@@ -96,6 +99,11 @@ public class TargetHealth implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
+     * <code>Target.IpUnusable</code> - The target IP address is reserved for use by a load balancer.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>Target.InvalidState</code> - The target is in the stopped or terminated state.
      * </p>
      * </li>
@@ -108,6 +116,16 @@ public class TargetHealth implements Serializable, Cloneable {
      * <p>
      * <code>Target.DeregistrationInProgress</code> - The target is in the process of being deregistered and the
      * deregistration delay period has not expired.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If the target state is <code>unavailable</code>, the reason code can be the following value:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Target.HealthCheckDisabled</code> - Health checks are disabled for the target group.
      * </p>
      * </li>
      * </ul>
@@ -196,7 +214,10 @@ public class TargetHealth implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The reason code. If the target state is <code>healthy</code>, a reason code is not provided.
+     * The reason code.
+     * </p>
+     * <p>
+     * If the target state is <code>healthy</code>, a reason code is not provided.
      * </p>
      * <p>
      * If the target state is <code>initial</code>, the reason code can be one of the following values:
@@ -258,6 +279,11 @@ public class TargetHealth implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
+     * <code>Target.IpUnusable</code> - The target IP address is reserved for use by a load balancer.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>Target.InvalidState</code> - The target is in the stopped or terminated state.
      * </p>
      * </li>
@@ -273,9 +299,22 @@ public class TargetHealth implements Serializable, Cloneable {
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * If the target state is <code>unavailable</code>, the reason code can be the following value:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Target.HealthCheckDisabled</code> - Health checks are disabled for the target group.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param reason
-     *        The reason code. If the target state is <code>healthy</code>, a reason code is not provided.</p>
+     *        The reason code.</p>
+     *        <p>
+     *        If the target state is <code>healthy</code>, a reason code is not provided.
+     *        </p>
      *        <p>
      *        If the target state is <code>initial</code>, the reason code can be one of the following values:
      *        </p>
@@ -336,6 +375,11 @@ public class TargetHealth implements Serializable, Cloneable {
      *        </li>
      *        <li>
      *        <p>
+     *        <code>Target.IpUnusable</code> - The target IP address is reserved for use by a load balancer.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
      *        <code>Target.InvalidState</code> - The target is in the stopped or terminated state.
      *        </p>
      *        </li>
@@ -350,6 +394,16 @@ public class TargetHealth implements Serializable, Cloneable {
      *        deregistration delay period has not expired.
      *        </p>
      *        </li>
+     *        </ul>
+     *        <p>
+     *        If the target state is <code>unavailable</code>, the reason code can be the following value:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>Target.HealthCheckDisabled</code> - Health checks are disabled for the target group.
+     *        </p>
+     *        </li>
      * @see TargetHealthReasonEnum
      */
 
@@ -359,7 +413,10 @@ public class TargetHealth implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The reason code. If the target state is <code>healthy</code>, a reason code is not provided.
+     * The reason code.
+     * </p>
+     * <p>
+     * If the target state is <code>healthy</code>, a reason code is not provided.
      * </p>
      * <p>
      * If the target state is <code>initial</code>, the reason code can be one of the following values:
@@ -421,6 +478,11 @@ public class TargetHealth implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
+     * <code>Target.IpUnusable</code> - The target IP address is reserved for use by a load balancer.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>Target.InvalidState</code> - The target is in the stopped or terminated state.
      * </p>
      * </li>
@@ -436,8 +498,21 @@ public class TargetHealth implements Serializable, Cloneable {
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * If the target state is <code>unavailable</code>, the reason code can be the following value:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Target.HealthCheckDisabled</code> - Health checks are disabled for the target group.
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return The reason code. If the target state is <code>healthy</code>, a reason code is not provided.</p>
+     * @return The reason code.</p>
+     *         <p>
+     *         If the target state is <code>healthy</code>, a reason code is not provided.
+     *         </p>
      *         <p>
      *         If the target state is <code>initial</code>, the reason code can be one of the following values:
      *         </p>
@@ -499,6 +574,11 @@ public class TargetHealth implements Serializable, Cloneable {
      *         </li>
      *         <li>
      *         <p>
+     *         <code>Target.IpUnusable</code> - The target IP address is reserved for use by a load balancer.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
      *         <code>Target.InvalidState</code> - The target is in the stopped or terminated state.
      *         </p>
      *         </li>
@@ -513,6 +593,16 @@ public class TargetHealth implements Serializable, Cloneable {
      *         deregistration delay period has not expired.
      *         </p>
      *         </li>
+     *         </ul>
+     *         <p>
+     *         If the target state is <code>unavailable</code>, the reason code can be the following value:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>Target.HealthCheckDisabled</code> - Health checks are disabled for the target group.
+     *         </p>
+     *         </li>
      * @see TargetHealthReasonEnum
      */
 
@@ -522,7 +612,10 @@ public class TargetHealth implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The reason code. If the target state is <code>healthy</code>, a reason code is not provided.
+     * The reason code.
+     * </p>
+     * <p>
+     * If the target state is <code>healthy</code>, a reason code is not provided.
      * </p>
      * <p>
      * If the target state is <code>initial</code>, the reason code can be one of the following values:
@@ -584,6 +677,11 @@ public class TargetHealth implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
+     * <code>Target.IpUnusable</code> - The target IP address is reserved for use by a load balancer.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>Target.InvalidState</code> - The target is in the stopped or terminated state.
      * </p>
      * </li>
@@ -599,9 +697,22 @@ public class TargetHealth implements Serializable, Cloneable {
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * If the target state is <code>unavailable</code>, the reason code can be the following value:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Target.HealthCheckDisabled</code> - Health checks are disabled for the target group.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param reason
-     *        The reason code. If the target state is <code>healthy</code>, a reason code is not provided.</p>
+     *        The reason code.</p>
+     *        <p>
+     *        If the target state is <code>healthy</code>, a reason code is not provided.
+     *        </p>
      *        <p>
      *        If the target state is <code>initial</code>, the reason code can be one of the following values:
      *        </p>
@@ -662,6 +773,11 @@ public class TargetHealth implements Serializable, Cloneable {
      *        </li>
      *        <li>
      *        <p>
+     *        <code>Target.IpUnusable</code> - The target IP address is reserved for use by a load balancer.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
      *        <code>Target.InvalidState</code> - The target is in the stopped or terminated state.
      *        </p>
      *        </li>
@@ -674,6 +790,16 @@ public class TargetHealth implements Serializable, Cloneable {
      *        <p>
      *        <code>Target.DeregistrationInProgress</code> - The target is in the process of being deregistered and the
      *        deregistration delay period has not expired.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        If the target state is <code>unavailable</code>, the reason code can be the following value:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>Target.HealthCheckDisabled</code> - Health checks are disabled for the target group.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -687,7 +813,10 @@ public class TargetHealth implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The reason code. If the target state is <code>healthy</code>, a reason code is not provided.
+     * The reason code.
+     * </p>
+     * <p>
+     * If the target state is <code>healthy</code>, a reason code is not provided.
      * </p>
      * <p>
      * If the target state is <code>initial</code>, the reason code can be one of the following values:
@@ -749,6 +878,11 @@ public class TargetHealth implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
+     * <code>Target.IpUnusable</code> - The target IP address is reserved for use by a load balancer.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>Target.InvalidState</code> - The target is in the stopped or terminated state.
      * </p>
      * </li>
@@ -764,9 +898,22 @@ public class TargetHealth implements Serializable, Cloneable {
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * If the target state is <code>unavailable</code>, the reason code can be the following value:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Target.HealthCheckDisabled</code> - Health checks are disabled for the target group.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param reason
-     *        The reason code. If the target state is <code>healthy</code>, a reason code is not provided.</p>
+     *        The reason code.</p>
+     *        <p>
+     *        If the target state is <code>healthy</code>, a reason code is not provided.
+     *        </p>
      *        <p>
      *        If the target state is <code>initial</code>, the reason code can be one of the following values:
      *        </p>
@@ -827,6 +974,11 @@ public class TargetHealth implements Serializable, Cloneable {
      *        </li>
      *        <li>
      *        <p>
+     *        <code>Target.IpUnusable</code> - The target IP address is reserved for use by a load balancer.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
      *        <code>Target.InvalidState</code> - The target is in the stopped or terminated state.
      *        </p>
      *        </li>
@@ -839,6 +991,16 @@ public class TargetHealth implements Serializable, Cloneable {
      *        <p>
      *        <code>Target.DeregistrationInProgress</code> - The target is in the process of being deregistered and the
      *        deregistration delay period has not expired.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        If the target state is <code>unavailable</code>, the reason code can be the following value:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>Target.HealthCheckDisabled</code> - Health checks are disabled for the target group.
      *        </p>
      *        </li>
      * @see TargetHealthReasonEnum
@@ -850,7 +1012,10 @@ public class TargetHealth implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The reason code. If the target state is <code>healthy</code>, a reason code is not provided.
+     * The reason code.
+     * </p>
+     * <p>
+     * If the target state is <code>healthy</code>, a reason code is not provided.
      * </p>
      * <p>
      * If the target state is <code>initial</code>, the reason code can be one of the following values:
@@ -912,6 +1077,11 @@ public class TargetHealth implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
+     * <code>Target.IpUnusable</code> - The target IP address is reserved for use by a load balancer.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>Target.InvalidState</code> - The target is in the stopped or terminated state.
      * </p>
      * </li>
@@ -927,9 +1097,22 @@ public class TargetHealth implements Serializable, Cloneable {
      * </p>
      * </li>
      * </ul>
+     * <p>
+     * If the target state is <code>unavailable</code>, the reason code can be the following value:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Target.HealthCheckDisabled</code> - Health checks are disabled for the target group.
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param reason
-     *        The reason code. If the target state is <code>healthy</code>, a reason code is not provided.</p>
+     *        The reason code.</p>
+     *        <p>
+     *        If the target state is <code>healthy</code>, a reason code is not provided.
+     *        </p>
      *        <p>
      *        If the target state is <code>initial</code>, the reason code can be one of the following values:
      *        </p>
@@ -990,6 +1173,11 @@ public class TargetHealth implements Serializable, Cloneable {
      *        </li>
      *        <li>
      *        <p>
+     *        <code>Target.IpUnusable</code> - The target IP address is reserved for use by a load balancer.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
      *        <code>Target.InvalidState</code> - The target is in the stopped or terminated state.
      *        </p>
      *        </li>
@@ -1002,6 +1190,16 @@ public class TargetHealth implements Serializable, Cloneable {
      *        <p>
      *        <code>Target.DeregistrationInProgress</code> - The target is in the process of being deregistered and the
      *        deregistration delay period has not expired.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        If the target state is <code>unavailable</code>, the reason code can be the following value:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>Target.HealthCheckDisabled</code> - Health checks are disabled for the target group.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -1060,7 +1258,8 @@ public class TargetHealth implements Serializable, Cloneable {
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

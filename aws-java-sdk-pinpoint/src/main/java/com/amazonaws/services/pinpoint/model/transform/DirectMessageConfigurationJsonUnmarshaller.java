@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,9 +48,17 @@ public class DirectMessageConfigurationJsonUnmarshaller implements Unmarshaller<
                 break;
 
             if (token == FIELD_NAME || token == START_OBJECT) {
+                if (context.testExpression("ADMMessage", targetDepth)) {
+                    context.nextToken();
+                    directMessageConfiguration.setADMMessage(ADMMessageJsonUnmarshaller.getInstance().unmarshall(context));
+                }
                 if (context.testExpression("APNSMessage", targetDepth)) {
                     context.nextToken();
                     directMessageConfiguration.setAPNSMessage(APNSMessageJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("BaiduMessage", targetDepth)) {
+                    context.nextToken();
+                    directMessageConfiguration.setBaiduMessage(BaiduMessageJsonUnmarshaller.getInstance().unmarshall(context));
                 }
                 if (context.testExpression("DefaultMessage", targetDepth)) {
                     context.nextToken();
@@ -61,6 +69,10 @@ public class DirectMessageConfigurationJsonUnmarshaller implements Unmarshaller<
                     directMessageConfiguration.setDefaultPushNotificationMessage(DefaultPushNotificationMessageJsonUnmarshaller.getInstance().unmarshall(
                             context));
                 }
+                if (context.testExpression("EmailMessage", targetDepth)) {
+                    context.nextToken();
+                    directMessageConfiguration.setEmailMessage(EmailMessageJsonUnmarshaller.getInstance().unmarshall(context));
+                }
                 if (context.testExpression("GCMMessage", targetDepth)) {
                     context.nextToken();
                     directMessageConfiguration.setGCMMessage(GCMMessageJsonUnmarshaller.getInstance().unmarshall(context));
@@ -68,6 +80,10 @@ public class DirectMessageConfigurationJsonUnmarshaller implements Unmarshaller<
                 if (context.testExpression("SMSMessage", targetDepth)) {
                     context.nextToken();
                     directMessageConfiguration.setSMSMessage(SMSMessageJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("VoiceMessage", targetDepth)) {
+                    context.nextToken();
+                    directMessageConfiguration.setVoiceMessage(VoiceMessageJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

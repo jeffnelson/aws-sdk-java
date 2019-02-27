@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,8 +19,8 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * The <i>DirectoryName</i> and <i>OrganizationalUnitDistinguishedName</i> values, which are used to join domains for
- * the AppStream 2.0 streaming instances.
+ * Describes the configuration information required to join fleets and image builders to Microsoft Active Directory
+ * domains.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DomainJoinInfo" target="_top">AWS API
@@ -31,24 +31,24 @@ public class DomainJoinInfo implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The fully qualified name of the directory, such as corp.example.com
+     * The fully qualified name of the directory (for example, corp.example.com).
      * </p>
      */
     private String directoryName;
     /**
      * <p>
-     * The distinguished name of the organizational unit to place the computer account in.
+     * The distinguished name of the organizational unit for computer accounts.
      * </p>
      */
     private String organizationalUnitDistinguishedName;
 
     /**
      * <p>
-     * The fully qualified name of the directory, such as corp.example.com
+     * The fully qualified name of the directory (for example, corp.example.com).
      * </p>
      * 
      * @param directoryName
-     *        The fully qualified name of the directory, such as corp.example.com
+     *        The fully qualified name of the directory (for example, corp.example.com).
      */
 
     public void setDirectoryName(String directoryName) {
@@ -57,10 +57,10 @@ public class DomainJoinInfo implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The fully qualified name of the directory, such as corp.example.com
+     * The fully qualified name of the directory (for example, corp.example.com).
      * </p>
      * 
-     * @return The fully qualified name of the directory, such as corp.example.com
+     * @return The fully qualified name of the directory (for example, corp.example.com).
      */
 
     public String getDirectoryName() {
@@ -69,11 +69,11 @@ public class DomainJoinInfo implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The fully qualified name of the directory, such as corp.example.com
+     * The fully qualified name of the directory (for example, corp.example.com).
      * </p>
      * 
      * @param directoryName
-     *        The fully qualified name of the directory, such as corp.example.com
+     *        The fully qualified name of the directory (for example, corp.example.com).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -84,11 +84,11 @@ public class DomainJoinInfo implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The distinguished name of the organizational unit to place the computer account in.
+     * The distinguished name of the organizational unit for computer accounts.
      * </p>
      * 
      * @param organizationalUnitDistinguishedName
-     *        The distinguished name of the organizational unit to place the computer account in.
+     *        The distinguished name of the organizational unit for computer accounts.
      */
 
     public void setOrganizationalUnitDistinguishedName(String organizationalUnitDistinguishedName) {
@@ -97,10 +97,10 @@ public class DomainJoinInfo implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The distinguished name of the organizational unit to place the computer account in.
+     * The distinguished name of the organizational unit for computer accounts.
      * </p>
      * 
-     * @return The distinguished name of the organizational unit to place the computer account in.
+     * @return The distinguished name of the organizational unit for computer accounts.
      */
 
     public String getOrganizationalUnitDistinguishedName() {
@@ -109,11 +109,11 @@ public class DomainJoinInfo implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The distinguished name of the organizational unit to place the computer account in.
+     * The distinguished name of the organizational unit for computer accounts.
      * </p>
      * 
      * @param organizationalUnitDistinguishedName
-     *        The distinguished name of the organizational unit to place the computer account in.
+     *        The distinguished name of the organizational unit for computer accounts.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -123,7 +123,8 @@ public class DomainJoinInfo implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

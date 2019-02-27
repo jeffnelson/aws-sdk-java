@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -76,6 +76,38 @@ public class BatchWriteOperationResponseJsonUnmarshaller implements Unmarshaller
                 if (context.testExpression("RemoveFacetFromObject", targetDepth)) {
                     context.nextToken();
                     batchWriteOperationResponse.setRemoveFacetFromObject(BatchRemoveFacetFromObjectResponseJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("AttachPolicy", targetDepth)) {
+                    context.nextToken();
+                    batchWriteOperationResponse.setAttachPolicy(BatchAttachPolicyResponseJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("DetachPolicy", targetDepth)) {
+                    context.nextToken();
+                    batchWriteOperationResponse.setDetachPolicy(BatchDetachPolicyResponseJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("CreateIndex", targetDepth)) {
+                    context.nextToken();
+                    batchWriteOperationResponse.setCreateIndex(BatchCreateIndexResponseJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("AttachToIndex", targetDepth)) {
+                    context.nextToken();
+                    batchWriteOperationResponse.setAttachToIndex(BatchAttachToIndexResponseJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("DetachFromIndex", targetDepth)) {
+                    context.nextToken();
+                    batchWriteOperationResponse.setDetachFromIndex(BatchDetachFromIndexResponseJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("AttachTypedLink", targetDepth)) {
+                    context.nextToken();
+                    batchWriteOperationResponse.setAttachTypedLink(BatchAttachTypedLinkResponseJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("DetachTypedLink", targetDepth)) {
+                    context.nextToken();
+                    batchWriteOperationResponse.setDetachTypedLink(BatchDetachTypedLinkResponseJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("UpdateLinkAttributes", targetDepth)) {
+                    context.nextToken();
+                    batchWriteOperationResponse.setUpdateLinkAttributes(BatchUpdateLinkAttributesResponseJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

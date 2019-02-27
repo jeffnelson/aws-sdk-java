@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,11 +28,14 @@ public enum CloudWatchRegion {
     EuCentral1("eu-central-1"),
     EuWest1("eu-west-1"),
     EuWest2("eu-west-2"),
+    EuWest3("eu-west-3"),
     ApSouth1("ap-south-1"),
     ApSoutheast1("ap-southeast-1"),
     ApSoutheast2("ap-southeast-2"),
     ApNortheast1("ap-northeast-1"),
     ApNortheast2("ap-northeast-2"),
+    ApNortheast3("ap-northeast-3"),
+    EuNorth1("eu-north-1"),
     SaEast1("sa-east-1");
 
     private String value;
@@ -52,6 +55,9 @@ public enum CloudWatchRegion {
      * @param value
      *        real value
      * @return CloudWatchRegion corresponding to the value
+     *
+     * @throws IllegalArgumentException
+     *         If the specified value does not map to one of the known values in this enum.
      */
     public static CloudWatchRegion fromValue(String value) {
         if (value == null || "".equals(value)) {

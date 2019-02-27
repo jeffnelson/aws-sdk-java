@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -59,8 +59,6 @@ public class EndpointResponseMarshaller {
             .marshallLocationName("RequestId").build();
     private static final MarshallingInfo<StructuredPojo> USER_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("User").build();
-    private static final MarshallingInfo<String> SHARDID_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
-            .marshallLocationName("ShardId").build();
 
     private static final EndpointResponseMarshaller instance = new EndpointResponseMarshaller();
 
@@ -93,7 +91,6 @@ public class EndpointResponseMarshaller {
             protocolMarshaller.marshall(endpointResponse.getOptOut(), OPTOUT_BINDING);
             protocolMarshaller.marshall(endpointResponse.getRequestId(), REQUESTID_BINDING);
             protocolMarshaller.marshall(endpointResponse.getUser(), USER_BINDING);
-            protocolMarshaller.marshall(endpointResponse.getShardId(), SHARDID_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -46,6 +46,10 @@ public class CreateVpnGatewayRequestMarshaller implements Marshaller<Request<Cre
 
         if (createVpnGatewayRequest.getType() != null) {
             request.addParameter("Type", StringUtils.fromString(createVpnGatewayRequest.getType()));
+        }
+
+        if (createVpnGatewayRequest.getAmazonSideAsn() != null) {
+            request.addParameter("AmazonSideAsn", StringUtils.fromLong(createVpnGatewayRequest.getAmazonSideAsn()));
         }
 
         return request;

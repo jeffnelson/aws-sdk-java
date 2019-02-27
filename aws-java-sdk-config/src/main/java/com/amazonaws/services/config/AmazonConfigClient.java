@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -37,6 +37,8 @@ import com.amazonaws.protocol.json.*;
 import com.amazonaws.util.AWSRequestMetrics.Field;
 import com.amazonaws.annotation.ThreadSafe;
 import com.amazonaws.client.AwsSyncClientParams;
+import com.amazonaws.client.builder.AdvancedConfig;
+
 import com.amazonaws.services.config.AmazonConfigClientBuilder;
 
 import com.amazonaws.AmazonServiceException;
@@ -53,34 +55,27 @@ import com.amazonaws.services.config.model.transform.*;
  * AWS Config provides a way to keep track of the configurations of all the AWS resources associated with your AWS
  * account. You can use AWS Config to get the current and historical configurations of each AWS resource and also to get
  * information about the relationship between the resources. An AWS resource can be an Amazon Compute Cloud (Amazon EC2)
- * instance, an Elastic Block Store (EBS) volume, an Elastic network Interface (ENI), or a security group. For a
+ * instance, an Elastic Block Store (EBS) volume, an elastic network Interface (ENI), or a security group. For a
  * complete list of resources currently supported by AWS Config, see <a
  * href="http://docs.aws.amazon.com/config/latest/developerguide/resource-config-reference.html#supported-resources"
  * >Supported AWS Resources</a>.
  * </p>
  * <p>
  * You can access and manage AWS Config through the AWS Management Console, the AWS Command Line Interface (AWS CLI),
- * the AWS Config API, or the AWS SDKs for AWS Config
- * </p>
- * <p>
- * This reference guide contains documentation for the AWS Config API and the AWS CLI commands that you can use to
- * manage AWS Config.
- * </p>
- * <p>
- * The AWS Config API uses the Signature Version 4 protocol for signing requests. For more information about how to sign
- * a request with this protocol, see <a
+ * the AWS Config API, or the AWS SDKs for AWS Config. This reference guide contains documentation for the AWS Config
+ * API and the AWS CLI commands that you can use to manage AWS Config. The AWS Config API uses the Signature Version 4
+ * protocol for signing requests. For more information about how to sign a request with this protocol, see <a
  * href="http://docs.aws.amazon.com/general/latest/gr/signature-version-4.html">Signature Version 4 Signing Process</a>.
- * </p>
- * <p>
  * For detailed information about AWS Config features and their associated actions or commands, as well as how to work
  * with AWS Management Console, see <a
- * href="http://docs.aws.amazon.com/config/latest/developerguide/WhatIsConfig.html">What Is AWS Config?</a> in the
- * <i>AWS Config Developer Guide</i>.
+ * href="http://docs.aws.amazon.com/config/latest/developerguide/WhatIsConfig.html">What Is AWS Config</a> in the <i>AWS
+ * Config Developer Guide</i>.
  * </p>
  */
 @ThreadSafe
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class AmazonConfigClient extends AmazonWebServiceClient implements AmazonConfig {
+
     /** Provider for AWS credentials. */
     private final AWSCredentialsProvider awsCredentialsProvider;
 
@@ -92,7 +87,9 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
     /** Client configuration factory providing ClientConfigurations tailored to this client */
     protected static final ClientConfigurationFactory configFactory = new ClientConfigurationFactory();
 
-    private final com.amazonaws.protocol.json.SdkJsonProtocolFactory protocolFactory = new com.amazonaws.protocol.json.SdkJsonProtocolFactory(
+    private final AdvancedConfig advancedConfig;
+
+    private static final com.amazonaws.protocol.json.SdkJsonProtocolFactory protocolFactory = new com.amazonaws.protocol.json.SdkJsonProtocolFactory(
             new JsonClientMetadata()
                     .withProtocolVersion("1.1")
                     .withSupportsCbor(false)
@@ -113,8 +110,14 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
                             new JsonErrorShapeMetadata().withErrorCode("NoAvailableDeliveryChannelException").withModeledClass(
                                     com.amazonaws.services.config.model.NoAvailableDeliveryChannelException.class))
                     .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("NoSuchRetentionConfigurationException").withModeledClass(
+                                    com.amazonaws.services.config.model.NoSuchRetentionConfigurationException.class))
+                    .addErrorMetadata(
                             new JsonErrorShapeMetadata().withErrorCode("InvalidResultTokenException").withModeledClass(
                                     com.amazonaws.services.config.model.InvalidResultTokenException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("OversizedConfigurationItemException").withModeledClass(
+                                    com.amazonaws.services.config.model.OversizedConfigurationItemException.class))
                     .addErrorMetadata(
                             new JsonErrorShapeMetadata().withErrorCode("MaxNumberOfConfigurationRecordersExceededException").withModeledClass(
                                     com.amazonaws.services.config.model.MaxNumberOfConfigurationRecordersExceededException.class))
@@ -122,11 +125,20 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
                             new JsonErrorShapeMetadata().withErrorCode("InsufficientDeliveryPolicyException").withModeledClass(
                                     com.amazonaws.services.config.model.InsufficientDeliveryPolicyException.class))
                     .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("NoSuchConfigurationAggregatorException").withModeledClass(
+                                    com.amazonaws.services.config.model.NoSuchConfigurationAggregatorException.class))
+                    .addErrorMetadata(
                             new JsonErrorShapeMetadata().withErrorCode("NoSuchBucketException").withModeledClass(
                                     com.amazonaws.services.config.model.NoSuchBucketException.class))
                     .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("OrganizationAccessDeniedException").withModeledClass(
+                                    com.amazonaws.services.config.model.OrganizationAccessDeniedException.class))
+                    .addErrorMetadata(
                             new JsonErrorShapeMetadata().withErrorCode("NoAvailableConfigurationRecorderException").withModeledClass(
                                     com.amazonaws.services.config.model.NoAvailableConfigurationRecorderException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("NoAvailableOrganizationException").withModeledClass(
+                                    com.amazonaws.services.config.model.NoAvailableOrganizationException.class))
                     .addErrorMetadata(
                             new JsonErrorShapeMetadata().withErrorCode("NoSuchDeliveryChannelException").withModeledClass(
                                     com.amazonaws.services.config.model.NoSuchDeliveryChannelException.class))
@@ -137,17 +149,23 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
                             new JsonErrorShapeMetadata().withErrorCode("InvalidRecordingGroupException").withModeledClass(
                                     com.amazonaws.services.config.model.InvalidRecordingGroupException.class))
                     .addErrorMetadata(
-                            new JsonErrorShapeMetadata().withErrorCode("InvalidConfigurationRecorderNameException").withModeledClass(
-                                    com.amazonaws.services.config.model.InvalidConfigurationRecorderNameException.class))
-                    .addErrorMetadata(
                             new JsonErrorShapeMetadata().withErrorCode("LimitExceededException").withModeledClass(
                                     com.amazonaws.services.config.model.LimitExceededException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidConfigurationRecorderNameException").withModeledClass(
+                                    com.amazonaws.services.config.model.InvalidConfigurationRecorderNameException.class))
                     .addErrorMetadata(
                             new JsonErrorShapeMetadata().withErrorCode("LastDeliveryChannelDeleteFailedException").withModeledClass(
                                     com.amazonaws.services.config.model.LastDeliveryChannelDeleteFailedException.class))
                     .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("OrganizationAllFeaturesNotEnabledException").withModeledClass(
+                                    com.amazonaws.services.config.model.OrganizationAllFeaturesNotEnabledException.class))
+                    .addErrorMetadata(
                             new JsonErrorShapeMetadata().withErrorCode("InvalidSNSTopicARNException").withModeledClass(
                                     com.amazonaws.services.config.model.InvalidSNSTopicARNException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("MaxNumberOfRetentionConfigurationsExceededException").withModeledClass(
+                                    com.amazonaws.services.config.model.MaxNumberOfRetentionConfigurationsExceededException.class))
                     .addErrorMetadata(
                             new JsonErrorShapeMetadata().withErrorCode("InvalidTimeRangeException").withModeledClass(
                                     com.amazonaws.services.config.model.InvalidTimeRangeException.class))
@@ -266,6 +284,7 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
     public AmazonConfigClient(AWSCredentials awsCredentials, ClientConfiguration clientConfiguration) {
         super(clientConfiguration);
         this.awsCredentialsProvider = new StaticCredentialsProvider(awsCredentials);
+        this.advancedConfig = AdvancedConfig.EMPTY;
         init();
     }
 
@@ -331,6 +350,7 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
             RequestMetricCollector requestMetricCollector) {
         super(clientConfiguration, requestMetricCollector);
         this.awsCredentialsProvider = awsCredentialsProvider;
+        this.advancedConfig = AdvancedConfig.EMPTY;
         init();
     }
 
@@ -349,8 +369,23 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
      *        Object providing client parameters.
      */
     AmazonConfigClient(AwsSyncClientParams clientParams) {
+        this(clientParams, false);
+    }
+
+    /**
+     * Constructs a new client to invoke service methods on Config Service using the specified parameters.
+     *
+     * <p>
+     * All service calls made using this new client object are blocking, and will not return until the service call
+     * completes.
+     *
+     * @param clientParams
+     *        Object providing client parameters.
+     */
+    AmazonConfigClient(AwsSyncClientParams clientParams, boolean endpointDiscoveryEnabled) {
         super(clientParams);
         this.awsCredentialsProvider = clientParams.getCredentialsProvider();
+        this.advancedConfig = clientParams.getAdvancedConfig();
         init();
     }
 
@@ -363,6 +398,212 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
         requestHandler2s.addAll(chainFactory.newRequestHandlerChain("/com/amazonaws/services/config/request.handlers"));
         requestHandler2s.addAll(chainFactory.newRequestHandler2Chain("/com/amazonaws/services/config/request.handler2s"));
         requestHandler2s.addAll(chainFactory.getGlobalHandlers());
+    }
+
+    /**
+     * <p>
+     * Returns the current configuration items for resources that are present in your AWS Config aggregator. The
+     * operation also returns a list of resources that are not processed in the current request. If there are no
+     * unprocessed resources, the operation returns an empty <code>unprocessedResourceIdentifiers</code> list.
+     * </p>
+     * <note>
+     * <ul>
+     * <li>
+     * <p>
+     * The API does not return results for deleted resources.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The API does not return tags and relationships.
+     * </p>
+     * </li>
+     * </ul>
+     * </note>
+     * 
+     * @param batchGetAggregateResourceConfigRequest
+     * @return Result of the BatchGetAggregateResourceConfig operation returned by the service.
+     * @throws ValidationException
+     *         The requested action is not valid.
+     * @throws NoSuchConfigurationAggregatorException
+     *         You have specified a configuration aggregator that does not exist.
+     * @sample AmazonConfig.BatchGetAggregateResourceConfig
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/config-2014-11-12/BatchGetAggregateResourceConfig"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public BatchGetAggregateResourceConfigResult batchGetAggregateResourceConfig(BatchGetAggregateResourceConfigRequest request) {
+        request = beforeClientExecution(request);
+        return executeBatchGetAggregateResourceConfig(request);
+    }
+
+    @SdkInternalApi
+    final BatchGetAggregateResourceConfigResult executeBatchGetAggregateResourceConfig(
+            BatchGetAggregateResourceConfigRequest batchGetAggregateResourceConfigRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(batchGetAggregateResourceConfigRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<BatchGetAggregateResourceConfigRequest> request = null;
+        Response<BatchGetAggregateResourceConfigResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new BatchGetAggregateResourceConfigRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(batchGetAggregateResourceConfigRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Config Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "BatchGetAggregateResourceConfig");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<BatchGetAggregateResourceConfigResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new BatchGetAggregateResourceConfigResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns the current configuration for one or more requested resources. The operation also returns a list of
+     * resources that are not processed in the current request. If there are no unprocessed resources, the operation
+     * returns an empty unprocessedResourceKeys list.
+     * </p>
+     * <note>
+     * <ul>
+     * <li>
+     * <p>
+     * The API does not return results for deleted resources.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The API does not return any tags for the requested resources. This information is filtered out of the
+     * supplementaryConfiguration section of the API response.
+     * </p>
+     * </li>
+     * </ul>
+     * </note>
+     * 
+     * @param batchGetResourceConfigRequest
+     * @return Result of the BatchGetResourceConfig operation returned by the service.
+     * @throws ValidationException
+     *         The requested action is not valid.
+     * @throws NoAvailableConfigurationRecorderException
+     *         There are no configuration recorders available to provide the role needed to describe your resources.
+     *         Create a configuration recorder.
+     * @sample AmazonConfig.BatchGetResourceConfig
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/config-2014-11-12/BatchGetResourceConfig" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public BatchGetResourceConfigResult batchGetResourceConfig(BatchGetResourceConfigRequest request) {
+        request = beforeClientExecution(request);
+        return executeBatchGetResourceConfig(request);
+    }
+
+    @SdkInternalApi
+    final BatchGetResourceConfigResult executeBatchGetResourceConfig(BatchGetResourceConfigRequest batchGetResourceConfigRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(batchGetResourceConfigRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<BatchGetResourceConfigRequest> request = null;
+        Response<BatchGetResourceConfigResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new BatchGetResourceConfigRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(batchGetResourceConfigRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Config Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "BatchGetResourceConfig");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<BatchGetResourceConfigResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new BatchGetResourceConfigResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes the authorization granted to the specified configuration aggregator account in a specified region.
+     * </p>
+     * 
+     * @param deleteAggregationAuthorizationRequest
+     * @return Result of the DeleteAggregationAuthorization operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         One or more of the specified parameters are invalid. Verify that your parameters are valid and try again.
+     * @sample AmazonConfig.DeleteAggregationAuthorization
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/config-2014-11-12/DeleteAggregationAuthorization"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeleteAggregationAuthorizationResult deleteAggregationAuthorization(DeleteAggregationAuthorizationRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteAggregationAuthorization(request);
+    }
+
+    @SdkInternalApi
+    final DeleteAggregationAuthorizationResult executeDeleteAggregationAuthorization(DeleteAggregationAuthorizationRequest deleteAggregationAuthorizationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteAggregationAuthorizationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteAggregationAuthorizationRequest> request = null;
+        Response<DeleteAggregationAuthorizationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteAggregationAuthorizationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(deleteAggregationAuthorizationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Config Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteAggregationAuthorization");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteAggregationAuthorizationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DeleteAggregationAuthorizationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
     }
 
     /**
@@ -411,12 +652,72 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
                 request = new DeleteConfigRuleRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteConfigRuleRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Config Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteConfigRule");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
             HttpResponseHandler<AmazonWebServiceResponse<DeleteConfigRuleResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteConfigRuleResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes the specified configuration aggregator and the aggregated data associated with the aggregator.
+     * </p>
+     * 
+     * @param deleteConfigurationAggregatorRequest
+     * @return Result of the DeleteConfigurationAggregator operation returned by the service.
+     * @throws NoSuchConfigurationAggregatorException
+     *         You have specified a configuration aggregator that does not exist.
+     * @sample AmazonConfig.DeleteConfigurationAggregator
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/config-2014-11-12/DeleteConfigurationAggregator"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeleteConfigurationAggregatorResult deleteConfigurationAggregator(DeleteConfigurationAggregatorRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteConfigurationAggregator(request);
+    }
+
+    @SdkInternalApi
+    final DeleteConfigurationAggregatorResult executeDeleteConfigurationAggregator(DeleteConfigurationAggregatorRequest deleteConfigurationAggregatorRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteConfigurationAggregatorRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteConfigurationAggregatorRequest> request = null;
+        Response<DeleteConfigurationAggregatorResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteConfigurationAggregatorRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(deleteConfigurationAggregatorRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Config Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteConfigurationAggregator");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteConfigurationAggregatorResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DeleteConfigurationAggregatorResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -473,6 +774,10 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
                         .beforeMarshalling(deleteConfigurationRecorderRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Config Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteConfigurationRecorder");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -500,7 +805,7 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
      * </p>
      * 
      * @param deleteDeliveryChannelRequest
-     *        The input for the <a>DeleteDeliveryChannel</a> action. The action accepts the following data in JSON
+     *        The input for the <a>DeleteDeliveryChannel</a> action. The action accepts the following data, in JSON
      *        format.
      * @return Result of the DeleteDeliveryChannel operation returned by the service.
      * @throws NoSuchDeliveryChannelException
@@ -532,6 +837,10 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
                 request = new DeleteDeliveryChannelRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteDeliveryChannelRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Config Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteDeliveryChannel");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -551,9 +860,9 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
 
     /**
      * <p>
-     * Deletes the evaluation results for the specified Config rule. You can specify one Config rule per request. After
-     * you delete the evaluation results, you can call the <a>StartConfigRulesEvaluation</a> API to start evaluating
-     * your AWS resources against the rule.
+     * Deletes the evaluation results for the specified AWS Config rule. You can specify one AWS Config rule per
+     * request. After you delete the evaluation results, you can call the <a>StartConfigRulesEvaluation</a> API to start
+     * evaluating your AWS resources against the rule.
      * </p>
      * 
      * @param deleteEvaluationResultsRequest
@@ -590,6 +899,10 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
                         .beforeMarshalling(deleteEvaluationResultsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Config Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteEvaluationResults");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -609,24 +922,139 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
 
     /**
      * <p>
+     * Deletes pending authorization requests for a specified aggregator account in a specified region.
+     * </p>
+     * 
+     * @param deletePendingAggregationRequestRequest
+     * @return Result of the DeletePendingAggregationRequest operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         One or more of the specified parameters are invalid. Verify that your parameters are valid and try again.
+     * @sample AmazonConfig.DeletePendingAggregationRequest
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/config-2014-11-12/DeletePendingAggregationRequest"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeletePendingAggregationRequestResult deletePendingAggregationRequest(DeletePendingAggregationRequestRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeletePendingAggregationRequest(request);
+    }
+
+    @SdkInternalApi
+    final DeletePendingAggregationRequestResult executeDeletePendingAggregationRequest(
+            DeletePendingAggregationRequestRequest deletePendingAggregationRequestRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deletePendingAggregationRequestRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeletePendingAggregationRequestRequest> request = null;
+        Response<DeletePendingAggregationRequestResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeletePendingAggregationRequestRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(deletePendingAggregationRequestRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Config Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeletePendingAggregationRequest");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeletePendingAggregationRequestResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DeletePendingAggregationRequestResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes the retention configuration.
+     * </p>
+     * 
+     * @param deleteRetentionConfigurationRequest
+     * @return Result of the DeleteRetentionConfiguration operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         One or more of the specified parameters are invalid. Verify that your parameters are valid and try again.
+     * @throws NoSuchRetentionConfigurationException
+     *         You have specified a retention configuration that does not exist.
+     * @sample AmazonConfig.DeleteRetentionConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/config-2014-11-12/DeleteRetentionConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeleteRetentionConfigurationResult deleteRetentionConfiguration(DeleteRetentionConfigurationRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteRetentionConfiguration(request);
+    }
+
+    @SdkInternalApi
+    final DeleteRetentionConfigurationResult executeDeleteRetentionConfiguration(DeleteRetentionConfigurationRequest deleteRetentionConfigurationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteRetentionConfigurationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteRetentionConfigurationRequest> request = null;
+        Response<DeleteRetentionConfigurationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteRetentionConfigurationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(deleteRetentionConfigurationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Config Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteRetentionConfiguration");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteRetentionConfigurationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DeleteRetentionConfigurationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Schedules delivery of a configuration snapshot to the Amazon S3 bucket in the specified delivery channel. After
-     * the delivery has started, AWS Config sends following notifications using an Amazon SNS topic that you have
+     * the delivery has started, AWS Config sends the following notifications using an Amazon SNS topic that you have
      * specified.
      * </p>
      * <ul>
      * <li>
      * <p>
-     * Notification of starting the delivery.
+     * Notification of the start of the delivery.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Notification of delivery completed, if the delivery was successfully completed.
+     * Notification of the completion of the delivery, if the delivery was successfully completed.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Notification of delivery failure, if the delivery failed to complete.
+     * Notification of delivery failure, if the delivery failed.
      * </p>
      * </li>
      * </ul>
@@ -666,6 +1094,10 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
                 request = new DeliverConfigSnapshotRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deliverConfigSnapshotRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Config Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeliverConfigSnapshot");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -685,11 +1117,144 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
 
     /**
      * <p>
+     * Returns a list of compliant and noncompliant rules with the number of resources for compliant and noncompliant
+     * rules.
+     * </p>
+     * <note>
+     * <p>
+     * The results can return an empty result page, but if you have a nextToken, the results are displayed on the next
+     * page.
+     * </p>
+     * </note>
+     * 
+     * @param describeAggregateComplianceByConfigRulesRequest
+     * @return Result of the DescribeAggregateComplianceByConfigRules operation returned by the service.
+     * @throws ValidationException
+     *         The requested action is not valid.
+     * @throws InvalidLimitException
+     *         The specified limit is outside the allowable range.
+     * @throws InvalidNextTokenException
+     *         The specified next token is invalid. Specify the <code>nextToken</code> string that was returned in the
+     *         previous response to get the next page of results.
+     * @throws NoSuchConfigurationAggregatorException
+     *         You have specified a configuration aggregator that does not exist.
+     * @sample AmazonConfig.DescribeAggregateComplianceByConfigRules
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/config-2014-11-12/DescribeAggregateComplianceByConfigRules"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeAggregateComplianceByConfigRulesResult describeAggregateComplianceByConfigRules(DescribeAggregateComplianceByConfigRulesRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeAggregateComplianceByConfigRules(request);
+    }
+
+    @SdkInternalApi
+    final DescribeAggregateComplianceByConfigRulesResult executeDescribeAggregateComplianceByConfigRules(
+            DescribeAggregateComplianceByConfigRulesRequest describeAggregateComplianceByConfigRulesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeAggregateComplianceByConfigRulesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeAggregateComplianceByConfigRulesRequest> request = null;
+        Response<DescribeAggregateComplianceByConfigRulesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeAggregateComplianceByConfigRulesRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeAggregateComplianceByConfigRulesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Config Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeAggregateComplianceByConfigRules");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeAggregateComplianceByConfigRulesResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new DescribeAggregateComplianceByConfigRulesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a list of authorizations granted to various aggregator accounts and regions.
+     * </p>
+     * 
+     * @param describeAggregationAuthorizationsRequest
+     * @return Result of the DescribeAggregationAuthorizations operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         One or more of the specified parameters are invalid. Verify that your parameters are valid and try again.
+     * @throws InvalidNextTokenException
+     *         The specified next token is invalid. Specify the <code>nextToken</code> string that was returned in the
+     *         previous response to get the next page of results.
+     * @throws InvalidLimitException
+     *         The specified limit is outside the allowable range.
+     * @sample AmazonConfig.DescribeAggregationAuthorizations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/config-2014-11-12/DescribeAggregationAuthorizations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeAggregationAuthorizationsResult describeAggregationAuthorizations(DescribeAggregationAuthorizationsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeAggregationAuthorizations(request);
+    }
+
+    @SdkInternalApi
+    final DescribeAggregationAuthorizationsResult executeDescribeAggregationAuthorizations(
+            DescribeAggregationAuthorizationsRequest describeAggregationAuthorizationsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeAggregationAuthorizationsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeAggregationAuthorizationsRequest> request = null;
+        Response<DescribeAggregationAuthorizationsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeAggregationAuthorizationsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeAggregationAuthorizationsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Config Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeAggregationAuthorizations");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeAggregationAuthorizationsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeAggregationAuthorizationsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Indicates whether the specified AWS Config rules are compliant. If a rule is noncompliant, this action returns
      * the number of AWS resources that do not comply with the rule.
      * </p>
      * <p>
-     * A rule is compliant if all of the evaluated resources comply with it, and it is noncompliant if any of these
+     * A rule is compliant if all of the evaluated resources comply with it. It is noncompliant if any of these
      * resources do not comply.
      * </p>
      * <p>
@@ -706,7 +1271,7 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
      * </li>
      * <li>
      * <p>
-     * The rule's AWS Lambda function is failing to send evaluation results to AWS Config. Verify that the role that you
+     * The rule's AWS Lambda function is failing to send evaluation results to AWS Config. Verify that the role you
      * assigned to your configuration recorder includes the <code>config:PutEvaluations</code> permission. If the rule
      * is a custom rule, verify that the AWS Lambda execution role includes the <code>config:PutEvaluations</code>
      * permission.
@@ -728,7 +1293,7 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
      *         One or more AWS Config rules in the request are invalid. Verify that the rule names are correct and try
      *         again.
      * @throws InvalidNextTokenException
-     *         The specified next token is invalid. Specify the <code>NextToken</code> string that was returned in the
+     *         The specified next token is invalid. Specify the <code>nextToken</code> string that was returned in the
      *         previous response to get the next page of results.
      * @sample AmazonConfig.DescribeComplianceByConfigRule
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/config-2014-11-12/DescribeComplianceByConfigRule"
@@ -756,6 +1321,10 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
                         .beforeMarshalling(describeComplianceByConfigRuleRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Config Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeComplianceByConfigRule");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -820,7 +1389,7 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
      * @throws InvalidParameterValueException
      *         One or more of the specified parameters are invalid. Verify that your parameters are valid and try again.
      * @throws InvalidNextTokenException
-     *         The specified next token is invalid. Specify the <code>NextToken</code> string that was returned in the
+     *         The specified next token is invalid. Specify the <code>nextToken</code> string that was returned in the
      *         previous response to get the next page of results.
      * @sample AmazonConfig.DescribeComplianceByResource
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/config-2014-11-12/DescribeComplianceByResource"
@@ -848,6 +1417,10 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
                         .beforeMarshalling(describeComplianceByResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Config Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeComplianceByResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -885,7 +1458,7 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
      * @throws InvalidParameterValueException
      *         One or more of the specified parameters are invalid. Verify that your parameters are valid and try again.
      * @throws InvalidNextTokenException
-     *         The specified next token is invalid. Specify the <code>NextToken</code> string that was returned in the
+     *         The specified next token is invalid. Specify the <code>nextToken</code> string that was returned in the
      *         previous response to get the next page of results.
      * @sample AmazonConfig.DescribeConfigRuleEvaluationStatus
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/config-2014-11-12/DescribeConfigRuleEvaluationStatus"
@@ -914,6 +1487,10 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
                         .beforeMarshalling(describeConfigRuleEvaluationStatusRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Config Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeConfigRuleEvaluationStatus");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -947,7 +1524,7 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
      *         One or more AWS Config rules in the request are invalid. Verify that the rule names are correct and try
      *         again.
      * @throws InvalidNextTokenException
-     *         The specified next token is invalid. Specify the <code>NextToken</code> string that was returned in the
+     *         The specified next token is invalid. Specify the <code>nextToken</code> string that was returned in the
      *         previous response to get the next page of results.
      * @sample AmazonConfig.DescribeConfigRules
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/config-2014-11-12/DescribeConfigRules" target="_top">AWS API
@@ -974,6 +1551,10 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
                 request = new DescribeConfigRulesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeConfigRulesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Config Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeConfigRules");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -997,8 +1578,141 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
 
     /**
      * <p>
+     * Returns status information for sources within an aggregator. The status includes information about the last time
+     * AWS Config aggregated data from source accounts or AWS Config failed to aggregate data from source accounts with
+     * the related error code or message.
+     * </p>
+     * 
+     * @param describeConfigurationAggregatorSourcesStatusRequest
+     * @return Result of the DescribeConfigurationAggregatorSourcesStatus operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         One or more of the specified parameters are invalid. Verify that your parameters are valid and try again.
+     * @throws NoSuchConfigurationAggregatorException
+     *         You have specified a configuration aggregator that does not exist.
+     * @throws InvalidNextTokenException
+     *         The specified next token is invalid. Specify the <code>nextToken</code> string that was returned in the
+     *         previous response to get the next page of results.
+     * @throws InvalidLimitException
+     *         The specified limit is outside the allowable range.
+     * @sample AmazonConfig.DescribeConfigurationAggregatorSourcesStatus
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/config-2014-11-12/DescribeConfigurationAggregatorSourcesStatus"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeConfigurationAggregatorSourcesStatusResult describeConfigurationAggregatorSourcesStatus(
+            DescribeConfigurationAggregatorSourcesStatusRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeConfigurationAggregatorSourcesStatus(request);
+    }
+
+    @SdkInternalApi
+    final DescribeConfigurationAggregatorSourcesStatusResult executeDescribeConfigurationAggregatorSourcesStatus(
+            DescribeConfigurationAggregatorSourcesStatusRequest describeConfigurationAggregatorSourcesStatusRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeConfigurationAggregatorSourcesStatusRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeConfigurationAggregatorSourcesStatusRequest> request = null;
+        Response<DescribeConfigurationAggregatorSourcesStatusResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeConfigurationAggregatorSourcesStatusRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeConfigurationAggregatorSourcesStatusRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Config Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeConfigurationAggregatorSourcesStatus");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeConfigurationAggregatorSourcesStatusResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new DescribeConfigurationAggregatorSourcesStatusResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns the details of one or more configuration aggregators. If the configuration aggregator is not specified,
+     * this action returns the details for all the configuration aggregators associated with the account.
+     * </p>
+     * 
+     * @param describeConfigurationAggregatorsRequest
+     * @return Result of the DescribeConfigurationAggregators operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         One or more of the specified parameters are invalid. Verify that your parameters are valid and try again.
+     * @throws NoSuchConfigurationAggregatorException
+     *         You have specified a configuration aggregator that does not exist.
+     * @throws InvalidNextTokenException
+     *         The specified next token is invalid. Specify the <code>nextToken</code> string that was returned in the
+     *         previous response to get the next page of results.
+     * @throws InvalidLimitException
+     *         The specified limit is outside the allowable range.
+     * @sample AmazonConfig.DescribeConfigurationAggregators
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/config-2014-11-12/DescribeConfigurationAggregators"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeConfigurationAggregatorsResult describeConfigurationAggregators(DescribeConfigurationAggregatorsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeConfigurationAggregators(request);
+    }
+
+    @SdkInternalApi
+    final DescribeConfigurationAggregatorsResult executeDescribeConfigurationAggregators(
+            DescribeConfigurationAggregatorsRequest describeConfigurationAggregatorsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeConfigurationAggregatorsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeConfigurationAggregatorsRequest> request = null;
+        Response<DescribeConfigurationAggregatorsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeConfigurationAggregatorsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeConfigurationAggregatorsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Config Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeConfigurationAggregators");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeConfigurationAggregatorsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeConfigurationAggregatorsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Returns the current status of the specified configuration recorder. If a configuration recorder is not specified,
-     * this action returns the status of all configuration recorder associated with the account.
+     * this action returns the status of all configuration recorders associated with the account.
      * </p>
      * <note>
      * <p>
@@ -1038,6 +1752,10 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
                         .beforeMarshalling(describeConfigurationRecorderStatusRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Config Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeConfigurationRecorderStatus");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1102,6 +1820,10 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
                         .beforeMarshalling(describeConfigurationRecordersRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Config Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeConfigurationRecorders");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1166,6 +1888,10 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
                         .beforeMarshalling(describeDeliveryChannelStatusRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Config Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeDeliveryChannelStatus");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1230,6 +1956,10 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
                         .beforeMarshalling(describeDeliveryChannelsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Config Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeDeliveryChannels");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1254,6 +1984,410 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
 
     /**
      * <p>
+     * Returns a list of all pending aggregation requests.
+     * </p>
+     * 
+     * @param describePendingAggregationRequestsRequest
+     * @return Result of the DescribePendingAggregationRequests operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         One or more of the specified parameters are invalid. Verify that your parameters are valid and try again.
+     * @throws InvalidNextTokenException
+     *         The specified next token is invalid. Specify the <code>nextToken</code> string that was returned in the
+     *         previous response to get the next page of results.
+     * @throws InvalidLimitException
+     *         The specified limit is outside the allowable range.
+     * @sample AmazonConfig.DescribePendingAggregationRequests
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/config-2014-11-12/DescribePendingAggregationRequests"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribePendingAggregationRequestsResult describePendingAggregationRequests(DescribePendingAggregationRequestsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribePendingAggregationRequests(request);
+    }
+
+    @SdkInternalApi
+    final DescribePendingAggregationRequestsResult executeDescribePendingAggregationRequests(
+            DescribePendingAggregationRequestsRequest describePendingAggregationRequestsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describePendingAggregationRequestsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribePendingAggregationRequestsRequest> request = null;
+        Response<DescribePendingAggregationRequestsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribePendingAggregationRequestsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describePendingAggregationRequestsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Config Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribePendingAggregationRequests");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribePendingAggregationRequestsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribePendingAggregationRequestsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns the details of one or more retention configurations. If the retention configuration name is not
+     * specified, this action returns the details for all the retention configurations for that account.
+     * </p>
+     * <note>
+     * <p>
+     * Currently, AWS Config supports only one retention configuration per region in your account.
+     * </p>
+     * </note>
+     * 
+     * @param describeRetentionConfigurationsRequest
+     * @return Result of the DescribeRetentionConfigurations operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         One or more of the specified parameters are invalid. Verify that your parameters are valid and try again.
+     * @throws NoSuchRetentionConfigurationException
+     *         You have specified a retention configuration that does not exist.
+     * @throws InvalidNextTokenException
+     *         The specified next token is invalid. Specify the <code>nextToken</code> string that was returned in the
+     *         previous response to get the next page of results.
+     * @sample AmazonConfig.DescribeRetentionConfigurations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/config-2014-11-12/DescribeRetentionConfigurations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DescribeRetentionConfigurationsResult describeRetentionConfigurations(DescribeRetentionConfigurationsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeRetentionConfigurations(request);
+    }
+
+    @SdkInternalApi
+    final DescribeRetentionConfigurationsResult executeDescribeRetentionConfigurations(
+            DescribeRetentionConfigurationsRequest describeRetentionConfigurationsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeRetentionConfigurationsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeRetentionConfigurationsRequest> request = null;
+        Response<DescribeRetentionConfigurationsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeRetentionConfigurationsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(describeRetentionConfigurationsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Config Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeRetentionConfigurations");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeRetentionConfigurationsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DescribeRetentionConfigurationsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns the evaluation results for the specified AWS Config rule for a specific resource in a rule. The results
+     * indicate which AWS resources were evaluated by the rule, when each resource was last evaluated, and whether each
+     * resource complies with the rule.
+     * </p>
+     * <note>
+     * <p>
+     * The results can return an empty result page. But if you have a nextToken, the results are displayed on the next
+     * page.
+     * </p>
+     * </note>
+     * 
+     * @param getAggregateComplianceDetailsByConfigRuleRequest
+     * @return Result of the GetAggregateComplianceDetailsByConfigRule operation returned by the service.
+     * @throws ValidationException
+     *         The requested action is not valid.
+     * @throws InvalidLimitException
+     *         The specified limit is outside the allowable range.
+     * @throws InvalidNextTokenException
+     *         The specified next token is invalid. Specify the <code>nextToken</code> string that was returned in the
+     *         previous response to get the next page of results.
+     * @throws NoSuchConfigurationAggregatorException
+     *         You have specified a configuration aggregator that does not exist.
+     * @sample AmazonConfig.GetAggregateComplianceDetailsByConfigRule
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/config-2014-11-12/GetAggregateComplianceDetailsByConfigRule"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GetAggregateComplianceDetailsByConfigRuleResult getAggregateComplianceDetailsByConfigRule(GetAggregateComplianceDetailsByConfigRuleRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetAggregateComplianceDetailsByConfigRule(request);
+    }
+
+    @SdkInternalApi
+    final GetAggregateComplianceDetailsByConfigRuleResult executeGetAggregateComplianceDetailsByConfigRule(
+            GetAggregateComplianceDetailsByConfigRuleRequest getAggregateComplianceDetailsByConfigRuleRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getAggregateComplianceDetailsByConfigRuleRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetAggregateComplianceDetailsByConfigRuleRequest> request = null;
+        Response<GetAggregateComplianceDetailsByConfigRuleResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetAggregateComplianceDetailsByConfigRuleRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(getAggregateComplianceDetailsByConfigRuleRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Config Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetAggregateComplianceDetailsByConfigRule");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetAggregateComplianceDetailsByConfigRuleResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new GetAggregateComplianceDetailsByConfigRuleResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns the number of compliant and noncompliant rules for one or more accounts and regions in an aggregator.
+     * </p>
+     * <note>
+     * <p>
+     * The results can return an empty result page, but if you have a nextToken, the results are displayed on the next
+     * page.
+     * </p>
+     * </note>
+     * 
+     * @param getAggregateConfigRuleComplianceSummaryRequest
+     * @return Result of the GetAggregateConfigRuleComplianceSummary operation returned by the service.
+     * @throws ValidationException
+     *         The requested action is not valid.
+     * @throws InvalidLimitException
+     *         The specified limit is outside the allowable range.
+     * @throws InvalidNextTokenException
+     *         The specified next token is invalid. Specify the <code>nextToken</code> string that was returned in the
+     *         previous response to get the next page of results.
+     * @throws NoSuchConfigurationAggregatorException
+     *         You have specified a configuration aggregator that does not exist.
+     * @sample AmazonConfig.GetAggregateConfigRuleComplianceSummary
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/config-2014-11-12/GetAggregateConfigRuleComplianceSummary"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GetAggregateConfigRuleComplianceSummaryResult getAggregateConfigRuleComplianceSummary(GetAggregateConfigRuleComplianceSummaryRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetAggregateConfigRuleComplianceSummary(request);
+    }
+
+    @SdkInternalApi
+    final GetAggregateConfigRuleComplianceSummaryResult executeGetAggregateConfigRuleComplianceSummary(
+            GetAggregateConfigRuleComplianceSummaryRequest getAggregateConfigRuleComplianceSummaryRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getAggregateConfigRuleComplianceSummaryRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetAggregateConfigRuleComplianceSummaryRequest> request = null;
+        Response<GetAggregateConfigRuleComplianceSummaryResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetAggregateConfigRuleComplianceSummaryRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(getAggregateConfigRuleComplianceSummaryRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Config Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetAggregateConfigRuleComplianceSummary");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetAggregateConfigRuleComplianceSummaryResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new GetAggregateConfigRuleComplianceSummaryResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns the resource counts across accounts and regions that are present in your AWS Config aggregator. You can
+     * request the resource counts by providing filters and GroupByKey.
+     * </p>
+     * <p>
+     * For example, if the input contains accountID 12345678910 and region us-east-1 in filters, the API returns the
+     * count of resources in account ID 12345678910 and region us-east-1. If the input contains ACCOUNT_ID as a
+     * GroupByKey, the API returns resource counts for all source accounts that are present in your aggregator.
+     * </p>
+     * 
+     * @param getAggregateDiscoveredResourceCountsRequest
+     * @return Result of the GetAggregateDiscoveredResourceCounts operation returned by the service.
+     * @throws ValidationException
+     *         The requested action is not valid.
+     * @throws InvalidLimitException
+     *         The specified limit is outside the allowable range.
+     * @throws InvalidNextTokenException
+     *         The specified next token is invalid. Specify the <code>nextToken</code> string that was returned in the
+     *         previous response to get the next page of results.
+     * @throws NoSuchConfigurationAggregatorException
+     *         You have specified a configuration aggregator that does not exist.
+     * @sample AmazonConfig.GetAggregateDiscoveredResourceCounts
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/config-2014-11-12/GetAggregateDiscoveredResourceCounts"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GetAggregateDiscoveredResourceCountsResult getAggregateDiscoveredResourceCounts(GetAggregateDiscoveredResourceCountsRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetAggregateDiscoveredResourceCounts(request);
+    }
+
+    @SdkInternalApi
+    final GetAggregateDiscoveredResourceCountsResult executeGetAggregateDiscoveredResourceCounts(
+            GetAggregateDiscoveredResourceCountsRequest getAggregateDiscoveredResourceCountsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getAggregateDiscoveredResourceCountsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetAggregateDiscoveredResourceCountsRequest> request = null;
+        Response<GetAggregateDiscoveredResourceCountsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetAggregateDiscoveredResourceCountsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(getAggregateDiscoveredResourceCountsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Config Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetAggregateDiscoveredResourceCounts");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetAggregateDiscoveredResourceCountsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new GetAggregateDiscoveredResourceCountsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns configuration item that is aggregated for your specific resource in a specific source account and region.
+     * </p>
+     * 
+     * @param getAggregateResourceConfigRequest
+     * @return Result of the GetAggregateResourceConfig operation returned by the service.
+     * @throws ValidationException
+     *         The requested action is not valid.
+     * @throws NoSuchConfigurationAggregatorException
+     *         You have specified a configuration aggregator that does not exist.
+     * @throws OversizedConfigurationItemException
+     *         The configuration item size is outside the allowable range.
+     * @throws ResourceNotDiscoveredException
+     *         You have specified a resource that is either unknown or has not been discovered.
+     * @sample AmazonConfig.GetAggregateResourceConfig
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/config-2014-11-12/GetAggregateResourceConfig"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GetAggregateResourceConfigResult getAggregateResourceConfig(GetAggregateResourceConfigRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetAggregateResourceConfig(request);
+    }
+
+    @SdkInternalApi
+    final GetAggregateResourceConfigResult executeGetAggregateResourceConfig(GetAggregateResourceConfigRequest getAggregateResourceConfigRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getAggregateResourceConfigRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetAggregateResourceConfigRequest> request = null;
+        Response<GetAggregateResourceConfigResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetAggregateResourceConfigRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(getAggregateResourceConfigRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Config Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetAggregateResourceConfig");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetAggregateResourceConfigResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new GetAggregateResourceConfigResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Returns the evaluation results for the specified AWS Config rule. The results indicate which AWS resources were
      * evaluated by the rule, when each resource was last evaluated, and whether each resource complies with the rule.
      * </p>
@@ -1263,7 +2397,7 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
      * @throws InvalidParameterValueException
      *         One or more of the specified parameters are invalid. Verify that your parameters are valid and try again.
      * @throws InvalidNextTokenException
-     *         The specified next token is invalid. Specify the <code>NextToken</code> string that was returned in the
+     *         The specified next token is invalid. Specify the <code>nextToken</code> string that was returned in the
      *         previous response to get the next page of results.
      * @throws NoSuchConfigRuleException
      *         One or more AWS Config rules in the request are invalid. Verify that the rule names are correct and try
@@ -1295,6 +2429,10 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
                         .beforeMarshalling(getComplianceDetailsByConfigRuleRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Config Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetComplianceDetailsByConfigRule");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1348,6 +2486,10 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
                         .beforeMarshalling(getComplianceDetailsByResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Config Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetComplianceDetailsByResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1399,6 +2541,10 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
                         .beforeMarshalling(getComplianceSummaryByConfigRuleRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Config Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetComplianceSummaryByConfigRule");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1458,6 +2604,10 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
                         .beforeMarshalling(getComplianceSummaryByResourceTypeRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Config Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetComplianceSummaryByResourceType");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1482,13 +2632,144 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
 
     /**
      * <p>
+     * Returns the resource types, the number of each resource type, and the total number of resources that AWS Config
+     * is recording in this region for your AWS account.
+     * </p>
+     * <p class="title">
+     * <b>Example</b>
+     * </p>
+     * <ol>
+     * <li>
+     * <p>
+     * AWS Config is recording three resource types in the US East (Ohio) Region for your account: 25 EC2 instances, 20
+     * IAM users, and 15 S3 buckets.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * You make a call to the <code>GetDiscoveredResourceCounts</code> action and specify that you want all resource
+     * types.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * AWS Config returns the following:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The resource types (EC2 instances, IAM users, and S3 buckets).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The number of each resource type (25, 20, and 15).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The total number of all resources (60).
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * </ol>
+     * <p>
+     * The response is paginated. By default, AWS Config lists 100 <a>ResourceCount</a> objects on each page. You can
+     * customize this number with the <code>limit</code> parameter. The response includes a <code>nextToken</code>
+     * string. To get the next page of results, run the request again and specify the string for the
+     * <code>nextToken</code> parameter.
+     * </p>
+     * <note>
+     * <p>
+     * If you make a call to the <a>GetDiscoveredResourceCounts</a> action, you might not immediately receive resource
+     * counts in the following situations:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * You are a new AWS Config customer.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * You just enabled resource recording.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * It might take a few minutes for AWS Config to record and count your resources. Wait a few minutes and then retry
+     * the <a>GetDiscoveredResourceCounts</a> action.
+     * </p>
+     * </note>
+     * 
+     * @param getDiscoveredResourceCountsRequest
+     * @return Result of the GetDiscoveredResourceCounts operation returned by the service.
+     * @throws ValidationException
+     *         The requested action is not valid.
+     * @throws InvalidLimitException
+     *         The specified limit is outside the allowable range.
+     * @throws InvalidNextTokenException
+     *         The specified next token is invalid. Specify the <code>nextToken</code> string that was returned in the
+     *         previous response to get the next page of results.
+     * @sample AmazonConfig.GetDiscoveredResourceCounts
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/config-2014-11-12/GetDiscoveredResourceCounts"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GetDiscoveredResourceCountsResult getDiscoveredResourceCounts(GetDiscoveredResourceCountsRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetDiscoveredResourceCounts(request);
+    }
+
+    @SdkInternalApi
+    final GetDiscoveredResourceCountsResult executeGetDiscoveredResourceCounts(GetDiscoveredResourceCountsRequest getDiscoveredResourceCountsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getDiscoveredResourceCountsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetDiscoveredResourceCountsRequest> request = null;
+        Response<GetDiscoveredResourceCountsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetDiscoveredResourceCountsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(getDiscoveredResourceCountsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Config Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetDiscoveredResourceCounts");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetDiscoveredResourceCountsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new GetDiscoveredResourceCountsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Returns a list of configuration items for the specified resource. The list contains details about each state of
-     * the resource during the specified time interval.
+     * the resource during the specified time interval. If you specified a retention period to retain your
+     * <code>ConfigurationItems</code> between a minimum of 30 days and a maximum of 7 years (2557 days), AWS Config
+     * returns the <code>ConfigurationItems</code> for the specified retention period.
      * </p>
      * <p>
-     * The response is paginated, and by default, AWS Config returns a limit of 10 configuration items per page. You can
+     * The response is paginated. By default, AWS Config returns a limit of 10 configuration items per page. You can
      * customize this number with the <code>limit</code> parameter. The response includes a <code>nextToken</code>
-     * string, and to get the next page of results, run the request again and enter this string for the
+     * string. To get the next page of results, run the request again and specify the string for the
      * <code>nextToken</code> parameter.
      * </p>
      * <note>
@@ -1509,7 +2790,7 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
      * @throws InvalidLimitException
      *         The specified limit is outside the allowable range.
      * @throws InvalidNextTokenException
-     *         The specified next token is invalid. Specify the <code>NextToken</code> string that was returned in the
+     *         The specified next token is invalid. Specify the <code>nextToken</code> string that was returned in the
      *         previous response to get the next page of results.
      * @throws NoAvailableConfigurationRecorderException
      *         There are no configuration recorders available to provide the role needed to describe your resources.
@@ -1542,6 +2823,10 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
                         .beforeMarshalling(getResourceConfigHistoryRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Config Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetResourceConfigHistory");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1561,6 +2846,78 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
 
     /**
      * <p>
+     * Accepts a resource type and returns a list of resource identifiers that are aggregated for a specific resource
+     * type across accounts and regions. A resource identifier includes the resource type, ID, (if available) the custom
+     * resource name, source account, and source region. You can narrow the results to include only resources that have
+     * specific resource IDs, or a resource name, or source account ID, or source region.
+     * </p>
+     * <p>
+     * For example, if the input consists of accountID 12345678910 and the region is us-east-1 for resource type
+     * <code>AWS::EC2::Instance</code> then the API returns all the EC2 instance identifiers of accountID 12345678910
+     * and region us-east-1.
+     * </p>
+     * 
+     * @param listAggregateDiscoveredResourcesRequest
+     * @return Result of the ListAggregateDiscoveredResources operation returned by the service.
+     * @throws ValidationException
+     *         The requested action is not valid.
+     * @throws InvalidLimitException
+     *         The specified limit is outside the allowable range.
+     * @throws InvalidNextTokenException
+     *         The specified next token is invalid. Specify the <code>nextToken</code> string that was returned in the
+     *         previous response to get the next page of results.
+     * @throws NoSuchConfigurationAggregatorException
+     *         You have specified a configuration aggregator that does not exist.
+     * @sample AmazonConfig.ListAggregateDiscoveredResources
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/config-2014-11-12/ListAggregateDiscoveredResources"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListAggregateDiscoveredResourcesResult listAggregateDiscoveredResources(ListAggregateDiscoveredResourcesRequest request) {
+        request = beforeClientExecution(request);
+        return executeListAggregateDiscoveredResources(request);
+    }
+
+    @SdkInternalApi
+    final ListAggregateDiscoveredResourcesResult executeListAggregateDiscoveredResources(
+            ListAggregateDiscoveredResourcesRequest listAggregateDiscoveredResourcesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listAggregateDiscoveredResourcesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListAggregateDiscoveredResourcesRequest> request = null;
+        Response<ListAggregateDiscoveredResourcesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListAggregateDiscoveredResourcesRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listAggregateDiscoveredResourcesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Config Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListAggregateDiscoveredResources");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListAggregateDiscoveredResourcesResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListAggregateDiscoveredResourcesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Accepts a resource type and returns a list of resource identifiers for the resources of that type. A resource
      * identifier includes the resource type, ID, and (if available) the custom resource name. The results consist of
      * resources that AWS Config has discovered, including those that AWS Config is not currently recording. You can
@@ -1568,14 +2925,13 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
      * </p>
      * <note>
      * <p>
-     * You can specify either resource IDs or a resource name but not both in the same request.
+     * You can specify either resource IDs or a resource name, but not both, in the same request.
      * </p>
      * </note>
      * <p>
-     * The response is paginated, and by default AWS Config lists 100 resource identifiers on each page. You can
-     * customize this number with the <code>limit</code> parameter. The response includes a <code>nextToken</code>
-     * string, and to get the next page of results, run the request again and enter this string for the
-     * <code>nextToken</code> parameter.
+     * The response is paginated. By default, AWS Config lists 100 resource identifiers on each page. You can customize
+     * this number with the <code>limit</code> parameter. The response includes a <code>nextToken</code> string. To get
+     * the next page of results, run the request again and specify the string for the <code>nextToken</code> parameter.
      * </p>
      * 
      * @param listDiscoveredResourcesRequest
@@ -1585,7 +2941,7 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
      * @throws InvalidLimitException
      *         The specified limit is outside the allowable range.
      * @throws InvalidNextTokenException
-     *         The specified next token is invalid. Specify the <code>NextToken</code> string that was returned in the
+     *         The specified next token is invalid. Specify the <code>nextToken</code> string that was returned in the
      *         previous response to get the next page of results.
      * @throws NoAvailableConfigurationRecorderException
      *         There are no configuration recorders available to provide the role needed to describe your resources.
@@ -1616,6 +2972,10 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
                         .beforeMarshalling(listDiscoveredResourcesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Config Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListDiscoveredResources");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1635,19 +2995,76 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
 
     /**
      * <p>
+     * Authorizes the aggregator account and region to collect data from the source account and region.
+     * </p>
+     * 
+     * @param putAggregationAuthorizationRequest
+     * @return Result of the PutAggregationAuthorization operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         One or more of the specified parameters are invalid. Verify that your parameters are valid and try again.
+     * @sample AmazonConfig.PutAggregationAuthorization
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/config-2014-11-12/PutAggregationAuthorization"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public PutAggregationAuthorizationResult putAggregationAuthorization(PutAggregationAuthorizationRequest request) {
+        request = beforeClientExecution(request);
+        return executePutAggregationAuthorization(request);
+    }
+
+    @SdkInternalApi
+    final PutAggregationAuthorizationResult executePutAggregationAuthorization(PutAggregationAuthorizationRequest putAggregationAuthorizationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(putAggregationAuthorizationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<PutAggregationAuthorizationRequest> request = null;
+        Response<PutAggregationAuthorizationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new PutAggregationAuthorizationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(putAggregationAuthorizationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Config Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutAggregationAuthorization");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<PutAggregationAuthorizationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new PutAggregationAuthorizationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Adds or updates an AWS Config rule for evaluating whether your AWS resources comply with your desired
      * configurations.
      * </p>
      * <p>
-     * You can use this action for custom Config rules and AWS managed Config rules. A custom Config rule is a rule that
-     * you develop and maintain. An AWS managed Config rule is a customizable, predefined rule that AWS Config provides.
+     * You can use this action for custom AWS Config rules and AWS managed Config rules. A custom AWS Config rule is a
+     * rule that you develop and maintain. An AWS managed Config rule is a customizable, predefined rule that AWS Config
+     * provides.
      * </p>
      * <p>
-     * If you are adding a new custom Config rule, you must first create the AWS Lambda function that the rule invokes
-     * to evaluate your resources. When you use the <code>PutConfigRule</code> action to add the rule to AWS Config, you
-     * must specify the Amazon Resource Name (ARN) that AWS Lambda assigns to the function. Specify the ARN for the
-     * <code>SourceIdentifier</code> key. This key is part of the <code>Source</code> object, which is part of the
-     * <code>ConfigRule</code> object.
+     * If you are adding a new custom AWS Config rule, you must first create the AWS Lambda function that the rule
+     * invokes to evaluate your resources. When you use the <code>PutConfigRule</code> action to add the rule to AWS
+     * Config, you must specify the Amazon Resource Name (ARN) that AWS Lambda assigns to the function. Specify the ARN
+     * for the <code>SourceIdentifier</code> key. This key is part of the <code>Source</code> object, which is part of
+     * the <code>ConfigRule</code> object.
      * </p>
      * <p>
      * If you are adding an AWS managed Config rule, specify the rule's identifier for the <code>SourceIdentifier</code>
@@ -1669,7 +3086,7 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
      * The maximum number of rules that AWS Config supports is 50.
      * </p>
      * <p>
-     * For more information about requesting a rule limit increase, see <a
+     * For information about requesting a rule limit increase, see <a
      * href="http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_config">AWS Config Limits</a>
      * in the <i>AWS General Reference Guide</i>.
      * </p>
@@ -1685,7 +3102,7 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
      *         One or more of the specified parameters are invalid. Verify that your parameters are valid and try again.
      * @throws MaxNumberOfConfigRulesExceededException
      *         Failed to add the AWS Config rule because the account already contains the maximum number of 50 rules.
-     *         Consider deleting any deactivated rules before adding new rules.
+     *         Consider deleting any deactivated rules before you add new rules.
      * @throws ResourceInUseException
      *         The rule is currently being deleted or the rule is deleting your evaluation results. Try your request
      *         again later.
@@ -1731,6 +3148,10 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
                 request = new PutConfigRuleRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(putConfigRuleRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Config Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutConfigRule");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1749,11 +3170,92 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
 
     /**
      * <p>
+     * Creates and updates the configuration aggregator with the selected source accounts and regions. The source
+     * account can be individual account(s) or an organization.
+     * </p>
+     * <note>
+     * <p>
+     * AWS Config should be enabled in source accounts and regions you want to aggregate.
+     * </p>
+     * <p>
+     * If your source type is an organization, you must be signed in to the master account and all features must be
+     * enabled in your organization. AWS Config calls <code>EnableAwsServiceAccess</code> API to enable integration
+     * between AWS Config and AWS Organizations.
+     * </p>
+     * </note>
+     * 
+     * @param putConfigurationAggregatorRequest
+     * @return Result of the PutConfigurationAggregator operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         One or more of the specified parameters are invalid. Verify that your parameters are valid and try again.
+     * @throws LimitExceededException
+     *         For <code>StartConfigRulesEvaluation</code> API, this exception is thrown if an evaluation is in progress
+     *         or if you call the <a>StartConfigRulesEvaluation</a> API more than once per minute.</p>
+     *         <p>
+     *         For <code>PutConfigurationAggregator</code> API, this exception is thrown if the number of accounts and
+     *         aggregators exceeds the limit.
+     * @throws InvalidRoleException
+     *         You have provided a null or empty role ARN.
+     * @throws OrganizationAccessDeniedException
+     *         No permission to call the EnableAWSServiceAccess API.
+     * @throws NoAvailableOrganizationException
+     *         Organization does is no longer available.
+     * @throws OrganizationAllFeaturesNotEnabledException
+     *         The configuration aggregator cannot be created because organization does not have all features enabled.
+     * @sample AmazonConfig.PutConfigurationAggregator
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/config-2014-11-12/PutConfigurationAggregator"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public PutConfigurationAggregatorResult putConfigurationAggregator(PutConfigurationAggregatorRequest request) {
+        request = beforeClientExecution(request);
+        return executePutConfigurationAggregator(request);
+    }
+
+    @SdkInternalApi
+    final PutConfigurationAggregatorResult executePutConfigurationAggregator(PutConfigurationAggregatorRequest putConfigurationAggregatorRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(putConfigurationAggregatorRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<PutConfigurationAggregatorRequest> request = null;
+        Response<PutConfigurationAggregatorResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new PutConfigurationAggregatorRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(putConfigurationAggregatorRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Config Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutConfigurationAggregator");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<PutConfigurationAggregatorResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new PutConfigurationAggregatorResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Creates a new configuration recorder to record the selected resource configurations.
      * </p>
      * <p>
-     * You can use this action to change the role <code>roleARN</code> and/or the <code>recordingGroup</code> of an
-     * existing recorder. To change the role, call the action on the existing configuration recorder and specify a role.
+     * You can use this action to change the role <code>roleARN</code> or the <code>recordingGroup</code> of an existing
+     * recorder. To change the role, call the action on the existing configuration recorder and specify a role.
      * </p>
      * <note>
      * <p>
@@ -1769,14 +3271,14 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
      *        The input for the <a>PutConfigurationRecorder</a> action.
      * @return Result of the PutConfigurationRecorder operation returned by the service.
      * @throws MaxNumberOfConfigurationRecordersExceededException
-     *         You have reached the limit on the number of recorders you can create.
+     *         You have reached the limit of the number of recorders you can create.
      * @throws InvalidConfigurationRecorderNameException
      *         You have provided a configuration recorder name that is not valid.
      * @throws InvalidRoleException
      *         You have provided a null or empty role ARN.
      * @throws InvalidRecordingGroupException
      *         AWS Config throws an exception if the recording group does not contain a valid list of resource types.
-     *         Invalid values could also be incorrectly formatted.
+     *         Invalid values might also be incorrectly formatted.
      * @sample AmazonConfig.PutConfigurationRecorder
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/config-2014-11-12/PutConfigurationRecorder"
      *      target="_top">AWS API Documentation</a>
@@ -1803,6 +3305,10 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
                         .beforeMarshalling(putConfigurationRecorderRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Config Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutConfigurationRecorder");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1844,7 +3350,7 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
      *        The input for the <a>PutDeliveryChannel</a> action.
      * @return Result of the PutDeliveryChannel operation returned by the service.
      * @throws MaxNumberOfDeliveryChannelsExceededException
-     *         You have reached the limit on the number of delivery channels you can create.
+     *         You have reached the limit of the number of delivery channels you can create.
      * @throws NoAvailableConfigurationRecorderException
      *         There are no configuration recorders available to provide the role needed to describe your resources.
      *         Create a configuration recorder.
@@ -1883,6 +3389,10 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
                 request = new PutDeliveryChannelRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(putDeliveryChannelRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Config Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutDeliveryChannel");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1939,6 +3449,10 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
                 request = new PutEvaluationsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(putEvaluationsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Config Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutEvaluations");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1957,23 +3471,90 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
 
     /**
      * <p>
-     * Runs an on-demand evaluation for the specified Config rules against the last known configuration state of the
-     * resources. Use <code>StartConfigRulesEvaluation</code> when you want to test a rule that you updated is working
+     * Creates and updates the retention configuration with details about retention period (number of days) that AWS
+     * Config stores your historical information. The API creates the <code>RetentionConfiguration</code> object and
+     * names the object as <b>default</b>. When you have a <code>RetentionConfiguration</code> object named
+     * <b>default</b>, calling the API modifies the default object.
+     * </p>
+     * <note>
+     * <p>
+     * Currently, AWS Config supports only one retention configuration per region in your account.
+     * </p>
+     * </note>
+     * 
+     * @param putRetentionConfigurationRequest
+     * @return Result of the PutRetentionConfiguration operation returned by the service.
+     * @throws InvalidParameterValueException
+     *         One or more of the specified parameters are invalid. Verify that your parameters are valid and try again.
+     * @throws MaxNumberOfRetentionConfigurationsExceededException
+     *         Failed to add the retention configuration because a retention configuration with that name already
+     *         exists.
+     * @sample AmazonConfig.PutRetentionConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/config-2014-11-12/PutRetentionConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public PutRetentionConfigurationResult putRetentionConfiguration(PutRetentionConfigurationRequest request) {
+        request = beforeClientExecution(request);
+        return executePutRetentionConfiguration(request);
+    }
+
+    @SdkInternalApi
+    final PutRetentionConfigurationResult executePutRetentionConfiguration(PutRetentionConfigurationRequest putRetentionConfigurationRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(putRetentionConfigurationRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<PutRetentionConfigurationRequest> request = null;
+        Response<PutRetentionConfigurationResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new PutRetentionConfigurationRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(putRetentionConfigurationRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Config Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutRetentionConfiguration");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<PutRetentionConfigurationResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new PutRetentionConfigurationResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Runs an on-demand evaluation for the specified AWS Config rules against the last known configuration state of the
+     * resources. Use <code>StartConfigRulesEvaluation</code> when you want to test that a rule you updated is working
      * as expected. <code>StartConfigRulesEvaluation</code> does not re-record the latest configuration state for your
-     * resources; it re-runs an evaluation against the last known state of your resources.
+     * resources. It re-runs an evaluation against the last known state of your resources.
      * </p>
      * <p>
-     * You can specify up to 25 Config rules per request.
+     * You can specify up to 25 AWS Config rules per request.
      * </p>
      * <p>
-     * An existing <code>StartConfigRulesEvaluation</code> call must complete for the specified rules before you can
+     * An existing <code>StartConfigRulesEvaluation</code> call for the specified rules must complete before you can
      * call the API again. If you chose to have AWS Config stream to an Amazon SNS topic, you will receive a
      * <code>ConfigRuleEvaluationStarted</code> notification when the evaluation starts.
      * </p>
      * <note>
      * <p>
      * You don't need to call the <code>StartConfigRulesEvaluation</code> API to run an evaluation for a new rule. When
-     * you create a new rule, AWS Config automatically evaluates your resources against the rule.
+     * you create a rule, AWS Config evaluates your resources against the rule automatically.
      * </p>
      * </note>
      * <p>
@@ -2014,8 +3595,11 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
      *         One or more AWS Config rules in the request are invalid. Verify that the rule names are correct and try
      *         again.
      * @throws LimitExceededException
-     *         This exception is thrown if an evaluation is in progress or if you call the
-     *         <a>StartConfigRulesEvaluation</a> API more than once per minute.
+     *         For <code>StartConfigRulesEvaluation</code> API, this exception is thrown if an evaluation is in progress
+     *         or if you call the <a>StartConfigRulesEvaluation</a> API more than once per minute.</p>
+     *         <p>
+     *         For <code>PutConfigurationAggregator</code> API, this exception is thrown if the number of accounts and
+     *         aggregators exceeds the limit.
      * @throws ResourceInUseException
      *         The rule is currently being deleted or the rule is deleting your evaluation results. Try your request
      *         again later.
@@ -2047,6 +3631,10 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
                         .beforeMarshalling(startConfigRulesEvaluationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Config Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartConfigRulesEvaluation");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2105,6 +3693,10 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
                         .beforeMarshalling(startConfigurationRecorderRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Config Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartConfigurationRecorder");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2158,6 +3750,10 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
                         .beforeMarshalling(stopConfigurationRecorderRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Config Service");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StopConfigurationRecorder");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2199,9 +3795,18 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
     private <X, Y extends AmazonWebServiceRequest> Response<X> invoke(Request<Y> request, HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler,
             ExecutionContext executionContext) {
 
+        return invoke(request, responseHandler, executionContext, null, null);
+    }
+
+    /**
+     * Normal invoke with authentication. Credentials are required and may be overriden at the request level.
+     **/
+    private <X, Y extends AmazonWebServiceRequest> Response<X> invoke(Request<Y> request, HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler,
+            ExecutionContext executionContext, URI cachedEndpoint, URI uriFromEndpointTrait) {
+
         executionContext.setCredentialsProvider(CredentialUtils.getCredentialsProvider(request.getOriginalRequest(), awsCredentialsProvider));
 
-        return doInvoke(request, responseHandler, executionContext);
+        return doInvoke(request, responseHandler, executionContext, cachedEndpoint, uriFromEndpointTrait);
     }
 
     /**
@@ -2211,7 +3816,7 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
     private <X, Y extends AmazonWebServiceRequest> Response<X> anonymousInvoke(Request<Y> request,
             HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler, ExecutionContext executionContext) {
 
-        return doInvoke(request, responseHandler, executionContext);
+        return doInvoke(request, responseHandler, executionContext, null, null);
     }
 
     /**
@@ -2219,13 +3824,27 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
      * ExecutionContext beforehand.
      **/
     private <X, Y extends AmazonWebServiceRequest> Response<X> doInvoke(Request<Y> request, HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler,
-            ExecutionContext executionContext) {
-        request.setEndpoint(endpoint);
+            ExecutionContext executionContext, URI discoveredEndpoint, URI uriFromEndpointTrait) {
+
+        if (discoveredEndpoint != null) {
+            request.setEndpoint(discoveredEndpoint);
+            request.getOriginalRequest().getRequestClientOptions().appendUserAgent("endpoint-discovery");
+        } else if (uriFromEndpointTrait != null) {
+            request.setEndpoint(uriFromEndpointTrait);
+        } else {
+            request.setEndpoint(endpoint);
+        }
+
         request.setTimeOffset(timeOffset);
 
         HttpResponseHandler<AmazonServiceException> errorResponseHandler = protocolFactory.createErrorResponseHandler(new JsonErrorResponseMetadata());
 
         return client.execute(request, responseHandler, errorResponseHandler, executionContext);
+    }
+
+    @com.amazonaws.annotation.SdkInternalApi
+    static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
+        return protocolFactory;
     }
 
 }

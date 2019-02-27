@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.AmazonWebServiceRequest;
 
 /**
  * <p>
- * A POST request to import an API to Amazon API Gateway using an input of an API definition file.
+ * A POST request to import an API to API Gateway using an input of an API definition file.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -34,18 +34,42 @@ public class ImportRestApiRequest extends com.amazonaws.AmazonWebServiceRequest 
     private Boolean failOnWarnings;
     /**
      * <p>
-     * Custom header parameters as part of the request. For example, to exclude <a>DocumentationParts</a> from an
-     * imported API, set <code>ignore=documentation</code> as a <code>parameters</code> value, as in the AWS CLI command
-     * of
-     * <code>aws apigateway import-rest-api --parameters ignore=documentation --body 'file:///path/to/imported-api-body.json</code>
-     * .
+     * A key-value map of context-specific query string parameters specifying the behavior of different API importing
+     * operations. The following shows operation-specific parameters and their supported values.
      * </p>
+     * <p>
+     * To exclude <a>DocumentationParts</a> from the import, set <code>parameters</code> as
+     * <code>ignore=documentation</code>.
+     * </p>
+     * <p>
+     * To configure the endpoint type, set <code>parameters</code> as <code>endpointConfigurationTypes=EDGE</code>,
+     * <code>endpointConfigurationTypes=REGIONAL</code>, or <code>endpointConfigurationTypes=PRIVATE</code>. The default
+     * endpoint type is <code>EDGE</code>.
+     * </p>
+     * <p>
+     * To handle imported <code>basePath</code>, set <code>parameters</code> as <code>basePath=ignore</code>,
+     * <code>basePath=prepend</code> or <code>basePath=split</code>.
+     * </p>
+     * <p>
+     * For example, the AWS CLI command to exclude documentation from the imported API is:
+     * </p>
+     * 
+     * <pre>
+     * <code>aws apigateway import-rest-api --parameters ignore=documentation --body 'file:///path/to/imported-api-body.json'</code>
+     * </pre>
+     * <p>
+     * The AWS CLI command to set the regional endpoint on the imported API is:
+     * </p>
+     * 
+     * <pre>
+     * <code>aws apigateway import-rest-api --parameters endpointConfigurationTypes=REGIONAL --body 'file:///path/to/imported-api-body.json'</code>
+     * </pre>
      */
     private java.util.Map<String, String> parameters;
     /**
      * <p>
-     * The POST request body containing external API definitions. Currently, only Swagger definition JSON files are
-     * supported. The maximum size of the API definition file is 2MB.
+     * [Required] The POST request body containing external API definitions. Currently, only OpenAPI definition
+     * JSON/YAML files are supported. The maximum size of the API definition file is 2MB.
      * </p>
      */
     private java.nio.ByteBuffer body;
@@ -112,18 +136,64 @@ public class ImportRestApiRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Custom header parameters as part of the request. For example, to exclude <a>DocumentationParts</a> from an
-     * imported API, set <code>ignore=documentation</code> as a <code>parameters</code> value, as in the AWS CLI command
-     * of
-     * <code>aws apigateway import-rest-api --parameters ignore=documentation --body 'file:///path/to/imported-api-body.json</code>
-     * .
+     * A key-value map of context-specific query string parameters specifying the behavior of different API importing
+     * operations. The following shows operation-specific parameters and their supported values.
+     * </p>
+     * <p>
+     * To exclude <a>DocumentationParts</a> from the import, set <code>parameters</code> as
+     * <code>ignore=documentation</code>.
+     * </p>
+     * <p>
+     * To configure the endpoint type, set <code>parameters</code> as <code>endpointConfigurationTypes=EDGE</code>,
+     * <code>endpointConfigurationTypes=REGIONAL</code>, or <code>endpointConfigurationTypes=PRIVATE</code>. The default
+     * endpoint type is <code>EDGE</code>.
+     * </p>
+     * <p>
+     * To handle imported <code>basePath</code>, set <code>parameters</code> as <code>basePath=ignore</code>,
+     * <code>basePath=prepend</code> or <code>basePath=split</code>.
+     * </p>
+     * <p>
+     * For example, the AWS CLI command to exclude documentation from the imported API is:
      * </p>
      * 
-     * @return Custom header parameters as part of the request. For example, to exclude <a>DocumentationParts</a> from
-     *         an imported API, set <code>ignore=documentation</code> as a <code>parameters</code> value, as in the AWS
-     *         CLI command of
-     *         <code>aws apigateway import-rest-api --parameters ignore=documentation --body 'file:///path/to/imported-api-body.json</code>
-     *         .
+     * <pre>
+     * <code>aws apigateway import-rest-api --parameters ignore=documentation --body 'file:///path/to/imported-api-body.json'</code>
+     * </pre>
+     * <p>
+     * The AWS CLI command to set the regional endpoint on the imported API is:
+     * </p>
+     * 
+     * <pre>
+     * <code>aws apigateway import-rest-api --parameters endpointConfigurationTypes=REGIONAL --body 'file:///path/to/imported-api-body.json'</code>
+     * </pre>
+     * 
+     * @return A key-value map of context-specific query string parameters specifying the behavior of different API
+     *         importing operations. The following shows operation-specific parameters and their supported values.</p>
+     *         <p>
+     *         To exclude <a>DocumentationParts</a> from the import, set <code>parameters</code> as
+     *         <code>ignore=documentation</code>.
+     *         </p>
+     *         <p>
+     *         To configure the endpoint type, set <code>parameters</code> as
+     *         <code>endpointConfigurationTypes=EDGE</code>, <code>endpointConfigurationTypes=REGIONAL</code>, or
+     *         <code>endpointConfigurationTypes=PRIVATE</code>. The default endpoint type is <code>EDGE</code>.
+     *         </p>
+     *         <p>
+     *         To handle imported <code>basePath</code>, set <code>parameters</code> as <code>basePath=ignore</code>,
+     *         <code>basePath=prepend</code> or <code>basePath=split</code>.
+     *         </p>
+     *         <p>
+     *         For example, the AWS CLI command to exclude documentation from the imported API is:
+     *         </p>
+     * 
+     *         <pre>
+     * <code>aws apigateway import-rest-api --parameters ignore=documentation --body 'file:///path/to/imported-api-body.json'</code>
+     * </pre>
+     *         <p>
+     *         The AWS CLI command to set the regional endpoint on the imported API is:
+     *         </p>
+     * 
+     * <pre><code>aws apigateway import-rest-api --parameters endpointConfigurationTypes=REGIONAL --body 'file:///path/to/imported-api-body.json'</code>
      */
 
     public java.util.Map<String, String> getParameters() {
@@ -132,19 +202,65 @@ public class ImportRestApiRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Custom header parameters as part of the request. For example, to exclude <a>DocumentationParts</a> from an
-     * imported API, set <code>ignore=documentation</code> as a <code>parameters</code> value, as in the AWS CLI command
-     * of
-     * <code>aws apigateway import-rest-api --parameters ignore=documentation --body 'file:///path/to/imported-api-body.json</code>
-     * .
+     * A key-value map of context-specific query string parameters specifying the behavior of different API importing
+     * operations. The following shows operation-specific parameters and their supported values.
+     * </p>
+     * <p>
+     * To exclude <a>DocumentationParts</a> from the import, set <code>parameters</code> as
+     * <code>ignore=documentation</code>.
+     * </p>
+     * <p>
+     * To configure the endpoint type, set <code>parameters</code> as <code>endpointConfigurationTypes=EDGE</code>,
+     * <code>endpointConfigurationTypes=REGIONAL</code>, or <code>endpointConfigurationTypes=PRIVATE</code>. The default
+     * endpoint type is <code>EDGE</code>.
+     * </p>
+     * <p>
+     * To handle imported <code>basePath</code>, set <code>parameters</code> as <code>basePath=ignore</code>,
+     * <code>basePath=prepend</code> or <code>basePath=split</code>.
+     * </p>
+     * <p>
+     * For example, the AWS CLI command to exclude documentation from the imported API is:
      * </p>
      * 
+     * <pre>
+     * <code>aws apigateway import-rest-api --parameters ignore=documentation --body 'file:///path/to/imported-api-body.json'</code>
+     * </pre>
+     * <p>
+     * The AWS CLI command to set the regional endpoint on the imported API is:
+     * </p>
+     * 
+     * <pre>
+     * <code>aws apigateway import-rest-api --parameters endpointConfigurationTypes=REGIONAL --body 'file:///path/to/imported-api-body.json'</code>
+     * </pre>
+     * 
      * @param parameters
-     *        Custom header parameters as part of the request. For example, to exclude <a>DocumentationParts</a> from an
-     *        imported API, set <code>ignore=documentation</code> as a <code>parameters</code> value, as in the AWS CLI
-     *        command of
-     *        <code>aws apigateway import-rest-api --parameters ignore=documentation --body 'file:///path/to/imported-api-body.json</code>
-     *        .
+     *        A key-value map of context-specific query string parameters specifying the behavior of different API
+     *        importing operations. The following shows operation-specific parameters and their supported values.</p>
+     *        <p>
+     *        To exclude <a>DocumentationParts</a> from the import, set <code>parameters</code> as
+     *        <code>ignore=documentation</code>.
+     *        </p>
+     *        <p>
+     *        To configure the endpoint type, set <code>parameters</code> as
+     *        <code>endpointConfigurationTypes=EDGE</code>, <code>endpointConfigurationTypes=REGIONAL</code>, or
+     *        <code>endpointConfigurationTypes=PRIVATE</code>. The default endpoint type is <code>EDGE</code>.
+     *        </p>
+     *        <p>
+     *        To handle imported <code>basePath</code>, set <code>parameters</code> as <code>basePath=ignore</code>,
+     *        <code>basePath=prepend</code> or <code>basePath=split</code>.
+     *        </p>
+     *        <p>
+     *        For example, the AWS CLI command to exclude documentation from the imported API is:
+     *        </p>
+     * 
+     *        <pre>
+     * <code>aws apigateway import-rest-api --parameters ignore=documentation --body 'file:///path/to/imported-api-body.json'</code>
+     * </pre>
+     *        <p>
+     *        The AWS CLI command to set the regional endpoint on the imported API is:
+     *        </p>
+     * 
+     * <pre><code>aws apigateway import-rest-api --parameters endpointConfigurationTypes=REGIONAL --body 'file:///path/to/imported-api-body.json'</code>
      */
 
     public void setParameters(java.util.Map<String, String> parameters) {
@@ -153,19 +269,66 @@ public class ImportRestApiRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Custom header parameters as part of the request. For example, to exclude <a>DocumentationParts</a> from an
-     * imported API, set <code>ignore=documentation</code> as a <code>parameters</code> value, as in the AWS CLI command
-     * of
-     * <code>aws apigateway import-rest-api --parameters ignore=documentation --body 'file:///path/to/imported-api-body.json</code>
-     * .
+     * A key-value map of context-specific query string parameters specifying the behavior of different API importing
+     * operations. The following shows operation-specific parameters and their supported values.
+     * </p>
+     * <p>
+     * To exclude <a>DocumentationParts</a> from the import, set <code>parameters</code> as
+     * <code>ignore=documentation</code>.
+     * </p>
+     * <p>
+     * To configure the endpoint type, set <code>parameters</code> as <code>endpointConfigurationTypes=EDGE</code>,
+     * <code>endpointConfigurationTypes=REGIONAL</code>, or <code>endpointConfigurationTypes=PRIVATE</code>. The default
+     * endpoint type is <code>EDGE</code>.
+     * </p>
+     * <p>
+     * To handle imported <code>basePath</code>, set <code>parameters</code> as <code>basePath=ignore</code>,
+     * <code>basePath=prepend</code> or <code>basePath=split</code>.
+     * </p>
+     * <p>
+     * For example, the AWS CLI command to exclude documentation from the imported API is:
      * </p>
      * 
+     * <pre>
+     * <code>aws apigateway import-rest-api --parameters ignore=documentation --body 'file:///path/to/imported-api-body.json'</code>
+     * </pre>
+     * <p>
+     * The AWS CLI command to set the regional endpoint on the imported API is:
+     * </p>
+     * 
+     * <pre>
+     * <code>aws apigateway import-rest-api --parameters endpointConfigurationTypes=REGIONAL --body 'file:///path/to/imported-api-body.json'</code>
+     * </pre>
+     * 
      * @param parameters
-     *        Custom header parameters as part of the request. For example, to exclude <a>DocumentationParts</a> from an
-     *        imported API, set <code>ignore=documentation</code> as a <code>parameters</code> value, as in the AWS CLI
-     *        command of
-     *        <code>aws apigateway import-rest-api --parameters ignore=documentation --body 'file:///path/to/imported-api-body.json</code>
-     *        .
+     *        A key-value map of context-specific query string parameters specifying the behavior of different API
+     *        importing operations. The following shows operation-specific parameters and their supported values.</p>
+     *        <p>
+     *        To exclude <a>DocumentationParts</a> from the import, set <code>parameters</code> as
+     *        <code>ignore=documentation</code>.
+     *        </p>
+     *        <p>
+     *        To configure the endpoint type, set <code>parameters</code> as
+     *        <code>endpointConfigurationTypes=EDGE</code>, <code>endpointConfigurationTypes=REGIONAL</code>, or
+     *        <code>endpointConfigurationTypes=PRIVATE</code>. The default endpoint type is <code>EDGE</code>.
+     *        </p>
+     *        <p>
+     *        To handle imported <code>basePath</code>, set <code>parameters</code> as <code>basePath=ignore</code>,
+     *        <code>basePath=prepend</code> or <code>basePath=split</code>.
+     *        </p>
+     *        <p>
+     *        For example, the AWS CLI command to exclude documentation from the imported API is:
+     *        </p>
+     * 
+     *        <pre>
+     * <code>aws apigateway import-rest-api --parameters ignore=documentation --body 'file:///path/to/imported-api-body.json'</code>
+     * </pre>
+     *        <p>
+     *        The AWS CLI command to set the regional endpoint on the imported API is:
+     *        </p>
+     * 
+     *        <pre>
+     * <code>aws apigateway import-rest-api --parameters endpointConfigurationTypes=REGIONAL --body 'file:///path/to/imported-api-body.json'</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -197,8 +360,8 @@ public class ImportRestApiRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The POST request body containing external API definitions. Currently, only Swagger definition JSON files are
-     * supported. The maximum size of the API definition file is 2MB.
+     * [Required] The POST request body containing external API definitions. Currently, only OpenAPI definition
+     * JSON/YAML files are supported. The maximum size of the API definition file is 2MB.
      * </p>
      * <p>
      * The AWS SDK for Java performs a Base64 encoding on this field before sending this request to the AWS service.
@@ -212,8 +375,8 @@ public class ImportRestApiRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </p>
      * 
      * @param body
-     *        The POST request body containing external API definitions. Currently, only Swagger definition JSON files
-     *        are supported. The maximum size of the API definition file is 2MB.
+     *        [Required] The POST request body containing external API definitions. Currently, only OpenAPI definition
+     *        JSON/YAML files are supported. The maximum size of the API definition file is 2MB.
      */
 
     public void setBody(java.nio.ByteBuffer body) {
@@ -222,8 +385,8 @@ public class ImportRestApiRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The POST request body containing external API definitions. Currently, only Swagger definition JSON files are
-     * supported. The maximum size of the API definition file is 2MB.
+     * [Required] The POST request body containing external API definitions. Currently, only OpenAPI definition
+     * JSON/YAML files are supported. The maximum size of the API definition file is 2MB.
      * </p>
      * <p>
      * {@code ByteBuffer}s are stateful. Calling their {@code get} methods changes their {@code position}. We recommend
@@ -233,8 +396,8 @@ public class ImportRestApiRequest extends com.amazonaws.AmazonWebServiceRequest 
      * {@code position}.
      * </p>
      * 
-     * @return The POST request body containing external API definitions. Currently, only Swagger definition JSON files
-     *         are supported. The maximum size of the API definition file is 2MB.
+     * @return [Required] The POST request body containing external API definitions. Currently, only OpenAPI definition
+     *         JSON/YAML files are supported. The maximum size of the API definition file is 2MB.
      */
 
     public java.nio.ByteBuffer getBody() {
@@ -243,8 +406,8 @@ public class ImportRestApiRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * The POST request body containing external API definitions. Currently, only Swagger definition JSON files are
-     * supported. The maximum size of the API definition file is 2MB.
+     * [Required] The POST request body containing external API definitions. Currently, only OpenAPI definition
+     * JSON/YAML files are supported. The maximum size of the API definition file is 2MB.
      * </p>
      * <p>
      * The AWS SDK for Java performs a Base64 encoding on this field before sending this request to the AWS service.
@@ -258,8 +421,8 @@ public class ImportRestApiRequest extends com.amazonaws.AmazonWebServiceRequest 
      * </p>
      * 
      * @param body
-     *        The POST request body containing external API definitions. Currently, only Swagger definition JSON files
-     *        are supported. The maximum size of the API definition file is 2MB.
+     *        [Required] The POST request body containing external API definitions. Currently, only OpenAPI definition
+     *        JSON/YAML files are supported. The maximum size of the API definition file is 2MB.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -269,7 +432,8 @@ public class ImportRestApiRequest extends com.amazonaws.AmazonWebServiceRequest 
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

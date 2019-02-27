@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,20 +27,25 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The image name from which a fleet is created.
+     * The name of the image used to create the fleet.
      * </p>
      */
     private String imageName;
     /**
      * <p>
-     * The name of the fleet.
+     * The ARN of the public, private, or shared image to use.
+     * </p>
+     */
+    private String imageArn;
+    /**
+     * <p>
+     * A unique name for the fleet.
      * </p>
      */
     private String name;
     /**
      * <p>
-     * The instance type of compute resources for the fleet. Fleet instances are launched from this instance type.
-     * Available instance types are:
+     * The instance type to use when launching fleet instances. The following instance types are available:
      * </p>
      * <ul>
      * <li>
@@ -103,12 +108,52 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      * stream.memory.8xlarge
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * stream.graphics-design.large
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.graphics-design.xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.graphics-design.2xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.graphics-design.4xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.graphics-desktop.2xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.graphics-pro.4xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.graphics-pro.8xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.graphics-pro.16xlarge
+     * </p>
+     * </li>
      * </ul>
      */
     private String instanceType;
     /**
      * <p>
-     * The parameters for the capacity allocated to the fleet.
+     * The desired capacity for the fleet.
      * </p>
      */
     private ComputeCapacity computeCapacity;
@@ -120,35 +165,35 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
     private VpcConfig vpcConfig;
     /**
      * <p>
-     * The maximum time for which a streaming session can run. The input can be any numeric value in seconds between 600
-     * and 57600.
+     * The maximum time that a streaming session can run, in seconds. Specify a value between 600 and 360000. By
+     * default, the value is 900 seconds (15 minutes).
      * </p>
      */
     private Integer maxUserDurationInSeconds;
     /**
      * <p>
-     * The time after disconnection when a session is considered to have ended. If a user who got disconnected
-     * reconnects within this timeout interval, the user is connected back to their previous session. The input can be
-     * any numeric value in seconds between 60 and 57600.
+     * The time after disconnection when a session is considered to have ended, in seconds. If a user who was
+     * disconnected reconnects within this time interval, the user is connected to their previous session. Specify a
+     * value between 60 and 360000. By default, the value is 900 seconds (15 minutes).
      * </p>
      */
     private Integer disconnectTimeoutInSeconds;
     /**
      * <p>
-     * Delete the VPC association for the specified fleet.
+     * Deletes the VPC association for the specified fleet.
      * </p>
      */
     @Deprecated
     private Boolean deleteVpcConfig;
     /**
      * <p>
-     * The description displayed to end users on the AppStream 2.0 portal.
+     * The description to display.
      * </p>
      */
     private String description;
     /**
      * <p>
-     * The name displayed to end users on the AppStream 2.0 portal.
+     * The fleet name to display.
      * </p>
      */
     private String displayName;
@@ -160,25 +205,25 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
     private Boolean enableDefaultInternetAccess;
     /**
      * <p>
-     * The <i>DirectoryName</i> and <i>OrganizationalUnitDistinguishedName</i> values, which are used to join domains
-     * for the AppStream 2.0 streaming instances.
+     * The name of the directory and organizational unit (OU) to use to join the fleet to a Microsoft Active Directory
+     * domain.
      * </p>
      */
     private DomainJoinInfo domainJoinInfo;
     /**
      * <p>
-     * Fleet attributes to be deleted.
+     * The fleet attributes to delete.
      * </p>
      */
     private java.util.List<String> attributesToDelete;
 
     /**
      * <p>
-     * The image name from which a fleet is created.
+     * The name of the image used to create the fleet.
      * </p>
      * 
      * @param imageName
-     *        The image name from which a fleet is created.
+     *        The name of the image used to create the fleet.
      */
 
     public void setImageName(String imageName) {
@@ -187,10 +232,10 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The image name from which a fleet is created.
+     * The name of the image used to create the fleet.
      * </p>
      * 
-     * @return The image name from which a fleet is created.
+     * @return The name of the image used to create the fleet.
      */
 
     public String getImageName() {
@@ -199,11 +244,11 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The image name from which a fleet is created.
+     * The name of the image used to create the fleet.
      * </p>
      * 
      * @param imageName
-     *        The image name from which a fleet is created.
+     *        The name of the image used to create the fleet.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -214,11 +259,51 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The name of the fleet.
+     * The ARN of the public, private, or shared image to use.
+     * </p>
+     * 
+     * @param imageArn
+     *        The ARN of the public, private, or shared image to use.
+     */
+
+    public void setImageArn(String imageArn) {
+        this.imageArn = imageArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of the public, private, or shared image to use.
+     * </p>
+     * 
+     * @return The ARN of the public, private, or shared image to use.
+     */
+
+    public String getImageArn() {
+        return this.imageArn;
+    }
+
+    /**
+     * <p>
+     * The ARN of the public, private, or shared image to use.
+     * </p>
+     * 
+     * @param imageArn
+     *        The ARN of the public, private, or shared image to use.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateFleetRequest withImageArn(String imageArn) {
+        setImageArn(imageArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A unique name for the fleet.
      * </p>
      * 
      * @param name
-     *        The name of the fleet.
+     *        A unique name for the fleet.
      */
 
     public void setName(String name) {
@@ -227,10 +312,10 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The name of the fleet.
+     * A unique name for the fleet.
      * </p>
      * 
-     * @return The name of the fleet.
+     * @return A unique name for the fleet.
      */
 
     public String getName() {
@@ -239,11 +324,11 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The name of the fleet.
+     * A unique name for the fleet.
      * </p>
      * 
      * @param name
-     *        The name of the fleet.
+     *        A unique name for the fleet.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -254,8 +339,7 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The instance type of compute resources for the fleet. Fleet instances are launched from this instance type.
-     * Available instance types are:
+     * The instance type to use when launching fleet instances. The following instance types are available:
      * </p>
      * <ul>
      * <li>
@@ -318,11 +402,50 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      * stream.memory.8xlarge
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * stream.graphics-design.large
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.graphics-design.xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.graphics-design.2xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.graphics-design.4xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.graphics-desktop.2xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.graphics-pro.4xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.graphics-pro.8xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.graphics-pro.16xlarge
+     * </p>
+     * </li>
      * </ul>
      * 
      * @param instanceType
-     *        The instance type of compute resources for the fleet. Fleet instances are launched from this instance
-     *        type. Available instance types are:</p>
+     *        The instance type to use when launching fleet instances. The following instance types are available:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -384,6 +507,46 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      *        stream.memory.8xlarge
      *        </p>
      *        </li>
+     *        <li>
+     *        <p>
+     *        stream.graphics-design.large
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        stream.graphics-design.xlarge
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        stream.graphics-design.2xlarge
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        stream.graphics-design.4xlarge
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        stream.graphics-desktop.2xlarge
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        stream.graphics-pro.4xlarge
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        stream.graphics-pro.8xlarge
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        stream.graphics-pro.16xlarge
+     *        </p>
+     *        </li>
      */
 
     public void setInstanceType(String instanceType) {
@@ -392,8 +555,7 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The instance type of compute resources for the fleet. Fleet instances are launched from this instance type.
-     * Available instance types are:
+     * The instance type to use when launching fleet instances. The following instance types are available:
      * </p>
      * <ul>
      * <li>
@@ -456,10 +618,49 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      * stream.memory.8xlarge
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * stream.graphics-design.large
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.graphics-design.xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.graphics-design.2xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.graphics-design.4xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.graphics-desktop.2xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.graphics-pro.4xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.graphics-pro.8xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.graphics-pro.16xlarge
+     * </p>
+     * </li>
      * </ul>
      * 
-     * @return The instance type of compute resources for the fleet. Fleet instances are launched from this instance
-     *         type. Available instance types are:</p>
+     * @return The instance type to use when launching fleet instances. The following instance types are available:</p>
      *         <ul>
      *         <li>
      *         <p>
@@ -521,6 +722,46 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      *         stream.memory.8xlarge
      *         </p>
      *         </li>
+     *         <li>
+     *         <p>
+     *         stream.graphics-design.large
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         stream.graphics-design.xlarge
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         stream.graphics-design.2xlarge
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         stream.graphics-design.4xlarge
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         stream.graphics-desktop.2xlarge
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         stream.graphics-pro.4xlarge
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         stream.graphics-pro.8xlarge
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         stream.graphics-pro.16xlarge
+     *         </p>
+     *         </li>
      */
 
     public String getInstanceType() {
@@ -529,8 +770,7 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The instance type of compute resources for the fleet. Fleet instances are launched from this instance type.
-     * Available instance types are:
+     * The instance type to use when launching fleet instances. The following instance types are available:
      * </p>
      * <ul>
      * <li>
@@ -593,11 +833,50 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      * stream.memory.8xlarge
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * stream.graphics-design.large
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.graphics-design.xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.graphics-design.2xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.graphics-design.4xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.graphics-desktop.2xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.graphics-pro.4xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.graphics-pro.8xlarge
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * stream.graphics-pro.16xlarge
+     * </p>
+     * </li>
      * </ul>
      * 
      * @param instanceType
-     *        The instance type of compute resources for the fleet. Fleet instances are launched from this instance
-     *        type. Available instance types are:</p>
+     *        The instance type to use when launching fleet instances. The following instance types are available:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -659,6 +938,46 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      *        stream.memory.8xlarge
      *        </p>
      *        </li>
+     *        <li>
+     *        <p>
+     *        stream.graphics-design.large
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        stream.graphics-design.xlarge
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        stream.graphics-design.2xlarge
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        stream.graphics-design.4xlarge
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        stream.graphics-desktop.2xlarge
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        stream.graphics-pro.4xlarge
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        stream.graphics-pro.8xlarge
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        stream.graphics-pro.16xlarge
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -669,11 +988,11 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The parameters for the capacity allocated to the fleet.
+     * The desired capacity for the fleet.
      * </p>
      * 
      * @param computeCapacity
-     *        The parameters for the capacity allocated to the fleet.
+     *        The desired capacity for the fleet.
      */
 
     public void setComputeCapacity(ComputeCapacity computeCapacity) {
@@ -682,10 +1001,10 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The parameters for the capacity allocated to the fleet.
+     * The desired capacity for the fleet.
      * </p>
      * 
-     * @return The parameters for the capacity allocated to the fleet.
+     * @return The desired capacity for the fleet.
      */
 
     public ComputeCapacity getComputeCapacity() {
@@ -694,11 +1013,11 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The parameters for the capacity allocated to the fleet.
+     * The desired capacity for the fleet.
      * </p>
      * 
      * @param computeCapacity
-     *        The parameters for the capacity allocated to the fleet.
+     *        The desired capacity for the fleet.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -749,13 +1068,13 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The maximum time for which a streaming session can run. The input can be any numeric value in seconds between 600
-     * and 57600.
+     * The maximum time that a streaming session can run, in seconds. Specify a value between 600 and 360000. By
+     * default, the value is 900 seconds (15 minutes).
      * </p>
      * 
      * @param maxUserDurationInSeconds
-     *        The maximum time for which a streaming session can run. The input can be any numeric value in seconds
-     *        between 600 and 57600.
+     *        The maximum time that a streaming session can run, in seconds. Specify a value between 600 and 360000. By
+     *        default, the value is 900 seconds (15 minutes).
      */
 
     public void setMaxUserDurationInSeconds(Integer maxUserDurationInSeconds) {
@@ -764,12 +1083,12 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The maximum time for which a streaming session can run. The input can be any numeric value in seconds between 600
-     * and 57600.
+     * The maximum time that a streaming session can run, in seconds. Specify a value between 600 and 360000. By
+     * default, the value is 900 seconds (15 minutes).
      * </p>
      * 
-     * @return The maximum time for which a streaming session can run. The input can be any numeric value in seconds
-     *         between 600 and 57600.
+     * @return The maximum time that a streaming session can run, in seconds. Specify a value between 600 and 360000. By
+     *         default, the value is 900 seconds (15 minutes).
      */
 
     public Integer getMaxUserDurationInSeconds() {
@@ -778,13 +1097,13 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The maximum time for which a streaming session can run. The input can be any numeric value in seconds between 600
-     * and 57600.
+     * The maximum time that a streaming session can run, in seconds. Specify a value between 600 and 360000. By
+     * default, the value is 900 seconds (15 minutes).
      * </p>
      * 
      * @param maxUserDurationInSeconds
-     *        The maximum time for which a streaming session can run. The input can be any numeric value in seconds
-     *        between 600 and 57600.
+     *        The maximum time that a streaming session can run, in seconds. Specify a value between 600 and 360000. By
+     *        default, the value is 900 seconds (15 minutes).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -795,15 +1114,15 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The time after disconnection when a session is considered to have ended. If a user who got disconnected
-     * reconnects within this timeout interval, the user is connected back to their previous session. The input can be
-     * any numeric value in seconds between 60 and 57600.
+     * The time after disconnection when a session is considered to have ended, in seconds. If a user who was
+     * disconnected reconnects within this time interval, the user is connected to their previous session. Specify a
+     * value between 60 and 360000. By default, the value is 900 seconds (15 minutes).
      * </p>
      * 
      * @param disconnectTimeoutInSeconds
-     *        The time after disconnection when a session is considered to have ended. If a user who got disconnected
-     *        reconnects within this timeout interval, the user is connected back to their previous session. The input
-     *        can be any numeric value in seconds between 60 and 57600.
+     *        The time after disconnection when a session is considered to have ended, in seconds. If a user who was
+     *        disconnected reconnects within this time interval, the user is connected to their previous session.
+     *        Specify a value between 60 and 360000. By default, the value is 900 seconds (15 minutes).
      */
 
     public void setDisconnectTimeoutInSeconds(Integer disconnectTimeoutInSeconds) {
@@ -812,14 +1131,14 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The time after disconnection when a session is considered to have ended. If a user who got disconnected
-     * reconnects within this timeout interval, the user is connected back to their previous session. The input can be
-     * any numeric value in seconds between 60 and 57600.
+     * The time after disconnection when a session is considered to have ended, in seconds. If a user who was
+     * disconnected reconnects within this time interval, the user is connected to their previous session. Specify a
+     * value between 60 and 360000. By default, the value is 900 seconds (15 minutes).
      * </p>
      * 
-     * @return The time after disconnection when a session is considered to have ended. If a user who got disconnected
-     *         reconnects within this timeout interval, the user is connected back to their previous session. The input
-     *         can be any numeric value in seconds between 60 and 57600.
+     * @return The time after disconnection when a session is considered to have ended, in seconds. If a user who was
+     *         disconnected reconnects within this time interval, the user is connected to their previous session.
+     *         Specify a value between 60 and 360000. By default, the value is 900 seconds (15 minutes).
      */
 
     public Integer getDisconnectTimeoutInSeconds() {
@@ -828,15 +1147,15 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The time after disconnection when a session is considered to have ended. If a user who got disconnected
-     * reconnects within this timeout interval, the user is connected back to their previous session. The input can be
-     * any numeric value in seconds between 60 and 57600.
+     * The time after disconnection when a session is considered to have ended, in seconds. If a user who was
+     * disconnected reconnects within this time interval, the user is connected to their previous session. Specify a
+     * value between 60 and 360000. By default, the value is 900 seconds (15 minutes).
      * </p>
      * 
      * @param disconnectTimeoutInSeconds
-     *        The time after disconnection when a session is considered to have ended. If a user who got disconnected
-     *        reconnects within this timeout interval, the user is connected back to their previous session. The input
-     *        can be any numeric value in seconds between 60 and 57600.
+     *        The time after disconnection when a session is considered to have ended, in seconds. If a user who was
+     *        disconnected reconnects within this time interval, the user is connected to their previous session.
+     *        Specify a value between 60 and 360000. By default, the value is 900 seconds (15 minutes).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -847,11 +1166,11 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Delete the VPC association for the specified fleet.
+     * Deletes the VPC association for the specified fleet.
      * </p>
      * 
      * @param deleteVpcConfig
-     *        Delete the VPC association for the specified fleet.
+     *        Deletes the VPC association for the specified fleet.
      */
     @Deprecated
     public void setDeleteVpcConfig(Boolean deleteVpcConfig) {
@@ -860,10 +1179,10 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Delete the VPC association for the specified fleet.
+     * Deletes the VPC association for the specified fleet.
      * </p>
      * 
-     * @return Delete the VPC association for the specified fleet.
+     * @return Deletes the VPC association for the specified fleet.
      */
     @Deprecated
     public Boolean getDeleteVpcConfig() {
@@ -872,11 +1191,11 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Delete the VPC association for the specified fleet.
+     * Deletes the VPC association for the specified fleet.
      * </p>
      * 
      * @param deleteVpcConfig
-     *        Delete the VPC association for the specified fleet.
+     *        Deletes the VPC association for the specified fleet.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
     @Deprecated
@@ -887,10 +1206,10 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Delete the VPC association for the specified fleet.
+     * Deletes the VPC association for the specified fleet.
      * </p>
      * 
-     * @return Delete the VPC association for the specified fleet.
+     * @return Deletes the VPC association for the specified fleet.
      */
     @Deprecated
     public Boolean isDeleteVpcConfig() {
@@ -899,11 +1218,11 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The description displayed to end users on the AppStream 2.0 portal.
+     * The description to display.
      * </p>
      * 
      * @param description
-     *        The description displayed to end users on the AppStream 2.0 portal.
+     *        The description to display.
      */
 
     public void setDescription(String description) {
@@ -912,10 +1231,10 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The description displayed to end users on the AppStream 2.0 portal.
+     * The description to display.
      * </p>
      * 
-     * @return The description displayed to end users on the AppStream 2.0 portal.
+     * @return The description to display.
      */
 
     public String getDescription() {
@@ -924,11 +1243,11 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The description displayed to end users on the AppStream 2.0 portal.
+     * The description to display.
      * </p>
      * 
      * @param description
-     *        The description displayed to end users on the AppStream 2.0 portal.
+     *        The description to display.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -939,11 +1258,11 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The name displayed to end users on the AppStream 2.0 portal.
+     * The fleet name to display.
      * </p>
      * 
      * @param displayName
-     *        The name displayed to end users on the AppStream 2.0 portal.
+     *        The fleet name to display.
      */
 
     public void setDisplayName(String displayName) {
@@ -952,10 +1271,10 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The name displayed to end users on the AppStream 2.0 portal.
+     * The fleet name to display.
      * </p>
      * 
-     * @return The name displayed to end users on the AppStream 2.0 portal.
+     * @return The fleet name to display.
      */
 
     public String getDisplayName() {
@@ -964,11 +1283,11 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The name displayed to end users on the AppStream 2.0 portal.
+     * The fleet name to display.
      * </p>
      * 
      * @param displayName
-     *        The name displayed to end users on the AppStream 2.0 portal.
+     *        The fleet name to display.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1031,13 +1350,13 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The <i>DirectoryName</i> and <i>OrganizationalUnitDistinguishedName</i> values, which are used to join domains
-     * for the AppStream 2.0 streaming instances.
+     * The name of the directory and organizational unit (OU) to use to join the fleet to a Microsoft Active Directory
+     * domain.
      * </p>
      * 
      * @param domainJoinInfo
-     *        The <i>DirectoryName</i> and <i>OrganizationalUnitDistinguishedName</i> values, which are used to join
-     *        domains for the AppStream 2.0 streaming instances.
+     *        The name of the directory and organizational unit (OU) to use to join the fleet to a Microsoft Active
+     *        Directory domain.
      */
 
     public void setDomainJoinInfo(DomainJoinInfo domainJoinInfo) {
@@ -1046,12 +1365,12 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The <i>DirectoryName</i> and <i>OrganizationalUnitDistinguishedName</i> values, which are used to join domains
-     * for the AppStream 2.0 streaming instances.
+     * The name of the directory and organizational unit (OU) to use to join the fleet to a Microsoft Active Directory
+     * domain.
      * </p>
      * 
-     * @return The <i>DirectoryName</i> and <i>OrganizationalUnitDistinguishedName</i> values, which are used to join
-     *         domains for the AppStream 2.0 streaming instances.
+     * @return The name of the directory and organizational unit (OU) to use to join the fleet to a Microsoft Active
+     *         Directory domain.
      */
 
     public DomainJoinInfo getDomainJoinInfo() {
@@ -1060,13 +1379,13 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * The <i>DirectoryName</i> and <i>OrganizationalUnitDistinguishedName</i> values, which are used to join domains
-     * for the AppStream 2.0 streaming instances.
+     * The name of the directory and organizational unit (OU) to use to join the fleet to a Microsoft Active Directory
+     * domain.
      * </p>
      * 
      * @param domainJoinInfo
-     *        The <i>DirectoryName</i> and <i>OrganizationalUnitDistinguishedName</i> values, which are used to join
-     *        domains for the AppStream 2.0 streaming instances.
+     *        The name of the directory and organizational unit (OU) to use to join the fleet to a Microsoft Active
+     *        Directory domain.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1077,10 +1396,10 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Fleet attributes to be deleted.
+     * The fleet attributes to delete.
      * </p>
      * 
-     * @return Fleet attributes to be deleted.
+     * @return The fleet attributes to delete.
      * @see FleetAttribute
      */
 
@@ -1090,11 +1409,11 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Fleet attributes to be deleted.
+     * The fleet attributes to delete.
      * </p>
      * 
      * @param attributesToDelete
-     *        Fleet attributes to be deleted.
+     *        The fleet attributes to delete.
      * @see FleetAttribute
      */
 
@@ -1109,7 +1428,7 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Fleet attributes to be deleted.
+     * The fleet attributes to delete.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -1118,7 +1437,7 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </p>
      * 
      * @param attributesToDelete
-     *        Fleet attributes to be deleted.
+     *        The fleet attributes to delete.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see FleetAttribute
      */
@@ -1135,11 +1454,11 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Fleet attributes to be deleted.
+     * The fleet attributes to delete.
      * </p>
      * 
      * @param attributesToDelete
-     *        Fleet attributes to be deleted.
+     *        The fleet attributes to delete.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see FleetAttribute
      */
@@ -1151,11 +1470,11 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Fleet attributes to be deleted.
+     * The fleet attributes to delete.
      * </p>
      * 
      * @param attributesToDelete
-     *        Fleet attributes to be deleted.
+     *        The fleet attributes to delete.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see FleetAttribute
      */
@@ -1174,7 +1493,8 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -1186,6 +1506,8 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
         sb.append("{");
         if (getImageName() != null)
             sb.append("ImageName: ").append(getImageName()).append(",");
+        if (getImageArn() != null)
+            sb.append("ImageArn: ").append(getImageArn()).append(",");
         if (getName() != null)
             sb.append("Name: ").append(getName()).append(",");
         if (getInstanceType() != null)
@@ -1227,6 +1549,10 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
         if (other.getImageName() == null ^ this.getImageName() == null)
             return false;
         if (other.getImageName() != null && other.getImageName().equals(this.getImageName()) == false)
+            return false;
+        if (other.getImageArn() == null ^ this.getImageArn() == null)
+            return false;
+        if (other.getImageArn() != null && other.getImageArn().equals(this.getImageArn()) == false)
             return false;
         if (other.getName() == null ^ this.getName() == null)
             return false;
@@ -1285,6 +1611,7 @@ public class UpdateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getImageName() == null) ? 0 : getImageName().hashCode());
+        hashCode = prime * hashCode + ((getImageArn() == null) ? 0 : getImageArn().hashCode());
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getInstanceType() == null) ? 0 : getInstanceType().hashCode());
         hashCode = prime * hashCode + ((getComputeCapacity() == null) ? 0 : getComputeCapacity().hashCode());

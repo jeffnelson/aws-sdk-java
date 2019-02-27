@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -50,6 +50,12 @@ public class GetCommandInvocationResult extends com.amazonaws.AmazonWebServiceRe
     private String documentName;
     /**
      * <p>
+     * The SSM document version used in the request.
+     * </p>
+     */
+    private String documentVersion;
+    /**
+     * <p>
      * The name of the plugin for which you want detailed results. For example, aws:RunShellScript is a plugin.
      * </p>
      */
@@ -97,7 +103,7 @@ public class GetCommandInvocationResult extends com.amazonaws.AmazonWebServiceRe
     private String executionEndDateTime;
     /**
      * <p>
-     * The status of the parent command for this invocation. This status can be different than StatusDetails.
+     * The status of this invocation plugin. This status can be different than StatusDetails.
      * </p>
      */
     private String status;
@@ -106,8 +112,8 @@ public class GetCommandInvocationResult extends com.amazonaws.AmazonWebServiceRe
      * A detailed status of the command execution for an invocation. StatusDetails includes more information than Status
      * because it includes states resulting from error and concurrency control parameters. StatusDetails can show
      * different results than Status. For more information about these statuses, see <a
-     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-about-status.html">Run Command
-     * Status</a>. StatusDetails can be one of the following values:
+     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html">Understanding Command
+     * Statuses</a> in the <i>AWS Systems Manager User Guide</i>. StatusDetails can be one of the following values:
      * </p>
      * <ul>
      * <li>
@@ -202,6 +208,12 @@ public class GetCommandInvocationResult extends com.amazonaws.AmazonWebServiceRe
      * </p>
      */
     private String standardErrorUrl;
+    /**
+     * <p>
+     * CloudWatch Logs information where Systems Manager sent the command output.
+     * </p>
+     */
+    private CloudWatchOutputConfig cloudWatchOutputConfig;
 
     /**
      * <p>
@@ -366,6 +378,46 @@ public class GetCommandInvocationResult extends com.amazonaws.AmazonWebServiceRe
 
     public GetCommandInvocationResult withDocumentName(String documentName) {
         setDocumentName(documentName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The SSM document version used in the request.
+     * </p>
+     * 
+     * @param documentVersion
+     *        The SSM document version used in the request.
+     */
+
+    public void setDocumentVersion(String documentVersion) {
+        this.documentVersion = documentVersion;
+    }
+
+    /**
+     * <p>
+     * The SSM document version used in the request.
+     * </p>
+     * 
+     * @return The SSM document version used in the request.
+     */
+
+    public String getDocumentVersion() {
+        return this.documentVersion;
+    }
+
+    /**
+     * <p>
+     * The SSM document version used in the request.
+     * </p>
+     * 
+     * @param documentVersion
+     *        The SSM document version used in the request.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetCommandInvocationResult withDocumentVersion(String documentVersion) {
+        setDocumentVersion(documentVersion);
         return this;
     }
 
@@ -667,11 +719,11 @@ public class GetCommandInvocationResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The status of the parent command for this invocation. This status can be different than StatusDetails.
+     * The status of this invocation plugin. This status can be different than StatusDetails.
      * </p>
      * 
      * @param status
-     *        The status of the parent command for this invocation. This status can be different than StatusDetails.
+     *        The status of this invocation plugin. This status can be different than StatusDetails.
      * @see CommandInvocationStatus
      */
 
@@ -681,10 +733,10 @@ public class GetCommandInvocationResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The status of the parent command for this invocation. This status can be different than StatusDetails.
+     * The status of this invocation plugin. This status can be different than StatusDetails.
      * </p>
      * 
-     * @return The status of the parent command for this invocation. This status can be different than StatusDetails.
+     * @return The status of this invocation plugin. This status can be different than StatusDetails.
      * @see CommandInvocationStatus
      */
 
@@ -694,11 +746,11 @@ public class GetCommandInvocationResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The status of the parent command for this invocation. This status can be different than StatusDetails.
+     * The status of this invocation plugin. This status can be different than StatusDetails.
      * </p>
      * 
      * @param status
-     *        The status of the parent command for this invocation. This status can be different than StatusDetails.
+     *        The status of this invocation plugin. This status can be different than StatusDetails.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see CommandInvocationStatus
      */
@@ -710,11 +762,11 @@ public class GetCommandInvocationResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The status of the parent command for this invocation. This status can be different than StatusDetails.
+     * The status of this invocation plugin. This status can be different than StatusDetails.
      * </p>
      * 
      * @param status
-     *        The status of the parent command for this invocation. This status can be different than StatusDetails.
+     *        The status of this invocation plugin. This status can be different than StatusDetails.
      * @see CommandInvocationStatus
      */
 
@@ -724,11 +776,11 @@ public class GetCommandInvocationResult extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The status of the parent command for this invocation. This status can be different than StatusDetails.
+     * The status of this invocation plugin. This status can be different than StatusDetails.
      * </p>
      * 
      * @param status
-     *        The status of the parent command for this invocation. This status can be different than StatusDetails.
+     *        The status of this invocation plugin. This status can be different than StatusDetails.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see CommandInvocationStatus
      */
@@ -743,8 +795,8 @@ public class GetCommandInvocationResult extends com.amazonaws.AmazonWebServiceRe
      * A detailed status of the command execution for an invocation. StatusDetails includes more information than Status
      * because it includes states resulting from error and concurrency control parameters. StatusDetails can show
      * different results than Status. For more information about these statuses, see <a
-     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-about-status.html">Run Command
-     * Status</a>. StatusDetails can be one of the following values:
+     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html">Understanding Command
+     * Statuses</a> in the <i>AWS Systems Manager User Guide</i>. StatusDetails can be one of the following values:
      * </p>
      * <ul>
      * <li>
@@ -814,8 +866,9 @@ public class GetCommandInvocationResult extends com.amazonaws.AmazonWebServiceRe
      *        A detailed status of the command execution for an invocation. StatusDetails includes more information than
      *        Status because it includes states resulting from error and concurrency control parameters. StatusDetails
      *        can show different results than Status. For more information about these statuses, see <a
-     *        href="http://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-about-status.html">Run Command
-     *        Status</a>. StatusDetails can be one of the following values:</p>
+     *        href="http://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html">Understanding
+     *        Command Statuses</a> in the <i>AWS Systems Manager User Guide</i>. StatusDetails can be one of the
+     *        following values:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -890,8 +943,8 @@ public class GetCommandInvocationResult extends com.amazonaws.AmazonWebServiceRe
      * A detailed status of the command execution for an invocation. StatusDetails includes more information than Status
      * because it includes states resulting from error and concurrency control parameters. StatusDetails can show
      * different results than Status. For more information about these statuses, see <a
-     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-about-status.html">Run Command
-     * Status</a>. StatusDetails can be one of the following values:
+     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html">Understanding Command
+     * Statuses</a> in the <i>AWS Systems Manager User Guide</i>. StatusDetails can be one of the following values:
      * </p>
      * <ul>
      * <li>
@@ -960,8 +1013,9 @@ public class GetCommandInvocationResult extends com.amazonaws.AmazonWebServiceRe
      * @return A detailed status of the command execution for an invocation. StatusDetails includes more information
      *         than Status because it includes states resulting from error and concurrency control parameters.
      *         StatusDetails can show different results than Status. For more information about these statuses, see <a
-     *         href="http://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-about-status.html">Run Command
-     *         Status</a>. StatusDetails can be one of the following values:</p>
+     *         href="http://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html">Understanding
+     *         Command Statuses</a> in the <i>AWS Systems Manager User Guide</i>. StatusDetails can be one of the
+     *         following values:</p>
      *         <ul>
      *         <li>
      *         <p>
@@ -1036,8 +1090,8 @@ public class GetCommandInvocationResult extends com.amazonaws.AmazonWebServiceRe
      * A detailed status of the command execution for an invocation. StatusDetails includes more information than Status
      * because it includes states resulting from error and concurrency control parameters. StatusDetails can show
      * different results than Status. For more information about these statuses, see <a
-     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-about-status.html">Run Command
-     * Status</a>. StatusDetails can be one of the following values:
+     * href="http://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html">Understanding Command
+     * Statuses</a> in the <i>AWS Systems Manager User Guide</i>. StatusDetails can be one of the following values:
      * </p>
      * <ul>
      * <li>
@@ -1107,8 +1161,9 @@ public class GetCommandInvocationResult extends com.amazonaws.AmazonWebServiceRe
      *        A detailed status of the command execution for an invocation. StatusDetails includes more information than
      *        Status because it includes states resulting from error and concurrency control parameters. StatusDetails
      *        can show different results than Status. For more information about these statuses, see <a
-     *        href="http://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-about-status.html">Run Command
-     *        Status</a>. StatusDetails can be one of the following values:</p>
+     *        href="http://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html">Understanding
+     *        Command Statuses</a> in the <i>AWS Systems Manager User Guide</i>. StatusDetails can be one of the
+     *        following values:</p>
      *        <ul>
      *        <li>
      *        <p>
@@ -1365,7 +1420,48 @@ public class GetCommandInvocationResult extends com.amazonaws.AmazonWebServiceRe
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * <p>
+     * CloudWatch Logs information where Systems Manager sent the command output.
+     * </p>
+     * 
+     * @param cloudWatchOutputConfig
+     *        CloudWatch Logs information where Systems Manager sent the command output.
+     */
+
+    public void setCloudWatchOutputConfig(CloudWatchOutputConfig cloudWatchOutputConfig) {
+        this.cloudWatchOutputConfig = cloudWatchOutputConfig;
+    }
+
+    /**
+     * <p>
+     * CloudWatch Logs information where Systems Manager sent the command output.
+     * </p>
+     * 
+     * @return CloudWatch Logs information where Systems Manager sent the command output.
+     */
+
+    public CloudWatchOutputConfig getCloudWatchOutputConfig() {
+        return this.cloudWatchOutputConfig;
+    }
+
+    /**
+     * <p>
+     * CloudWatch Logs information where Systems Manager sent the command output.
+     * </p>
+     * 
+     * @param cloudWatchOutputConfig
+     *        CloudWatch Logs information where Systems Manager sent the command output.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetCommandInvocationResult withCloudWatchOutputConfig(CloudWatchOutputConfig cloudWatchOutputConfig) {
+        setCloudWatchOutputConfig(cloudWatchOutputConfig);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -1383,6 +1479,8 @@ public class GetCommandInvocationResult extends com.amazonaws.AmazonWebServiceRe
             sb.append("Comment: ").append(getComment()).append(",");
         if (getDocumentName() != null)
             sb.append("DocumentName: ").append(getDocumentName()).append(",");
+        if (getDocumentVersion() != null)
+            sb.append("DocumentVersion: ").append(getDocumentVersion()).append(",");
         if (getPluginName() != null)
             sb.append("PluginName: ").append(getPluginName()).append(",");
         if (getResponseCode() != null)
@@ -1404,7 +1502,9 @@ public class GetCommandInvocationResult extends com.amazonaws.AmazonWebServiceRe
         if (getStandardErrorContent() != null)
             sb.append("StandardErrorContent: ").append(getStandardErrorContent()).append(",");
         if (getStandardErrorUrl() != null)
-            sb.append("StandardErrorUrl: ").append(getStandardErrorUrl());
+            sb.append("StandardErrorUrl: ").append(getStandardErrorUrl()).append(",");
+        if (getCloudWatchOutputConfig() != null)
+            sb.append("CloudWatchOutputConfig: ").append(getCloudWatchOutputConfig());
         sb.append("}");
         return sb.toString();
     }
@@ -1434,6 +1534,10 @@ public class GetCommandInvocationResult extends com.amazonaws.AmazonWebServiceRe
         if (other.getDocumentName() == null ^ this.getDocumentName() == null)
             return false;
         if (other.getDocumentName() != null && other.getDocumentName().equals(this.getDocumentName()) == false)
+            return false;
+        if (other.getDocumentVersion() == null ^ this.getDocumentVersion() == null)
+            return false;
+        if (other.getDocumentVersion() != null && other.getDocumentVersion().equals(this.getDocumentVersion()) == false)
             return false;
         if (other.getPluginName() == null ^ this.getPluginName() == null)
             return false;
@@ -1479,6 +1583,10 @@ public class GetCommandInvocationResult extends com.amazonaws.AmazonWebServiceRe
             return false;
         if (other.getStandardErrorUrl() != null && other.getStandardErrorUrl().equals(this.getStandardErrorUrl()) == false)
             return false;
+        if (other.getCloudWatchOutputConfig() == null ^ this.getCloudWatchOutputConfig() == null)
+            return false;
+        if (other.getCloudWatchOutputConfig() != null && other.getCloudWatchOutputConfig().equals(this.getCloudWatchOutputConfig()) == false)
+            return false;
         return true;
     }
 
@@ -1491,6 +1599,7 @@ public class GetCommandInvocationResult extends com.amazonaws.AmazonWebServiceRe
         hashCode = prime * hashCode + ((getInstanceId() == null) ? 0 : getInstanceId().hashCode());
         hashCode = prime * hashCode + ((getComment() == null) ? 0 : getComment().hashCode());
         hashCode = prime * hashCode + ((getDocumentName() == null) ? 0 : getDocumentName().hashCode());
+        hashCode = prime * hashCode + ((getDocumentVersion() == null) ? 0 : getDocumentVersion().hashCode());
         hashCode = prime * hashCode + ((getPluginName() == null) ? 0 : getPluginName().hashCode());
         hashCode = prime * hashCode + ((getResponseCode() == null) ? 0 : getResponseCode().hashCode());
         hashCode = prime * hashCode + ((getExecutionStartDateTime() == null) ? 0 : getExecutionStartDateTime().hashCode());
@@ -1502,6 +1611,7 @@ public class GetCommandInvocationResult extends com.amazonaws.AmazonWebServiceRe
         hashCode = prime * hashCode + ((getStandardOutputUrl() == null) ? 0 : getStandardOutputUrl().hashCode());
         hashCode = prime * hashCode + ((getStandardErrorContent() == null) ? 0 : getStandardErrorContent().hashCode());
         hashCode = prime * hashCode + ((getStandardErrorUrl() == null) ? 0 : getStandardErrorUrl().hashCode());
+        hashCode = prime * hashCode + ((getCloudWatchOutputConfig() == null) ? 0 : getCloudWatchOutputConfig().hashCode());
         return hashCode;
     }
 

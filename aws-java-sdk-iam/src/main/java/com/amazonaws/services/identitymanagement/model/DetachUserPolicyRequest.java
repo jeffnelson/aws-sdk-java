@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,9 +30,9 @@ public class DetachUserPolicyRequest extends com.amazonaws.AmazonWebServiceReque
      * The name (friendly name, not ARN) of the IAM user to detach the policy from.
      * </p>
      * <p>
-     * This parameter allows (per its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of
+     * This parameter allows (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of
      * characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of
-     * the following characters: =,.@-
+     * the following characters: _+=,.@-
      * </p>
      */
     private String userName;
@@ -53,17 +53,17 @@ public class DetachUserPolicyRequest extends com.amazonaws.AmazonWebServiceReque
      * The name (friendly name, not ARN) of the IAM user to detach the policy from.
      * </p>
      * <p>
-     * This parameter allows (per its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of
+     * This parameter allows (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of
      * characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of
-     * the following characters: =,.@-
+     * the following characters: _+=,.@-
      * </p>
      * 
      * @param userName
      *        The name (friendly name, not ARN) of the IAM user to detach the policy from.</p>
      *        <p>
-     *        This parameter allows (per its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of
-     *        characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include
-     *        any of the following characters: =,.@-
+     *        This parameter allows (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string
+     *        of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also
+     *        include any of the following characters: _+=,.@-
      */
 
     public void setUserName(String userName) {
@@ -75,16 +75,16 @@ public class DetachUserPolicyRequest extends com.amazonaws.AmazonWebServiceReque
      * The name (friendly name, not ARN) of the IAM user to detach the policy from.
      * </p>
      * <p>
-     * This parameter allows (per its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of
+     * This parameter allows (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of
      * characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of
-     * the following characters: =,.@-
+     * the following characters: _+=,.@-
      * </p>
      * 
      * @return The name (friendly name, not ARN) of the IAM user to detach the policy from.</p>
      *         <p>
-     *         This parameter allows (per its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of
-     *         characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include
-     *         any of the following characters: =,.@-
+     *         This parameter allows (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string
+     *         of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also
+     *         include any of the following characters: _+=,.@-
      */
 
     public String getUserName() {
@@ -96,17 +96,17 @@ public class DetachUserPolicyRequest extends com.amazonaws.AmazonWebServiceReque
      * The name (friendly name, not ARN) of the IAM user to detach the policy from.
      * </p>
      * <p>
-     * This parameter allows (per its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of
+     * This parameter allows (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of
      * characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include any of
-     * the following characters: =,.@-
+     * the following characters: _+=,.@-
      * </p>
      * 
      * @param userName
      *        The name (friendly name, not ARN) of the IAM user to detach the policy from.</p>
      *        <p>
-     *        This parameter allows (per its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string of
-     *        characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also include
-     *        any of the following characters: =,.@-
+     *        This parameter allows (through its <a href="http://wikipedia.org/wiki/regex">regex pattern</a>) a string
+     *        of characters consisting of upper and lowercase alphanumeric characters with no spaces. You can also
+     *        include any of the following characters: _+=,.@-
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -183,7 +183,8 @@ public class DetachUserPolicyRequest extends com.amazonaws.AmazonWebServiceReque
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

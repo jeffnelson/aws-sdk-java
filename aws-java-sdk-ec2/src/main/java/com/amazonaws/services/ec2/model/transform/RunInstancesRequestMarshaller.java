@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -60,11 +60,6 @@ public class RunInstancesRequestMarshaller implements Marshaller<Request<RunInst
                 EbsBlockDevice ebs = runInstancesRequestBlockDeviceMappingsListValue.getEbs();
                 if (ebs != null) {
 
-                    if (ebs.getEncrypted() != null) {
-                        request.addParameter("BlockDeviceMapping." + blockDeviceMappingsListIndex + ".Ebs.Encrypted",
-                                StringUtils.fromBoolean(ebs.getEncrypted()));
-                    }
-
                     if (ebs.getDeleteOnTermination() != null) {
                         request.addParameter("BlockDeviceMapping." + blockDeviceMappingsListIndex + ".Ebs.DeleteOnTermination",
                                 StringUtils.fromBoolean(ebs.getDeleteOnTermination()));
@@ -87,6 +82,15 @@ public class RunInstancesRequestMarshaller implements Marshaller<Request<RunInst
                     if (ebs.getVolumeType() != null) {
                         request.addParameter("BlockDeviceMapping." + blockDeviceMappingsListIndex + ".Ebs.VolumeType",
                                 StringUtils.fromString(ebs.getVolumeType()));
+                    }
+
+                    if (ebs.getEncrypted() != null) {
+                        request.addParameter("BlockDeviceMapping." + blockDeviceMappingsListIndex + ".Ebs.Encrypted",
+                                StringUtils.fromBoolean(ebs.getEncrypted()));
+                    }
+
+                    if (ebs.getKmsKeyId() != null) {
+                        request.addParameter("BlockDeviceMapping." + blockDeviceMappingsListIndex + ".Ebs.KmsKeyId", StringUtils.fromString(ebs.getKmsKeyId()));
                     }
                 }
 
@@ -158,6 +162,10 @@ public class RunInstancesRequestMarshaller implements Marshaller<Request<RunInst
 
             if (placement.getGroupName() != null) {
                 request.addParameter("Placement.GroupName", StringUtils.fromString(placement.getGroupName()));
+            }
+
+            if (placement.getPartitionNumber() != null) {
+                request.addParameter("Placement.PartitionNumber", StringUtils.fromInteger(placement.getPartitionNumber()));
             }
 
             if (placement.getHostId() != null) {
@@ -355,6 +363,36 @@ public class RunInstancesRequestMarshaller implements Marshaller<Request<RunInst
             request.addParameter("PrivateIpAddress", StringUtils.fromString(runInstancesRequest.getPrivateIpAddress()));
         }
 
+        com.amazonaws.internal.SdkInternalList<ElasticGpuSpecification> runInstancesRequestElasticGpuSpecificationList = (com.amazonaws.internal.SdkInternalList<ElasticGpuSpecification>) runInstancesRequest
+                .getElasticGpuSpecification();
+        if (!runInstancesRequestElasticGpuSpecificationList.isEmpty() || !runInstancesRequestElasticGpuSpecificationList.isAutoConstruct()) {
+            int elasticGpuSpecificationListIndex = 1;
+
+            for (ElasticGpuSpecification runInstancesRequestElasticGpuSpecificationListValue : runInstancesRequestElasticGpuSpecificationList) {
+
+                if (runInstancesRequestElasticGpuSpecificationListValue.getType() != null) {
+                    request.addParameter("ElasticGpuSpecification." + elasticGpuSpecificationListIndex + ".Type",
+                            StringUtils.fromString(runInstancesRequestElasticGpuSpecificationListValue.getType()));
+                }
+                elasticGpuSpecificationListIndex++;
+            }
+        }
+
+        com.amazonaws.internal.SdkInternalList<ElasticInferenceAccelerator> runInstancesRequestElasticInferenceAcceleratorsList = (com.amazonaws.internal.SdkInternalList<ElasticInferenceAccelerator>) runInstancesRequest
+                .getElasticInferenceAccelerators();
+        if (!runInstancesRequestElasticInferenceAcceleratorsList.isEmpty() || !runInstancesRequestElasticInferenceAcceleratorsList.isAutoConstruct()) {
+            int elasticInferenceAcceleratorsListIndex = 1;
+
+            for (ElasticInferenceAccelerator runInstancesRequestElasticInferenceAcceleratorsListValue : runInstancesRequestElasticInferenceAcceleratorsList) {
+
+                if (runInstancesRequestElasticInferenceAcceleratorsListValue.getType() != null) {
+                    request.addParameter("ElasticInferenceAccelerator." + elasticInferenceAcceleratorsListIndex + ".Type",
+                            StringUtils.fromString(runInstancesRequestElasticInferenceAcceleratorsListValue.getType()));
+                }
+                elasticInferenceAcceleratorsListIndex++;
+            }
+        }
+
         com.amazonaws.internal.SdkInternalList<TagSpecification> runInstancesRequestTagSpecificationsList = (com.amazonaws.internal.SdkInternalList<TagSpecification>) runInstancesRequest
                 .getTagSpecifications();
         if (!runInstancesRequestTagSpecificationsList.isEmpty() || !runInstancesRequestTagSpecificationsList.isAutoConstruct()) {
@@ -387,6 +425,117 @@ public class RunInstancesRequestMarshaller implements Marshaller<Request<RunInst
                     }
                 }
                 tagSpecificationsListIndex++;
+            }
+        }
+
+        LaunchTemplateSpecification launchTemplate = runInstancesRequest.getLaunchTemplate();
+        if (launchTemplate != null) {
+
+            if (launchTemplate.getLaunchTemplateId() != null) {
+                request.addParameter("LaunchTemplate.LaunchTemplateId", StringUtils.fromString(launchTemplate.getLaunchTemplateId()));
+            }
+
+            if (launchTemplate.getLaunchTemplateName() != null) {
+                request.addParameter("LaunchTemplate.LaunchTemplateName", StringUtils.fromString(launchTemplate.getLaunchTemplateName()));
+            }
+
+            if (launchTemplate.getVersion() != null) {
+                request.addParameter("LaunchTemplate.Version", StringUtils.fromString(launchTemplate.getVersion()));
+            }
+        }
+
+        InstanceMarketOptionsRequest instanceMarketOptions = runInstancesRequest.getInstanceMarketOptions();
+        if (instanceMarketOptions != null) {
+
+            if (instanceMarketOptions.getMarketType() != null) {
+                request.addParameter("InstanceMarketOptions.MarketType", StringUtils.fromString(instanceMarketOptions.getMarketType()));
+            }
+
+            SpotMarketOptions spotOptions = instanceMarketOptions.getSpotOptions();
+            if (spotOptions != null) {
+
+                if (spotOptions.getMaxPrice() != null) {
+                    request.addParameter("InstanceMarketOptions.SpotOptions.MaxPrice", StringUtils.fromString(spotOptions.getMaxPrice()));
+                }
+
+                if (spotOptions.getSpotInstanceType() != null) {
+                    request.addParameter("InstanceMarketOptions.SpotOptions.SpotInstanceType", StringUtils.fromString(spotOptions.getSpotInstanceType()));
+                }
+
+                if (spotOptions.getBlockDurationMinutes() != null) {
+                    request.addParameter("InstanceMarketOptions.SpotOptions.BlockDurationMinutes",
+                            StringUtils.fromInteger(spotOptions.getBlockDurationMinutes()));
+                }
+
+                if (spotOptions.getValidUntil() != null) {
+                    request.addParameter("InstanceMarketOptions.SpotOptions.ValidUntil", StringUtils.fromDate(spotOptions.getValidUntil()));
+                }
+
+                if (spotOptions.getInstanceInterruptionBehavior() != null) {
+                    request.addParameter("InstanceMarketOptions.SpotOptions.InstanceInterruptionBehavior",
+                            StringUtils.fromString(spotOptions.getInstanceInterruptionBehavior()));
+                }
+            }
+        }
+
+        CreditSpecificationRequest creditSpecification = runInstancesRequest.getCreditSpecification();
+        if (creditSpecification != null) {
+
+            if (creditSpecification.getCpuCredits() != null) {
+                request.addParameter("CreditSpecification.CpuCredits", StringUtils.fromString(creditSpecification.getCpuCredits()));
+            }
+        }
+
+        CpuOptionsRequest cpuOptions = runInstancesRequest.getCpuOptions();
+        if (cpuOptions != null) {
+
+            if (cpuOptions.getCoreCount() != null) {
+                request.addParameter("CpuOptions.CoreCount", StringUtils.fromInteger(cpuOptions.getCoreCount()));
+            }
+
+            if (cpuOptions.getThreadsPerCore() != null) {
+                request.addParameter("CpuOptions.ThreadsPerCore", StringUtils.fromInteger(cpuOptions.getThreadsPerCore()));
+            }
+        }
+
+        CapacityReservationSpecification capacityReservationSpecification = runInstancesRequest.getCapacityReservationSpecification();
+        if (capacityReservationSpecification != null) {
+
+            if (capacityReservationSpecification.getCapacityReservationPreference() != null) {
+                request.addParameter("CapacityReservationSpecification.CapacityReservationPreference",
+                        StringUtils.fromString(capacityReservationSpecification.getCapacityReservationPreference()));
+            }
+
+            CapacityReservationTarget capacityReservationTarget = capacityReservationSpecification.getCapacityReservationTarget();
+            if (capacityReservationTarget != null) {
+
+                if (capacityReservationTarget.getCapacityReservationId() != null) {
+                    request.addParameter("CapacityReservationSpecification.CapacityReservationTarget.CapacityReservationId",
+                            StringUtils.fromString(capacityReservationTarget.getCapacityReservationId()));
+                }
+            }
+        }
+
+        HibernationOptionsRequest hibernationOptions = runInstancesRequest.getHibernationOptions();
+        if (hibernationOptions != null) {
+
+            if (hibernationOptions.getConfigured() != null) {
+                request.addParameter("HibernationOptions.Configured", StringUtils.fromBoolean(hibernationOptions.getConfigured()));
+            }
+        }
+
+        com.amazonaws.internal.SdkInternalList<LicenseConfigurationRequest> runInstancesRequestLicenseSpecificationsList = (com.amazonaws.internal.SdkInternalList<LicenseConfigurationRequest>) runInstancesRequest
+                .getLicenseSpecifications();
+        if (!runInstancesRequestLicenseSpecificationsList.isEmpty() || !runInstancesRequestLicenseSpecificationsList.isAutoConstruct()) {
+            int licenseSpecificationsListIndex = 1;
+
+            for (LicenseConfigurationRequest runInstancesRequestLicenseSpecificationsListValue : runInstancesRequestLicenseSpecificationsList) {
+
+                if (runInstancesRequestLicenseSpecificationsListValue.getLicenseConfigurationArn() != null) {
+                    request.addParameter("LicenseSpecification." + licenseSpecificationsListIndex + ".LicenseConfigurationArn",
+                            StringUtils.fromString(runInstancesRequestLicenseSpecificationsListValue.getLicenseConfigurationArn()));
+                }
+                licenseSpecificationsListIndex++;
             }
         }
 

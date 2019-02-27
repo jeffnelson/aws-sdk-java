@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -52,6 +52,13 @@ public class ResourceDataSyncS3Destination implements Serializable, Cloneable, S
      * </p>
      */
     private String region;
+    /**
+     * <p>
+     * The ARN of an encryption key for a destination in Amazon S3. Must belong to the same region as the destination
+     * Amazon S3 bucket.
+     * </p>
+     */
+    private String aWSKMSKeyARN;
 
     /**
      * <p>
@@ -247,7 +254,54 @@ public class ResourceDataSyncS3Destination implements Serializable, Cloneable, S
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * <p>
+     * The ARN of an encryption key for a destination in Amazon S3. Must belong to the same region as the destination
+     * Amazon S3 bucket.
+     * </p>
+     * 
+     * @param aWSKMSKeyARN
+     *        The ARN of an encryption key for a destination in Amazon S3. Must belong to the same region as the
+     *        destination Amazon S3 bucket.
+     */
+
+    public void setAWSKMSKeyARN(String aWSKMSKeyARN) {
+        this.aWSKMSKeyARN = aWSKMSKeyARN;
+    }
+
+    /**
+     * <p>
+     * The ARN of an encryption key for a destination in Amazon S3. Must belong to the same region as the destination
+     * Amazon S3 bucket.
+     * </p>
+     * 
+     * @return The ARN of an encryption key for a destination in Amazon S3. Must belong to the same region as the
+     *         destination Amazon S3 bucket.
+     */
+
+    public String getAWSKMSKeyARN() {
+        return this.aWSKMSKeyARN;
+    }
+
+    /**
+     * <p>
+     * The ARN of an encryption key for a destination in Amazon S3. Must belong to the same region as the destination
+     * Amazon S3 bucket.
+     * </p>
+     * 
+     * @param aWSKMSKeyARN
+     *        The ARN of an encryption key for a destination in Amazon S3. Must belong to the same region as the
+     *        destination Amazon S3 bucket.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ResourceDataSyncS3Destination withAWSKMSKeyARN(String aWSKMSKeyARN) {
+        setAWSKMSKeyARN(aWSKMSKeyARN);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -264,7 +318,9 @@ public class ResourceDataSyncS3Destination implements Serializable, Cloneable, S
         if (getSyncFormat() != null)
             sb.append("SyncFormat: ").append(getSyncFormat()).append(",");
         if (getRegion() != null)
-            sb.append("Region: ").append(getRegion());
+            sb.append("Region: ").append(getRegion()).append(",");
+        if (getAWSKMSKeyARN() != null)
+            sb.append("AWSKMSKeyARN: ").append(getAWSKMSKeyARN());
         sb.append("}");
         return sb.toString();
     }
@@ -295,6 +351,10 @@ public class ResourceDataSyncS3Destination implements Serializable, Cloneable, S
             return false;
         if (other.getRegion() != null && other.getRegion().equals(this.getRegion()) == false)
             return false;
+        if (other.getAWSKMSKeyARN() == null ^ this.getAWSKMSKeyARN() == null)
+            return false;
+        if (other.getAWSKMSKeyARN() != null && other.getAWSKMSKeyARN().equals(this.getAWSKMSKeyARN()) == false)
+            return false;
         return true;
     }
 
@@ -307,6 +367,7 @@ public class ResourceDataSyncS3Destination implements Serializable, Cloneable, S
         hashCode = prime * hashCode + ((getPrefix() == null) ? 0 : getPrefix().hashCode());
         hashCode = prime * hashCode + ((getSyncFormat() == null) ? 0 : getSyncFormat().hashCode());
         hashCode = prime * hashCode + ((getRegion() == null) ? 0 : getRegion().hashCode());
+        hashCode = prime * hashCode + ((getAWSKMSKeyARN() == null) ? 0 : getAWSKMSKeyARN().hashCode());
         return hashCode;
     }
 

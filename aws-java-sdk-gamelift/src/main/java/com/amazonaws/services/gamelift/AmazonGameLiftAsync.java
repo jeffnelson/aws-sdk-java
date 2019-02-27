@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,9 +28,9 @@ import com.amazonaws.services.gamelift.model.*;
  * <fullname>Amazon GameLift Service</fullname>
  * <p>
  * Amazon GameLift is a managed service for developers who need a scalable, dedicated server solution for their
- * multiplayer games. Amazon GameLift provides tools for the following tasks: (1) acquire computing resources and deploy
- * game servers, (2) scale game server capacity to meet player demand, (3) host game sessions and manage player access,
- * and (4) track in-depth metrics on player usage and server performance.
+ * multiplayer games. Use Amazon GameLift for these tasks: (1) set up computing resources and deploy your game servers,
+ * (2) run game sessions and get players into games, (3) automatically scale your resources to meet player demand and
+ * manage costs, and (4) track in-depth metrics on game server performance and player usage.
  * </p>
  * <p>
  * The Amazon GameLift service API includes two important function sets:
@@ -38,13 +38,13 @@ import com.amazonaws.services.gamelift.model.*;
  * <ul>
  * <li>
  * <p>
- * <b>Manage game sessions and player access</b> – Retrieve information on available game sessions; create new game
+ * <b>Manage game sessions and player access</b> -- Retrieve information on available game sessions; create new game
  * sessions; send player requests to join a game session.
  * </p>
  * </li>
  * <li>
  * <p>
- * <b>Configure and manage game server resources</b> – Manage builds, fleets, queues, and aliases; set autoscaling
+ * <b>Configure and manage game server resources</b> -- Manage builds, fleets, queues, and aliases; set auto-scaling
  * policies; retrieve logs and metrics.
  * </p>
  * </li>
@@ -57,25 +57,25 @@ import com.amazonaws.services.gamelift.model.*;
  * <li>
  * <p>
  * The Amazon Web Services software development kit (<a href="http://aws.amazon.com/tools/#sdk">AWS SDK</a>) is
- * available in <a
- * href="http://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-supported.html#gamelift-supported-clients"
+ * available in <a href=
+ * "https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-supported.html#gamelift-supported-clients"
  * >multiple languages</a> including C++ and C#. Use the SDK to access the API programmatically from an application,
  * such as a game client.
  * </p>
  * </li>
  * <li>
  * <p>
- * The <a href="http://aws.amazon.com/cli/">AWS command-line interface</a> (CLI) tool is primarily useful for handling
- * administrative actions, such as setting up and managing Amazon GameLift settings and resources. You can use the AWS
- * CLI to manage all of your AWS services.
+ * The <a href="https://docs.aws.amazon.com/cli/latest/userguide/">AWS command-line interface</a> (CLI) tool is
+ * primarily useful for handling administrative actions, such as setting up and managing Amazon GameLift settings and
+ * resources. You can use the AWS CLI to manage all of your AWS services.
  * </p>
  * </li>
  * <li>
  * <p>
  * The <a href="https://console.aws.amazon.com/gamelift/home">AWS Management Console</a> for Amazon GameLift provides a
  * web interface to manage your Amazon GameLift settings and resources. The console includes a dashboard for tracking
- * key resources, includings builds and fleets, and displays usage and performance metrics for your games as
- * customizable graphs.
+ * key resources, including builds and fleets, and displays usage and performance metrics for your games as customizable
+ * graphs.
  * </p>
  * </li>
  * <li>
@@ -83,42 +83,44 @@ import com.amazonaws.services.gamelift.model.*;
  * Amazon GameLift Local is a tool for testing your game's integration with Amazon GameLift before deploying it on the
  * service. This tools supports a subset of key API actions, which can be called from either the AWS CLI or
  * programmatically. See <a
- * href="http://docs.aws.amazon.com/gamelift/latest/developerguide/integration-testing-local.html">Testing an
+ * href="https://docs.aws.amazon.com/gamelift/latest/developerguide/integration-testing-local.html">Testing an
  * Integration</a>.
  * </p>
  * </li>
  * </ul>
  * <p>
- * <b>MORE RESOURCES</b>
+ * <b>Learn more</b>
  * </p>
  * <ul>
  * <li>
  * <p>
- * <a href="http://docs.aws.amazon.com/gamelift/latest/developerguide/">Amazon GameLift Developer Guide</a> – Learn more
- * about Amazon GameLift features and how to use them.
+ * <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/"> Developer Guide</a> -- Read about Amazon
+ * GameLift features and how to use them.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a href="https://gamedev.amazon.com/forums/tutorials">Lumberyard and Amazon GameLift Tutorials</a> – Get started fast
- * with walkthroughs and sample projects.
+ * <a href="https://gamedev.amazon.com/forums/tutorials">Tutorials</a> -- Get started fast with walkthroughs and sample
+ * projects.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a href="http://aws.amazon.com/blogs/gamedev/">GameDev Blog</a> – Stay up to date with new features and techniques.
+ * <a href="https://gamedev.amazon.com/blogs/gamedev/">GameDev Blog</a> -- Stay up to date with new features and
+ * techniques.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a href="https://gamedev.amazon.com/forums/spaces/123/gamelift-discussion.html">GameDev Forums</a> – Connect with the
- * GameDev community.
+ * <a href="https://gamedev.amazon.com/forums/spaces/123/gamelift-discussion.html">GameDev Forums</a> -- Connect with
+ * the GameDev community.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a href="http://docs.aws.amazon.com/gamelift/latest/developerguide/doc-history.html">Amazon GameLift Document
- * History</a> – See changes to the Amazon GameLift service, SDKs, and documentation, as well as links to release notes.
+ * <a href="https://aws.amazon.com/releasenotes/Amazon-GameLift/">Release notes</a> and <a
+ * href="https://docs.aws.amazon.com/gamelift/latest/developerguide/doc-history.html">document history</a> -- Stay
+ * current with updates to the Amazon GameLift service, SDKs, and documentation.
  * </p>
  * </li>
  * </ul>
@@ -132,8 +134,8 @@ import com.amazonaws.services.gamelift.model.*;
  * <b>Managing Games and Players</b>
  * </p>
  * <p>
- * These actions allow you to start new game sessions, find existing game sessions, track status and other game session
- * information, and enable access for players to join game sessions.
+ * Use these actions to start new game sessions, find existing game sessions, track game session status and other
+ * information, and enable player access to game sessions.
  * </p>
  * <ul>
  * <li>
@@ -143,42 +145,75 @@ import com.amazonaws.services.gamelift.model.*;
  * <ul>
  * <li>
  * <p>
- * <a>SearchGameSessions</a> – Get all available game sessions or search for game sessions that match a set of criteria.
+ * <a>SearchGameSessions</a> -- Retrieve all available game sessions or search for game sessions that match a set of
+ * criteria.
  * </p>
  * </li>
  * </ul>
  * </li>
  * <li>
  * <p>
- * <b>Start a new game session</b>
+ * <b>Start new game sessions</b>
  * </p>
  * <ul>
  * <li>
  * <p>
- * Game session placement – Use a queue to process requests for new game sessions and place them on the best available
- * fleet. Placement requests are asynchronous; game sessions are started whenever acceptable resources become available.
+ * Start new games with Queues to find the best available hosting resources across multiple regions, minimize player
+ * latency, and balance game session activity for efficiency and cost effectiveness.
  * </p>
  * <ul>
  * <li>
  * <p>
- * <a>StartGameSessionPlacement</a> – Request a new game session placement and add one or more players to it.
+ * <a>StartGameSessionPlacement</a> -- Request a new game session placement and add one or more players to it.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>DescribeGameSessionPlacement</a> – Get details on a placement request, including status.
+ * <a>DescribeGameSessionPlacement</a> -- Get details on a placement request, including status.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>StopGameSessionPlacement</a> – Cancel a placement request.
+ * <a>StopGameSessionPlacement</a> -- Cancel a placement request.
  * </p>
  * </li>
  * </ul>
  * </li>
  * <li>
  * <p>
- * <a>CreateGameSession</a> – Request a new game session on a specific fleet. <i>Available in Amazon GameLift Local.</i>
+ * <a>CreateGameSession</a> -- Start a new game session on a specific fleet. <i>Available in Amazon GameLift Local.</i>
+ * </p>
+ * </li>
+ * </ul>
+ * </li>
+ * <li>
+ * <p>
+ * <b>Match players to game sessions with FlexMatch matchmaking</b>
+ * </p>
+ * <ul>
+ * <li>
+ * <p>
+ * <a>StartMatchmaking</a> -- Request matchmaking for one players or a group who want to play together.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>StartMatchBackfill</a> - Request additional player matches to fill empty slots in an existing game session.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>DescribeMatchmaking</a> -- Get details on a matchmaking request, including status.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>AcceptMatch</a> -- Register that a player accepts a proposed match, for matches that require player acceptance.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>StopMatchmaking</a> -- Cancel a matchmaking request.
  * </p>
  * </li>
  * </ul>
@@ -190,24 +225,24 @@ import com.amazonaws.services.gamelift.model.*;
  * <ul>
  * <li>
  * <p>
- * <a>DescribeGameSessions</a> – Retrieve metadata for one or more game sessions, including length of time active and
+ * <a>DescribeGameSessions</a> -- Retrieve metadata for one or more game sessions, including length of time active and
  * current player count. <i>Available in Amazon GameLift Local.</i>
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>DescribeGameSessionDetails</a> – Retrieve metadata and the game session protection setting for one or more game
+ * <a>DescribeGameSessionDetails</a> -- Retrieve metadata and the game session protection setting for one or more game
  * sessions.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>UpdateGameSession</a> – Change game session settings, such as maximum player count and join policy.
+ * <a>UpdateGameSession</a> -- Change game session settings, such as maximum player count and join policy.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>GetGameSessionLogUrl</a> – Get the location of saved logs for a game session.
+ * <a>GetGameSessionLogUrl</a> -- Get the location of saved logs for a game session.
  * </p>
  * </li>
  * </ul>
@@ -219,19 +254,19 @@ import com.amazonaws.services.gamelift.model.*;
  * <ul>
  * <li>
  * <p>
- * <a>CreatePlayerSession</a> – Send a request for a player to join a game session. <i>Available in Amazon GameLift
+ * <a>CreatePlayerSession</a> -- Send a request for a player to join a game session. <i>Available in Amazon GameLift
  * Local.</i>
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>CreatePlayerSessions</a> – Send a request for multiple players to join a game session. <i>Available in Amazon
+ * <a>CreatePlayerSessions</a> -- Send a request for multiple players to join a game session. <i>Available in Amazon
  * GameLift Local.</i>
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>DescribePlayerSessions</a> – Get details on player activity, including status, playing time, and player data.
+ * <a>DescribePlayerSessions</a> -- Get details on player activity, including status, playing time, and player data.
  * <i>Available in Amazon GameLift Local.</i>
  * </p>
  * </li>
@@ -243,7 +278,7 @@ import com.amazonaws.services.gamelift.model.*;
  * </p>
  * <p>
  * When setting up Amazon GameLift resources for your game, you first <a
- * href="http://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-build-intro.html">create a game build</a>
+ * href="https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-build-intro.html">create a game build</a>
  * and upload it to Amazon GameLift. You can then use these actions to configure and manage a fleet of resources to run
  * your game servers, scale capacity to meet player demand, access performance and utilization metrics, and more.
  * </p>
@@ -255,29 +290,28 @@ import com.amazonaws.services.gamelift.model.*;
  * <ul>
  * <li>
  * <p>
- * <a>CreateBuild</a> – Create a new build using files stored in an Amazon S3 bucket. (Update uploading permissions with
- * <a>RequestUploadCredentials</a>.) To create a build and upload files from a local path, use the AWS CLI command
- * <code>upload-build</code>.
+ * <a>CreateBuild</a> -- Create a new build using files stored in an Amazon S3 bucket. To create a build and upload
+ * files from a local path, use the AWS CLI command <code>upload-build</code>.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>ListBuilds</a> – Get a list of all builds uploaded to a Amazon GameLift region.
+ * <a>ListBuilds</a> -- Get a list of all builds uploaded to a Amazon GameLift region.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>DescribeBuild</a> – Retrieve information associated with a build.
+ * <a>DescribeBuild</a> -- Retrieve information associated with a build.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>UpdateBuild</a> – Change build metadata, including build name and version.
+ * <a>UpdateBuild</a> -- Change build metadata, including build name and version.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>DeleteBuild</a> – Remove a build from Amazon GameLift.
+ * <a>DeleteBuild</a> -- Remove a build from Amazon GameLift.
  * </p>
  * </li>
  * </ul>
@@ -289,17 +323,17 @@ import com.amazonaws.services.gamelift.model.*;
  * <ul>
  * <li>
  * <p>
- * <a>CreateFleet</a> – Configure and activate a new fleet to run a build's game servers.
+ * <a>CreateFleet</a> -- Configure and activate a new fleet to run a build's game servers.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>ListFleets</a> – Get a list of all fleet IDs in a Amazon GameLift region (all statuses).
+ * <a>ListFleets</a> -- Get a list of all fleet IDs in a Amazon GameLift region (all statuses).
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>DeleteFleet</a> – Terminate a fleet that is no longer running game servers or hosting players.
+ * <a>DeleteFleet</a> -- Terminate a fleet that is no longer running game servers or hosting players.
  * </p>
  * </li>
  * <li>
@@ -309,19 +343,19 @@ import com.amazonaws.services.gamelift.model.*;
  * <ul>
  * <li>
  * <p>
- * <a>DescribeFleetAttributes</a> / <a>UpdateFleetAttributes</a> – View or change a fleet's metadata and settings for
+ * <a>DescribeFleetAttributes</a> / <a>UpdateFleetAttributes</a> -- View or change a fleet's metadata and settings for
  * game session protection and resource creation limits.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>DescribeFleetPortSettings</a> / <a>UpdateFleetPortSettings</a> – View or change the inbound permissions (IP
+ * <a>DescribeFleetPortSettings</a> / <a>UpdateFleetPortSettings</a> -- View or change the inbound permissions (IP
  * address and port setting ranges) allowed for a fleet.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>DescribeRuntimeConfiguration</a> / <a>UpdateRuntimeConfiguration</a> – View or change what server processes (and
+ * <a>DescribeRuntimeConfiguration</a> / <a>UpdateRuntimeConfiguration</a> -- View or change what server processes (and
  * how many) to run on each instance in a fleet.
  * </p>
  * </li>
@@ -336,37 +370,122 @@ import com.amazonaws.services.gamelift.model.*;
  * <ul>
  * <li>
  * <p>
- * <a>DescribeEC2InstanceLimits</a> – Retrieve maximum number of instances allowed for the current AWS account and the
+ * <a>DescribeEC2InstanceLimits</a> -- Retrieve maximum number of instances allowed for the current AWS account and the
  * current usage level.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>DescribeFleetCapacity</a> / <a>UpdateFleetCapacity</a> – Retrieve the capacity settings and the current number of
+ * <a>DescribeFleetCapacity</a> / <a>UpdateFleetCapacity</a> -- Retrieve the capacity settings and the current number of
  * instances in a fleet; adjust fleet capacity settings to scale up or down.
  * </p>
  * </li>
  * <li>
  * <p>
- * Autoscale – Manage autoscaling rules and apply them to a fleet.
+ * Autoscale -- Manage auto-scaling rules and apply them to a fleet.
  * </p>
  * <ul>
  * <li>
  * <p>
- * <a>PutScalingPolicy</a> – Create a new autoscaling policy, or update an existing one.
+ * <a>PutScalingPolicy</a> -- Create a new auto-scaling policy, or update an existing one.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>DescribeScalingPolicies</a> – Retrieve an existing autoscaling policy.
+ * <a>DescribeScalingPolicies</a> -- Retrieve an existing auto-scaling policy.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>DeleteScalingPolicy</a> – Delete an autoscaling policy and stop it from affecting a fleet's capacity.
+ * <a>DeleteScalingPolicy</a> -- Delete an auto-scaling policy and stop it from affecting a fleet's capacity.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>StartFleetActions</a> -- Restart a fleet's auto-scaling policies.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>StopFleetActions</a> -- Suspend a fleet's auto-scaling policies.
  * </p>
  * </li>
  * </ul>
+ * </li>
+ * </ul>
+ * </li>
+ * <li>
+ * <p>
+ * <b>Manage game session queues</b>
+ * </p>
+ * <ul>
+ * <li>
+ * <p>
+ * <a>CreateGameSessionQueue</a> -- Create a queue for processing requests for new game sessions.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>DescribeGameSessionQueues</a> -- Retrieve game session queues defined in a Amazon GameLift region.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>UpdateGameSessionQueue</a> -- Change the configuration of a game session queue.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>DeleteGameSessionQueue</a> -- Remove a game session queue from the region.
+ * </p>
+ * </li>
+ * </ul>
+ * </li>
+ * <li>
+ * <p>
+ * <b>Manage FlexMatch resources</b>
+ * </p>
+ * <ul>
+ * <li>
+ * <p>
+ * <a>CreateMatchmakingConfiguration</a> -- Create a matchmaking configuration with instructions for building a player
+ * group and placing in a new game session.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>DescribeMatchmakingConfigurations</a> -- Retrieve matchmaking configurations defined a Amazon GameLift region.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>UpdateMatchmakingConfiguration</a> -- Change settings for matchmaking configuration. queue.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>DeleteMatchmakingConfiguration</a> -- Remove a matchmaking configuration from the region.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>CreateMatchmakingRuleSet</a> -- Create a set of rules to use when searching for player matches.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>DescribeMatchmakingRuleSets</a> -- Retrieve matchmaking rule sets defined in a Amazon GameLift region.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>ValidateMatchmakingRuleSet</a> -- Verify syntax for a set of matchmaking rules.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>DeleteMatchmakingRuleSet</a> -- Remove a matchmaking rule set from the region.
+ * </p>
  * </li>
  * </ul>
  * </li>
@@ -377,18 +496,18 @@ import com.amazonaws.services.gamelift.model.*;
  * <ul>
  * <li>
  * <p>
- * <a>DescribeFleetUtilization</a> – Get current data on the number of server processes, game sessions, and players
+ * <a>DescribeFleetUtilization</a> -- Get current data on the number of server processes, game sessions, and players
  * currently active on a fleet.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>DescribeFleetEvents</a> – Get a fleet's logged events for a specified time span.
+ * <a>DescribeFleetEvents</a> -- Get a fleet's logged events for a specified time span.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>DescribeGameSessions</a> – Retrieve metadata associated with one or more game sessions, including length of time
+ * <a>DescribeGameSessions</a> -- Retrieve metadata associated with one or more game sessions, including length of time
  * active and current player count.
  * </p>
  * </li>
@@ -401,13 +520,13 @@ import com.amazonaws.services.gamelift.model.*;
  * <ul>
  * <li>
  * <p>
- * <a>DescribeInstances</a> – Get information on each instance in a fleet, including instance ID, IP address, and
+ * <a>DescribeInstances</a> -- Get information on each instance in a fleet, including instance ID, IP address, and
  * status.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>GetInstanceAccess</a> – Request access credentials needed to remotely connect to a specified instance in a fleet.
+ * <a>GetInstanceAccess</a> -- Request access credentials needed to remotely connect to a specified instance in a fleet.
  * </p>
  * </li>
  * </ul>
@@ -419,59 +538,71 @@ import com.amazonaws.services.gamelift.model.*;
  * <ul>
  * <li>
  * <p>
- * <a>CreateAlias</a> – Define a new alias and optionally assign it to a fleet.
+ * <a>CreateAlias</a> -- Define a new alias and optionally assign it to a fleet.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>ListAliases</a> – Get all fleet aliases defined in a Amazon GameLift region.
+ * <a>ListAliases</a> -- Get all fleet aliases defined in a Amazon GameLift region.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>DescribeAlias</a> – Retrieve information on an existing alias.
+ * <a>DescribeAlias</a> -- Retrieve information on an existing alias.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>UpdateAlias</a> – Change settings for a alias, such as redirecting it from one fleet to another.
+ * <a>UpdateAlias</a> -- Change settings for a alias, such as redirecting it from one fleet to another.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>DeleteAlias</a> – Remove an alias from the region.
+ * <a>DeleteAlias</a> -- Remove an alias from the region.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>ResolveAlias</a> – Get the fleet ID that a specified alias points to.
+ * <a>ResolveAlias</a> -- Get the fleet ID that a specified alias points to.
  * </p>
  * </li>
  * </ul>
  * </li>
  * <li>
  * <p>
- * <b>Manage game session queues</b>
+ * <b>Manage VPC peering connections for fleets</b>
  * </p>
  * <ul>
  * <li>
  * <p>
- * <a>CreateGameSessionQueue</a> – Create a queue for processing requests for new game sessions.
+ * <a>CreateVpcPeeringAuthorization</a> -- Authorize a peering connection to one of your VPCs.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>DescribeGameSessionQueues</a> – Get data on all game session queues defined in a Amazon GameLift region.
+ * <a>DescribeVpcPeeringAuthorizations</a> -- Retrieve valid peering connection authorizations.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>UpdateGameSessionQueue</a> – Change the configuration of a game session queue.
+ * <a>DeleteVpcPeeringAuthorization</a> -- Delete a peering connection authorization.
  * </p>
  * </li>
  * <li>
  * <p>
- * <a>DeleteGameSessionQueue</a> – Remove a game session queue from the region.
+ * <a>CreateVpcPeeringConnection</a> -- Establish a peering connection between the VPC for a Amazon GameLift fleet and
+ * one of your VPCs.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>DescribeVpcPeeringConnections</a> -- Retrieve information on active or pending VPC peering connections with a
+ * Amazon GameLift fleet.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a>DeleteVpcPeeringConnection</a> -- Delete a VPC peering connection with a Amazon GameLift fleet.
  * </p>
  * </li>
  * </ul>
@@ -480,6 +611,133 @@ import com.amazonaws.services.gamelift.model.*;
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public interface AmazonGameLiftAsync extends AmazonGameLift {
+
+    /**
+     * <p>
+     * Registers a player's acceptance or rejection of a proposed FlexMatch match. A matchmaking configuration may
+     * require player acceptance; if so, then matches built with that configuration cannot be completed unless all
+     * players accept the proposed match within a specified time limit.
+     * </p>
+     * <p>
+     * When FlexMatch builds a match, all the matchmaking tickets involved in the proposed match are placed into status
+     * <code>REQUIRES_ACCEPTANCE</code>. This is a trigger for your game to get acceptance from all players in the
+     * ticket. Acceptances are only valid for tickets when they are in this status; all other acceptances result in an
+     * error.
+     * </p>
+     * <p>
+     * To register acceptance, specify the ticket ID, a response, and one or more players. Once all players have
+     * registered acceptance, the matchmaking tickets advance to status <code>PLACING</code>, where a new game session
+     * is created for the match.
+     * </p>
+     * <p>
+     * If any player rejects the match, or if acceptances are not received before a specified timeout, the proposed
+     * match is dropped. The matchmaking tickets are then handled in one of two ways: For tickets where all players
+     * accepted the match, the ticket status is returned to <code>SEARCHING</code> to find a new match. For tickets
+     * where one or more players failed to accept the match, the ticket status is set to <code>FAILED</code>, and
+     * processing is terminated. A new matchmaking request for these players can be submitted as needed.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>StartMatchmaking</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeMatchmaking</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>StopMatchmaking</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>AcceptMatch</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>StartMatchBackfill</a>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param acceptMatchRequest
+     *        Represents the input for a request action.
+     * @return A Java Future containing the result of the AcceptMatch operation returned by the service.
+     * @sample AmazonGameLiftAsync.AcceptMatch
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/AcceptMatch" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<AcceptMatchResult> acceptMatchAsync(AcceptMatchRequest acceptMatchRequest);
+
+    /**
+     * <p>
+     * Registers a player's acceptance or rejection of a proposed FlexMatch match. A matchmaking configuration may
+     * require player acceptance; if so, then matches built with that configuration cannot be completed unless all
+     * players accept the proposed match within a specified time limit.
+     * </p>
+     * <p>
+     * When FlexMatch builds a match, all the matchmaking tickets involved in the proposed match are placed into status
+     * <code>REQUIRES_ACCEPTANCE</code>. This is a trigger for your game to get acceptance from all players in the
+     * ticket. Acceptances are only valid for tickets when they are in this status; all other acceptances result in an
+     * error.
+     * </p>
+     * <p>
+     * To register acceptance, specify the ticket ID, a response, and one or more players. Once all players have
+     * registered acceptance, the matchmaking tickets advance to status <code>PLACING</code>, where a new game session
+     * is created for the match.
+     * </p>
+     * <p>
+     * If any player rejects the match, or if acceptances are not received before a specified timeout, the proposed
+     * match is dropped. The matchmaking tickets are then handled in one of two ways: For tickets where all players
+     * accepted the match, the ticket status is returned to <code>SEARCHING</code> to find a new match. For tickets
+     * where one or more players failed to accept the match, the ticket status is set to <code>FAILED</code>, and
+     * processing is terminated. A new matchmaking request for these players can be submitted as needed.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>StartMatchmaking</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeMatchmaking</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>StopMatchmaking</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>AcceptMatch</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>StartMatchBackfill</a>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param acceptMatchRequest
+     *        Represents the input for a request action.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the AcceptMatch operation returned by the service.
+     * @sample AmazonGameLiftAsyncHandler.AcceptMatch
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/AcceptMatch" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<AcceptMatchResult> acceptMatchAsync(AcceptMatchRequest acceptMatchRequest,
+            com.amazonaws.handlers.AsyncHandler<AcceptMatchRequest, AcceptMatchResult> asyncHandler);
 
     /**
      * <p>
@@ -499,9 +757,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * point to only one fleet, but a fleet can have multiple aliases. If successful, a new alias record is returned,
      * including an alias ID, which you can reference when creating a game session. You can reassign an alias to another
      * fleet by calling <code>UpdateAlias</code>.
-     * </p>
-     * <p>
-     * Alias-related operations include:
      * </p>
      * <ul>
      * <li>
@@ -564,9 +819,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * including an alias ID, which you can reference when creating a game session. You can reassign an alias to another
      * fleet by calling <code>UpdateAlias</code>.
      * </p>
-     * <p>
-     * Alias-related operations include:
-     * </p>
      * <ul>
      * <li>
      * <p>
@@ -616,30 +868,54 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
 
     /**
      * <p>
-     * Creates a new Amazon GameLift build from a set of game server binary files stored in an Amazon Simple Storage
-     * Service (Amazon S3) location. To use this API call, create a <code>.zip</code> file containing all of the files
-     * for the build and store it in an Amazon S3 bucket under your AWS account. For help on packaging your build files
-     * and creating a build, see <a
-     * href="http://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-build-intro.html">Uploading Your Game to
-     * Amazon GameLift</a>.
+     * Creates a new Amazon GameLift build record for your game server binary files and points to the location of your
+     * game server build files in an Amazon Simple Storage Service (Amazon S3) location.
+     * </p>
+     * <p>
+     * Game server binaries must be combined into a <code>.zip</code> file for use with Amazon GameLift. See <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-build-intro.html">Uploading Your
+     * Game</a> for more information.
      * </p>
      * <important>
      * <p>
-     * Use this API action ONLY if you are storing your game build files in an Amazon S3 bucket. To create a build using
-     * files stored locally, use the CLI command <a
-     * href="http://docs.aws.amazon.com/cli/latest/reference/gamelift/upload-build.html"> <code>upload-build</code>
-     * </a>, which uploads the build files from a file location you specify.
+     * To create new builds quickly and easily, use the AWS CLI command <b> <a
+     * href="https://docs.aws.amazon.com/cli/latest/reference/gamelift/upload-build.html">upload-build</a> </b>. This
+     * helper command uploads your build and creates a new build record in one step, and automatically handles the
+     * necessary permissions. See <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-build-cli-uploading.html"> Upload Build
+     * Files to Amazon GameLift</a> for more help.
      * </p>
      * </important>
      * <p>
-     * To create a new build using <code>CreateBuild</code>, identify the storage location and operating system of your
-     * game build. You also have the option of specifying a build name and version. If successful, this action creates a
-     * new build record with an unique build ID and in <code>INITIALIZED</code> status. Use the API call
-     * <a>DescribeBuild</a> to check the status of your build. A build must be in <code>READY</code> status before it
-     * can be used to create fleets to host your game.
+     * The <code>CreateBuild</code> operation should be used only when you need to manually upload your build files, as
+     * in the following scenarios:
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * Build-related operations include:
+     * Store a build file in an Amazon S3 bucket under your own AWS account. To use this option, you must first give
+     * Amazon GameLift access to that Amazon S3 bucket. See <a href=
+     * "https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-build-cli-uploading.html#gamelift-build-cli-uploading-create-build"
+     * > Create a Build with Files in Amazon S3</a> for detailed help. To create a new build record using files in your
+     * Amazon S3 bucket, call <code>CreateBuild</code> and specify a build name, operating system, and the storage
+     * location of your game build.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Upload a build file directly to Amazon GameLift's Amazon S3 account. To use this option, you first call
+     * <code>CreateBuild</code> with a build name and operating system. This action creates a new build record and
+     * returns an Amazon S3 storage location (bucket and key only) and temporary access credentials. Use the credentials
+     * to manually upload your build file to the storage location (see the Amazon S3 topic <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/dev/UploadingObjects.html">Uploading Objects</a>). You can
+     * upload files to a location only once.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If successful, this operation creates a new build record with a unique build ID and places it in
+     * <code>INITIALIZED</code> status. You can use <a>DescribeBuild</a> to check the status of your build. A build must
+     * be in <code>READY</code> status before it can be used to create fleets.
      * </p>
      * <ul>
      * <li>
@@ -680,30 +956,54 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
 
     /**
      * <p>
-     * Creates a new Amazon GameLift build from a set of game server binary files stored in an Amazon Simple Storage
-     * Service (Amazon S3) location. To use this API call, create a <code>.zip</code> file containing all of the files
-     * for the build and store it in an Amazon S3 bucket under your AWS account. For help on packaging your build files
-     * and creating a build, see <a
-     * href="http://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-build-intro.html">Uploading Your Game to
-     * Amazon GameLift</a>.
+     * Creates a new Amazon GameLift build record for your game server binary files and points to the location of your
+     * game server build files in an Amazon Simple Storage Service (Amazon S3) location.
+     * </p>
+     * <p>
+     * Game server binaries must be combined into a <code>.zip</code> file for use with Amazon GameLift. See <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-build-intro.html">Uploading Your
+     * Game</a> for more information.
      * </p>
      * <important>
      * <p>
-     * Use this API action ONLY if you are storing your game build files in an Amazon S3 bucket. To create a build using
-     * files stored locally, use the CLI command <a
-     * href="http://docs.aws.amazon.com/cli/latest/reference/gamelift/upload-build.html"> <code>upload-build</code>
-     * </a>, which uploads the build files from a file location you specify.
+     * To create new builds quickly and easily, use the AWS CLI command <b> <a
+     * href="https://docs.aws.amazon.com/cli/latest/reference/gamelift/upload-build.html">upload-build</a> </b>. This
+     * helper command uploads your build and creates a new build record in one step, and automatically handles the
+     * necessary permissions. See <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-build-cli-uploading.html"> Upload Build
+     * Files to Amazon GameLift</a> for more help.
      * </p>
      * </important>
      * <p>
-     * To create a new build using <code>CreateBuild</code>, identify the storage location and operating system of your
-     * game build. You also have the option of specifying a build name and version. If successful, this action creates a
-     * new build record with an unique build ID and in <code>INITIALIZED</code> status. Use the API call
-     * <a>DescribeBuild</a> to check the status of your build. A build must be in <code>READY</code> status before it
-     * can be used to create fleets to host your game.
+     * The <code>CreateBuild</code> operation should be used only when you need to manually upload your build files, as
+     * in the following scenarios:
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * Build-related operations include:
+     * Store a build file in an Amazon S3 bucket under your own AWS account. To use this option, you must first give
+     * Amazon GameLift access to that Amazon S3 bucket. See <a href=
+     * "https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-build-cli-uploading.html#gamelift-build-cli-uploading-create-build"
+     * > Create a Build with Files in Amazon S3</a> for detailed help. To create a new build record using files in your
+     * Amazon S3 bucket, call <code>CreateBuild</code> and specify a build name, operating system, and the storage
+     * location of your game build.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Upload a build file directly to Amazon GameLift's Amazon S3 account. To use this option, you first call
+     * <code>CreateBuild</code> with a build name and operating system. This action creates a new build record and
+     * returns an Amazon S3 storage location (bucket and key only) and temporary access credentials. Use the credentials
+     * to manually upload your build file to the storage location (see the Amazon S3 topic <a
+     * href="https://docs.aws.amazon.com/AmazonS3/latest/dev/UploadingObjects.html">Uploading Objects</a>). You can
+     * upload files to a location only once.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If successful, this operation creates a new build record with a unique build ID and places it in
+     * <code>INITIALIZED</code> status. You can use <a>DescribeBuild</a> to check the status of your build. A build must
+     * be in <code>READY</code> status before it can be used to create fleets.
      * </p>
      * <ul>
      * <li>
@@ -750,84 +1050,61 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
     /**
      * <p>
      * Creates a new fleet to run your game servers. A fleet is a set of Amazon Elastic Compute Cloud (Amazon EC2)
-     * instances, each of which can run multiple server processes to host game sessions. You configure a fleet to create
+     * instances, each of which can run multiple server processes to host game sessions. You set up a fleet to use
      * instances with certain hardware specifications (see <a href="http://aws.amazon.com/ec2/instance-types/">Amazon
-     * EC2 Instance Types</a> for more information), and deploy a specified game build to each instance. A newly created
-     * fleet passes through several statuses; once it reaches the <code>ACTIVE</code> status, it can begin hosting game
-     * sessions.
+     * EC2 Instance Types</a>), and deploy your game build to the fleet.
      * </p>
      * <p>
-     * To create a new fleet, you must specify the following: (1) fleet name, (2) build ID of an uploaded game build,
-     * (3) an EC2 instance type, and (4) a run-time configuration that describes which server processes to run on each
-     * instance in the fleet. (Although the run-time configuration is not a required parameter, the fleet cannot be
-     * successfully activated without it.)
+     * To create a new fleet, you must provide the following: (1) a fleet name, (2) an EC2 instance type, (3) the build
+     * ID for your game build, and (4) a run-time configuration, which specifies the server processes to run on each
+     * instance in the fleet. If fleet type is not set, the new fleet will use on-demand instances by default.
      * </p>
      * <p>
-     * You can also configure the new fleet with the following settings:
+     * If the <code>CreateFleet</code> call is successful, Amazon GameLift performs the following tasks. You can track
+     * the process of a fleet by checking the fleet status or by monitoring fleet creation events:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * Fleet description
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Access permissions for inbound traffic
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Fleetwide game session protection
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Resource creation limit
-     * </p>
-     * </li>
-     * </ul>
-     * <p>
-     * If you use Amazon CloudWatch for metrics, you can add the new fleet to a metric group. This allows you to view
-     * aggregated metrics for a set of fleets. Once you specify a metric group, the new fleet's metrics are included in
-     * the metric group's data.
-     * </p>
-     * <p>
-     * If the CreateFleet call is successful, Amazon GameLift performs the following tasks:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * Creates a fleet record and sets the status to <code>NEW</code> (followed by other statuses as the fleet is
-     * activated).
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Sets the fleet's target capacity to 1 (desired instances), which causes Amazon GameLift to start one new EC2
-     * instance.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Starts launching server processes on the instance. If the fleet is configured to run multiple server processes
-     * per instance, Amazon GameLift staggers each launch by a few seconds.
+     * Creates a fleet record. Status: <code>NEW</code>.
      * </p>
      * </li>
      * <li>
      * <p>
      * Begins writing events to the fleet event log, which can be accessed in the Amazon GameLift console.
      * </p>
+     * <p>
+     * Sets the fleet's target capacity to 1 (desired instances), which triggers Amazon GameLift to start one new EC2
+     * instance.
+     * </p>
      * </li>
      * <li>
      * <p>
-     * Sets the fleet's status to <code>ACTIVE</code> as soon as one server process in the fleet is ready to host a game
-     * session.
+     * Downloads the game build to the new instance and installs it. Statuses: <code>DOWNLOADING</code>,
+     * <code>VALIDATING</code>, <code>BUILDING</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Starts launching server processes on the instance. If the fleet is configured to run multiple server processes
+     * per instance, Amazon GameLift staggers each launch by a few seconds. Status: <code>ACTIVATING</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Sets the fleet's status to <code>ACTIVE</code> as soon as one server process is ready to host a game session.
      * </p>
      * </li>
      * </ul>
      * <p>
-     * Fleet-related operations include:
+     * <b>Learn more</b>
+     * </p>
+     * <p>
+     * See Amazon GameLift Developer Guide topics in <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/developerguide/fleets-intro.html"> Working with Fleets</a>.
+     * </p>
+     * <p>
+     * <b>Related operations</b>
      * </p>
      * <ul>
      * <li>
@@ -842,12 +1119,22 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
+     * <a>DeleteFleet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * Describe fleets:
      * </p>
      * <ul>
      * <li>
      * <p>
      * <a>DescribeFleetAttributes</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeFleetCapacity</a>
      * </p>
      * </li>
      * <li>
@@ -863,6 +1150,11 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * <li>
      * <p>
      * <a>DescribeRuntimeConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeEC2InstanceLimits</a>
      * </p>
      * </li>
      * <li>
@@ -901,45 +1193,20 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
-     * Manage fleet capacity:
+     * Manage fleet actions:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <a>DescribeFleetCapacity</a>
+     * <a>StartFleetActions</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>UpdateFleetCapacity</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>PutScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeScalingPolicies</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeEC2InstanceLimits</a>
+     * <a>StopFleetActions</a>
      * </p>
      * </li>
      * </ul>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteFleet</a>
-     * </p>
      * </li>
      * </ul>
      * 
@@ -955,84 +1222,61 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
     /**
      * <p>
      * Creates a new fleet to run your game servers. A fleet is a set of Amazon Elastic Compute Cloud (Amazon EC2)
-     * instances, each of which can run multiple server processes to host game sessions. You configure a fleet to create
+     * instances, each of which can run multiple server processes to host game sessions. You set up a fleet to use
      * instances with certain hardware specifications (see <a href="http://aws.amazon.com/ec2/instance-types/">Amazon
-     * EC2 Instance Types</a> for more information), and deploy a specified game build to each instance. A newly created
-     * fleet passes through several statuses; once it reaches the <code>ACTIVE</code> status, it can begin hosting game
-     * sessions.
+     * EC2 Instance Types</a>), and deploy your game build to the fleet.
      * </p>
      * <p>
-     * To create a new fleet, you must specify the following: (1) fleet name, (2) build ID of an uploaded game build,
-     * (3) an EC2 instance type, and (4) a run-time configuration that describes which server processes to run on each
-     * instance in the fleet. (Although the run-time configuration is not a required parameter, the fleet cannot be
-     * successfully activated without it.)
+     * To create a new fleet, you must provide the following: (1) a fleet name, (2) an EC2 instance type, (3) the build
+     * ID for your game build, and (4) a run-time configuration, which specifies the server processes to run on each
+     * instance in the fleet. If fleet type is not set, the new fleet will use on-demand instances by default.
      * </p>
      * <p>
-     * You can also configure the new fleet with the following settings:
+     * If the <code>CreateFleet</code> call is successful, Amazon GameLift performs the following tasks. You can track
+     * the process of a fleet by checking the fleet status or by monitoring fleet creation events:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * Fleet description
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Access permissions for inbound traffic
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Fleetwide game session protection
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Resource creation limit
-     * </p>
-     * </li>
-     * </ul>
-     * <p>
-     * If you use Amazon CloudWatch for metrics, you can add the new fleet to a metric group. This allows you to view
-     * aggregated metrics for a set of fleets. Once you specify a metric group, the new fleet's metrics are included in
-     * the metric group's data.
-     * </p>
-     * <p>
-     * If the CreateFleet call is successful, Amazon GameLift performs the following tasks:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * Creates a fleet record and sets the status to <code>NEW</code> (followed by other statuses as the fleet is
-     * activated).
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Sets the fleet's target capacity to 1 (desired instances), which causes Amazon GameLift to start one new EC2
-     * instance.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Starts launching server processes on the instance. If the fleet is configured to run multiple server processes
-     * per instance, Amazon GameLift staggers each launch by a few seconds.
+     * Creates a fleet record. Status: <code>NEW</code>.
      * </p>
      * </li>
      * <li>
      * <p>
      * Begins writing events to the fleet event log, which can be accessed in the Amazon GameLift console.
      * </p>
+     * <p>
+     * Sets the fleet's target capacity to 1 (desired instances), which triggers Amazon GameLift to start one new EC2
+     * instance.
+     * </p>
      * </li>
      * <li>
      * <p>
-     * Sets the fleet's status to <code>ACTIVE</code> as soon as one server process in the fleet is ready to host a game
-     * session.
+     * Downloads the game build to the new instance and installs it. Statuses: <code>DOWNLOADING</code>,
+     * <code>VALIDATING</code>, <code>BUILDING</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Starts launching server processes on the instance. If the fleet is configured to run multiple server processes
+     * per instance, Amazon GameLift staggers each launch by a few seconds. Status: <code>ACTIVATING</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Sets the fleet's status to <code>ACTIVE</code> as soon as one server process is ready to host a game session.
      * </p>
      * </li>
      * </ul>
      * <p>
-     * Fleet-related operations include:
+     * <b>Learn more</b>
+     * </p>
+     * <p>
+     * See Amazon GameLift Developer Guide topics in <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/developerguide/fleets-intro.html"> Working with Fleets</a>.
+     * </p>
+     * <p>
+     * <b>Related operations</b>
      * </p>
      * <ul>
      * <li>
@@ -1047,12 +1291,22 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
+     * <a>DeleteFleet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * Describe fleets:
      * </p>
      * <ul>
      * <li>
      * <p>
      * <a>DescribeFleetAttributes</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeFleetCapacity</a>
      * </p>
      * </li>
      * <li>
@@ -1068,6 +1322,11 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * <li>
      * <p>
      * <a>DescribeRuntimeConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeEC2InstanceLimits</a>
      * </p>
      * </li>
      * <li>
@@ -1106,45 +1365,20 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
-     * Manage fleet capacity:
+     * Manage fleet actions:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <a>DescribeFleetCapacity</a>
+     * <a>StartFleetActions</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>UpdateFleetCapacity</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>PutScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeScalingPolicies</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeEC2InstanceLimits</a>
+     * <a>StopFleetActions</a>
      * </p>
      * </li>
      * </ul>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteFleet</a>
-     * </p>
      * </li>
      * </ul>
      * 
@@ -1171,8 +1405,8 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * <p>
      * To create a game session, specify either fleet ID or alias ID and indicate a maximum number of players to allow
      * in the game session. You can also provide a name and game-specific properties for this game session. If
-     * successful, a <a>GameSession</a> object is returned containing game session properties, including a game session
-     * ID with the custom string you provided.
+     * successful, a <a>GameSession</a> object is returned containing the game session properties and other settings you
+     * specified.
      * </p>
      * <p>
      * <b>Idempotency tokens.</b> You can add a token that uniquely identifies game session requests. This is useful for
@@ -1186,14 +1420,16 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * policy for this new game session request.
      * </p>
      * <p>
-     * By default, newly created game sessions allow new players to join. Use <a>UpdateGameSession</a> to change the
-     * game session's player session creation policy.
+     * <b>Player acceptance policy.</b> By default, newly created game sessions are open to new players. You can
+     * restrict new player access by using <a>UpdateGameSession</a> to change the game session's player session creation
+     * policy.
+     * </p>
+     * <p>
+     * <b>Game session logs.</b> Logs are retained for all active game sessions for 14 days. To access the logs, call
+     * <a>GetGameSessionLogUrl</a> to download the log files.
      * </p>
      * <p>
      * <i>Available in Amazon GameLift Local.</i>
-     * </p>
-     * <p>
-     * Game-session-related operations include:
      * </p>
      * <ul>
      * <li>
@@ -1268,8 +1504,8 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * <p>
      * To create a game session, specify either fleet ID or alias ID and indicate a maximum number of players to allow
      * in the game session. You can also provide a name and game-specific properties for this game session. If
-     * successful, a <a>GameSession</a> object is returned containing game session properties, including a game session
-     * ID with the custom string you provided.
+     * successful, a <a>GameSession</a> object is returned containing the game session properties and other settings you
+     * specified.
      * </p>
      * <p>
      * <b>Idempotency tokens.</b> You can add a token that uniquely identifies game session requests. This is useful for
@@ -1283,14 +1519,16 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * policy for this new game session request.
      * </p>
      * <p>
-     * By default, newly created game sessions allow new players to join. Use <a>UpdateGameSession</a> to change the
-     * game session's player session creation policy.
+     * <b>Player acceptance policy.</b> By default, newly created game sessions are open to new players. You can
+     * restrict new player access by using <a>UpdateGameSession</a> to change the game session's player session creation
+     * policy.
+     * </p>
+     * <p>
+     * <b>Game session logs.</b> Logs are retained for all active game sessions for 14 days. To access the logs, call
+     * <a>GetGameSessionLogUrl</a> to download the log files.
      * </p>
      * <p>
      * <i>Available in Amazon GameLift Local.</i>
-     * </p>
-     * <p>
-     * Game-session-related operations include:
      * </p>
      * <ul>
      * <li>
@@ -1390,9 +1628,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * To create a new queue, provide a name, timeout value, a list of destinations and, if desired, a set of latency
      * policies. If successful, a new queue object is returned.
      * </p>
-     * <p>
-     * Queue-related operations include:
-     * </p>
      * <ul>
      * <li>
      * <p>
@@ -1454,9 +1689,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * To create a new queue, provide a name, timeout value, a list of destinations and, if desired, a set of latency
      * policies. If successful, a new queue object is returned.
      * </p>
-     * <p>
-     * Queue-related operations include:
-     * </p>
      * <ul>
      * <li>
      * <p>
@@ -1496,6 +1728,362 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
 
     /**
      * <p>
+     * Defines a new matchmaking configuration for use with FlexMatch. A matchmaking configuration sets out guidelines
+     * for matching players and getting the matches into games. You can set up multiple matchmaking configurations to
+     * handle the scenarios needed for your game. Each matchmaking ticket (<a>StartMatchmaking</a> or
+     * <a>StartMatchBackfill</a>) specifies a configuration for the match and provides player attributes to support the
+     * configuration being used.
+     * </p>
+     * <p>
+     * To create a matchmaking configuration, at a minimum you must specify the following: configuration name; a rule
+     * set that governs how to evaluate players and find acceptable matches; a game session queue to use when placing a
+     * new game session for the match; and the maximum time allowed for a matchmaking attempt.
+     * </p>
+     * <p>
+     * <b>Player acceptance</b> -- In each configuration, you have the option to require that all players accept
+     * participation in a proposed match. To enable this feature, set <i>AcceptanceRequired</i> to true and specify a
+     * time limit for player acceptance. Players have the option to accept or reject a proposed match, and a match does
+     * not move ahead to game session placement unless all matched players accept.
+     * </p>
+     * <p>
+     * <b>Matchmaking status notification</b> -- There are two ways to track the progress of matchmaking tickets: (1)
+     * polling ticket status with <a>DescribeMatchmaking</a>; or (2) receiving notifications with Amazon Simple
+     * Notification Service (SNS). To use notifications, you first need to set up an SNS topic to receive the
+     * notifications, and provide the topic ARN in the matchmaking configuration (see <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/developerguide/match-notification.html"> Setting up
+     * Notifications for Matchmaking</a>). Since notifications promise only "best effort" delivery, we recommend calling
+     * <code>DescribeMatchmaking</code> if no notifications are received within 30 seconds.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>CreateMatchmakingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeMatchmakingConfigurations</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>UpdateMatchmakingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteMatchmakingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>CreateMatchmakingRuleSet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeMatchmakingRuleSets</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>ValidateMatchmakingRuleSet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteMatchmakingRuleSet</a>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param createMatchmakingConfigurationRequest
+     *        Represents the input for a request action.
+     * @return A Java Future containing the result of the CreateMatchmakingConfiguration operation returned by the
+     *         service.
+     * @sample AmazonGameLiftAsync.CreateMatchmakingConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/CreateMatchmakingConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateMatchmakingConfigurationResult> createMatchmakingConfigurationAsync(
+            CreateMatchmakingConfigurationRequest createMatchmakingConfigurationRequest);
+
+    /**
+     * <p>
+     * Defines a new matchmaking configuration for use with FlexMatch. A matchmaking configuration sets out guidelines
+     * for matching players and getting the matches into games. You can set up multiple matchmaking configurations to
+     * handle the scenarios needed for your game. Each matchmaking ticket (<a>StartMatchmaking</a> or
+     * <a>StartMatchBackfill</a>) specifies a configuration for the match and provides player attributes to support the
+     * configuration being used.
+     * </p>
+     * <p>
+     * To create a matchmaking configuration, at a minimum you must specify the following: configuration name; a rule
+     * set that governs how to evaluate players and find acceptable matches; a game session queue to use when placing a
+     * new game session for the match; and the maximum time allowed for a matchmaking attempt.
+     * </p>
+     * <p>
+     * <b>Player acceptance</b> -- In each configuration, you have the option to require that all players accept
+     * participation in a proposed match. To enable this feature, set <i>AcceptanceRequired</i> to true and specify a
+     * time limit for player acceptance. Players have the option to accept or reject a proposed match, and a match does
+     * not move ahead to game session placement unless all matched players accept.
+     * </p>
+     * <p>
+     * <b>Matchmaking status notification</b> -- There are two ways to track the progress of matchmaking tickets: (1)
+     * polling ticket status with <a>DescribeMatchmaking</a>; or (2) receiving notifications with Amazon Simple
+     * Notification Service (SNS). To use notifications, you first need to set up an SNS topic to receive the
+     * notifications, and provide the topic ARN in the matchmaking configuration (see <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/developerguide/match-notification.html"> Setting up
+     * Notifications for Matchmaking</a>). Since notifications promise only "best effort" delivery, we recommend calling
+     * <code>DescribeMatchmaking</code> if no notifications are received within 30 seconds.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>CreateMatchmakingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeMatchmakingConfigurations</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>UpdateMatchmakingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteMatchmakingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>CreateMatchmakingRuleSet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeMatchmakingRuleSets</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>ValidateMatchmakingRuleSet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteMatchmakingRuleSet</a>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param createMatchmakingConfigurationRequest
+     *        Represents the input for a request action.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateMatchmakingConfiguration operation returned by the
+     *         service.
+     * @sample AmazonGameLiftAsyncHandler.CreateMatchmakingConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/CreateMatchmakingConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateMatchmakingConfigurationResult> createMatchmakingConfigurationAsync(
+            CreateMatchmakingConfigurationRequest createMatchmakingConfigurationRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateMatchmakingConfigurationRequest, CreateMatchmakingConfigurationResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a new rule set for FlexMatch matchmaking. A rule set describes the type of match to create, such as the
+     * number and size of teams, and sets the parameters for acceptable player matches, such as minimum skill level or
+     * character type. A rule set is used by a <a>MatchmakingConfiguration</a>.
+     * </p>
+     * <p>
+     * To create a matchmaking rule set, provide unique rule set name and the rule set body in JSON format. Rule sets
+     * must be defined in the same region as the matchmaking configuration they will be used with.
+     * </p>
+     * <p>
+     * Since matchmaking rule sets cannot be edited, it is a good idea to check the rule set syntax using
+     * <a>ValidateMatchmakingRuleSet</a> before creating a new rule set.
+     * </p>
+     * <p>
+     * <b>Learn more</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/match-rulesets.html">Build a Rule Set</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/match-configuration.html">Design a
+     * Matchmaker</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/match-intro.html">Matchmaking with
+     * FlexMatch</a>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>Related operations</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>CreateMatchmakingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeMatchmakingConfigurations</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>UpdateMatchmakingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteMatchmakingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>CreateMatchmakingRuleSet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeMatchmakingRuleSets</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>ValidateMatchmakingRuleSet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteMatchmakingRuleSet</a>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param createMatchmakingRuleSetRequest
+     *        Represents the input for a request action.
+     * @return A Java Future containing the result of the CreateMatchmakingRuleSet operation returned by the service.
+     * @sample AmazonGameLiftAsync.CreateMatchmakingRuleSet
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/CreateMatchmakingRuleSet"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateMatchmakingRuleSetResult> createMatchmakingRuleSetAsync(CreateMatchmakingRuleSetRequest createMatchmakingRuleSetRequest);
+
+    /**
+     * <p>
+     * Creates a new rule set for FlexMatch matchmaking. A rule set describes the type of match to create, such as the
+     * number and size of teams, and sets the parameters for acceptable player matches, such as minimum skill level or
+     * character type. A rule set is used by a <a>MatchmakingConfiguration</a>.
+     * </p>
+     * <p>
+     * To create a matchmaking rule set, provide unique rule set name and the rule set body in JSON format. Rule sets
+     * must be defined in the same region as the matchmaking configuration they will be used with.
+     * </p>
+     * <p>
+     * Since matchmaking rule sets cannot be edited, it is a good idea to check the rule set syntax using
+     * <a>ValidateMatchmakingRuleSet</a> before creating a new rule set.
+     * </p>
+     * <p>
+     * <b>Learn more</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/match-rulesets.html">Build a Rule Set</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/match-configuration.html">Design a
+     * Matchmaker</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/match-intro.html">Matchmaking with
+     * FlexMatch</a>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>Related operations</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>CreateMatchmakingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeMatchmakingConfigurations</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>UpdateMatchmakingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteMatchmakingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>CreateMatchmakingRuleSet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeMatchmakingRuleSets</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>ValidateMatchmakingRuleSet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteMatchmakingRuleSet</a>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param createMatchmakingRuleSetRequest
+     *        Represents the input for a request action.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateMatchmakingRuleSet operation returned by the service.
+     * @sample AmazonGameLiftAsyncHandler.CreateMatchmakingRuleSet
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/CreateMatchmakingRuleSet"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateMatchmakingRuleSetResult> createMatchmakingRuleSetAsync(CreateMatchmakingRuleSetRequest createMatchmakingRuleSetRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateMatchmakingRuleSetRequest, CreateMatchmakingRuleSetResult> asyncHandler);
+
+    /**
+     * <p>
      * Adds a player to a game session and creates a player session record. Before a player can be added, a game session
      * must have an <code>ACTIVE</code> status, have a creation policy of <code>ALLOW_ALL</code>, and have an open
      * player slot. To add a group of players to a game session, use <a>CreatePlayerSessions</a>.
@@ -1507,9 +2095,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </p>
      * <p>
      * <i>Available in Amazon GameLift Local.</i>
-     * </p>
-     * <p>
-     * Player-session-related operations include:
      * </p>
      * <ul>
      * <li>
@@ -1573,9 +2158,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </p>
      * <p>
      * <i>Available in Amazon GameLift Local.</i>
-     * </p>
-     * <p>
-     * Player-session-related operations include:
      * </p>
      * <ul>
      * <li>
@@ -1646,9 +2228,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * <p>
      * <i>Available in Amazon GameLift Local.</i>
      * </p>
-     * <p>
-     * Player-session-related operations include:
-     * </p>
      * <ul>
      * <li>
      * <p>
@@ -1713,9 +2292,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * <p>
      * <i>Available in Amazon GameLift Local.</i>
      * </p>
-     * <p>
-     * Player-session-related operations include:
-     * </p>
      * <ul>
      * <li>
      * <p>
@@ -1772,11 +2348,298 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
 
     /**
      * <p>
-     * Deletes an alias. This action removes all record of the alias. Game clients attempting to access a server process
-     * using the deleted alias receive an error. To delete an alias, specify the alias ID to be deleted.
+     * Requests authorization to create or delete a peer connection between the VPC for your Amazon GameLift fleet and a
+     * virtual private cloud (VPC) in your AWS account. VPC peering enables the game servers on your fleet to
+     * communicate directly with other AWS resources. Once you've received authorization, call
+     * <a>CreateVpcPeeringConnection</a> to establish the peering connection. For more information, see <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/developerguide/vpc-peering.html">VPC Peering with Amazon
+     * GameLift Fleets</a>.
      * </p>
      * <p>
-     * Alias-related operations include:
+     * You can peer with VPCs that are owned by any AWS account you have access to, including the account that you use
+     * to manage your Amazon GameLift fleets. You cannot peer with VPCs that are in different regions.
+     * </p>
+     * <p>
+     * To request authorization to create a connection, call this operation from the AWS account with the VPC that you
+     * want to peer to your Amazon GameLift fleet. For example, to enable your game servers to retrieve data from a
+     * DynamoDB table, use the account that manages that DynamoDB resource. Identify the following values: (1) The ID of
+     * the VPC that you want to peer with, and (2) the ID of the AWS account that you use to manage Amazon GameLift. If
+     * successful, VPC peering is authorized for the specified VPC.
+     * </p>
+     * <p>
+     * To request authorization to delete a connection, call this operation from the AWS account with the VPC that is
+     * peered with your Amazon GameLift fleet. Identify the following values: (1) VPC ID that you want to delete the
+     * peering connection for, and (2) ID of the AWS account that you use to manage Amazon GameLift.
+     * </p>
+     * <p>
+     * The authorization remains valid for 24 hours unless it is canceled by a call to
+     * <a>DeleteVpcPeeringAuthorization</a>. You must create or delete the peering connection while the authorization is
+     * valid.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>CreateVpcPeeringAuthorization</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeVpcPeeringAuthorizations</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteVpcPeeringAuthorization</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>CreateVpcPeeringConnection</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeVpcPeeringConnections</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteVpcPeeringConnection</a>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param createVpcPeeringAuthorizationRequest
+     *        Represents the input for a request action.
+     * @return A Java Future containing the result of the CreateVpcPeeringAuthorization operation returned by the
+     *         service.
+     * @sample AmazonGameLiftAsync.CreateVpcPeeringAuthorization
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/CreateVpcPeeringAuthorization"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateVpcPeeringAuthorizationResult> createVpcPeeringAuthorizationAsync(
+            CreateVpcPeeringAuthorizationRequest createVpcPeeringAuthorizationRequest);
+
+    /**
+     * <p>
+     * Requests authorization to create or delete a peer connection between the VPC for your Amazon GameLift fleet and a
+     * virtual private cloud (VPC) in your AWS account. VPC peering enables the game servers on your fleet to
+     * communicate directly with other AWS resources. Once you've received authorization, call
+     * <a>CreateVpcPeeringConnection</a> to establish the peering connection. For more information, see <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/developerguide/vpc-peering.html">VPC Peering with Amazon
+     * GameLift Fleets</a>.
+     * </p>
+     * <p>
+     * You can peer with VPCs that are owned by any AWS account you have access to, including the account that you use
+     * to manage your Amazon GameLift fleets. You cannot peer with VPCs that are in different regions.
+     * </p>
+     * <p>
+     * To request authorization to create a connection, call this operation from the AWS account with the VPC that you
+     * want to peer to your Amazon GameLift fleet. For example, to enable your game servers to retrieve data from a
+     * DynamoDB table, use the account that manages that DynamoDB resource. Identify the following values: (1) The ID of
+     * the VPC that you want to peer with, and (2) the ID of the AWS account that you use to manage Amazon GameLift. If
+     * successful, VPC peering is authorized for the specified VPC.
+     * </p>
+     * <p>
+     * To request authorization to delete a connection, call this operation from the AWS account with the VPC that is
+     * peered with your Amazon GameLift fleet. Identify the following values: (1) VPC ID that you want to delete the
+     * peering connection for, and (2) ID of the AWS account that you use to manage Amazon GameLift.
+     * </p>
+     * <p>
+     * The authorization remains valid for 24 hours unless it is canceled by a call to
+     * <a>DeleteVpcPeeringAuthorization</a>. You must create or delete the peering connection while the authorization is
+     * valid.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>CreateVpcPeeringAuthorization</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeVpcPeeringAuthorizations</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteVpcPeeringAuthorization</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>CreateVpcPeeringConnection</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeVpcPeeringConnections</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteVpcPeeringConnection</a>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param createVpcPeeringAuthorizationRequest
+     *        Represents the input for a request action.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateVpcPeeringAuthorization operation returned by the
+     *         service.
+     * @sample AmazonGameLiftAsyncHandler.CreateVpcPeeringAuthorization
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/CreateVpcPeeringAuthorization"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateVpcPeeringAuthorizationResult> createVpcPeeringAuthorizationAsync(
+            CreateVpcPeeringAuthorizationRequest createVpcPeeringAuthorizationRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateVpcPeeringAuthorizationRequest, CreateVpcPeeringAuthorizationResult> asyncHandler);
+
+    /**
+     * <p>
+     * Establishes a VPC peering connection between a virtual private cloud (VPC) in an AWS account with the VPC for
+     * your Amazon GameLift fleet. VPC peering enables the game servers on your fleet to communicate directly with other
+     * AWS resources. You can peer with VPCs in any AWS account that you have access to, including the account that you
+     * use to manage your Amazon GameLift fleets. You cannot peer with VPCs that are in different regions. For more
+     * information, see <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/vpc-peering.html">VPC
+     * Peering with Amazon GameLift Fleets</a>.
+     * </p>
+     * <p>
+     * Before calling this operation to establish the peering connection, you first need to call
+     * <a>CreateVpcPeeringAuthorization</a> and identify the VPC you want to peer with. Once the authorization for the
+     * specified VPC is issued, you have 24 hours to establish the connection. These two operations handle all tasks
+     * necessary to peer the two VPCs, including acceptance, updating routing tables, etc.
+     * </p>
+     * <p>
+     * To establish the connection, call this operation from the AWS account that is used to manage the Amazon GameLift
+     * fleets. Identify the following values: (1) The ID of the fleet you want to be enable a VPC peering connection
+     * for; (2) The AWS account with the VPC that you want to peer with; and (3) The ID of the VPC you want to peer
+     * with. This operation is asynchronous. If successful, a <a>VpcPeeringConnection</a> request is created. You can
+     * use continuous polling to track the request's status using <a>DescribeVpcPeeringConnections</a>, or by monitoring
+     * fleet events for success or failure using <a>DescribeFleetEvents</a>.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>CreateVpcPeeringAuthorization</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeVpcPeeringAuthorizations</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteVpcPeeringAuthorization</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>CreateVpcPeeringConnection</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeVpcPeeringConnections</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteVpcPeeringConnection</a>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param createVpcPeeringConnectionRequest
+     *        Represents the input for a request action.
+     * @return A Java Future containing the result of the CreateVpcPeeringConnection operation returned by the service.
+     * @sample AmazonGameLiftAsync.CreateVpcPeeringConnection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/CreateVpcPeeringConnection"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateVpcPeeringConnectionResult> createVpcPeeringConnectionAsync(
+            CreateVpcPeeringConnectionRequest createVpcPeeringConnectionRequest);
+
+    /**
+     * <p>
+     * Establishes a VPC peering connection between a virtual private cloud (VPC) in an AWS account with the VPC for
+     * your Amazon GameLift fleet. VPC peering enables the game servers on your fleet to communicate directly with other
+     * AWS resources. You can peer with VPCs in any AWS account that you have access to, including the account that you
+     * use to manage your Amazon GameLift fleets. You cannot peer with VPCs that are in different regions. For more
+     * information, see <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/vpc-peering.html">VPC
+     * Peering with Amazon GameLift Fleets</a>.
+     * </p>
+     * <p>
+     * Before calling this operation to establish the peering connection, you first need to call
+     * <a>CreateVpcPeeringAuthorization</a> and identify the VPC you want to peer with. Once the authorization for the
+     * specified VPC is issued, you have 24 hours to establish the connection. These two operations handle all tasks
+     * necessary to peer the two VPCs, including acceptance, updating routing tables, etc.
+     * </p>
+     * <p>
+     * To establish the connection, call this operation from the AWS account that is used to manage the Amazon GameLift
+     * fleets. Identify the following values: (1) The ID of the fleet you want to be enable a VPC peering connection
+     * for; (2) The AWS account with the VPC that you want to peer with; and (3) The ID of the VPC you want to peer
+     * with. This operation is asynchronous. If successful, a <a>VpcPeeringConnection</a> request is created. You can
+     * use continuous polling to track the request's status using <a>DescribeVpcPeeringConnections</a>, or by monitoring
+     * fleet events for success or failure using <a>DescribeFleetEvents</a>.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>CreateVpcPeeringAuthorization</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeVpcPeeringAuthorizations</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteVpcPeeringAuthorization</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>CreateVpcPeeringConnection</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeVpcPeeringConnections</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteVpcPeeringConnection</a>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param createVpcPeeringConnectionRequest
+     *        Represents the input for a request action.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateVpcPeeringConnection operation returned by the service.
+     * @sample AmazonGameLiftAsyncHandler.CreateVpcPeeringConnection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/CreateVpcPeeringConnection"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateVpcPeeringConnectionResult> createVpcPeeringConnectionAsync(
+            CreateVpcPeeringConnectionRequest createVpcPeeringConnectionRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateVpcPeeringConnectionRequest, CreateVpcPeeringConnectionResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes an alias. This action removes all record of the alias. Game clients attempting to access a server process
+     * using the deleted alias receive an error. To delete an alias, specify the alias ID to be deleted.
      * </p>
      * <ul>
      * <li>
@@ -1824,9 +2687,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * <p>
      * Deletes an alias. This action removes all record of the alias. Game clients attempting to access a server process
      * using the deleted alias receive an error. To delete an alias, specify the alias ID to be deleted.
-     * </p>
-     * <p>
-     * Alias-related operations include:
      * </p>
      * <ul>
      * <li>
@@ -1883,9 +2743,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * To delete a build, specify its ID. Deleting a build does not affect the status of any active fleets using the
      * build, but you can no longer create new fleets with the deleted build.
      * </p>
-     * <p>
-     * Build-related operations include:
-     * </p>
      * <ul>
      * <li>
      * <p>
@@ -1930,9 +2787,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * <p>
      * To delete a build, specify its ID. Deleting a build does not affect the status of any active fleets using the
      * build, but you can no longer create new fleets with the deleted build.
-     * </p>
-     * <p>
-     * Build-related operations include:
      * </p>
      * <ul>
      * <li>
@@ -1985,9 +2839,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * This action removes the fleet's resources and the fleet record. Once a fleet is deleted, you can no longer use
      * that fleet.
      * </p>
-     * <p>
-     * Fleet-related operations include:
-     * </p>
      * <ul>
      * <li>
      * <p>
@@ -2001,12 +2852,22 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
+     * <a>DeleteFleet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * Describe fleets:
      * </p>
      * <ul>
      * <li>
      * <p>
      * <a>DescribeFleetAttributes</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeFleetCapacity</a>
      * </p>
      * </li>
      * <li>
@@ -2022,6 +2883,11 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * <li>
      * <p>
      * <a>DescribeRuntimeConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeEC2InstanceLimits</a>
      * </p>
      * </li>
      * <li>
@@ -2060,45 +2926,20 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
-     * Manage fleet capacity:
+     * Manage fleet actions:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <a>DescribeFleetCapacity</a>
+     * <a>StartFleetActions</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>UpdateFleetCapacity</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>PutScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeScalingPolicies</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeEC2InstanceLimits</a>
+     * <a>StopFleetActions</a>
      * </p>
      * </li>
      * </ul>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteFleet</a>
-     * </p>
      * </li>
      * </ul>
      * 
@@ -2120,9 +2961,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * This action removes the fleet's resources and the fleet record. Once a fleet is deleted, you can no longer use
      * that fleet.
      * </p>
-     * <p>
-     * Fleet-related operations include:
-     * </p>
      * <ul>
      * <li>
      * <p>
@@ -2136,12 +2974,22 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
+     * <a>DeleteFleet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * Describe fleets:
      * </p>
      * <ul>
      * <li>
      * <p>
      * <a>DescribeFleetAttributes</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeFleetCapacity</a>
      * </p>
      * </li>
      * <li>
@@ -2157,6 +3005,11 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * <li>
      * <p>
      * <a>DescribeRuntimeConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeEC2InstanceLimits</a>
      * </p>
      * </li>
      * <li>
@@ -2195,45 +3048,20 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
-     * Manage fleet capacity:
+     * Manage fleet actions:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <a>DescribeFleetCapacity</a>
+     * <a>StartFleetActions</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>UpdateFleetCapacity</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>PutScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeScalingPolicies</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeEC2InstanceLimits</a>
+     * <a>StopFleetActions</a>
      * </p>
      * </li>
      * </ul>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteFleet</a>
-     * </p>
      * </li>
      * </ul>
      * 
@@ -2255,9 +3083,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * <p>
      * Deletes a game session queue. This action means that any <a>StartGameSessionPlacement</a> requests that reference
      * this queue will fail. To delete a queue, specify the queue name.
-     * </p>
-     * <p>
-     * Queue-related operations include:
      * </p>
      * <ul>
      * <li>
@@ -2295,9 +3120,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * <p>
      * Deletes a game session queue. This action means that any <a>StartGameSessionPlacement</a> requests that reference
      * this queue will fail. To delete a queue, specify the queue name.
-     * </p>
-     * <p>
-     * Queue-related operations include:
      * </p>
      * <ul>
      * <li>
@@ -2338,85 +3160,280 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
 
     /**
      * <p>
+     * Permanently removes a FlexMatch matchmaking configuration. To delete, specify the configuration name. A
+     * matchmaking configuration cannot be deleted if it is being used in any active matchmaking tickets.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>CreateMatchmakingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeMatchmakingConfigurations</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>UpdateMatchmakingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteMatchmakingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>CreateMatchmakingRuleSet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeMatchmakingRuleSets</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>ValidateMatchmakingRuleSet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteMatchmakingRuleSet</a>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param deleteMatchmakingConfigurationRequest
+     *        Represents the input for a request action.
+     * @return A Java Future containing the result of the DeleteMatchmakingConfiguration operation returned by the
+     *         service.
+     * @sample AmazonGameLiftAsync.DeleteMatchmakingConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/DeleteMatchmakingConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteMatchmakingConfigurationResult> deleteMatchmakingConfigurationAsync(
+            DeleteMatchmakingConfigurationRequest deleteMatchmakingConfigurationRequest);
+
+    /**
+     * <p>
+     * Permanently removes a FlexMatch matchmaking configuration. To delete, specify the configuration name. A
+     * matchmaking configuration cannot be deleted if it is being used in any active matchmaking tickets.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>CreateMatchmakingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeMatchmakingConfigurations</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>UpdateMatchmakingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteMatchmakingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>CreateMatchmakingRuleSet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeMatchmakingRuleSets</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>ValidateMatchmakingRuleSet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteMatchmakingRuleSet</a>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param deleteMatchmakingConfigurationRequest
+     *        Represents the input for a request action.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteMatchmakingConfiguration operation returned by the
+     *         service.
+     * @sample AmazonGameLiftAsyncHandler.DeleteMatchmakingConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/DeleteMatchmakingConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteMatchmakingConfigurationResult> deleteMatchmakingConfigurationAsync(
+            DeleteMatchmakingConfigurationRequest deleteMatchmakingConfigurationRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteMatchmakingConfigurationRequest, DeleteMatchmakingConfigurationResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes an existing matchmaking rule set. To delete the rule set, provide the rule set name. Rule sets cannot be
+     * deleted if they are currently being used by a matchmaking configuration.
+     * </p>
+     * <p>
+     * <b>Learn more</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/match-rulesets.html">Build a Rule Set</a>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>Related operations</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>CreateMatchmakingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeMatchmakingConfigurations</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>UpdateMatchmakingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteMatchmakingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>CreateMatchmakingRuleSet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeMatchmakingRuleSets</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>ValidateMatchmakingRuleSet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteMatchmakingRuleSet</a>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param deleteMatchmakingRuleSetRequest
+     *        Represents the input for a request action.
+     * @return A Java Future containing the result of the DeleteMatchmakingRuleSet operation returned by the service.
+     * @sample AmazonGameLiftAsync.DeleteMatchmakingRuleSet
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/DeleteMatchmakingRuleSet"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteMatchmakingRuleSetResult> deleteMatchmakingRuleSetAsync(DeleteMatchmakingRuleSetRequest deleteMatchmakingRuleSetRequest);
+
+    /**
+     * <p>
+     * Deletes an existing matchmaking rule set. To delete the rule set, provide the rule set name. Rule sets cannot be
+     * deleted if they are currently being used by a matchmaking configuration.
+     * </p>
+     * <p>
+     * <b>Learn more</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/match-rulesets.html">Build a Rule Set</a>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>Related operations</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>CreateMatchmakingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeMatchmakingConfigurations</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>UpdateMatchmakingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteMatchmakingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>CreateMatchmakingRuleSet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeMatchmakingRuleSets</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>ValidateMatchmakingRuleSet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteMatchmakingRuleSet</a>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param deleteMatchmakingRuleSetRequest
+     *        Represents the input for a request action.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteMatchmakingRuleSet operation returned by the service.
+     * @sample AmazonGameLiftAsyncHandler.DeleteMatchmakingRuleSet
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/DeleteMatchmakingRuleSet"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteMatchmakingRuleSetResult> deleteMatchmakingRuleSetAsync(DeleteMatchmakingRuleSetRequest deleteMatchmakingRuleSetRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteMatchmakingRuleSetRequest, DeleteMatchmakingRuleSetResult> asyncHandler);
+
+    /**
+     * <p>
      * Deletes a fleet scaling policy. This action means that the policy is no longer in force and removes all record of
      * it. To delete a scaling policy, specify both the scaling policy name and the fleet ID it is associated with.
      * </p>
      * <p>
-     * Fleet-related operations include:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * <a>CreateFleet</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>ListFleets</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Describe fleets:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * <a>DescribeFleetAttributes</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeFleetPortSettings</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeFleetUtilization</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeRuntimeConfiguration</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeFleetEvents</a>
-     * </p>
-     * </li>
-     * </ul>
-     * </li>
-     * <li>
-     * <p>
-     * Update fleets:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * <a>UpdateFleetAttributes</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>UpdateFleetCapacity</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>UpdateFleetPortSettings</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>UpdateRuntimeConfiguration</a>
-     * </p>
-     * </li>
-     * </ul>
-     * </li>
-     * <li>
-     * <p>
-     * Manage fleet capacity:
+     * To temporarily suspend scaling policies, call <a>StopFleetActions</a>. This operation suspends all policies for
+     * the fleet.
      * </p>
      * <ul>
      * <li>
@@ -2431,30 +3448,47 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
-     * <a>PutScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeScalingPolicies</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <a>DescribeEC2InstanceLimits</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Manage scaling policies:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>PutScalingPolicy</a> (auto-scaling)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeScalingPolicies</a> (auto-scaling)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteScalingPolicy</a> (auto-scaling)
      * </p>
      * </li>
      * </ul>
      * </li>
      * <li>
      * <p>
-     * <a>DeleteFleet</a>
+     * Manage fleet actions:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>StartFleetActions</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>StopFleetActions</a>
+     * </p>
+     * </li>
+     * </ul>
      * </li>
      * </ul>
      * 
@@ -2473,81 +3507,8 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * it. To delete a scaling policy, specify both the scaling policy name and the fleet ID it is associated with.
      * </p>
      * <p>
-     * Fleet-related operations include:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * <a>CreateFleet</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>ListFleets</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Describe fleets:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * <a>DescribeFleetAttributes</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeFleetPortSettings</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeFleetUtilization</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeRuntimeConfiguration</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeFleetEvents</a>
-     * </p>
-     * </li>
-     * </ul>
-     * </li>
-     * <li>
-     * <p>
-     * Update fleets:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * <a>UpdateFleetAttributes</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>UpdateFleetCapacity</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>UpdateFleetPortSettings</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>UpdateRuntimeConfiguration</a>
-     * </p>
-     * </li>
-     * </ul>
-     * </li>
-     * <li>
-     * <p>
-     * Manage fleet capacity:
+     * To temporarily suspend scaling policies, call <a>StopFleetActions</a>. This operation suspends all policies for
+     * the fleet.
      * </p>
      * <ul>
      * <li>
@@ -2562,30 +3523,47 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
-     * <a>PutScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeScalingPolicies</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <a>DescribeEC2InstanceLimits</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Manage scaling policies:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>PutScalingPolicy</a> (auto-scaling)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeScalingPolicies</a> (auto-scaling)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteScalingPolicy</a> (auto-scaling)
      * </p>
      * </li>
      * </ul>
      * </li>
      * <li>
      * <p>
-     * <a>DeleteFleet</a>
+     * Manage fleet actions:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>StartFleetActions</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>StopFleetActions</a>
+     * </p>
+     * </li>
+     * </ul>
      * </li>
      * </ul>
      * 
@@ -2605,14 +3583,227 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
 
     /**
      * <p>
+     * Cancels a pending VPC peering authorization for the specified VPC. If the authorization has already been used to
+     * create a peering connection, call <a>DeleteVpcPeeringConnection</a> to remove the connection.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>CreateVpcPeeringAuthorization</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeVpcPeeringAuthorizations</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteVpcPeeringAuthorization</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>CreateVpcPeeringConnection</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeVpcPeeringConnections</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteVpcPeeringConnection</a>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param deleteVpcPeeringAuthorizationRequest
+     *        Represents the input for a request action.
+     * @return A Java Future containing the result of the DeleteVpcPeeringAuthorization operation returned by the
+     *         service.
+     * @sample AmazonGameLiftAsync.DeleteVpcPeeringAuthorization
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/DeleteVpcPeeringAuthorization"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteVpcPeeringAuthorizationResult> deleteVpcPeeringAuthorizationAsync(
+            DeleteVpcPeeringAuthorizationRequest deleteVpcPeeringAuthorizationRequest);
+
+    /**
+     * <p>
+     * Cancels a pending VPC peering authorization for the specified VPC. If the authorization has already been used to
+     * create a peering connection, call <a>DeleteVpcPeeringConnection</a> to remove the connection.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>CreateVpcPeeringAuthorization</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeVpcPeeringAuthorizations</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteVpcPeeringAuthorization</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>CreateVpcPeeringConnection</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeVpcPeeringConnections</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteVpcPeeringConnection</a>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param deleteVpcPeeringAuthorizationRequest
+     *        Represents the input for a request action.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteVpcPeeringAuthorization operation returned by the
+     *         service.
+     * @sample AmazonGameLiftAsyncHandler.DeleteVpcPeeringAuthorization
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/DeleteVpcPeeringAuthorization"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteVpcPeeringAuthorizationResult> deleteVpcPeeringAuthorizationAsync(
+            DeleteVpcPeeringAuthorizationRequest deleteVpcPeeringAuthorizationRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteVpcPeeringAuthorizationRequest, DeleteVpcPeeringAuthorizationResult> asyncHandler);
+
+    /**
+     * <p>
+     * Removes a VPC peering connection. To delete the connection, you must have a valid authorization for the VPC
+     * peering connection that you want to delete. You can check for an authorization by calling
+     * <a>DescribeVpcPeeringAuthorizations</a> or request a new one using <a>CreateVpcPeeringAuthorization</a>.
+     * </p>
+     * <p>
+     * Once a valid authorization exists, call this operation from the AWS account that is used to manage the Amazon
+     * GameLift fleets. Identify the connection to delete by the connection ID and fleet ID. If successful, the
+     * connection is removed.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>CreateVpcPeeringAuthorization</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeVpcPeeringAuthorizations</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteVpcPeeringAuthorization</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>CreateVpcPeeringConnection</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeVpcPeeringConnections</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteVpcPeeringConnection</a>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param deleteVpcPeeringConnectionRequest
+     *        Represents the input for a request action.
+     * @return A Java Future containing the result of the DeleteVpcPeeringConnection operation returned by the service.
+     * @sample AmazonGameLiftAsync.DeleteVpcPeeringConnection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/DeleteVpcPeeringConnection"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteVpcPeeringConnectionResult> deleteVpcPeeringConnectionAsync(
+            DeleteVpcPeeringConnectionRequest deleteVpcPeeringConnectionRequest);
+
+    /**
+     * <p>
+     * Removes a VPC peering connection. To delete the connection, you must have a valid authorization for the VPC
+     * peering connection that you want to delete. You can check for an authorization by calling
+     * <a>DescribeVpcPeeringAuthorizations</a> or request a new one using <a>CreateVpcPeeringAuthorization</a>.
+     * </p>
+     * <p>
+     * Once a valid authorization exists, call this operation from the AWS account that is used to manage the Amazon
+     * GameLift fleets. Identify the connection to delete by the connection ID and fleet ID. If successful, the
+     * connection is removed.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>CreateVpcPeeringAuthorization</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeVpcPeeringAuthorizations</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteVpcPeeringAuthorization</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>CreateVpcPeeringConnection</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeVpcPeeringConnections</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteVpcPeeringConnection</a>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param deleteVpcPeeringConnectionRequest
+     *        Represents the input for a request action.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteVpcPeeringConnection operation returned by the service.
+     * @sample AmazonGameLiftAsyncHandler.DeleteVpcPeeringConnection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/DeleteVpcPeeringConnection"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteVpcPeeringConnectionResult> deleteVpcPeeringConnectionAsync(
+            DeleteVpcPeeringConnectionRequest deleteVpcPeeringConnectionRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteVpcPeeringConnectionRequest, DeleteVpcPeeringConnectionResult> asyncHandler);
+
+    /**
+     * <p>
      * Retrieves properties for an alias. This operation returns all alias metadata and settings. To get an alias's
      * target fleet ID only, use <code>ResolveAlias</code>.
      * </p>
      * <p>
      * To get alias properties, specify the alias ID. If successful, the requested alias record is returned.
-     * </p>
-     * <p>
-     * Alias-related operations include:
      * </p>
      * <ul>
      * <li>
@@ -2664,9 +3855,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * <p>
      * To get alias properties, specify the alias ID. If successful, the requested alias record is returned.
      * </p>
-     * <p>
-     * Alias-related operations include:
-     * </p>
      * <ul>
      * <li>
      * <p>
@@ -2716,11 +3904,8 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
 
     /**
      * <p>
-     * Retrieves properties for a build. To get a build record, specify a build ID. If successful, an object containing
-     * the build properties is returned.
-     * </p>
-     * <p>
-     * Build-related operations include:
+     * Retrieves properties for a build. To request a build record, specify a build ID. If successful, an object
+     * containing the build properties is returned.
      * </p>
      * <ul>
      * <li>
@@ -2761,11 +3946,8 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
 
     /**
      * <p>
-     * Retrieves properties for a build. To get a build record, specify a build ID. If successful, an object containing
-     * the build properties is returned.
-     * </p>
-     * <p>
-     * Build-related operations include:
+     * Retrieves properties for a build. To request a build record, specify a build ID. If successful, an object
+     * containing the build properties is returned.
      * </p>
      * <ul>
      * <li>
@@ -2829,9 +4011,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * Service limits vary depending on region. Available regions for Amazon GameLift can be found in the AWS Management
      * Console for Amazon GameLift (see the drop-down list in the upper right corner).
      * </p>
-     * <p>
-     * Fleet-related operations include:
-     * </p>
      * <ul>
      * <li>
      * <p>
@@ -2845,12 +4024,22 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
+     * <a>DeleteFleet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * Describe fleets:
      * </p>
      * <ul>
      * <li>
      * <p>
      * <a>DescribeFleetAttributes</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeFleetCapacity</a>
      * </p>
      * </li>
      * <li>
@@ -2866,6 +4055,11 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * <li>
      * <p>
      * <a>DescribeRuntimeConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeEC2InstanceLimits</a>
      * </p>
      * </li>
      * <li>
@@ -2904,45 +4098,20 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
-     * Manage fleet capacity:
+     * Manage fleet actions:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <a>DescribeFleetCapacity</a>
+     * <a>StartFleetActions</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>UpdateFleetCapacity</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>PutScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeScalingPolicies</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeEC2InstanceLimits</a>
+     * <a>StopFleetActions</a>
      * </p>
      * </li>
      * </ul>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteFleet</a>
-     * </p>
      * </li>
      * </ul>
      * 
@@ -2976,9 +4145,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * Service limits vary depending on region. Available regions for Amazon GameLift can be found in the AWS Management
      * Console for Amazon GameLift (see the drop-down list in the upper right corner).
      * </p>
-     * <p>
-     * Fleet-related operations include:
-     * </p>
      * <ul>
      * <li>
      * <p>
@@ -2992,12 +4158,22 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
+     * <a>DeleteFleet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * Describe fleets:
      * </p>
      * <ul>
      * <li>
      * <p>
      * <a>DescribeFleetAttributes</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeFleetCapacity</a>
      * </p>
      * </li>
      * <li>
@@ -3013,6 +4189,11 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * <li>
      * <p>
      * <a>DescribeRuntimeConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeEC2InstanceLimits</a>
      * </p>
      * </li>
      * <li>
@@ -3051,45 +4232,20 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
-     * Manage fleet capacity:
+     * Manage fleet actions:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <a>DescribeFleetCapacity</a>
+     * <a>StartFleetActions</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>UpdateFleetCapacity</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>PutScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeScalingPolicies</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeEC2InstanceLimits</a>
+     * <a>StopFleetActions</a>
      * </p>
      * </li>
      * </ul>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteFleet</a>
-     * </p>
      * </li>
      * </ul>
      * 
@@ -3122,9 +4278,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * request fails and the error message includes the maximum allowed.
      * </p>
      * </note>
-     * <p>
-     * Fleet-related operations include:
-     * </p>
      * <ul>
      * <li>
      * <p>
@@ -3138,12 +4291,22 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
+     * <a>DeleteFleet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * Describe fleets:
      * </p>
      * <ul>
      * <li>
      * <p>
      * <a>DescribeFleetAttributes</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeFleetCapacity</a>
      * </p>
      * </li>
      * <li>
@@ -3159,6 +4322,11 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * <li>
      * <p>
      * <a>DescribeRuntimeConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeEC2InstanceLimits</a>
      * </p>
      * </li>
      * <li>
@@ -3197,45 +4365,20 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
-     * Manage fleet capacity:
+     * Manage fleet actions:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <a>DescribeFleetCapacity</a>
+     * <a>StartFleetActions</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>UpdateFleetCapacity</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>PutScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeScalingPolicies</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeEC2InstanceLimits</a>
+     * <a>StopFleetActions</a>
      * </p>
      * </li>
      * </ul>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteFleet</a>
-     * </p>
      * </li>
      * </ul>
      * 
@@ -3262,9 +4405,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * request fails and the error message includes the maximum allowed.
      * </p>
      * </note>
-     * <p>
-     * Fleet-related operations include:
-     * </p>
      * <ul>
      * <li>
      * <p>
@@ -3278,12 +4418,22 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
+     * <a>DeleteFleet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * Describe fleets:
      * </p>
      * <ul>
      * <li>
      * <p>
      * <a>DescribeFleetAttributes</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeFleetCapacity</a>
      * </p>
      * </li>
      * <li>
@@ -3299,6 +4449,11 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * <li>
      * <p>
      * <a>DescribeRuntimeConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeEC2InstanceLimits</a>
      * </p>
      * </li>
      * <li>
@@ -3337,45 +4492,20 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
-     * Manage fleet capacity:
+     * Manage fleet actions:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <a>DescribeFleetCapacity</a>
+     * <a>StartFleetActions</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>UpdateFleetCapacity</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>PutScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeScalingPolicies</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeEC2InstanceLimits</a>
+     * <a>StopFleetActions</a>
      * </p>
      * </li>
      * </ul>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteFleet</a>
-     * </p>
      * </li>
      * </ul>
      * 
@@ -3408,9 +4538,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * request fails and the error message includes the maximum allowed.
      * </p>
      * </note>
-     * <p>
-     * Fleet-related operations include:
-     * </p>
      * <ul>
      * <li>
      * <p>
@@ -3424,12 +4551,22 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
+     * <a>DeleteFleet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * Describe fleets:
      * </p>
      * <ul>
      * <li>
      * <p>
      * <a>DescribeFleetAttributes</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeFleetCapacity</a>
      * </p>
      * </li>
      * <li>
@@ -3445,6 +4582,11 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * <li>
      * <p>
      * <a>DescribeRuntimeConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeEC2InstanceLimits</a>
      * </p>
      * </li>
      * <li>
@@ -3483,45 +4625,20 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
-     * Manage fleet capacity:
+     * Manage fleet actions:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <a>DescribeFleetCapacity</a>
+     * <a>StartFleetActions</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>UpdateFleetCapacity</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>PutScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeScalingPolicies</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeEC2InstanceLimits</a>
+     * <a>StopFleetActions</a>
      * </p>
      * </li>
      * </ul>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteFleet</a>
-     * </p>
      * </li>
      * </ul>
      * 
@@ -3549,9 +4666,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * request fails and the error message includes the maximum allowed.
      * </p>
      * </note>
-     * <p>
-     * Fleet-related operations include:
-     * </p>
      * <ul>
      * <li>
      * <p>
@@ -3565,12 +4679,22 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
+     * <a>DeleteFleet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * Describe fleets:
      * </p>
      * <ul>
      * <li>
      * <p>
      * <a>DescribeFleetAttributes</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeFleetCapacity</a>
      * </p>
      * </li>
      * <li>
@@ -3586,6 +4710,11 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * <li>
      * <p>
      * <a>DescribeRuntimeConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeEC2InstanceLimits</a>
      * </p>
      * </li>
      * <li>
@@ -3624,45 +4753,20 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
-     * Manage fleet capacity:
+     * Manage fleet actions:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <a>DescribeFleetCapacity</a>
+     * <a>StartFleetActions</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>UpdateFleetCapacity</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>PutScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeScalingPolicies</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeEC2InstanceLimits</a>
+     * <a>StopFleetActions</a>
      * </p>
      * </li>
      * </ul>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteFleet</a>
-     * </p>
      * </li>
      * </ul>
      * 
@@ -3686,9 +4790,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * the pagination parameters to retrieve results as a set of sequential pages. If successful, a collection of event
      * log entries matching the request are returned.
      * </p>
-     * <p>
-     * Fleet-related operations include:
-     * </p>
      * <ul>
      * <li>
      * <p>
@@ -3702,12 +4803,22 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
+     * <a>DeleteFleet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * Describe fleets:
      * </p>
      * <ul>
      * <li>
      * <p>
      * <a>DescribeFleetAttributes</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeFleetCapacity</a>
      * </p>
      * </li>
      * <li>
@@ -3723,6 +4834,11 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * <li>
      * <p>
      * <a>DescribeRuntimeConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeEC2InstanceLimits</a>
      * </p>
      * </li>
      * <li>
@@ -3761,45 +4877,20 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
-     * Manage fleet capacity:
+     * Manage fleet actions:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <a>DescribeFleetCapacity</a>
+     * <a>StartFleetActions</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>UpdateFleetCapacity</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>PutScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeScalingPolicies</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeEC2InstanceLimits</a>
+     * <a>StopFleetActions</a>
      * </p>
      * </li>
      * </ul>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteFleet</a>
-     * </p>
      * </li>
      * </ul>
      * 
@@ -3818,9 +4909,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * the pagination parameters to retrieve results as a set of sequential pages. If successful, a collection of event
      * log entries matching the request are returned.
      * </p>
-     * <p>
-     * Fleet-related operations include:
-     * </p>
      * <ul>
      * <li>
      * <p>
@@ -3834,12 +4922,22 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
+     * <a>DeleteFleet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * Describe fleets:
      * </p>
      * <ul>
      * <li>
      * <p>
      * <a>DescribeFleetAttributes</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeFleetCapacity</a>
      * </p>
      * </li>
      * <li>
@@ -3855,6 +4953,11 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * <li>
      * <p>
      * <a>DescribeRuntimeConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeEC2InstanceLimits</a>
      * </p>
      * </li>
      * <li>
@@ -3893,45 +4996,20 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
-     * Manage fleet capacity:
+     * Manage fleet actions:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <a>DescribeFleetCapacity</a>
+     * <a>StartFleetActions</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>UpdateFleetCapacity</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>PutScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeScalingPolicies</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeEC2InstanceLimits</a>
+     * <a>StopFleetActions</a>
      * </p>
      * </li>
      * </ul>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteFleet</a>
-     * </p>
      * </li>
      * </ul>
      * 
@@ -3956,9 +5034,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * connection permissions, specify a fleet ID. If successful, a collection of <a>IpPermission</a> objects is
      * returned for the requested fleet ID. If the requested fleet has been deleted, the result set is empty.
      * </p>
-     * <p>
-     * Fleet-related operations include:
-     * </p>
      * <ul>
      * <li>
      * <p>
@@ -3972,12 +5047,22 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
+     * <a>DeleteFleet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * Describe fleets:
      * </p>
      * <ul>
      * <li>
      * <p>
      * <a>DescribeFleetAttributes</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeFleetCapacity</a>
      * </p>
      * </li>
      * <li>
@@ -3993,6 +5078,11 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * <li>
      * <p>
      * <a>DescribeRuntimeConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeEC2InstanceLimits</a>
      * </p>
      * </li>
      * <li>
@@ -4031,45 +5121,20 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
-     * Manage fleet capacity:
+     * Manage fleet actions:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <a>DescribeFleetCapacity</a>
+     * <a>StartFleetActions</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>UpdateFleetCapacity</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>PutScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeScalingPolicies</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeEC2InstanceLimits</a>
+     * <a>StopFleetActions</a>
      * </p>
      * </li>
      * </ul>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteFleet</a>
-     * </p>
      * </li>
      * </ul>
      * 
@@ -4090,9 +5155,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * connection permissions, specify a fleet ID. If successful, a collection of <a>IpPermission</a> objects is
      * returned for the requested fleet ID. If the requested fleet has been deleted, the result set is empty.
      * </p>
-     * <p>
-     * Fleet-related operations include:
-     * </p>
      * <ul>
      * <li>
      * <p>
@@ -4106,12 +5168,22 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
+     * <a>DeleteFleet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * Describe fleets:
      * </p>
      * <ul>
      * <li>
      * <p>
      * <a>DescribeFleetAttributes</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeFleetCapacity</a>
      * </p>
      * </li>
      * <li>
@@ -4127,6 +5199,11 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * <li>
      * <p>
      * <a>DescribeRuntimeConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeEC2InstanceLimits</a>
      * </p>
      * </li>
      * <li>
@@ -4165,45 +5242,20 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
-     * Manage fleet capacity:
+     * Manage fleet actions:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <a>DescribeFleetCapacity</a>
+     * <a>StartFleetActions</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>UpdateFleetCapacity</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>PutScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeScalingPolicies</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeEC2InstanceLimits</a>
+     * <a>StopFleetActions</a>
      * </p>
      * </li>
      * </ul>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteFleet</a>
-     * </p>
      * </li>
      * </ul>
      * 
@@ -4236,9 +5288,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * request fails and the error message includes the maximum allowed.
      * </p>
      * </note>
-     * <p>
-     * Fleet-related operations include:
-     * </p>
      * <ul>
      * <li>
      * <p>
@@ -4252,12 +5301,22 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
+     * <a>DeleteFleet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * Describe fleets:
      * </p>
      * <ul>
      * <li>
      * <p>
      * <a>DescribeFleetAttributes</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeFleetCapacity</a>
      * </p>
      * </li>
      * <li>
@@ -4273,6 +5332,11 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * <li>
      * <p>
      * <a>DescribeRuntimeConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeEC2InstanceLimits</a>
      * </p>
      * </li>
      * <li>
@@ -4311,45 +5375,20 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
-     * Manage fleet capacity:
+     * Manage fleet actions:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <a>DescribeFleetCapacity</a>
+     * <a>StartFleetActions</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>UpdateFleetCapacity</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>PutScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeScalingPolicies</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeEC2InstanceLimits</a>
+     * <a>StopFleetActions</a>
      * </p>
      * </li>
      * </ul>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteFleet</a>
-     * </p>
      * </li>
      * </ul>
      * 
@@ -4376,9 +5415,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * request fails and the error message includes the maximum allowed.
      * </p>
      * </note>
-     * <p>
-     * Fleet-related operations include:
-     * </p>
      * <ul>
      * <li>
      * <p>
@@ -4392,12 +5428,22 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
+     * <a>DeleteFleet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * Describe fleets:
      * </p>
      * <ul>
      * <li>
      * <p>
      * <a>DescribeFleetAttributes</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeFleetCapacity</a>
      * </p>
      * </li>
      * <li>
@@ -4413,6 +5459,11 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * <li>
      * <p>
      * <a>DescribeRuntimeConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeEC2InstanceLimits</a>
      * </p>
      * </li>
      * <li>
@@ -4451,45 +5502,20 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
-     * Manage fleet capacity:
+     * Manage fleet actions:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <a>DescribeFleetCapacity</a>
+     * <a>StartFleetActions</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>UpdateFleetCapacity</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>PutScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeScalingPolicies</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeEC2InstanceLimits</a>
+     * <a>StopFleetActions</a>
      * </p>
      * </li>
      * </ul>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteFleet</a>
-     * </p>
      * </li>
      * </ul>
      * 
@@ -4519,9 +5545,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * filter this request by game session status. Use the pagination parameters to retrieve results as a set of
      * sequential pages. If successful, a <a>GameSessionDetail</a> object is returned for each session matching the
      * request.
-     * </p>
-     * <p>
-     * Game-session-related operations include:
      * </p>
      * <ul>
      * <li>
@@ -4601,9 +5624,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * sequential pages. If successful, a <a>GameSessionDetail</a> object is returned for each session matching the
      * request.
      * </p>
-     * <p>
-     * Game-session-related operations include:
-     * </p>
      * <ul>
      * <li>
      * <p>
@@ -4679,9 +5699,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * Retrieves properties and current status of a game session placement request. To get game session placement
      * details, specify the placement ID. If successful, a <a>GameSessionPlacement</a> object is returned.
      * </p>
-     * <p>
-     * Game-session-related operations include:
-     * </p>
      * <ul>
      * <li>
      * <p>
@@ -4752,9 +5769,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * <p>
      * Retrieves properties and current status of a game session placement request. To get game session placement
      * details, specify the placement ID. If successful, a <a>GameSessionPlacement</a> object is returned.
-     * </p>
-     * <p>
-     * Game-session-related operations include:
      * </p>
      * <ul>
      * <li>
@@ -4834,9 +5848,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * returned for each requested queue. When specifying a list of queues, objects are returned only for queues that
      * currently exist in the region.
      * </p>
-     * <p>
-     * Queue-related operations include:
-     * </p>
      * <ul>
      * <li>
      * <p>
@@ -4876,9 +5887,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * parameters to retrieve results as a set of sequential pages. If successful, a <a>GameSessionQueue</a> object is
      * returned for each requested queue. When specifying a list of queues, objects are returned only for queues that
      * currently exist in the region.
-     * </p>
-     * <p>
-     * Queue-related operations include:
      * </p>
      * <ul>
      * <li>
@@ -4932,9 +5940,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </p>
      * <p>
      * <i>Available in Amazon GameLift Local.</i>
-     * </p>
-     * <p>
-     * Game-session-related operations include:
      * </p>
      * <ul>
      * <li>
@@ -5014,9 +6019,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </p>
      * <p>
      * <i>Available in Amazon GameLift Local.</i>
-     * </p>
-     * <p>
-     * Game-session-related operations include:
      * </p>
      * <ul>
      * <li>
@@ -5134,6 +6136,393 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
 
     /**
      * <p>
+     * Retrieves one or more matchmaking tickets. Use this operation to retrieve ticket information, including status
+     * and--once a successful match is made--acquire connection information for the resulting new game session.
+     * </p>
+     * <p>
+     * You can use this operation to track the progress of matchmaking requests (through polling) as an alternative to
+     * using event notifications. See more details on tracking matchmaking requests through polling or notifications in
+     * <a>StartMatchmaking</a>.
+     * </p>
+     * <p>
+     * To request matchmaking tickets, provide a list of up to 10 ticket IDs. If the request is successful, a ticket
+     * object is returned for each requested ID that currently exists.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>StartMatchmaking</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeMatchmaking</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>StopMatchmaking</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>AcceptMatch</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>StartMatchBackfill</a>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param describeMatchmakingRequest
+     *        Represents the input for a request action.
+     * @return A Java Future containing the result of the DescribeMatchmaking operation returned by the service.
+     * @sample AmazonGameLiftAsync.DescribeMatchmaking
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/DescribeMatchmaking" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeMatchmakingResult> describeMatchmakingAsync(DescribeMatchmakingRequest describeMatchmakingRequest);
+
+    /**
+     * <p>
+     * Retrieves one or more matchmaking tickets. Use this operation to retrieve ticket information, including status
+     * and--once a successful match is made--acquire connection information for the resulting new game session.
+     * </p>
+     * <p>
+     * You can use this operation to track the progress of matchmaking requests (through polling) as an alternative to
+     * using event notifications. See more details on tracking matchmaking requests through polling or notifications in
+     * <a>StartMatchmaking</a>.
+     * </p>
+     * <p>
+     * To request matchmaking tickets, provide a list of up to 10 ticket IDs. If the request is successful, a ticket
+     * object is returned for each requested ID that currently exists.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>StartMatchmaking</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeMatchmaking</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>StopMatchmaking</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>AcceptMatch</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>StartMatchBackfill</a>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param describeMatchmakingRequest
+     *        Represents the input for a request action.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeMatchmaking operation returned by the service.
+     * @sample AmazonGameLiftAsyncHandler.DescribeMatchmaking
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/DescribeMatchmaking" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeMatchmakingResult> describeMatchmakingAsync(DescribeMatchmakingRequest describeMatchmakingRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeMatchmakingRequest, DescribeMatchmakingResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves the details of FlexMatch matchmaking configurations. with this operation, you have the following
+     * options: (1) retrieve all existing configurations, (2) provide the names of one or more configurations to
+     * retrieve, or (3) retrieve all configurations that use a specified rule set name. When requesting multiple items,
+     * use the pagination parameters to retrieve results as a set of sequential pages. If successful, a configuration is
+     * returned for each requested name. When specifying a list of names, only configurations that currently exist are
+     * returned.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>CreateMatchmakingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeMatchmakingConfigurations</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>UpdateMatchmakingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteMatchmakingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>CreateMatchmakingRuleSet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeMatchmakingRuleSets</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>ValidateMatchmakingRuleSet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteMatchmakingRuleSet</a>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param describeMatchmakingConfigurationsRequest
+     *        Represents the input for a request action.
+     * @return A Java Future containing the result of the DescribeMatchmakingConfigurations operation returned by the
+     *         service.
+     * @sample AmazonGameLiftAsync.DescribeMatchmakingConfigurations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/DescribeMatchmakingConfigurations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeMatchmakingConfigurationsResult> describeMatchmakingConfigurationsAsync(
+            DescribeMatchmakingConfigurationsRequest describeMatchmakingConfigurationsRequest);
+
+    /**
+     * <p>
+     * Retrieves the details of FlexMatch matchmaking configurations. with this operation, you have the following
+     * options: (1) retrieve all existing configurations, (2) provide the names of one or more configurations to
+     * retrieve, or (3) retrieve all configurations that use a specified rule set name. When requesting multiple items,
+     * use the pagination parameters to retrieve results as a set of sequential pages. If successful, a configuration is
+     * returned for each requested name. When specifying a list of names, only configurations that currently exist are
+     * returned.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>CreateMatchmakingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeMatchmakingConfigurations</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>UpdateMatchmakingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteMatchmakingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>CreateMatchmakingRuleSet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeMatchmakingRuleSets</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>ValidateMatchmakingRuleSet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteMatchmakingRuleSet</a>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param describeMatchmakingConfigurationsRequest
+     *        Represents the input for a request action.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeMatchmakingConfigurations operation returned by the
+     *         service.
+     * @sample AmazonGameLiftAsyncHandler.DescribeMatchmakingConfigurations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/DescribeMatchmakingConfigurations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeMatchmakingConfigurationsResult> describeMatchmakingConfigurationsAsync(
+            DescribeMatchmakingConfigurationsRequest describeMatchmakingConfigurationsRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeMatchmakingConfigurationsRequest, DescribeMatchmakingConfigurationsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves the details for FlexMatch matchmaking rule sets. You can request all existing rule sets for the region,
+     * or provide a list of one or more rule set names. When requesting multiple items, use the pagination parameters to
+     * retrieve results as a set of sequential pages. If successful, a rule set is returned for each requested name.
+     * </p>
+     * <p>
+     * <b>Learn more</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/match-rulesets.html">Build a Rule Set</a>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>Related operations</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>CreateMatchmakingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeMatchmakingConfigurations</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>UpdateMatchmakingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteMatchmakingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>CreateMatchmakingRuleSet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeMatchmakingRuleSets</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>ValidateMatchmakingRuleSet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteMatchmakingRuleSet</a>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param describeMatchmakingRuleSetsRequest
+     *        Represents the input for a request action.
+     * @return A Java Future containing the result of the DescribeMatchmakingRuleSets operation returned by the service.
+     * @sample AmazonGameLiftAsync.DescribeMatchmakingRuleSets
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/DescribeMatchmakingRuleSets"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeMatchmakingRuleSetsResult> describeMatchmakingRuleSetsAsync(
+            DescribeMatchmakingRuleSetsRequest describeMatchmakingRuleSetsRequest);
+
+    /**
+     * <p>
+     * Retrieves the details for FlexMatch matchmaking rule sets. You can request all existing rule sets for the region,
+     * or provide a list of one or more rule set names. When requesting multiple items, use the pagination parameters to
+     * retrieve results as a set of sequential pages. If successful, a rule set is returned for each requested name.
+     * </p>
+     * <p>
+     * <b>Learn more</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/match-rulesets.html">Build a Rule Set</a>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>Related operations</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>CreateMatchmakingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeMatchmakingConfigurations</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>UpdateMatchmakingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteMatchmakingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>CreateMatchmakingRuleSet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeMatchmakingRuleSets</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>ValidateMatchmakingRuleSet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteMatchmakingRuleSet</a>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param describeMatchmakingRuleSetsRequest
+     *        Represents the input for a request action.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeMatchmakingRuleSets operation returned by the service.
+     * @sample AmazonGameLiftAsyncHandler.DescribeMatchmakingRuleSets
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/DescribeMatchmakingRuleSets"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeMatchmakingRuleSetsResult> describeMatchmakingRuleSetsAsync(
+            DescribeMatchmakingRuleSetsRequest describeMatchmakingRuleSetsRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeMatchmakingRuleSetsRequest, DescribeMatchmakingRuleSetsResult> asyncHandler);
+
+    /**
+     * <p>
      * Retrieves properties for one or more player sessions. This action can be used in several ways: (1) provide a
      * <code>PlayerSessionId</code> to request properties for a specific player session; (2) provide a
      * <code>GameSessionId</code> to request properties for all player sessions in the specified game session; (3)
@@ -5147,9 +6536,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </p>
      * <p>
      * <i>Available in Amazon GameLift Local.</i>
-     * </p>
-     * <p>
-     * Player-session-related operations include:
      * </p>
      * <ul>
      * <li>
@@ -5216,9 +6602,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * <p>
      * <i>Available in Amazon GameLift Local.</i>
      * </p>
-     * <p>
-     * Player-session-related operations include:
-     * </p>
      * <ul>
      * <li>
      * <p>
@@ -5278,9 +6661,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * Retrieves the current run-time configuration for the specified fleet. The run-time configuration tells Amazon
      * GameLift how to launch server processes on instances in the fleet.
      * </p>
-     * <p>
-     * Fleet-related operations include:
-     * </p>
      * <ul>
      * <li>
      * <p>
@@ -5294,12 +6674,22 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
+     * <a>DeleteFleet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * Describe fleets:
      * </p>
      * <ul>
      * <li>
      * <p>
      * <a>DescribeFleetAttributes</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeFleetCapacity</a>
      * </p>
      * </li>
      * <li>
@@ -5315,6 +6705,11 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * <li>
      * <p>
      * <a>DescribeRuntimeConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeEC2InstanceLimits</a>
      * </p>
      * </li>
      * <li>
@@ -5353,45 +6748,20 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
-     * Manage fleet capacity:
+     * Manage fleet actions:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <a>DescribeFleetCapacity</a>
+     * <a>StartFleetActions</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>UpdateFleetCapacity</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>PutScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeScalingPolicies</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeEC2InstanceLimits</a>
+     * <a>StopFleetActions</a>
      * </p>
      * </li>
      * </ul>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteFleet</a>
-     * </p>
      * </li>
      * </ul>
      * 
@@ -5411,9 +6781,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * Retrieves the current run-time configuration for the specified fleet. The run-time configuration tells Amazon
      * GameLift how to launch server processes on instances in the fleet.
      * </p>
-     * <p>
-     * Fleet-related operations include:
-     * </p>
      * <ul>
      * <li>
      * <p>
@@ -5427,12 +6794,22 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
+     * <a>DeleteFleet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * Describe fleets:
      * </p>
      * <ul>
      * <li>
      * <p>
      * <a>DescribeFleetAttributes</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeFleetCapacity</a>
      * </p>
      * </li>
      * <li>
@@ -5448,6 +6825,11 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * <li>
      * <p>
      * <a>DescribeRuntimeConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeEC2InstanceLimits</a>
      * </p>
      * </li>
      * <li>
@@ -5486,45 +6868,20 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
-     * Manage fleet capacity:
+     * Manage fleet actions:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <a>DescribeFleetCapacity</a>
+     * <a>StartFleetActions</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>UpdateFleetCapacity</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>PutScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeScalingPolicies</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeEC2InstanceLimits</a>
+     * <a>StopFleetActions</a>
      * </p>
      * </li>
      * </ul>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteFleet</a>
-     * </p>
      * </li>
      * </ul>
      * 
@@ -5554,81 +6911,9 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * pages. If successful, set of <a>ScalingPolicy</a> objects is returned for the fleet.
      * </p>
      * <p>
-     * Fleet-related operations include:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * <a>CreateFleet</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>ListFleets</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Describe fleets:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * <a>DescribeFleetAttributes</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeFleetPortSettings</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeFleetUtilization</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeRuntimeConfiguration</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeFleetEvents</a>
-     * </p>
-     * </li>
-     * </ul>
-     * </li>
-     * <li>
-     * <p>
-     * Update fleets:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * <a>UpdateFleetAttributes</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>UpdateFleetCapacity</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>UpdateFleetPortSettings</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>UpdateRuntimeConfiguration</a>
-     * </p>
-     * </li>
-     * </ul>
-     * </li>
-     * <li>
-     * <p>
-     * Manage fleet capacity:
+     * A fleet may have all of its scaling policies suspended (<a>StopFleetActions</a>). This action does not affect the
+     * status of the scaling policies, which remains ACTIVE. To see whether a fleet's scaling policies are in force or
+     * suspended, call <a>DescribeFleetAttributes</a> and check the stopped actions.
      * </p>
      * <ul>
      * <li>
@@ -5643,30 +6928,47 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
-     * <a>PutScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeScalingPolicies</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <a>DescribeEC2InstanceLimits</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Manage scaling policies:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>PutScalingPolicy</a> (auto-scaling)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeScalingPolicies</a> (auto-scaling)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteScalingPolicy</a> (auto-scaling)
      * </p>
      * </li>
      * </ul>
      * </li>
      * <li>
      * <p>
-     * <a>DeleteFleet</a>
+     * Manage fleet actions:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>StartFleetActions</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>StopFleetActions</a>
+     * </p>
+     * </li>
+     * </ul>
      * </li>
      * </ul>
      * 
@@ -5689,81 +6991,9 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * pages. If successful, set of <a>ScalingPolicy</a> objects is returned for the fleet.
      * </p>
      * <p>
-     * Fleet-related operations include:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * <a>CreateFleet</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>ListFleets</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Describe fleets:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * <a>DescribeFleetAttributes</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeFleetPortSettings</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeFleetUtilization</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeRuntimeConfiguration</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeFleetEvents</a>
-     * </p>
-     * </li>
-     * </ul>
-     * </li>
-     * <li>
-     * <p>
-     * Update fleets:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * <a>UpdateFleetAttributes</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>UpdateFleetCapacity</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>UpdateFleetPortSettings</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>UpdateRuntimeConfiguration</a>
-     * </p>
-     * </li>
-     * </ul>
-     * </li>
-     * <li>
-     * <p>
-     * Manage fleet capacity:
+     * A fleet may have all of its scaling policies suspended (<a>StopFleetActions</a>). This action does not affect the
+     * status of the scaling policies, which remains ACTIVE. To see whether a fleet's scaling policies are in force or
+     * suspended, call <a>DescribeFleetAttributes</a> and check the stopped actions.
      * </p>
      * <ul>
      * <li>
@@ -5778,30 +7008,47 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
-     * <a>PutScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeScalingPolicies</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <a>DescribeEC2InstanceLimits</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Manage scaling policies:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>PutScalingPolicy</a> (auto-scaling)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeScalingPolicies</a> (auto-scaling)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteScalingPolicy</a> (auto-scaling)
      * </p>
      * </li>
      * </ul>
      * </li>
      * <li>
      * <p>
-     * <a>DeleteFleet</a>
+     * Manage fleet actions:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>StartFleetActions</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>StopFleetActions</a>
+     * </p>
+     * </li>
+     * </ul>
      * </li>
      * </ul>
      * 
@@ -5821,18 +7068,232 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
 
     /**
      * <p>
+     * Retrieves valid VPC peering authorizations that are pending for the AWS account. This operation returns all VPC
+     * peering authorizations and requests for peering. This includes those initiated and received by this account.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>CreateVpcPeeringAuthorization</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeVpcPeeringAuthorizations</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteVpcPeeringAuthorization</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>CreateVpcPeeringConnection</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeVpcPeeringConnections</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteVpcPeeringConnection</a>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param describeVpcPeeringAuthorizationsRequest
+     * @return A Java Future containing the result of the DescribeVpcPeeringAuthorizations operation returned by the
+     *         service.
+     * @sample AmazonGameLiftAsync.DescribeVpcPeeringAuthorizations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/DescribeVpcPeeringAuthorizations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeVpcPeeringAuthorizationsResult> describeVpcPeeringAuthorizationsAsync(
+            DescribeVpcPeeringAuthorizationsRequest describeVpcPeeringAuthorizationsRequest);
+
+    /**
+     * <p>
+     * Retrieves valid VPC peering authorizations that are pending for the AWS account. This operation returns all VPC
+     * peering authorizations and requests for peering. This includes those initiated and received by this account.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>CreateVpcPeeringAuthorization</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeVpcPeeringAuthorizations</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteVpcPeeringAuthorization</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>CreateVpcPeeringConnection</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeVpcPeeringConnections</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteVpcPeeringConnection</a>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param describeVpcPeeringAuthorizationsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeVpcPeeringAuthorizations operation returned by the
+     *         service.
+     * @sample AmazonGameLiftAsyncHandler.DescribeVpcPeeringAuthorizations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/DescribeVpcPeeringAuthorizations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeVpcPeeringAuthorizationsResult> describeVpcPeeringAuthorizationsAsync(
+            DescribeVpcPeeringAuthorizationsRequest describeVpcPeeringAuthorizationsRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeVpcPeeringAuthorizationsRequest, DescribeVpcPeeringAuthorizationsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves information on VPC peering connections. Use this operation to get peering information for all fleets or
+     * for one specific fleet ID.
+     * </p>
+     * <p>
+     * To retrieve connection information, call this operation from the AWS account that is used to manage the Amazon
+     * GameLift fleets. Specify a fleet ID or leave the parameter empty to retrieve all connection records. If
+     * successful, the retrieved information includes both active and pending connections. Active connections identify
+     * the IpV4 CIDR block that the VPC uses to connect.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>CreateVpcPeeringAuthorization</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeVpcPeeringAuthorizations</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteVpcPeeringAuthorization</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>CreateVpcPeeringConnection</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeVpcPeeringConnections</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteVpcPeeringConnection</a>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param describeVpcPeeringConnectionsRequest
+     *        Represents the input for a request action.
+     * @return A Java Future containing the result of the DescribeVpcPeeringConnections operation returned by the
+     *         service.
+     * @sample AmazonGameLiftAsync.DescribeVpcPeeringConnections
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/DescribeVpcPeeringConnections"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeVpcPeeringConnectionsResult> describeVpcPeeringConnectionsAsync(
+            DescribeVpcPeeringConnectionsRequest describeVpcPeeringConnectionsRequest);
+
+    /**
+     * <p>
+     * Retrieves information on VPC peering connections. Use this operation to get peering information for all fleets or
+     * for one specific fleet ID.
+     * </p>
+     * <p>
+     * To retrieve connection information, call this operation from the AWS account that is used to manage the Amazon
+     * GameLift fleets. Specify a fleet ID or leave the parameter empty to retrieve all connection records. If
+     * successful, the retrieved information includes both active and pending connections. Active connections identify
+     * the IpV4 CIDR block that the VPC uses to connect.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>CreateVpcPeeringAuthorization</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeVpcPeeringAuthorizations</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteVpcPeeringAuthorization</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>CreateVpcPeeringConnection</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeVpcPeeringConnections</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteVpcPeeringConnection</a>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param describeVpcPeeringConnectionsRequest
+     *        Represents the input for a request action.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeVpcPeeringConnections operation returned by the
+     *         service.
+     * @sample AmazonGameLiftAsyncHandler.DescribeVpcPeeringConnections
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/DescribeVpcPeeringConnections"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeVpcPeeringConnectionsResult> describeVpcPeeringConnectionsAsync(
+            DescribeVpcPeeringConnectionsRequest describeVpcPeeringConnectionsRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeVpcPeeringConnectionsRequest, DescribeVpcPeeringConnectionsResult> asyncHandler);
+
+    /**
+     * <p>
      * Retrieves the location of stored game session logs for a specified game session. When a game session is
-     * terminated, Amazon GameLift automatically stores the logs in Amazon S3. Use this URL to download the logs.
+     * terminated, Amazon GameLift automatically stores the logs in Amazon S3 and retains them for 14 days. Use this URL
+     * to download the logs.
      * </p>
      * <note>
      * <p>
-     * See the <a href="http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_gamelift">AWS
+     * See the <a href="https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_gamelift">AWS
      * Service Limits</a> page for maximum log file sizes. Log files that exceed this limit are not saved.
      * </p>
      * </note>
-     * <p>
-     * Game-session-related operations include:
-     * </p>
      * <ul>
      * <li>
      * <p>
@@ -5900,17 +7361,15 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
     /**
      * <p>
      * Retrieves the location of stored game session logs for a specified game session. When a game session is
-     * terminated, Amazon GameLift automatically stores the logs in Amazon S3. Use this URL to download the logs.
+     * terminated, Amazon GameLift automatically stores the logs in Amazon S3 and retains them for 14 days. Use this URL
+     * to download the logs.
      * </p>
      * <note>
      * <p>
-     * See the <a href="http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_gamelift">AWS
+     * See the <a href="https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_gamelift">AWS
      * Service Limits</a> page for maximum log file sizes. Log files that exceed this limit are not saved.
      * </p>
      * </note>
-     * <p>
-     * Game-session-related operations include:
-     * </p>
      * <ul>
      * <li>
      * <p>
@@ -5992,13 +7451,13 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * The private key must be saved in the proper format to a <code>.pem</code> file before using. If you're making
      * this request using the AWS CLI, saving the secret can be handled as part of the GetInstanceAccess request. (See
      * the example later in this topic). For more information on remote access, see <a
-     * href="http://docs.aws.amazon.com/gamelift/latest/developerguide/fleets-remote-access.html">Remotely Accessing an
+     * href="https://docs.aws.amazon.com/gamelift/latest/developerguide/fleets-remote-access.html">Remotely Accessing an
      * Instance</a>.
      * </p>
      * <p>
-     * To request access to a specific instance, specify the IDs of the instance and the fleet it belongs to. If
-     * successful, an <a>InstanceAccess</a> object is returned containing the instance's IP address and a set of
-     * credentials.
+     * To request access to a specific instance, specify the IDs of both the instance and the fleet it belongs to. You
+     * can retrieve a fleet's instance IDs by calling <a>DescribeInstances</a>. If successful, an <a>InstanceAccess</a>
+     * object is returned containing the instance's IP address and a set of credentials.
      * </p>
      * 
      * @param getInstanceAccessRequest
@@ -6022,13 +7481,13 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * The private key must be saved in the proper format to a <code>.pem</code> file before using. If you're making
      * this request using the AWS CLI, saving the secret can be handled as part of the GetInstanceAccess request. (See
      * the example later in this topic). For more information on remote access, see <a
-     * href="http://docs.aws.amazon.com/gamelift/latest/developerguide/fleets-remote-access.html">Remotely Accessing an
+     * href="https://docs.aws.amazon.com/gamelift/latest/developerguide/fleets-remote-access.html">Remotely Accessing an
      * Instance</a>.
      * </p>
      * <p>
-     * To request access to a specific instance, specify the IDs of the instance and the fleet it belongs to. If
-     * successful, an <a>InstanceAccess</a> object is returned containing the instance's IP address and a set of
-     * credentials.
+     * To request access to a specific instance, specify the IDs of both the instance and the fleet it belongs to. You
+     * can retrieve a fleet's instance IDs by calling <a>DescribeInstances</a>. If successful, an <a>InstanceAccess</a>
+     * object is returned containing the instance's IP address and a set of credentials.
      * </p>
      * 
      * @param getInstanceAccessRequest
@@ -6055,9 +7514,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * Returned aliases are not listed in any particular order.
      * </p>
      * </note>
-     * <p>
-     * Alias-related operations include:
-     * </p>
      * <ul>
      * <li>
      * <p>
@@ -6110,9 +7566,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * Returned aliases are not listed in any particular order.
      * </p>
      * </note>
-     * <p>
-     * Alias-related operations include:
-     * </p>
      * <ul>
      * <li>
      * <p>
@@ -6171,9 +7624,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * Build records are not listed in any particular order.
      * </p>
      * </note>
-     * <p>
-     * Build-related operations include:
-     * </p>
      * <ul>
      * <li>
      * <p>
@@ -6222,9 +7672,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * Build records are not listed in any particular order.
      * </p>
      * </note>
-     * <p>
-     * Build-related operations include:
-     * </p>
      * <ul>
      * <li>
      * <p>
@@ -6277,9 +7724,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * Fleet records are not listed in any particular order.
      * </p>
      * </note>
-     * <p>
-     * Fleet-related operations include:
-     * </p>
      * <ul>
      * <li>
      * <p>
@@ -6293,12 +7737,22 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
+     * <a>DeleteFleet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * Describe fleets:
      * </p>
      * <ul>
      * <li>
      * <p>
      * <a>DescribeFleetAttributes</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeFleetCapacity</a>
      * </p>
      * </li>
      * <li>
@@ -6314,6 +7768,11 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * <li>
      * <p>
      * <a>DescribeRuntimeConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeEC2InstanceLimits</a>
      * </p>
      * </li>
      * <li>
@@ -6352,45 +7811,20 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
-     * Manage fleet capacity:
+     * Manage fleet actions:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <a>DescribeFleetCapacity</a>
+     * <a>StartFleetActions</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>UpdateFleetCapacity</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>PutScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeScalingPolicies</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeEC2InstanceLimits</a>
+     * <a>StopFleetActions</a>
      * </p>
      * </li>
      * </ul>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteFleet</a>
-     * </p>
      * </li>
      * </ul>
      * 
@@ -6413,9 +7847,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * Fleet records are not listed in any particular order.
      * </p>
      * </note>
-     * <p>
-     * Fleet-related operations include:
-     * </p>
      * <ul>
      * <li>
      * <p>
@@ -6429,12 +7860,22 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
+     * <a>DeleteFleet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * Describe fleets:
      * </p>
      * <ul>
      * <li>
      * <p>
      * <a>DescribeFleetAttributes</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeFleetCapacity</a>
      * </p>
      * </li>
      * <li>
@@ -6450,6 +7891,11 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * <li>
      * <p>
      * <a>DescribeRuntimeConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeEC2InstanceLimits</a>
      * </p>
      * </li>
      * <li>
@@ -6488,45 +7934,20 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
-     * Manage fleet capacity:
+     * Manage fleet actions:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <a>DescribeFleetCapacity</a>
+     * <a>StartFleetActions</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>UpdateFleetCapacity</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>PutScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeScalingPolicies</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeEC2InstanceLimits</a>
+     * <a>StopFleetActions</a>
      * </p>
      * </li>
      * </ul>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteFleet</a>
-     * </p>
      * </li>
      * </ul>
      * 
@@ -6546,12 +7967,67 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
 
     /**
      * <p>
-     * Creates or updates a scaling policy for a fleet. An active scaling policy prompts Amazon GameLift to track a
-     * certain metric for a fleet and automatically change the fleet's capacity in specific circumstances. Each scaling
-     * policy contains one rule statement. Fleets can have multiple scaling policies in force simultaneously.
+     * Creates or updates a scaling policy for a fleet. Scaling policies are used to automatically scale a fleet's
+     * hosting capacity to meet player demand. An active scaling policy instructs Amazon GameLift to track a fleet
+     * metric and automatically change the fleet's capacity when a certain threshold is reached. There are two types of
+     * scaling policies: target-based and rule-based. Use a target-based policy to quickly and efficiently manage fleet
+     * scaling; this option is the most commonly used. Use rule-based policies when you need to exert fine-grained
+     * control over auto-scaling.
      * </p>
      * <p>
-     * A scaling policy rule statement has the following structure:
+     * Fleets can have multiple scaling policies of each type in force at the same time; you can have one target-based
+     * policy, one or multiple rule-based scaling policies, or both. We recommend caution, however, because multiple
+     * auto-scaling policies can have unintended consequences.
+     * </p>
+     * <p>
+     * You can temporarily suspend all scaling policies for a fleet by calling <a>StopFleetActions</a> with the fleet
+     * action AUTO_SCALING. To resume scaling policies, call <a>StartFleetActions</a> with the same fleet action. To
+     * stop just one scaling policy--or to permanently remove it, you must delete the policy with
+     * <a>DeleteScalingPolicy</a>.
+     * </p>
+     * <p>
+     * Learn more about how to work with auto-scaling in <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/developerguide/fleets-autoscaling.html">Set Up Fleet Automatic
+     * Scaling</a>.
+     * </p>
+     * <p>
+     * <b>Target-based policy</b>
+     * </p>
+     * <p>
+     * A target-based policy tracks a single metric: PercentAvailableGameSessions. This metric tells us how much of a
+     * fleet's hosting capacity is ready to host game sessions but is not currently in use. This is the fleet's buffer;
+     * it measures the additional player demand that the fleet could handle at current capacity. With a target-based
+     * policy, you set your ideal buffer size and leave it to Amazon GameLift to take whatever action is needed to
+     * maintain that target.
+     * </p>
+     * <p>
+     * For example, you might choose to maintain a 10% buffer for a fleet that has the capacity to host 100 simultaneous
+     * game sessions. This policy tells Amazon GameLift to take action whenever the fleet's available capacity falls
+     * below or rises above 10 game sessions. Amazon GameLift will start new instances or stop unused instances in order
+     * to return to the 10% buffer.
+     * </p>
+     * <p>
+     * To create or update a target-based policy, specify a fleet ID and name, and set the policy type to "TargetBased".
+     * Specify the metric to track (PercentAvailableGameSessions) and reference a <a>TargetConfiguration</a> object with
+     * your desired buffer value. Exclude all other parameters. On a successful request, the policy name is returned.
+     * The scaling policy is automatically in force as soon as it's successfully created. If the fleet's auto-scaling
+     * actions are temporarily suspended, the new policy will be in force once the fleet actions are restarted.
+     * </p>
+     * <p>
+     * <b>Rule-based policy</b>
+     * </p>
+     * <p>
+     * A rule-based policy tracks specified fleet metric, sets a threshold value, and specifies the type of action to
+     * initiate when triggered. With a rule-based policy, you can select from several available fleet metrics. Each
+     * policy specifies whether to scale up or scale down (and by how much), so you need one policy for each type of
+     * action.
+     * </p>
+     * <p>
+     * For example, a policy may make the following statement:
+     * "If the percentage of idle instances is greater than 20% for more than 15 minutes, then reduce the fleet capacity by 10%."
+     * </p>
+     * <p>
+     * A policy's rule statement has the following structure:
      * </p>
      * <p>
      * If <code>[MetricName]</code> is <code>[ComparisonOperator]</code> <code>[Threshold]</code> for
@@ -6559,94 +8035,18 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * <code>[ScalingAdjustment]</code>.
      * </p>
      * <p>
-     * For example, this policy:
-     * "If the number of idle instances exceeds 20 for more than 15 minutes, then reduce the fleet capacity by 10 instances"
-     * could be implemented as the following rule statement:
+     * To implement the example, the rule statement would look like this:
      * </p>
      * <p>
-     * If [IdleInstances] is [GreaterThanOrEqualToThreshold] [20] for [15] minutes, then [ChangeInCapacity] by [-10].
+     * If <code>[PercentIdleInstances]</code> is <code>[GreaterThanThreshold]</code> <code>[20]</code> for
+     * <code>[15]</code> minutes, then <code>[PercentChangeInCapacity]</code> to/by <code>[10]</code>.
      * </p>
      * <p>
-     * To create or update a scaling policy, specify a unique combination of name and fleet ID, and set the rule values.
-     * All parameters for this action are required. If successful, the policy name is returned. Scaling policies cannot
-     * be suspended or made inactive. To stop enforcing a scaling policy, call <a>DeleteScalingPolicy</a>.
-     * </p>
-     * <p>
-     * Fleet-related operations include:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * <a>CreateFleet</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>ListFleets</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Describe fleets:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * <a>DescribeFleetAttributes</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeFleetPortSettings</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeFleetUtilization</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeRuntimeConfiguration</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeFleetEvents</a>
-     * </p>
-     * </li>
-     * </ul>
-     * </li>
-     * <li>
-     * <p>
-     * Update fleets:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * <a>UpdateFleetAttributes</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>UpdateFleetCapacity</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>UpdateFleetPortSettings</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>UpdateRuntimeConfiguration</a>
-     * </p>
-     * </li>
-     * </ul>
-     * </li>
-     * <li>
-     * <p>
-     * Manage fleet capacity:
+     * To create or update a scaling policy, specify a unique combination of name and fleet ID, and set the policy type
+     * to "RuleBased". Specify the parameter values for a policy rule statement. On a successful request, the policy
+     * name is returned. Scaling policies are automatically in force as soon as they're successfully created. If the
+     * fleet's auto-scaling actions are temporarily suspended, the new policy will be in force once the fleet actions
+     * are restarted.
      * </p>
      * <ul>
      * <li>
@@ -6661,30 +8061,47 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
-     * <a>PutScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeScalingPolicies</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <a>DescribeEC2InstanceLimits</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Manage scaling policies:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>PutScalingPolicy</a> (auto-scaling)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeScalingPolicies</a> (auto-scaling)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteScalingPolicy</a> (auto-scaling)
      * </p>
      * </li>
      * </ul>
      * </li>
      * <li>
      * <p>
-     * <a>DeleteFleet</a>
+     * Manage fleet actions:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>StartFleetActions</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>StopFleetActions</a>
+     * </p>
+     * </li>
+     * </ul>
      * </li>
      * </ul>
      * 
@@ -6699,12 +8116,67 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
 
     /**
      * <p>
-     * Creates or updates a scaling policy for a fleet. An active scaling policy prompts Amazon GameLift to track a
-     * certain metric for a fleet and automatically change the fleet's capacity in specific circumstances. Each scaling
-     * policy contains one rule statement. Fleets can have multiple scaling policies in force simultaneously.
+     * Creates or updates a scaling policy for a fleet. Scaling policies are used to automatically scale a fleet's
+     * hosting capacity to meet player demand. An active scaling policy instructs Amazon GameLift to track a fleet
+     * metric and automatically change the fleet's capacity when a certain threshold is reached. There are two types of
+     * scaling policies: target-based and rule-based. Use a target-based policy to quickly and efficiently manage fleet
+     * scaling; this option is the most commonly used. Use rule-based policies when you need to exert fine-grained
+     * control over auto-scaling.
      * </p>
      * <p>
-     * A scaling policy rule statement has the following structure:
+     * Fleets can have multiple scaling policies of each type in force at the same time; you can have one target-based
+     * policy, one or multiple rule-based scaling policies, or both. We recommend caution, however, because multiple
+     * auto-scaling policies can have unintended consequences.
+     * </p>
+     * <p>
+     * You can temporarily suspend all scaling policies for a fleet by calling <a>StopFleetActions</a> with the fleet
+     * action AUTO_SCALING. To resume scaling policies, call <a>StartFleetActions</a> with the same fleet action. To
+     * stop just one scaling policy--or to permanently remove it, you must delete the policy with
+     * <a>DeleteScalingPolicy</a>.
+     * </p>
+     * <p>
+     * Learn more about how to work with auto-scaling in <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/developerguide/fleets-autoscaling.html">Set Up Fleet Automatic
+     * Scaling</a>.
+     * </p>
+     * <p>
+     * <b>Target-based policy</b>
+     * </p>
+     * <p>
+     * A target-based policy tracks a single metric: PercentAvailableGameSessions. This metric tells us how much of a
+     * fleet's hosting capacity is ready to host game sessions but is not currently in use. This is the fleet's buffer;
+     * it measures the additional player demand that the fleet could handle at current capacity. With a target-based
+     * policy, you set your ideal buffer size and leave it to Amazon GameLift to take whatever action is needed to
+     * maintain that target.
+     * </p>
+     * <p>
+     * For example, you might choose to maintain a 10% buffer for a fleet that has the capacity to host 100 simultaneous
+     * game sessions. This policy tells Amazon GameLift to take action whenever the fleet's available capacity falls
+     * below or rises above 10 game sessions. Amazon GameLift will start new instances or stop unused instances in order
+     * to return to the 10% buffer.
+     * </p>
+     * <p>
+     * To create or update a target-based policy, specify a fleet ID and name, and set the policy type to "TargetBased".
+     * Specify the metric to track (PercentAvailableGameSessions) and reference a <a>TargetConfiguration</a> object with
+     * your desired buffer value. Exclude all other parameters. On a successful request, the policy name is returned.
+     * The scaling policy is automatically in force as soon as it's successfully created. If the fleet's auto-scaling
+     * actions are temporarily suspended, the new policy will be in force once the fleet actions are restarted.
+     * </p>
+     * <p>
+     * <b>Rule-based policy</b>
+     * </p>
+     * <p>
+     * A rule-based policy tracks specified fleet metric, sets a threshold value, and specifies the type of action to
+     * initiate when triggered. With a rule-based policy, you can select from several available fleet metrics. Each
+     * policy specifies whether to scale up or scale down (and by how much), so you need one policy for each type of
+     * action.
+     * </p>
+     * <p>
+     * For example, a policy may make the following statement:
+     * "If the percentage of idle instances is greater than 20% for more than 15 minutes, then reduce the fleet capacity by 10%."
+     * </p>
+     * <p>
+     * A policy's rule statement has the following structure:
      * </p>
      * <p>
      * If <code>[MetricName]</code> is <code>[ComparisonOperator]</code> <code>[Threshold]</code> for
@@ -6712,94 +8184,18 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * <code>[ScalingAdjustment]</code>.
      * </p>
      * <p>
-     * For example, this policy:
-     * "If the number of idle instances exceeds 20 for more than 15 minutes, then reduce the fleet capacity by 10 instances"
-     * could be implemented as the following rule statement:
+     * To implement the example, the rule statement would look like this:
      * </p>
      * <p>
-     * If [IdleInstances] is [GreaterThanOrEqualToThreshold] [20] for [15] minutes, then [ChangeInCapacity] by [-10].
+     * If <code>[PercentIdleInstances]</code> is <code>[GreaterThanThreshold]</code> <code>[20]</code> for
+     * <code>[15]</code> minutes, then <code>[PercentChangeInCapacity]</code> to/by <code>[10]</code>.
      * </p>
      * <p>
-     * To create or update a scaling policy, specify a unique combination of name and fleet ID, and set the rule values.
-     * All parameters for this action are required. If successful, the policy name is returned. Scaling policies cannot
-     * be suspended or made inactive. To stop enforcing a scaling policy, call <a>DeleteScalingPolicy</a>.
-     * </p>
-     * <p>
-     * Fleet-related operations include:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * <a>CreateFleet</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>ListFleets</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Describe fleets:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * <a>DescribeFleetAttributes</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeFleetPortSettings</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeFleetUtilization</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeRuntimeConfiguration</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeFleetEvents</a>
-     * </p>
-     * </li>
-     * </ul>
-     * </li>
-     * <li>
-     * <p>
-     * Update fleets:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * <a>UpdateFleetAttributes</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>UpdateFleetCapacity</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>UpdateFleetPortSettings</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>UpdateRuntimeConfiguration</a>
-     * </p>
-     * </li>
-     * </ul>
-     * </li>
-     * <li>
-     * <p>
-     * Manage fleet capacity:
+     * To create or update a scaling policy, specify a unique combination of name and fleet ID, and set the policy type
+     * to "RuleBased". Specify the parameter values for a policy rule statement. On a successful request, the policy
+     * name is returned. Scaling policies are automatically in force as soon as they're successfully created. If the
+     * fleet's auto-scaling actions are temporarily suspended, the new policy will be in force once the fleet actions
+     * are restarted.
      * </p>
      * <ul>
      * <li>
@@ -6814,30 +8210,47 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
-     * <a>PutScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeScalingPolicies</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <a>DescribeEC2InstanceLimits</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Manage scaling policies:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>PutScalingPolicy</a> (auto-scaling)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeScalingPolicies</a> (auto-scaling)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteScalingPolicy</a> (auto-scaling)
      * </p>
      * </li>
      * </ul>
      * </li>
      * <li>
      * <p>
-     * <a>DeleteFleet</a>
+     * Manage fleet actions:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>StartFleetActions</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>StopFleetActions</a>
+     * </p>
+     * </li>
+     * </ul>
      * </li>
      * </ul>
      * 
@@ -6857,9 +8270,13 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
 
     /**
      * <p>
-     * <i>This API call is not currently in use. </i> Retrieves a fresh set of upload credentials and the assigned
-     * Amazon S3 storage location for a specific build. Valid credentials are required to upload your game build files
-     * to Amazon S3.
+     * Retrieves a fresh set of credentials for use when uploading a new set of game build files to Amazon GameLift's
+     * Amazon S3. This is done as part of the build creation process; see <a>CreateBuild</a>.
+     * </p>
+     * <p>
+     * To request new credentials, specify the build ID as returned with an initial <code>CreateBuild</code> request. If
+     * successful, a new set of credentials are returned, along with the S3 storage location associated with the build
+     * ID.
      * </p>
      * 
      * @param requestUploadCredentialsRequest
@@ -6873,9 +8290,13 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
 
     /**
      * <p>
-     * <i>This API call is not currently in use. </i> Retrieves a fresh set of upload credentials and the assigned
-     * Amazon S3 storage location for a specific build. Valid credentials are required to upload your game build files
-     * to Amazon S3.
+     * Retrieves a fresh set of credentials for use when uploading a new set of game build files to Amazon GameLift's
+     * Amazon S3. This is done as part of the build creation process; see <a>CreateBuild</a>.
+     * </p>
+     * <p>
+     * To request new credentials, specify the build ID as returned with an initial <code>CreateBuild</code> request. If
+     * successful, a new set of credentials are returned, along with the S3 storage location associated with the build
+     * ID.
      * </p>
      * 
      * @param requestUploadCredentialsRequest
@@ -6895,9 +8316,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
     /**
      * <p>
      * Retrieves the fleet ID that a specified alias is currently pointing to.
-     * </p>
-     * <p>
-     * Alias-related operations include:
      * </p>
      * <ul>
      * <li>
@@ -6944,9 +8362,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
     /**
      * <p>
      * Retrieves the fleet ID that a specified alias is currently pointing to.
-     * </p>
-     * <p>
-     * Alias-related operations include:
      * </p>
      * <ul>
      * <li>
@@ -6997,14 +8412,8 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
 
     /**
      * <p>
-     * Retrieves a set of game sessions that match a set of search criteria and sorts them in a specified order. A game
-     * session search is limited to a single fleet. Search results include only game sessions that are in
-     * <code>ACTIVE</code> status. If you need to retrieve game sessions with a status other than active, use
-     * <a>DescribeGameSessions</a>. If you need to retrieve the protection policy for each game session, use
-     * <a>DescribeGameSessionDetails</a>.
-     * </p>
-     * <p>
-     * You can search or sort by the following game session attributes:
+     * Retrieves all active game sessions that match a set of search criteria and sorts them in a specified order. You
+     * can search or sort by the following game session attributes:
      * </p>
      * <ul>
      * <li>
@@ -7022,6 +8431,21 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
+     * <b>gameSessionProperties</b> -- Custom data defined in a game session's <code>GameProperty</code> parameter.
+     * <code>GameProperty</code> values are stored as key:value pairs; the filter expression must indicate the key and a
+     * string to search the data values for. For example, to search for game sessions with custom data containing the
+     * key:value pair "gameMode:brawl", specify the following: <code>gameSessionProperties.gameMode = "brawl"</code>.
+     * All custom data values are searched as strings.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>maximumSessions</b> -- Maximum number of player sessions allowed for a game session. This value is set when
+     * requesting a new game session with <a>CreateGameSession</a> or updating with <a>UpdateGameSession</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <b>creationTimeMillis</b> -- Value indicating when a game session was created. It is expressed in Unix time as
      * milliseconds.
      * </p>
@@ -7034,24 +8458,12 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
-     * <b>maximumSessions</b> -- Maximum number of player sessions allowed for a game session. This value is set when
-     * requesting a new game session with <a>CreateGameSession</a> or updating with <a>UpdateGameSession</a>.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <b>hasAvailablePlayerSessions</b> -- Boolean value indicating whether a game session has reached its maximum
-     * number of players. When searching with this attribute, the search value must be <code>true</code> or
-     * <code>false</code>. It is highly recommended that all search requests include this filter attribute to optimize
+     * number of players. It is highly recommended that all search requests include this filter attribute to optimize
      * search performance and return only sessions that players can join.
      * </p>
      * </li>
      * </ul>
-     * <p>
-     * To search or sort, specify either a fleet ID or an alias ID, and provide a search filter expression, a sort
-     * expression, or both. Use the pagination parameters to retrieve results as a set of sequential pages. If
-     * successful, a collection of <a>GameSession</a> objects matching the request is returned.
-     * </p>
      * <note>
      * <p>
      * Returned values for <code>playerSessionCount</code> and <code>hasAvailablePlayerSessions</code> change quickly as
@@ -7060,7 +8472,14 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </p>
      * </note>
      * <p>
-     * Game-session-related operations include:
+     * To search or sort, specify either a fleet ID or an alias ID, and provide a search filter expression, a sort
+     * expression, or both. If successful, a collection of <a>GameSession</a> objects matching the request is returned.
+     * Use the pagination parameters to retrieve results as a set of sequential pages.
+     * </p>
+     * <p>
+     * You can search for game sessions one fleet at a time only. To find game sessions across multiple fleets, you must
+     * search each fleet separately and combine the results. This search feature finds only game sessions that are in
+     * <code>ACTIVE</code> status. To locate games in statuses other than active, use <a>DescribeGameSessionDetails</a>.
      * </p>
      * <ul>
      * <li>
@@ -7128,14 +8547,8 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
 
     /**
      * <p>
-     * Retrieves a set of game sessions that match a set of search criteria and sorts them in a specified order. A game
-     * session search is limited to a single fleet. Search results include only game sessions that are in
-     * <code>ACTIVE</code> status. If you need to retrieve game sessions with a status other than active, use
-     * <a>DescribeGameSessions</a>. If you need to retrieve the protection policy for each game session, use
-     * <a>DescribeGameSessionDetails</a>.
-     * </p>
-     * <p>
-     * You can search or sort by the following game session attributes:
+     * Retrieves all active game sessions that match a set of search criteria and sorts them in a specified order. You
+     * can search or sort by the following game session attributes:
      * </p>
      * <ul>
      * <li>
@@ -7153,6 +8566,21 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
+     * <b>gameSessionProperties</b> -- Custom data defined in a game session's <code>GameProperty</code> parameter.
+     * <code>GameProperty</code> values are stored as key:value pairs; the filter expression must indicate the key and a
+     * string to search the data values for. For example, to search for game sessions with custom data containing the
+     * key:value pair "gameMode:brawl", specify the following: <code>gameSessionProperties.gameMode = "brawl"</code>.
+     * All custom data values are searched as strings.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <b>maximumSessions</b> -- Maximum number of player sessions allowed for a game session. This value is set when
+     * requesting a new game session with <a>CreateGameSession</a> or updating with <a>UpdateGameSession</a>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <b>creationTimeMillis</b> -- Value indicating when a game session was created. It is expressed in Unix time as
      * milliseconds.
      * </p>
@@ -7165,24 +8593,12 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
-     * <b>maximumSessions</b> -- Maximum number of player sessions allowed for a game session. This value is set when
-     * requesting a new game session with <a>CreateGameSession</a> or updating with <a>UpdateGameSession</a>.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
      * <b>hasAvailablePlayerSessions</b> -- Boolean value indicating whether a game session has reached its maximum
-     * number of players. When searching with this attribute, the search value must be <code>true</code> or
-     * <code>false</code>. It is highly recommended that all search requests include this filter attribute to optimize
+     * number of players. It is highly recommended that all search requests include this filter attribute to optimize
      * search performance and return only sessions that players can join.
      * </p>
      * </li>
      * </ul>
-     * <p>
-     * To search or sort, specify either a fleet ID or an alias ID, and provide a search filter expression, a sort
-     * expression, or both. Use the pagination parameters to retrieve results as a set of sequential pages. If
-     * successful, a collection of <a>GameSession</a> objects matching the request is returned.
-     * </p>
      * <note>
      * <p>
      * Returned values for <code>playerSessionCount</code> and <code>hasAvailablePlayerSessions</code> change quickly as
@@ -7191,7 +8607,14 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </p>
      * </note>
      * <p>
-     * Game-session-related operations include:
+     * To search or sort, specify either a fleet ID or an alias ID, and provide a search filter expression, a sort
+     * expression, or both. If successful, a collection of <a>GameSession</a> objects matching the request is returned.
+     * Use the pagination parameters to retrieve results as a set of sequential pages.
+     * </p>
+     * <p>
+     * You can search for game sessions one fleet at a time only. To find game sessions across multiple fleets, you must
+     * search each fleet separately and combine the results. This search feature finds only game sessions that are in
+     * <code>ACTIVE</code> status. To locate games in statuses other than active, use <a>DescribeGameSessionDetails</a>.
      * </p>
      * <ul>
      * <li>
@@ -7264,6 +8687,163 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
 
     /**
      * <p>
+     * Resumes activity on a fleet that was suspended with <a>StopFleetActions</a>. Currently, this operation is used to
+     * restart a fleet's auto-scaling activity.
+     * </p>
+     * <p>
+     * To start fleet actions, specify the fleet ID and the type of actions to restart. When auto-scaling fleet actions
+     * are restarted, Amazon GameLift once again initiates scaling events as triggered by the fleet's scaling policies.
+     * If actions on the fleet were never stopped, this operation will have no effect. You can view a fleet's stopped
+     * actions using <a>DescribeFleetAttributes</a>.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>DescribeFleetCapacity</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>UpdateFleetCapacity</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeEC2InstanceLimits</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Manage scaling policies:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>PutScalingPolicy</a> (auto-scaling)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeScalingPolicies</a> (auto-scaling)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteScalingPolicy</a> (auto-scaling)
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * Manage fleet actions:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>StartFleetActions</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>StopFleetActions</a>
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * </ul>
+     * 
+     * @param startFleetActionsRequest
+     * @return A Java Future containing the result of the StartFleetActions operation returned by the service.
+     * @sample AmazonGameLiftAsync.StartFleetActions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/StartFleetActions" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<StartFleetActionsResult> startFleetActionsAsync(StartFleetActionsRequest startFleetActionsRequest);
+
+    /**
+     * <p>
+     * Resumes activity on a fleet that was suspended with <a>StopFleetActions</a>. Currently, this operation is used to
+     * restart a fleet's auto-scaling activity.
+     * </p>
+     * <p>
+     * To start fleet actions, specify the fleet ID and the type of actions to restart. When auto-scaling fleet actions
+     * are restarted, Amazon GameLift once again initiates scaling events as triggered by the fleet's scaling policies.
+     * If actions on the fleet were never stopped, this operation will have no effect. You can view a fleet's stopped
+     * actions using <a>DescribeFleetAttributes</a>.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>DescribeFleetCapacity</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>UpdateFleetCapacity</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeEC2InstanceLimits</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Manage scaling policies:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>PutScalingPolicy</a> (auto-scaling)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeScalingPolicies</a> (auto-scaling)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteScalingPolicy</a> (auto-scaling)
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * <li>
+     * <p>
+     * Manage fleet actions:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>StartFleetActions</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>StopFleetActions</a>
+     * </p>
+     * </li>
+     * </ul>
+     * </li>
+     * </ul>
+     * 
+     * @param startFleetActionsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the StartFleetActions operation returned by the service.
+     * @sample AmazonGameLiftAsyncHandler.StartFleetActions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/StartFleetActions" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<StartFleetActionsResult> startFleetActionsAsync(StartFleetActionsRequest startFleetActionsRequest,
+            com.amazonaws.handlers.AsyncHandler<StartFleetActionsRequest, StartFleetActionsResult> asyncHandler);
+
+    /**
+     * <p>
      * Places a request for a new game session in a queue (see <a>CreateGameSessionQueue</a>). When processing a
      * placement request, Amazon GameLift searches for available resources on the queue's destinations, scanning each
      * until it finds resources or the placement request times out.
@@ -7299,7 +8879,8 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
-     * (Optional) A set of IDs and player data for each player you want to join to the new game session
+     * (Optional) A set of player data and a unique player ID for each player that you are joining to the new game
+     * session (player data is optional, but if you include it, you must also provide a unique ID for each player)
      * </p>
      * </li>
      * <li>
@@ -7313,12 +8894,9 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </p>
      * <p>
      * To track the status of a placement request, call <a>DescribeGameSessionPlacement</a> and check the request's
-     * status. If the status is <code>Fulfilled</code>, a new game session has been created and a game session ARN and
+     * status. If the status is <code>FULFILLED</code>, a new game session has been created and a game session ARN and
      * region are referenced. If the placement request times out, you can resubmit the request or retry it with a
      * different queue.
-     * </p>
-     * <p>
-     * Game-session-related operations include:
      * </p>
      * <ul>
      * <li>
@@ -7422,7 +9000,8 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
-     * (Optional) A set of IDs and player data for each player you want to join to the new game session
+     * (Optional) A set of player data and a unique player ID for each player that you are joining to the new game
+     * session (player data is optional, but if you include it, you must also provide a unique ID for each player)
      * </p>
      * </li>
      * <li>
@@ -7436,12 +9015,9 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </p>
      * <p>
      * To track the status of a placement request, call <a>DescribeGameSessionPlacement</a> and check the request's
-     * status. If the status is <code>Fulfilled</code>, a new game session has been created and a game session ARN and
+     * status. If the status is <code>FULFILLED</code>, a new game session has been created and a game session ARN and
      * region are referenced. If the placement request times out, you can resubmit the request or retry it with a
      * different queue.
-     * </p>
-     * <p>
-     * Game-session-related operations include:
      * </p>
      * <ul>
      * <li>
@@ -7515,11 +9091,427 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
 
     /**
      * <p>
-     * Cancels a game session placement that is in Pending status. To stop a placement, provide the placement ID values.
-     * If successful, the placement is moved to Cancelled status.
+     * Finds new players to fill open slots in an existing game session. This operation can be used to add players to
+     * matched games that start with fewer than the maximum number of players or to replace players when they drop out.
+     * By backfilling with the same matchmaker used to create the original match, you ensure that new players meet the
+     * match criteria and maintain a consistent experience throughout the game session. You can backfill a match anytime
+     * after a game session has been created.
      * </p>
      * <p>
-     * Game-session-related operations include:
+     * To request a match backfill, specify a unique ticket ID, the existing game session's ARN, a matchmaking
+     * configuration, and a set of data that describes all current players in the game session. If successful, a match
+     * backfill ticket is created and returned with status set to QUEUED. The ticket is placed in the matchmaker's
+     * ticket pool and processed. Track the status of the ticket to respond as needed. For more detail how to set up
+     * backfilling, see <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/match-backfill.html">
+     * Backfill Existing Games with FlexMatch</a>.
+     * </p>
+     * <p>
+     * The process of finding backfill matches is essentially identical to the initial matchmaking process. The
+     * matchmaker searches the pool and groups tickets together to form potential matches, allowing only one backfill
+     * ticket per potential match. Once the a match is formed, the matchmaker creates player sessions for the new
+     * players. All tickets in the match are updated with the game session's connection information, and the
+     * <a>GameSession</a> object is updated to include matchmaker data on the new players. For more detail on how match
+     * backfill requests are processed, see <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/developerguide/match-intro.html"> How Amazon GameLift FlexMatch
+     * Works</a>.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>StartMatchmaking</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeMatchmaking</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>StopMatchmaking</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>AcceptMatch</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>StartMatchBackfill</a>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param startMatchBackfillRequest
+     *        Represents the input for a request action.
+     * @return A Java Future containing the result of the StartMatchBackfill operation returned by the service.
+     * @sample AmazonGameLiftAsync.StartMatchBackfill
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/StartMatchBackfill" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<StartMatchBackfillResult> startMatchBackfillAsync(StartMatchBackfillRequest startMatchBackfillRequest);
+
+    /**
+     * <p>
+     * Finds new players to fill open slots in an existing game session. This operation can be used to add players to
+     * matched games that start with fewer than the maximum number of players or to replace players when they drop out.
+     * By backfilling with the same matchmaker used to create the original match, you ensure that new players meet the
+     * match criteria and maintain a consistent experience throughout the game session. You can backfill a match anytime
+     * after a game session has been created.
+     * </p>
+     * <p>
+     * To request a match backfill, specify a unique ticket ID, the existing game session's ARN, a matchmaking
+     * configuration, and a set of data that describes all current players in the game session. If successful, a match
+     * backfill ticket is created and returned with status set to QUEUED. The ticket is placed in the matchmaker's
+     * ticket pool and processed. Track the status of the ticket to respond as needed. For more detail how to set up
+     * backfilling, see <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/match-backfill.html">
+     * Backfill Existing Games with FlexMatch</a>.
+     * </p>
+     * <p>
+     * The process of finding backfill matches is essentially identical to the initial matchmaking process. The
+     * matchmaker searches the pool and groups tickets together to form potential matches, allowing only one backfill
+     * ticket per potential match. Once the a match is formed, the matchmaker creates player sessions for the new
+     * players. All tickets in the match are updated with the game session's connection information, and the
+     * <a>GameSession</a> object is updated to include matchmaker data on the new players. For more detail on how match
+     * backfill requests are processed, see <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/developerguide/match-intro.html"> How Amazon GameLift FlexMatch
+     * Works</a>.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>StartMatchmaking</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeMatchmaking</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>StopMatchmaking</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>AcceptMatch</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>StartMatchBackfill</a>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param startMatchBackfillRequest
+     *        Represents the input for a request action.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the StartMatchBackfill operation returned by the service.
+     * @sample AmazonGameLiftAsyncHandler.StartMatchBackfill
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/StartMatchBackfill" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<StartMatchBackfillResult> startMatchBackfillAsync(StartMatchBackfillRequest startMatchBackfillRequest,
+            com.amazonaws.handlers.AsyncHandler<StartMatchBackfillRequest, StartMatchBackfillResult> asyncHandler);
+
+    /**
+     * <p>
+     * Uses FlexMatch to create a game match for a group of players based on custom matchmaking rules, and starts a new
+     * game for the matched players. Each matchmaking request specifies the type of match to build (team configuration,
+     * rules for an acceptable match, etc.). The request also specifies the players to find a match for and where to
+     * host the new game session for optimal performance. A matchmaking request might start with a single player or a
+     * group of players who want to play together. FlexMatch finds additional players as needed to fill the match. Match
+     * type, rules, and the queue used to place a new game session are defined in a
+     * <code>MatchmakingConfiguration</code>. For complete information on setting up and using FlexMatch, see the topic
+     * <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/match-intro.html"> Adding FlexMatch to Your
+     * Game</a>.
+     * </p>
+     * <p>
+     * To start matchmaking, provide a unique ticket ID, specify a matchmaking configuration, and include the players to
+     * be matched. You must also include a set of player attributes relevant for the matchmaking configuration. If
+     * successful, a matchmaking ticket is returned with status set to <code>QUEUED</code>. Track the status of the
+     * ticket to respond as needed and acquire game session connection information for successfully completed matches.
+     * </p>
+     * <p>
+     * <b>Tracking ticket status</b> -- A couple of options are available for tracking the status of matchmaking
+     * requests:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Polling -- Call <code>DescribeMatchmaking</code>. This operation returns the full ticket object, including
+     * current status and (for completed tickets) game session connection info. We recommend polling no more than once
+     * every 10 seconds.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Notifications -- Get event notifications for changes in ticket status using Amazon Simple Notification Service
+     * (SNS). Notifications are easy to set up (see <a>CreateMatchmakingConfiguration</a>) and typically deliver match
+     * status changes faster and more efficiently than polling. We recommend that you use polling to back up to
+     * notifications (since delivery is not guaranteed) and call <code>DescribeMatchmaking</code> only when
+     * notifications are not received within 30 seconds.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>Processing a matchmaking request</b> -- FlexMatch handles a matchmaking request as follows:
+     * </p>
+     * <ol>
+     * <li>
+     * <p>
+     * Your client code submits a <code>StartMatchmaking</code> request for one or more players and tracks the status of
+     * the request ticket.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FlexMatch uses this ticket and others in process to build an acceptable match. When a potential match is
+     * identified, all tickets in the proposed match are advanced to the next status.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If the match requires player acceptance (set in the matchmaking configuration), the tickets move into status
+     * <code>REQUIRES_ACCEPTANCE</code>. This status triggers your client code to solicit acceptance from all players in
+     * every ticket involved in the match, and then call <a>AcceptMatch</a> for each player. If any player rejects or
+     * fails to accept the match before a specified timeout, the proposed match is dropped (see <code>AcceptMatch</code>
+     * for more details).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Once a match is proposed and accepted, the matchmaking tickets move into status <code>PLACING</code>. FlexMatch
+     * locates resources for a new game session using the game session queue (set in the matchmaking configuration) and
+     * creates the game session based on the match data.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * When the match is successfully placed, the matchmaking tickets move into <code>COMPLETED</code> status.
+     * Connection information (including game session endpoint and player session) is added to the matchmaking tickets.
+     * Matched players can use the connection information to join the game.
+     * </p>
+     * </li>
+     * </ol>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>StartMatchmaking</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeMatchmaking</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>StopMatchmaking</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>AcceptMatch</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>StartMatchBackfill</a>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param startMatchmakingRequest
+     *        Represents the input for a request action.
+     * @return A Java Future containing the result of the StartMatchmaking operation returned by the service.
+     * @sample AmazonGameLiftAsync.StartMatchmaking
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/StartMatchmaking" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<StartMatchmakingResult> startMatchmakingAsync(StartMatchmakingRequest startMatchmakingRequest);
+
+    /**
+     * <p>
+     * Uses FlexMatch to create a game match for a group of players based on custom matchmaking rules, and starts a new
+     * game for the matched players. Each matchmaking request specifies the type of match to build (team configuration,
+     * rules for an acceptable match, etc.). The request also specifies the players to find a match for and where to
+     * host the new game session for optimal performance. A matchmaking request might start with a single player or a
+     * group of players who want to play together. FlexMatch finds additional players as needed to fill the match. Match
+     * type, rules, and the queue used to place a new game session are defined in a
+     * <code>MatchmakingConfiguration</code>. For complete information on setting up and using FlexMatch, see the topic
+     * <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/match-intro.html"> Adding FlexMatch to Your
+     * Game</a>.
+     * </p>
+     * <p>
+     * To start matchmaking, provide a unique ticket ID, specify a matchmaking configuration, and include the players to
+     * be matched. You must also include a set of player attributes relevant for the matchmaking configuration. If
+     * successful, a matchmaking ticket is returned with status set to <code>QUEUED</code>. Track the status of the
+     * ticket to respond as needed and acquire game session connection information for successfully completed matches.
+     * </p>
+     * <p>
+     * <b>Tracking ticket status</b> -- A couple of options are available for tracking the status of matchmaking
+     * requests:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Polling -- Call <code>DescribeMatchmaking</code>. This operation returns the full ticket object, including
+     * current status and (for completed tickets) game session connection info. We recommend polling no more than once
+     * every 10 seconds.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Notifications -- Get event notifications for changes in ticket status using Amazon Simple Notification Service
+     * (SNS). Notifications are easy to set up (see <a>CreateMatchmakingConfiguration</a>) and typically deliver match
+     * status changes faster and more efficiently than polling. We recommend that you use polling to back up to
+     * notifications (since delivery is not guaranteed) and call <code>DescribeMatchmaking</code> only when
+     * notifications are not received within 30 seconds.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>Processing a matchmaking request</b> -- FlexMatch handles a matchmaking request as follows:
+     * </p>
+     * <ol>
+     * <li>
+     * <p>
+     * Your client code submits a <code>StartMatchmaking</code> request for one or more players and tracks the status of
+     * the request ticket.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * FlexMatch uses this ticket and others in process to build an acceptable match. When a potential match is
+     * identified, all tickets in the proposed match are advanced to the next status.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If the match requires player acceptance (set in the matchmaking configuration), the tickets move into status
+     * <code>REQUIRES_ACCEPTANCE</code>. This status triggers your client code to solicit acceptance from all players in
+     * every ticket involved in the match, and then call <a>AcceptMatch</a> for each player. If any player rejects or
+     * fails to accept the match before a specified timeout, the proposed match is dropped (see <code>AcceptMatch</code>
+     * for more details).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Once a match is proposed and accepted, the matchmaking tickets move into status <code>PLACING</code>. FlexMatch
+     * locates resources for a new game session using the game session queue (set in the matchmaking configuration) and
+     * creates the game session based on the match data.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * When the match is successfully placed, the matchmaking tickets move into <code>COMPLETED</code> status.
+     * Connection information (including game session endpoint and player session) is added to the matchmaking tickets.
+     * Matched players can use the connection information to join the game.
+     * </p>
+     * </li>
+     * </ol>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>StartMatchmaking</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeMatchmaking</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>StopMatchmaking</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>AcceptMatch</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>StartMatchBackfill</a>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param startMatchmakingRequest
+     *        Represents the input for a request action.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the StartMatchmaking operation returned by the service.
+     * @sample AmazonGameLiftAsyncHandler.StartMatchmaking
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/StartMatchmaking" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<StartMatchmakingResult> startMatchmakingAsync(StartMatchmakingRequest startMatchmakingRequest,
+            com.amazonaws.handlers.AsyncHandler<StartMatchmakingRequest, StartMatchmakingResult> asyncHandler);
+
+    /**
+     * <p>
+     * Suspends activity on a fleet. Currently, this operation is used to stop a fleet's auto-scaling activity. It is
+     * used to temporarily stop scaling events triggered by the fleet's scaling policies. The policies can be retained
+     * and auto-scaling activity can be restarted using <a>StartFleetActions</a>. You can view a fleet's stopped actions
+     * using <a>DescribeFleetAttributes</a>.
+     * </p>
+     * <p>
+     * To stop fleet actions, specify the fleet ID and the type of actions to suspend. When auto-scaling fleet actions
+     * are stopped, Amazon GameLift no longer initiates scaling events except to maintain the fleet's desired instances
+     * setting (<a>FleetCapacity</a>. Changes to the fleet's capacity must be done manually using
+     * <a>UpdateFleetCapacity</a>.
+     * </p>
+     * 
+     * @param stopFleetActionsRequest
+     * @return A Java Future containing the result of the StopFleetActions operation returned by the service.
+     * @sample AmazonGameLiftAsync.StopFleetActions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/StopFleetActions" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<StopFleetActionsResult> stopFleetActionsAsync(StopFleetActionsRequest stopFleetActionsRequest);
+
+    /**
+     * <p>
+     * Suspends activity on a fleet. Currently, this operation is used to stop a fleet's auto-scaling activity. It is
+     * used to temporarily stop scaling events triggered by the fleet's scaling policies. The policies can be retained
+     * and auto-scaling activity can be restarted using <a>StartFleetActions</a>. You can view a fleet's stopped actions
+     * using <a>DescribeFleetAttributes</a>.
+     * </p>
+     * <p>
+     * To stop fleet actions, specify the fleet ID and the type of actions to suspend. When auto-scaling fleet actions
+     * are stopped, Amazon GameLift no longer initiates scaling events except to maintain the fleet's desired instances
+     * setting (<a>FleetCapacity</a>. Changes to the fleet's capacity must be done manually using
+     * <a>UpdateFleetCapacity</a>.
+     * </p>
+     * 
+     * @param stopFleetActionsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the StopFleetActions operation returned by the service.
+     * @sample AmazonGameLiftAsyncHandler.StopFleetActions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/StopFleetActions" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<StopFleetActionsResult> stopFleetActionsAsync(StopFleetActionsRequest stopFleetActionsRequest,
+            com.amazonaws.handlers.AsyncHandler<StopFleetActionsRequest, StopFleetActionsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Cancels a game session placement that is in <code>PENDING</code> status. To stop a placement, provide the
+     * placement ID values. If successful, the placement is moved to <code>CANCELLED</code> status.
      * </p>
      * <ul>
      * <li>
@@ -7587,11 +9579,8 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
 
     /**
      * <p>
-     * Cancels a game session placement that is in Pending status. To stop a placement, provide the placement ID values.
-     * If successful, the placement is moved to Cancelled status.
-     * </p>
-     * <p>
-     * Game-session-related operations include:
+     * Cancels a game session placement that is in <code>PENDING</code> status. To stop a placement, provide the
+     * placement ID values. If successful, the placement is moved to <code>CANCELLED</code> status.
      * </p>
      * <ul>
      * <li>
@@ -7664,12 +9653,100 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
 
     /**
      * <p>
+     * Cancels a matchmaking ticket that is currently being processed. To stop the matchmaking operation, specify the
+     * ticket ID. If successful, work on the ticket is stopped, and the ticket status is changed to
+     * <code>CANCELLED</code>.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>StartMatchmaking</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeMatchmaking</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>StopMatchmaking</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>AcceptMatch</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>StartMatchBackfill</a>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param stopMatchmakingRequest
+     *        Represents the input for a request action.
+     * @return A Java Future containing the result of the StopMatchmaking operation returned by the service.
+     * @sample AmazonGameLiftAsync.StopMatchmaking
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/StopMatchmaking" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<StopMatchmakingResult> stopMatchmakingAsync(StopMatchmakingRequest stopMatchmakingRequest);
+
+    /**
+     * <p>
+     * Cancels a matchmaking ticket that is currently being processed. To stop the matchmaking operation, specify the
+     * ticket ID. If successful, work on the ticket is stopped, and the ticket status is changed to
+     * <code>CANCELLED</code>.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>StartMatchmaking</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeMatchmaking</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>StopMatchmaking</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>AcceptMatch</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>StartMatchBackfill</a>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param stopMatchmakingRequest
+     *        Represents the input for a request action.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the StopMatchmaking operation returned by the service.
+     * @sample AmazonGameLiftAsyncHandler.StopMatchmaking
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/StopMatchmaking" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<StopMatchmakingResult> stopMatchmakingAsync(StopMatchmakingRequest stopMatchmakingRequest,
+            com.amazonaws.handlers.AsyncHandler<StopMatchmakingRequest, StopMatchmakingResult> asyncHandler);
+
+    /**
+     * <p>
      * Updates properties for an alias. To update properties, specify the alias ID to be updated and provide the
      * information to be changed. To reassign an alias to another fleet, provide an updated routing strategy. If
      * successful, the updated alias record is returned.
-     * </p>
-     * <p>
-     * Alias-related operations include:
      * </p>
      * <ul>
      * <li>
@@ -7718,9 +9795,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * Updates properties for an alias. To update properties, specify the alias ID to be updated and provide the
      * information to be changed. To reassign an alias to another fleet, provide an updated routing strategy. If
      * successful, the updated alias record is returned.
-     * </p>
-     * <p>
-     * Alias-related operations include:
      * </p>
      * <ul>
      * <li>
@@ -7775,9 +9849,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * build ID to update and provide the new values. If successful, a build object containing the updated metadata is
      * returned.
      * </p>
-     * <p>
-     * Build-related operations include:
-     * </p>
      * <ul>
      * <li>
      * <p>
@@ -7820,9 +9891,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * Updates metadata in a build record, including the build name and version. To update the metadata, specify the
      * build ID to update and provide the new values. If successful, a build object containing the updated metadata is
      * returned.
-     * </p>
-     * <p>
-     * Build-related operations include:
      * </p>
      * <ul>
      * <li>
@@ -7871,9 +9939,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * Updates fleet properties, including name and description, for a fleet. To update metadata, specify the fleet ID
      * and the property values that you want to change. If successful, the fleet ID for the updated fleet is returned.
      * </p>
-     * <p>
-     * Fleet-related operations include:
-     * </p>
      * <ul>
      * <li>
      * <p>
@@ -7887,12 +9952,22 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
+     * <a>DeleteFleet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * Describe fleets:
      * </p>
      * <ul>
      * <li>
      * <p>
      * <a>DescribeFleetAttributes</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeFleetCapacity</a>
      * </p>
      * </li>
      * <li>
@@ -7908,6 +9983,11 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * <li>
      * <p>
      * <a>DescribeRuntimeConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeEC2InstanceLimits</a>
      * </p>
      * </li>
      * <li>
@@ -7946,45 +10026,20 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
-     * Manage fleet capacity:
+     * Manage fleet actions:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <a>DescribeFleetCapacity</a>
+     * <a>StartFleetActions</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>UpdateFleetCapacity</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>PutScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeScalingPolicies</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeEC2InstanceLimits</a>
+     * <a>StopFleetActions</a>
      * </p>
      * </li>
      * </ul>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteFleet</a>
-     * </p>
      * </li>
      * </ul>
      * 
@@ -8002,9 +10057,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * Updates fleet properties, including name and description, for a fleet. To update metadata, specify the fleet ID
      * and the property values that you want to change. If successful, the fleet ID for the updated fleet is returned.
      * </p>
-     * <p>
-     * Fleet-related operations include:
-     * </p>
      * <ul>
      * <li>
      * <p>
@@ -8018,12 +10070,22 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
+     * <a>DeleteFleet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * Describe fleets:
      * </p>
      * <ul>
      * <li>
      * <p>
      * <a>DescribeFleetAttributes</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeFleetCapacity</a>
      * </p>
      * </li>
      * <li>
@@ -8039,6 +10101,11 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * <li>
      * <p>
      * <a>DescribeRuntimeConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeEC2InstanceLimits</a>
      * </p>
      * </li>
      * <li>
@@ -8077,45 +10144,20 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
-     * Manage fleet capacity:
+     * Manage fleet actions:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <a>DescribeFleetCapacity</a>
+     * <a>StartFleetActions</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>UpdateFleetCapacity</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>PutScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeScalingPolicies</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeEC2InstanceLimits</a>
+     * <a>StopFleetActions</a>
      * </p>
      * </li>
      * </ul>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteFleet</a>
-     * </p>
      * </li>
      * </ul>
      * 
@@ -8140,9 +10182,9 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * get the maximum capacity based on the fleet's EC2 instance type.
      * </p>
      * <p>
-     * If you're using autoscaling (see <a>PutScalingPolicy</a>), you may want to specify a minimum and/or maximum
-     * capacity. If you don't provide these, autoscaling can set capacity anywhere between zero and the <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_gamelift">service limits</a>.
+     * Specify minimum and maximum number of instances. Amazon GameLift will not change fleet capacity to values fall
+     * outside of this range. This is particularly important when using auto-scaling (see <a>PutScalingPolicy</a>) to
+     * allow capacity to adjust based on player demand while imposing limits on automatic adjustments.
      * </p>
      * <p>
      * To update fleet capacity, specify the fleet ID and the number of instances you want the fleet to host. If
@@ -8150,9 +10192,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * desired instance count. You can view a fleet's current capacity information by calling
      * <a>DescribeFleetCapacity</a>. If the desired instance count is higher than the instance type's limit, the
      * "Limit Exceeded" exception occurs.
-     * </p>
-     * <p>
-     * Fleet-related operations include:
      * </p>
      * <ul>
      * <li>
@@ -8167,12 +10206,22 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
+     * <a>DeleteFleet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * Describe fleets:
      * </p>
      * <ul>
      * <li>
      * <p>
      * <a>DescribeFleetAttributes</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeFleetCapacity</a>
      * </p>
      * </li>
      * <li>
@@ -8188,6 +10237,11 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * <li>
      * <p>
      * <a>DescribeRuntimeConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeEC2InstanceLimits</a>
      * </p>
      * </li>
      * <li>
@@ -8226,45 +10280,20 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
-     * Manage fleet capacity:
+     * Manage fleet actions:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <a>DescribeFleetCapacity</a>
+     * <a>StartFleetActions</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>UpdateFleetCapacity</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>PutScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeScalingPolicies</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeEC2InstanceLimits</a>
+     * <a>StopFleetActions</a>
      * </p>
      * </li>
      * </ul>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteFleet</a>
-     * </p>
      * </li>
      * </ul>
      * 
@@ -8284,9 +10313,9 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * get the maximum capacity based on the fleet's EC2 instance type.
      * </p>
      * <p>
-     * If you're using autoscaling (see <a>PutScalingPolicy</a>), you may want to specify a minimum and/or maximum
-     * capacity. If you don't provide these, autoscaling can set capacity anywhere between zero and the <a
-     * href="http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_gamelift">service limits</a>.
+     * Specify minimum and maximum number of instances. Amazon GameLift will not change fleet capacity to values fall
+     * outside of this range. This is particularly important when using auto-scaling (see <a>PutScalingPolicy</a>) to
+     * allow capacity to adjust based on player demand while imposing limits on automatic adjustments.
      * </p>
      * <p>
      * To update fleet capacity, specify the fleet ID and the number of instances you want the fleet to host. If
@@ -8294,9 +10323,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * desired instance count. You can view a fleet's current capacity information by calling
      * <a>DescribeFleetCapacity</a>. If the desired instance count is higher than the instance type's limit, the
      * "Limit Exceeded" exception occurs.
-     * </p>
-     * <p>
-     * Fleet-related operations include:
      * </p>
      * <ul>
      * <li>
@@ -8311,12 +10337,22 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
+     * <a>DeleteFleet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * Describe fleets:
      * </p>
      * <ul>
      * <li>
      * <p>
      * <a>DescribeFleetAttributes</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeFleetCapacity</a>
      * </p>
      * </li>
      * <li>
@@ -8332,6 +10368,11 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * <li>
      * <p>
      * <a>DescribeRuntimeConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeEC2InstanceLimits</a>
      * </p>
      * </li>
      * <li>
@@ -8370,45 +10411,20 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
-     * Manage fleet capacity:
+     * Manage fleet actions:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <a>DescribeFleetCapacity</a>
+     * <a>StartFleetActions</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>UpdateFleetCapacity</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>PutScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeScalingPolicies</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeEC2InstanceLimits</a>
+     * <a>StopFleetActions</a>
      * </p>
      * </li>
      * </ul>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteFleet</a>
-     * </p>
      * </li>
      * </ul>
      * 
@@ -8434,9 +10450,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * <code>InboundPermissionRevocations</code>. Permissions to be removed must match existing fleet permissions. If
      * successful, the fleet ID for the updated fleet is returned.
      * </p>
-     * <p>
-     * Fleet-related operations include:
-     * </p>
      * <ul>
      * <li>
      * <p>
@@ -8450,12 +10463,22 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
+     * <a>DeleteFleet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * Describe fleets:
      * </p>
      * <ul>
      * <li>
      * <p>
      * <a>DescribeFleetAttributes</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeFleetCapacity</a>
      * </p>
      * </li>
      * <li>
@@ -8471,6 +10494,11 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * <li>
      * <p>
      * <a>DescribeRuntimeConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeEC2InstanceLimits</a>
      * </p>
      * </li>
      * <li>
@@ -8509,45 +10537,20 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
-     * Manage fleet capacity:
+     * Manage fleet actions:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <a>DescribeFleetCapacity</a>
+     * <a>StartFleetActions</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>UpdateFleetCapacity</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>PutScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeScalingPolicies</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeEC2InstanceLimits</a>
+     * <a>StopFleetActions</a>
      * </p>
      * </li>
      * </ul>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteFleet</a>
-     * </p>
      * </li>
      * </ul>
      * 
@@ -8568,9 +10571,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * <code>InboundPermissionRevocations</code>. Permissions to be removed must match existing fleet permissions. If
      * successful, the fleet ID for the updated fleet is returned.
      * </p>
-     * <p>
-     * Fleet-related operations include:
-     * </p>
      * <ul>
      * <li>
      * <p>
@@ -8584,12 +10584,22 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
+     * <a>DeleteFleet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * Describe fleets:
      * </p>
      * <ul>
      * <li>
      * <p>
      * <a>DescribeFleetAttributes</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeFleetCapacity</a>
      * </p>
      * </li>
      * <li>
@@ -8605,6 +10615,11 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * <li>
      * <p>
      * <a>DescribeRuntimeConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeEC2InstanceLimits</a>
      * </p>
      * </li>
      * <li>
@@ -8643,45 +10658,20 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
-     * Manage fleet capacity:
+     * Manage fleet actions:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <a>DescribeFleetCapacity</a>
+     * <a>StartFleetActions</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>UpdateFleetCapacity</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>PutScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeScalingPolicies</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeEC2InstanceLimits</a>
+     * <a>StopFleetActions</a>
      * </p>
      * </li>
      * </ul>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteFleet</a>
-     * </p>
      * </li>
      * </ul>
      * 
@@ -8706,9 +10696,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * session creation policy, which controls whether or not new players can join the session. To update a game
      * session, specify the game session ID and the values you want to change. If successful, an updated
      * <a>GameSession</a> object is returned.
-     * </p>
-     * <p>
-     * Game-session-related operations include:
      * </p>
      * <ul>
      * <li>
@@ -8781,9 +10768,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * session creation policy, which controls whether or not new players can join the session. To update a game
      * session, specify the game session ID and the values you want to change. If successful, an updated
      * <a>GameSession</a> object is returned.
-     * </p>
-     * <p>
-     * Game-session-related operations include:
      * </p>
      * <ul>
      * <li>
@@ -8860,9 +10844,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * processed. To update settings, specify the queue name to be updated and provide the new settings. When updating
      * destinations, provide a complete list of destinations.
      * </p>
-     * <p>
-     * Queue-related operations include:
-     * </p>
      * <ul>
      * <li>
      * <p>
@@ -8900,9 +10881,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * Updates settings for a game session queue, which determines how new game session requests in the queue are
      * processed. To update settings, specify the queue name to be updated and provide the new settings. When updating
      * destinations, provide a complete list of destinations.
-     * </p>
-     * <p>
-     * Queue-related operations include:
      * </p>
      * <ul>
      * <li>
@@ -8943,6 +10921,129 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
 
     /**
      * <p>
+     * Updates settings for a FlexMatch matchmaking configuration. To update settings, specify the configuration name to
+     * be updated and provide the new settings.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>CreateMatchmakingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeMatchmakingConfigurations</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>UpdateMatchmakingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteMatchmakingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>CreateMatchmakingRuleSet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeMatchmakingRuleSets</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>ValidateMatchmakingRuleSet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteMatchmakingRuleSet</a>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param updateMatchmakingConfigurationRequest
+     *        Represents the input for a request action.
+     * @return A Java Future containing the result of the UpdateMatchmakingConfiguration operation returned by the
+     *         service.
+     * @sample AmazonGameLiftAsync.UpdateMatchmakingConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/UpdateMatchmakingConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateMatchmakingConfigurationResult> updateMatchmakingConfigurationAsync(
+            UpdateMatchmakingConfigurationRequest updateMatchmakingConfigurationRequest);
+
+    /**
+     * <p>
+     * Updates settings for a FlexMatch matchmaking configuration. To update settings, specify the configuration name to
+     * be updated and provide the new settings.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>CreateMatchmakingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeMatchmakingConfigurations</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>UpdateMatchmakingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteMatchmakingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>CreateMatchmakingRuleSet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeMatchmakingRuleSets</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>ValidateMatchmakingRuleSet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteMatchmakingRuleSet</a>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param updateMatchmakingConfigurationRequest
+     *        Represents the input for a request action.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateMatchmakingConfiguration operation returned by the
+     *         service.
+     * @sample AmazonGameLiftAsyncHandler.UpdateMatchmakingConfiguration
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/UpdateMatchmakingConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateMatchmakingConfigurationResult> updateMatchmakingConfigurationAsync(
+            UpdateMatchmakingConfigurationRequest updateMatchmakingConfigurationRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateMatchmakingConfigurationRequest, UpdateMatchmakingConfigurationResult> asyncHandler);
+
+    /**
+     * <p>
      * Updates the current run-time configuration for the specified fleet, which tells Amazon GameLift how to launch
      * server processes on instances in the fleet. You can update a fleet's run-time configuration at any time after the
      * fleet is created; it does not need to be in an <code>ACTIVE</code> status.
@@ -8958,9 +11059,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * current run-time configuration. As a result, the run-time configuration changes are applied gradually as existing
      * processes shut down and new processes are launched in Amazon GameLift's normal process recycling activity.
      * </p>
-     * <p>
-     * Fleet-related operations include:
-     * </p>
      * <ul>
      * <li>
      * <p>
@@ -8974,12 +11072,22 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
+     * <a>DeleteFleet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * Describe fleets:
      * </p>
      * <ul>
      * <li>
      * <p>
      * <a>DescribeFleetAttributes</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeFleetCapacity</a>
      * </p>
      * </li>
      * <li>
@@ -8995,6 +11103,11 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * <li>
      * <p>
      * <a>DescribeRuntimeConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeEC2InstanceLimits</a>
      * </p>
      * </li>
      * <li>
@@ -9033,45 +11146,20 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
-     * Manage fleet capacity:
+     * Manage fleet actions:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <a>DescribeFleetCapacity</a>
+     * <a>StartFleetActions</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>UpdateFleetCapacity</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>PutScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeScalingPolicies</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeEC2InstanceLimits</a>
+     * <a>StopFleetActions</a>
      * </p>
      * </li>
      * </ul>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteFleet</a>
-     * </p>
      * </li>
      * </ul>
      * 
@@ -9102,9 +11190,6 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * current run-time configuration. As a result, the run-time configuration changes are applied gradually as existing
      * processes shut down and new processes are launched in Amazon GameLift's normal process recycling activity.
      * </p>
-     * <p>
-     * Fleet-related operations include:
-     * </p>
      * <ul>
      * <li>
      * <p>
@@ -9118,12 +11203,22 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
+     * <a>DeleteFleet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * Describe fleets:
      * </p>
      * <ul>
      * <li>
      * <p>
      * <a>DescribeFleetAttributes</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeFleetCapacity</a>
      * </p>
      * </li>
      * <li>
@@ -9139,6 +11234,11 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * <li>
      * <p>
      * <a>DescribeRuntimeConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeEC2InstanceLimits</a>
      * </p>
      * </li>
      * <li>
@@ -9177,45 +11277,20 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
      * </li>
      * <li>
      * <p>
-     * Manage fleet capacity:
+     * Manage fleet actions:
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <a>DescribeFleetCapacity</a>
+     * <a>StartFleetActions</a>
      * </p>
      * </li>
      * <li>
      * <p>
-     * <a>UpdateFleetCapacity</a>
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>PutScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeScalingPolicies</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteScalingPolicy</a> (automatic scaling)
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DescribeEC2InstanceLimits</a>
+     * <a>StopFleetActions</a>
      * </p>
      * </li>
      * </ul>
-     * </li>
-     * <li>
-     * <p>
-     * <a>DeleteFleet</a>
-     * </p>
      * </li>
      * </ul>
      * 
@@ -9233,5 +11308,154 @@ public interface AmazonGameLiftAsync extends AmazonGameLift {
     java.util.concurrent.Future<UpdateRuntimeConfigurationResult> updateRuntimeConfigurationAsync(
             UpdateRuntimeConfigurationRequest updateRuntimeConfigurationRequest,
             com.amazonaws.handlers.AsyncHandler<UpdateRuntimeConfigurationRequest, UpdateRuntimeConfigurationResult> asyncHandler);
+
+    /**
+     * <p>
+     * Validates the syntax of a matchmaking rule or rule set. This operation checks that the rule set is using
+     * syntactically correct JSON and that it conforms to allowed property expressions. To validate syntax, provide a
+     * rule set JSON string.
+     * </p>
+     * <p>
+     * <b>Learn more</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/match-rulesets.html">Build a Rule Set</a>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>Related operations</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>CreateMatchmakingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeMatchmakingConfigurations</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>UpdateMatchmakingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteMatchmakingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>CreateMatchmakingRuleSet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeMatchmakingRuleSets</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>ValidateMatchmakingRuleSet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteMatchmakingRuleSet</a>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param validateMatchmakingRuleSetRequest
+     *        Represents the input for a request action.
+     * @return A Java Future containing the result of the ValidateMatchmakingRuleSet operation returned by the service.
+     * @sample AmazonGameLiftAsync.ValidateMatchmakingRuleSet
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/ValidateMatchmakingRuleSet"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ValidateMatchmakingRuleSetResult> validateMatchmakingRuleSetAsync(
+            ValidateMatchmakingRuleSetRequest validateMatchmakingRuleSetRequest);
+
+    /**
+     * <p>
+     * Validates the syntax of a matchmaking rule or rule set. This operation checks that the rule set is using
+     * syntactically correct JSON and that it conforms to allowed property expressions. To validate syntax, provide a
+     * rule set JSON string.
+     * </p>
+     * <p>
+     * <b>Learn more</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/match-rulesets.html">Build a Rule Set</a>
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>Related operations</b>
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a>CreateMatchmakingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeMatchmakingConfigurations</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>UpdateMatchmakingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteMatchmakingConfiguration</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>CreateMatchmakingRuleSet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DescribeMatchmakingRuleSets</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>ValidateMatchmakingRuleSet</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a>DeleteMatchmakingRuleSet</a>
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param validateMatchmakingRuleSetRequest
+     *        Represents the input for a request action.
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ValidateMatchmakingRuleSet operation returned by the service.
+     * @sample AmazonGameLiftAsyncHandler.ValidateMatchmakingRuleSet
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/ValidateMatchmakingRuleSet"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ValidateMatchmakingRuleSetResult> validateMatchmakingRuleSetAsync(
+            ValidateMatchmakingRuleSetRequest validateMatchmakingRuleSetRequest,
+            com.amazonaws.handlers.AsyncHandler<ValidateMatchmakingRuleSetRequest, ValidateMatchmakingRuleSetResult> asyncHandler);
 
 }

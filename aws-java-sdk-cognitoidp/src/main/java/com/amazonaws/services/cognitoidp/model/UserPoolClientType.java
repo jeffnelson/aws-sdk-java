@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * A user pool of the client type.
+ * Contains information about a user pool client.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/UserPoolClientType" target="_top">AWS API
@@ -96,19 +96,77 @@ public class UserPoolClientType implements Serializable, Cloneable, StructuredPo
     private java.util.List<String> supportedIdentityProviders;
     /**
      * <p>
-     * A list of allowed callback URLs for the identity providers.
+     * A list of allowed redirect (callback) URLs for the identity providers.
+     * </p>
+     * <p>
+     * A redirect URI must:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Be an absolute URI.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Be registered with the authorization server.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Not include a fragment component.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * See <a href="https://tools.ietf.org/html/rfc6749#section-3.1.2">OAuth 2.0 - Redirection Endpoint</a>.
+     * </p>
+     * <p>
+     * Amazon Cognito requires HTTPS over HTTP except for http://localhost for testing purposes only.
+     * </p>
+     * <p>
+     * App callback URLs such as myapp://example are also supported.
      * </p>
      */
     private java.util.List<String> callbackURLs;
     /**
      * <p>
-     * A list ofallowed logout URLs for the identity providers.
+     * A list of allowed logout URLs for the identity providers.
      * </p>
      */
     private java.util.List<String> logoutURLs;
     /**
      * <p>
      * The default redirect URI. Must be in the <code>CallbackURLs</code> list.
+     * </p>
+     * <p>
+     * A redirect URI must:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Be an absolute URI.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Be registered with the authorization server.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Not include a fragment component.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * See <a href="https://tools.ietf.org/html/rfc6749#section-3.1.2">OAuth 2.0 - Redirection Endpoint</a>.
+     * </p>
+     * <p>
+     * Amazon Cognito requires HTTPS over HTTP except for http://localhost for testing purposes only.
+     * </p>
+     * <p>
+     * App callback URLs such as myapp://example are also supported.
      * </p>
      */
     private String defaultRedirectURI;
@@ -136,6 +194,12 @@ public class UserPoolClientType implements Serializable, Cloneable, StructuredPo
      * </p>
      */
     private Boolean allowedOAuthFlowsUserPoolClient;
+    /**
+     * <p>
+     * The Amazon Pinpoint analytics configuration for the user pool client.
+     * </p>
+     */
+    private AnalyticsConfigurationType analyticsConfiguration;
 
     /**
      * <p>
@@ -727,10 +791,67 @@ public class UserPoolClientType implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * A list of allowed callback URLs for the identity providers.
+     * A list of allowed redirect (callback) URLs for the identity providers.
+     * </p>
+     * <p>
+     * A redirect URI must:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Be an absolute URI.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Be registered with the authorization server.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Not include a fragment component.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * See <a href="https://tools.ietf.org/html/rfc6749#section-3.1.2">OAuth 2.0 - Redirection Endpoint</a>.
+     * </p>
+     * <p>
+     * Amazon Cognito requires HTTPS over HTTP except for http://localhost for testing purposes only.
+     * </p>
+     * <p>
+     * App callback URLs such as myapp://example are also supported.
      * </p>
      * 
-     * @return A list of allowed callback URLs for the identity providers.
+     * @return A list of allowed redirect (callback) URLs for the identity providers.</p>
+     *         <p>
+     *         A redirect URI must:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Be an absolute URI.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Be registered with the authorization server.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Not include a fragment component.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         See <a href="https://tools.ietf.org/html/rfc6749#section-3.1.2">OAuth 2.0 - Redirection Endpoint</a>.
+     *         </p>
+     *         <p>
+     *         Amazon Cognito requires HTTPS over HTTP except for http://localhost for testing purposes only.
+     *         </p>
+     *         <p>
+     *         App callback URLs such as myapp://example are also supported.
      */
 
     public java.util.List<String> getCallbackURLs() {
@@ -739,11 +860,68 @@ public class UserPoolClientType implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * A list of allowed callback URLs for the identity providers.
+     * A list of allowed redirect (callback) URLs for the identity providers.
+     * </p>
+     * <p>
+     * A redirect URI must:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Be an absolute URI.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Be registered with the authorization server.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Not include a fragment component.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * See <a href="https://tools.ietf.org/html/rfc6749#section-3.1.2">OAuth 2.0 - Redirection Endpoint</a>.
+     * </p>
+     * <p>
+     * Amazon Cognito requires HTTPS over HTTP except for http://localhost for testing purposes only.
+     * </p>
+     * <p>
+     * App callback URLs such as myapp://example are also supported.
      * </p>
      * 
      * @param callbackURLs
-     *        A list of allowed callback URLs for the identity providers.
+     *        A list of allowed redirect (callback) URLs for the identity providers.</p>
+     *        <p>
+     *        A redirect URI must:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Be an absolute URI.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Be registered with the authorization server.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Not include a fragment component.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        See <a href="https://tools.ietf.org/html/rfc6749#section-3.1.2">OAuth 2.0 - Redirection Endpoint</a>.
+     *        </p>
+     *        <p>
+     *        Amazon Cognito requires HTTPS over HTTP except for http://localhost for testing purposes only.
+     *        </p>
+     *        <p>
+     *        App callback URLs such as myapp://example are also supported.
      */
 
     public void setCallbackURLs(java.util.Collection<String> callbackURLs) {
@@ -757,7 +935,36 @@ public class UserPoolClientType implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * A list of allowed callback URLs for the identity providers.
+     * A list of allowed redirect (callback) URLs for the identity providers.
+     * </p>
+     * <p>
+     * A redirect URI must:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Be an absolute URI.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Be registered with the authorization server.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Not include a fragment component.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * See <a href="https://tools.ietf.org/html/rfc6749#section-3.1.2">OAuth 2.0 - Redirection Endpoint</a>.
+     * </p>
+     * <p>
+     * Amazon Cognito requires HTTPS over HTTP except for http://localhost for testing purposes only.
+     * </p>
+     * <p>
+     * App callback URLs such as myapp://example are also supported.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -766,7 +973,35 @@ public class UserPoolClientType implements Serializable, Cloneable, StructuredPo
      * </p>
      * 
      * @param callbackURLs
-     *        A list of allowed callback URLs for the identity providers.
+     *        A list of allowed redirect (callback) URLs for the identity providers.</p>
+     *        <p>
+     *        A redirect URI must:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Be an absolute URI.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Be registered with the authorization server.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Not include a fragment component.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        See <a href="https://tools.ietf.org/html/rfc6749#section-3.1.2">OAuth 2.0 - Redirection Endpoint</a>.
+     *        </p>
+     *        <p>
+     *        Amazon Cognito requires HTTPS over HTTP except for http://localhost for testing purposes only.
+     *        </p>
+     *        <p>
+     *        App callback URLs such as myapp://example are also supported.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -782,11 +1017,68 @@ public class UserPoolClientType implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * A list of allowed callback URLs for the identity providers.
+     * A list of allowed redirect (callback) URLs for the identity providers.
+     * </p>
+     * <p>
+     * A redirect URI must:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Be an absolute URI.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Be registered with the authorization server.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Not include a fragment component.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * See <a href="https://tools.ietf.org/html/rfc6749#section-3.1.2">OAuth 2.0 - Redirection Endpoint</a>.
+     * </p>
+     * <p>
+     * Amazon Cognito requires HTTPS over HTTP except for http://localhost for testing purposes only.
+     * </p>
+     * <p>
+     * App callback URLs such as myapp://example are also supported.
      * </p>
      * 
      * @param callbackURLs
-     *        A list of allowed callback URLs for the identity providers.
+     *        A list of allowed redirect (callback) URLs for the identity providers.</p>
+     *        <p>
+     *        A redirect URI must:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Be an absolute URI.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Be registered with the authorization server.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Not include a fragment component.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        See <a href="https://tools.ietf.org/html/rfc6749#section-3.1.2">OAuth 2.0 - Redirection Endpoint</a>.
+     *        </p>
+     *        <p>
+     *        Amazon Cognito requires HTTPS over HTTP except for http://localhost for testing purposes only.
+     *        </p>
+     *        <p>
+     *        App callback URLs such as myapp://example are also supported.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -797,10 +1089,10 @@ public class UserPoolClientType implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * A list ofallowed logout URLs for the identity providers.
+     * A list of allowed logout URLs for the identity providers.
      * </p>
      * 
-     * @return A list ofallowed logout URLs for the identity providers.
+     * @return A list of allowed logout URLs for the identity providers.
      */
 
     public java.util.List<String> getLogoutURLs() {
@@ -809,11 +1101,11 @@ public class UserPoolClientType implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * A list ofallowed logout URLs for the identity providers.
+     * A list of allowed logout URLs for the identity providers.
      * </p>
      * 
      * @param logoutURLs
-     *        A list ofallowed logout URLs for the identity providers.
+     *        A list of allowed logout URLs for the identity providers.
      */
 
     public void setLogoutURLs(java.util.Collection<String> logoutURLs) {
@@ -827,7 +1119,7 @@ public class UserPoolClientType implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * A list ofallowed logout URLs for the identity providers.
+     * A list of allowed logout URLs for the identity providers.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -836,7 +1128,7 @@ public class UserPoolClientType implements Serializable, Cloneable, StructuredPo
      * </p>
      * 
      * @param logoutURLs
-     *        A list ofallowed logout URLs for the identity providers.
+     *        A list of allowed logout URLs for the identity providers.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -852,11 +1144,11 @@ public class UserPoolClientType implements Serializable, Cloneable, StructuredPo
 
     /**
      * <p>
-     * A list ofallowed logout URLs for the identity providers.
+     * A list of allowed logout URLs for the identity providers.
      * </p>
      * 
      * @param logoutURLs
-     *        A list ofallowed logout URLs for the identity providers.
+     *        A list of allowed logout URLs for the identity providers.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -869,9 +1161,66 @@ public class UserPoolClientType implements Serializable, Cloneable, StructuredPo
      * <p>
      * The default redirect URI. Must be in the <code>CallbackURLs</code> list.
      * </p>
+     * <p>
+     * A redirect URI must:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Be an absolute URI.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Be registered with the authorization server.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Not include a fragment component.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * See <a href="https://tools.ietf.org/html/rfc6749#section-3.1.2">OAuth 2.0 - Redirection Endpoint</a>.
+     * </p>
+     * <p>
+     * Amazon Cognito requires HTTPS over HTTP except for http://localhost for testing purposes only.
+     * </p>
+     * <p>
+     * App callback URLs such as myapp://example are also supported.
+     * </p>
      * 
      * @param defaultRedirectURI
-     *        The default redirect URI. Must be in the <code>CallbackURLs</code> list.
+     *        The default redirect URI. Must be in the <code>CallbackURLs</code> list.</p>
+     *        <p>
+     *        A redirect URI must:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Be an absolute URI.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Be registered with the authorization server.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Not include a fragment component.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        See <a href="https://tools.ietf.org/html/rfc6749#section-3.1.2">OAuth 2.0 - Redirection Endpoint</a>.
+     *        </p>
+     *        <p>
+     *        Amazon Cognito requires HTTPS over HTTP except for http://localhost for testing purposes only.
+     *        </p>
+     *        <p>
+     *        App callback URLs such as myapp://example are also supported.
      */
 
     public void setDefaultRedirectURI(String defaultRedirectURI) {
@@ -882,8 +1231,65 @@ public class UserPoolClientType implements Serializable, Cloneable, StructuredPo
      * <p>
      * The default redirect URI. Must be in the <code>CallbackURLs</code> list.
      * </p>
+     * <p>
+     * A redirect URI must:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Be an absolute URI.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Be registered with the authorization server.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Not include a fragment component.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * See <a href="https://tools.ietf.org/html/rfc6749#section-3.1.2">OAuth 2.0 - Redirection Endpoint</a>.
+     * </p>
+     * <p>
+     * Amazon Cognito requires HTTPS over HTTP except for http://localhost for testing purposes only.
+     * </p>
+     * <p>
+     * App callback URLs such as myapp://example are also supported.
+     * </p>
      * 
-     * @return The default redirect URI. Must be in the <code>CallbackURLs</code> list.
+     * @return The default redirect URI. Must be in the <code>CallbackURLs</code> list.</p>
+     *         <p>
+     *         A redirect URI must:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Be an absolute URI.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Be registered with the authorization server.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Not include a fragment component.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         See <a href="https://tools.ietf.org/html/rfc6749#section-3.1.2">OAuth 2.0 - Redirection Endpoint</a>.
+     *         </p>
+     *         <p>
+     *         Amazon Cognito requires HTTPS over HTTP except for http://localhost for testing purposes only.
+     *         </p>
+     *         <p>
+     *         App callback URLs such as myapp://example are also supported.
      */
 
     public String getDefaultRedirectURI() {
@@ -894,9 +1300,66 @@ public class UserPoolClientType implements Serializable, Cloneable, StructuredPo
      * <p>
      * The default redirect URI. Must be in the <code>CallbackURLs</code> list.
      * </p>
+     * <p>
+     * A redirect URI must:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Be an absolute URI.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Be registered with the authorization server.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Not include a fragment component.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * See <a href="https://tools.ietf.org/html/rfc6749#section-3.1.2">OAuth 2.0 - Redirection Endpoint</a>.
+     * </p>
+     * <p>
+     * Amazon Cognito requires HTTPS over HTTP except for http://localhost for testing purposes only.
+     * </p>
+     * <p>
+     * App callback URLs such as myapp://example are also supported.
+     * </p>
      * 
      * @param defaultRedirectURI
-     *        The default redirect URI. Must be in the <code>CallbackURLs</code> list.
+     *        The default redirect URI. Must be in the <code>CallbackURLs</code> list.</p>
+     *        <p>
+     *        A redirect URI must:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Be an absolute URI.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Be registered with the authorization server.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Not include a fragment component.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        See <a href="https://tools.ietf.org/html/rfc6749#section-3.1.2">OAuth 2.0 - Redirection Endpoint</a>.
+     *        </p>
+     *        <p>
+     *        Amazon Cognito requires HTTPS over HTTP except for http://localhost for testing purposes only.
+     *        </p>
+     *        <p>
+     *        App callback URLs such as myapp://example are also supported.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1183,7 +1646,48 @@ public class UserPoolClientType implements Serializable, Cloneable, StructuredPo
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * <p>
+     * The Amazon Pinpoint analytics configuration for the user pool client.
+     * </p>
+     * 
+     * @param analyticsConfiguration
+     *        The Amazon Pinpoint analytics configuration for the user pool client.
+     */
+
+    public void setAnalyticsConfiguration(AnalyticsConfigurationType analyticsConfiguration) {
+        this.analyticsConfiguration = analyticsConfiguration;
+    }
+
+    /**
+     * <p>
+     * The Amazon Pinpoint analytics configuration for the user pool client.
+     * </p>
+     * 
+     * @return The Amazon Pinpoint analytics configuration for the user pool client.
+     */
+
+    public AnalyticsConfigurationType getAnalyticsConfiguration() {
+        return this.analyticsConfiguration;
+    }
+
+    /**
+     * <p>
+     * The Amazon Pinpoint analytics configuration for the user pool client.
+     * </p>
+     * 
+     * @param analyticsConfiguration
+     *        The Amazon Pinpoint analytics configuration for the user pool client.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UserPoolClientType withAnalyticsConfiguration(AnalyticsConfigurationType analyticsConfiguration) {
+        setAnalyticsConfiguration(analyticsConfiguration);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -1198,9 +1702,9 @@ public class UserPoolClientType implements Serializable, Cloneable, StructuredPo
         if (getClientName() != null)
             sb.append("ClientName: ").append(getClientName()).append(",");
         if (getClientId() != null)
-            sb.append("ClientId: ").append(getClientId()).append(",");
+            sb.append("ClientId: ").append("***Sensitive Data Redacted***").append(",");
         if (getClientSecret() != null)
-            sb.append("ClientSecret: ").append(getClientSecret()).append(",");
+            sb.append("ClientSecret: ").append("***Sensitive Data Redacted***").append(",");
         if (getLastModifiedDate() != null)
             sb.append("LastModifiedDate: ").append(getLastModifiedDate()).append(",");
         if (getCreationDate() != null)
@@ -1226,7 +1730,9 @@ public class UserPoolClientType implements Serializable, Cloneable, StructuredPo
         if (getAllowedOAuthScopes() != null)
             sb.append("AllowedOAuthScopes: ").append(getAllowedOAuthScopes()).append(",");
         if (getAllowedOAuthFlowsUserPoolClient() != null)
-            sb.append("AllowedOAuthFlowsUserPoolClient: ").append(getAllowedOAuthFlowsUserPoolClient());
+            sb.append("AllowedOAuthFlowsUserPoolClient: ").append(getAllowedOAuthFlowsUserPoolClient()).append(",");
+        if (getAnalyticsConfiguration() != null)
+            sb.append("AnalyticsConfiguration: ").append(getAnalyticsConfiguration());
         sb.append("}");
         return sb.toString();
     }
@@ -1310,6 +1816,10 @@ public class UserPoolClientType implements Serializable, Cloneable, StructuredPo
         if (other.getAllowedOAuthFlowsUserPoolClient() != null
                 && other.getAllowedOAuthFlowsUserPoolClient().equals(this.getAllowedOAuthFlowsUserPoolClient()) == false)
             return false;
+        if (other.getAnalyticsConfiguration() == null ^ this.getAnalyticsConfiguration() == null)
+            return false;
+        if (other.getAnalyticsConfiguration() != null && other.getAnalyticsConfiguration().equals(this.getAnalyticsConfiguration()) == false)
+            return false;
         return true;
     }
 
@@ -1335,6 +1845,7 @@ public class UserPoolClientType implements Serializable, Cloneable, StructuredPo
         hashCode = prime * hashCode + ((getAllowedOAuthFlows() == null) ? 0 : getAllowedOAuthFlows().hashCode());
         hashCode = prime * hashCode + ((getAllowedOAuthScopes() == null) ? 0 : getAllowedOAuthScopes().hashCode());
         hashCode = prime * hashCode + ((getAllowedOAuthFlowsUserPoolClient() == null) ? 0 : getAllowedOAuthFlowsUserPoolClient().hashCode());
+        hashCode = prime * hashCode + ((getAnalyticsConfiguration() == null) ? 0 : getAnalyticsConfiguration().hashCode());
         return hashCode;
     }
 

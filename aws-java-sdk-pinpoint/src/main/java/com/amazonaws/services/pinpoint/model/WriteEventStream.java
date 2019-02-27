@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,6 +19,9 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * Request to save an EventStream.
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/WriteEventStream" target="_top">AWS API
+ *      Documentation</a>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class WriteEventStream implements Serializable, Cloneable, StructuredPojo {
@@ -29,8 +32,6 @@ public class WriteEventStream implements Serializable, Cloneable, StructuredPojo
      * arn:aws:kinesis:REGION:ACCOUNT_ID:stream/STREAM_NAME
      */
     private String destinationStreamArn;
-    /** The external ID assigned the IAM role that authorizes Amazon Pinpoint to publish to the stream. */
-    private String externalId;
     /** The IAM role that authorizes Amazon Pinpoint to publish events to the stream in your account. */
     private String roleArn;
 
@@ -81,40 +82,6 @@ public class WriteEventStream implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * The external ID assigned the IAM role that authorizes Amazon Pinpoint to publish to the stream.
-     * 
-     * @param externalId
-     *        The external ID assigned the IAM role that authorizes Amazon Pinpoint to publish to the stream.
-     */
-
-    public void setExternalId(String externalId) {
-        this.externalId = externalId;
-    }
-
-    /**
-     * The external ID assigned the IAM role that authorizes Amazon Pinpoint to publish to the stream.
-     * 
-     * @return The external ID assigned the IAM role that authorizes Amazon Pinpoint to publish to the stream.
-     */
-
-    public String getExternalId() {
-        return this.externalId;
-    }
-
-    /**
-     * The external ID assigned the IAM role that authorizes Amazon Pinpoint to publish to the stream.
-     * 
-     * @param externalId
-     *        The external ID assigned the IAM role that authorizes Amazon Pinpoint to publish to the stream.
-     * @return Returns a reference to this object so that method calls can be chained together.
-     */
-
-    public WriteEventStream withExternalId(String externalId) {
-        setExternalId(externalId);
-        return this;
-    }
-
-    /**
      * The IAM role that authorizes Amazon Pinpoint to publish events to the stream in your account.
      * 
      * @param roleArn
@@ -149,7 +116,8 @@ public class WriteEventStream implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -161,8 +129,6 @@ public class WriteEventStream implements Serializable, Cloneable, StructuredPojo
         sb.append("{");
         if (getDestinationStreamArn() != null)
             sb.append("DestinationStreamArn: ").append(getDestinationStreamArn()).append(",");
-        if (getExternalId() != null)
-            sb.append("ExternalId: ").append(getExternalId()).append(",");
         if (getRoleArn() != null)
             sb.append("RoleArn: ").append(getRoleArn());
         sb.append("}");
@@ -183,10 +149,6 @@ public class WriteEventStream implements Serializable, Cloneable, StructuredPojo
             return false;
         if (other.getDestinationStreamArn() != null && other.getDestinationStreamArn().equals(this.getDestinationStreamArn()) == false)
             return false;
-        if (other.getExternalId() == null ^ this.getExternalId() == null)
-            return false;
-        if (other.getExternalId() != null && other.getExternalId().equals(this.getExternalId()) == false)
-            return false;
         if (other.getRoleArn() == null ^ this.getRoleArn() == null)
             return false;
         if (other.getRoleArn() != null && other.getRoleArn().equals(this.getRoleArn()) == false)
@@ -200,7 +162,6 @@ public class WriteEventStream implements Serializable, Cloneable, StructuredPojo
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getDestinationStreamArn() == null) ? 0 : getDestinationStreamArn().hashCode());
-        hashCode = prime * hashCode + ((getExternalId() == null) ? 0 : getExternalId().hashCode());
         hashCode = prime * hashCode + ((getRoleArn() == null) ? 0 : getRoleArn().hashCode());
         return hashCode;
     }

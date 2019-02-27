@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -158,6 +158,19 @@ public class AbstractAWSCodeStarAsync extends AbstractAWSCodeStar implements AWS
     }
 
     @Override
+    public java.util.concurrent.Future<ListTagsForProjectResult> listTagsForProjectAsync(ListTagsForProjectRequest request) {
+
+        return listTagsForProjectAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListTagsForProjectResult> listTagsForProjectAsync(ListTagsForProjectRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListTagsForProjectRequest, ListTagsForProjectResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<ListTeamMembersResult> listTeamMembersAsync(ListTeamMembersRequest request) {
 
         return listTeamMembersAsync(request, null);
@@ -179,6 +192,32 @@ public class AbstractAWSCodeStarAsync extends AbstractAWSCodeStar implements AWS
     @Override
     public java.util.concurrent.Future<ListUserProfilesResult> listUserProfilesAsync(ListUserProfilesRequest request,
             com.amazonaws.handlers.AsyncHandler<ListUserProfilesRequest, ListUserProfilesResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagProjectResult> tagProjectAsync(TagProjectRequest request) {
+
+        return tagProjectAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagProjectResult> tagProjectAsync(TagProjectRequest request,
+            com.amazonaws.handlers.AsyncHandler<TagProjectRequest, TagProjectResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagProjectResult> untagProjectAsync(UntagProjectRequest request) {
+
+        return untagProjectAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagProjectResult> untagProjectAsync(UntagProjectRequest request,
+            com.amazonaws.handlers.AsyncHandler<UntagProjectRequest, UntagProjectResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }

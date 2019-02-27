@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.AmazonWebServiceRequest;
 
 /**
  * 
- * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2016-05-10/CreateObject" target="_top">AWS API
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2017-01-11/CreateObject" target="_top">AWS API
  *      Documentation</a>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -34,8 +34,8 @@ public class CreateObjectRequest extends com.amazonaws.AmazonWebServiceRequest i
     private String directoryArn;
     /**
      * <p>
-     * A list of schema facets to be associated with the object that contains <code>SchemaArn</code> and facet name. For
-     * more information, see <a>arns</a>.
+     * A list of schema facets to be associated with the object. Do not provide minor version components. See
+     * <a>SchemaFacet</a> for details.
      * </p>
      */
     private java.util.List<SchemaFacet> schemaFacets;
@@ -106,12 +106,12 @@ public class CreateObjectRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * A list of schema facets to be associated with the object that contains <code>SchemaArn</code> and facet name. For
-     * more information, see <a>arns</a>.
+     * A list of schema facets to be associated with the object. Do not provide minor version components. See
+     * <a>SchemaFacet</a> for details.
      * </p>
      * 
-     * @return A list of schema facets to be associated with the object that contains <code>SchemaArn</code> and facet
-     *         name. For more information, see <a>arns</a>.
+     * @return A list of schema facets to be associated with the object. Do not provide minor version components. See
+     *         <a>SchemaFacet</a> for details.
      */
 
     public java.util.List<SchemaFacet> getSchemaFacets() {
@@ -120,13 +120,13 @@ public class CreateObjectRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * A list of schema facets to be associated with the object that contains <code>SchemaArn</code> and facet name. For
-     * more information, see <a>arns</a>.
+     * A list of schema facets to be associated with the object. Do not provide minor version components. See
+     * <a>SchemaFacet</a> for details.
      * </p>
      * 
      * @param schemaFacets
-     *        A list of schema facets to be associated with the object that contains <code>SchemaArn</code> and facet
-     *        name. For more information, see <a>arns</a>.
+     *        A list of schema facets to be associated with the object. Do not provide minor version components. See
+     *        <a>SchemaFacet</a> for details.
      */
 
     public void setSchemaFacets(java.util.Collection<SchemaFacet> schemaFacets) {
@@ -140,8 +140,8 @@ public class CreateObjectRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * A list of schema facets to be associated with the object that contains <code>SchemaArn</code> and facet name. For
-     * more information, see <a>arns</a>.
+     * A list of schema facets to be associated with the object. Do not provide minor version components. See
+     * <a>SchemaFacet</a> for details.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -150,8 +150,8 @@ public class CreateObjectRequest extends com.amazonaws.AmazonWebServiceRequest i
      * </p>
      * 
      * @param schemaFacets
-     *        A list of schema facets to be associated with the object that contains <code>SchemaArn</code> and facet
-     *        name. For more information, see <a>arns</a>.
+     *        A list of schema facets to be associated with the object. Do not provide minor version components. See
+     *        <a>SchemaFacet</a> for details.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -167,13 +167,13 @@ public class CreateObjectRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * A list of schema facets to be associated with the object that contains <code>SchemaArn</code> and facet name. For
-     * more information, see <a>arns</a>.
+     * A list of schema facets to be associated with the object. Do not provide minor version components. See
+     * <a>SchemaFacet</a> for details.
      * </p>
      * 
      * @param schemaFacets
-     *        A list of schema facets to be associated with the object that contains <code>SchemaArn</code> and facet
-     *        name. For more information, see <a>arns</a>.
+     *        A list of schema facets to be associated with the object. Do not provide minor version components. See
+     *        <a>SchemaFacet</a> for details.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -333,7 +333,8 @@ public class CreateObjectRequest extends com.amazonaws.AmazonWebServiceRequest i
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

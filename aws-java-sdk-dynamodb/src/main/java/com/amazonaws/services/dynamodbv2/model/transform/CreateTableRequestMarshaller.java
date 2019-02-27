@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -38,10 +38,14 @@ public class CreateTableRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("LocalSecondaryIndexes").build();
     private static final MarshallingInfo<List> GLOBALSECONDARYINDEXES_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("GlobalSecondaryIndexes").build();
+    private static final MarshallingInfo<String> BILLINGMODE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("BillingMode").build();
     private static final MarshallingInfo<StructuredPojo> PROVISIONEDTHROUGHPUT_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ProvisionedThroughput").build();
     private static final MarshallingInfo<StructuredPojo> STREAMSPECIFICATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("StreamSpecification").build();
+    private static final MarshallingInfo<StructuredPojo> SSESPECIFICATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SSESpecification").build();
 
     private static final CreateTableRequestMarshaller instance = new CreateTableRequestMarshaller();
 
@@ -64,8 +68,10 @@ public class CreateTableRequestMarshaller {
             protocolMarshaller.marshall(createTableRequest.getKeySchema(), KEYSCHEMA_BINDING);
             protocolMarshaller.marshall(createTableRequest.getLocalSecondaryIndexes(), LOCALSECONDARYINDEXES_BINDING);
             protocolMarshaller.marshall(createTableRequest.getGlobalSecondaryIndexes(), GLOBALSECONDARYINDEXES_BINDING);
+            protocolMarshaller.marshall(createTableRequest.getBillingMode(), BILLINGMODE_BINDING);
             protocolMarshaller.marshall(createTableRequest.getProvisionedThroughput(), PROVISIONEDTHROUGHPUT_BINDING);
             protocolMarshaller.marshall(createTableRequest.getStreamSpecification(), STREAMSPECIFICATION_BINDING);
+            protocolMarshaller.marshall(createTableRequest.getSSESpecification(), SSESPECIFICATION_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

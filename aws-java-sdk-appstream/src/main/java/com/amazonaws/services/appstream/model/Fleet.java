@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Contains the parameters for a fleet.
+ * Describes the parameters for a fleet.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/Fleet" target="_top">AWS API
@@ -42,46 +42,73 @@ public class Fleet implements Serializable, Cloneable, StructuredPojo {
     private String name;
     /**
      * <p>
-     * The name displayed to end users on the AppStream 2.0 portal.
+     * The fleet name to display.
      * </p>
      */
     private String displayName;
     /**
      * <p>
-     * The description displayed to end users on the AppStream 2.0 portal.
+     * The description to display.
      * </p>
      */
     private String description;
     /**
      * <p>
-     * The image used by the fleet.
+     * The name of the image used to create the fleet.
      * </p>
      */
     private String imageName;
     /**
      * <p>
-     * The instance type of compute resources for the fleet. The fleet instances are launched from this instance type.
+     * The ARN for the public, private, or shared image.
+     * </p>
+     */
+    private String imageArn;
+    /**
+     * <p>
+     * The instance type to use when launching fleet instances.
      * </p>
      */
     private String instanceType;
     /**
      * <p>
-     * The capacity information for the fleet.
+     * The fleet type.
+     * </p>
+     * <dl>
+     * <dt>ALWAYS_ON</dt>
+     * <dd>
+     * <p>
+     * Provides users with instant-on access to their apps. You are charged for all running instances in your fleet,
+     * even if no users are streaming apps.
+     * </p>
+     * </dd>
+     * <dt>ON_DEMAND</dt>
+     * <dd>
+     * <p>
+     * Provide users with access to applications after they connect, which takes one to two minutes. You are charged for
+     * instance streaming when users are connected and a small hourly fee for instances that are not streaming apps.
+     * </p>
+     * </dd>
+     * </dl>
+     */
+    private String fleetType;
+    /**
+     * <p>
+     * The capacity status for the fleet.
      * </p>
      */
     private ComputeCapacityStatus computeCapacityStatus;
     /**
      * <p>
-     * The maximum time for which a streaming session can run. The value can be any numeric value in seconds between 600
-     * and 57600.
+     * The maximum time that a streaming session can run, in seconds. Specify a value between 600 and 360000.
      * </p>
      */
     private Integer maxUserDurationInSeconds;
     /**
      * <p>
-     * The time after disconnection when a session is considered to have ended. If a user who got disconnected
-     * reconnects within this timeout interval, the user is connected back to their previous session. The input can be
-     * any numeric value in seconds between 60 and 57600.
+     * The time after disconnection when a session is considered to have ended, in seconds. If a user who was
+     * disconnected reconnects within this time interval, the user is connected to their previous session. Specify a
+     * value between 60 and 360000. By default, this value is 900 seconds (15 minutes).
      * </p>
      */
     private Integer disconnectTimeoutInSeconds;
@@ -99,26 +126,26 @@ public class Fleet implements Serializable, Cloneable, StructuredPojo {
     private VpcConfig vpcConfig;
     /**
      * <p>
-     * The time at which the fleet was created.
+     * The time the fleet was created.
      * </p>
      */
     private java.util.Date createdTime;
     /**
      * <p>
-     * The list of fleet errors is appended to this list.
+     * The fleet errors.
      * </p>
      */
     private java.util.List<FleetError> fleetErrors;
     /**
      * <p>
-     * Whether default internet access is enabled for the fleet.
+     * Indicates whether default internet access is enabled for the fleet.
      * </p>
      */
     private Boolean enableDefaultInternetAccess;
     /**
      * <p>
-     * The <i>DirectoryName</i> and <i>OrganizationalUnitDistinguishedName</i> values, which are used to join domains
-     * for the AppStream 2.0 streaming instances.
+     * The name of the directory and organizational unit (OU) to use to join the fleet to a Microsoft Active Directory
+     * domain.
      * </p>
      */
     private DomainJoinInfo domainJoinInfo;
@@ -205,11 +232,11 @@ public class Fleet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name displayed to end users on the AppStream 2.0 portal.
+     * The fleet name to display.
      * </p>
      * 
      * @param displayName
-     *        The name displayed to end users on the AppStream 2.0 portal.
+     *        The fleet name to display.
      */
 
     public void setDisplayName(String displayName) {
@@ -218,10 +245,10 @@ public class Fleet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name displayed to end users on the AppStream 2.0 portal.
+     * The fleet name to display.
      * </p>
      * 
-     * @return The name displayed to end users on the AppStream 2.0 portal.
+     * @return The fleet name to display.
      */
 
     public String getDisplayName() {
@@ -230,11 +257,11 @@ public class Fleet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name displayed to end users on the AppStream 2.0 portal.
+     * The fleet name to display.
      * </p>
      * 
      * @param displayName
-     *        The name displayed to end users on the AppStream 2.0 portal.
+     *        The fleet name to display.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -245,11 +272,11 @@ public class Fleet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The description displayed to end users on the AppStream 2.0 portal.
+     * The description to display.
      * </p>
      * 
      * @param description
-     *        The description displayed to end users on the AppStream 2.0 portal.
+     *        The description to display.
      */
 
     public void setDescription(String description) {
@@ -258,10 +285,10 @@ public class Fleet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The description displayed to end users on the AppStream 2.0 portal.
+     * The description to display.
      * </p>
      * 
-     * @return The description displayed to end users on the AppStream 2.0 portal.
+     * @return The description to display.
      */
 
     public String getDescription() {
@@ -270,11 +297,11 @@ public class Fleet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The description displayed to end users on the AppStream 2.0 portal.
+     * The description to display.
      * </p>
      * 
      * @param description
-     *        The description displayed to end users on the AppStream 2.0 portal.
+     *        The description to display.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -285,11 +312,11 @@ public class Fleet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The image used by the fleet.
+     * The name of the image used to create the fleet.
      * </p>
      * 
      * @param imageName
-     *        The image used by the fleet.
+     *        The name of the image used to create the fleet.
      */
 
     public void setImageName(String imageName) {
@@ -298,10 +325,10 @@ public class Fleet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The image used by the fleet.
+     * The name of the image used to create the fleet.
      * </p>
      * 
-     * @return The image used by the fleet.
+     * @return The name of the image used to create the fleet.
      */
 
     public String getImageName() {
@@ -310,11 +337,11 @@ public class Fleet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The image used by the fleet.
+     * The name of the image used to create the fleet.
      * </p>
      * 
      * @param imageName
-     *        The image used by the fleet.
+     *        The name of the image used to create the fleet.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -325,12 +352,51 @@ public class Fleet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The instance type of compute resources for the fleet. The fleet instances are launched from this instance type.
+     * The ARN for the public, private, or shared image.
+     * </p>
+     * 
+     * @param imageArn
+     *        The ARN for the public, private, or shared image.
+     */
+
+    public void setImageArn(String imageArn) {
+        this.imageArn = imageArn;
+    }
+
+    /**
+     * <p>
+     * The ARN for the public, private, or shared image.
+     * </p>
+     * 
+     * @return The ARN for the public, private, or shared image.
+     */
+
+    public String getImageArn() {
+        return this.imageArn;
+    }
+
+    /**
+     * <p>
+     * The ARN for the public, private, or shared image.
+     * </p>
+     * 
+     * @param imageArn
+     *        The ARN for the public, private, or shared image.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Fleet withImageArn(String imageArn) {
+        setImageArn(imageArn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The instance type to use when launching fleet instances.
      * </p>
      * 
      * @param instanceType
-     *        The instance type of compute resources for the fleet. The fleet instances are launched from this instance
-     *        type.
+     *        The instance type to use when launching fleet instances.
      */
 
     public void setInstanceType(String instanceType) {
@@ -339,11 +405,10 @@ public class Fleet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The instance type of compute resources for the fleet. The fleet instances are launched from this instance type.
+     * The instance type to use when launching fleet instances.
      * </p>
      * 
-     * @return The instance type of compute resources for the fleet. The fleet instances are launched from this instance
-     *         type.
+     * @return The instance type to use when launching fleet instances.
      */
 
     public String getInstanceType() {
@@ -352,12 +417,11 @@ public class Fleet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The instance type of compute resources for the fleet. The fleet instances are launched from this instance type.
+     * The instance type to use when launching fleet instances.
      * </p>
      * 
      * @param instanceType
-     *        The instance type of compute resources for the fleet. The fleet instances are launched from this instance
-     *        type.
+     *        The instance type to use when launching fleet instances.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -368,11 +432,244 @@ public class Fleet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The capacity information for the fleet.
+     * The fleet type.
+     * </p>
+     * <dl>
+     * <dt>ALWAYS_ON</dt>
+     * <dd>
+     * <p>
+     * Provides users with instant-on access to their apps. You are charged for all running instances in your fleet,
+     * even if no users are streaming apps.
+     * </p>
+     * </dd>
+     * <dt>ON_DEMAND</dt>
+     * <dd>
+     * <p>
+     * Provide users with access to applications after they connect, which takes one to two minutes. You are charged for
+     * instance streaming when users are connected and a small hourly fee for instances that are not streaming apps.
+     * </p>
+     * </dd>
+     * </dl>
+     * 
+     * @param fleetType
+     *        The fleet type.</p>
+     *        <dl>
+     *        <dt>ALWAYS_ON</dt>
+     *        <dd>
+     *        <p>
+     *        Provides users with instant-on access to their apps. You are charged for all running instances in your
+     *        fleet, even if no users are streaming apps.
+     *        </p>
+     *        </dd>
+     *        <dt>ON_DEMAND</dt>
+     *        <dd>
+     *        <p>
+     *        Provide users with access to applications after they connect, which takes one to two minutes. You are
+     *        charged for instance streaming when users are connected and a small hourly fee for instances that are not
+     *        streaming apps.
+     *        </p>
+     *        </dd>
+     * @see FleetType
+     */
+
+    public void setFleetType(String fleetType) {
+        this.fleetType = fleetType;
+    }
+
+    /**
+     * <p>
+     * The fleet type.
+     * </p>
+     * <dl>
+     * <dt>ALWAYS_ON</dt>
+     * <dd>
+     * <p>
+     * Provides users with instant-on access to their apps. You are charged for all running instances in your fleet,
+     * even if no users are streaming apps.
+     * </p>
+     * </dd>
+     * <dt>ON_DEMAND</dt>
+     * <dd>
+     * <p>
+     * Provide users with access to applications after they connect, which takes one to two minutes. You are charged for
+     * instance streaming when users are connected and a small hourly fee for instances that are not streaming apps.
+     * </p>
+     * </dd>
+     * </dl>
+     * 
+     * @return The fleet type.</p>
+     *         <dl>
+     *         <dt>ALWAYS_ON</dt>
+     *         <dd>
+     *         <p>
+     *         Provides users with instant-on access to their apps. You are charged for all running instances in your
+     *         fleet, even if no users are streaming apps.
+     *         </p>
+     *         </dd>
+     *         <dt>ON_DEMAND</dt>
+     *         <dd>
+     *         <p>
+     *         Provide users with access to applications after they connect, which takes one to two minutes. You are
+     *         charged for instance streaming when users are connected and a small hourly fee for instances that are not
+     *         streaming apps.
+     *         </p>
+     *         </dd>
+     * @see FleetType
+     */
+
+    public String getFleetType() {
+        return this.fleetType;
+    }
+
+    /**
+     * <p>
+     * The fleet type.
+     * </p>
+     * <dl>
+     * <dt>ALWAYS_ON</dt>
+     * <dd>
+     * <p>
+     * Provides users with instant-on access to their apps. You are charged for all running instances in your fleet,
+     * even if no users are streaming apps.
+     * </p>
+     * </dd>
+     * <dt>ON_DEMAND</dt>
+     * <dd>
+     * <p>
+     * Provide users with access to applications after they connect, which takes one to two minutes. You are charged for
+     * instance streaming when users are connected and a small hourly fee for instances that are not streaming apps.
+     * </p>
+     * </dd>
+     * </dl>
+     * 
+     * @param fleetType
+     *        The fleet type.</p>
+     *        <dl>
+     *        <dt>ALWAYS_ON</dt>
+     *        <dd>
+     *        <p>
+     *        Provides users with instant-on access to their apps. You are charged for all running instances in your
+     *        fleet, even if no users are streaming apps.
+     *        </p>
+     *        </dd>
+     *        <dt>ON_DEMAND</dt>
+     *        <dd>
+     *        <p>
+     *        Provide users with access to applications after they connect, which takes one to two minutes. You are
+     *        charged for instance streaming when users are connected and a small hourly fee for instances that are not
+     *        streaming apps.
+     *        </p>
+     *        </dd>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see FleetType
+     */
+
+    public Fleet withFleetType(String fleetType) {
+        setFleetType(fleetType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The fleet type.
+     * </p>
+     * <dl>
+     * <dt>ALWAYS_ON</dt>
+     * <dd>
+     * <p>
+     * Provides users with instant-on access to their apps. You are charged for all running instances in your fleet,
+     * even if no users are streaming apps.
+     * </p>
+     * </dd>
+     * <dt>ON_DEMAND</dt>
+     * <dd>
+     * <p>
+     * Provide users with access to applications after they connect, which takes one to two minutes. You are charged for
+     * instance streaming when users are connected and a small hourly fee for instances that are not streaming apps.
+     * </p>
+     * </dd>
+     * </dl>
+     * 
+     * @param fleetType
+     *        The fleet type.</p>
+     *        <dl>
+     *        <dt>ALWAYS_ON</dt>
+     *        <dd>
+     *        <p>
+     *        Provides users with instant-on access to their apps. You are charged for all running instances in your
+     *        fleet, even if no users are streaming apps.
+     *        </p>
+     *        </dd>
+     *        <dt>ON_DEMAND</dt>
+     *        <dd>
+     *        <p>
+     *        Provide users with access to applications after they connect, which takes one to two minutes. You are
+     *        charged for instance streaming when users are connected and a small hourly fee for instances that are not
+     *        streaming apps.
+     *        </p>
+     *        </dd>
+     * @see FleetType
+     */
+
+    public void setFleetType(FleetType fleetType) {
+        withFleetType(fleetType);
+    }
+
+    /**
+     * <p>
+     * The fleet type.
+     * </p>
+     * <dl>
+     * <dt>ALWAYS_ON</dt>
+     * <dd>
+     * <p>
+     * Provides users with instant-on access to their apps. You are charged for all running instances in your fleet,
+     * even if no users are streaming apps.
+     * </p>
+     * </dd>
+     * <dt>ON_DEMAND</dt>
+     * <dd>
+     * <p>
+     * Provide users with access to applications after they connect, which takes one to two minutes. You are charged for
+     * instance streaming when users are connected and a small hourly fee for instances that are not streaming apps.
+     * </p>
+     * </dd>
+     * </dl>
+     * 
+     * @param fleetType
+     *        The fleet type.</p>
+     *        <dl>
+     *        <dt>ALWAYS_ON</dt>
+     *        <dd>
+     *        <p>
+     *        Provides users with instant-on access to their apps. You are charged for all running instances in your
+     *        fleet, even if no users are streaming apps.
+     *        </p>
+     *        </dd>
+     *        <dt>ON_DEMAND</dt>
+     *        <dd>
+     *        <p>
+     *        Provide users with access to applications after they connect, which takes one to two minutes. You are
+     *        charged for instance streaming when users are connected and a small hourly fee for instances that are not
+     *        streaming apps.
+     *        </p>
+     *        </dd>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see FleetType
+     */
+
+    public Fleet withFleetType(FleetType fleetType) {
+        this.fleetType = fleetType.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The capacity status for the fleet.
      * </p>
      * 
      * @param computeCapacityStatus
-     *        The capacity information for the fleet.
+     *        The capacity status for the fleet.
      */
 
     public void setComputeCapacityStatus(ComputeCapacityStatus computeCapacityStatus) {
@@ -381,10 +678,10 @@ public class Fleet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The capacity information for the fleet.
+     * The capacity status for the fleet.
      * </p>
      * 
-     * @return The capacity information for the fleet.
+     * @return The capacity status for the fleet.
      */
 
     public ComputeCapacityStatus getComputeCapacityStatus() {
@@ -393,11 +690,11 @@ public class Fleet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The capacity information for the fleet.
+     * The capacity status for the fleet.
      * </p>
      * 
      * @param computeCapacityStatus
-     *        The capacity information for the fleet.
+     *        The capacity status for the fleet.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -408,13 +705,11 @@ public class Fleet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The maximum time for which a streaming session can run. The value can be any numeric value in seconds between 600
-     * and 57600.
+     * The maximum time that a streaming session can run, in seconds. Specify a value between 600 and 360000.
      * </p>
      * 
      * @param maxUserDurationInSeconds
-     *        The maximum time for which a streaming session can run. The value can be any numeric value in seconds
-     *        between 600 and 57600.
+     *        The maximum time that a streaming session can run, in seconds. Specify a value between 600 and 360000.
      */
 
     public void setMaxUserDurationInSeconds(Integer maxUserDurationInSeconds) {
@@ -423,12 +718,10 @@ public class Fleet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The maximum time for which a streaming session can run. The value can be any numeric value in seconds between 600
-     * and 57600.
+     * The maximum time that a streaming session can run, in seconds. Specify a value between 600 and 360000.
      * </p>
      * 
-     * @return The maximum time for which a streaming session can run. The value can be any numeric value in seconds
-     *         between 600 and 57600.
+     * @return The maximum time that a streaming session can run, in seconds. Specify a value between 600 and 360000.
      */
 
     public Integer getMaxUserDurationInSeconds() {
@@ -437,13 +730,11 @@ public class Fleet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The maximum time for which a streaming session can run. The value can be any numeric value in seconds between 600
-     * and 57600.
+     * The maximum time that a streaming session can run, in seconds. Specify a value between 600 and 360000.
      * </p>
      * 
      * @param maxUserDurationInSeconds
-     *        The maximum time for which a streaming session can run. The value can be any numeric value in seconds
-     *        between 600 and 57600.
+     *        The maximum time that a streaming session can run, in seconds. Specify a value between 600 and 360000.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -454,15 +745,15 @@ public class Fleet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The time after disconnection when a session is considered to have ended. If a user who got disconnected
-     * reconnects within this timeout interval, the user is connected back to their previous session. The input can be
-     * any numeric value in seconds between 60 and 57600.
+     * The time after disconnection when a session is considered to have ended, in seconds. If a user who was
+     * disconnected reconnects within this time interval, the user is connected to their previous session. Specify a
+     * value between 60 and 360000. By default, this value is 900 seconds (15 minutes).
      * </p>
      * 
      * @param disconnectTimeoutInSeconds
-     *        The time after disconnection when a session is considered to have ended. If a user who got disconnected
-     *        reconnects within this timeout interval, the user is connected back to their previous session. The input
-     *        can be any numeric value in seconds between 60 and 57600.
+     *        The time after disconnection when a session is considered to have ended, in seconds. If a user who was
+     *        disconnected reconnects within this time interval, the user is connected to their previous session.
+     *        Specify a value between 60 and 360000. By default, this value is 900 seconds (15 minutes).
      */
 
     public void setDisconnectTimeoutInSeconds(Integer disconnectTimeoutInSeconds) {
@@ -471,14 +762,14 @@ public class Fleet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The time after disconnection when a session is considered to have ended. If a user who got disconnected
-     * reconnects within this timeout interval, the user is connected back to their previous session. The input can be
-     * any numeric value in seconds between 60 and 57600.
+     * The time after disconnection when a session is considered to have ended, in seconds. If a user who was
+     * disconnected reconnects within this time interval, the user is connected to their previous session. Specify a
+     * value between 60 and 360000. By default, this value is 900 seconds (15 minutes).
      * </p>
      * 
-     * @return The time after disconnection when a session is considered to have ended. If a user who got disconnected
-     *         reconnects within this timeout interval, the user is connected back to their previous session. The input
-     *         can be any numeric value in seconds between 60 and 57600.
+     * @return The time after disconnection when a session is considered to have ended, in seconds. If a user who was
+     *         disconnected reconnects within this time interval, the user is connected to their previous session.
+     *         Specify a value between 60 and 360000. By default, this value is 900 seconds (15 minutes).
      */
 
     public Integer getDisconnectTimeoutInSeconds() {
@@ -487,15 +778,15 @@ public class Fleet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The time after disconnection when a session is considered to have ended. If a user who got disconnected
-     * reconnects within this timeout interval, the user is connected back to their previous session. The input can be
-     * any numeric value in seconds between 60 and 57600.
+     * The time after disconnection when a session is considered to have ended, in seconds. If a user who was
+     * disconnected reconnects within this time interval, the user is connected to their previous session. Specify a
+     * value between 60 and 360000. By default, this value is 900 seconds (15 minutes).
      * </p>
      * 
      * @param disconnectTimeoutInSeconds
-     *        The time after disconnection when a session is considered to have ended. If a user who got disconnected
-     *        reconnects within this timeout interval, the user is connected back to their previous session. The input
-     *        can be any numeric value in seconds between 60 and 57600.
+     *        The time after disconnection when a session is considered to have ended, in seconds. If a user who was
+     *        disconnected reconnects within this time interval, the user is connected to their previous session.
+     *        Specify a value between 60 and 360000. By default, this value is 900 seconds (15 minutes).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -619,11 +910,11 @@ public class Fleet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The time at which the fleet was created.
+     * The time the fleet was created.
      * </p>
      * 
      * @param createdTime
-     *        The time at which the fleet was created.
+     *        The time the fleet was created.
      */
 
     public void setCreatedTime(java.util.Date createdTime) {
@@ -632,10 +923,10 @@ public class Fleet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The time at which the fleet was created.
+     * The time the fleet was created.
      * </p>
      * 
-     * @return The time at which the fleet was created.
+     * @return The time the fleet was created.
      */
 
     public java.util.Date getCreatedTime() {
@@ -644,11 +935,11 @@ public class Fleet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The time at which the fleet was created.
+     * The time the fleet was created.
      * </p>
      * 
      * @param createdTime
-     *        The time at which the fleet was created.
+     *        The time the fleet was created.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -659,10 +950,10 @@ public class Fleet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The list of fleet errors is appended to this list.
+     * The fleet errors.
      * </p>
      * 
-     * @return The list of fleet errors is appended to this list.
+     * @return The fleet errors.
      */
 
     public java.util.List<FleetError> getFleetErrors() {
@@ -671,11 +962,11 @@ public class Fleet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The list of fleet errors is appended to this list.
+     * The fleet errors.
      * </p>
      * 
      * @param fleetErrors
-     *        The list of fleet errors is appended to this list.
+     *        The fleet errors.
      */
 
     public void setFleetErrors(java.util.Collection<FleetError> fleetErrors) {
@@ -689,7 +980,7 @@ public class Fleet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The list of fleet errors is appended to this list.
+     * The fleet errors.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -698,7 +989,7 @@ public class Fleet implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param fleetErrors
-     *        The list of fleet errors is appended to this list.
+     *        The fleet errors.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -714,11 +1005,11 @@ public class Fleet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The list of fleet errors is appended to this list.
+     * The fleet errors.
      * </p>
      * 
      * @param fleetErrors
-     *        The list of fleet errors is appended to this list.
+     *        The fleet errors.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -729,11 +1020,11 @@ public class Fleet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Whether default internet access is enabled for the fleet.
+     * Indicates whether default internet access is enabled for the fleet.
      * </p>
      * 
      * @param enableDefaultInternetAccess
-     *        Whether default internet access is enabled for the fleet.
+     *        Indicates whether default internet access is enabled for the fleet.
      */
 
     public void setEnableDefaultInternetAccess(Boolean enableDefaultInternetAccess) {
@@ -742,10 +1033,10 @@ public class Fleet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Whether default internet access is enabled for the fleet.
+     * Indicates whether default internet access is enabled for the fleet.
      * </p>
      * 
-     * @return Whether default internet access is enabled for the fleet.
+     * @return Indicates whether default internet access is enabled for the fleet.
      */
 
     public Boolean getEnableDefaultInternetAccess() {
@@ -754,11 +1045,11 @@ public class Fleet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Whether default internet access is enabled for the fleet.
+     * Indicates whether default internet access is enabled for the fleet.
      * </p>
      * 
      * @param enableDefaultInternetAccess
-     *        Whether default internet access is enabled for the fleet.
+     *        Indicates whether default internet access is enabled for the fleet.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -769,10 +1060,10 @@ public class Fleet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Whether default internet access is enabled for the fleet.
+     * Indicates whether default internet access is enabled for the fleet.
      * </p>
      * 
-     * @return Whether default internet access is enabled for the fleet.
+     * @return Indicates whether default internet access is enabled for the fleet.
      */
 
     public Boolean isEnableDefaultInternetAccess() {
@@ -781,13 +1072,13 @@ public class Fleet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The <i>DirectoryName</i> and <i>OrganizationalUnitDistinguishedName</i> values, which are used to join domains
-     * for the AppStream 2.0 streaming instances.
+     * The name of the directory and organizational unit (OU) to use to join the fleet to a Microsoft Active Directory
+     * domain.
      * </p>
      * 
      * @param domainJoinInfo
-     *        The <i>DirectoryName</i> and <i>OrganizationalUnitDistinguishedName</i> values, which are used to join
-     *        domains for the AppStream 2.0 streaming instances.
+     *        The name of the directory and organizational unit (OU) to use to join the fleet to a Microsoft Active
+     *        Directory domain.
      */
 
     public void setDomainJoinInfo(DomainJoinInfo domainJoinInfo) {
@@ -796,12 +1087,12 @@ public class Fleet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The <i>DirectoryName</i> and <i>OrganizationalUnitDistinguishedName</i> values, which are used to join domains
-     * for the AppStream 2.0 streaming instances.
+     * The name of the directory and organizational unit (OU) to use to join the fleet to a Microsoft Active Directory
+     * domain.
      * </p>
      * 
-     * @return The <i>DirectoryName</i> and <i>OrganizationalUnitDistinguishedName</i> values, which are used to join
-     *         domains for the AppStream 2.0 streaming instances.
+     * @return The name of the directory and organizational unit (OU) to use to join the fleet to a Microsoft Active
+     *         Directory domain.
      */
 
     public DomainJoinInfo getDomainJoinInfo() {
@@ -810,13 +1101,13 @@ public class Fleet implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The <i>DirectoryName</i> and <i>OrganizationalUnitDistinguishedName</i> values, which are used to join domains
-     * for the AppStream 2.0 streaming instances.
+     * The name of the directory and organizational unit (OU) to use to join the fleet to a Microsoft Active Directory
+     * domain.
      * </p>
      * 
      * @param domainJoinInfo
-     *        The <i>DirectoryName</i> and <i>OrganizationalUnitDistinguishedName</i> values, which are used to join
-     *        domains for the AppStream 2.0 streaming instances.
+     *        The name of the directory and organizational unit (OU) to use to join the fleet to a Microsoft Active
+     *        Directory domain.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -826,7 +1117,8 @@ public class Fleet implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -846,8 +1138,12 @@ public class Fleet implements Serializable, Cloneable, StructuredPojo {
             sb.append("Description: ").append(getDescription()).append(",");
         if (getImageName() != null)
             sb.append("ImageName: ").append(getImageName()).append(",");
+        if (getImageArn() != null)
+            sb.append("ImageArn: ").append(getImageArn()).append(",");
         if (getInstanceType() != null)
             sb.append("InstanceType: ").append(getInstanceType()).append(",");
+        if (getFleetType() != null)
+            sb.append("FleetType: ").append(getFleetType()).append(",");
         if (getComputeCapacityStatus() != null)
             sb.append("ComputeCapacityStatus: ").append(getComputeCapacityStatus()).append(",");
         if (getMaxUserDurationInSeconds() != null)
@@ -900,9 +1196,17 @@ public class Fleet implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getImageName() != null && other.getImageName().equals(this.getImageName()) == false)
             return false;
+        if (other.getImageArn() == null ^ this.getImageArn() == null)
+            return false;
+        if (other.getImageArn() != null && other.getImageArn().equals(this.getImageArn()) == false)
+            return false;
         if (other.getInstanceType() == null ^ this.getInstanceType() == null)
             return false;
         if (other.getInstanceType() != null && other.getInstanceType().equals(this.getInstanceType()) == false)
+            return false;
+        if (other.getFleetType() == null ^ this.getFleetType() == null)
+            return false;
+        if (other.getFleetType() != null && other.getFleetType().equals(this.getFleetType()) == false)
             return false;
         if (other.getComputeCapacityStatus() == null ^ this.getComputeCapacityStatus() == null)
             return false;
@@ -953,7 +1257,9 @@ public class Fleet implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getDisplayName() == null) ? 0 : getDisplayName().hashCode());
         hashCode = prime * hashCode + ((getDescription() == null) ? 0 : getDescription().hashCode());
         hashCode = prime * hashCode + ((getImageName() == null) ? 0 : getImageName().hashCode());
+        hashCode = prime * hashCode + ((getImageArn() == null) ? 0 : getImageArn().hashCode());
         hashCode = prime * hashCode + ((getInstanceType() == null) ? 0 : getInstanceType().hashCode());
+        hashCode = prime * hashCode + ((getFleetType() == null) ? 0 : getFleetType().hashCode());
         hashCode = prime * hashCode + ((getComputeCapacityStatus() == null) ? 0 : getComputeCapacityStatus().hashCode());
         hashCode = prime * hashCode + ((getMaxUserDurationInSeconds() == null) ? 0 : getMaxUserDurationInSeconds().hashCode());
         hashCode = prime * hashCode + ((getDisconnectTimeoutInSeconds() == null) ? 0 : getDisconnectTimeoutInSeconds().hashCode());

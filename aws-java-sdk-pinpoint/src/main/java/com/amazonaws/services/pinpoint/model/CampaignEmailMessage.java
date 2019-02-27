@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,12 +19,17 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * The email message configuration.
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/CampaignEmailMessage" target="_top">AWS API
+ *      Documentation</a>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class CampaignEmailMessage implements Serializable, Cloneable, StructuredPojo {
 
     /** The email text body. */
     private String body;
+    /** The email address used to send the email from. Defaults to use FromAddress specified in the Email Channel. */
+    private String fromAddress;
     /** The email html body. */
     private String htmlBody;
     /** The email title (Or subject). */
@@ -61,6 +66,41 @@ public class CampaignEmailMessage implements Serializable, Cloneable, Structured
 
     public CampaignEmailMessage withBody(String body) {
         setBody(body);
+        return this;
+    }
+
+    /**
+     * The email address used to send the email from. Defaults to use FromAddress specified in the Email Channel.
+     * 
+     * @param fromAddress
+     *        The email address used to send the email from. Defaults to use FromAddress specified in the Email Channel.
+     */
+
+    public void setFromAddress(String fromAddress) {
+        this.fromAddress = fromAddress;
+    }
+
+    /**
+     * The email address used to send the email from. Defaults to use FromAddress specified in the Email Channel.
+     * 
+     * @return The email address used to send the email from. Defaults to use FromAddress specified in the Email
+     *         Channel.
+     */
+
+    public String getFromAddress() {
+        return this.fromAddress;
+    }
+
+    /**
+     * The email address used to send the email from. Defaults to use FromAddress specified in the Email Channel.
+     * 
+     * @param fromAddress
+     *        The email address used to send the email from. Defaults to use FromAddress specified in the Email Channel.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CampaignEmailMessage withFromAddress(String fromAddress) {
+        setFromAddress(fromAddress);
         return this;
     }
 
@@ -133,7 +173,8 @@ public class CampaignEmailMessage implements Serializable, Cloneable, Structured
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -145,6 +186,8 @@ public class CampaignEmailMessage implements Serializable, Cloneable, Structured
         sb.append("{");
         if (getBody() != null)
             sb.append("Body: ").append(getBody()).append(",");
+        if (getFromAddress() != null)
+            sb.append("FromAddress: ").append(getFromAddress()).append(",");
         if (getHtmlBody() != null)
             sb.append("HtmlBody: ").append(getHtmlBody()).append(",");
         if (getTitle() != null)
@@ -167,6 +210,10 @@ public class CampaignEmailMessage implements Serializable, Cloneable, Structured
             return false;
         if (other.getBody() != null && other.getBody().equals(this.getBody()) == false)
             return false;
+        if (other.getFromAddress() == null ^ this.getFromAddress() == null)
+            return false;
+        if (other.getFromAddress() != null && other.getFromAddress().equals(this.getFromAddress()) == false)
+            return false;
         if (other.getHtmlBody() == null ^ this.getHtmlBody() == null)
             return false;
         if (other.getHtmlBody() != null && other.getHtmlBody().equals(this.getHtmlBody()) == false)
@@ -184,6 +231,7 @@ public class CampaignEmailMessage implements Serializable, Cloneable, Structured
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getBody() == null) ? 0 : getBody().hashCode());
+        hashCode = prime * hashCode + ((getFromAddress() == null) ? 0 : getFromAddress().hashCode());
         hashCode = prime * hashCode + ((getHtmlBody() == null) ? 0 : getHtmlBody().hashCode());
         hashCode = prime * hashCode + ((getTitle() == null) ? 0 : getTitle().hashCode());
         return hashCode;

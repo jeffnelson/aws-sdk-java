@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,10 +28,10 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A list of EC2 Availability Zones that instances in the DB cluster can be created in. For information on regions
-     * and Availability Zones, see <a
-     * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html">Regions
-     * and Availability Zones</a>.
+     * A list of EC2 Availability Zones that instances in the DB cluster can be created in. For information on AWS
+     * Regions and Availability Zones, see <a
+     * href="http://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Concepts.RegionsAndAvailabilityZones.html"
+     * >Choosing the Regions and Availability Zones</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> availabilityZones;
@@ -77,7 +77,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * <ul>
      * <li>
      * <p>
-     * Must contain from 1 to 63 alphanumeric characters or hyphens.
+     * Must contain from 1 to 63 letters, numbers, or hyphens.
      * </p>
      * </li>
      * <li>
@@ -87,7 +87,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * </li>
      * <li>
      * <p>
-     * Cannot end with a hyphen or contain two consecutive hyphens.
+     * Can't end with a hyphen or contain two consecutive hyphens.
      * </p>
      * </li>
      * </ul>
@@ -99,7 +99,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
     /**
      * <p>
      * The name of the DB cluster parameter group to associate with this DB cluster. If this argument is omitted,
-     * <code>default.aurora5.6</code> will be used.
+     * <code>default.aurora5.6</code> is used.
      * </p>
      * <p>
      * Constraints:
@@ -107,17 +107,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * <ul>
      * <li>
      * <p>
-     * Must be 1 to 255 alphanumeric characters
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * First character must be a letter
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Cannot end with a hyphen or contain two consecutive hyphens
+     * If supplied, must match the name of an existing DB cluster parameter group.
      * </p>
      * </li>
      * </ul>
@@ -134,8 +124,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * A DB subnet group to associate with this DB cluster.
      * </p>
      * <p>
-     * Constraints: Must contain no more than 255 alphanumeric characters, periods, underscores, spaces, or hyphens.
-     * Must not be default.
+     * Constraints: Must match the name of an existing DBSubnetGroup. Must not be default.
      * </p>
      * <p>
      * Example: <code>mySubnetgroup</code>
@@ -147,7 +136,8 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * The name of the database engine to be used for this DB cluster.
      * </p>
      * <p>
-     * Valid Values: <code>aurora</code>
+     * Valid Values: <code>aurora</code> (for MySQL 5.6-compatible Aurora), <code>aurora-mysql</code> (for MySQL
+     * 5.7-compatible Aurora), and <code>aurora-postgresql</code>
      * </p>
      */
     private String engine;
@@ -156,10 +146,16 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * The version number of the database engine to use.
      * </p>
      * <p>
-     * <b>Aurora</b>
+     * <b>Aurora MySQL</b>
      * </p>
      * <p>
-     * Example: <code>5.6.10a</code>
+     * Example: <code>5.6.10a</code>, <code>5.7.12</code>
+     * </p>
+     * <p>
+     * <b>Aurora PostgreSQL</b>
+     * </p>
+     * <p>
+     * Example: <code>9.6.3</code>
      * </p>
      */
     private String engineVersion;
@@ -168,7 +164,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * The port number on which the instances in the DB cluster accept connections.
      * </p>
      * <p>
-     * Default: <code>3306</code>
+     * Default: <code>3306</code> if engine is set as aurora or <code>5432</code> if set to aurora-postgresql.
      * </p>
      */
     private Integer port;
@@ -182,7 +178,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * <ul>
      * <li>
      * <p>
-     * Must be 1 to 16 alphanumeric characters.
+     * Must be 1 to 16 letters or numbers.
      * </p>
      * </li>
      * <li>
@@ -192,7 +188,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * </li>
      * <li>
      * <p>
-     * Cannot be a reserved word for the chosen database engine.
+     * Can't be a reserved word for the chosen database engine.
      * </p>
      * </li>
      * </ul>
@@ -213,8 +209,8 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * A value that indicates that the DB cluster should be associated with the specified option group.
      * </p>
      * <p>
-     * Permanent options cannot be removed from an option group. The option group cannot be removed from a DB cluster
-     * once it is associated with a DB cluster.
+     * Permanent options can't be removed from an option group. The option group can't be removed from a DB cluster once
+     * it is associated with a DB cluster.
      * </p>
      */
     private String optionGroupName;
@@ -224,10 +220,10 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * <code>BackupRetentionPeriod</code> parameter.
      * </p>
      * <p>
-     * Default: A 30-minute window selected at random from an 8-hour block of time per region. To see the time blocks
-     * available, see <a
-     * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html"> Adjusting the
-     * Preferred Maintenance Window</a> in the <i>Amazon RDS User Guide.</i>
+     * The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region. To see the
+     * time blocks available, see <a href=
+     * "http://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow.Aurora"
+     * > Adjusting the Preferred DB Cluster Maintenance Window</a> in the <i>Amazon Aurora User Guide.</i>
      * </p>
      * <p>
      * Constraints:
@@ -240,7 +236,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * </li>
      * <li>
      * <p>
-     * Times should be in Universal Coordinated Time (UTC).
+     * Must be in Universal Coordinated Time (UTC).
      * </p>
      * </li>
      * <li>
@@ -264,13 +260,13 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * Format: <code>ddd:hh24:mi-ddd:hh24:mi</code>
      * </p>
      * <p>
-     * Default: A 30-minute window selected at random from an 8-hour block of time per region, occurring on a random day
-     * of the week. To see the time blocks available, see <a
-     * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html"> Adjusting the
-     * Preferred Maintenance Window</a> in the <i>Amazon RDS User Guide.</i>
+     * The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region, occurring
+     * on a random day of the week. To see the time blocks available, see <a href=
+     * "http://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow.Aurora"
+     * > Adjusting the Preferred DB Cluster Maintenance Window</a> in the <i>Amazon Aurora User Guide.</i>
      * </p>
      * <p>
-     * Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun
+     * Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun.
      * </p>
      * <p>
      * Constraints: Minimum 30-minute window.
@@ -294,7 +290,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
     private Boolean storageEncrypted;
     /**
      * <p>
-     * The KMS key identifier for an encrypted DB cluster.
+     * The AWS KMS key identifier for an encrypted DB cluster.
      * </p>
      * <p>
      * The KMS key identifier is the Amazon Resource Name (ARN) for the KMS encryption key. If you are creating a DB
@@ -302,27 +298,42 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * can use the KMS key alias instead of the ARN for the KMS encryption key.
      * </p>
      * <p>
-     * If the <code>StorageEncrypted</code> parameter is true, and you do not specify a value for the
-     * <code>KmsKeyId</code> parameter, then Amazon RDS will use your default encryption key. AWS KMS creates the
-     * default encryption key for your AWS account. Your AWS account has a different default encryption key for each AWS
-     * region.
+     * If an encryption key is not specified in <code>KmsKeyId</code>:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If <code>ReplicationSourceIdentifier</code> identifies an encrypted source, then Amazon RDS will use the
+     * encryption key used to encrypt the source. Otherwise, Amazon RDS will use your default encryption key.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If the <code>StorageEncrypted</code> parameter is true and <code>ReplicationSourceIdentifier</code> is not
+     * specified, then Amazon RDS will use your default encryption key.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * AWS KMS creates the default encryption key for your AWS account. Your AWS account has a different default
+     * encryption key for each AWS Region.
      * </p>
      * <p>
-     * If you create a Read Replica of an encrypted DB cluster in another region, you must set <code>KmsKeyId</code> to
-     * a KMS key ID that is valid in the destination region. This key is used to encrypt the Read Replica in that
-     * region.
+     * If you create a Read Replica of an encrypted DB cluster in another AWS Region, you must set <code>KmsKeyId</code>
+     * to a KMS key ID that is valid in the destination AWS Region. This key is used to encrypt the Read Replica in that
+     * AWS Region.
      * </p>
      */
     private String kmsKeyId;
     /**
      * <p>
      * A URL that contains a Signature Version 4 signed request for the <code>CreateDBCluster</code> action to be called
-     * in the source region where the DB cluster will be replicated from. You only need to specify
+     * in the source AWS Region where the DB cluster is replicated from. You only need to specify
      * <code>PreSignedUrl</code> when you are performing cross-region replication from an encrypted DB cluster.
      * </p>
      * <p>
      * The pre-signed URL must be a valid request for the <code>CreateDBCluster</code> API action that can be executed
-     * in the source region that contains the encrypted DB cluster to be copied.
+     * in the source AWS Region that contains the encrypted DB cluster to be copied.
      * </p>
      * <p>
      * The pre-signed URL request must contain the following parameter values:
@@ -330,22 +341,23 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * <ul>
      * <li>
      * <p>
-     * <code>KmsKeyId</code> - The KMS key identifier for the key to use to encrypt the copy of the DB cluster in the
-     * destination region. This should refer to the same KMS key for both the <code>CreateDBCluster</code> action that
-     * is called in the destination region, and the action contained in the pre-signed URL.
+     * <code>KmsKeyId</code> - The AWS KMS key identifier for the key to use to encrypt the copy of the DB cluster in
+     * the destination AWS Region. This should refer to the same KMS key for both the <code>CreateDBCluster</code>
+     * action that is called in the destination AWS Region, and the action contained in the pre-signed URL.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>DestinationRegion</code> - The name of the region that Aurora Read Replica will be created in.
+     * <code>DestinationRegion</code> - The name of the AWS Region that Aurora Read Replica will be created in.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>ReplicationSourceIdentifier</code> - The DB cluster identifier for the encrypted DB cluster to be copied.
-     * This identifier must be in the Amazon Resource Name (ARN) format for the source region. For example, if you are
-     * copying an encrypted DB cluster from the us-west-2 region, then your <code>ReplicationSourceIdentifier</code>
-     * would look like Example: <code>arn:aws:rds:us-west-2:123456789012:cluster:aurora-cluster1</code>.
+     * This identifier must be in the Amazon Resource Name (ARN) format for the source AWS Region. For example, if you
+     * are copying an encrypted DB cluster from the us-west-2 AWS Region, then your
+     * <code>ReplicationSourceIdentifier</code> would look like Example:
+     * <code>arn:aws:rds:us-west-2:123456789012:cluster:aurora-cluster1</code>.
      * </p>
      * </li>
      * </ul>
@@ -360,29 +372,83 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
     private String preSignedUrl;
     /**
      * <p>
-     * A Boolean value that is true to enable mapping of AWS Identity and Access Management (IAM) accounts to database
-     * accounts, and otherwise false.
+     * True to enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts, and otherwise
+     * false.
      * </p>
      * <p>
      * Default: <code>false</code>
      * </p>
      */
     private Boolean enableIAMDatabaseAuthentication;
+    /**
+     * <p>
+     * The target backtrack window, in seconds. To disable backtracking, set this value to 0.
+     * </p>
+     * <p>
+     * Default: 0
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If specified, this value must be set to a number from 0 to 259,200 (72 hours).
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private Long backtrackWindow;
+    /**
+     * <p>
+     * The list of log types that need to be enabled for exporting to CloudWatch Logs. The values in the list depend on
+     * the DB engine being used. For more information, see <a href=
+     * "http://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
+     * >Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> enableCloudwatchLogsExports;
+    /**
+     * <p>
+     * The DB engine mode of the DB cluster, either <code>provisioned</code>, <code>serverless</code>,
+     * <code>parallelquery</code>, or <code>global</code>.
+     * </p>
+     */
+    private String engineMode;
+    /**
+     * <p>
+     * For DB clusters in <code>serverless</code> DB engine mode, the scaling properties of the DB cluster.
+     * </p>
+     */
+    private ScalingConfiguration scalingConfiguration;
+    /**
+     * <p>
+     * Indicates if the DB cluster should have deletion protection enabled. The database can't be deleted when this
+     * value is set to true. The default is false.
+     * </p>
+     */
+    private Boolean deletionProtection;
+    /**
+     * <p>
+     * The global cluster ID of an Aurora cluster that becomes the primary cluster in the new global database cluster.
+     * </p>
+     */
+    private String globalClusterIdentifier;
     /** The region where the source instance is located. */
     private String sourceRegion;
 
     /**
      * <p>
-     * A list of EC2 Availability Zones that instances in the DB cluster can be created in. For information on regions
-     * and Availability Zones, see <a
-     * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html">Regions
-     * and Availability Zones</a>.
+     * A list of EC2 Availability Zones that instances in the DB cluster can be created in. For information on AWS
+     * Regions and Availability Zones, see <a
+     * href="http://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Concepts.RegionsAndAvailabilityZones.html"
+     * >Choosing the Regions and Availability Zones</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
      * 
      * @return A list of EC2 Availability Zones that instances in the DB cluster can be created in. For information on
-     *         regions and Availability Zones, see <a
-     *         href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html"
-     *         >Regions and Availability Zones</a>.
+     *         AWS Regions and Availability Zones, see <a href=
+     *         "http://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Concepts.RegionsAndAvailabilityZones.html"
+     *         >Choosing the Regions and Availability Zones</a> in the <i>Amazon Aurora User Guide</i>.
      */
 
     public java.util.List<String> getAvailabilityZones() {
@@ -394,17 +460,17 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A list of EC2 Availability Zones that instances in the DB cluster can be created in. For information on regions
-     * and Availability Zones, see <a
-     * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html">Regions
-     * and Availability Zones</a>.
+     * A list of EC2 Availability Zones that instances in the DB cluster can be created in. For information on AWS
+     * Regions and Availability Zones, see <a
+     * href="http://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Concepts.RegionsAndAvailabilityZones.html"
+     * >Choosing the Regions and Availability Zones</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
      * 
      * @param availabilityZones
      *        A list of EC2 Availability Zones that instances in the DB cluster can be created in. For information on
-     *        regions and Availability Zones, see <a
-     *        href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html"
-     *        >Regions and Availability Zones</a>.
+     *        AWS Regions and Availability Zones, see <a href=
+     *        "http://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Concepts.RegionsAndAvailabilityZones.html"
+     *        >Choosing the Regions and Availability Zones</a> in the <i>Amazon Aurora User Guide</i>.
      */
 
     public void setAvailabilityZones(java.util.Collection<String> availabilityZones) {
@@ -418,10 +484,10 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A list of EC2 Availability Zones that instances in the DB cluster can be created in. For information on regions
-     * and Availability Zones, see <a
-     * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html">Regions
-     * and Availability Zones</a>.
+     * A list of EC2 Availability Zones that instances in the DB cluster can be created in. For information on AWS
+     * Regions and Availability Zones, see <a
+     * href="http://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Concepts.RegionsAndAvailabilityZones.html"
+     * >Choosing the Regions and Availability Zones</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -431,9 +497,9 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * 
      * @param availabilityZones
      *        A list of EC2 Availability Zones that instances in the DB cluster can be created in. For information on
-     *        regions and Availability Zones, see <a
-     *        href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html"
-     *        >Regions and Availability Zones</a>.
+     *        AWS Regions and Availability Zones, see <a href=
+     *        "http://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Concepts.RegionsAndAvailabilityZones.html"
+     *        >Choosing the Regions and Availability Zones</a> in the <i>Amazon Aurora User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -449,17 +515,17 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A list of EC2 Availability Zones that instances in the DB cluster can be created in. For information on regions
-     * and Availability Zones, see <a
-     * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html">Regions
-     * and Availability Zones</a>.
+     * A list of EC2 Availability Zones that instances in the DB cluster can be created in. For information on AWS
+     * Regions and Availability Zones, see <a
+     * href="http://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Concepts.RegionsAndAvailabilityZones.html"
+     * >Choosing the Regions and Availability Zones</a> in the <i>Amazon Aurora User Guide</i>.
      * </p>
      * 
      * @param availabilityZones
      *        A list of EC2 Availability Zones that instances in the DB cluster can be created in. For information on
-     *        regions and Availability Zones, see <a
-     *        href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html"
-     *        >Regions and Availability Zones</a>.
+     *        AWS Regions and Availability Zones, see <a href=
+     *        "http://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Concepts.RegionsAndAvailabilityZones.html"
+     *        >Choosing the Regions and Availability Zones</a> in the <i>Amazon Aurora User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -679,7 +745,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * <ul>
      * <li>
      * <p>
-     * Must contain from 1 to 63 alphanumeric characters or hyphens.
+     * Must contain from 1 to 63 letters, numbers, or hyphens.
      * </p>
      * </li>
      * <li>
@@ -689,7 +755,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * </li>
      * <li>
      * <p>
-     * Cannot end with a hyphen or contain two consecutive hyphens.
+     * Can't end with a hyphen or contain two consecutive hyphens.
      * </p>
      * </li>
      * </ul>
@@ -705,7 +771,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      *        <ul>
      *        <li>
      *        <p>
-     *        Must contain from 1 to 63 alphanumeric characters or hyphens.
+     *        Must contain from 1 to 63 letters, numbers, or hyphens.
      *        </p>
      *        </li>
      *        <li>
@@ -715,7 +781,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      *        </li>
      *        <li>
      *        <p>
-     *        Cannot end with a hyphen or contain two consecutive hyphens.
+     *        Can't end with a hyphen or contain two consecutive hyphens.
      *        </p>
      *        </li>
      *        </ul>
@@ -737,7 +803,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * <ul>
      * <li>
      * <p>
-     * Must contain from 1 to 63 alphanumeric characters or hyphens.
+     * Must contain from 1 to 63 letters, numbers, or hyphens.
      * </p>
      * </li>
      * <li>
@@ -747,7 +813,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * </li>
      * <li>
      * <p>
-     * Cannot end with a hyphen or contain two consecutive hyphens.
+     * Can't end with a hyphen or contain two consecutive hyphens.
      * </p>
      * </li>
      * </ul>
@@ -762,7 +828,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      *         <ul>
      *         <li>
      *         <p>
-     *         Must contain from 1 to 63 alphanumeric characters or hyphens.
+     *         Must contain from 1 to 63 letters, numbers, or hyphens.
      *         </p>
      *         </li>
      *         <li>
@@ -772,7 +838,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      *         </li>
      *         <li>
      *         <p>
-     *         Cannot end with a hyphen or contain two consecutive hyphens.
+     *         Can't end with a hyphen or contain two consecutive hyphens.
      *         </p>
      *         </li>
      *         </ul>
@@ -794,7 +860,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * <ul>
      * <li>
      * <p>
-     * Must contain from 1 to 63 alphanumeric characters or hyphens.
+     * Must contain from 1 to 63 letters, numbers, or hyphens.
      * </p>
      * </li>
      * <li>
@@ -804,7 +870,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * </li>
      * <li>
      * <p>
-     * Cannot end with a hyphen or contain two consecutive hyphens.
+     * Can't end with a hyphen or contain two consecutive hyphens.
      * </p>
      * </li>
      * </ul>
@@ -820,7 +886,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      *        <ul>
      *        <li>
      *        <p>
-     *        Must contain from 1 to 63 alphanumeric characters or hyphens.
+     *        Must contain from 1 to 63 letters, numbers, or hyphens.
      *        </p>
      *        </li>
      *        <li>
@@ -830,7 +896,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      *        </li>
      *        <li>
      *        <p>
-     *        Cannot end with a hyphen or contain two consecutive hyphens.
+     *        Can't end with a hyphen or contain two consecutive hyphens.
      *        </p>
      *        </li>
      *        </ul>
@@ -847,7 +913,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
     /**
      * <p>
      * The name of the DB cluster parameter group to associate with this DB cluster. If this argument is omitted,
-     * <code>default.aurora5.6</code> will be used.
+     * <code>default.aurora5.6</code> is used.
      * </p>
      * <p>
      * Constraints:
@@ -855,41 +921,21 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * <ul>
      * <li>
      * <p>
-     * Must be 1 to 255 alphanumeric characters
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * First character must be a letter
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Cannot end with a hyphen or contain two consecutive hyphens
+     * If supplied, must match the name of an existing DB cluster parameter group.
      * </p>
      * </li>
      * </ul>
      * 
      * @param dBClusterParameterGroupName
      *        The name of the DB cluster parameter group to associate with this DB cluster. If this argument is omitted,
-     *        <code>default.aurora5.6</code> will be used. </p>
+     *        <code>default.aurora5.6</code> is used. </p>
      *        <p>
      *        Constraints:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        Must be 1 to 255 alphanumeric characters
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        First character must be a letter
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        Cannot end with a hyphen or contain two consecutive hyphens
+     *        If supplied, must match the name of an existing DB cluster parameter group.
      *        </p>
      *        </li>
      */
@@ -901,7 +947,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
     /**
      * <p>
      * The name of the DB cluster parameter group to associate with this DB cluster. If this argument is omitted,
-     * <code>default.aurora5.6</code> will be used.
+     * <code>default.aurora5.6</code> is used.
      * </p>
      * <p>
      * Constraints:
@@ -909,40 +955,20 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * <ul>
      * <li>
      * <p>
-     * Must be 1 to 255 alphanumeric characters
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * First character must be a letter
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Cannot end with a hyphen or contain two consecutive hyphens
+     * If supplied, must match the name of an existing DB cluster parameter group.
      * </p>
      * </li>
      * </ul>
      * 
      * @return The name of the DB cluster parameter group to associate with this DB cluster. If this argument is
-     *         omitted, <code>default.aurora5.6</code> will be used. </p>
+     *         omitted, <code>default.aurora5.6</code> is used. </p>
      *         <p>
      *         Constraints:
      *         </p>
      *         <ul>
      *         <li>
      *         <p>
-     *         Must be 1 to 255 alphanumeric characters
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         First character must be a letter
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         Cannot end with a hyphen or contain two consecutive hyphens
+     *         If supplied, must match the name of an existing DB cluster parameter group.
      *         </p>
      *         </li>
      */
@@ -954,7 +980,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
     /**
      * <p>
      * The name of the DB cluster parameter group to associate with this DB cluster. If this argument is omitted,
-     * <code>default.aurora5.6</code> will be used.
+     * <code>default.aurora5.6</code> is used.
      * </p>
      * <p>
      * Constraints:
@@ -962,41 +988,21 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * <ul>
      * <li>
      * <p>
-     * Must be 1 to 255 alphanumeric characters
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * First character must be a letter
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Cannot end with a hyphen or contain two consecutive hyphens
+     * If supplied, must match the name of an existing DB cluster parameter group.
      * </p>
      * </li>
      * </ul>
      * 
      * @param dBClusterParameterGroupName
      *        The name of the DB cluster parameter group to associate with this DB cluster. If this argument is omitted,
-     *        <code>default.aurora5.6</code> will be used. </p>
+     *        <code>default.aurora5.6</code> is used. </p>
      *        <p>
      *        Constraints:
      *        </p>
      *        <ul>
      *        <li>
      *        <p>
-     *        Must be 1 to 255 alphanumeric characters
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        First character must be a letter
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        Cannot end with a hyphen or contain two consecutive hyphens
+     *        If supplied, must match the name of an existing DB cluster parameter group.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -1085,8 +1091,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * A DB subnet group to associate with this DB cluster.
      * </p>
      * <p>
-     * Constraints: Must contain no more than 255 alphanumeric characters, periods, underscores, spaces, or hyphens.
-     * Must not be default.
+     * Constraints: Must match the name of an existing DBSubnetGroup. Must not be default.
      * </p>
      * <p>
      * Example: <code>mySubnetgroup</code>
@@ -1095,8 +1100,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * @param dBSubnetGroupName
      *        A DB subnet group to associate with this DB cluster.</p>
      *        <p>
-     *        Constraints: Must contain no more than 255 alphanumeric characters, periods, underscores, spaces, or
-     *        hyphens. Must not be default.
+     *        Constraints: Must match the name of an existing DBSubnetGroup. Must not be default.
      *        </p>
      *        <p>
      *        Example: <code>mySubnetgroup</code>
@@ -1111,8 +1115,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * A DB subnet group to associate with this DB cluster.
      * </p>
      * <p>
-     * Constraints: Must contain no more than 255 alphanumeric characters, periods, underscores, spaces, or hyphens.
-     * Must not be default.
+     * Constraints: Must match the name of an existing DBSubnetGroup. Must not be default.
      * </p>
      * <p>
      * Example: <code>mySubnetgroup</code>
@@ -1120,8 +1123,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * 
      * @return A DB subnet group to associate with this DB cluster.</p>
      *         <p>
-     *         Constraints: Must contain no more than 255 alphanumeric characters, periods, underscores, spaces, or
-     *         hyphens. Must not be default.
+     *         Constraints: Must match the name of an existing DBSubnetGroup. Must not be default.
      *         </p>
      *         <p>
      *         Example: <code>mySubnetgroup</code>
@@ -1136,8 +1138,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * A DB subnet group to associate with this DB cluster.
      * </p>
      * <p>
-     * Constraints: Must contain no more than 255 alphanumeric characters, periods, underscores, spaces, or hyphens.
-     * Must not be default.
+     * Constraints: Must match the name of an existing DBSubnetGroup. Must not be default.
      * </p>
      * <p>
      * Example: <code>mySubnetgroup</code>
@@ -1146,8 +1147,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * @param dBSubnetGroupName
      *        A DB subnet group to associate with this DB cluster.</p>
      *        <p>
-     *        Constraints: Must contain no more than 255 alphanumeric characters, periods, underscores, spaces, or
-     *        hyphens. Must not be default.
+     *        Constraints: Must match the name of an existing DBSubnetGroup. Must not be default.
      *        </p>
      *        <p>
      *        Example: <code>mySubnetgroup</code>
@@ -1164,13 +1164,15 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * The name of the database engine to be used for this DB cluster.
      * </p>
      * <p>
-     * Valid Values: <code>aurora</code>
+     * Valid Values: <code>aurora</code> (for MySQL 5.6-compatible Aurora), <code>aurora-mysql</code> (for MySQL
+     * 5.7-compatible Aurora), and <code>aurora-postgresql</code>
      * </p>
      * 
      * @param engine
      *        The name of the database engine to be used for this DB cluster.</p>
      *        <p>
-     *        Valid Values: <code>aurora</code>
+     *        Valid Values: <code>aurora</code> (for MySQL 5.6-compatible Aurora), <code>aurora-mysql</code> (for MySQL
+     *        5.7-compatible Aurora), and <code>aurora-postgresql</code>
      */
 
     public void setEngine(String engine) {
@@ -1182,12 +1184,14 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * The name of the database engine to be used for this DB cluster.
      * </p>
      * <p>
-     * Valid Values: <code>aurora</code>
+     * Valid Values: <code>aurora</code> (for MySQL 5.6-compatible Aurora), <code>aurora-mysql</code> (for MySQL
+     * 5.7-compatible Aurora), and <code>aurora-postgresql</code>
      * </p>
      * 
      * @return The name of the database engine to be used for this DB cluster.</p>
      *         <p>
-     *         Valid Values: <code>aurora</code>
+     *         Valid Values: <code>aurora</code> (for MySQL 5.6-compatible Aurora), <code>aurora-mysql</code> (for MySQL
+     *         5.7-compatible Aurora), and <code>aurora-postgresql</code>
      */
 
     public String getEngine() {
@@ -1199,13 +1203,15 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * The name of the database engine to be used for this DB cluster.
      * </p>
      * <p>
-     * Valid Values: <code>aurora</code>
+     * Valid Values: <code>aurora</code> (for MySQL 5.6-compatible Aurora), <code>aurora-mysql</code> (for MySQL
+     * 5.7-compatible Aurora), and <code>aurora-postgresql</code>
      * </p>
      * 
      * @param engine
      *        The name of the database engine to be used for this DB cluster.</p>
      *        <p>
-     *        Valid Values: <code>aurora</code>
+     *        Valid Values: <code>aurora</code> (for MySQL 5.6-compatible Aurora), <code>aurora-mysql</code> (for MySQL
+     *        5.7-compatible Aurora), and <code>aurora-postgresql</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1219,19 +1225,31 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * The version number of the database engine to use.
      * </p>
      * <p>
-     * <b>Aurora</b>
+     * <b>Aurora MySQL</b>
      * </p>
      * <p>
-     * Example: <code>5.6.10a</code>
+     * Example: <code>5.6.10a</code>, <code>5.7.12</code>
+     * </p>
+     * <p>
+     * <b>Aurora PostgreSQL</b>
+     * </p>
+     * <p>
+     * Example: <code>9.6.3</code>
      * </p>
      * 
      * @param engineVersion
      *        The version number of the database engine to use.</p>
      *        <p>
-     *        <b>Aurora</b>
+     *        <b>Aurora MySQL</b>
      *        </p>
      *        <p>
-     *        Example: <code>5.6.10a</code>
+     *        Example: <code>5.6.10a</code>, <code>5.7.12</code>
+     *        </p>
+     *        <p>
+     *        <b>Aurora PostgreSQL</b>
+     *        </p>
+     *        <p>
+     *        Example: <code>9.6.3</code>
      */
 
     public void setEngineVersion(String engineVersion) {
@@ -1243,18 +1261,30 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * The version number of the database engine to use.
      * </p>
      * <p>
-     * <b>Aurora</b>
+     * <b>Aurora MySQL</b>
      * </p>
      * <p>
-     * Example: <code>5.6.10a</code>
+     * Example: <code>5.6.10a</code>, <code>5.7.12</code>
+     * </p>
+     * <p>
+     * <b>Aurora PostgreSQL</b>
+     * </p>
+     * <p>
+     * Example: <code>9.6.3</code>
      * </p>
      * 
      * @return The version number of the database engine to use.</p>
      *         <p>
-     *         <b>Aurora</b>
+     *         <b>Aurora MySQL</b>
      *         </p>
      *         <p>
-     *         Example: <code>5.6.10a</code>
+     *         Example: <code>5.6.10a</code>, <code>5.7.12</code>
+     *         </p>
+     *         <p>
+     *         <b>Aurora PostgreSQL</b>
+     *         </p>
+     *         <p>
+     *         Example: <code>9.6.3</code>
      */
 
     public String getEngineVersion() {
@@ -1266,19 +1296,31 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * The version number of the database engine to use.
      * </p>
      * <p>
-     * <b>Aurora</b>
+     * <b>Aurora MySQL</b>
      * </p>
      * <p>
-     * Example: <code>5.6.10a</code>
+     * Example: <code>5.6.10a</code>, <code>5.7.12</code>
+     * </p>
+     * <p>
+     * <b>Aurora PostgreSQL</b>
+     * </p>
+     * <p>
+     * Example: <code>9.6.3</code>
      * </p>
      * 
      * @param engineVersion
      *        The version number of the database engine to use.</p>
      *        <p>
-     *        <b>Aurora</b>
+     *        <b>Aurora MySQL</b>
      *        </p>
      *        <p>
-     *        Example: <code>5.6.10a</code>
+     *        Example: <code>5.6.10a</code>, <code>5.7.12</code>
+     *        </p>
+     *        <p>
+     *        <b>Aurora PostgreSQL</b>
+     *        </p>
+     *        <p>
+     *        Example: <code>9.6.3</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1292,13 +1334,13 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * The port number on which the instances in the DB cluster accept connections.
      * </p>
      * <p>
-     * Default: <code>3306</code>
+     * Default: <code>3306</code> if engine is set as aurora or <code>5432</code> if set to aurora-postgresql.
      * </p>
      * 
      * @param port
      *        The port number on which the instances in the DB cluster accept connections.</p>
      *        <p>
-     *        Default: <code>3306</code>
+     *        Default: <code>3306</code> if engine is set as aurora or <code>5432</code> if set to aurora-postgresql.
      */
 
     public void setPort(Integer port) {
@@ -1310,12 +1352,12 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * The port number on which the instances in the DB cluster accept connections.
      * </p>
      * <p>
-     * Default: <code>3306</code>
+     * Default: <code>3306</code> if engine is set as aurora or <code>5432</code> if set to aurora-postgresql.
      * </p>
      * 
      * @return The port number on which the instances in the DB cluster accept connections.</p>
      *         <p>
-     *         Default: <code>3306</code>
+     *         Default: <code>3306</code> if engine is set as aurora or <code>5432</code> if set to aurora-postgresql.
      */
 
     public Integer getPort() {
@@ -1327,13 +1369,13 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * The port number on which the instances in the DB cluster accept connections.
      * </p>
      * <p>
-     * Default: <code>3306</code>
+     * Default: <code>3306</code> if engine is set as aurora or <code>5432</code> if set to aurora-postgresql.
      * </p>
      * 
      * @param port
      *        The port number on which the instances in the DB cluster accept connections.</p>
      *        <p>
-     *        Default: <code>3306</code>
+     *        Default: <code>3306</code> if engine is set as aurora or <code>5432</code> if set to aurora-postgresql.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1352,7 +1394,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * <ul>
      * <li>
      * <p>
-     * Must be 1 to 16 alphanumeric characters.
+     * Must be 1 to 16 letters or numbers.
      * </p>
      * </li>
      * <li>
@@ -1362,7 +1404,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * </li>
      * <li>
      * <p>
-     * Cannot be a reserved word for the chosen database engine.
+     * Can't be a reserved word for the chosen database engine.
      * </p>
      * </li>
      * </ul>
@@ -1375,7 +1417,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      *        <ul>
      *        <li>
      *        <p>
-     *        Must be 1 to 16 alphanumeric characters.
+     *        Must be 1 to 16 letters or numbers.
      *        </p>
      *        </li>
      *        <li>
@@ -1385,7 +1427,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      *        </li>
      *        <li>
      *        <p>
-     *        Cannot be a reserved word for the chosen database engine.
+     *        Can't be a reserved word for the chosen database engine.
      *        </p>
      *        </li>
      */
@@ -1404,7 +1446,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * <ul>
      * <li>
      * <p>
-     * Must be 1 to 16 alphanumeric characters.
+     * Must be 1 to 16 letters or numbers.
      * </p>
      * </li>
      * <li>
@@ -1414,7 +1456,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * </li>
      * <li>
      * <p>
-     * Cannot be a reserved word for the chosen database engine.
+     * Can't be a reserved word for the chosen database engine.
      * </p>
      * </li>
      * </ul>
@@ -1426,7 +1468,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      *         <ul>
      *         <li>
      *         <p>
-     *         Must be 1 to 16 alphanumeric characters.
+     *         Must be 1 to 16 letters or numbers.
      *         </p>
      *         </li>
      *         <li>
@@ -1436,7 +1478,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      *         </li>
      *         <li>
      *         <p>
-     *         Cannot be a reserved word for the chosen database engine.
+     *         Can't be a reserved word for the chosen database engine.
      *         </p>
      *         </li>
      */
@@ -1455,7 +1497,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * <ul>
      * <li>
      * <p>
-     * Must be 1 to 16 alphanumeric characters.
+     * Must be 1 to 16 letters or numbers.
      * </p>
      * </li>
      * <li>
@@ -1465,7 +1507,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * </li>
      * <li>
      * <p>
-     * Cannot be a reserved word for the chosen database engine.
+     * Can't be a reserved word for the chosen database engine.
      * </p>
      * </li>
      * </ul>
@@ -1478,7 +1520,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      *        <ul>
      *        <li>
      *        <p>
-     *        Must be 1 to 16 alphanumeric characters.
+     *        Must be 1 to 16 letters or numbers.
      *        </p>
      *        </li>
      *        <li>
@@ -1488,7 +1530,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      *        </li>
      *        <li>
      *        <p>
-     *        Cannot be a reserved word for the chosen database engine.
+     *        Can't be a reserved word for the chosen database engine.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -1565,14 +1607,14 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * A value that indicates that the DB cluster should be associated with the specified option group.
      * </p>
      * <p>
-     * Permanent options cannot be removed from an option group. The option group cannot be removed from a DB cluster
-     * once it is associated with a DB cluster.
+     * Permanent options can't be removed from an option group. The option group can't be removed from a DB cluster once
+     * it is associated with a DB cluster.
      * </p>
      * 
      * @param optionGroupName
      *        A value that indicates that the DB cluster should be associated with the specified option group.</p>
      *        <p>
-     *        Permanent options cannot be removed from an option group. The option group cannot be removed from a DB
+     *        Permanent options can't be removed from an option group. The option group can't be removed from a DB
      *        cluster once it is associated with a DB cluster.
      */
 
@@ -1585,13 +1627,13 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * A value that indicates that the DB cluster should be associated with the specified option group.
      * </p>
      * <p>
-     * Permanent options cannot be removed from an option group. The option group cannot be removed from a DB cluster
-     * once it is associated with a DB cluster.
+     * Permanent options can't be removed from an option group. The option group can't be removed from a DB cluster once
+     * it is associated with a DB cluster.
      * </p>
      * 
      * @return A value that indicates that the DB cluster should be associated with the specified option group.</p>
      *         <p>
-     *         Permanent options cannot be removed from an option group. The option group cannot be removed from a DB
+     *         Permanent options can't be removed from an option group. The option group can't be removed from a DB
      *         cluster once it is associated with a DB cluster.
      */
 
@@ -1604,14 +1646,14 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * A value that indicates that the DB cluster should be associated with the specified option group.
      * </p>
      * <p>
-     * Permanent options cannot be removed from an option group. The option group cannot be removed from a DB cluster
-     * once it is associated with a DB cluster.
+     * Permanent options can't be removed from an option group. The option group can't be removed from a DB cluster once
+     * it is associated with a DB cluster.
      * </p>
      * 
      * @param optionGroupName
      *        A value that indicates that the DB cluster should be associated with the specified option group.</p>
      *        <p>
-     *        Permanent options cannot be removed from an option group. The option group cannot be removed from a DB
+     *        Permanent options can't be removed from an option group. The option group can't be removed from a DB
      *        cluster once it is associated with a DB cluster.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -1627,10 +1669,10 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * <code>BackupRetentionPeriod</code> parameter.
      * </p>
      * <p>
-     * Default: A 30-minute window selected at random from an 8-hour block of time per region. To see the time blocks
-     * available, see <a
-     * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html"> Adjusting the
-     * Preferred Maintenance Window</a> in the <i>Amazon RDS User Guide.</i>
+     * The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region. To see the
+     * time blocks available, see <a href=
+     * "http://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow.Aurora"
+     * > Adjusting the Preferred DB Cluster Maintenance Window</a> in the <i>Amazon Aurora User Guide.</i>
      * </p>
      * <p>
      * Constraints:
@@ -1643,7 +1685,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * </li>
      * <li>
      * <p>
-     * Times should be in Universal Coordinated Time (UTC).
+     * Must be in Universal Coordinated Time (UTC).
      * </p>
      * </li>
      * <li>
@@ -1662,10 +1704,10 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      *        The daily time range during which automated backups are created if automated backups are enabled using the
      *        <code>BackupRetentionPeriod</code> parameter. </p>
      *        <p>
-     *        Default: A 30-minute window selected at random from an 8-hour block of time per region. To see the time
-     *        blocks available, see <a
-     *        href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html"> Adjusting
-     *        the Preferred Maintenance Window</a> in the <i>Amazon RDS User Guide.</i>
+     *        The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region. To
+     *        see the time blocks available, see <a href=
+     *        "http://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow.Aurora"
+     *        > Adjusting the Preferred DB Cluster Maintenance Window</a> in the <i>Amazon Aurora User Guide.</i>
      *        </p>
      *        <p>
      *        Constraints:
@@ -1678,7 +1720,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      *        </li>
      *        <li>
      *        <p>
-     *        Times should be in Universal Coordinated Time (UTC).
+     *        Must be in Universal Coordinated Time (UTC).
      *        </p>
      *        </li>
      *        <li>
@@ -1703,10 +1745,10 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * <code>BackupRetentionPeriod</code> parameter.
      * </p>
      * <p>
-     * Default: A 30-minute window selected at random from an 8-hour block of time per region. To see the time blocks
-     * available, see <a
-     * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html"> Adjusting the
-     * Preferred Maintenance Window</a> in the <i>Amazon RDS User Guide.</i>
+     * The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region. To see the
+     * time blocks available, see <a href=
+     * "http://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow.Aurora"
+     * > Adjusting the Preferred DB Cluster Maintenance Window</a> in the <i>Amazon Aurora User Guide.</i>
      * </p>
      * <p>
      * Constraints:
@@ -1719,7 +1761,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * </li>
      * <li>
      * <p>
-     * Times should be in Universal Coordinated Time (UTC).
+     * Must be in Universal Coordinated Time (UTC).
      * </p>
      * </li>
      * <li>
@@ -1737,10 +1779,10 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * @return The daily time range during which automated backups are created if automated backups are enabled using
      *         the <code>BackupRetentionPeriod</code> parameter. </p>
      *         <p>
-     *         Default: A 30-minute window selected at random from an 8-hour block of time per region. To see the time
-     *         blocks available, see <a
-     *         href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html">
-     *         Adjusting the Preferred Maintenance Window</a> in the <i>Amazon RDS User Guide.</i>
+     *         The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region. To
+     *         see the time blocks available, see <a href=
+     *         "http://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow.Aurora"
+     *         > Adjusting the Preferred DB Cluster Maintenance Window</a> in the <i>Amazon Aurora User Guide.</i>
      *         </p>
      *         <p>
      *         Constraints:
@@ -1753,7 +1795,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      *         </li>
      *         <li>
      *         <p>
-     *         Times should be in Universal Coordinated Time (UTC).
+     *         Must be in Universal Coordinated Time (UTC).
      *         </p>
      *         </li>
      *         <li>
@@ -1778,10 +1820,10 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * <code>BackupRetentionPeriod</code> parameter.
      * </p>
      * <p>
-     * Default: A 30-minute window selected at random from an 8-hour block of time per region. To see the time blocks
-     * available, see <a
-     * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html"> Adjusting the
-     * Preferred Maintenance Window</a> in the <i>Amazon RDS User Guide.</i>
+     * The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region. To see the
+     * time blocks available, see <a href=
+     * "http://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow.Aurora"
+     * > Adjusting the Preferred DB Cluster Maintenance Window</a> in the <i>Amazon Aurora User Guide.</i>
      * </p>
      * <p>
      * Constraints:
@@ -1794,7 +1836,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * </li>
      * <li>
      * <p>
-     * Times should be in Universal Coordinated Time (UTC).
+     * Must be in Universal Coordinated Time (UTC).
      * </p>
      * </li>
      * <li>
@@ -1813,10 +1855,10 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      *        The daily time range during which automated backups are created if automated backups are enabled using the
      *        <code>BackupRetentionPeriod</code> parameter. </p>
      *        <p>
-     *        Default: A 30-minute window selected at random from an 8-hour block of time per region. To see the time
-     *        blocks available, see <a
-     *        href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html"> Adjusting
-     *        the Preferred Maintenance Window</a> in the <i>Amazon RDS User Guide.</i>
+     *        The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region. To
+     *        see the time blocks available, see <a href=
+     *        "http://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow.Aurora"
+     *        > Adjusting the Preferred DB Cluster Maintenance Window</a> in the <i>Amazon Aurora User Guide.</i>
      *        </p>
      *        <p>
      *        Constraints:
@@ -1829,7 +1871,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      *        </li>
      *        <li>
      *        <p>
-     *        Times should be in Universal Coordinated Time (UTC).
+     *        Must be in Universal Coordinated Time (UTC).
      *        </p>
      *        </li>
      *        <li>
@@ -1858,13 +1900,13 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * Format: <code>ddd:hh24:mi-ddd:hh24:mi</code>
      * </p>
      * <p>
-     * Default: A 30-minute window selected at random from an 8-hour block of time per region, occurring on a random day
-     * of the week. To see the time blocks available, see <a
-     * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html"> Adjusting the
-     * Preferred Maintenance Window</a> in the <i>Amazon RDS User Guide.</i>
+     * The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region, occurring
+     * on a random day of the week. To see the time blocks available, see <a href=
+     * "http://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow.Aurora"
+     * > Adjusting the Preferred DB Cluster Maintenance Window</a> in the <i>Amazon Aurora User Guide.</i>
      * </p>
      * <p>
-     * Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun
+     * Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun.
      * </p>
      * <p>
      * Constraints: Minimum 30-minute window.
@@ -1876,13 +1918,13 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      *        Format: <code>ddd:hh24:mi-ddd:hh24:mi</code>
      *        </p>
      *        <p>
-     *        Default: A 30-minute window selected at random from an 8-hour block of time per region, occurring on a
-     *        random day of the week. To see the time blocks available, see <a
-     *        href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html"> Adjusting
-     *        the Preferred Maintenance Window</a> in the <i>Amazon RDS User Guide.</i>
+     *        The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region,
+     *        occurring on a random day of the week. To see the time blocks available, see <a href=
+     *        "http://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow.Aurora"
+     *        > Adjusting the Preferred DB Cluster Maintenance Window</a> in the <i>Amazon Aurora User Guide.</i>
      *        </p>
      *        <p>
-     *        Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun
+     *        Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun.
      *        </p>
      *        <p>
      *        Constraints: Minimum 30-minute window.
@@ -1900,13 +1942,13 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * Format: <code>ddd:hh24:mi-ddd:hh24:mi</code>
      * </p>
      * <p>
-     * Default: A 30-minute window selected at random from an 8-hour block of time per region, occurring on a random day
-     * of the week. To see the time blocks available, see <a
-     * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html"> Adjusting the
-     * Preferred Maintenance Window</a> in the <i>Amazon RDS User Guide.</i>
+     * The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region, occurring
+     * on a random day of the week. To see the time blocks available, see <a href=
+     * "http://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow.Aurora"
+     * > Adjusting the Preferred DB Cluster Maintenance Window</a> in the <i>Amazon Aurora User Guide.</i>
      * </p>
      * <p>
-     * Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun
+     * Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun.
      * </p>
      * <p>
      * Constraints: Minimum 30-minute window.
@@ -1917,13 +1959,13 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      *         Format: <code>ddd:hh24:mi-ddd:hh24:mi</code>
      *         </p>
      *         <p>
-     *         Default: A 30-minute window selected at random from an 8-hour block of time per region, occurring on a
-     *         random day of the week. To see the time blocks available, see <a
-     *         href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html">
-     *         Adjusting the Preferred Maintenance Window</a> in the <i>Amazon RDS User Guide.</i>
+     *         The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region,
+     *         occurring on a random day of the week. To see the time blocks available, see <a href=
+     *         "http://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow.Aurora"
+     *         > Adjusting the Preferred DB Cluster Maintenance Window</a> in the <i>Amazon Aurora User Guide.</i>
      *         </p>
      *         <p>
-     *         Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun
+     *         Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun.
      *         </p>
      *         <p>
      *         Constraints: Minimum 30-minute window.
@@ -1941,13 +1983,13 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * Format: <code>ddd:hh24:mi-ddd:hh24:mi</code>
      * </p>
      * <p>
-     * Default: A 30-minute window selected at random from an 8-hour block of time per region, occurring on a random day
-     * of the week. To see the time blocks available, see <a
-     * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html"> Adjusting the
-     * Preferred Maintenance Window</a> in the <i>Amazon RDS User Guide.</i>
+     * The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region, occurring
+     * on a random day of the week. To see the time blocks available, see <a href=
+     * "http://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow.Aurora"
+     * > Adjusting the Preferred DB Cluster Maintenance Window</a> in the <i>Amazon Aurora User Guide.</i>
      * </p>
      * <p>
-     * Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun
+     * Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun.
      * </p>
      * <p>
      * Constraints: Minimum 30-minute window.
@@ -1959,13 +2001,13 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      *        Format: <code>ddd:hh24:mi-ddd:hh24:mi</code>
      *        </p>
      *        <p>
-     *        Default: A 30-minute window selected at random from an 8-hour block of time per region, occurring on a
-     *        random day of the week. To see the time blocks available, see <a
-     *        href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html"> Adjusting
-     *        the Preferred Maintenance Window</a> in the <i>Amazon RDS User Guide.</i>
+     *        The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region,
+     *        occurring on a random day of the week. To see the time blocks available, see <a href=
+     *        "http://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow.Aurora"
+     *        > Adjusting the Preferred DB Cluster Maintenance Window</a> in the <i>Amazon Aurora User Guide.</i>
      *        </p>
      *        <p>
-     *        Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun
+     *        Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun.
      *        </p>
      *        <p>
      *        Constraints: Minimum 30-minute window.
@@ -2132,7 +2174,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The KMS key identifier for an encrypted DB cluster.
+     * The AWS KMS key identifier for an encrypted DB cluster.
      * </p>
      * <p>
      * The KMS key identifier is the Amazon Resource Name (ARN) for the KMS encryption key. If you are creating a DB
@@ -2140,34 +2182,64 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * can use the KMS key alias instead of the ARN for the KMS encryption key.
      * </p>
      * <p>
-     * If the <code>StorageEncrypted</code> parameter is true, and you do not specify a value for the
-     * <code>KmsKeyId</code> parameter, then Amazon RDS will use your default encryption key. AWS KMS creates the
-     * default encryption key for your AWS account. Your AWS account has a different default encryption key for each AWS
-     * region.
+     * If an encryption key is not specified in <code>KmsKeyId</code>:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If <code>ReplicationSourceIdentifier</code> identifies an encrypted source, then Amazon RDS will use the
+     * encryption key used to encrypt the source. Otherwise, Amazon RDS will use your default encryption key.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If the <code>StorageEncrypted</code> parameter is true and <code>ReplicationSourceIdentifier</code> is not
+     * specified, then Amazon RDS will use your default encryption key.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * AWS KMS creates the default encryption key for your AWS account. Your AWS account has a different default
+     * encryption key for each AWS Region.
      * </p>
      * <p>
-     * If you create a Read Replica of an encrypted DB cluster in another region, you must set <code>KmsKeyId</code> to
-     * a KMS key ID that is valid in the destination region. This key is used to encrypt the Read Replica in that
-     * region.
+     * If you create a Read Replica of an encrypted DB cluster in another AWS Region, you must set <code>KmsKeyId</code>
+     * to a KMS key ID that is valid in the destination AWS Region. This key is used to encrypt the Read Replica in that
+     * AWS Region.
      * </p>
      * 
      * @param kmsKeyId
-     *        The KMS key identifier for an encrypted DB cluster.</p>
+     *        The AWS KMS key identifier for an encrypted DB cluster.</p>
      *        <p>
      *        The KMS key identifier is the Amazon Resource Name (ARN) for the KMS encryption key. If you are creating a
      *        DB cluster with the same AWS account that owns the KMS encryption key used to encrypt the new DB cluster,
      *        then you can use the KMS key alias instead of the ARN for the KMS encryption key.
      *        </p>
      *        <p>
-     *        If the <code>StorageEncrypted</code> parameter is true, and you do not specify a value for the
-     *        <code>KmsKeyId</code> parameter, then Amazon RDS will use your default encryption key. AWS KMS creates the
-     *        default encryption key for your AWS account. Your AWS account has a different default encryption key for
-     *        each AWS region.
+     *        If an encryption key is not specified in <code>KmsKeyId</code>:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        If <code>ReplicationSourceIdentifier</code> identifies an encrypted source, then Amazon RDS will use the
+     *        encryption key used to encrypt the source. Otherwise, Amazon RDS will use your default encryption key.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If the <code>StorageEncrypted</code> parameter is true and <code>ReplicationSourceIdentifier</code> is not
+     *        specified, then Amazon RDS will use your default encryption key.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        AWS KMS creates the default encryption key for your AWS account. Your AWS account has a different default
+     *        encryption key for each AWS Region.
      *        </p>
      *        <p>
-     *        If you create a Read Replica of an encrypted DB cluster in another region, you must set
-     *        <code>KmsKeyId</code> to a KMS key ID that is valid in the destination region. This key is used to encrypt
-     *        the Read Replica in that region.
+     *        If you create a Read Replica of an encrypted DB cluster in another AWS Region, you must set
+     *        <code>KmsKeyId</code> to a KMS key ID that is valid in the destination AWS Region. This key is used to
+     *        encrypt the Read Replica in that AWS Region.
      */
 
     public void setKmsKeyId(String kmsKeyId) {
@@ -2176,7 +2248,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The KMS key identifier for an encrypted DB cluster.
+     * The AWS KMS key identifier for an encrypted DB cluster.
      * </p>
      * <p>
      * The KMS key identifier is the Amazon Resource Name (ARN) for the KMS encryption key. If you are creating a DB
@@ -2184,33 +2256,63 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * can use the KMS key alias instead of the ARN for the KMS encryption key.
      * </p>
      * <p>
-     * If the <code>StorageEncrypted</code> parameter is true, and you do not specify a value for the
-     * <code>KmsKeyId</code> parameter, then Amazon RDS will use your default encryption key. AWS KMS creates the
-     * default encryption key for your AWS account. Your AWS account has a different default encryption key for each AWS
-     * region.
+     * If an encryption key is not specified in <code>KmsKeyId</code>:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If <code>ReplicationSourceIdentifier</code> identifies an encrypted source, then Amazon RDS will use the
+     * encryption key used to encrypt the source. Otherwise, Amazon RDS will use your default encryption key.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If the <code>StorageEncrypted</code> parameter is true and <code>ReplicationSourceIdentifier</code> is not
+     * specified, then Amazon RDS will use your default encryption key.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * AWS KMS creates the default encryption key for your AWS account. Your AWS account has a different default
+     * encryption key for each AWS Region.
      * </p>
      * <p>
-     * If you create a Read Replica of an encrypted DB cluster in another region, you must set <code>KmsKeyId</code> to
-     * a KMS key ID that is valid in the destination region. This key is used to encrypt the Read Replica in that
-     * region.
+     * If you create a Read Replica of an encrypted DB cluster in another AWS Region, you must set <code>KmsKeyId</code>
+     * to a KMS key ID that is valid in the destination AWS Region. This key is used to encrypt the Read Replica in that
+     * AWS Region.
      * </p>
      * 
-     * @return The KMS key identifier for an encrypted DB cluster.</p>
+     * @return The AWS KMS key identifier for an encrypted DB cluster.</p>
      *         <p>
      *         The KMS key identifier is the Amazon Resource Name (ARN) for the KMS encryption key. If you are creating
      *         a DB cluster with the same AWS account that owns the KMS encryption key used to encrypt the new DB
      *         cluster, then you can use the KMS key alias instead of the ARN for the KMS encryption key.
      *         </p>
      *         <p>
-     *         If the <code>StorageEncrypted</code> parameter is true, and you do not specify a value for the
-     *         <code>KmsKeyId</code> parameter, then Amazon RDS will use your default encryption key. AWS KMS creates
-     *         the default encryption key for your AWS account. Your AWS account has a different default encryption key
-     *         for each AWS region.
+     *         If an encryption key is not specified in <code>KmsKeyId</code>:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         If <code>ReplicationSourceIdentifier</code> identifies an encrypted source, then Amazon RDS will use the
+     *         encryption key used to encrypt the source. Otherwise, Amazon RDS will use your default encryption key.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         If the <code>StorageEncrypted</code> parameter is true and <code>ReplicationSourceIdentifier</code> is
+     *         not specified, then Amazon RDS will use your default encryption key.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         AWS KMS creates the default encryption key for your AWS account. Your AWS account has a different default
+     *         encryption key for each AWS Region.
      *         </p>
      *         <p>
-     *         If you create a Read Replica of an encrypted DB cluster in another region, you must set
-     *         <code>KmsKeyId</code> to a KMS key ID that is valid in the destination region. This key is used to
-     *         encrypt the Read Replica in that region.
+     *         If you create a Read Replica of an encrypted DB cluster in another AWS Region, you must set
+     *         <code>KmsKeyId</code> to a KMS key ID that is valid in the destination AWS Region. This key is used to
+     *         encrypt the Read Replica in that AWS Region.
      */
 
     public String getKmsKeyId() {
@@ -2219,7 +2321,7 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The KMS key identifier for an encrypted DB cluster.
+     * The AWS KMS key identifier for an encrypted DB cluster.
      * </p>
      * <p>
      * The KMS key identifier is the Amazon Resource Name (ARN) for the KMS encryption key. If you are creating a DB
@@ -2227,34 +2329,64 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * can use the KMS key alias instead of the ARN for the KMS encryption key.
      * </p>
      * <p>
-     * If the <code>StorageEncrypted</code> parameter is true, and you do not specify a value for the
-     * <code>KmsKeyId</code> parameter, then Amazon RDS will use your default encryption key. AWS KMS creates the
-     * default encryption key for your AWS account. Your AWS account has a different default encryption key for each AWS
-     * region.
+     * If an encryption key is not specified in <code>KmsKeyId</code>:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If <code>ReplicationSourceIdentifier</code> identifies an encrypted source, then Amazon RDS will use the
+     * encryption key used to encrypt the source. Otherwise, Amazon RDS will use your default encryption key.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * If the <code>StorageEncrypted</code> parameter is true and <code>ReplicationSourceIdentifier</code> is not
+     * specified, then Amazon RDS will use your default encryption key.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * AWS KMS creates the default encryption key for your AWS account. Your AWS account has a different default
+     * encryption key for each AWS Region.
      * </p>
      * <p>
-     * If you create a Read Replica of an encrypted DB cluster in another region, you must set <code>KmsKeyId</code> to
-     * a KMS key ID that is valid in the destination region. This key is used to encrypt the Read Replica in that
-     * region.
+     * If you create a Read Replica of an encrypted DB cluster in another AWS Region, you must set <code>KmsKeyId</code>
+     * to a KMS key ID that is valid in the destination AWS Region. This key is used to encrypt the Read Replica in that
+     * AWS Region.
      * </p>
      * 
      * @param kmsKeyId
-     *        The KMS key identifier for an encrypted DB cluster.</p>
+     *        The AWS KMS key identifier for an encrypted DB cluster.</p>
      *        <p>
      *        The KMS key identifier is the Amazon Resource Name (ARN) for the KMS encryption key. If you are creating a
      *        DB cluster with the same AWS account that owns the KMS encryption key used to encrypt the new DB cluster,
      *        then you can use the KMS key alias instead of the ARN for the KMS encryption key.
      *        </p>
      *        <p>
-     *        If the <code>StorageEncrypted</code> parameter is true, and you do not specify a value for the
-     *        <code>KmsKeyId</code> parameter, then Amazon RDS will use your default encryption key. AWS KMS creates the
-     *        default encryption key for your AWS account. Your AWS account has a different default encryption key for
-     *        each AWS region.
+     *        If an encryption key is not specified in <code>KmsKeyId</code>:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        If <code>ReplicationSourceIdentifier</code> identifies an encrypted source, then Amazon RDS will use the
+     *        encryption key used to encrypt the source. Otherwise, Amazon RDS will use your default encryption key.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        If the <code>StorageEncrypted</code> parameter is true and <code>ReplicationSourceIdentifier</code> is not
+     *        specified, then Amazon RDS will use your default encryption key.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        AWS KMS creates the default encryption key for your AWS account. Your AWS account has a different default
+     *        encryption key for each AWS Region.
      *        </p>
      *        <p>
-     *        If you create a Read Replica of an encrypted DB cluster in another region, you must set
-     *        <code>KmsKeyId</code> to a KMS key ID that is valid in the destination region. This key is used to encrypt
-     *        the Read Replica in that region.
+     *        If you create a Read Replica of an encrypted DB cluster in another AWS Region, you must set
+     *        <code>KmsKeyId</code> to a KMS key ID that is valid in the destination AWS Region. This key is used to
+     *        encrypt the Read Replica in that AWS Region.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2266,12 +2398,12 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
     /**
      * <p>
      * A URL that contains a Signature Version 4 signed request for the <code>CreateDBCluster</code> action to be called
-     * in the source region where the DB cluster will be replicated from. You only need to specify
+     * in the source AWS Region where the DB cluster is replicated from. You only need to specify
      * <code>PreSignedUrl</code> when you are performing cross-region replication from an encrypted DB cluster.
      * </p>
      * <p>
      * The pre-signed URL must be a valid request for the <code>CreateDBCluster</code> API action that can be executed
-     * in the source region that contains the encrypted DB cluster to be copied.
+     * in the source AWS Region that contains the encrypted DB cluster to be copied.
      * </p>
      * <p>
      * The pre-signed URL request must contain the following parameter values:
@@ -2279,22 +2411,23 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * <ul>
      * <li>
      * <p>
-     * <code>KmsKeyId</code> - The KMS key identifier for the key to use to encrypt the copy of the DB cluster in the
-     * destination region. This should refer to the same KMS key for both the <code>CreateDBCluster</code> action that
-     * is called in the destination region, and the action contained in the pre-signed URL.
+     * <code>KmsKeyId</code> - The AWS KMS key identifier for the key to use to encrypt the copy of the DB cluster in
+     * the destination AWS Region. This should refer to the same KMS key for both the <code>CreateDBCluster</code>
+     * action that is called in the destination AWS Region, and the action contained in the pre-signed URL.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>DestinationRegion</code> - The name of the region that Aurora Read Replica will be created in.
+     * <code>DestinationRegion</code> - The name of the AWS Region that Aurora Read Replica will be created in.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>ReplicationSourceIdentifier</code> - The DB cluster identifier for the encrypted DB cluster to be copied.
-     * This identifier must be in the Amazon Resource Name (ARN) format for the source region. For example, if you are
-     * copying an encrypted DB cluster from the us-west-2 region, then your <code>ReplicationSourceIdentifier</code>
-     * would look like Example: <code>arn:aws:rds:us-west-2:123456789012:cluster:aurora-cluster1</code>.
+     * This identifier must be in the Amazon Resource Name (ARN) format for the source AWS Region. For example, if you
+     * are copying an encrypted DB cluster from the us-west-2 AWS Region, then your
+     * <code>ReplicationSourceIdentifier</code> would look like Example:
+     * <code>arn:aws:rds:us-west-2:123456789012:cluster:aurora-cluster1</code>.
      * </p>
      * </li>
      * </ul>
@@ -2308,12 +2441,12 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * 
      * @param preSignedUrl
      *        A URL that contains a Signature Version 4 signed request for the <code>CreateDBCluster</code> action to be
-     *        called in the source region where the DB cluster will be replicated from. You only need to specify
+     *        called in the source AWS Region where the DB cluster is replicated from. You only need to specify
      *        <code>PreSignedUrl</code> when you are performing cross-region replication from an encrypted DB
      *        cluster.</p>
      *        <p>
      *        The pre-signed URL must be a valid request for the <code>CreateDBCluster</code> API action that can be
-     *        executed in the source region that contains the encrypted DB cluster to be copied.
+     *        executed in the source AWS Region that contains the encrypted DB cluster to be copied.
      *        </p>
      *        <p>
      *        The pre-signed URL request must contain the following parameter values:
@@ -2321,21 +2454,22 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>KmsKeyId</code> - The KMS key identifier for the key to use to encrypt the copy of the DB cluster in
-     *        the destination region. This should refer to the same KMS key for both the <code>CreateDBCluster</code>
-     *        action that is called in the destination region, and the action contained in the pre-signed URL.
+     *        <code>KmsKeyId</code> - The AWS KMS key identifier for the key to use to encrypt the copy of the DB
+     *        cluster in the destination AWS Region. This should refer to the same KMS key for both the
+     *        <code>CreateDBCluster</code> action that is called in the destination AWS Region, and the action contained
+     *        in the pre-signed URL.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>DestinationRegion</code> - The name of the region that Aurora Read Replica will be created in.
+     *        <code>DestinationRegion</code> - The name of the AWS Region that Aurora Read Replica will be created in.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>ReplicationSourceIdentifier</code> - The DB cluster identifier for the encrypted DB cluster to be
-     *        copied. This identifier must be in the Amazon Resource Name (ARN) format for the source region. For
-     *        example, if you are copying an encrypted DB cluster from the us-west-2 region, then your
+     *        copied. This identifier must be in the Amazon Resource Name (ARN) format for the source AWS Region. For
+     *        example, if you are copying an encrypted DB cluster from the us-west-2 AWS Region, then your
      *        <code>ReplicationSourceIdentifier</code> would look like Example:
      *        <code>arn:aws:rds:us-west-2:123456789012:cluster:aurora-cluster1</code>.
      *        </p>
@@ -2356,12 +2490,12 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
     /**
      * <p>
      * A URL that contains a Signature Version 4 signed request for the <code>CreateDBCluster</code> action to be called
-     * in the source region where the DB cluster will be replicated from. You only need to specify
+     * in the source AWS Region where the DB cluster is replicated from. You only need to specify
      * <code>PreSignedUrl</code> when you are performing cross-region replication from an encrypted DB cluster.
      * </p>
      * <p>
      * The pre-signed URL must be a valid request for the <code>CreateDBCluster</code> API action that can be executed
-     * in the source region that contains the encrypted DB cluster to be copied.
+     * in the source AWS Region that contains the encrypted DB cluster to be copied.
      * </p>
      * <p>
      * The pre-signed URL request must contain the following parameter values:
@@ -2369,22 +2503,23 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * <ul>
      * <li>
      * <p>
-     * <code>KmsKeyId</code> - The KMS key identifier for the key to use to encrypt the copy of the DB cluster in the
-     * destination region. This should refer to the same KMS key for both the <code>CreateDBCluster</code> action that
-     * is called in the destination region, and the action contained in the pre-signed URL.
+     * <code>KmsKeyId</code> - The AWS KMS key identifier for the key to use to encrypt the copy of the DB cluster in
+     * the destination AWS Region. This should refer to the same KMS key for both the <code>CreateDBCluster</code>
+     * action that is called in the destination AWS Region, and the action contained in the pre-signed URL.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>DestinationRegion</code> - The name of the region that Aurora Read Replica will be created in.
+     * <code>DestinationRegion</code> - The name of the AWS Region that Aurora Read Replica will be created in.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>ReplicationSourceIdentifier</code> - The DB cluster identifier for the encrypted DB cluster to be copied.
-     * This identifier must be in the Amazon Resource Name (ARN) format for the source region. For example, if you are
-     * copying an encrypted DB cluster from the us-west-2 region, then your <code>ReplicationSourceIdentifier</code>
-     * would look like Example: <code>arn:aws:rds:us-west-2:123456789012:cluster:aurora-cluster1</code>.
+     * This identifier must be in the Amazon Resource Name (ARN) format for the source AWS Region. For example, if you
+     * are copying an encrypted DB cluster from the us-west-2 AWS Region, then your
+     * <code>ReplicationSourceIdentifier</code> would look like Example:
+     * <code>arn:aws:rds:us-west-2:123456789012:cluster:aurora-cluster1</code>.
      * </p>
      * </li>
      * </ul>
@@ -2397,12 +2532,12 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * </p>
      * 
      * @return A URL that contains a Signature Version 4 signed request for the <code>CreateDBCluster</code> action to
-     *         be called in the source region where the DB cluster will be replicated from. You only need to specify
+     *         be called in the source AWS Region where the DB cluster is replicated from. You only need to specify
      *         <code>PreSignedUrl</code> when you are performing cross-region replication from an encrypted DB
      *         cluster.</p>
      *         <p>
      *         The pre-signed URL must be a valid request for the <code>CreateDBCluster</code> API action that can be
-     *         executed in the source region that contains the encrypted DB cluster to be copied.
+     *         executed in the source AWS Region that contains the encrypted DB cluster to be copied.
      *         </p>
      *         <p>
      *         The pre-signed URL request must contain the following parameter values:
@@ -2410,22 +2545,22 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      *         <ul>
      *         <li>
      *         <p>
-     *         <code>KmsKeyId</code> - The KMS key identifier for the key to use to encrypt the copy of the DB cluster
-     *         in the destination region. This should refer to the same KMS key for both the
-     *         <code>CreateDBCluster</code> action that is called in the destination region, and the action contained in
-     *         the pre-signed URL.
+     *         <code>KmsKeyId</code> - The AWS KMS key identifier for the key to use to encrypt the copy of the DB
+     *         cluster in the destination AWS Region. This should refer to the same KMS key for both the
+     *         <code>CreateDBCluster</code> action that is called in the destination AWS Region, and the action
+     *         contained in the pre-signed URL.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>DestinationRegion</code> - The name of the region that Aurora Read Replica will be created in.
+     *         <code>DestinationRegion</code> - The name of the AWS Region that Aurora Read Replica will be created in.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
      *         <code>ReplicationSourceIdentifier</code> - The DB cluster identifier for the encrypted DB cluster to be
-     *         copied. This identifier must be in the Amazon Resource Name (ARN) format for the source region. For
-     *         example, if you are copying an encrypted DB cluster from the us-west-2 region, then your
+     *         copied. This identifier must be in the Amazon Resource Name (ARN) format for the source AWS Region. For
+     *         example, if you are copying an encrypted DB cluster from the us-west-2 AWS Region, then your
      *         <code>ReplicationSourceIdentifier</code> would look like Example:
      *         <code>arn:aws:rds:us-west-2:123456789012:cluster:aurora-cluster1</code>.
      *         </p>
@@ -2446,12 +2581,12 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
     /**
      * <p>
      * A URL that contains a Signature Version 4 signed request for the <code>CreateDBCluster</code> action to be called
-     * in the source region where the DB cluster will be replicated from. You only need to specify
+     * in the source AWS Region where the DB cluster is replicated from. You only need to specify
      * <code>PreSignedUrl</code> when you are performing cross-region replication from an encrypted DB cluster.
      * </p>
      * <p>
      * The pre-signed URL must be a valid request for the <code>CreateDBCluster</code> API action that can be executed
-     * in the source region that contains the encrypted DB cluster to be copied.
+     * in the source AWS Region that contains the encrypted DB cluster to be copied.
      * </p>
      * <p>
      * The pre-signed URL request must contain the following parameter values:
@@ -2459,22 +2594,23 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * <ul>
      * <li>
      * <p>
-     * <code>KmsKeyId</code> - The KMS key identifier for the key to use to encrypt the copy of the DB cluster in the
-     * destination region. This should refer to the same KMS key for both the <code>CreateDBCluster</code> action that
-     * is called in the destination region, and the action contained in the pre-signed URL.
+     * <code>KmsKeyId</code> - The AWS KMS key identifier for the key to use to encrypt the copy of the DB cluster in
+     * the destination AWS Region. This should refer to the same KMS key for both the <code>CreateDBCluster</code>
+     * action that is called in the destination AWS Region, and the action contained in the pre-signed URL.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>DestinationRegion</code> - The name of the region that Aurora Read Replica will be created in.
+     * <code>DestinationRegion</code> - The name of the AWS Region that Aurora Read Replica will be created in.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>ReplicationSourceIdentifier</code> - The DB cluster identifier for the encrypted DB cluster to be copied.
-     * This identifier must be in the Amazon Resource Name (ARN) format for the source region. For example, if you are
-     * copying an encrypted DB cluster from the us-west-2 region, then your <code>ReplicationSourceIdentifier</code>
-     * would look like Example: <code>arn:aws:rds:us-west-2:123456789012:cluster:aurora-cluster1</code>.
+     * This identifier must be in the Amazon Resource Name (ARN) format for the source AWS Region. For example, if you
+     * are copying an encrypted DB cluster from the us-west-2 AWS Region, then your
+     * <code>ReplicationSourceIdentifier</code> would look like Example:
+     * <code>arn:aws:rds:us-west-2:123456789012:cluster:aurora-cluster1</code>.
      * </p>
      * </li>
      * </ul>
@@ -2488,12 +2624,12 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      * 
      * @param preSignedUrl
      *        A URL that contains a Signature Version 4 signed request for the <code>CreateDBCluster</code> action to be
-     *        called in the source region where the DB cluster will be replicated from. You only need to specify
+     *        called in the source AWS Region where the DB cluster is replicated from. You only need to specify
      *        <code>PreSignedUrl</code> when you are performing cross-region replication from an encrypted DB
      *        cluster.</p>
      *        <p>
      *        The pre-signed URL must be a valid request for the <code>CreateDBCluster</code> API action that can be
-     *        executed in the source region that contains the encrypted DB cluster to be copied.
+     *        executed in the source AWS Region that contains the encrypted DB cluster to be copied.
      *        </p>
      *        <p>
      *        The pre-signed URL request must contain the following parameter values:
@@ -2501,21 +2637,22 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>KmsKeyId</code> - The KMS key identifier for the key to use to encrypt the copy of the DB cluster in
-     *        the destination region. This should refer to the same KMS key for both the <code>CreateDBCluster</code>
-     *        action that is called in the destination region, and the action contained in the pre-signed URL.
+     *        <code>KmsKeyId</code> - The AWS KMS key identifier for the key to use to encrypt the copy of the DB
+     *        cluster in the destination AWS Region. This should refer to the same KMS key for both the
+     *        <code>CreateDBCluster</code> action that is called in the destination AWS Region, and the action contained
+     *        in the pre-signed URL.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>DestinationRegion</code> - The name of the region that Aurora Read Replica will be created in.
+     *        <code>DestinationRegion</code> - The name of the AWS Region that Aurora Read Replica will be created in.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>ReplicationSourceIdentifier</code> - The DB cluster identifier for the encrypted DB cluster to be
-     *        copied. This identifier must be in the Amazon Resource Name (ARN) format for the source region. For
-     *        example, if you are copying an encrypted DB cluster from the us-west-2 region, then your
+     *        copied. This identifier must be in the Amazon Resource Name (ARN) format for the source AWS Region. For
+     *        example, if you are copying an encrypted DB cluster from the us-west-2 AWS Region, then your
      *        <code>ReplicationSourceIdentifier</code> would look like Example:
      *        <code>arn:aws:rds:us-west-2:123456789012:cluster:aurora-cluster1</code>.
      *        </p>
@@ -2537,16 +2674,16 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A Boolean value that is true to enable mapping of AWS Identity and Access Management (IAM) accounts to database
-     * accounts, and otherwise false.
+     * True to enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts, and otherwise
+     * false.
      * </p>
      * <p>
      * Default: <code>false</code>
      * </p>
      * 
      * @param enableIAMDatabaseAuthentication
-     *        A Boolean value that is true to enable mapping of AWS Identity and Access Management (IAM) accounts to
-     *        database accounts, and otherwise false.</p>
+     *        True to enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts, and
+     *        otherwise false.</p>
      *        <p>
      *        Default: <code>false</code>
      */
@@ -2557,15 +2694,15 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A Boolean value that is true to enable mapping of AWS Identity and Access Management (IAM) accounts to database
-     * accounts, and otherwise false.
+     * True to enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts, and otherwise
+     * false.
      * </p>
      * <p>
      * Default: <code>false</code>
      * </p>
      * 
-     * @return A Boolean value that is true to enable mapping of AWS Identity and Access Management (IAM) accounts to
-     *         database accounts, and otherwise false.</p>
+     * @return True to enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts, and
+     *         otherwise false.</p>
      *         <p>
      *         Default: <code>false</code>
      */
@@ -2576,16 +2713,16 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A Boolean value that is true to enable mapping of AWS Identity and Access Management (IAM) accounts to database
-     * accounts, and otherwise false.
+     * True to enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts, and otherwise
+     * false.
      * </p>
      * <p>
      * Default: <code>false</code>
      * </p>
      * 
      * @param enableIAMDatabaseAuthentication
-     *        A Boolean value that is true to enable mapping of AWS Identity and Access Management (IAM) accounts to
-     *        database accounts, and otherwise false.</p>
+     *        True to enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts, and
+     *        otherwise false.</p>
      *        <p>
      *        Default: <code>false</code>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -2598,21 +2735,422 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * A Boolean value that is true to enable mapping of AWS Identity and Access Management (IAM) accounts to database
-     * accounts, and otherwise false.
+     * True to enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts, and otherwise
+     * false.
      * </p>
      * <p>
      * Default: <code>false</code>
      * </p>
      * 
-     * @return A Boolean value that is true to enable mapping of AWS Identity and Access Management (IAM) accounts to
-     *         database accounts, and otherwise false.</p>
+     * @return True to enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts, and
+     *         otherwise false.</p>
      *         <p>
      *         Default: <code>false</code>
      */
 
     public Boolean isEnableIAMDatabaseAuthentication() {
         return this.enableIAMDatabaseAuthentication;
+    }
+
+    /**
+     * <p>
+     * The target backtrack window, in seconds. To disable backtracking, set this value to 0.
+     * </p>
+     * <p>
+     * Default: 0
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If specified, this value must be set to a number from 0 to 259,200 (72 hours).
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param backtrackWindow
+     *        The target backtrack window, in seconds. To disable backtracking, set this value to 0. </p>
+     *        <p>
+     *        Default: 0
+     *        </p>
+     *        <p>
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        If specified, this value must be set to a number from 0 to 259,200 (72 hours).
+     *        </p>
+     *        </li>
+     */
+
+    public void setBacktrackWindow(Long backtrackWindow) {
+        this.backtrackWindow = backtrackWindow;
+    }
+
+    /**
+     * <p>
+     * The target backtrack window, in seconds. To disable backtracking, set this value to 0.
+     * </p>
+     * <p>
+     * Default: 0
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If specified, this value must be set to a number from 0 to 259,200 (72 hours).
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return The target backtrack window, in seconds. To disable backtracking, set this value to 0. </p>
+     *         <p>
+     *         Default: 0
+     *         </p>
+     *         <p>
+     *         Constraints:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         If specified, this value must be set to a number from 0 to 259,200 (72 hours).
+     *         </p>
+     *         </li>
+     */
+
+    public Long getBacktrackWindow() {
+        return this.backtrackWindow;
+    }
+
+    /**
+     * <p>
+     * The target backtrack window, in seconds. To disable backtracking, set this value to 0.
+     * </p>
+     * <p>
+     * Default: 0
+     * </p>
+     * <p>
+     * Constraints:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * If specified, this value must be set to a number from 0 to 259,200 (72 hours).
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param backtrackWindow
+     *        The target backtrack window, in seconds. To disable backtracking, set this value to 0. </p>
+     *        <p>
+     *        Default: 0
+     *        </p>
+     *        <p>
+     *        Constraints:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        If specified, this value must be set to a number from 0 to 259,200 (72 hours).
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateDBClusterRequest withBacktrackWindow(Long backtrackWindow) {
+        setBacktrackWindow(backtrackWindow);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The list of log types that need to be enabled for exporting to CloudWatch Logs. The values in the list depend on
+     * the DB engine being used. For more information, see <a href=
+     * "http://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
+     * >Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * 
+     * @return The list of log types that need to be enabled for exporting to CloudWatch Logs. The values in the list
+     *         depend on the DB engine being used. For more information, see <a href=
+     *         "http://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
+     *         >Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon Aurora User Guide</i>.
+     */
+
+    public java.util.List<String> getEnableCloudwatchLogsExports() {
+        if (enableCloudwatchLogsExports == null) {
+            enableCloudwatchLogsExports = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return enableCloudwatchLogsExports;
+    }
+
+    /**
+     * <p>
+     * The list of log types that need to be enabled for exporting to CloudWatch Logs. The values in the list depend on
+     * the DB engine being used. For more information, see <a href=
+     * "http://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
+     * >Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * 
+     * @param enableCloudwatchLogsExports
+     *        The list of log types that need to be enabled for exporting to CloudWatch Logs. The values in the list
+     *        depend on the DB engine being used. For more information, see <a href=
+     *        "http://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
+     *        >Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon Aurora User Guide</i>.
+     */
+
+    public void setEnableCloudwatchLogsExports(java.util.Collection<String> enableCloudwatchLogsExports) {
+        if (enableCloudwatchLogsExports == null) {
+            this.enableCloudwatchLogsExports = null;
+            return;
+        }
+
+        this.enableCloudwatchLogsExports = new com.amazonaws.internal.SdkInternalList<String>(enableCloudwatchLogsExports);
+    }
+
+    /**
+     * <p>
+     * The list of log types that need to be enabled for exporting to CloudWatch Logs. The values in the list depend on
+     * the DB engine being used. For more information, see <a href=
+     * "http://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
+     * >Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setEnableCloudwatchLogsExports(java.util.Collection)} or
+     * {@link #withEnableCloudwatchLogsExports(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param enableCloudwatchLogsExports
+     *        The list of log types that need to be enabled for exporting to CloudWatch Logs. The values in the list
+     *        depend on the DB engine being used. For more information, see <a href=
+     *        "http://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
+     *        >Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon Aurora User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateDBClusterRequest withEnableCloudwatchLogsExports(String... enableCloudwatchLogsExports) {
+        if (this.enableCloudwatchLogsExports == null) {
+            setEnableCloudwatchLogsExports(new com.amazonaws.internal.SdkInternalList<String>(enableCloudwatchLogsExports.length));
+        }
+        for (String ele : enableCloudwatchLogsExports) {
+            this.enableCloudwatchLogsExports.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The list of log types that need to be enabled for exporting to CloudWatch Logs. The values in the list depend on
+     * the DB engine being used. For more information, see <a href=
+     * "http://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
+     * >Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon Aurora User Guide</i>.
+     * </p>
+     * 
+     * @param enableCloudwatchLogsExports
+     *        The list of log types that need to be enabled for exporting to CloudWatch Logs. The values in the list
+     *        depend on the DB engine being used. For more information, see <a href=
+     *        "http://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch"
+     *        >Publishing Database Logs to Amazon CloudWatch Logs</a> in the <i>Amazon Aurora User Guide</i>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateDBClusterRequest withEnableCloudwatchLogsExports(java.util.Collection<String> enableCloudwatchLogsExports) {
+        setEnableCloudwatchLogsExports(enableCloudwatchLogsExports);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The DB engine mode of the DB cluster, either <code>provisioned</code>, <code>serverless</code>,
+     * <code>parallelquery</code>, or <code>global</code>.
+     * </p>
+     * 
+     * @param engineMode
+     *        The DB engine mode of the DB cluster, either <code>provisioned</code>, <code>serverless</code>,
+     *        <code>parallelquery</code>, or <code>global</code>.
+     */
+
+    public void setEngineMode(String engineMode) {
+        this.engineMode = engineMode;
+    }
+
+    /**
+     * <p>
+     * The DB engine mode of the DB cluster, either <code>provisioned</code>, <code>serverless</code>,
+     * <code>parallelquery</code>, or <code>global</code>.
+     * </p>
+     * 
+     * @return The DB engine mode of the DB cluster, either <code>provisioned</code>, <code>serverless</code>,
+     *         <code>parallelquery</code>, or <code>global</code>.
+     */
+
+    public String getEngineMode() {
+        return this.engineMode;
+    }
+
+    /**
+     * <p>
+     * The DB engine mode of the DB cluster, either <code>provisioned</code>, <code>serverless</code>,
+     * <code>parallelquery</code>, or <code>global</code>.
+     * </p>
+     * 
+     * @param engineMode
+     *        The DB engine mode of the DB cluster, either <code>provisioned</code>, <code>serverless</code>,
+     *        <code>parallelquery</code>, or <code>global</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateDBClusterRequest withEngineMode(String engineMode) {
+        setEngineMode(engineMode);
+        return this;
+    }
+
+    /**
+     * <p>
+     * For DB clusters in <code>serverless</code> DB engine mode, the scaling properties of the DB cluster.
+     * </p>
+     * 
+     * @param scalingConfiguration
+     *        For DB clusters in <code>serverless</code> DB engine mode, the scaling properties of the DB cluster.
+     */
+
+    public void setScalingConfiguration(ScalingConfiguration scalingConfiguration) {
+        this.scalingConfiguration = scalingConfiguration;
+    }
+
+    /**
+     * <p>
+     * For DB clusters in <code>serverless</code> DB engine mode, the scaling properties of the DB cluster.
+     * </p>
+     * 
+     * @return For DB clusters in <code>serverless</code> DB engine mode, the scaling properties of the DB cluster.
+     */
+
+    public ScalingConfiguration getScalingConfiguration() {
+        return this.scalingConfiguration;
+    }
+
+    /**
+     * <p>
+     * For DB clusters in <code>serverless</code> DB engine mode, the scaling properties of the DB cluster.
+     * </p>
+     * 
+     * @param scalingConfiguration
+     *        For DB clusters in <code>serverless</code> DB engine mode, the scaling properties of the DB cluster.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateDBClusterRequest withScalingConfiguration(ScalingConfiguration scalingConfiguration) {
+        setScalingConfiguration(scalingConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates if the DB cluster should have deletion protection enabled. The database can't be deleted when this
+     * value is set to true. The default is false.
+     * </p>
+     * 
+     * @param deletionProtection
+     *        Indicates if the DB cluster should have deletion protection enabled. The database can't be deleted when
+     *        this value is set to true. The default is false.
+     */
+
+    public void setDeletionProtection(Boolean deletionProtection) {
+        this.deletionProtection = deletionProtection;
+    }
+
+    /**
+     * <p>
+     * Indicates if the DB cluster should have deletion protection enabled. The database can't be deleted when this
+     * value is set to true. The default is false.
+     * </p>
+     * 
+     * @return Indicates if the DB cluster should have deletion protection enabled. The database can't be deleted when
+     *         this value is set to true. The default is false.
+     */
+
+    public Boolean getDeletionProtection() {
+        return this.deletionProtection;
+    }
+
+    /**
+     * <p>
+     * Indicates if the DB cluster should have deletion protection enabled. The database can't be deleted when this
+     * value is set to true. The default is false.
+     * </p>
+     * 
+     * @param deletionProtection
+     *        Indicates if the DB cluster should have deletion protection enabled. The database can't be deleted when
+     *        this value is set to true. The default is false.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateDBClusterRequest withDeletionProtection(Boolean deletionProtection) {
+        setDeletionProtection(deletionProtection);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates if the DB cluster should have deletion protection enabled. The database can't be deleted when this
+     * value is set to true. The default is false.
+     * </p>
+     * 
+     * @return Indicates if the DB cluster should have deletion protection enabled. The database can't be deleted when
+     *         this value is set to true. The default is false.
+     */
+
+    public Boolean isDeletionProtection() {
+        return this.deletionProtection;
+    }
+
+    /**
+     * <p>
+     * The global cluster ID of an Aurora cluster that becomes the primary cluster in the new global database cluster.
+     * </p>
+     * 
+     * @param globalClusterIdentifier
+     *        The global cluster ID of an Aurora cluster that becomes the primary cluster in the new global database
+     *        cluster.
+     */
+
+    public void setGlobalClusterIdentifier(String globalClusterIdentifier) {
+        this.globalClusterIdentifier = globalClusterIdentifier;
+    }
+
+    /**
+     * <p>
+     * The global cluster ID of an Aurora cluster that becomes the primary cluster in the new global database cluster.
+     * </p>
+     * 
+     * @return The global cluster ID of an Aurora cluster that becomes the primary cluster in the new global database
+     *         cluster.
+     */
+
+    public String getGlobalClusterIdentifier() {
+        return this.globalClusterIdentifier;
+    }
+
+    /**
+     * <p>
+     * The global cluster ID of an Aurora cluster that becomes the primary cluster in the new global database cluster.
+     * </p>
+     * 
+     * @param globalClusterIdentifier
+     *        The global cluster ID of an Aurora cluster that becomes the primary cluster in the new global database
+     *        cluster.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateDBClusterRequest withGlobalClusterIdentifier(String globalClusterIdentifier) {
+        setGlobalClusterIdentifier(globalClusterIdentifier);
+        return this;
     }
 
     /**
@@ -2650,7 +3188,8 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -2704,6 +3243,18 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
             sb.append("PreSignedUrl: ").append(getPreSignedUrl()).append(",");
         if (getEnableIAMDatabaseAuthentication() != null)
             sb.append("EnableIAMDatabaseAuthentication: ").append(getEnableIAMDatabaseAuthentication()).append(",");
+        if (getBacktrackWindow() != null)
+            sb.append("BacktrackWindow: ").append(getBacktrackWindow()).append(",");
+        if (getEnableCloudwatchLogsExports() != null)
+            sb.append("EnableCloudwatchLogsExports: ").append(getEnableCloudwatchLogsExports()).append(",");
+        if (getEngineMode() != null)
+            sb.append("EngineMode: ").append(getEngineMode()).append(",");
+        if (getScalingConfiguration() != null)
+            sb.append("ScalingConfiguration: ").append(getScalingConfiguration()).append(",");
+        if (getDeletionProtection() != null)
+            sb.append("DeletionProtection: ").append(getDeletionProtection()).append(",");
+        if (getGlobalClusterIdentifier() != null)
+            sb.append("GlobalClusterIdentifier: ").append(getGlobalClusterIdentifier()).append(",");
         if (getSourceRegion() != null)
             sb.append("SourceRegion: ").append(getSourceRegion());
         sb.append("}");
@@ -2809,6 +3360,30 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
         if (other.getEnableIAMDatabaseAuthentication() != null
                 && other.getEnableIAMDatabaseAuthentication().equals(this.getEnableIAMDatabaseAuthentication()) == false)
             return false;
+        if (other.getBacktrackWindow() == null ^ this.getBacktrackWindow() == null)
+            return false;
+        if (other.getBacktrackWindow() != null && other.getBacktrackWindow().equals(this.getBacktrackWindow()) == false)
+            return false;
+        if (other.getEnableCloudwatchLogsExports() == null ^ this.getEnableCloudwatchLogsExports() == null)
+            return false;
+        if (other.getEnableCloudwatchLogsExports() != null && other.getEnableCloudwatchLogsExports().equals(this.getEnableCloudwatchLogsExports()) == false)
+            return false;
+        if (other.getEngineMode() == null ^ this.getEngineMode() == null)
+            return false;
+        if (other.getEngineMode() != null && other.getEngineMode().equals(this.getEngineMode()) == false)
+            return false;
+        if (other.getScalingConfiguration() == null ^ this.getScalingConfiguration() == null)
+            return false;
+        if (other.getScalingConfiguration() != null && other.getScalingConfiguration().equals(this.getScalingConfiguration()) == false)
+            return false;
+        if (other.getDeletionProtection() == null ^ this.getDeletionProtection() == null)
+            return false;
+        if (other.getDeletionProtection() != null && other.getDeletionProtection().equals(this.getDeletionProtection()) == false)
+            return false;
+        if (other.getGlobalClusterIdentifier() == null ^ this.getGlobalClusterIdentifier() == null)
+            return false;
+        if (other.getGlobalClusterIdentifier() != null && other.getGlobalClusterIdentifier().equals(this.getGlobalClusterIdentifier()) == false)
+            return false;
         if (other.getSourceRegion() == null ^ this.getSourceRegion() == null)
             return false;
         if (other.getSourceRegion() != null && other.getSourceRegion().equals(this.getSourceRegion()) == false)
@@ -2843,6 +3418,12 @@ public class CreateDBClusterRequest extends com.amazonaws.AmazonWebServiceReques
         hashCode = prime * hashCode + ((getKmsKeyId() == null) ? 0 : getKmsKeyId().hashCode());
         hashCode = prime * hashCode + ((getPreSignedUrl() == null) ? 0 : getPreSignedUrl().hashCode());
         hashCode = prime * hashCode + ((getEnableIAMDatabaseAuthentication() == null) ? 0 : getEnableIAMDatabaseAuthentication().hashCode());
+        hashCode = prime * hashCode + ((getBacktrackWindow() == null) ? 0 : getBacktrackWindow().hashCode());
+        hashCode = prime * hashCode + ((getEnableCloudwatchLogsExports() == null) ? 0 : getEnableCloudwatchLogsExports().hashCode());
+        hashCode = prime * hashCode + ((getEngineMode() == null) ? 0 : getEngineMode().hashCode());
+        hashCode = prime * hashCode + ((getScalingConfiguration() == null) ? 0 : getScalingConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getDeletionProtection() == null) ? 0 : getDeletionProtection().hashCode());
+        hashCode = prime * hashCode + ((getGlobalClusterIdentifier() == null) ? 0 : getGlobalClusterIdentifier().hashCode());
         hashCode = prime * hashCode + ((getSourceRegion() == null) ? 0 : getSourceRegion().hashCode());
         return hashCode;
     }

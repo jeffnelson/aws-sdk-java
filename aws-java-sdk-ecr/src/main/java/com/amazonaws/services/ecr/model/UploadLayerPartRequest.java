@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,14 +27,14 @@ public class UploadLayerPartRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The AWS account ID associated with the registry that you are uploading layer parts to. If you do not specify a
+     * The AWS account ID associated with the registry to which you are uploading layer parts. If you do not specify a
      * registry, the default registry is assumed.
      * </p>
      */
     private String registryId;
     /**
      * <p>
-     * The name of the repository that you are uploading layer parts to.
+     * The name of the repository to which you are uploading layer parts.
      * </p>
      */
     private String repositoryName;
@@ -65,12 +65,12 @@ public class UploadLayerPartRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The AWS account ID associated with the registry that you are uploading layer parts to. If you do not specify a
+     * The AWS account ID associated with the registry to which you are uploading layer parts. If you do not specify a
      * registry, the default registry is assumed.
      * </p>
      * 
      * @param registryId
-     *        The AWS account ID associated with the registry that you are uploading layer parts to. If you do not
+     *        The AWS account ID associated with the registry to which you are uploading layer parts. If you do not
      *        specify a registry, the default registry is assumed.
      */
 
@@ -80,11 +80,11 @@ public class UploadLayerPartRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The AWS account ID associated with the registry that you are uploading layer parts to. If you do not specify a
+     * The AWS account ID associated with the registry to which you are uploading layer parts. If you do not specify a
      * registry, the default registry is assumed.
      * </p>
      * 
-     * @return The AWS account ID associated with the registry that you are uploading layer parts to. If you do not
+     * @return The AWS account ID associated with the registry to which you are uploading layer parts. If you do not
      *         specify a registry, the default registry is assumed.
      */
 
@@ -94,12 +94,12 @@ public class UploadLayerPartRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The AWS account ID associated with the registry that you are uploading layer parts to. If you do not specify a
+     * The AWS account ID associated with the registry to which you are uploading layer parts. If you do not specify a
      * registry, the default registry is assumed.
      * </p>
      * 
      * @param registryId
-     *        The AWS account ID associated with the registry that you are uploading layer parts to. If you do not
+     *        The AWS account ID associated with the registry to which you are uploading layer parts. If you do not
      *        specify a registry, the default registry is assumed.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -111,11 +111,11 @@ public class UploadLayerPartRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The name of the repository that you are uploading layer parts to.
+     * The name of the repository to which you are uploading layer parts.
      * </p>
      * 
      * @param repositoryName
-     *        The name of the repository that you are uploading layer parts to.
+     *        The name of the repository to which you are uploading layer parts.
      */
 
     public void setRepositoryName(String repositoryName) {
@@ -124,10 +124,10 @@ public class UploadLayerPartRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The name of the repository that you are uploading layer parts to.
+     * The name of the repository to which you are uploading layer parts.
      * </p>
      * 
-     * @return The name of the repository that you are uploading layer parts to.
+     * @return The name of the repository to which you are uploading layer parts.
      */
 
     public String getRepositoryName() {
@@ -136,11 +136,11 @@ public class UploadLayerPartRequest extends com.amazonaws.AmazonWebServiceReques
 
     /**
      * <p>
-     * The name of the repository that you are uploading layer parts to.
+     * The name of the repository to which you are uploading layer parts.
      * </p>
      * 
      * @param repositoryName
-     *        The name of the repository that you are uploading layer parts to.
+     *        The name of the repository to which you are uploading layer parts.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -340,7 +340,8 @@ public class UploadLayerPartRequest extends com.amazonaws.AmazonWebServiceReques
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

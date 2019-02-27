@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -79,6 +79,18 @@ public class ParameterHistory implements Serializable, Cloneable, StructuredPojo
      * </p>
      */
     private String allowedPattern;
+    /**
+     * <p>
+     * The parameter version.
+     * </p>
+     */
+    private Long version;
+    /**
+     * <p>
+     * Labels assigned to the parameter version.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> labels;
 
     /**
      * <p>
@@ -449,7 +461,121 @@ public class ParameterHistory implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * <p>
+     * The parameter version.
+     * </p>
+     * 
+     * @param version
+     *        The parameter version.
+     */
+
+    public void setVersion(Long version) {
+        this.version = version;
+    }
+
+    /**
+     * <p>
+     * The parameter version.
+     * </p>
+     * 
+     * @return The parameter version.
+     */
+
+    public Long getVersion() {
+        return this.version;
+    }
+
+    /**
+     * <p>
+     * The parameter version.
+     * </p>
+     * 
+     * @param version
+     *        The parameter version.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ParameterHistory withVersion(Long version) {
+        setVersion(version);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Labels assigned to the parameter version.
+     * </p>
+     * 
+     * @return Labels assigned to the parameter version.
+     */
+
+    public java.util.List<String> getLabels() {
+        if (labels == null) {
+            labels = new com.amazonaws.internal.SdkInternalList<String>();
+        }
+        return labels;
+    }
+
+    /**
+     * <p>
+     * Labels assigned to the parameter version.
+     * </p>
+     * 
+     * @param labels
+     *        Labels assigned to the parameter version.
+     */
+
+    public void setLabels(java.util.Collection<String> labels) {
+        if (labels == null) {
+            this.labels = null;
+            return;
+        }
+
+        this.labels = new com.amazonaws.internal.SdkInternalList<String>(labels);
+    }
+
+    /**
+     * <p>
+     * Labels assigned to the parameter version.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setLabels(java.util.Collection)} or {@link #withLabels(java.util.Collection)} if you want to override the
+     * existing values.
+     * </p>
+     * 
+     * @param labels
+     *        Labels assigned to the parameter version.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ParameterHistory withLabels(String... labels) {
+        if (this.labels == null) {
+            setLabels(new com.amazonaws.internal.SdkInternalList<String>(labels.length));
+        }
+        for (String ele : labels) {
+            this.labels.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Labels assigned to the parameter version.
+     * </p>
+     * 
+     * @param labels
+     *        Labels assigned to the parameter version.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ParameterHistory withLabels(java.util.Collection<String> labels) {
+        setLabels(labels);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -474,7 +600,11 @@ public class ParameterHistory implements Serializable, Cloneable, StructuredPojo
         if (getValue() != null)
             sb.append("Value: ").append(getValue()).append(",");
         if (getAllowedPattern() != null)
-            sb.append("AllowedPattern: ").append(getAllowedPattern());
+            sb.append("AllowedPattern: ").append(getAllowedPattern()).append(",");
+        if (getVersion() != null)
+            sb.append("Version: ").append(getVersion()).append(",");
+        if (getLabels() != null)
+            sb.append("Labels: ").append(getLabels());
         sb.append("}");
         return sb.toString();
     }
@@ -521,6 +651,14 @@ public class ParameterHistory implements Serializable, Cloneable, StructuredPojo
             return false;
         if (other.getAllowedPattern() != null && other.getAllowedPattern().equals(this.getAllowedPattern()) == false)
             return false;
+        if (other.getVersion() == null ^ this.getVersion() == null)
+            return false;
+        if (other.getVersion() != null && other.getVersion().equals(this.getVersion()) == false)
+            return false;
+        if (other.getLabels() == null ^ this.getLabels() == null)
+            return false;
+        if (other.getLabels() != null && other.getLabels().equals(this.getLabels()) == false)
+            return false;
         return true;
     }
 
@@ -537,6 +675,8 @@ public class ParameterHistory implements Serializable, Cloneable, StructuredPojo
         hashCode = prime * hashCode + ((getDescription() == null) ? 0 : getDescription().hashCode());
         hashCode = prime * hashCode + ((getValue() == null) ? 0 : getValue().hashCode());
         hashCode = prime * hashCode + ((getAllowedPattern() == null) ? 0 : getAllowedPattern().hashCode());
+        hashCode = prime * hashCode + ((getVersion() == null) ? 0 : getVersion().hashCode());
+        hashCode = prime * hashCode + ((getLabels() == null) ? 0 : getLabels().hashCode());
         return hashCode;
     }
 

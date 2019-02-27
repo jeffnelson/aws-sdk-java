@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -49,7 +49,15 @@ public class PutSlotTypeRequest extends com.amazonaws.AmazonWebServiceRequest im
     private String description;
     /**
      * <p>
-     * A list of <code>EnumerationValue</code> objects that defines the values that the slot type can take.
+     * A list of <code>EnumerationValue</code> objects that defines the values that the slot type can take. Each value
+     * can have a list of <code>synonyms</code>, which are additional values that help train the machine learning model
+     * about the values that it resolves for a slot.
+     * </p>
+     * <p>
+     * When Amazon Lex resolves a slot value, it generates a resolution list that contains up to five possible values
+     * for the slot. If you are using a Lambda function, this resolution list is passed to the function. If you are not
+     * using a Lambda function you can choose to return the value that the user entered or the first value in the
+     * resolution list as the slot value. The <code>valueSelectionStrategy</code> field indicates the option to use.
      * </p>
      */
     private java.util.List<EnumerationValue> enumerationValues;
@@ -69,6 +77,32 @@ public class PutSlotTypeRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </p>
      */
     private String checksum;
+    /**
+     * <p>
+     * Determines the slot resolution strategy that Amazon Lex uses to return slot type values. The field can be set to
+     * one of the following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ORIGINAL_VALUE</code> - Returns the value entered by the user, if the user value is similar to the slot
+     * value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TOP_RESOLUTION</code> - If there is a resolution list for the slot, return the first value in the
+     * resolution list as the slot type value. If there is no resolution list, null is returned.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If you don't specify the <code>valueSelectionStrategy</code>, the default is <code>ORIGINAL_VALUE</code>.
+     * </p>
+     */
+    private String valueSelectionStrategy;
+
+    private Boolean createVersion;
 
     /**
      * <p>
@@ -209,10 +243,26 @@ public class PutSlotTypeRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * A list of <code>EnumerationValue</code> objects that defines the values that the slot type can take.
+     * A list of <code>EnumerationValue</code> objects that defines the values that the slot type can take. Each value
+     * can have a list of <code>synonyms</code>, which are additional values that help train the machine learning model
+     * about the values that it resolves for a slot.
+     * </p>
+     * <p>
+     * When Amazon Lex resolves a slot value, it generates a resolution list that contains up to five possible values
+     * for the slot. If you are using a Lambda function, this resolution list is passed to the function. If you are not
+     * using a Lambda function you can choose to return the value that the user entered or the first value in the
+     * resolution list as the slot value. The <code>valueSelectionStrategy</code> field indicates the option to use.
      * </p>
      * 
-     * @return A list of <code>EnumerationValue</code> objects that defines the values that the slot type can take.
+     * @return A list of <code>EnumerationValue</code> objects that defines the values that the slot type can take. Each
+     *         value can have a list of <code>synonyms</code>, which are additional values that help train the machine
+     *         learning model about the values that it resolves for a slot. </p>
+     *         <p>
+     *         When Amazon Lex resolves a slot value, it generates a resolution list that contains up to five possible
+     *         values for the slot. If you are using a Lambda function, this resolution list is passed to the function.
+     *         If you are not using a Lambda function you can choose to return the value that the user entered or the
+     *         first value in the resolution list as the slot value. The <code>valueSelectionStrategy</code> field
+     *         indicates the option to use.
      */
 
     public java.util.List<EnumerationValue> getEnumerationValues() {
@@ -221,11 +271,27 @@ public class PutSlotTypeRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * A list of <code>EnumerationValue</code> objects that defines the values that the slot type can take.
+     * A list of <code>EnumerationValue</code> objects that defines the values that the slot type can take. Each value
+     * can have a list of <code>synonyms</code>, which are additional values that help train the machine learning model
+     * about the values that it resolves for a slot.
+     * </p>
+     * <p>
+     * When Amazon Lex resolves a slot value, it generates a resolution list that contains up to five possible values
+     * for the slot. If you are using a Lambda function, this resolution list is passed to the function. If you are not
+     * using a Lambda function you can choose to return the value that the user entered or the first value in the
+     * resolution list as the slot value. The <code>valueSelectionStrategy</code> field indicates the option to use.
      * </p>
      * 
      * @param enumerationValues
-     *        A list of <code>EnumerationValue</code> objects that defines the values that the slot type can take.
+     *        A list of <code>EnumerationValue</code> objects that defines the values that the slot type can take. Each
+     *        value can have a list of <code>synonyms</code>, which are additional values that help train the machine
+     *        learning model about the values that it resolves for a slot. </p>
+     *        <p>
+     *        When Amazon Lex resolves a slot value, it generates a resolution list that contains up to five possible
+     *        values for the slot. If you are using a Lambda function, this resolution list is passed to the function.
+     *        If you are not using a Lambda function you can choose to return the value that the user entered or the
+     *        first value in the resolution list as the slot value. The <code>valueSelectionStrategy</code> field
+     *        indicates the option to use.
      */
 
     public void setEnumerationValues(java.util.Collection<EnumerationValue> enumerationValues) {
@@ -239,7 +305,15 @@ public class PutSlotTypeRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * A list of <code>EnumerationValue</code> objects that defines the values that the slot type can take.
+     * A list of <code>EnumerationValue</code> objects that defines the values that the slot type can take. Each value
+     * can have a list of <code>synonyms</code>, which are additional values that help train the machine learning model
+     * about the values that it resolves for a slot.
+     * </p>
+     * <p>
+     * When Amazon Lex resolves a slot value, it generates a resolution list that contains up to five possible values
+     * for the slot. If you are using a Lambda function, this resolution list is passed to the function. If you are not
+     * using a Lambda function you can choose to return the value that the user entered or the first value in the
+     * resolution list as the slot value. The <code>valueSelectionStrategy</code> field indicates the option to use.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -248,7 +322,15 @@ public class PutSlotTypeRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </p>
      * 
      * @param enumerationValues
-     *        A list of <code>EnumerationValue</code> objects that defines the values that the slot type can take.
+     *        A list of <code>EnumerationValue</code> objects that defines the values that the slot type can take. Each
+     *        value can have a list of <code>synonyms</code>, which are additional values that help train the machine
+     *        learning model about the values that it resolves for a slot. </p>
+     *        <p>
+     *        When Amazon Lex resolves a slot value, it generates a resolution list that contains up to five possible
+     *        values for the slot. If you are using a Lambda function, this resolution list is passed to the function.
+     *        If you are not using a Lambda function you can choose to return the value that the user entered or the
+     *        first value in the resolution list as the slot value. The <code>valueSelectionStrategy</code> field
+     *        indicates the option to use.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -264,11 +346,27 @@ public class PutSlotTypeRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * A list of <code>EnumerationValue</code> objects that defines the values that the slot type can take.
+     * A list of <code>EnumerationValue</code> objects that defines the values that the slot type can take. Each value
+     * can have a list of <code>synonyms</code>, which are additional values that help train the machine learning model
+     * about the values that it resolves for a slot.
+     * </p>
+     * <p>
+     * When Amazon Lex resolves a slot value, it generates a resolution list that contains up to five possible values
+     * for the slot. If you are using a Lambda function, this resolution list is passed to the function. If you are not
+     * using a Lambda function you can choose to return the value that the user entered or the first value in the
+     * resolution list as the slot value. The <code>valueSelectionStrategy</code> field indicates the option to use.
      * </p>
      * 
      * @param enumerationValues
-     *        A list of <code>EnumerationValue</code> objects that defines the values that the slot type can take.
+     *        A list of <code>EnumerationValue</code> objects that defines the values that the slot type can take. Each
+     *        value can have a list of <code>synonyms</code>, which are additional values that help train the machine
+     *        learning model about the values that it resolves for a slot. </p>
+     *        <p>
+     *        When Amazon Lex resolves a slot value, it generates a resolution list that contains up to five possible
+     *        values for the slot. If you are using a Lambda function, this resolution list is passed to the function.
+     *        If you are not using a Lambda function you can choose to return the value that the user entered or the
+     *        first value in the resolution list as the slot value. The <code>valueSelectionStrategy</code> field
+     *        indicates the option to use.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -375,7 +473,241 @@ public class PutSlotTypeRequest extends com.amazonaws.AmazonWebServiceRequest im
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * <p>
+     * Determines the slot resolution strategy that Amazon Lex uses to return slot type values. The field can be set to
+     * one of the following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ORIGINAL_VALUE</code> - Returns the value entered by the user, if the user value is similar to the slot
+     * value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TOP_RESOLUTION</code> - If there is a resolution list for the slot, return the first value in the
+     * resolution list as the slot type value. If there is no resolution list, null is returned.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If you don't specify the <code>valueSelectionStrategy</code>, the default is <code>ORIGINAL_VALUE</code>.
+     * </p>
+     * 
+     * @param valueSelectionStrategy
+     *        Determines the slot resolution strategy that Amazon Lex uses to return slot type values. The field can be
+     *        set to one of the following values:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>ORIGINAL_VALUE</code> - Returns the value entered by the user, if the user value is similar to the
+     *        slot value.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TOP_RESOLUTION</code> - If there is a resolution list for the slot, return the first value in the
+     *        resolution list as the slot type value. If there is no resolution list, null is returned.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        If you don't specify the <code>valueSelectionStrategy</code>, the default is <code>ORIGINAL_VALUE</code>.
+     * @see SlotValueSelectionStrategy
+     */
+
+    public void setValueSelectionStrategy(String valueSelectionStrategy) {
+        this.valueSelectionStrategy = valueSelectionStrategy;
+    }
+
+    /**
+     * <p>
+     * Determines the slot resolution strategy that Amazon Lex uses to return slot type values. The field can be set to
+     * one of the following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ORIGINAL_VALUE</code> - Returns the value entered by the user, if the user value is similar to the slot
+     * value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TOP_RESOLUTION</code> - If there is a resolution list for the slot, return the first value in the
+     * resolution list as the slot type value. If there is no resolution list, null is returned.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If you don't specify the <code>valueSelectionStrategy</code>, the default is <code>ORIGINAL_VALUE</code>.
+     * </p>
+     * 
+     * @return Determines the slot resolution strategy that Amazon Lex uses to return slot type values. The field can be
+     *         set to one of the following values:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>ORIGINAL_VALUE</code> - Returns the value entered by the user, if the user value is similar to the
+     *         slot value.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>TOP_RESOLUTION</code> - If there is a resolution list for the slot, return the first value in the
+     *         resolution list as the slot type value. If there is no resolution list, null is returned.
+     *         </p>
+     *         </li>
+     *         </ul>
+     *         <p>
+     *         If you don't specify the <code>valueSelectionStrategy</code>, the default is <code>ORIGINAL_VALUE</code>.
+     * @see SlotValueSelectionStrategy
+     */
+
+    public String getValueSelectionStrategy() {
+        return this.valueSelectionStrategy;
+    }
+
+    /**
+     * <p>
+     * Determines the slot resolution strategy that Amazon Lex uses to return slot type values. The field can be set to
+     * one of the following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ORIGINAL_VALUE</code> - Returns the value entered by the user, if the user value is similar to the slot
+     * value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TOP_RESOLUTION</code> - If there is a resolution list for the slot, return the first value in the
+     * resolution list as the slot type value. If there is no resolution list, null is returned.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If you don't specify the <code>valueSelectionStrategy</code>, the default is <code>ORIGINAL_VALUE</code>.
+     * </p>
+     * 
+     * @param valueSelectionStrategy
+     *        Determines the slot resolution strategy that Amazon Lex uses to return slot type values. The field can be
+     *        set to one of the following values:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>ORIGINAL_VALUE</code> - Returns the value entered by the user, if the user value is similar to the
+     *        slot value.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TOP_RESOLUTION</code> - If there is a resolution list for the slot, return the first value in the
+     *        resolution list as the slot type value. If there is no resolution list, null is returned.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        If you don't specify the <code>valueSelectionStrategy</code>, the default is <code>ORIGINAL_VALUE</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see SlotValueSelectionStrategy
+     */
+
+    public PutSlotTypeRequest withValueSelectionStrategy(String valueSelectionStrategy) {
+        setValueSelectionStrategy(valueSelectionStrategy);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Determines the slot resolution strategy that Amazon Lex uses to return slot type values. The field can be set to
+     * one of the following values:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>ORIGINAL_VALUE</code> - Returns the value entered by the user, if the user value is similar to the slot
+     * value.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TOP_RESOLUTION</code> - If there is a resolution list for the slot, return the first value in the
+     * resolution list as the slot type value. If there is no resolution list, null is returned.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If you don't specify the <code>valueSelectionStrategy</code>, the default is <code>ORIGINAL_VALUE</code>.
+     * </p>
+     * 
+     * @param valueSelectionStrategy
+     *        Determines the slot resolution strategy that Amazon Lex uses to return slot type values. The field can be
+     *        set to one of the following values:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>ORIGINAL_VALUE</code> - Returns the value entered by the user, if the user value is similar to the
+     *        slot value.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TOP_RESOLUTION</code> - If there is a resolution list for the slot, return the first value in the
+     *        resolution list as the slot type value. If there is no resolution list, null is returned.
+     *        </p>
+     *        </li>
+     *        </ul>
+     *        <p>
+     *        If you don't specify the <code>valueSelectionStrategy</code>, the default is <code>ORIGINAL_VALUE</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see SlotValueSelectionStrategy
+     */
+
+    public PutSlotTypeRequest withValueSelectionStrategy(SlotValueSelectionStrategy valueSelectionStrategy) {
+        this.valueSelectionStrategy = valueSelectionStrategy.toString();
+        return this;
+    }
+
+    /**
+     * @param createVersion
+     */
+
+    public void setCreateVersion(Boolean createVersion) {
+        this.createVersion = createVersion;
+    }
+
+    /**
+     * @return
+     */
+
+    public Boolean getCreateVersion() {
+        return this.createVersion;
+    }
+
+    /**
+     * @param createVersion
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PutSlotTypeRequest withCreateVersion(Boolean createVersion) {
+        setCreateVersion(createVersion);
+        return this;
+    }
+
+    /**
+     * @return
+     */
+
+    public Boolean isCreateVersion() {
+        return this.createVersion;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -392,7 +724,11 @@ public class PutSlotTypeRequest extends com.amazonaws.AmazonWebServiceRequest im
         if (getEnumerationValues() != null)
             sb.append("EnumerationValues: ").append(getEnumerationValues()).append(",");
         if (getChecksum() != null)
-            sb.append("Checksum: ").append(getChecksum());
+            sb.append("Checksum: ").append(getChecksum()).append(",");
+        if (getValueSelectionStrategy() != null)
+            sb.append("ValueSelectionStrategy: ").append(getValueSelectionStrategy()).append(",");
+        if (getCreateVersion() != null)
+            sb.append("CreateVersion: ").append(getCreateVersion());
         sb.append("}");
         return sb.toString();
     }
@@ -423,6 +759,14 @@ public class PutSlotTypeRequest extends com.amazonaws.AmazonWebServiceRequest im
             return false;
         if (other.getChecksum() != null && other.getChecksum().equals(this.getChecksum()) == false)
             return false;
+        if (other.getValueSelectionStrategy() == null ^ this.getValueSelectionStrategy() == null)
+            return false;
+        if (other.getValueSelectionStrategy() != null && other.getValueSelectionStrategy().equals(this.getValueSelectionStrategy()) == false)
+            return false;
+        if (other.getCreateVersion() == null ^ this.getCreateVersion() == null)
+            return false;
+        if (other.getCreateVersion() != null && other.getCreateVersion().equals(this.getCreateVersion()) == false)
+            return false;
         return true;
     }
 
@@ -435,6 +779,8 @@ public class PutSlotTypeRequest extends com.amazonaws.AmazonWebServiceRequest im
         hashCode = prime * hashCode + ((getDescription() == null) ? 0 : getDescription().hashCode());
         hashCode = prime * hashCode + ((getEnumerationValues() == null) ? 0 : getEnumerationValues().hashCode());
         hashCode = prime * hashCode + ((getChecksum() == null) ? 0 : getChecksum().hashCode());
+        hashCode = prime * hashCode + ((getValueSelectionStrategy() == null) ? 0 : getValueSelectionStrategy().hashCode());
+        hashCode = prime * hashCode + ((getCreateVersion() == null) ? 0 : getCreateVersion().hashCode());
         return hashCode;
     }
 

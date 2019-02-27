@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -22,7 +22,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
  * Represents an index and an attached object.
  * </p>
  * 
- * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2016-05-10/IndexAttachment" target="_top">AWS API
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2017-01-11/IndexAttachment" target="_top">AWS API
  *      Documentation</a>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -36,7 +36,10 @@ public class IndexAttachment implements Serializable, Cloneable, StructuredPojo 
     private java.util.List<AttributeKeyAndValue> indexedAttributes;
     /**
      * <p>
-     * The <code>ObjectIdentifier</code> of the object attached to the index.
+     * In response to <a>ListIndex</a>, the <code>ObjectIdentifier</code> of the object attached to the index. In
+     * response to <a>ListAttachedIndices</a>, the <code>ObjectIdentifier</code> of the index attached to the object.
+     * This field will always contain the <code>ObjectIdentifier</code> of the object on the opposite side of the
+     * attachment specified in the query.
      * </p>
      */
     private String objectIdentifier;
@@ -113,11 +116,17 @@ public class IndexAttachment implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The <code>ObjectIdentifier</code> of the object attached to the index.
+     * In response to <a>ListIndex</a>, the <code>ObjectIdentifier</code> of the object attached to the index. In
+     * response to <a>ListAttachedIndices</a>, the <code>ObjectIdentifier</code> of the index attached to the object.
+     * This field will always contain the <code>ObjectIdentifier</code> of the object on the opposite side of the
+     * attachment specified in the query.
      * </p>
      * 
      * @param objectIdentifier
-     *        The <code>ObjectIdentifier</code> of the object attached to the index.
+     *        In response to <a>ListIndex</a>, the <code>ObjectIdentifier</code> of the object attached to the index. In
+     *        response to <a>ListAttachedIndices</a>, the <code>ObjectIdentifier</code> of the index attached to the
+     *        object. This field will always contain the <code>ObjectIdentifier</code> of the object on the opposite
+     *        side of the attachment specified in the query.
      */
 
     public void setObjectIdentifier(String objectIdentifier) {
@@ -126,10 +135,16 @@ public class IndexAttachment implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The <code>ObjectIdentifier</code> of the object attached to the index.
+     * In response to <a>ListIndex</a>, the <code>ObjectIdentifier</code> of the object attached to the index. In
+     * response to <a>ListAttachedIndices</a>, the <code>ObjectIdentifier</code> of the index attached to the object.
+     * This field will always contain the <code>ObjectIdentifier</code> of the object on the opposite side of the
+     * attachment specified in the query.
      * </p>
      * 
-     * @return The <code>ObjectIdentifier</code> of the object attached to the index.
+     * @return In response to <a>ListIndex</a>, the <code>ObjectIdentifier</code> of the object attached to the index.
+     *         In response to <a>ListAttachedIndices</a>, the <code>ObjectIdentifier</code> of the index attached to the
+     *         object. This field will always contain the <code>ObjectIdentifier</code> of the object on the opposite
+     *         side of the attachment specified in the query.
      */
 
     public String getObjectIdentifier() {
@@ -138,11 +153,17 @@ public class IndexAttachment implements Serializable, Cloneable, StructuredPojo 
 
     /**
      * <p>
-     * The <code>ObjectIdentifier</code> of the object attached to the index.
+     * In response to <a>ListIndex</a>, the <code>ObjectIdentifier</code> of the object attached to the index. In
+     * response to <a>ListAttachedIndices</a>, the <code>ObjectIdentifier</code> of the index attached to the object.
+     * This field will always contain the <code>ObjectIdentifier</code> of the object on the opposite side of the
+     * attachment specified in the query.
      * </p>
      * 
      * @param objectIdentifier
-     *        The <code>ObjectIdentifier</code> of the object attached to the index.
+     *        In response to <a>ListIndex</a>, the <code>ObjectIdentifier</code> of the object attached to the index. In
+     *        response to <a>ListAttachedIndices</a>, the <code>ObjectIdentifier</code> of the index attached to the
+     *        object. This field will always contain the <code>ObjectIdentifier</code> of the object on the opposite
+     *        side of the attachment specified in the query.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -152,7 +173,8 @@ public class IndexAttachment implements Serializable, Cloneable, StructuredPojo 
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

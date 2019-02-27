@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -56,7 +56,18 @@ public class GetMaintenanceWindowExecutionTaskResult extends com.amazonaws.Amazo
     private String type;
     /**
      * <p>
-     * The parameters passed to the task when it was executed. The map has the following format:
+     * The parameters passed to the task when it was executed.
+     * </p>
+     * <note>
+     * <p>
+     * <code>TaskParameters</code> has been deprecated. To specify parameters to pass to a task when it runs, instead
+     * use the <code>Parameters</code> option in the <code>TaskInvocationParameters</code> structure. For information
+     * about how Systems Manager handles these options for the supported Maintenance Window task types, see
+     * <a>MaintenanceWindowTaskInvocationParameters</a>.
+     * </p>
+     * </note>
+     * <p>
+     * The map has the following format:
      * </p>
      * <p>
      * Key: string, between 1 and 255 characters
@@ -345,7 +356,18 @@ public class GetMaintenanceWindowExecutionTaskResult extends com.amazonaws.Amazo
 
     /**
      * <p>
-     * The parameters passed to the task when it was executed. The map has the following format:
+     * The parameters passed to the task when it was executed.
+     * </p>
+     * <note>
+     * <p>
+     * <code>TaskParameters</code> has been deprecated. To specify parameters to pass to a task when it runs, instead
+     * use the <code>Parameters</code> option in the <code>TaskInvocationParameters</code> structure. For information
+     * about how Systems Manager handles these options for the supported Maintenance Window task types, see
+     * <a>MaintenanceWindowTaskInvocationParameters</a>.
+     * </p>
+     * </note>
+     * <p>
+     * The map has the following format:
      * </p>
      * <p>
      * Key: string, between 1 and 255 characters
@@ -354,7 +376,17 @@ public class GetMaintenanceWindowExecutionTaskResult extends com.amazonaws.Amazo
      * Value: an array of strings, each string is between 1 and 255 characters
      * </p>
      * 
-     * @return The parameters passed to the task when it was executed. The map has the following format:</p>
+     * @return The parameters passed to the task when it was executed.</p> <note>
+     *         <p>
+     *         <code>TaskParameters</code> has been deprecated. To specify parameters to pass to a task when it runs,
+     *         instead use the <code>Parameters</code> option in the <code>TaskInvocationParameters</code> structure.
+     *         For information about how Systems Manager handles these options for the supported Maintenance Window task
+     *         types, see <a>MaintenanceWindowTaskInvocationParameters</a>.
+     *         </p>
+     *         </note>
+     *         <p>
+     *         The map has the following format:
+     *         </p>
      *         <p>
      *         Key: string, between 1 and 255 characters
      *         </p>
@@ -371,7 +403,18 @@ public class GetMaintenanceWindowExecutionTaskResult extends com.amazonaws.Amazo
 
     /**
      * <p>
-     * The parameters passed to the task when it was executed. The map has the following format:
+     * The parameters passed to the task when it was executed.
+     * </p>
+     * <note>
+     * <p>
+     * <code>TaskParameters</code> has been deprecated. To specify parameters to pass to a task when it runs, instead
+     * use the <code>Parameters</code> option in the <code>TaskInvocationParameters</code> structure. For information
+     * about how Systems Manager handles these options for the supported Maintenance Window task types, see
+     * <a>MaintenanceWindowTaskInvocationParameters</a>.
+     * </p>
+     * </note>
+     * <p>
+     * The map has the following format:
      * </p>
      * <p>
      * Key: string, between 1 and 255 characters
@@ -381,7 +424,17 @@ public class GetMaintenanceWindowExecutionTaskResult extends com.amazonaws.Amazo
      * </p>
      * 
      * @param taskParameters
-     *        The parameters passed to the task when it was executed. The map has the following format:</p>
+     *        The parameters passed to the task when it was executed.</p> <note>
+     *        <p>
+     *        <code>TaskParameters</code> has been deprecated. To specify parameters to pass to a task when it runs,
+     *        instead use the <code>Parameters</code> option in the <code>TaskInvocationParameters</code> structure. For
+     *        information about how Systems Manager handles these options for the supported Maintenance Window task
+     *        types, see <a>MaintenanceWindowTaskInvocationParameters</a>.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        The map has the following format:
+     *        </p>
      *        <p>
      *        Key: string, between 1 and 255 characters
      *        </p>
@@ -400,7 +453,18 @@ public class GetMaintenanceWindowExecutionTaskResult extends com.amazonaws.Amazo
 
     /**
      * <p>
-     * The parameters passed to the task when it was executed. The map has the following format:
+     * The parameters passed to the task when it was executed.
+     * </p>
+     * <note>
+     * <p>
+     * <code>TaskParameters</code> has been deprecated. To specify parameters to pass to a task when it runs, instead
+     * use the <code>Parameters</code> option in the <code>TaskInvocationParameters</code> structure. For information
+     * about how Systems Manager handles these options for the supported Maintenance Window task types, see
+     * <a>MaintenanceWindowTaskInvocationParameters</a>.
+     * </p>
+     * </note>
+     * <p>
+     * The map has the following format:
      * </p>
      * <p>
      * Key: string, between 1 and 255 characters
@@ -415,7 +479,17 @@ public class GetMaintenanceWindowExecutionTaskResult extends com.amazonaws.Amazo
      * </p>
      * 
      * @param taskParameters
-     *        The parameters passed to the task when it was executed. The map has the following format:</p>
+     *        The parameters passed to the task when it was executed.</p> <note>
+     *        <p>
+     *        <code>TaskParameters</code> has been deprecated. To specify parameters to pass to a task when it runs,
+     *        instead use the <code>Parameters</code> option in the <code>TaskInvocationParameters</code> structure. For
+     *        information about how Systems Manager handles these options for the supported Maintenance Window task
+     *        types, see <a>MaintenanceWindowTaskInvocationParameters</a>.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        The map has the following format:
+     *        </p>
      *        <p>
      *        Key: string, between 1 and 255 characters
      *        </p>
@@ -437,7 +511,18 @@ public class GetMaintenanceWindowExecutionTaskResult extends com.amazonaws.Amazo
 
     /**
      * <p>
-     * The parameters passed to the task when it was executed. The map has the following format:
+     * The parameters passed to the task when it was executed.
+     * </p>
+     * <note>
+     * <p>
+     * <code>TaskParameters</code> has been deprecated. To specify parameters to pass to a task when it runs, instead
+     * use the <code>Parameters</code> option in the <code>TaskInvocationParameters</code> structure. For information
+     * about how Systems Manager handles these options for the supported Maintenance Window task types, see
+     * <a>MaintenanceWindowTaskInvocationParameters</a>.
+     * </p>
+     * </note>
+     * <p>
+     * The map has the following format:
      * </p>
      * <p>
      * Key: string, between 1 and 255 characters
@@ -447,7 +532,17 @@ public class GetMaintenanceWindowExecutionTaskResult extends com.amazonaws.Amazo
      * </p>
      * 
      * @param taskParameters
-     *        The parameters passed to the task when it was executed. The map has the following format:</p>
+     *        The parameters passed to the task when it was executed.</p> <note>
+     *        <p>
+     *        <code>TaskParameters</code> has been deprecated. To specify parameters to pass to a task when it runs,
+     *        instead use the <code>Parameters</code> option in the <code>TaskInvocationParameters</code> structure. For
+     *        information about how Systems Manager handles these options for the supported Maintenance Window task
+     *        types, see <a>MaintenanceWindowTaskInvocationParameters</a>.
+     *        </p>
+     *        </note>
+     *        <p>
+     *        The map has the following format:
+     *        </p>
      *        <p>
      *        Key: string, between 1 and 255 characters
      *        </p>
@@ -782,7 +877,8 @@ public class GetMaintenanceWindowExecutionTaskResult extends com.amazonaws.Amazo
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -803,7 +899,7 @@ public class GetMaintenanceWindowExecutionTaskResult extends com.amazonaws.Amazo
         if (getType() != null)
             sb.append("Type: ").append(getType()).append(",");
         if (getTaskParameters() != null)
-            sb.append("TaskParameters: ").append(getTaskParameters()).append(",");
+            sb.append("TaskParameters: ").append("***Sensitive Data Redacted***").append(",");
         if (getPriority() != null)
             sb.append("Priority: ").append(getPriority()).append(",");
         if (getMaxConcurrency() != null)

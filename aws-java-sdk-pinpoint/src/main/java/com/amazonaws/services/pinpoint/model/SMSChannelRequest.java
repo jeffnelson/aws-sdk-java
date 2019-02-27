@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,6 +19,9 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * SMS Channel Request
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/SMSChannelRequest" target="_top">AWS API
+ *      Documentation</a>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class SMSChannelRequest implements Serializable, Cloneable, StructuredPojo {
@@ -27,6 +30,8 @@ public class SMSChannelRequest implements Serializable, Cloneable, StructuredPoj
     private Boolean enabled;
     /** Sender identifier of your messages. */
     private String senderId;
+    /** ShortCode registered with phone provider. */
+    private String shortCode;
 
     /**
      * If the channel is enabled for sending messages.
@@ -107,7 +112,42 @@ public class SMSChannelRequest implements Serializable, Cloneable, StructuredPoj
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * ShortCode registered with phone provider.
+     * 
+     * @param shortCode
+     *        ShortCode registered with phone provider.
+     */
+
+    public void setShortCode(String shortCode) {
+        this.shortCode = shortCode;
+    }
+
+    /**
+     * ShortCode registered with phone provider.
+     * 
+     * @return ShortCode registered with phone provider.
+     */
+
+    public String getShortCode() {
+        return this.shortCode;
+    }
+
+    /**
+     * ShortCode registered with phone provider.
+     * 
+     * @param shortCode
+     *        ShortCode registered with phone provider.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public SMSChannelRequest withShortCode(String shortCode) {
+        setShortCode(shortCode);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -120,7 +160,9 @@ public class SMSChannelRequest implements Serializable, Cloneable, StructuredPoj
         if (getEnabled() != null)
             sb.append("Enabled: ").append(getEnabled()).append(",");
         if (getSenderId() != null)
-            sb.append("SenderId: ").append(getSenderId());
+            sb.append("SenderId: ").append(getSenderId()).append(",");
+        if (getShortCode() != null)
+            sb.append("ShortCode: ").append(getShortCode());
         sb.append("}");
         return sb.toString();
     }
@@ -143,6 +185,10 @@ public class SMSChannelRequest implements Serializable, Cloneable, StructuredPoj
             return false;
         if (other.getSenderId() != null && other.getSenderId().equals(this.getSenderId()) == false)
             return false;
+        if (other.getShortCode() == null ^ this.getShortCode() == null)
+            return false;
+        if (other.getShortCode() != null && other.getShortCode().equals(this.getShortCode()) == false)
+            return false;
         return true;
     }
 
@@ -153,6 +199,7 @@ public class SMSChannelRequest implements Serializable, Cloneable, StructuredPoj
 
         hashCode = prime * hashCode + ((getEnabled() == null) ? 0 : getEnabled().hashCode());
         hashCode = prime * hashCode + ((getSenderId() == null) ? 0 : getSenderId().hashCode());
+        hashCode = prime * hashCode + ((getShortCode() == null) ? 0 : getShortCode().hashCode());
         return hashCode;
     }
 

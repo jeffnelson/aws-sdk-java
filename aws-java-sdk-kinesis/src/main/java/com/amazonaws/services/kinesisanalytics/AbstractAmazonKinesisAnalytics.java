@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,6 +48,11 @@ public class AbstractAmazonKinesisAnalytics implements AmazonKinesisAnalytics {
     }
 
     @Override
+    public AddApplicationInputProcessingConfigurationResult addApplicationInputProcessingConfiguration(AddApplicationInputProcessingConfigurationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public AddApplicationOutputResult addApplicationOutput(AddApplicationOutputRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -69,6 +74,12 @@ public class AbstractAmazonKinesisAnalytics implements AmazonKinesisAnalytics {
 
     @Override
     public DeleteApplicationCloudWatchLoggingOptionResult deleteApplicationCloudWatchLoggingOption(DeleteApplicationCloudWatchLoggingOptionRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteApplicationInputProcessingConfigurationResult deleteApplicationInputProcessingConfiguration(
+            DeleteApplicationInputProcessingConfigurationRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

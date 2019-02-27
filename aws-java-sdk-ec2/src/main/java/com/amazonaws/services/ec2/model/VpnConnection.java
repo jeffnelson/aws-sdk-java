@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -43,6 +43,13 @@ public class VpnConnection implements Serializable, Cloneable {
     private String customerGatewayId;
     /**
      * <p>
+     * The category of the VPN connection. A value of <code>VPN</code> indicates an AWS VPN connection. A value of
+     * <code>VPN-Classic</code> indicates an AWS Classic VPN connection.
+     * </p>
+     */
+    private String category;
+    /**
+     * <p>
      * The current state of the VPN connection.
      * </p>
      */
@@ -65,6 +72,12 @@ public class VpnConnection implements Serializable, Cloneable {
      * </p>
      */
     private String vpnGatewayId;
+    /**
+     * <p>
+     * The ID of the transit gateway associated with the VPN connection.
+     * </p>
+     */
+    private String transitGatewayId;
     /**
      * <p>
      * The VPN connection options.
@@ -185,6 +198,52 @@ public class VpnConnection implements Serializable, Cloneable {
 
     public VpnConnection withCustomerGatewayId(String customerGatewayId) {
         setCustomerGatewayId(customerGatewayId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The category of the VPN connection. A value of <code>VPN</code> indicates an AWS VPN connection. A value of
+     * <code>VPN-Classic</code> indicates an AWS Classic VPN connection.
+     * </p>
+     * 
+     * @param category
+     *        The category of the VPN connection. A value of <code>VPN</code> indicates an AWS VPN connection. A value
+     *        of <code>VPN-Classic</code> indicates an AWS Classic VPN connection.
+     */
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    /**
+     * <p>
+     * The category of the VPN connection. A value of <code>VPN</code> indicates an AWS VPN connection. A value of
+     * <code>VPN-Classic</code> indicates an AWS Classic VPN connection.
+     * </p>
+     * 
+     * @return The category of the VPN connection. A value of <code>VPN</code> indicates an AWS VPN connection. A value
+     *         of <code>VPN-Classic</code> indicates an AWS Classic VPN connection.
+     */
+
+    public String getCategory() {
+        return this.category;
+    }
+
+    /**
+     * <p>
+     * The category of the VPN connection. A value of <code>VPN</code> indicates an AWS VPN connection. A value of
+     * <code>VPN-Classic</code> indicates an AWS Classic VPN connection.
+     * </p>
+     * 
+     * @param category
+     *        The category of the VPN connection. A value of <code>VPN</code> indicates an AWS VPN connection. A value
+     *        of <code>VPN-Classic</code> indicates an AWS Classic VPN connection.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public VpnConnection withCategory(String category) {
+        setCategory(category);
         return this;
     }
 
@@ -411,6 +470,46 @@ public class VpnConnection implements Serializable, Cloneable {
 
     public VpnConnection withVpnGatewayId(String vpnGatewayId) {
         setVpnGatewayId(vpnGatewayId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of the transit gateway associated with the VPN connection.
+     * </p>
+     * 
+     * @param transitGatewayId
+     *        The ID of the transit gateway associated with the VPN connection.
+     */
+
+    public void setTransitGatewayId(String transitGatewayId) {
+        this.transitGatewayId = transitGatewayId;
+    }
+
+    /**
+     * <p>
+     * The ID of the transit gateway associated with the VPN connection.
+     * </p>
+     * 
+     * @return The ID of the transit gateway associated with the VPN connection.
+     */
+
+    public String getTransitGatewayId() {
+        return this.transitGatewayId;
+    }
+
+    /**
+     * <p>
+     * The ID of the transit gateway associated with the VPN connection.
+     * </p>
+     * 
+     * @param transitGatewayId
+     *        The ID of the transit gateway associated with the VPN connection.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public VpnConnection withTransitGatewayId(String transitGatewayId) {
+        setTransitGatewayId(transitGatewayId);
         return this;
     }
 
@@ -674,7 +773,8 @@ public class VpnConnection implements Serializable, Cloneable {
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -688,6 +788,8 @@ public class VpnConnection implements Serializable, Cloneable {
             sb.append("CustomerGatewayConfiguration: ").append(getCustomerGatewayConfiguration()).append(",");
         if (getCustomerGatewayId() != null)
             sb.append("CustomerGatewayId: ").append(getCustomerGatewayId()).append(",");
+        if (getCategory() != null)
+            sb.append("Category: ").append(getCategory()).append(",");
         if (getState() != null)
             sb.append("State: ").append(getState()).append(",");
         if (getType() != null)
@@ -696,6 +798,8 @@ public class VpnConnection implements Serializable, Cloneable {
             sb.append("VpnConnectionId: ").append(getVpnConnectionId()).append(",");
         if (getVpnGatewayId() != null)
             sb.append("VpnGatewayId: ").append(getVpnGatewayId()).append(",");
+        if (getTransitGatewayId() != null)
+            sb.append("TransitGatewayId: ").append(getTransitGatewayId()).append(",");
         if (getOptions() != null)
             sb.append("Options: ").append(getOptions()).append(",");
         if (getRoutes() != null)
@@ -726,6 +830,10 @@ public class VpnConnection implements Serializable, Cloneable {
             return false;
         if (other.getCustomerGatewayId() != null && other.getCustomerGatewayId().equals(this.getCustomerGatewayId()) == false)
             return false;
+        if (other.getCategory() == null ^ this.getCategory() == null)
+            return false;
+        if (other.getCategory() != null && other.getCategory().equals(this.getCategory()) == false)
+            return false;
         if (other.getState() == null ^ this.getState() == null)
             return false;
         if (other.getState() != null && other.getState().equals(this.getState()) == false)
@@ -741,6 +849,10 @@ public class VpnConnection implements Serializable, Cloneable {
         if (other.getVpnGatewayId() == null ^ this.getVpnGatewayId() == null)
             return false;
         if (other.getVpnGatewayId() != null && other.getVpnGatewayId().equals(this.getVpnGatewayId()) == false)
+            return false;
+        if (other.getTransitGatewayId() == null ^ this.getTransitGatewayId() == null)
+            return false;
+        if (other.getTransitGatewayId() != null && other.getTransitGatewayId().equals(this.getTransitGatewayId()) == false)
             return false;
         if (other.getOptions() == null ^ this.getOptions() == null)
             return false;
@@ -768,10 +880,12 @@ public class VpnConnection implements Serializable, Cloneable {
 
         hashCode = prime * hashCode + ((getCustomerGatewayConfiguration() == null) ? 0 : getCustomerGatewayConfiguration().hashCode());
         hashCode = prime * hashCode + ((getCustomerGatewayId() == null) ? 0 : getCustomerGatewayId().hashCode());
+        hashCode = prime * hashCode + ((getCategory() == null) ? 0 : getCategory().hashCode());
         hashCode = prime * hashCode + ((getState() == null) ? 0 : getState().hashCode());
         hashCode = prime * hashCode + ((getType() == null) ? 0 : getType().hashCode());
         hashCode = prime * hashCode + ((getVpnConnectionId() == null) ? 0 : getVpnConnectionId().hashCode());
         hashCode = prime * hashCode + ((getVpnGatewayId() == null) ? 0 : getVpnGatewayId().hashCode());
+        hashCode = prime * hashCode + ((getTransitGatewayId() == null) ? 0 : getTransitGatewayId().hashCode());
         hashCode = prime * hashCode + ((getOptions() == null) ? 0 : getOptions().hashCode());
         hashCode = prime * hashCode + ((getRoutes() == null) ? 0 : getRoutes().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());

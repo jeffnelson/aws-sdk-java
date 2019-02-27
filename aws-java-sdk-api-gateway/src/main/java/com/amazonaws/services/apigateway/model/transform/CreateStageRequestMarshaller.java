@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -45,6 +45,12 @@ public class CreateStageRequestMarshaller {
             .marshallLocationName("variables").build();
     private static final MarshallingInfo<String> DOCUMENTATIONVERSION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("documentationVersion").build();
+    private static final MarshallingInfo<StructuredPojo> CANARYSETTINGS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("canarySettings").build();
+    private static final MarshallingInfo<Boolean> TRACINGENABLED_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("tracingEnabled").build();
+    private static final MarshallingInfo<Map> TAGS_BINDING = MarshallingInfo.builder(MarshallingType.MAP).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("tags").build();
 
     private static final CreateStageRequestMarshaller instance = new CreateStageRequestMarshaller();
 
@@ -70,6 +76,9 @@ public class CreateStageRequestMarshaller {
             protocolMarshaller.marshall(createStageRequest.getCacheClusterSize(), CACHECLUSTERSIZE_BINDING);
             protocolMarshaller.marshall(createStageRequest.getVariables(), VARIABLES_BINDING);
             protocolMarshaller.marshall(createStageRequest.getDocumentationVersion(), DOCUMENTATIONVERSION_BINDING);
+            protocolMarshaller.marshall(createStageRequest.getCanarySettings(), CANARYSETTINGS_BINDING);
+            protocolMarshaller.marshall(createStageRequest.getTracingEnabled(), TRACINGENABLED_BINDING);
+            protocolMarshaller.marshall(createStageRequest.getTags(), TAGS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

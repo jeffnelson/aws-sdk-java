@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -40,8 +40,8 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
     private String gatewayARN;
     /**
      * <p>
-     * True to use Amazon S3 server side encryption with your own KMS key, or false to use a key managed by Amazon S3.
-     * Optional.
+     * True to use Amazon S3 server side encryption with your own AWS KMS key, or false to use a key managed by Amazon
+     * S3. Optional.
      * </p>
      */
     private Boolean kMSEncrypted;
@@ -55,17 +55,39 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
     private String locationARN;
     /**
      * <p>
-     * The default storage class for objects put into an Amazon S3 bucket by file gateway. Possible values are
-     * S3_STANDARD or S3_STANDARD_IA. If this field is not populated, the default value S3_STANDARD is used. Optional.
+     * The default storage class for objects put into an Amazon S3 bucket by the file gateway. Possible values are
+     * <code>S3_STANDARD</code>, <code>S3_STANDARD_IA</code>, or <code>S3_ONEZONE_IA</code>. If this field is not
+     * populated, the default value <code>S3_STANDARD</code> is used. Optional.
      * </p>
      */
     private String defaultStorageClass;
 
+    private String objectACL;
+
     private com.amazonaws.internal.SdkInternalList<String> clientList;
 
     private String squash;
-
+    /**
+     * <p>
+     * A value that sets the write status of a file share. This value is true if the write status is read-only, and
+     * otherwise false.
+     * </p>
+     */
     private Boolean readOnly;
+    /**
+     * <p>
+     * A value that enables guessing of the MIME type for uploaded objects based on file extensions. Set this value to
+     * true to enable MIME type guessing, and otherwise to false. The default value is true.
+     * </p>
+     */
+    private Boolean guessMIMETypeEnabled;
+    /**
+     * <p>
+     * A value that sets the access control list permission for objects in the Amazon S3 bucket that a file gateway puts
+     * objects into. The default value is <code>private</code>.
+     * </p>
+     */
+    private Boolean requesterPays;
 
     /**
      * @param nFSFileShareDefaults
@@ -199,12 +221,12 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * True to use Amazon S3 server side encryption with your own KMS key, or false to use a key managed by Amazon S3.
-     * Optional.
+     * True to use Amazon S3 server side encryption with your own AWS KMS key, or false to use a key managed by Amazon
+     * S3. Optional.
      * </p>
      * 
      * @param kMSEncrypted
-     *        True to use Amazon S3 server side encryption with your own KMS key, or false to use a key managed by
+     *        True to use Amazon S3 server side encryption with your own AWS KMS key, or false to use a key managed by
      *        Amazon S3. Optional.
      */
 
@@ -214,11 +236,11 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * True to use Amazon S3 server side encryption with your own KMS key, or false to use a key managed by Amazon S3.
-     * Optional.
+     * True to use Amazon S3 server side encryption with your own AWS KMS key, or false to use a key managed by Amazon
+     * S3. Optional.
      * </p>
      * 
-     * @return True to use Amazon S3 server side encryption with your own KMS key, or false to use a key managed by
+     * @return True to use Amazon S3 server side encryption with your own AWS KMS key, or false to use a key managed by
      *         Amazon S3. Optional.
      */
 
@@ -228,12 +250,12 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * True to use Amazon S3 server side encryption with your own KMS key, or false to use a key managed by Amazon S3.
-     * Optional.
+     * True to use Amazon S3 server side encryption with your own AWS KMS key, or false to use a key managed by Amazon
+     * S3. Optional.
      * </p>
      * 
      * @param kMSEncrypted
-     *        True to use Amazon S3 server side encryption with your own KMS key, or false to use a key managed by
+     *        True to use Amazon S3 server side encryption with your own AWS KMS key, or false to use a key managed by
      *        Amazon S3. Optional.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -245,11 +267,11 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * True to use Amazon S3 server side encryption with your own KMS key, or false to use a key managed by Amazon S3.
-     * Optional.
+     * True to use Amazon S3 server side encryption with your own AWS KMS key, or false to use a key managed by Amazon
+     * S3. Optional.
      * </p>
      * 
-     * @return True to use Amazon S3 server side encryption with your own KMS key, or false to use a key managed by
+     * @return True to use Amazon S3 server side encryption with your own AWS KMS key, or false to use a key managed by
      *         Amazon S3. Optional.
      */
 
@@ -363,14 +385,15 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The default storage class for objects put into an Amazon S3 bucket by file gateway. Possible values are
-     * S3_STANDARD or S3_STANDARD_IA. If this field is not populated, the default value S3_STANDARD is used. Optional.
+     * The default storage class for objects put into an Amazon S3 bucket by the file gateway. Possible values are
+     * <code>S3_STANDARD</code>, <code>S3_STANDARD_IA</code>, or <code>S3_ONEZONE_IA</code>. If this field is not
+     * populated, the default value <code>S3_STANDARD</code> is used. Optional.
      * </p>
      * 
      * @param defaultStorageClass
-     *        The default storage class for objects put into an Amazon S3 bucket by file gateway. Possible values are
-     *        S3_STANDARD or S3_STANDARD_IA. If this field is not populated, the default value S3_STANDARD is used.
-     *        Optional.
+     *        The default storage class for objects put into an Amazon S3 bucket by the file gateway. Possible values
+     *        are <code>S3_STANDARD</code>, <code>S3_STANDARD_IA</code>, or <code>S3_ONEZONE_IA</code>. If this field is
+     *        not populated, the default value <code>S3_STANDARD</code> is used. Optional.
      */
 
     public void setDefaultStorageClass(String defaultStorageClass) {
@@ -379,13 +402,14 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The default storage class for objects put into an Amazon S3 bucket by file gateway. Possible values are
-     * S3_STANDARD or S3_STANDARD_IA. If this field is not populated, the default value S3_STANDARD is used. Optional.
+     * The default storage class for objects put into an Amazon S3 bucket by the file gateway. Possible values are
+     * <code>S3_STANDARD</code>, <code>S3_STANDARD_IA</code>, or <code>S3_ONEZONE_IA</code>. If this field is not
+     * populated, the default value <code>S3_STANDARD</code> is used. Optional.
      * </p>
      * 
-     * @return The default storage class for objects put into an Amazon S3 bucket by file gateway. Possible values are
-     *         S3_STANDARD or S3_STANDARD_IA. If this field is not populated, the default value S3_STANDARD is used.
-     *         Optional.
+     * @return The default storage class for objects put into an Amazon S3 bucket by the file gateway. Possible values
+     *         are <code>S3_STANDARD</code>, <code>S3_STANDARD_IA</code>, or <code>S3_ONEZONE_IA</code>. If this field
+     *         is not populated, the default value <code>S3_STANDARD</code> is used. Optional.
      */
 
     public String getDefaultStorageClass() {
@@ -394,19 +418,60 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * The default storage class for objects put into an Amazon S3 bucket by file gateway. Possible values are
-     * S3_STANDARD or S3_STANDARD_IA. If this field is not populated, the default value S3_STANDARD is used. Optional.
+     * The default storage class for objects put into an Amazon S3 bucket by the file gateway. Possible values are
+     * <code>S3_STANDARD</code>, <code>S3_STANDARD_IA</code>, or <code>S3_ONEZONE_IA</code>. If this field is not
+     * populated, the default value <code>S3_STANDARD</code> is used. Optional.
      * </p>
      * 
      * @param defaultStorageClass
-     *        The default storage class for objects put into an Amazon S3 bucket by file gateway. Possible values are
-     *        S3_STANDARD or S3_STANDARD_IA. If this field is not populated, the default value S3_STANDARD is used.
-     *        Optional.
+     *        The default storage class for objects put into an Amazon S3 bucket by the file gateway. Possible values
+     *        are <code>S3_STANDARD</code>, <code>S3_STANDARD_IA</code>, or <code>S3_ONEZONE_IA</code>. If this field is
+     *        not populated, the default value <code>S3_STANDARD</code> is used. Optional.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
     public NFSFileShareInfo withDefaultStorageClass(String defaultStorageClass) {
         setDefaultStorageClass(defaultStorageClass);
+        return this;
+    }
+
+    /**
+     * @param objectACL
+     * @see ObjectACL
+     */
+
+    public void setObjectACL(String objectACL) {
+        this.objectACL = objectACL;
+    }
+
+    /**
+     * @return
+     * @see ObjectACL
+     */
+
+    public String getObjectACL() {
+        return this.objectACL;
+    }
+
+    /**
+     * @param objectACL
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ObjectACL
+     */
+
+    public NFSFileShareInfo withObjectACL(String objectACL) {
+        setObjectACL(objectACL);
+        return this;
+    }
+
+    /**
+     * @param objectACL
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see ObjectACL
+     */
+
+    public NFSFileShareInfo withObjectACL(ObjectACL objectACL) {
+        this.objectACL = objectACL.toString();
         return this;
     }
 
@@ -492,7 +557,14 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
+     * <p>
+     * A value that sets the write status of a file share. This value is true if the write status is read-only, and
+     * otherwise false.
+     * </p>
+     * 
      * @param readOnly
+     *        A value that sets the write status of a file share. This value is true if the write status is read-only,
+     *        and otherwise false.
      */
 
     public void setReadOnly(Boolean readOnly) {
@@ -500,7 +572,13 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * @return
+     * <p>
+     * A value that sets the write status of a file share. This value is true if the write status is read-only, and
+     * otherwise false.
+     * </p>
+     * 
+     * @return A value that sets the write status of a file share. This value is true if the write status is read-only,
+     *         and otherwise false.
      */
 
     public Boolean getReadOnly() {
@@ -508,7 +586,14 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
+     * <p>
+     * A value that sets the write status of a file share. This value is true if the write status is read-only, and
+     * otherwise false.
+     * </p>
+     * 
      * @param readOnly
+     *        A value that sets the write status of a file share. This value is true if the write status is read-only,
+     *        and otherwise false.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -518,7 +603,13 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * @return
+     * <p>
+     * A value that sets the write status of a file share. This value is true if the write status is read-only, and
+     * otherwise false.
+     * </p>
+     * 
+     * @return A value that sets the write status of a file share. This value is true if the write status is read-only,
+     *         and otherwise false.
      */
 
     public Boolean isReadOnly() {
@@ -526,7 +617,128 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * <p>
+     * A value that enables guessing of the MIME type for uploaded objects based on file extensions. Set this value to
+     * true to enable MIME type guessing, and otherwise to false. The default value is true.
+     * </p>
+     * 
+     * @param guessMIMETypeEnabled
+     *        A value that enables guessing of the MIME type for uploaded objects based on file extensions. Set this
+     *        value to true to enable MIME type guessing, and otherwise to false. The default value is true.
+     */
+
+    public void setGuessMIMETypeEnabled(Boolean guessMIMETypeEnabled) {
+        this.guessMIMETypeEnabled = guessMIMETypeEnabled;
+    }
+
+    /**
+     * <p>
+     * A value that enables guessing of the MIME type for uploaded objects based on file extensions. Set this value to
+     * true to enable MIME type guessing, and otherwise to false. The default value is true.
+     * </p>
+     * 
+     * @return A value that enables guessing of the MIME type for uploaded objects based on file extensions. Set this
+     *         value to true to enable MIME type guessing, and otherwise to false. The default value is true.
+     */
+
+    public Boolean getGuessMIMETypeEnabled() {
+        return this.guessMIMETypeEnabled;
+    }
+
+    /**
+     * <p>
+     * A value that enables guessing of the MIME type for uploaded objects based on file extensions. Set this value to
+     * true to enable MIME type guessing, and otherwise to false. The default value is true.
+     * </p>
+     * 
+     * @param guessMIMETypeEnabled
+     *        A value that enables guessing of the MIME type for uploaded objects based on file extensions. Set this
+     *        value to true to enable MIME type guessing, and otherwise to false. The default value is true.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public NFSFileShareInfo withGuessMIMETypeEnabled(Boolean guessMIMETypeEnabled) {
+        setGuessMIMETypeEnabled(guessMIMETypeEnabled);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A value that enables guessing of the MIME type for uploaded objects based on file extensions. Set this value to
+     * true to enable MIME type guessing, and otherwise to false. The default value is true.
+     * </p>
+     * 
+     * @return A value that enables guessing of the MIME type for uploaded objects based on file extensions. Set this
+     *         value to true to enable MIME type guessing, and otherwise to false. The default value is true.
+     */
+
+    public Boolean isGuessMIMETypeEnabled() {
+        return this.guessMIMETypeEnabled;
+    }
+
+    /**
+     * <p>
+     * A value that sets the access control list permission for objects in the Amazon S3 bucket that a file gateway puts
+     * objects into. The default value is <code>private</code>.
+     * </p>
+     * 
+     * @param requesterPays
+     *        A value that sets the access control list permission for objects in the Amazon S3 bucket that a file
+     *        gateway puts objects into. The default value is <code>private</code>.
+     */
+
+    public void setRequesterPays(Boolean requesterPays) {
+        this.requesterPays = requesterPays;
+    }
+
+    /**
+     * <p>
+     * A value that sets the access control list permission for objects in the Amazon S3 bucket that a file gateway puts
+     * objects into. The default value is <code>private</code>.
+     * </p>
+     * 
+     * @return A value that sets the access control list permission for objects in the Amazon S3 bucket that a file
+     *         gateway puts objects into. The default value is <code>private</code>.
+     */
+
+    public Boolean getRequesterPays() {
+        return this.requesterPays;
+    }
+
+    /**
+     * <p>
+     * A value that sets the access control list permission for objects in the Amazon S3 bucket that a file gateway puts
+     * objects into. The default value is <code>private</code>.
+     * </p>
+     * 
+     * @param requesterPays
+     *        A value that sets the access control list permission for objects in the Amazon S3 bucket that a file
+     *        gateway puts objects into. The default value is <code>private</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public NFSFileShareInfo withRequesterPays(Boolean requesterPays) {
+        setRequesterPays(requesterPays);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A value that sets the access control list permission for objects in the Amazon S3 bucket that a file gateway puts
+     * objects into. The default value is <code>private</code>.
+     * </p>
+     * 
+     * @return A value that sets the access control list permission for objects in the Amazon S3 bucket that a file
+     *         gateway puts objects into. The default value is <code>private</code>.
+     */
+
+    public Boolean isRequesterPays() {
+        return this.requesterPays;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -558,12 +770,18 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
             sb.append("LocationARN: ").append(getLocationARN()).append(",");
         if (getDefaultStorageClass() != null)
             sb.append("DefaultStorageClass: ").append(getDefaultStorageClass()).append(",");
+        if (getObjectACL() != null)
+            sb.append("ObjectACL: ").append(getObjectACL()).append(",");
         if (getClientList() != null)
             sb.append("ClientList: ").append(getClientList()).append(",");
         if (getSquash() != null)
             sb.append("Squash: ").append(getSquash()).append(",");
         if (getReadOnly() != null)
-            sb.append("ReadOnly: ").append(getReadOnly());
+            sb.append("ReadOnly: ").append(getReadOnly()).append(",");
+        if (getGuessMIMETypeEnabled() != null)
+            sb.append("GuessMIMETypeEnabled: ").append(getGuessMIMETypeEnabled()).append(",");
+        if (getRequesterPays() != null)
+            sb.append("RequesterPays: ").append(getRequesterPays());
         sb.append("}");
         return sb.toString();
     }
@@ -622,6 +840,10 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
             return false;
         if (other.getDefaultStorageClass() != null && other.getDefaultStorageClass().equals(this.getDefaultStorageClass()) == false)
             return false;
+        if (other.getObjectACL() == null ^ this.getObjectACL() == null)
+            return false;
+        if (other.getObjectACL() != null && other.getObjectACL().equals(this.getObjectACL()) == false)
+            return false;
         if (other.getClientList() == null ^ this.getClientList() == null)
             return false;
         if (other.getClientList() != null && other.getClientList().equals(this.getClientList()) == false)
@@ -633,6 +855,14 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
         if (other.getReadOnly() == null ^ this.getReadOnly() == null)
             return false;
         if (other.getReadOnly() != null && other.getReadOnly().equals(this.getReadOnly()) == false)
+            return false;
+        if (other.getGuessMIMETypeEnabled() == null ^ this.getGuessMIMETypeEnabled() == null)
+            return false;
+        if (other.getGuessMIMETypeEnabled() != null && other.getGuessMIMETypeEnabled().equals(this.getGuessMIMETypeEnabled()) == false)
+            return false;
+        if (other.getRequesterPays() == null ^ this.getRequesterPays() == null)
+            return false;
+        if (other.getRequesterPays() != null && other.getRequesterPays().equals(this.getRequesterPays()) == false)
             return false;
         return true;
     }
@@ -653,9 +883,12 @@ public class NFSFileShareInfo implements Serializable, Cloneable, StructuredPojo
         hashCode = prime * hashCode + ((getRole() == null) ? 0 : getRole().hashCode());
         hashCode = prime * hashCode + ((getLocationARN() == null) ? 0 : getLocationARN().hashCode());
         hashCode = prime * hashCode + ((getDefaultStorageClass() == null) ? 0 : getDefaultStorageClass().hashCode());
+        hashCode = prime * hashCode + ((getObjectACL() == null) ? 0 : getObjectACL().hashCode());
         hashCode = prime * hashCode + ((getClientList() == null) ? 0 : getClientList().hashCode());
         hashCode = prime * hashCode + ((getSquash() == null) ? 0 : getSquash().hashCode());
         hashCode = prime * hashCode + ((getReadOnly() == null) ? 0 : getReadOnly().hashCode());
+        hashCode = prime * hashCode + ((getGuessMIMETypeEnabled() == null) ? 0 : getGuessMIMETypeEnabled().hashCode());
+        hashCode = prime * hashCode + ((getRequesterPays() == null) ? 0 : getRequesterPays().hashCode());
         return hashCode;
     }
 

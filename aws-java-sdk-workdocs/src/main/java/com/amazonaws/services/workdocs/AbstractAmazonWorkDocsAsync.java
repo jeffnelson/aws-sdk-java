@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -314,6 +314,19 @@ public class AbstractAmazonWorkDocsAsync extends AbstractAmazonWorkDocs implemen
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeGroupsResult> describeGroupsAsync(DescribeGroupsRequest request) {
+
+        return describeGroupsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeGroupsResult> describeGroupsAsync(DescribeGroupsRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeGroupsRequest, DescribeGroupsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeNotificationSubscriptionsResult> describeNotificationSubscriptionsAsync(
             DescribeNotificationSubscriptionsRequest request) {
 
@@ -441,6 +454,19 @@ public class AbstractAmazonWorkDocsAsync extends AbstractAmazonWorkDocs implemen
     @Override
     public java.util.concurrent.Future<GetFolderPathResult> getFolderPathAsync(GetFolderPathRequest request,
             com.amazonaws.handlers.AsyncHandler<GetFolderPathRequest, GetFolderPathResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetResourcesResult> getResourcesAsync(GetResourcesRequest request) {
+
+        return getResourcesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetResourcesResult> getResourcesAsync(GetResourcesRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetResourcesRequest, GetResourcesResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }

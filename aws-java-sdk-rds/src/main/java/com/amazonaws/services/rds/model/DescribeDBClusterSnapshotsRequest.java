@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,7 +28,7 @@ public class DescribeDBClusterSnapshotsRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The ID of the DB cluster to retrieve the list of DB cluster snapshots for. This parameter cannot be used in
+     * The ID of the DB cluster to retrieve the list of DB cluster snapshots for. This parameter can't be used in
      * conjunction with the <code>DBClusterSnapshotIdentifier</code> parameter. This parameter is not case-sensitive.
      * </p>
      * <p>
@@ -37,17 +37,7 @@ public class DescribeDBClusterSnapshotsRequest extends com.amazonaws.AmazonWebSe
      * <ul>
      * <li>
      * <p>
-     * Must contain from 1 to 63 alphanumeric characters or hyphens
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * First character must be a letter
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Cannot end with a hyphen or contain two consecutive hyphens
+     * If supplied, must match the identifier of an existing DBCluster.
      * </p>
      * </li>
      * </ul>
@@ -55,7 +45,7 @@ public class DescribeDBClusterSnapshotsRequest extends com.amazonaws.AmazonWebSe
     private String dBClusterIdentifier;
     /**
      * <p>
-     * A specific DB cluster snapshot identifier to describe. This parameter cannot be used in conjunction with the
+     * A specific DB cluster snapshot identifier to describe. This parameter can't be used in conjunction with the
      * <code>DBClusterIdentifier</code> parameter. This value is stored as a lowercase string.
      * </p>
      * <p>
@@ -64,17 +54,7 @@ public class DescribeDBClusterSnapshotsRequest extends com.amazonaws.AmazonWebSe
      * <ul>
      * <li>
      * <p>
-     * Must be 1 to 255 alphanumeric characters
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * First character must be a letter
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Cannot end with a hyphen or contain two consecutive hyphens
+     * If supplied, must match the identifier of an existing DBClusterSnapshot.
      * </p>
      * </li>
      * <li>
@@ -156,9 +136,8 @@ public class DescribeDBClusterSnapshotsRequest extends com.amazonaws.AmazonWebSe
     private String marker;
     /**
      * <p>
-     * Set this value to <code>true</code> to include shared manual DB cluster snapshots from other AWS accounts that
-     * this AWS account has been given permission to copy or restore, otherwise set this value to <code>false</code>.
-     * The default is <code>false</code>.
+     * True to include shared manual DB cluster snapshots from other AWS accounts that this AWS account has been given
+     * permission to copy or restore, and otherwise false. The default is <code>false</code>.
      * </p>
      * <p>
      * You can give an AWS account permission to restore a manual DB cluster snapshot from another AWS account by the
@@ -168,9 +147,8 @@ public class DescribeDBClusterSnapshotsRequest extends com.amazonaws.AmazonWebSe
     private Boolean includeShared;
     /**
      * <p>
-     * Set this value to <code>true</code> to include manual DB cluster snapshots that are public and can be copied or
-     * restored by any AWS account, otherwise set this value to <code>false</code>. The default is <code>false</code>.
-     * The default is false.
+     * True to include manual DB cluster snapshots that are public and can be copied or restored by any AWS account, and
+     * otherwise false. The default is <code>false</code>. The default is false.
      * </p>
      * <p>
      * You can share a manual DB cluster snapshot as public by using the <a>ModifyDBClusterSnapshotAttribute</a> API
@@ -181,7 +159,7 @@ public class DescribeDBClusterSnapshotsRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The ID of the DB cluster to retrieve the list of DB cluster snapshots for. This parameter cannot be used in
+     * The ID of the DB cluster to retrieve the list of DB cluster snapshots for. This parameter can't be used in
      * conjunction with the <code>DBClusterSnapshotIdentifier</code> parameter. This parameter is not case-sensitive.
      * </p>
      * <p>
@@ -190,24 +168,14 @@ public class DescribeDBClusterSnapshotsRequest extends com.amazonaws.AmazonWebSe
      * <ul>
      * <li>
      * <p>
-     * Must contain from 1 to 63 alphanumeric characters or hyphens
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * First character must be a letter
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Cannot end with a hyphen or contain two consecutive hyphens
+     * If supplied, must match the identifier of an existing DBCluster.
      * </p>
      * </li>
      * </ul>
      * 
      * @param dBClusterIdentifier
-     *        The ID of the DB cluster to retrieve the list of DB cluster snapshots for. This parameter cannot be used
-     *        in conjunction with the <code>DBClusterSnapshotIdentifier</code> parameter. This parameter is not
+     *        The ID of the DB cluster to retrieve the list of DB cluster snapshots for. This parameter can't be used in
+     *        conjunction with the <code>DBClusterSnapshotIdentifier</code> parameter. This parameter is not
      *        case-sensitive. </p>
      *        <p>
      *        Constraints:
@@ -215,17 +183,7 @@ public class DescribeDBClusterSnapshotsRequest extends com.amazonaws.AmazonWebSe
      *        <ul>
      *        <li>
      *        <p>
-     *        Must contain from 1 to 63 alphanumeric characters or hyphens
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        First character must be a letter
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        Cannot end with a hyphen or contain two consecutive hyphens
+     *        If supplied, must match the identifier of an existing DBCluster.
      *        </p>
      *        </li>
      */
@@ -236,7 +194,7 @@ public class DescribeDBClusterSnapshotsRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The ID of the DB cluster to retrieve the list of DB cluster snapshots for. This parameter cannot be used in
+     * The ID of the DB cluster to retrieve the list of DB cluster snapshots for. This parameter can't be used in
      * conjunction with the <code>DBClusterSnapshotIdentifier</code> parameter. This parameter is not case-sensitive.
      * </p>
      * <p>
@@ -245,22 +203,12 @@ public class DescribeDBClusterSnapshotsRequest extends com.amazonaws.AmazonWebSe
      * <ul>
      * <li>
      * <p>
-     * Must contain from 1 to 63 alphanumeric characters or hyphens
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * First character must be a letter
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Cannot end with a hyphen or contain two consecutive hyphens
+     * If supplied, must match the identifier of an existing DBCluster.
      * </p>
      * </li>
      * </ul>
      * 
-     * @return The ID of the DB cluster to retrieve the list of DB cluster snapshots for. This parameter cannot be used
+     * @return The ID of the DB cluster to retrieve the list of DB cluster snapshots for. This parameter can't be used
      *         in conjunction with the <code>DBClusterSnapshotIdentifier</code> parameter. This parameter is not
      *         case-sensitive. </p>
      *         <p>
@@ -269,17 +217,7 @@ public class DescribeDBClusterSnapshotsRequest extends com.amazonaws.AmazonWebSe
      *         <ul>
      *         <li>
      *         <p>
-     *         Must contain from 1 to 63 alphanumeric characters or hyphens
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         First character must be a letter
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         Cannot end with a hyphen or contain two consecutive hyphens
+     *         If supplied, must match the identifier of an existing DBCluster.
      *         </p>
      *         </li>
      */
@@ -290,7 +228,7 @@ public class DescribeDBClusterSnapshotsRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The ID of the DB cluster to retrieve the list of DB cluster snapshots for. This parameter cannot be used in
+     * The ID of the DB cluster to retrieve the list of DB cluster snapshots for. This parameter can't be used in
      * conjunction with the <code>DBClusterSnapshotIdentifier</code> parameter. This parameter is not case-sensitive.
      * </p>
      * <p>
@@ -299,24 +237,14 @@ public class DescribeDBClusterSnapshotsRequest extends com.amazonaws.AmazonWebSe
      * <ul>
      * <li>
      * <p>
-     * Must contain from 1 to 63 alphanumeric characters or hyphens
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * First character must be a letter
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Cannot end with a hyphen or contain two consecutive hyphens
+     * If supplied, must match the identifier of an existing DBCluster.
      * </p>
      * </li>
      * </ul>
      * 
      * @param dBClusterIdentifier
-     *        The ID of the DB cluster to retrieve the list of DB cluster snapshots for. This parameter cannot be used
-     *        in conjunction with the <code>DBClusterSnapshotIdentifier</code> parameter. This parameter is not
+     *        The ID of the DB cluster to retrieve the list of DB cluster snapshots for. This parameter can't be used in
+     *        conjunction with the <code>DBClusterSnapshotIdentifier</code> parameter. This parameter is not
      *        case-sensitive. </p>
      *        <p>
      *        Constraints:
@@ -324,17 +252,7 @@ public class DescribeDBClusterSnapshotsRequest extends com.amazonaws.AmazonWebSe
      *        <ul>
      *        <li>
      *        <p>
-     *        Must contain from 1 to 63 alphanumeric characters or hyphens
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        First character must be a letter
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        Cannot end with a hyphen or contain two consecutive hyphens
+     *        If supplied, must match the identifier of an existing DBCluster.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -347,7 +265,7 @@ public class DescribeDBClusterSnapshotsRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * A specific DB cluster snapshot identifier to describe. This parameter cannot be used in conjunction with the
+     * A specific DB cluster snapshot identifier to describe. This parameter can't be used in conjunction with the
      * <code>DBClusterIdentifier</code> parameter. This value is stored as a lowercase string.
      * </p>
      * <p>
@@ -356,17 +274,7 @@ public class DescribeDBClusterSnapshotsRequest extends com.amazonaws.AmazonWebSe
      * <ul>
      * <li>
      * <p>
-     * Must be 1 to 255 alphanumeric characters
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * First character must be a letter
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Cannot end with a hyphen or contain two consecutive hyphens
+     * If supplied, must match the identifier of an existing DBClusterSnapshot.
      * </p>
      * </li>
      * <li>
@@ -377,7 +285,7 @@ public class DescribeDBClusterSnapshotsRequest extends com.amazonaws.AmazonWebSe
      * </ul>
      * 
      * @param dBClusterSnapshotIdentifier
-     *        A specific DB cluster snapshot identifier to describe. This parameter cannot be used in conjunction with
+     *        A specific DB cluster snapshot identifier to describe. This parameter can't be used in conjunction with
      *        the <code>DBClusterIdentifier</code> parameter. This value is stored as a lowercase string. </p>
      *        <p>
      *        Constraints:
@@ -385,17 +293,7 @@ public class DescribeDBClusterSnapshotsRequest extends com.amazonaws.AmazonWebSe
      *        <ul>
      *        <li>
      *        <p>
-     *        Must be 1 to 255 alphanumeric characters
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        First character must be a letter
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        Cannot end with a hyphen or contain two consecutive hyphens
+     *        If supplied, must match the identifier of an existing DBClusterSnapshot.
      *        </p>
      *        </li>
      *        <li>
@@ -412,7 +310,7 @@ public class DescribeDBClusterSnapshotsRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * A specific DB cluster snapshot identifier to describe. This parameter cannot be used in conjunction with the
+     * A specific DB cluster snapshot identifier to describe. This parameter can't be used in conjunction with the
      * <code>DBClusterIdentifier</code> parameter. This value is stored as a lowercase string.
      * </p>
      * <p>
@@ -421,17 +319,7 @@ public class DescribeDBClusterSnapshotsRequest extends com.amazonaws.AmazonWebSe
      * <ul>
      * <li>
      * <p>
-     * Must be 1 to 255 alphanumeric characters
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * First character must be a letter
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Cannot end with a hyphen or contain two consecutive hyphens
+     * If supplied, must match the identifier of an existing DBClusterSnapshot.
      * </p>
      * </li>
      * <li>
@@ -441,7 +329,7 @@ public class DescribeDBClusterSnapshotsRequest extends com.amazonaws.AmazonWebSe
      * </li>
      * </ul>
      * 
-     * @return A specific DB cluster snapshot identifier to describe. This parameter cannot be used in conjunction with
+     * @return A specific DB cluster snapshot identifier to describe. This parameter can't be used in conjunction with
      *         the <code>DBClusterIdentifier</code> parameter. This value is stored as a lowercase string. </p>
      *         <p>
      *         Constraints:
@@ -449,17 +337,7 @@ public class DescribeDBClusterSnapshotsRequest extends com.amazonaws.AmazonWebSe
      *         <ul>
      *         <li>
      *         <p>
-     *         Must be 1 to 255 alphanumeric characters
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         First character must be a letter
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         Cannot end with a hyphen or contain two consecutive hyphens
+     *         If supplied, must match the identifier of an existing DBClusterSnapshot.
      *         </p>
      *         </li>
      *         <li>
@@ -476,7 +354,7 @@ public class DescribeDBClusterSnapshotsRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * A specific DB cluster snapshot identifier to describe. This parameter cannot be used in conjunction with the
+     * A specific DB cluster snapshot identifier to describe. This parameter can't be used in conjunction with the
      * <code>DBClusterIdentifier</code> parameter. This value is stored as a lowercase string.
      * </p>
      * <p>
@@ -485,17 +363,7 @@ public class DescribeDBClusterSnapshotsRequest extends com.amazonaws.AmazonWebSe
      * <ul>
      * <li>
      * <p>
-     * Must be 1 to 255 alphanumeric characters
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * First character must be a letter
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Cannot end with a hyphen or contain two consecutive hyphens
+     * If supplied, must match the identifier of an existing DBClusterSnapshot.
      * </p>
      * </li>
      * <li>
@@ -506,7 +374,7 @@ public class DescribeDBClusterSnapshotsRequest extends com.amazonaws.AmazonWebSe
      * </ul>
      * 
      * @param dBClusterSnapshotIdentifier
-     *        A specific DB cluster snapshot identifier to describe. This parameter cannot be used in conjunction with
+     *        A specific DB cluster snapshot identifier to describe. This parameter can't be used in conjunction with
      *        the <code>DBClusterIdentifier</code> parameter. This value is stored as a lowercase string. </p>
      *        <p>
      *        Constraints:
@@ -514,17 +382,7 @@ public class DescribeDBClusterSnapshotsRequest extends com.amazonaws.AmazonWebSe
      *        <ul>
      *        <li>
      *        <p>
-     *        Must be 1 to 255 alphanumeric characters
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        First character must be a letter
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        Cannot end with a hyphen or contain two consecutive hyphens
+     *        If supplied, must match the identifier of an existing DBClusterSnapshot.
      *        </p>
      *        </li>
      *        <li>
@@ -1003,9 +861,8 @@ public class DescribeDBClusterSnapshotsRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Set this value to <code>true</code> to include shared manual DB cluster snapshots from other AWS accounts that
-     * this AWS account has been given permission to copy or restore, otherwise set this value to <code>false</code>.
-     * The default is <code>false</code>.
+     * True to include shared manual DB cluster snapshots from other AWS accounts that this AWS account has been given
+     * permission to copy or restore, and otherwise false. The default is <code>false</code>.
      * </p>
      * <p>
      * You can give an AWS account permission to restore a manual DB cluster snapshot from another AWS account by the
@@ -1013,9 +870,8 @@ public class DescribeDBClusterSnapshotsRequest extends com.amazonaws.AmazonWebSe
      * </p>
      * 
      * @param includeShared
-     *        Set this value to <code>true</code> to include shared manual DB cluster snapshots from other AWS accounts
-     *        that this AWS account has been given permission to copy or restore, otherwise set this value to
-     *        <code>false</code>. The default is <code>false</code>.</p>
+     *        True to include shared manual DB cluster snapshots from other AWS accounts that this AWS account has been
+     *        given permission to copy or restore, and otherwise false. The default is <code>false</code>.</p>
      *        <p>
      *        You can give an AWS account permission to restore a manual DB cluster snapshot from another AWS account by
      *        the <a>ModifyDBClusterSnapshotAttribute</a> API action.
@@ -1027,18 +883,16 @@ public class DescribeDBClusterSnapshotsRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Set this value to <code>true</code> to include shared manual DB cluster snapshots from other AWS accounts that
-     * this AWS account has been given permission to copy or restore, otherwise set this value to <code>false</code>.
-     * The default is <code>false</code>.
+     * True to include shared manual DB cluster snapshots from other AWS accounts that this AWS account has been given
+     * permission to copy or restore, and otherwise false. The default is <code>false</code>.
      * </p>
      * <p>
      * You can give an AWS account permission to restore a manual DB cluster snapshot from another AWS account by the
      * <a>ModifyDBClusterSnapshotAttribute</a> API action.
      * </p>
      * 
-     * @return Set this value to <code>true</code> to include shared manual DB cluster snapshots from other AWS accounts
-     *         that this AWS account has been given permission to copy or restore, otherwise set this value to
-     *         <code>false</code>. The default is <code>false</code>.</p>
+     * @return True to include shared manual DB cluster snapshots from other AWS accounts that this AWS account has been
+     *         given permission to copy or restore, and otherwise false. The default is <code>false</code>.</p>
      *         <p>
      *         You can give an AWS account permission to restore a manual DB cluster snapshot from another AWS account
      *         by the <a>ModifyDBClusterSnapshotAttribute</a> API action.
@@ -1050,9 +904,8 @@ public class DescribeDBClusterSnapshotsRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Set this value to <code>true</code> to include shared manual DB cluster snapshots from other AWS accounts that
-     * this AWS account has been given permission to copy or restore, otherwise set this value to <code>false</code>.
-     * The default is <code>false</code>.
+     * True to include shared manual DB cluster snapshots from other AWS accounts that this AWS account has been given
+     * permission to copy or restore, and otherwise false. The default is <code>false</code>.
      * </p>
      * <p>
      * You can give an AWS account permission to restore a manual DB cluster snapshot from another AWS account by the
@@ -1060,9 +913,8 @@ public class DescribeDBClusterSnapshotsRequest extends com.amazonaws.AmazonWebSe
      * </p>
      * 
      * @param includeShared
-     *        Set this value to <code>true</code> to include shared manual DB cluster snapshots from other AWS accounts
-     *        that this AWS account has been given permission to copy or restore, otherwise set this value to
-     *        <code>false</code>. The default is <code>false</code>.</p>
+     *        True to include shared manual DB cluster snapshots from other AWS accounts that this AWS account has been
+     *        given permission to copy or restore, and otherwise false. The default is <code>false</code>.</p>
      *        <p>
      *        You can give an AWS account permission to restore a manual DB cluster snapshot from another AWS account by
      *        the <a>ModifyDBClusterSnapshotAttribute</a> API action.
@@ -1076,18 +928,16 @@ public class DescribeDBClusterSnapshotsRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Set this value to <code>true</code> to include shared manual DB cluster snapshots from other AWS accounts that
-     * this AWS account has been given permission to copy or restore, otherwise set this value to <code>false</code>.
-     * The default is <code>false</code>.
+     * True to include shared manual DB cluster snapshots from other AWS accounts that this AWS account has been given
+     * permission to copy or restore, and otherwise false. The default is <code>false</code>.
      * </p>
      * <p>
      * You can give an AWS account permission to restore a manual DB cluster snapshot from another AWS account by the
      * <a>ModifyDBClusterSnapshotAttribute</a> API action.
      * </p>
      * 
-     * @return Set this value to <code>true</code> to include shared manual DB cluster snapshots from other AWS accounts
-     *         that this AWS account has been given permission to copy or restore, otherwise set this value to
-     *         <code>false</code>. The default is <code>false</code>.</p>
+     * @return True to include shared manual DB cluster snapshots from other AWS accounts that this AWS account has been
+     *         given permission to copy or restore, and otherwise false. The default is <code>false</code>.</p>
      *         <p>
      *         You can give an AWS account permission to restore a manual DB cluster snapshot from another AWS account
      *         by the <a>ModifyDBClusterSnapshotAttribute</a> API action.
@@ -1099,9 +949,8 @@ public class DescribeDBClusterSnapshotsRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Set this value to <code>true</code> to include manual DB cluster snapshots that are public and can be copied or
-     * restored by any AWS account, otherwise set this value to <code>false</code>. The default is <code>false</code>.
-     * The default is false.
+     * True to include manual DB cluster snapshots that are public and can be copied or restored by any AWS account, and
+     * otherwise false. The default is <code>false</code>. The default is false.
      * </p>
      * <p>
      * You can share a manual DB cluster snapshot as public by using the <a>ModifyDBClusterSnapshotAttribute</a> API
@@ -1109,9 +958,8 @@ public class DescribeDBClusterSnapshotsRequest extends com.amazonaws.AmazonWebSe
      * </p>
      * 
      * @param includePublic
-     *        Set this value to <code>true</code> to include manual DB cluster snapshots that are public and can be
-     *        copied or restored by any AWS account, otherwise set this value to <code>false</code>. The default is
-     *        <code>false</code>. The default is false.</p>
+     *        True to include manual DB cluster snapshots that are public and can be copied or restored by any AWS
+     *        account, and otherwise false. The default is <code>false</code>. The default is false.</p>
      *        <p>
      *        You can share a manual DB cluster snapshot as public by using the <a>ModifyDBClusterSnapshotAttribute</a>
      *        API action.
@@ -1123,18 +971,16 @@ public class DescribeDBClusterSnapshotsRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Set this value to <code>true</code> to include manual DB cluster snapshots that are public and can be copied or
-     * restored by any AWS account, otherwise set this value to <code>false</code>. The default is <code>false</code>.
-     * The default is false.
+     * True to include manual DB cluster snapshots that are public and can be copied or restored by any AWS account, and
+     * otherwise false. The default is <code>false</code>. The default is false.
      * </p>
      * <p>
      * You can share a manual DB cluster snapshot as public by using the <a>ModifyDBClusterSnapshotAttribute</a> API
      * action.
      * </p>
      * 
-     * @return Set this value to <code>true</code> to include manual DB cluster snapshots that are public and can be
-     *         copied or restored by any AWS account, otherwise set this value to <code>false</code>. The default is
-     *         <code>false</code>. The default is false.</p>
+     * @return True to include manual DB cluster snapshots that are public and can be copied or restored by any AWS
+     *         account, and otherwise false. The default is <code>false</code>. The default is false.</p>
      *         <p>
      *         You can share a manual DB cluster snapshot as public by using the <a>ModifyDBClusterSnapshotAttribute</a>
      *         API action.
@@ -1146,9 +992,8 @@ public class DescribeDBClusterSnapshotsRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Set this value to <code>true</code> to include manual DB cluster snapshots that are public and can be copied or
-     * restored by any AWS account, otherwise set this value to <code>false</code>. The default is <code>false</code>.
-     * The default is false.
+     * True to include manual DB cluster snapshots that are public and can be copied or restored by any AWS account, and
+     * otherwise false. The default is <code>false</code>. The default is false.
      * </p>
      * <p>
      * You can share a manual DB cluster snapshot as public by using the <a>ModifyDBClusterSnapshotAttribute</a> API
@@ -1156,9 +1001,8 @@ public class DescribeDBClusterSnapshotsRequest extends com.amazonaws.AmazonWebSe
      * </p>
      * 
      * @param includePublic
-     *        Set this value to <code>true</code> to include manual DB cluster snapshots that are public and can be
-     *        copied or restored by any AWS account, otherwise set this value to <code>false</code>. The default is
-     *        <code>false</code>. The default is false.</p>
+     *        True to include manual DB cluster snapshots that are public and can be copied or restored by any AWS
+     *        account, and otherwise false. The default is <code>false</code>. The default is false.</p>
      *        <p>
      *        You can share a manual DB cluster snapshot as public by using the <a>ModifyDBClusterSnapshotAttribute</a>
      *        API action.
@@ -1172,18 +1016,16 @@ public class DescribeDBClusterSnapshotsRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * Set this value to <code>true</code> to include manual DB cluster snapshots that are public and can be copied or
-     * restored by any AWS account, otherwise set this value to <code>false</code>. The default is <code>false</code>.
-     * The default is false.
+     * True to include manual DB cluster snapshots that are public and can be copied or restored by any AWS account, and
+     * otherwise false. The default is <code>false</code>. The default is false.
      * </p>
      * <p>
      * You can share a manual DB cluster snapshot as public by using the <a>ModifyDBClusterSnapshotAttribute</a> API
      * action.
      * </p>
      * 
-     * @return Set this value to <code>true</code> to include manual DB cluster snapshots that are public and can be
-     *         copied or restored by any AWS account, otherwise set this value to <code>false</code>. The default is
-     *         <code>false</code>. The default is false.</p>
+     * @return True to include manual DB cluster snapshots that are public and can be copied or restored by any AWS
+     *         account, and otherwise false. The default is <code>false</code>. The default is false.</p>
      *         <p>
      *         You can share a manual DB cluster snapshot as public by using the <a>ModifyDBClusterSnapshotAttribute</a>
      *         API action.
@@ -1194,7 +1036,8 @@ public class DescribeDBClusterSnapshotsRequest extends com.amazonaws.AmazonWebSe
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

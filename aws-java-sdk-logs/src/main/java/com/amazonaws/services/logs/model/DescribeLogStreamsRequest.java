@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,7 +36,7 @@ public class DescribeLogStreamsRequest extends com.amazonaws.AmazonWebServiceReq
      * The prefix to match.
      * </p>
      * <p>
-     * You cannot specify this parameter if <code>orderBy</code> is <code>LastEventTime</code>.
+     * If <code>orderBy</code> is <code>LastEventTime</code>,you cannot specify this parameter.
      * </p>
      */
     private String logStreamNamePrefix;
@@ -51,7 +51,7 @@ public class DescribeLogStreamsRequest extends com.amazonaws.AmazonWebServiceReq
      * </p>
      * <p>
      * lastEventTimestamp represents the time of the most recent log event in the log stream in CloudWatch Logs. This
-     * number is expressed as the number of milliseconds since Jan 1, 1970 00:00:00 UTC. lastEventTimeStamp updates on
+     * number is expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC. lastEventTimeStamp updates on
      * an eventual consistency basis. It typically updates in less than an hour from ingestion, but may take longer in
      * some rare situations.
      * </p>
@@ -140,13 +140,13 @@ public class DescribeLogStreamsRequest extends com.amazonaws.AmazonWebServiceReq
      * The prefix to match.
      * </p>
      * <p>
-     * You cannot specify this parameter if <code>orderBy</code> is <code>LastEventTime</code>.
+     * If <code>orderBy</code> is <code>LastEventTime</code>,you cannot specify this parameter.
      * </p>
      * 
      * @param logStreamNamePrefix
      *        The prefix to match.</p>
      *        <p>
-     *        You cannot specify this parameter if <code>orderBy</code> is <code>LastEventTime</code>.
+     *        If <code>orderBy</code> is <code>LastEventTime</code>,you cannot specify this parameter.
      */
 
     public void setLogStreamNamePrefix(String logStreamNamePrefix) {
@@ -158,12 +158,12 @@ public class DescribeLogStreamsRequest extends com.amazonaws.AmazonWebServiceReq
      * The prefix to match.
      * </p>
      * <p>
-     * You cannot specify this parameter if <code>orderBy</code> is <code>LastEventTime</code>.
+     * If <code>orderBy</code> is <code>LastEventTime</code>,you cannot specify this parameter.
      * </p>
      * 
      * @return The prefix to match.</p>
      *         <p>
-     *         You cannot specify this parameter if <code>orderBy</code> is <code>LastEventTime</code>.
+     *         If <code>orderBy</code> is <code>LastEventTime</code>,you cannot specify this parameter.
      */
 
     public String getLogStreamNamePrefix() {
@@ -175,13 +175,13 @@ public class DescribeLogStreamsRequest extends com.amazonaws.AmazonWebServiceReq
      * The prefix to match.
      * </p>
      * <p>
-     * You cannot specify this parameter if <code>orderBy</code> is <code>LastEventTime</code>.
+     * If <code>orderBy</code> is <code>LastEventTime</code>,you cannot specify this parameter.
      * </p>
      * 
      * @param logStreamNamePrefix
      *        The prefix to match.</p>
      *        <p>
-     *        You cannot specify this parameter if <code>orderBy</code> is <code>LastEventTime</code>.
+     *        If <code>orderBy</code> is <code>LastEventTime</code>,you cannot specify this parameter.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -201,7 +201,7 @@ public class DescribeLogStreamsRequest extends com.amazonaws.AmazonWebServiceReq
      * </p>
      * <p>
      * lastEventTimestamp represents the time of the most recent log event in the log stream in CloudWatch Logs. This
-     * number is expressed as the number of milliseconds since Jan 1, 1970 00:00:00 UTC. lastEventTimeStamp updates on
+     * number is expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC. lastEventTimeStamp updates on
      * an eventual consistency basis. It typically updates in less than an hour from ingestion, but may take longer in
      * some rare situations.
      * </p>
@@ -215,7 +215,7 @@ public class DescribeLogStreamsRequest extends com.amazonaws.AmazonWebServiceReq
      *        </p>
      *        <p>
      *        lastEventTimestamp represents the time of the most recent log event in the log stream in CloudWatch Logs.
-     *        This number is expressed as the number of milliseconds since Jan 1, 1970 00:00:00 UTC. lastEventTimeStamp
+     *        This number is expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC. lastEventTimeStamp
      *        updates on an eventual consistency basis. It typically updates in less than an hour from ingestion, but
      *        may take longer in some rare situations.
      * @see OrderBy
@@ -236,7 +236,7 @@ public class DescribeLogStreamsRequest extends com.amazonaws.AmazonWebServiceReq
      * </p>
      * <p>
      * lastEventTimestamp represents the time of the most recent log event in the log stream in CloudWatch Logs. This
-     * number is expressed as the number of milliseconds since Jan 1, 1970 00:00:00 UTC. lastEventTimeStamp updates on
+     * number is expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC. lastEventTimeStamp updates on
      * an eventual consistency basis. It typically updates in less than an hour from ingestion, but may take longer in
      * some rare situations.
      * </p>
@@ -250,7 +250,7 @@ public class DescribeLogStreamsRequest extends com.amazonaws.AmazonWebServiceReq
      *         </p>
      *         <p>
      *         lastEventTimestamp represents the time of the most recent log event in the log stream in CloudWatch Logs.
-     *         This number is expressed as the number of milliseconds since Jan 1, 1970 00:00:00 UTC. lastEventTimeStamp
+     *         This number is expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC. lastEventTimeStamp
      *         updates on an eventual consistency basis. It typically updates in less than an hour from ingestion, but
      *         may take longer in some rare situations.
      * @see OrderBy
@@ -271,7 +271,7 @@ public class DescribeLogStreamsRequest extends com.amazonaws.AmazonWebServiceReq
      * </p>
      * <p>
      * lastEventTimestamp represents the time of the most recent log event in the log stream in CloudWatch Logs. This
-     * number is expressed as the number of milliseconds since Jan 1, 1970 00:00:00 UTC. lastEventTimeStamp updates on
+     * number is expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC. lastEventTimeStamp updates on
      * an eventual consistency basis. It typically updates in less than an hour from ingestion, but may take longer in
      * some rare situations.
      * </p>
@@ -285,7 +285,7 @@ public class DescribeLogStreamsRequest extends com.amazonaws.AmazonWebServiceReq
      *        </p>
      *        <p>
      *        lastEventTimestamp represents the time of the most recent log event in the log stream in CloudWatch Logs.
-     *        This number is expressed as the number of milliseconds since Jan 1, 1970 00:00:00 UTC. lastEventTimeStamp
+     *        This number is expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC. lastEventTimeStamp
      *        updates on an eventual consistency basis. It typically updates in less than an hour from ingestion, but
      *        may take longer in some rare situations.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -308,7 +308,7 @@ public class DescribeLogStreamsRequest extends com.amazonaws.AmazonWebServiceReq
      * </p>
      * <p>
      * lastEventTimestamp represents the time of the most recent log event in the log stream in CloudWatch Logs. This
-     * number is expressed as the number of milliseconds since Jan 1, 1970 00:00:00 UTC. lastEventTimeStamp updates on
+     * number is expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC. lastEventTimeStamp updates on
      * an eventual consistency basis. It typically updates in less than an hour from ingestion, but may take longer in
      * some rare situations.
      * </p>
@@ -322,7 +322,7 @@ public class DescribeLogStreamsRequest extends com.amazonaws.AmazonWebServiceReq
      *        </p>
      *        <p>
      *        lastEventTimestamp represents the time of the most recent log event in the log stream in CloudWatch Logs.
-     *        This number is expressed as the number of milliseconds since Jan 1, 1970 00:00:00 UTC. lastEventTimeStamp
+     *        This number is expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC. lastEventTimeStamp
      *        updates on an eventual consistency basis. It typically updates in less than an hour from ingestion, but
      *        may take longer in some rare situations.
      * @see OrderBy
@@ -343,7 +343,7 @@ public class DescribeLogStreamsRequest extends com.amazonaws.AmazonWebServiceReq
      * </p>
      * <p>
      * lastEventTimestamp represents the time of the most recent log event in the log stream in CloudWatch Logs. This
-     * number is expressed as the number of milliseconds since Jan 1, 1970 00:00:00 UTC. lastEventTimeStamp updates on
+     * number is expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC. lastEventTimeStamp updates on
      * an eventual consistency basis. It typically updates in less than an hour from ingestion, but may take longer in
      * some rare situations.
      * </p>
@@ -357,7 +357,7 @@ public class DescribeLogStreamsRequest extends com.amazonaws.AmazonWebServiceReq
      *        </p>
      *        <p>
      *        lastEventTimestamp represents the time of the most recent log event in the log stream in CloudWatch Logs.
-     *        This number is expressed as the number of milliseconds since Jan 1, 1970 00:00:00 UTC. lastEventTimeStamp
+     *        This number is expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC. lastEventTimeStamp
      *        updates on an eventual consistency basis. It typically updates in less than an hour from ingestion, but
      *        may take longer in some rare situations.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -510,7 +510,8 @@ public class DescribeLogStreamsRequest extends com.amazonaws.AmazonWebServiceReq
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

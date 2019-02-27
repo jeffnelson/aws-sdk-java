@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -63,6 +63,10 @@ public class ResourceDataSyncS3DestinationJsonUnmarshaller implements Unmarshall
                 if (context.testExpression("Region", targetDepth)) {
                     context.nextToken();
                     resourceDataSyncS3Destination.setRegion(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("AWSKMSKeyARN", targetDepth)) {
+                    context.nextToken();
+                    resourceDataSyncS3Destination.setAWSKMSKeyARN(context.getUnmarshaller(String.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

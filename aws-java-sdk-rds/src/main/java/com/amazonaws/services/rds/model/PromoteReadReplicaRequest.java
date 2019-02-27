@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,22 +36,7 @@ public class PromoteReadReplicaRequest extends com.amazonaws.AmazonWebServiceReq
      * <ul>
      * <li>
      * <p>
-     * Must be the identifier for an existing Read Replica DB instance
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Must contain from 1 to 63 alphanumeric characters or hyphens
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * First character must be a letter
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Cannot end with a hyphen or contain two consecutive hyphens
+     * Must match the identifier of an existing Read Replica DB instance.
      * </p>
      * </li>
      * </ul>
@@ -86,8 +71,8 @@ public class PromoteReadReplicaRequest extends com.amazonaws.AmazonWebServiceReq
      * <code>BackupRetentionPeriod</code> parameter.
      * </p>
      * <p>
-     * Default: A 30-minute window selected at random from an 8-hour block of time per region. To see the time blocks
-     * available, see <a
+     * The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region. To see the
+     * time blocks available, see <a
      * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html"> Adjusting the
      * Preferred Maintenance Window</a> in the <i>Amazon RDS User Guide.</i>
      * </p>
@@ -102,7 +87,7 @@ public class PromoteReadReplicaRequest extends com.amazonaws.AmazonWebServiceReq
      * </li>
      * <li>
      * <p>
-     * Times should be in Universal Coordinated Time (UTC).
+     * Must be in Universal Coordinated Time (UTC).
      * </p>
      * </li>
      * <li>
@@ -129,22 +114,7 @@ public class PromoteReadReplicaRequest extends com.amazonaws.AmazonWebServiceReq
      * <ul>
      * <li>
      * <p>
-     * Must be the identifier for an existing Read Replica DB instance
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Must contain from 1 to 63 alphanumeric characters or hyphens
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * First character must be a letter
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Cannot end with a hyphen or contain two consecutive hyphens
+     * Must match the identifier of an existing Read Replica DB instance.
      * </p>
      * </li>
      * </ul>
@@ -160,22 +130,7 @@ public class PromoteReadReplicaRequest extends com.amazonaws.AmazonWebServiceReq
      *        <ul>
      *        <li>
      *        <p>
-     *        Must be the identifier for an existing Read Replica DB instance
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        Must contain from 1 to 63 alphanumeric characters or hyphens
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        First character must be a letter
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        Cannot end with a hyphen or contain two consecutive hyphens
+     *        Must match the identifier of an existing Read Replica DB instance.
      *        </p>
      *        </li>
      *        </ul>
@@ -197,22 +152,7 @@ public class PromoteReadReplicaRequest extends com.amazonaws.AmazonWebServiceReq
      * <ul>
      * <li>
      * <p>
-     * Must be the identifier for an existing Read Replica DB instance
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Must contain from 1 to 63 alphanumeric characters or hyphens
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * First character must be a letter
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Cannot end with a hyphen or contain two consecutive hyphens
+     * Must match the identifier of an existing Read Replica DB instance.
      * </p>
      * </li>
      * </ul>
@@ -227,22 +167,7 @@ public class PromoteReadReplicaRequest extends com.amazonaws.AmazonWebServiceReq
      *         <ul>
      *         <li>
      *         <p>
-     *         Must be the identifier for an existing Read Replica DB instance
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         Must contain from 1 to 63 alphanumeric characters or hyphens
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         First character must be a letter
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         Cannot end with a hyphen or contain two consecutive hyphens
+     *         Must match the identifier of an existing Read Replica DB instance.
      *         </p>
      *         </li>
      *         </ul>
@@ -264,22 +189,7 @@ public class PromoteReadReplicaRequest extends com.amazonaws.AmazonWebServiceReq
      * <ul>
      * <li>
      * <p>
-     * Must be the identifier for an existing Read Replica DB instance
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Must contain from 1 to 63 alphanumeric characters or hyphens
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * First character must be a letter
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Cannot end with a hyphen or contain two consecutive hyphens
+     * Must match the identifier of an existing Read Replica DB instance.
      * </p>
      * </li>
      * </ul>
@@ -295,22 +205,7 @@ public class PromoteReadReplicaRequest extends com.amazonaws.AmazonWebServiceReq
      *        <ul>
      *        <li>
      *        <p>
-     *        Must be the identifier for an existing Read Replica DB instance
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        Must contain from 1 to 63 alphanumeric characters or hyphens
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        First character must be a letter
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        Cannot end with a hyphen or contain two consecutive hyphens
+     *        Must match the identifier of an existing Read Replica DB instance.
      *        </p>
      *        </li>
      *        </ul>
@@ -451,8 +346,8 @@ public class PromoteReadReplicaRequest extends com.amazonaws.AmazonWebServiceReq
      * <code>BackupRetentionPeriod</code> parameter.
      * </p>
      * <p>
-     * Default: A 30-minute window selected at random from an 8-hour block of time per region. To see the time blocks
-     * available, see <a
+     * The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region. To see the
+     * time blocks available, see <a
      * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html"> Adjusting the
      * Preferred Maintenance Window</a> in the <i>Amazon RDS User Guide.</i>
      * </p>
@@ -467,7 +362,7 @@ public class PromoteReadReplicaRequest extends com.amazonaws.AmazonWebServiceReq
      * </li>
      * <li>
      * <p>
-     * Times should be in Universal Coordinated Time (UTC).
+     * Must be in Universal Coordinated Time (UTC).
      * </p>
      * </li>
      * <li>
@@ -486,8 +381,8 @@ public class PromoteReadReplicaRequest extends com.amazonaws.AmazonWebServiceReq
      *        The daily time range during which automated backups are created if automated backups are enabled, using
      *        the <code>BackupRetentionPeriod</code> parameter. </p>
      *        <p>
-     *        Default: A 30-minute window selected at random from an 8-hour block of time per region. To see the time
-     *        blocks available, see <a
+     *        The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region. To
+     *        see the time blocks available, see <a
      *        href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html"> Adjusting
      *        the Preferred Maintenance Window</a> in the <i>Amazon RDS User Guide.</i>
      *        </p>
@@ -502,7 +397,7 @@ public class PromoteReadReplicaRequest extends com.amazonaws.AmazonWebServiceReq
      *        </li>
      *        <li>
      *        <p>
-     *        Times should be in Universal Coordinated Time (UTC).
+     *        Must be in Universal Coordinated Time (UTC).
      *        </p>
      *        </li>
      *        <li>
@@ -527,8 +422,8 @@ public class PromoteReadReplicaRequest extends com.amazonaws.AmazonWebServiceReq
      * <code>BackupRetentionPeriod</code> parameter.
      * </p>
      * <p>
-     * Default: A 30-minute window selected at random from an 8-hour block of time per region. To see the time blocks
-     * available, see <a
+     * The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region. To see the
+     * time blocks available, see <a
      * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html"> Adjusting the
      * Preferred Maintenance Window</a> in the <i>Amazon RDS User Guide.</i>
      * </p>
@@ -543,7 +438,7 @@ public class PromoteReadReplicaRequest extends com.amazonaws.AmazonWebServiceReq
      * </li>
      * <li>
      * <p>
-     * Times should be in Universal Coordinated Time (UTC).
+     * Must be in Universal Coordinated Time (UTC).
      * </p>
      * </li>
      * <li>
@@ -561,8 +456,8 @@ public class PromoteReadReplicaRequest extends com.amazonaws.AmazonWebServiceReq
      * @return The daily time range during which automated backups are created if automated backups are enabled, using
      *         the <code>BackupRetentionPeriod</code> parameter. </p>
      *         <p>
-     *         Default: A 30-minute window selected at random from an 8-hour block of time per region. To see the time
-     *         blocks available, see <a
+     *         The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region. To
+     *         see the time blocks available, see <a
      *         href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html">
      *         Adjusting the Preferred Maintenance Window</a> in the <i>Amazon RDS User Guide.</i>
      *         </p>
@@ -577,7 +472,7 @@ public class PromoteReadReplicaRequest extends com.amazonaws.AmazonWebServiceReq
      *         </li>
      *         <li>
      *         <p>
-     *         Times should be in Universal Coordinated Time (UTC).
+     *         Must be in Universal Coordinated Time (UTC).
      *         </p>
      *         </li>
      *         <li>
@@ -602,8 +497,8 @@ public class PromoteReadReplicaRequest extends com.amazonaws.AmazonWebServiceReq
      * <code>BackupRetentionPeriod</code> parameter.
      * </p>
      * <p>
-     * Default: A 30-minute window selected at random from an 8-hour block of time per region. To see the time blocks
-     * available, see <a
+     * The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region. To see the
+     * time blocks available, see <a
      * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html"> Adjusting the
      * Preferred Maintenance Window</a> in the <i>Amazon RDS User Guide.</i>
      * </p>
@@ -618,7 +513,7 @@ public class PromoteReadReplicaRequest extends com.amazonaws.AmazonWebServiceReq
      * </li>
      * <li>
      * <p>
-     * Times should be in Universal Coordinated Time (UTC).
+     * Must be in Universal Coordinated Time (UTC).
      * </p>
      * </li>
      * <li>
@@ -637,8 +532,8 @@ public class PromoteReadReplicaRequest extends com.amazonaws.AmazonWebServiceReq
      *        The daily time range during which automated backups are created if automated backups are enabled, using
      *        the <code>BackupRetentionPeriod</code> parameter. </p>
      *        <p>
-     *        Default: A 30-minute window selected at random from an 8-hour block of time per region. To see the time
-     *        blocks available, see <a
+     *        The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region. To
+     *        see the time blocks available, see <a
      *        href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html"> Adjusting
      *        the Preferred Maintenance Window</a> in the <i>Amazon RDS User Guide.</i>
      *        </p>
@@ -653,7 +548,7 @@ public class PromoteReadReplicaRequest extends com.amazonaws.AmazonWebServiceReq
      *        </li>
      *        <li>
      *        <p>
-     *        Times should be in Universal Coordinated Time (UTC).
+     *        Must be in Universal Coordinated Time (UTC).
      *        </p>
      *        </li>
      *        <li>
@@ -675,7 +570,8 @@ public class PromoteReadReplicaRequest extends com.amazonaws.AmazonWebServiceReq
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

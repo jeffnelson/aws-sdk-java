@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,15 +18,18 @@ import javax.annotation.Generated;
  * <p>
  * One of the parameters in the request is invalid. For example, if you provided an IAM role for AWS Lambda to assume in
  * the <code>CreateFunction</code> or the <code>UpdateFunctionConfiguration</code> API, that AWS Lambda is unable to
- * assume you will get this exception. You will also get this exception if you have selected a deprecated runtime, such
- * as Node v0.10.42.
+ * assume you will get this exception.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class InvalidParameterValueException extends com.amazonaws.services.lambda.model.AWSLambdaException {
     private static final long serialVersionUID = 1L;
 
-    /** <p/> */
+    /**
+     * <p>
+     * The exception type.
+     * </p>
+     */
     private String type;
 
     /**
@@ -40,9 +43,12 @@ public class InvalidParameterValueException extends com.amazonaws.services.lambd
     }
 
     /**
-     * <p/>
+     * <p>
+     * The exception type.
+     * </p>
      * 
      * @param type
+     *        The exception type.
      */
 
     @com.fasterxml.jackson.annotation.JsonProperty("Type")
@@ -51,9 +57,11 @@ public class InvalidParameterValueException extends com.amazonaws.services.lambd
     }
 
     /**
-     * <p/>
+     * <p>
+     * The exception type.
+     * </p>
      * 
-     * @return
+     * @return The exception type.
      */
 
     @com.fasterxml.jackson.annotation.JsonProperty("Type")
@@ -62,9 +70,12 @@ public class InvalidParameterValueException extends com.amazonaws.services.lambd
     }
 
     /**
-     * <p/>
+     * <p>
+     * The exception type.
+     * </p>
      * 
      * @param type
+     *        The exception type.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 

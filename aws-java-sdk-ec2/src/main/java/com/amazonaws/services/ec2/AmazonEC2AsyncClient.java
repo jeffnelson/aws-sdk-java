@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -32,10 +32,39 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * <p>
  * <fullname>Amazon Elastic Compute Cloud</fullname>
  * <p>
- * Amazon Elastic Compute Cloud (Amazon EC2) provides resizable computing capacity in the Amazon Web Services (AWS)
- * cloud. Using Amazon EC2 eliminates your need to invest in hardware up front, so you can develop and deploy
- * applications faster.
+ * Amazon Elastic Compute Cloud (Amazon EC2) provides secure and resizable computing capacity in the AWS cloud. Using
+ * Amazon EC2 eliminates the need to invest in hardware up front, so you can develop and deploy applications faster.
  * </p>
+ * <p>
+ * To learn more about Amazon EC2, Amazon EBS, and Amazon VPC, see the following resources:
+ * </p>
+ * <ul>
+ * <li>
+ * <p>
+ * <a href="http://aws.amazon.com/ec2">Amazon EC2 product page</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="http://aws.amazon.com/documentation/ec2">Amazon EC2 documentation</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="http://aws.amazon.com/ebs">Amazon EBS product page</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="http://aws.amazon.com/vpc">Amazon VPC product page</a>
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="http://aws.amazon.com/documentation/vpc">Amazon VPC documentation</a>
+ * </p>
+ * </li>
+ * </ul>
  */
 @ThreadSafe
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -282,6 +311,74 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
     }
 
     @Override
+    public java.util.concurrent.Future<AcceptTransitGatewayVpcAttachmentResult> acceptTransitGatewayVpcAttachmentAsync(
+            AcceptTransitGatewayVpcAttachmentRequest request) {
+
+        return acceptTransitGatewayVpcAttachmentAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AcceptTransitGatewayVpcAttachmentResult> acceptTransitGatewayVpcAttachmentAsync(
+            final AcceptTransitGatewayVpcAttachmentRequest request,
+            final com.amazonaws.handlers.AsyncHandler<AcceptTransitGatewayVpcAttachmentRequest, AcceptTransitGatewayVpcAttachmentResult> asyncHandler) {
+        final AcceptTransitGatewayVpcAttachmentRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<AcceptTransitGatewayVpcAttachmentResult>() {
+            @Override
+            public AcceptTransitGatewayVpcAttachmentResult call() throws Exception {
+                AcceptTransitGatewayVpcAttachmentResult result = null;
+
+                try {
+                    result = executeAcceptTransitGatewayVpcAttachment(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<AcceptVpcEndpointConnectionsResult> acceptVpcEndpointConnectionsAsync(AcceptVpcEndpointConnectionsRequest request) {
+
+        return acceptVpcEndpointConnectionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AcceptVpcEndpointConnectionsResult> acceptVpcEndpointConnectionsAsync(final AcceptVpcEndpointConnectionsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<AcceptVpcEndpointConnectionsRequest, AcceptVpcEndpointConnectionsResult> asyncHandler) {
+        final AcceptVpcEndpointConnectionsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<AcceptVpcEndpointConnectionsResult>() {
+            @Override
+            public AcceptVpcEndpointConnectionsResult call() throws Exception {
+                AcceptVpcEndpointConnectionsResult result = null;
+
+                try {
+                    result = executeAcceptVpcEndpointConnections(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<AcceptVpcPeeringConnectionResult> acceptVpcPeeringConnectionAsync(AcceptVpcPeeringConnectionRequest request) {
 
         return acceptVpcPeeringConnectionAsync(request, null);
@@ -335,6 +432,39 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
             com.amazonaws.handlers.AsyncHandler<AcceptVpcPeeringConnectionRequest, AcceptVpcPeeringConnectionResult> asyncHandler) {
 
         return acceptVpcPeeringConnectionAsync(new AcceptVpcPeeringConnectionRequest(), asyncHandler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AdvertiseByoipCidrResult> advertiseByoipCidrAsync(AdvertiseByoipCidrRequest request) {
+
+        return advertiseByoipCidrAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AdvertiseByoipCidrResult> advertiseByoipCidrAsync(final AdvertiseByoipCidrRequest request,
+            final com.amazonaws.handlers.AsyncHandler<AdvertiseByoipCidrRequest, AdvertiseByoipCidrResult> asyncHandler) {
+        final AdvertiseByoipCidrRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<AdvertiseByoipCidrResult>() {
+            @Override
+            public AdvertiseByoipCidrResult call() throws Exception {
+                AdvertiseByoipCidrResult result = null;
+
+                try {
+                    result = executeAdvertiseByoipCidr(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
     }
 
     @Override
@@ -411,6 +541,41 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
 
                 try {
                     result = executeAllocateHosts(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ApplySecurityGroupsToClientVpnTargetNetworkResult> applySecurityGroupsToClientVpnTargetNetworkAsync(
+            ApplySecurityGroupsToClientVpnTargetNetworkRequest request) {
+
+        return applySecurityGroupsToClientVpnTargetNetworkAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ApplySecurityGroupsToClientVpnTargetNetworkResult> applySecurityGroupsToClientVpnTargetNetworkAsync(
+            final ApplySecurityGroupsToClientVpnTargetNetworkRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ApplySecurityGroupsToClientVpnTargetNetworkRequest, ApplySecurityGroupsToClientVpnTargetNetworkResult> asyncHandler) {
+        final ApplySecurityGroupsToClientVpnTargetNetworkRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ApplySecurityGroupsToClientVpnTargetNetworkResult>() {
+            @Override
+            public ApplySecurityGroupsToClientVpnTargetNetworkResult call() throws Exception {
+                ApplySecurityGroupsToClientVpnTargetNetworkResult result = null;
+
+                try {
+                    result = executeApplySecurityGroupsToClientVpnTargetNetwork(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -510,6 +675,41 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
 
                 try {
                     result = executeAssociateAddress(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateClientVpnTargetNetworkResult> associateClientVpnTargetNetworkAsync(
+            AssociateClientVpnTargetNetworkRequest request) {
+
+        return associateClientVpnTargetNetworkAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateClientVpnTargetNetworkResult> associateClientVpnTargetNetworkAsync(
+            final AssociateClientVpnTargetNetworkRequest request,
+            final com.amazonaws.handlers.AsyncHandler<AssociateClientVpnTargetNetworkRequest, AssociateClientVpnTargetNetworkResult> asyncHandler) {
+        final AssociateClientVpnTargetNetworkRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<AssociateClientVpnTargetNetworkResult>() {
+            @Override
+            public AssociateClientVpnTargetNetworkResult call() throws Exception {
+                AssociateClientVpnTargetNetworkResult result = null;
+
+                try {
+                    result = executeAssociateClientVpnTargetNetwork(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -642,6 +842,41 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
 
                 try {
                     result = executeAssociateSubnetCidrBlock(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateTransitGatewayRouteTableResult> associateTransitGatewayRouteTableAsync(
+            AssociateTransitGatewayRouteTableRequest request) {
+
+        return associateTransitGatewayRouteTableAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateTransitGatewayRouteTableResult> associateTransitGatewayRouteTableAsync(
+            final AssociateTransitGatewayRouteTableRequest request,
+            final com.amazonaws.handlers.AsyncHandler<AssociateTransitGatewayRouteTableRequest, AssociateTransitGatewayRouteTableResult> asyncHandler) {
+        final AssociateTransitGatewayRouteTableRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<AssociateTransitGatewayRouteTableResult>() {
+            @Override
+            public AssociateTransitGatewayRouteTableResult call() throws Exception {
+                AssociateTransitGatewayRouteTableResult result = null;
+
+                try {
+                    result = executeAssociateTransitGatewayRouteTable(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -856,6 +1091,39 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
     }
 
     @Override
+    public java.util.concurrent.Future<AuthorizeClientVpnIngressResult> authorizeClientVpnIngressAsync(AuthorizeClientVpnIngressRequest request) {
+
+        return authorizeClientVpnIngressAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AuthorizeClientVpnIngressResult> authorizeClientVpnIngressAsync(final AuthorizeClientVpnIngressRequest request,
+            final com.amazonaws.handlers.AsyncHandler<AuthorizeClientVpnIngressRequest, AuthorizeClientVpnIngressResult> asyncHandler) {
+        final AuthorizeClientVpnIngressRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<AuthorizeClientVpnIngressResult>() {
+            @Override
+            public AuthorizeClientVpnIngressResult call() throws Exception {
+                AuthorizeClientVpnIngressResult result = null;
+
+                try {
+                    result = executeAuthorizeClientVpnIngress(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<AuthorizeSecurityGroupEgressResult> authorizeSecurityGroupEgressAsync(AuthorizeSecurityGroupEgressRequest request) {
 
         return authorizeSecurityGroupEgressAsync(request, null);
@@ -973,6 +1241,39 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
 
                 try {
                     result = executeCancelBundleTask(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CancelCapacityReservationResult> cancelCapacityReservationAsync(CancelCapacityReservationRequest request) {
+
+        return cancelCapacityReservationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CancelCapacityReservationResult> cancelCapacityReservationAsync(final CancelCapacityReservationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CancelCapacityReservationRequest, CancelCapacityReservationResult> asyncHandler) {
+        final CancelCapacityReservationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CancelCapacityReservationResult>() {
+            @Override
+            public CancelCapacityReservationResult call() throws Exception {
+                CancelCapacityReservationResult result = null;
+
+                try {
+                    result = executeCancelCapacityReservation(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1244,6 +1545,39 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
     }
 
     @Override
+    public java.util.concurrent.Future<CopyFpgaImageResult> copyFpgaImageAsync(CopyFpgaImageRequest request) {
+
+        return copyFpgaImageAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CopyFpgaImageResult> copyFpgaImageAsync(final CopyFpgaImageRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CopyFpgaImageRequest, CopyFpgaImageResult> asyncHandler) {
+        final CopyFpgaImageRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CopyFpgaImageResult>() {
+            @Override
+            public CopyFpgaImageResult call() throws Exception {
+                CopyFpgaImageResult result = null;
+
+                try {
+                    result = executeCopyFpgaImage(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<CopyImageResult> copyImageAsync(CopyImageRequest request) {
 
         return copyImageAsync(request, null);
@@ -1310,6 +1644,105 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
     }
 
     @Override
+    public java.util.concurrent.Future<CreateCapacityReservationResult> createCapacityReservationAsync(CreateCapacityReservationRequest request) {
+
+        return createCapacityReservationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateCapacityReservationResult> createCapacityReservationAsync(final CreateCapacityReservationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateCapacityReservationRequest, CreateCapacityReservationResult> asyncHandler) {
+        final CreateCapacityReservationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateCapacityReservationResult>() {
+            @Override
+            public CreateCapacityReservationResult call() throws Exception {
+                CreateCapacityReservationResult result = null;
+
+                try {
+                    result = executeCreateCapacityReservation(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateClientVpnEndpointResult> createClientVpnEndpointAsync(CreateClientVpnEndpointRequest request) {
+
+        return createClientVpnEndpointAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateClientVpnEndpointResult> createClientVpnEndpointAsync(final CreateClientVpnEndpointRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateClientVpnEndpointRequest, CreateClientVpnEndpointResult> asyncHandler) {
+        final CreateClientVpnEndpointRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateClientVpnEndpointResult>() {
+            @Override
+            public CreateClientVpnEndpointResult call() throws Exception {
+                CreateClientVpnEndpointResult result = null;
+
+                try {
+                    result = executeCreateClientVpnEndpoint(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateClientVpnRouteResult> createClientVpnRouteAsync(CreateClientVpnRouteRequest request) {
+
+        return createClientVpnRouteAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateClientVpnRouteResult> createClientVpnRouteAsync(final CreateClientVpnRouteRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateClientVpnRouteRequest, CreateClientVpnRouteResult> asyncHandler) {
+        final CreateClientVpnRouteRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateClientVpnRouteResult>() {
+            @Override
+            public CreateClientVpnRouteResult call() throws Exception {
+                CreateClientVpnRouteResult result = null;
+
+                try {
+                    result = executeCreateClientVpnRoute(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<CreateCustomerGatewayResult> createCustomerGatewayAsync(CreateCustomerGatewayRequest request) {
 
         return createCustomerGatewayAsync(request, null);
@@ -1327,6 +1760,72 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
 
                 try {
                     result = executeCreateCustomerGateway(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateDefaultSubnetResult> createDefaultSubnetAsync(CreateDefaultSubnetRequest request) {
+
+        return createDefaultSubnetAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateDefaultSubnetResult> createDefaultSubnetAsync(final CreateDefaultSubnetRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateDefaultSubnetRequest, CreateDefaultSubnetResult> asyncHandler) {
+        final CreateDefaultSubnetRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateDefaultSubnetResult>() {
+            @Override
+            public CreateDefaultSubnetResult call() throws Exception {
+                CreateDefaultSubnetResult result = null;
+
+                try {
+                    result = executeCreateDefaultSubnet(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateDefaultVpcResult> createDefaultVpcAsync(CreateDefaultVpcRequest request) {
+
+        return createDefaultVpcAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateDefaultVpcResult> createDefaultVpcAsync(final CreateDefaultVpcRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateDefaultVpcRequest, CreateDefaultVpcResult> asyncHandler) {
+        final CreateDefaultVpcRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateDefaultVpcResult>() {
+            @Override
+            public CreateDefaultVpcResult call() throws Exception {
+                CreateDefaultVpcResult result = null;
+
+                try {
+                    result = executeCreateDefaultVpc(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1395,6 +1894,39 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
 
                 try {
                     result = executeCreateEgressOnlyInternetGateway(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateFleetResult> createFleetAsync(CreateFleetRequest request) {
+
+        return createFleetAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateFleetResult> createFleetAsync(final CreateFleetRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateFleetRequest, CreateFleetResult> asyncHandler) {
+        final CreateFleetRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateFleetResult>() {
+            @Override
+            public CreateFleetResult call() throws Exception {
+                CreateFleetResult result = null;
+
+                try {
+                    result = executeCreateFleet(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1616,6 +2148,72 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
 
                 try {
                     result = executeCreateKeyPair(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateLaunchTemplateResult> createLaunchTemplateAsync(CreateLaunchTemplateRequest request) {
+
+        return createLaunchTemplateAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateLaunchTemplateResult> createLaunchTemplateAsync(final CreateLaunchTemplateRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateLaunchTemplateRequest, CreateLaunchTemplateResult> asyncHandler) {
+        final CreateLaunchTemplateRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateLaunchTemplateResult>() {
+            @Override
+            public CreateLaunchTemplateResult call() throws Exception {
+                CreateLaunchTemplateResult result = null;
+
+                try {
+                    result = executeCreateLaunchTemplate(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateLaunchTemplateVersionResult> createLaunchTemplateVersionAsync(CreateLaunchTemplateVersionRequest request) {
+
+        return createLaunchTemplateVersionAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateLaunchTemplateVersionResult> createLaunchTemplateVersionAsync(final CreateLaunchTemplateVersionRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateLaunchTemplateVersionRequest, CreateLaunchTemplateVersionResult> asyncHandler) {
+        final CreateLaunchTemplateVersionRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateLaunchTemplateVersionResult>() {
+            @Override
+            public CreateLaunchTemplateVersionResult call() throws Exception {
+                CreateLaunchTemplateVersionResult result = null;
+
+                try {
+                    result = executeCreateLaunchTemplateVersion(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -2098,6 +2696,141 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
     }
 
     @Override
+    public java.util.concurrent.Future<CreateTransitGatewayResult> createTransitGatewayAsync(CreateTransitGatewayRequest request) {
+
+        return createTransitGatewayAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateTransitGatewayResult> createTransitGatewayAsync(final CreateTransitGatewayRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateTransitGatewayRequest, CreateTransitGatewayResult> asyncHandler) {
+        final CreateTransitGatewayRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateTransitGatewayResult>() {
+            @Override
+            public CreateTransitGatewayResult call() throws Exception {
+                CreateTransitGatewayResult result = null;
+
+                try {
+                    result = executeCreateTransitGateway(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateTransitGatewayRouteResult> createTransitGatewayRouteAsync(CreateTransitGatewayRouteRequest request) {
+
+        return createTransitGatewayRouteAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateTransitGatewayRouteResult> createTransitGatewayRouteAsync(final CreateTransitGatewayRouteRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateTransitGatewayRouteRequest, CreateTransitGatewayRouteResult> asyncHandler) {
+        final CreateTransitGatewayRouteRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateTransitGatewayRouteResult>() {
+            @Override
+            public CreateTransitGatewayRouteResult call() throws Exception {
+                CreateTransitGatewayRouteResult result = null;
+
+                try {
+                    result = executeCreateTransitGatewayRoute(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateTransitGatewayRouteTableResult> createTransitGatewayRouteTableAsync(CreateTransitGatewayRouteTableRequest request) {
+
+        return createTransitGatewayRouteTableAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateTransitGatewayRouteTableResult> createTransitGatewayRouteTableAsync(
+            final CreateTransitGatewayRouteTableRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateTransitGatewayRouteTableRequest, CreateTransitGatewayRouteTableResult> asyncHandler) {
+        final CreateTransitGatewayRouteTableRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateTransitGatewayRouteTableResult>() {
+            @Override
+            public CreateTransitGatewayRouteTableResult call() throws Exception {
+                CreateTransitGatewayRouteTableResult result = null;
+
+                try {
+                    result = executeCreateTransitGatewayRouteTable(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateTransitGatewayVpcAttachmentResult> createTransitGatewayVpcAttachmentAsync(
+            CreateTransitGatewayVpcAttachmentRequest request) {
+
+        return createTransitGatewayVpcAttachmentAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateTransitGatewayVpcAttachmentResult> createTransitGatewayVpcAttachmentAsync(
+            final CreateTransitGatewayVpcAttachmentRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateTransitGatewayVpcAttachmentRequest, CreateTransitGatewayVpcAttachmentResult> asyncHandler) {
+        final CreateTransitGatewayVpcAttachmentRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateTransitGatewayVpcAttachmentResult>() {
+            @Override
+            public CreateTransitGatewayVpcAttachmentResult call() throws Exception {
+                CreateTransitGatewayVpcAttachmentResult result = null;
+
+                try {
+                    result = executeCreateTransitGatewayVpcAttachment(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<CreateVolumeResult> createVolumeAsync(CreateVolumeRequest request) {
 
         return createVolumeAsync(request, null);
@@ -2181,6 +2914,76 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
 
                 try {
                     result = executeCreateVpcEndpoint(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateVpcEndpointConnectionNotificationResult> createVpcEndpointConnectionNotificationAsync(
+            CreateVpcEndpointConnectionNotificationRequest request) {
+
+        return createVpcEndpointConnectionNotificationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateVpcEndpointConnectionNotificationResult> createVpcEndpointConnectionNotificationAsync(
+            final CreateVpcEndpointConnectionNotificationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateVpcEndpointConnectionNotificationRequest, CreateVpcEndpointConnectionNotificationResult> asyncHandler) {
+        final CreateVpcEndpointConnectionNotificationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateVpcEndpointConnectionNotificationResult>() {
+            @Override
+            public CreateVpcEndpointConnectionNotificationResult call() throws Exception {
+                CreateVpcEndpointConnectionNotificationResult result = null;
+
+                try {
+                    result = executeCreateVpcEndpointConnectionNotification(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateVpcEndpointServiceConfigurationResult> createVpcEndpointServiceConfigurationAsync(
+            CreateVpcEndpointServiceConfigurationRequest request) {
+
+        return createVpcEndpointServiceConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateVpcEndpointServiceConfigurationResult> createVpcEndpointServiceConfigurationAsync(
+            final CreateVpcEndpointServiceConfigurationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateVpcEndpointServiceConfigurationRequest, CreateVpcEndpointServiceConfigurationResult> asyncHandler) {
+        final CreateVpcEndpointServiceConfigurationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateVpcEndpointServiceConfigurationResult>() {
+            @Override
+            public CreateVpcEndpointServiceConfigurationResult call() throws Exception {
+                CreateVpcEndpointServiceConfigurationResult result = null;
+
+                try {
+                    result = executeCreateVpcEndpointServiceConfiguration(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -2352,6 +3155,72 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteClientVpnEndpointResult> deleteClientVpnEndpointAsync(DeleteClientVpnEndpointRequest request) {
+
+        return deleteClientVpnEndpointAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteClientVpnEndpointResult> deleteClientVpnEndpointAsync(final DeleteClientVpnEndpointRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteClientVpnEndpointRequest, DeleteClientVpnEndpointResult> asyncHandler) {
+        final DeleteClientVpnEndpointRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteClientVpnEndpointResult>() {
+            @Override
+            public DeleteClientVpnEndpointResult call() throws Exception {
+                DeleteClientVpnEndpointResult result = null;
+
+                try {
+                    result = executeDeleteClientVpnEndpoint(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteClientVpnRouteResult> deleteClientVpnRouteAsync(DeleteClientVpnRouteRequest request) {
+
+        return deleteClientVpnRouteAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteClientVpnRouteResult> deleteClientVpnRouteAsync(final DeleteClientVpnRouteRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteClientVpnRouteRequest, DeleteClientVpnRouteResult> asyncHandler) {
+        final DeleteClientVpnRouteRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteClientVpnRouteResult>() {
+            @Override
+            public DeleteClientVpnRouteResult call() throws Exception {
+                DeleteClientVpnRouteResult result = null;
+
+                try {
+                    result = executeDeleteClientVpnRoute(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteCustomerGatewayResult> deleteCustomerGatewayAsync(DeleteCustomerGatewayRequest request) {
 
         return deleteCustomerGatewayAsync(request, null);
@@ -2453,6 +3322,39 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteFleetsResult> deleteFleetsAsync(DeleteFleetsRequest request) {
+
+        return deleteFleetsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteFleetsResult> deleteFleetsAsync(final DeleteFleetsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteFleetsRequest, DeleteFleetsResult> asyncHandler) {
+        final DeleteFleetsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteFleetsResult>() {
+            @Override
+            public DeleteFleetsResult call() throws Exception {
+                DeleteFleetsResult result = null;
+
+                try {
+                    result = executeDeleteFleets(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteFlowLogsResult> deleteFlowLogsAsync(DeleteFlowLogsRequest request) {
 
         return deleteFlowLogsAsync(request, null);
@@ -2470,6 +3372,39 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
 
                 try {
                     result = executeDeleteFlowLogs(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteFpgaImageResult> deleteFpgaImageAsync(DeleteFpgaImageRequest request) {
+
+        return deleteFpgaImageAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteFpgaImageResult> deleteFpgaImageAsync(final DeleteFpgaImageRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteFpgaImageRequest, DeleteFpgaImageResult> asyncHandler) {
+        final DeleteFpgaImageRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteFpgaImageResult>() {
+            @Override
+            public DeleteFpgaImageResult call() throws Exception {
+                DeleteFpgaImageResult result = null;
+
+                try {
+                    result = executeDeleteFpgaImage(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -2536,6 +3471,72 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
 
                 try {
                     result = executeDeleteKeyPair(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteLaunchTemplateResult> deleteLaunchTemplateAsync(DeleteLaunchTemplateRequest request) {
+
+        return deleteLaunchTemplateAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteLaunchTemplateResult> deleteLaunchTemplateAsync(final DeleteLaunchTemplateRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteLaunchTemplateRequest, DeleteLaunchTemplateResult> asyncHandler) {
+        final DeleteLaunchTemplateRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteLaunchTemplateResult>() {
+            @Override
+            public DeleteLaunchTemplateResult call() throws Exception {
+                DeleteLaunchTemplateResult result = null;
+
+                try {
+                    result = executeDeleteLaunchTemplate(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteLaunchTemplateVersionsResult> deleteLaunchTemplateVersionsAsync(DeleteLaunchTemplateVersionsRequest request) {
+
+        return deleteLaunchTemplateVersionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteLaunchTemplateVersionsResult> deleteLaunchTemplateVersionsAsync(final DeleteLaunchTemplateVersionsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteLaunchTemplateVersionsRequest, DeleteLaunchTemplateVersionsResult> asyncHandler) {
+        final DeleteLaunchTemplateVersionsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteLaunchTemplateVersionsResult>() {
+            @Override
+            public DeleteLaunchTemplateVersionsResult call() throws Exception {
+                DeleteLaunchTemplateVersionsResult result = null;
+
+                try {
+                    result = executeDeleteLaunchTemplateVersions(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -3008,6 +4009,141 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteTransitGatewayResult> deleteTransitGatewayAsync(DeleteTransitGatewayRequest request) {
+
+        return deleteTransitGatewayAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteTransitGatewayResult> deleteTransitGatewayAsync(final DeleteTransitGatewayRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteTransitGatewayRequest, DeleteTransitGatewayResult> asyncHandler) {
+        final DeleteTransitGatewayRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteTransitGatewayResult>() {
+            @Override
+            public DeleteTransitGatewayResult call() throws Exception {
+                DeleteTransitGatewayResult result = null;
+
+                try {
+                    result = executeDeleteTransitGateway(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteTransitGatewayRouteResult> deleteTransitGatewayRouteAsync(DeleteTransitGatewayRouteRequest request) {
+
+        return deleteTransitGatewayRouteAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteTransitGatewayRouteResult> deleteTransitGatewayRouteAsync(final DeleteTransitGatewayRouteRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteTransitGatewayRouteRequest, DeleteTransitGatewayRouteResult> asyncHandler) {
+        final DeleteTransitGatewayRouteRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteTransitGatewayRouteResult>() {
+            @Override
+            public DeleteTransitGatewayRouteResult call() throws Exception {
+                DeleteTransitGatewayRouteResult result = null;
+
+                try {
+                    result = executeDeleteTransitGatewayRoute(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteTransitGatewayRouteTableResult> deleteTransitGatewayRouteTableAsync(DeleteTransitGatewayRouteTableRequest request) {
+
+        return deleteTransitGatewayRouteTableAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteTransitGatewayRouteTableResult> deleteTransitGatewayRouteTableAsync(
+            final DeleteTransitGatewayRouteTableRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteTransitGatewayRouteTableRequest, DeleteTransitGatewayRouteTableResult> asyncHandler) {
+        final DeleteTransitGatewayRouteTableRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteTransitGatewayRouteTableResult>() {
+            @Override
+            public DeleteTransitGatewayRouteTableResult call() throws Exception {
+                DeleteTransitGatewayRouteTableResult result = null;
+
+                try {
+                    result = executeDeleteTransitGatewayRouteTable(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteTransitGatewayVpcAttachmentResult> deleteTransitGatewayVpcAttachmentAsync(
+            DeleteTransitGatewayVpcAttachmentRequest request) {
+
+        return deleteTransitGatewayVpcAttachmentAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteTransitGatewayVpcAttachmentResult> deleteTransitGatewayVpcAttachmentAsync(
+            final DeleteTransitGatewayVpcAttachmentRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteTransitGatewayVpcAttachmentRequest, DeleteTransitGatewayVpcAttachmentResult> asyncHandler) {
+        final DeleteTransitGatewayVpcAttachmentRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteTransitGatewayVpcAttachmentResult>() {
+            @Override
+            public DeleteTransitGatewayVpcAttachmentResult call() throws Exception {
+                DeleteTransitGatewayVpcAttachmentResult result = null;
+
+                try {
+                    result = executeDeleteTransitGatewayVpcAttachment(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteVolumeResult> deleteVolumeAsync(DeleteVolumeRequest request) {
 
         return deleteVolumeAsync(request, null);
@@ -3058,6 +4194,76 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
 
                 try {
                     result = executeDeleteVpc(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteVpcEndpointConnectionNotificationsResult> deleteVpcEndpointConnectionNotificationsAsync(
+            DeleteVpcEndpointConnectionNotificationsRequest request) {
+
+        return deleteVpcEndpointConnectionNotificationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteVpcEndpointConnectionNotificationsResult> deleteVpcEndpointConnectionNotificationsAsync(
+            final DeleteVpcEndpointConnectionNotificationsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteVpcEndpointConnectionNotificationsRequest, DeleteVpcEndpointConnectionNotificationsResult> asyncHandler) {
+        final DeleteVpcEndpointConnectionNotificationsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteVpcEndpointConnectionNotificationsResult>() {
+            @Override
+            public DeleteVpcEndpointConnectionNotificationsResult call() throws Exception {
+                DeleteVpcEndpointConnectionNotificationsResult result = null;
+
+                try {
+                    result = executeDeleteVpcEndpointConnectionNotifications(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteVpcEndpointServiceConfigurationsResult> deleteVpcEndpointServiceConfigurationsAsync(
+            DeleteVpcEndpointServiceConfigurationsRequest request) {
+
+        return deleteVpcEndpointServiceConfigurationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteVpcEndpointServiceConfigurationsResult> deleteVpcEndpointServiceConfigurationsAsync(
+            final DeleteVpcEndpointServiceConfigurationsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteVpcEndpointServiceConfigurationsRequest, DeleteVpcEndpointServiceConfigurationsResult> asyncHandler) {
+        final DeleteVpcEndpointServiceConfigurationsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteVpcEndpointServiceConfigurationsResult>() {
+            @Override
+            public DeleteVpcEndpointServiceConfigurationsResult call() throws Exception {
+                DeleteVpcEndpointServiceConfigurationsResult result = null;
+
+                try {
+                    result = executeDeleteVpcEndpointServiceConfigurations(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -3239,6 +4445,39 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
     }
 
     @Override
+    public java.util.concurrent.Future<DeprovisionByoipCidrResult> deprovisionByoipCidrAsync(DeprovisionByoipCidrRequest request) {
+
+        return deprovisionByoipCidrAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeprovisionByoipCidrResult> deprovisionByoipCidrAsync(final DeprovisionByoipCidrRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeprovisionByoipCidrRequest, DeprovisionByoipCidrResult> asyncHandler) {
+        final DeprovisionByoipCidrRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeprovisionByoipCidrResult>() {
+            @Override
+            public DeprovisionByoipCidrResult call() throws Exception {
+                DeprovisionByoipCidrResult result = null;
+
+                try {
+                    result = executeDeprovisionByoipCidr(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DeregisterImageResult> deregisterImageAsync(DeregisterImageRequest request) {
 
         return deregisterImageAsync(request, null);
@@ -3384,6 +4623,39 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeAggregateIdFormatResult> describeAggregateIdFormatAsync(DescribeAggregateIdFormatRequest request) {
+
+        return describeAggregateIdFormatAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeAggregateIdFormatResult> describeAggregateIdFormatAsync(final DescribeAggregateIdFormatRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeAggregateIdFormatRequest, DescribeAggregateIdFormatResult> asyncHandler) {
+        final DescribeAggregateIdFormatRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeAggregateIdFormatResult>() {
+            @Override
+            public DescribeAggregateIdFormatResult call() throws Exception {
+                DescribeAggregateIdFormatResult result = null;
+
+                try {
+                    result = executeDescribeAggregateIdFormat(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeAvailabilityZonesResult> describeAvailabilityZonesAsync(DescribeAvailabilityZonesRequest request) {
 
         return describeAvailabilityZonesAsync(request, null);
@@ -3496,6 +4768,72 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeByoipCidrsResult> describeByoipCidrsAsync(DescribeByoipCidrsRequest request) {
+
+        return describeByoipCidrsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeByoipCidrsResult> describeByoipCidrsAsync(final DescribeByoipCidrsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeByoipCidrsRequest, DescribeByoipCidrsResult> asyncHandler) {
+        final DescribeByoipCidrsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeByoipCidrsResult>() {
+            @Override
+            public DescribeByoipCidrsResult call() throws Exception {
+                DescribeByoipCidrsResult result = null;
+
+                try {
+                    result = executeDescribeByoipCidrs(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeCapacityReservationsResult> describeCapacityReservationsAsync(DescribeCapacityReservationsRequest request) {
+
+        return describeCapacityReservationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeCapacityReservationsResult> describeCapacityReservationsAsync(final DescribeCapacityReservationsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeCapacityReservationsRequest, DescribeCapacityReservationsResult> asyncHandler) {
+        final DescribeCapacityReservationsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeCapacityReservationsResult>() {
+            @Override
+            public DescribeCapacityReservationsResult call() throws Exception {
+                DescribeCapacityReservationsResult result = null;
+
+                try {
+                    result = executeDescribeCapacityReservations(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeClassicLinkInstancesResult> describeClassicLinkInstancesAsync(DescribeClassicLinkInstancesRequest request) {
 
         return describeClassicLinkInstancesAsync(request, null);
@@ -3549,6 +4887,175 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
             com.amazonaws.handlers.AsyncHandler<DescribeClassicLinkInstancesRequest, DescribeClassicLinkInstancesResult> asyncHandler) {
 
         return describeClassicLinkInstancesAsync(new DescribeClassicLinkInstancesRequest(), asyncHandler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeClientVpnAuthorizationRulesResult> describeClientVpnAuthorizationRulesAsync(
+            DescribeClientVpnAuthorizationRulesRequest request) {
+
+        return describeClientVpnAuthorizationRulesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeClientVpnAuthorizationRulesResult> describeClientVpnAuthorizationRulesAsync(
+            final DescribeClientVpnAuthorizationRulesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeClientVpnAuthorizationRulesRequest, DescribeClientVpnAuthorizationRulesResult> asyncHandler) {
+        final DescribeClientVpnAuthorizationRulesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeClientVpnAuthorizationRulesResult>() {
+            @Override
+            public DescribeClientVpnAuthorizationRulesResult call() throws Exception {
+                DescribeClientVpnAuthorizationRulesResult result = null;
+
+                try {
+                    result = executeDescribeClientVpnAuthorizationRules(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeClientVpnConnectionsResult> describeClientVpnConnectionsAsync(DescribeClientVpnConnectionsRequest request) {
+
+        return describeClientVpnConnectionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeClientVpnConnectionsResult> describeClientVpnConnectionsAsync(final DescribeClientVpnConnectionsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeClientVpnConnectionsRequest, DescribeClientVpnConnectionsResult> asyncHandler) {
+        final DescribeClientVpnConnectionsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeClientVpnConnectionsResult>() {
+            @Override
+            public DescribeClientVpnConnectionsResult call() throws Exception {
+                DescribeClientVpnConnectionsResult result = null;
+
+                try {
+                    result = executeDescribeClientVpnConnections(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeClientVpnEndpointsResult> describeClientVpnEndpointsAsync(DescribeClientVpnEndpointsRequest request) {
+
+        return describeClientVpnEndpointsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeClientVpnEndpointsResult> describeClientVpnEndpointsAsync(final DescribeClientVpnEndpointsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeClientVpnEndpointsRequest, DescribeClientVpnEndpointsResult> asyncHandler) {
+        final DescribeClientVpnEndpointsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeClientVpnEndpointsResult>() {
+            @Override
+            public DescribeClientVpnEndpointsResult call() throws Exception {
+                DescribeClientVpnEndpointsResult result = null;
+
+                try {
+                    result = executeDescribeClientVpnEndpoints(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeClientVpnRoutesResult> describeClientVpnRoutesAsync(DescribeClientVpnRoutesRequest request) {
+
+        return describeClientVpnRoutesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeClientVpnRoutesResult> describeClientVpnRoutesAsync(final DescribeClientVpnRoutesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeClientVpnRoutesRequest, DescribeClientVpnRoutesResult> asyncHandler) {
+        final DescribeClientVpnRoutesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeClientVpnRoutesResult>() {
+            @Override
+            public DescribeClientVpnRoutesResult call() throws Exception {
+                DescribeClientVpnRoutesResult result = null;
+
+                try {
+                    result = executeDescribeClientVpnRoutes(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeClientVpnTargetNetworksResult> describeClientVpnTargetNetworksAsync(
+            DescribeClientVpnTargetNetworksRequest request) {
+
+        return describeClientVpnTargetNetworksAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeClientVpnTargetNetworksResult> describeClientVpnTargetNetworksAsync(
+            final DescribeClientVpnTargetNetworksRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeClientVpnTargetNetworksRequest, DescribeClientVpnTargetNetworksResult> asyncHandler) {
+        final DescribeClientVpnTargetNetworksRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeClientVpnTargetNetworksResult>() {
+            @Override
+            public DescribeClientVpnTargetNetworksResult call() throws Exception {
+                DescribeClientVpnTargetNetworksResult result = null;
+
+                try {
+                    result = executeDescribeClientVpnTargetNetworks(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
     }
 
     @Override
@@ -3755,6 +5262,39 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeElasticGpusResult> describeElasticGpusAsync(DescribeElasticGpusRequest request) {
+
+        return describeElasticGpusAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeElasticGpusResult> describeElasticGpusAsync(final DescribeElasticGpusRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeElasticGpusRequest, DescribeElasticGpusResult> asyncHandler) {
+        final DescribeElasticGpusRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeElasticGpusResult>() {
+            @Override
+            public DescribeElasticGpusResult call() throws Exception {
+                DescribeElasticGpusResult result = null;
+
+                try {
+                    result = executeDescribeElasticGpus(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeExportTasksResult> describeExportTasksAsync(DescribeExportTasksRequest request) {
 
         return describeExportTasksAsync(request, null);
@@ -3811,6 +5351,105 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeFleetHistoryResult> describeFleetHistoryAsync(DescribeFleetHistoryRequest request) {
+
+        return describeFleetHistoryAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeFleetHistoryResult> describeFleetHistoryAsync(final DescribeFleetHistoryRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeFleetHistoryRequest, DescribeFleetHistoryResult> asyncHandler) {
+        final DescribeFleetHistoryRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeFleetHistoryResult>() {
+            @Override
+            public DescribeFleetHistoryResult call() throws Exception {
+                DescribeFleetHistoryResult result = null;
+
+                try {
+                    result = executeDescribeFleetHistory(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeFleetInstancesResult> describeFleetInstancesAsync(DescribeFleetInstancesRequest request) {
+
+        return describeFleetInstancesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeFleetInstancesResult> describeFleetInstancesAsync(final DescribeFleetInstancesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeFleetInstancesRequest, DescribeFleetInstancesResult> asyncHandler) {
+        final DescribeFleetInstancesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeFleetInstancesResult>() {
+            @Override
+            public DescribeFleetInstancesResult call() throws Exception {
+                DescribeFleetInstancesResult result = null;
+
+                try {
+                    result = executeDescribeFleetInstances(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeFleetsResult> describeFleetsAsync(DescribeFleetsRequest request) {
+
+        return describeFleetsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeFleetsResult> describeFleetsAsync(final DescribeFleetsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeFleetsRequest, DescribeFleetsResult> asyncHandler) {
+        final DescribeFleetsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeFleetsResult>() {
+            @Override
+            public DescribeFleetsResult call() throws Exception {
+                DescribeFleetsResult result = null;
+
+                try {
+                    result = executeDescribeFleets(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeFlowLogsResult> describeFlowLogsAsync(DescribeFlowLogsRequest request) {
 
         return describeFlowLogsAsync(request, null);
@@ -3864,6 +5503,39 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
             com.amazonaws.handlers.AsyncHandler<DescribeFlowLogsRequest, DescribeFlowLogsResult> asyncHandler) {
 
         return describeFlowLogsAsync(new DescribeFlowLogsRequest(), asyncHandler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeFpgaImageAttributeResult> describeFpgaImageAttributeAsync(DescribeFpgaImageAttributeRequest request) {
+
+        return describeFpgaImageAttributeAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeFpgaImageAttributeResult> describeFpgaImageAttributeAsync(final DescribeFpgaImageAttributeRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeFpgaImageAttributeRequest, DescribeFpgaImageAttributeResult> asyncHandler) {
+        final DescribeFpgaImageAttributeRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeFpgaImageAttributeResult>() {
+            @Override
+            public DescribeFpgaImageAttributeResult call() throws Exception {
+                DescribeFpgaImageAttributeResult result = null;
+
+                try {
+                    result = executeDescribeFpgaImageAttribute(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
     }
 
     @Override
@@ -4382,6 +6054,41 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeInstanceCreditSpecificationsResult> describeInstanceCreditSpecificationsAsync(
+            DescribeInstanceCreditSpecificationsRequest request) {
+
+        return describeInstanceCreditSpecificationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeInstanceCreditSpecificationsResult> describeInstanceCreditSpecificationsAsync(
+            final DescribeInstanceCreditSpecificationsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeInstanceCreditSpecificationsRequest, DescribeInstanceCreditSpecificationsResult> asyncHandler) {
+        final DescribeInstanceCreditSpecificationsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeInstanceCreditSpecificationsResult>() {
+            @Override
+            public DescribeInstanceCreditSpecificationsResult call() throws Exception {
+                DescribeInstanceCreditSpecificationsResult result = null;
+
+                try {
+                    result = executeDescribeInstanceCreditSpecifications(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeInstanceStatusResult> describeInstanceStatusAsync(DescribeInstanceStatusRequest request) {
 
         return describeInstanceStatusAsync(request, null);
@@ -4603,6 +6310,73 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
             com.amazonaws.handlers.AsyncHandler<DescribeKeyPairsRequest, DescribeKeyPairsResult> asyncHandler) {
 
         return describeKeyPairsAsync(new DescribeKeyPairsRequest(), asyncHandler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeLaunchTemplateVersionsResult> describeLaunchTemplateVersionsAsync(DescribeLaunchTemplateVersionsRequest request) {
+
+        return describeLaunchTemplateVersionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeLaunchTemplateVersionsResult> describeLaunchTemplateVersionsAsync(
+            final DescribeLaunchTemplateVersionsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeLaunchTemplateVersionsRequest, DescribeLaunchTemplateVersionsResult> asyncHandler) {
+        final DescribeLaunchTemplateVersionsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeLaunchTemplateVersionsResult>() {
+            @Override
+            public DescribeLaunchTemplateVersionsResult call() throws Exception {
+                DescribeLaunchTemplateVersionsResult result = null;
+
+                try {
+                    result = executeDescribeLaunchTemplateVersions(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeLaunchTemplatesResult> describeLaunchTemplatesAsync(DescribeLaunchTemplatesRequest request) {
+
+        return describeLaunchTemplatesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeLaunchTemplatesResult> describeLaunchTemplatesAsync(final DescribeLaunchTemplatesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeLaunchTemplatesRequest, DescribeLaunchTemplatesResult> asyncHandler) {
+        final DescribeLaunchTemplatesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeLaunchTemplatesResult>() {
+            @Override
+            public DescribeLaunchTemplatesResult call() throws Exception {
+                DescribeLaunchTemplatesResult result = null;
+
+                try {
+                    result = executeDescribeLaunchTemplates(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
     }
 
     @Override
@@ -4986,6 +6760,72 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
             com.amazonaws.handlers.AsyncHandler<DescribePrefixListsRequest, DescribePrefixListsResult> asyncHandler) {
 
         return describePrefixListsAsync(new DescribePrefixListsRequest(), asyncHandler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribePrincipalIdFormatResult> describePrincipalIdFormatAsync(DescribePrincipalIdFormatRequest request) {
+
+        return describePrincipalIdFormatAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribePrincipalIdFormatResult> describePrincipalIdFormatAsync(final DescribePrincipalIdFormatRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribePrincipalIdFormatRequest, DescribePrincipalIdFormatResult> asyncHandler) {
+        final DescribePrincipalIdFormatRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribePrincipalIdFormatResult>() {
+            @Override
+            public DescribePrincipalIdFormatResult call() throws Exception {
+                DescribePrincipalIdFormatResult result = null;
+
+                try {
+                    result = executeDescribePrincipalIdFormat(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribePublicIpv4PoolsResult> describePublicIpv4PoolsAsync(DescribePublicIpv4PoolsRequest request) {
+
+        return describePublicIpv4PoolsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribePublicIpv4PoolsResult> describePublicIpv4PoolsAsync(final DescribePublicIpv4PoolsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribePublicIpv4PoolsRequest, DescribePublicIpv4PoolsResult> asyncHandler) {
+        final DescribePublicIpv4PoolsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribePublicIpv4PoolsResult>() {
+            @Override
+            public DescribePublicIpv4PoolsResult call() throws Exception {
+                DescribePublicIpv4PoolsResult result = null;
+
+                try {
+                    result = executeDescribePublicIpv4Pools(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
     }
 
     @Override
@@ -6022,6 +7862,144 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeTransitGatewayAttachmentsResult> describeTransitGatewayAttachmentsAsync(
+            DescribeTransitGatewayAttachmentsRequest request) {
+
+        return describeTransitGatewayAttachmentsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeTransitGatewayAttachmentsResult> describeTransitGatewayAttachmentsAsync(
+            final DescribeTransitGatewayAttachmentsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeTransitGatewayAttachmentsRequest, DescribeTransitGatewayAttachmentsResult> asyncHandler) {
+        final DescribeTransitGatewayAttachmentsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeTransitGatewayAttachmentsResult>() {
+            @Override
+            public DescribeTransitGatewayAttachmentsResult call() throws Exception {
+                DescribeTransitGatewayAttachmentsResult result = null;
+
+                try {
+                    result = executeDescribeTransitGatewayAttachments(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeTransitGatewayRouteTablesResult> describeTransitGatewayRouteTablesAsync(
+            DescribeTransitGatewayRouteTablesRequest request) {
+
+        return describeTransitGatewayRouteTablesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeTransitGatewayRouteTablesResult> describeTransitGatewayRouteTablesAsync(
+            final DescribeTransitGatewayRouteTablesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeTransitGatewayRouteTablesRequest, DescribeTransitGatewayRouteTablesResult> asyncHandler) {
+        final DescribeTransitGatewayRouteTablesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeTransitGatewayRouteTablesResult>() {
+            @Override
+            public DescribeTransitGatewayRouteTablesResult call() throws Exception {
+                DescribeTransitGatewayRouteTablesResult result = null;
+
+                try {
+                    result = executeDescribeTransitGatewayRouteTables(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeTransitGatewayVpcAttachmentsResult> describeTransitGatewayVpcAttachmentsAsync(
+            DescribeTransitGatewayVpcAttachmentsRequest request) {
+
+        return describeTransitGatewayVpcAttachmentsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeTransitGatewayVpcAttachmentsResult> describeTransitGatewayVpcAttachmentsAsync(
+            final DescribeTransitGatewayVpcAttachmentsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeTransitGatewayVpcAttachmentsRequest, DescribeTransitGatewayVpcAttachmentsResult> asyncHandler) {
+        final DescribeTransitGatewayVpcAttachmentsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeTransitGatewayVpcAttachmentsResult>() {
+            @Override
+            public DescribeTransitGatewayVpcAttachmentsResult call() throws Exception {
+                DescribeTransitGatewayVpcAttachmentsResult result = null;
+
+                try {
+                    result = executeDescribeTransitGatewayVpcAttachments(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeTransitGatewaysResult> describeTransitGatewaysAsync(DescribeTransitGatewaysRequest request) {
+
+        return describeTransitGatewaysAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeTransitGatewaysResult> describeTransitGatewaysAsync(final DescribeTransitGatewaysRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeTransitGatewaysRequest, DescribeTransitGatewaysResult> asyncHandler) {
+        final DescribeTransitGatewaysRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeTransitGatewaysResult>() {
+            @Override
+            public DescribeTransitGatewaysResult call() throws Exception {
+                DescribeTransitGatewaysResult result = null;
+
+                try {
+                    result = executeDescribeTransitGateways(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DescribeVolumeAttributeResult> describeVolumeAttributeAsync(DescribeVolumeAttributeRequest request) {
 
         return describeVolumeAttributeAsync(request, null);
@@ -6308,6 +8286,145 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
 
                 try {
                     result = executeDescribeVpcClassicLinkDnsSupport(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeVpcEndpointConnectionNotificationsResult> describeVpcEndpointConnectionNotificationsAsync(
+            DescribeVpcEndpointConnectionNotificationsRequest request) {
+
+        return describeVpcEndpointConnectionNotificationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeVpcEndpointConnectionNotificationsResult> describeVpcEndpointConnectionNotificationsAsync(
+            final DescribeVpcEndpointConnectionNotificationsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeVpcEndpointConnectionNotificationsRequest, DescribeVpcEndpointConnectionNotificationsResult> asyncHandler) {
+        final DescribeVpcEndpointConnectionNotificationsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeVpcEndpointConnectionNotificationsResult>() {
+            @Override
+            public DescribeVpcEndpointConnectionNotificationsResult call() throws Exception {
+                DescribeVpcEndpointConnectionNotificationsResult result = null;
+
+                try {
+                    result = executeDescribeVpcEndpointConnectionNotifications(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeVpcEndpointConnectionsResult> describeVpcEndpointConnectionsAsync(DescribeVpcEndpointConnectionsRequest request) {
+
+        return describeVpcEndpointConnectionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeVpcEndpointConnectionsResult> describeVpcEndpointConnectionsAsync(
+            final DescribeVpcEndpointConnectionsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeVpcEndpointConnectionsRequest, DescribeVpcEndpointConnectionsResult> asyncHandler) {
+        final DescribeVpcEndpointConnectionsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeVpcEndpointConnectionsResult>() {
+            @Override
+            public DescribeVpcEndpointConnectionsResult call() throws Exception {
+                DescribeVpcEndpointConnectionsResult result = null;
+
+                try {
+                    result = executeDescribeVpcEndpointConnections(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeVpcEndpointServiceConfigurationsResult> describeVpcEndpointServiceConfigurationsAsync(
+            DescribeVpcEndpointServiceConfigurationsRequest request) {
+
+        return describeVpcEndpointServiceConfigurationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeVpcEndpointServiceConfigurationsResult> describeVpcEndpointServiceConfigurationsAsync(
+            final DescribeVpcEndpointServiceConfigurationsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeVpcEndpointServiceConfigurationsRequest, DescribeVpcEndpointServiceConfigurationsResult> asyncHandler) {
+        final DescribeVpcEndpointServiceConfigurationsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeVpcEndpointServiceConfigurationsResult>() {
+            @Override
+            public DescribeVpcEndpointServiceConfigurationsResult call() throws Exception {
+                DescribeVpcEndpointServiceConfigurationsResult result = null;
+
+                try {
+                    result = executeDescribeVpcEndpointServiceConfigurations(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeVpcEndpointServicePermissionsResult> describeVpcEndpointServicePermissionsAsync(
+            DescribeVpcEndpointServicePermissionsRequest request) {
+
+        return describeVpcEndpointServicePermissionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeVpcEndpointServicePermissionsResult> describeVpcEndpointServicePermissionsAsync(
+            final DescribeVpcEndpointServicePermissionsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeVpcEndpointServicePermissionsRequest, DescribeVpcEndpointServicePermissionsResult> asyncHandler) {
+        final DescribeVpcEndpointServicePermissionsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DescribeVpcEndpointServicePermissionsResult>() {
+            @Override
+            public DescribeVpcEndpointServicePermissionsResult call() throws Exception {
+                DescribeVpcEndpointServicePermissionsResult result = null;
+
+                try {
+                    result = executeDescribeVpcEndpointServicePermissions(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -6827,6 +8944,41 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
     }
 
     @Override
+    public java.util.concurrent.Future<DisableTransitGatewayRouteTablePropagationResult> disableTransitGatewayRouteTablePropagationAsync(
+            DisableTransitGatewayRouteTablePropagationRequest request) {
+
+        return disableTransitGatewayRouteTablePropagationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisableTransitGatewayRouteTablePropagationResult> disableTransitGatewayRouteTablePropagationAsync(
+            final DisableTransitGatewayRouteTablePropagationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DisableTransitGatewayRouteTablePropagationRequest, DisableTransitGatewayRouteTablePropagationResult> asyncHandler) {
+        final DisableTransitGatewayRouteTablePropagationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DisableTransitGatewayRouteTablePropagationResult>() {
+            @Override
+            public DisableTransitGatewayRouteTablePropagationResult call() throws Exception {
+                DisableTransitGatewayRouteTablePropagationResult result = null;
+
+                try {
+                    result = executeDisableTransitGatewayRouteTablePropagation(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DisableVgwRoutePropagationResult> disableVgwRoutePropagationAsync(DisableVgwRoutePropagationRequest request) {
 
         return disableVgwRoutePropagationAsync(request, null);
@@ -6961,6 +9113,41 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
     }
 
     @Override
+    public java.util.concurrent.Future<DisassociateClientVpnTargetNetworkResult> disassociateClientVpnTargetNetworkAsync(
+            DisassociateClientVpnTargetNetworkRequest request) {
+
+        return disassociateClientVpnTargetNetworkAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisassociateClientVpnTargetNetworkResult> disassociateClientVpnTargetNetworkAsync(
+            final DisassociateClientVpnTargetNetworkRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DisassociateClientVpnTargetNetworkRequest, DisassociateClientVpnTargetNetworkResult> asyncHandler) {
+        final DisassociateClientVpnTargetNetworkRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DisassociateClientVpnTargetNetworkResult>() {
+            @Override
+            public DisassociateClientVpnTargetNetworkResult call() throws Exception {
+                DisassociateClientVpnTargetNetworkResult result = null;
+
+                try {
+                    result = executeDisassociateClientVpnTargetNetwork(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DisassociateIamInstanceProfileResult> disassociateIamInstanceProfileAsync(DisassociateIamInstanceProfileRequest request) {
 
         return disassociateIamInstanceProfileAsync(request, null);
@@ -7061,6 +9248,41 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
     }
 
     @Override
+    public java.util.concurrent.Future<DisassociateTransitGatewayRouteTableResult> disassociateTransitGatewayRouteTableAsync(
+            DisassociateTransitGatewayRouteTableRequest request) {
+
+        return disassociateTransitGatewayRouteTableAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisassociateTransitGatewayRouteTableResult> disassociateTransitGatewayRouteTableAsync(
+            final DisassociateTransitGatewayRouteTableRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DisassociateTransitGatewayRouteTableRequest, DisassociateTransitGatewayRouteTableResult> asyncHandler) {
+        final DisassociateTransitGatewayRouteTableRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DisassociateTransitGatewayRouteTableResult>() {
+            @Override
+            public DisassociateTransitGatewayRouteTableResult call() throws Exception {
+                DisassociateTransitGatewayRouteTableResult result = null;
+
+                try {
+                    result = executeDisassociateTransitGatewayRouteTable(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DisassociateVpcCidrBlockResult> disassociateVpcCidrBlockAsync(DisassociateVpcCidrBlockRequest request) {
 
         return disassociateVpcCidrBlockAsync(request, null);
@@ -7078,6 +9300,41 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
 
                 try {
                     result = executeDisassociateVpcCidrBlock(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<EnableTransitGatewayRouteTablePropagationResult> enableTransitGatewayRouteTablePropagationAsync(
+            EnableTransitGatewayRouteTablePropagationRequest request) {
+
+        return enableTransitGatewayRouteTablePropagationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<EnableTransitGatewayRouteTablePropagationResult> enableTransitGatewayRouteTablePropagationAsync(
+            final EnableTransitGatewayRouteTablePropagationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<EnableTransitGatewayRouteTablePropagationRequest, EnableTransitGatewayRouteTablePropagationResult> asyncHandler) {
+        final EnableTransitGatewayRouteTablePropagationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<EnableTransitGatewayRouteTablePropagationResult>() {
+            @Override
+            public EnableTransitGatewayRouteTablePropagationResult call() throws Exception {
+                EnableTransitGatewayRouteTablePropagationResult result = null;
+
+                try {
+                    result = executeEnableTransitGatewayRouteTablePropagation(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -7227,6 +9484,109 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
     }
 
     @Override
+    public java.util.concurrent.Future<ExportClientVpnClientCertificateRevocationListResult> exportClientVpnClientCertificateRevocationListAsync(
+            ExportClientVpnClientCertificateRevocationListRequest request) {
+
+        return exportClientVpnClientCertificateRevocationListAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ExportClientVpnClientCertificateRevocationListResult> exportClientVpnClientCertificateRevocationListAsync(
+            final ExportClientVpnClientCertificateRevocationListRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ExportClientVpnClientCertificateRevocationListRequest, ExportClientVpnClientCertificateRevocationListResult> asyncHandler) {
+        final ExportClientVpnClientCertificateRevocationListRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ExportClientVpnClientCertificateRevocationListResult>() {
+            @Override
+            public ExportClientVpnClientCertificateRevocationListResult call() throws Exception {
+                ExportClientVpnClientCertificateRevocationListResult result = null;
+
+                try {
+                    result = executeExportClientVpnClientCertificateRevocationList(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ExportClientVpnClientConfigurationResult> exportClientVpnClientConfigurationAsync(
+            ExportClientVpnClientConfigurationRequest request) {
+
+        return exportClientVpnClientConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ExportClientVpnClientConfigurationResult> exportClientVpnClientConfigurationAsync(
+            final ExportClientVpnClientConfigurationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ExportClientVpnClientConfigurationRequest, ExportClientVpnClientConfigurationResult> asyncHandler) {
+        final ExportClientVpnClientConfigurationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ExportClientVpnClientConfigurationResult>() {
+            @Override
+            public ExportClientVpnClientConfigurationResult call() throws Exception {
+                ExportClientVpnClientConfigurationResult result = null;
+
+                try {
+                    result = executeExportClientVpnClientConfiguration(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ExportTransitGatewayRoutesResult> exportTransitGatewayRoutesAsync(ExportTransitGatewayRoutesRequest request) {
+
+        return exportTransitGatewayRoutesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ExportTransitGatewayRoutesResult> exportTransitGatewayRoutesAsync(final ExportTransitGatewayRoutesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ExportTransitGatewayRoutesRequest, ExportTransitGatewayRoutesResult> asyncHandler) {
+        final ExportTransitGatewayRoutesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ExportTransitGatewayRoutesResult>() {
+            @Override
+            public ExportTransitGatewayRoutesResult call() throws Exception {
+                ExportTransitGatewayRoutesResult result = null;
+
+                try {
+                    result = executeExportTransitGatewayRoutes(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<GetConsoleOutputResult> getConsoleOutputAsync(GetConsoleOutputRequest request) {
 
         return getConsoleOutputAsync(request, null);
@@ -7328,6 +9688,39 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
     }
 
     @Override
+    public java.util.concurrent.Future<GetLaunchTemplateDataResult> getLaunchTemplateDataAsync(GetLaunchTemplateDataRequest request) {
+
+        return getLaunchTemplateDataAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetLaunchTemplateDataResult> getLaunchTemplateDataAsync(final GetLaunchTemplateDataRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetLaunchTemplateDataRequest, GetLaunchTemplateDataResult> asyncHandler) {
+        final GetLaunchTemplateDataRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetLaunchTemplateDataResult>() {
+            @Override
+            public GetLaunchTemplateDataResult call() throws Exception {
+                GetLaunchTemplateDataResult result = null;
+
+                try {
+                    result = executeGetLaunchTemplateData(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<GetPasswordDataResult> getPasswordDataAsync(GetPasswordDataRequest request) {
 
         return getPasswordDataAsync(request, null);
@@ -7380,6 +9773,146 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
 
                 try {
                     result = executeGetReservedInstancesExchangeQuote(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetTransitGatewayAttachmentPropagationsResult> getTransitGatewayAttachmentPropagationsAsync(
+            GetTransitGatewayAttachmentPropagationsRequest request) {
+
+        return getTransitGatewayAttachmentPropagationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetTransitGatewayAttachmentPropagationsResult> getTransitGatewayAttachmentPropagationsAsync(
+            final GetTransitGatewayAttachmentPropagationsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetTransitGatewayAttachmentPropagationsRequest, GetTransitGatewayAttachmentPropagationsResult> asyncHandler) {
+        final GetTransitGatewayAttachmentPropagationsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetTransitGatewayAttachmentPropagationsResult>() {
+            @Override
+            public GetTransitGatewayAttachmentPropagationsResult call() throws Exception {
+                GetTransitGatewayAttachmentPropagationsResult result = null;
+
+                try {
+                    result = executeGetTransitGatewayAttachmentPropagations(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetTransitGatewayRouteTableAssociationsResult> getTransitGatewayRouteTableAssociationsAsync(
+            GetTransitGatewayRouteTableAssociationsRequest request) {
+
+        return getTransitGatewayRouteTableAssociationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetTransitGatewayRouteTableAssociationsResult> getTransitGatewayRouteTableAssociationsAsync(
+            final GetTransitGatewayRouteTableAssociationsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetTransitGatewayRouteTableAssociationsRequest, GetTransitGatewayRouteTableAssociationsResult> asyncHandler) {
+        final GetTransitGatewayRouteTableAssociationsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetTransitGatewayRouteTableAssociationsResult>() {
+            @Override
+            public GetTransitGatewayRouteTableAssociationsResult call() throws Exception {
+                GetTransitGatewayRouteTableAssociationsResult result = null;
+
+                try {
+                    result = executeGetTransitGatewayRouteTableAssociations(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetTransitGatewayRouteTablePropagationsResult> getTransitGatewayRouteTablePropagationsAsync(
+            GetTransitGatewayRouteTablePropagationsRequest request) {
+
+        return getTransitGatewayRouteTablePropagationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetTransitGatewayRouteTablePropagationsResult> getTransitGatewayRouteTablePropagationsAsync(
+            final GetTransitGatewayRouteTablePropagationsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetTransitGatewayRouteTablePropagationsRequest, GetTransitGatewayRouteTablePropagationsResult> asyncHandler) {
+        final GetTransitGatewayRouteTablePropagationsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetTransitGatewayRouteTablePropagationsResult>() {
+            @Override
+            public GetTransitGatewayRouteTablePropagationsResult call() throws Exception {
+                GetTransitGatewayRouteTablePropagationsResult result = null;
+
+                try {
+                    result = executeGetTransitGatewayRouteTablePropagations(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ImportClientVpnClientCertificateRevocationListResult> importClientVpnClientCertificateRevocationListAsync(
+            ImportClientVpnClientCertificateRevocationListRequest request) {
+
+        return importClientVpnClientCertificateRevocationListAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ImportClientVpnClientCertificateRevocationListResult> importClientVpnClientCertificateRevocationListAsync(
+            final ImportClientVpnClientCertificateRevocationListRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ImportClientVpnClientCertificateRevocationListRequest, ImportClientVpnClientCertificateRevocationListResult> asyncHandler) {
+        final ImportClientVpnClientCertificateRevocationListRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ImportClientVpnClientCertificateRevocationListResult>() {
+            @Override
+            public ImportClientVpnClientCertificateRevocationListResult call() throws Exception {
+                ImportClientVpnClientCertificateRevocationListResult result = null;
+
+                try {
+                    result = executeImportClientVpnClientCertificateRevocationList(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -7607,6 +10140,138 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
     }
 
     @Override
+    public java.util.concurrent.Future<ModifyCapacityReservationResult> modifyCapacityReservationAsync(ModifyCapacityReservationRequest request) {
+
+        return modifyCapacityReservationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyCapacityReservationResult> modifyCapacityReservationAsync(final ModifyCapacityReservationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ModifyCapacityReservationRequest, ModifyCapacityReservationResult> asyncHandler) {
+        final ModifyCapacityReservationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ModifyCapacityReservationResult>() {
+            @Override
+            public ModifyCapacityReservationResult call() throws Exception {
+                ModifyCapacityReservationResult result = null;
+
+                try {
+                    result = executeModifyCapacityReservation(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyClientVpnEndpointResult> modifyClientVpnEndpointAsync(ModifyClientVpnEndpointRequest request) {
+
+        return modifyClientVpnEndpointAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyClientVpnEndpointResult> modifyClientVpnEndpointAsync(final ModifyClientVpnEndpointRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ModifyClientVpnEndpointRequest, ModifyClientVpnEndpointResult> asyncHandler) {
+        final ModifyClientVpnEndpointRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ModifyClientVpnEndpointResult>() {
+            @Override
+            public ModifyClientVpnEndpointResult call() throws Exception {
+                ModifyClientVpnEndpointResult result = null;
+
+                try {
+                    result = executeModifyClientVpnEndpoint(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyFleetResult> modifyFleetAsync(ModifyFleetRequest request) {
+
+        return modifyFleetAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyFleetResult> modifyFleetAsync(final ModifyFleetRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ModifyFleetRequest, ModifyFleetResult> asyncHandler) {
+        final ModifyFleetRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ModifyFleetResult>() {
+            @Override
+            public ModifyFleetResult call() throws Exception {
+                ModifyFleetResult result = null;
+
+                try {
+                    result = executeModifyFleet(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyFpgaImageAttributeResult> modifyFpgaImageAttributeAsync(ModifyFpgaImageAttributeRequest request) {
+
+        return modifyFpgaImageAttributeAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyFpgaImageAttributeResult> modifyFpgaImageAttributeAsync(final ModifyFpgaImageAttributeRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ModifyFpgaImageAttributeRequest, ModifyFpgaImageAttributeResult> asyncHandler) {
+        final ModifyFpgaImageAttributeRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ModifyFpgaImageAttributeResult>() {
+            @Override
+            public ModifyFpgaImageAttributeResult call() throws Exception {
+                ModifyFpgaImageAttributeResult result = null;
+
+                try {
+                    result = executeModifyFpgaImageAttribute(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ModifyHostsResult> modifyHostsAsync(ModifyHostsRequest request) {
 
         return modifyHostsAsync(request, null);
@@ -7772,6 +10437,76 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
     }
 
     @Override
+    public java.util.concurrent.Future<ModifyInstanceCapacityReservationAttributesResult> modifyInstanceCapacityReservationAttributesAsync(
+            ModifyInstanceCapacityReservationAttributesRequest request) {
+
+        return modifyInstanceCapacityReservationAttributesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyInstanceCapacityReservationAttributesResult> modifyInstanceCapacityReservationAttributesAsync(
+            final ModifyInstanceCapacityReservationAttributesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ModifyInstanceCapacityReservationAttributesRequest, ModifyInstanceCapacityReservationAttributesResult> asyncHandler) {
+        final ModifyInstanceCapacityReservationAttributesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ModifyInstanceCapacityReservationAttributesResult>() {
+            @Override
+            public ModifyInstanceCapacityReservationAttributesResult call() throws Exception {
+                ModifyInstanceCapacityReservationAttributesResult result = null;
+
+                try {
+                    result = executeModifyInstanceCapacityReservationAttributes(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyInstanceCreditSpecificationResult> modifyInstanceCreditSpecificationAsync(
+            ModifyInstanceCreditSpecificationRequest request) {
+
+        return modifyInstanceCreditSpecificationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyInstanceCreditSpecificationResult> modifyInstanceCreditSpecificationAsync(
+            final ModifyInstanceCreditSpecificationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ModifyInstanceCreditSpecificationRequest, ModifyInstanceCreditSpecificationResult> asyncHandler) {
+        final ModifyInstanceCreditSpecificationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ModifyInstanceCreditSpecificationResult>() {
+            @Override
+            public ModifyInstanceCreditSpecificationResult call() throws Exception {
+                ModifyInstanceCreditSpecificationResult result = null;
+
+                try {
+                    result = executeModifyInstanceCreditSpecification(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ModifyInstancePlacementResult> modifyInstancePlacementAsync(ModifyInstancePlacementRequest request) {
 
         return modifyInstancePlacementAsync(request, null);
@@ -7789,6 +10524,39 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
 
                 try {
                     result = executeModifyInstancePlacement(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyLaunchTemplateResult> modifyLaunchTemplateAsync(ModifyLaunchTemplateRequest request) {
+
+        return modifyLaunchTemplateAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyLaunchTemplateResult> modifyLaunchTemplateAsync(final ModifyLaunchTemplateRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ModifyLaunchTemplateRequest, ModifyLaunchTemplateResult> asyncHandler) {
+        final ModifyLaunchTemplateRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ModifyLaunchTemplateResult>() {
+            @Override
+            public ModifyLaunchTemplateResult call() throws Exception {
+                ModifyLaunchTemplateResult result = null;
+
+                try {
+                    result = executeModifyLaunchTemplate(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -7972,6 +10740,41 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
     }
 
     @Override
+    public java.util.concurrent.Future<ModifyTransitGatewayVpcAttachmentResult> modifyTransitGatewayVpcAttachmentAsync(
+            ModifyTransitGatewayVpcAttachmentRequest request) {
+
+        return modifyTransitGatewayVpcAttachmentAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyTransitGatewayVpcAttachmentResult> modifyTransitGatewayVpcAttachmentAsync(
+            final ModifyTransitGatewayVpcAttachmentRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ModifyTransitGatewayVpcAttachmentRequest, ModifyTransitGatewayVpcAttachmentResult> asyncHandler) {
+        final ModifyTransitGatewayVpcAttachmentRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ModifyTransitGatewayVpcAttachmentResult>() {
+            @Override
+            public ModifyTransitGatewayVpcAttachmentResult call() throws Exception {
+                ModifyTransitGatewayVpcAttachmentResult result = null;
+
+                try {
+                    result = executeModifyTransitGatewayVpcAttachment(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ModifyVolumeResult> modifyVolumeAsync(ModifyVolumeRequest request) {
 
         return modifyVolumeAsync(request, null);
@@ -8104,6 +10907,111 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
     }
 
     @Override
+    public java.util.concurrent.Future<ModifyVpcEndpointConnectionNotificationResult> modifyVpcEndpointConnectionNotificationAsync(
+            ModifyVpcEndpointConnectionNotificationRequest request) {
+
+        return modifyVpcEndpointConnectionNotificationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyVpcEndpointConnectionNotificationResult> modifyVpcEndpointConnectionNotificationAsync(
+            final ModifyVpcEndpointConnectionNotificationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ModifyVpcEndpointConnectionNotificationRequest, ModifyVpcEndpointConnectionNotificationResult> asyncHandler) {
+        final ModifyVpcEndpointConnectionNotificationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ModifyVpcEndpointConnectionNotificationResult>() {
+            @Override
+            public ModifyVpcEndpointConnectionNotificationResult call() throws Exception {
+                ModifyVpcEndpointConnectionNotificationResult result = null;
+
+                try {
+                    result = executeModifyVpcEndpointConnectionNotification(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyVpcEndpointServiceConfigurationResult> modifyVpcEndpointServiceConfigurationAsync(
+            ModifyVpcEndpointServiceConfigurationRequest request) {
+
+        return modifyVpcEndpointServiceConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyVpcEndpointServiceConfigurationResult> modifyVpcEndpointServiceConfigurationAsync(
+            final ModifyVpcEndpointServiceConfigurationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ModifyVpcEndpointServiceConfigurationRequest, ModifyVpcEndpointServiceConfigurationResult> asyncHandler) {
+        final ModifyVpcEndpointServiceConfigurationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ModifyVpcEndpointServiceConfigurationResult>() {
+            @Override
+            public ModifyVpcEndpointServiceConfigurationResult call() throws Exception {
+                ModifyVpcEndpointServiceConfigurationResult result = null;
+
+                try {
+                    result = executeModifyVpcEndpointServiceConfiguration(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyVpcEndpointServicePermissionsResult> modifyVpcEndpointServicePermissionsAsync(
+            ModifyVpcEndpointServicePermissionsRequest request) {
+
+        return modifyVpcEndpointServicePermissionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyVpcEndpointServicePermissionsResult> modifyVpcEndpointServicePermissionsAsync(
+            final ModifyVpcEndpointServicePermissionsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ModifyVpcEndpointServicePermissionsRequest, ModifyVpcEndpointServicePermissionsResult> asyncHandler) {
+        final ModifyVpcEndpointServicePermissionsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ModifyVpcEndpointServicePermissionsResult>() {
+            @Override
+            public ModifyVpcEndpointServicePermissionsResult call() throws Exception {
+                ModifyVpcEndpointServicePermissionsResult result = null;
+
+                try {
+                    result = executeModifyVpcEndpointServicePermissions(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ModifyVpcPeeringConnectionOptionsResult> modifyVpcPeeringConnectionOptionsAsync(
             ModifyVpcPeeringConnectionOptionsRequest request) {
 
@@ -8123,6 +11031,39 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
 
                 try {
                     result = executeModifyVpcPeeringConnectionOptions(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyVpcTenancyResult> modifyVpcTenancyAsync(ModifyVpcTenancyRequest request) {
+
+        return modifyVpcTenancyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ModifyVpcTenancyResult> modifyVpcTenancyAsync(final ModifyVpcTenancyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ModifyVpcTenancyRequest, ModifyVpcTenancyResult> asyncHandler) {
+        final ModifyVpcTenancyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ModifyVpcTenancyResult>() {
+            @Override
+            public ModifyVpcTenancyResult call() throws Exception {
+                ModifyVpcTenancyResult result = null;
+
+                try {
+                    result = executeModifyVpcTenancy(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -8189,6 +11130,39 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
 
                 try {
                     result = executeMoveAddressToVpc(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ProvisionByoipCidrResult> provisionByoipCidrAsync(ProvisionByoipCidrRequest request) {
+
+        return provisionByoipCidrAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ProvisionByoipCidrResult> provisionByoipCidrAsync(final ProvisionByoipCidrRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ProvisionByoipCidrRequest, ProvisionByoipCidrResult> asyncHandler) {
+        final ProvisionByoipCidrRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ProvisionByoipCidrResult>() {
+            @Override
+            public ProvisionByoipCidrResult call() throws Exception {
+                ProvisionByoipCidrResult result = null;
+
+                try {
+                    result = executeProvisionByoipCidr(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -8356,6 +11330,74 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
 
                 try {
                     result = executeRegisterImage(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<RejectTransitGatewayVpcAttachmentResult> rejectTransitGatewayVpcAttachmentAsync(
+            RejectTransitGatewayVpcAttachmentRequest request) {
+
+        return rejectTransitGatewayVpcAttachmentAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RejectTransitGatewayVpcAttachmentResult> rejectTransitGatewayVpcAttachmentAsync(
+            final RejectTransitGatewayVpcAttachmentRequest request,
+            final com.amazonaws.handlers.AsyncHandler<RejectTransitGatewayVpcAttachmentRequest, RejectTransitGatewayVpcAttachmentResult> asyncHandler) {
+        final RejectTransitGatewayVpcAttachmentRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<RejectTransitGatewayVpcAttachmentResult>() {
+            @Override
+            public RejectTransitGatewayVpcAttachmentResult call() throws Exception {
+                RejectTransitGatewayVpcAttachmentResult result = null;
+
+                try {
+                    result = executeRejectTransitGatewayVpcAttachment(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<RejectVpcEndpointConnectionsResult> rejectVpcEndpointConnectionsAsync(RejectVpcEndpointConnectionsRequest request) {
+
+        return rejectVpcEndpointConnectionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RejectVpcEndpointConnectionsResult> rejectVpcEndpointConnectionsAsync(final RejectVpcEndpointConnectionsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<RejectVpcEndpointConnectionsRequest, RejectVpcEndpointConnectionsResult> asyncHandler) {
+        final RejectVpcEndpointConnectionsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<RejectVpcEndpointConnectionsResult>() {
+            @Override
+            public RejectVpcEndpointConnectionsResult call() throws Exception {
+                RejectVpcEndpointConnectionsResult result = null;
+
+                try {
+                    result = executeRejectVpcEndpointConnections(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -8638,6 +11680,39 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
     }
 
     @Override
+    public java.util.concurrent.Future<ReplaceTransitGatewayRouteResult> replaceTransitGatewayRouteAsync(ReplaceTransitGatewayRouteRequest request) {
+
+        return replaceTransitGatewayRouteAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ReplaceTransitGatewayRouteResult> replaceTransitGatewayRouteAsync(final ReplaceTransitGatewayRouteRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ReplaceTransitGatewayRouteRequest, ReplaceTransitGatewayRouteResult> asyncHandler) {
+        final ReplaceTransitGatewayRouteRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ReplaceTransitGatewayRouteResult>() {
+            @Override
+            public ReplaceTransitGatewayRouteResult call() throws Exception {
+                ReplaceTransitGatewayRouteResult result = null;
+
+                try {
+                    result = executeReplaceTransitGatewayRoute(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ReportInstanceStatusResult> reportInstanceStatusAsync(ReportInstanceStatusRequest request) {
 
         return reportInstanceStatusAsync(request, null);
@@ -8721,6 +11796,39 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
 
                 try {
                     result = executeRequestSpotInstances(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ResetFpgaImageAttributeResult> resetFpgaImageAttributeAsync(ResetFpgaImageAttributeRequest request) {
+
+        return resetFpgaImageAttributeAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ResetFpgaImageAttributeResult> resetFpgaImageAttributeAsync(final ResetFpgaImageAttributeRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ResetFpgaImageAttributeRequest, ResetFpgaImageAttributeResult> asyncHandler) {
+        final ResetFpgaImageAttributeRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ResetFpgaImageAttributeResult>() {
+            @Override
+            public ResetFpgaImageAttributeResult call() throws Exception {
+                ResetFpgaImageAttributeResult result = null;
+
+                try {
+                    result = executeResetFpgaImageAttribute(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -8903,6 +12011,39 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
     }
 
     @Override
+    public java.util.concurrent.Future<RevokeClientVpnIngressResult> revokeClientVpnIngressAsync(RevokeClientVpnIngressRequest request) {
+
+        return revokeClientVpnIngressAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RevokeClientVpnIngressResult> revokeClientVpnIngressAsync(final RevokeClientVpnIngressRequest request,
+            final com.amazonaws.handlers.AsyncHandler<RevokeClientVpnIngressRequest, RevokeClientVpnIngressResult> asyncHandler) {
+        final RevokeClientVpnIngressRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<RevokeClientVpnIngressResult>() {
+            @Override
+            public RevokeClientVpnIngressResult call() throws Exception {
+                RevokeClientVpnIngressResult result = null;
+
+                try {
+                    result = executeRevokeClientVpnIngress(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<RevokeSecurityGroupEgressResult> revokeSecurityGroupEgressAsync(RevokeSecurityGroupEgressRequest request) {
 
         return revokeSecurityGroupEgressAsync(request, null);
@@ -9060,6 +12201,39 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
     }
 
     @Override
+    public java.util.concurrent.Future<SearchTransitGatewayRoutesResult> searchTransitGatewayRoutesAsync(SearchTransitGatewayRoutesRequest request) {
+
+        return searchTransitGatewayRoutesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<SearchTransitGatewayRoutesResult> searchTransitGatewayRoutesAsync(final SearchTransitGatewayRoutesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<SearchTransitGatewayRoutesRequest, SearchTransitGatewayRoutesResult> asyncHandler) {
+        final SearchTransitGatewayRoutesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<SearchTransitGatewayRoutesResult>() {
+            @Override
+            public SearchTransitGatewayRoutesResult call() throws Exception {
+                SearchTransitGatewayRoutesResult result = null;
+
+                try {
+                    result = executeSearchTransitGatewayRoutes(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<StartInstancesResult> startInstancesAsync(StartInstancesRequest request) {
 
         return startInstancesAsync(request, null);
@@ -9110,6 +12284,40 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
 
                 try {
                     result = executeStopInstances(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<TerminateClientVpnConnectionsResult> terminateClientVpnConnectionsAsync(TerminateClientVpnConnectionsRequest request) {
+
+        return terminateClientVpnConnectionsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<TerminateClientVpnConnectionsResult> terminateClientVpnConnectionsAsync(
+            final TerminateClientVpnConnectionsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<TerminateClientVpnConnectionsRequest, TerminateClientVpnConnectionsResult> asyncHandler) {
+        final TerminateClientVpnConnectionsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<TerminateClientVpnConnectionsResult>() {
+            @Override
+            public TerminateClientVpnConnectionsResult call() throws Exception {
+                TerminateClientVpnConnectionsResult result = null;
+
+                try {
+                    result = executeTerminateClientVpnConnections(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -9242,6 +12450,109 @@ public class AmazonEC2AsyncClient extends AmazonEC2Client implements AmazonEC2As
 
                 try {
                     result = executeUnmonitorInstances(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateSecurityGroupRuleDescriptionsEgressResult> updateSecurityGroupRuleDescriptionsEgressAsync(
+            UpdateSecurityGroupRuleDescriptionsEgressRequest request) {
+
+        return updateSecurityGroupRuleDescriptionsEgressAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateSecurityGroupRuleDescriptionsEgressResult> updateSecurityGroupRuleDescriptionsEgressAsync(
+            final UpdateSecurityGroupRuleDescriptionsEgressRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateSecurityGroupRuleDescriptionsEgressRequest, UpdateSecurityGroupRuleDescriptionsEgressResult> asyncHandler) {
+        final UpdateSecurityGroupRuleDescriptionsEgressRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateSecurityGroupRuleDescriptionsEgressResult>() {
+            @Override
+            public UpdateSecurityGroupRuleDescriptionsEgressResult call() throws Exception {
+                UpdateSecurityGroupRuleDescriptionsEgressResult result = null;
+
+                try {
+                    result = executeUpdateSecurityGroupRuleDescriptionsEgress(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateSecurityGroupRuleDescriptionsIngressResult> updateSecurityGroupRuleDescriptionsIngressAsync(
+            UpdateSecurityGroupRuleDescriptionsIngressRequest request) {
+
+        return updateSecurityGroupRuleDescriptionsIngressAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateSecurityGroupRuleDescriptionsIngressResult> updateSecurityGroupRuleDescriptionsIngressAsync(
+            final UpdateSecurityGroupRuleDescriptionsIngressRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateSecurityGroupRuleDescriptionsIngressRequest, UpdateSecurityGroupRuleDescriptionsIngressResult> asyncHandler) {
+        final UpdateSecurityGroupRuleDescriptionsIngressRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateSecurityGroupRuleDescriptionsIngressResult>() {
+            @Override
+            public UpdateSecurityGroupRuleDescriptionsIngressResult call() throws Exception {
+                UpdateSecurityGroupRuleDescriptionsIngressResult result = null;
+
+                try {
+                    result = executeUpdateSecurityGroupRuleDescriptionsIngress(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<WithdrawByoipCidrResult> withdrawByoipCidrAsync(WithdrawByoipCidrRequest request) {
+
+        return withdrawByoipCidrAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<WithdrawByoipCidrResult> withdrawByoipCidrAsync(final WithdrawByoipCidrRequest request,
+            final com.amazonaws.handlers.AsyncHandler<WithdrawByoipCidrRequest, WithdrawByoipCidrResult> asyncHandler) {
+        final WithdrawByoipCidrRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<WithdrawByoipCidrResult>() {
+            @Override
+            public WithdrawByoipCidrResult call() throws Exception {
+                WithdrawByoipCidrResult result = null;
+
+                try {
+                    result = executeWithdrawByoipCidr(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -37,7 +37,19 @@ public enum ErrorCode {
     AGENT_ISSUE("AGENT_ISSUE"),
     AUTO_SCALING_IAM_ROLE_PERMISSIONS("AUTO_SCALING_IAM_ROLE_PERMISSIONS"),
     AUTO_SCALING_CONFIGURATION("AUTO_SCALING_CONFIGURATION"),
-    MANUAL_STOP("MANUAL_STOP");
+    MANUAL_STOP("MANUAL_STOP"),
+    MISSING_BLUE_GREEN_DEPLOYMENT_CONFIGURATION("MISSING_BLUE_GREEN_DEPLOYMENT_CONFIGURATION"),
+    MISSING_ELB_INFORMATION("MISSING_ELB_INFORMATION"),
+    MISSING_GITHUB_TOKEN("MISSING_GITHUB_TOKEN"),
+    ELASTIC_LOAD_BALANCING_INVALID("ELASTIC_LOAD_BALANCING_INVALID"),
+    ELB_INVALID_INSTANCE("ELB_INVALID_INSTANCE"),
+    INVALID_LAMBDA_CONFIGURATION("INVALID_LAMBDA_CONFIGURATION"),
+    INVALID_LAMBDA_FUNCTION("INVALID_LAMBDA_FUNCTION"),
+    HOOK_EXECUTION_FAILURE("HOOK_EXECUTION_FAILURE"),
+    AUTOSCALING_VALIDATION_ERROR("AUTOSCALING_VALIDATION_ERROR"),
+    INVALID_ECS_SERVICE("INVALID_ECS_SERVICE"),
+    ECS_UPDATE_ERROR("ECS_UPDATE_ERROR"),
+    INVALID_REVISION("INVALID_REVISION");
 
     private String value;
 
@@ -56,6 +68,9 @@ public enum ErrorCode {
      * @param value
      *        real value
      * @return ErrorCode corresponding to the value
+     *
+     * @throws IllegalArgumentException
+     *         If the specified value does not map to one of the known values in this enum.
      */
     public static ErrorCode fromValue(String value) {
         if (value == null || "".equals(value)) {

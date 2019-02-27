@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,9 +28,7 @@ public class LaunchSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The user data to make available to the instances. If you are using an AWS SDK or command line tool,
-     * Base64-encoding is performed for you, and you can load the text from a file. Otherwise, you must provide
-     * Base64-encoded text.
+     * The Base64-encoded user data for the instance.
      * </p>
      */
     private String userData;
@@ -43,10 +41,6 @@ public class LaunchSpecification implements Serializable, Cloneable {
     /**
      * <p>
      * One or more block device mapping entries.
-     * </p>
-     * <p>
-     * Although you can specify encrypted EBS volumes in this block device mapping for your Spot Instances, these
-     * volumes are not encrypted.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<BlockDeviceMapping> blockDeviceMappings;
@@ -134,15 +128,11 @@ public class LaunchSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The user data to make available to the instances. If you are using an AWS SDK or command line tool,
-     * Base64-encoding is performed for you, and you can load the text from a file. Otherwise, you must provide
-     * Base64-encoded text.
+     * The Base64-encoded user data for the instance.
      * </p>
      * 
      * @param userData
-     *        The user data to make available to the instances. If you are using an AWS SDK or command line tool,
-     *        Base64-encoding is performed for you, and you can load the text from a file. Otherwise, you must provide
-     *        Base64-encoded text.
+     *        The Base64-encoded user data for the instance.
      */
 
     public void setUserData(String userData) {
@@ -151,14 +141,10 @@ public class LaunchSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The user data to make available to the instances. If you are using an AWS SDK or command line tool,
-     * Base64-encoding is performed for you, and you can load the text from a file. Otherwise, you must provide
-     * Base64-encoded text.
+     * The Base64-encoded user data for the instance.
      * </p>
      * 
-     * @return The user data to make available to the instances. If you are using an AWS SDK or command line tool,
-     *         Base64-encoding is performed for you, and you can load the text from a file. Otherwise, you must provide
-     *         Base64-encoded text.
+     * @return The Base64-encoded user data for the instance.
      */
 
     public String getUserData() {
@@ -167,15 +153,11 @@ public class LaunchSpecification implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The user data to make available to the instances. If you are using an AWS SDK or command line tool,
-     * Base64-encoding is performed for you, and you can load the text from a file. Otherwise, you must provide
-     * Base64-encoded text.
+     * The Base64-encoded user data for the instance.
      * </p>
      * 
      * @param userData
-     *        The user data to make available to the instances. If you are using an AWS SDK or command line tool,
-     *        Base64-encoding is performed for you, and you can load the text from a file. Otherwise, you must provide
-     *        Base64-encoded text.
+     *        The Base64-encoded user data for the instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -228,15 +210,8 @@ public class LaunchSpecification implements Serializable, Cloneable {
      * <p>
      * One or more block device mapping entries.
      * </p>
-     * <p>
-     * Although you can specify encrypted EBS volumes in this block device mapping for your Spot Instances, these
-     * volumes are not encrypted.
-     * </p>
      * 
-     * @return One or more block device mapping entries.</p>
-     *         <p>
-     *         Although you can specify encrypted EBS volumes in this block device mapping for your Spot Instances,
-     *         these volumes are not encrypted.
+     * @return One or more block device mapping entries.
      */
 
     public java.util.List<BlockDeviceMapping> getBlockDeviceMappings() {
@@ -250,16 +225,9 @@ public class LaunchSpecification implements Serializable, Cloneable {
      * <p>
      * One or more block device mapping entries.
      * </p>
-     * <p>
-     * Although you can specify encrypted EBS volumes in this block device mapping for your Spot Instances, these
-     * volumes are not encrypted.
-     * </p>
      * 
      * @param blockDeviceMappings
-     *        One or more block device mapping entries.</p>
-     *        <p>
-     *        Although you can specify encrypted EBS volumes in this block device mapping for your Spot Instances, these
-     *        volumes are not encrypted.
+     *        One or more block device mapping entries.
      */
 
     public void setBlockDeviceMappings(java.util.Collection<BlockDeviceMapping> blockDeviceMappings) {
@@ -276,20 +244,13 @@ public class LaunchSpecification implements Serializable, Cloneable {
      * One or more block device mapping entries.
      * </p>
      * <p>
-     * Although you can specify encrypted EBS volumes in this block device mapping for your Spot Instances, these
-     * volumes are not encrypted.
-     * </p>
-     * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setBlockDeviceMappings(java.util.Collection)} or {@link #withBlockDeviceMappings(java.util.Collection)}
      * if you want to override the existing values.
      * </p>
      * 
      * @param blockDeviceMappings
-     *        One or more block device mapping entries.</p>
-     *        <p>
-     *        Although you can specify encrypted EBS volumes in this block device mapping for your Spot Instances, these
-     *        volumes are not encrypted.
+     *        One or more block device mapping entries.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -307,16 +268,9 @@ public class LaunchSpecification implements Serializable, Cloneable {
      * <p>
      * One or more block device mapping entries.
      * </p>
-     * <p>
-     * Although you can specify encrypted EBS volumes in this block device mapping for your Spot Instances, these
-     * volumes are not encrypted.
-     * </p>
      * 
      * @param blockDeviceMappings
-     *        One or more block device mapping entries.</p>
-     *        <p>
-     *        Although you can specify encrypted EBS volumes in this block device mapping for your Spot Instances, these
-     *        volumes are not encrypted.
+     *        One or more block device mapping entries.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1044,7 +998,8 @@ public class LaunchSpecification implements Serializable, Cloneable {
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

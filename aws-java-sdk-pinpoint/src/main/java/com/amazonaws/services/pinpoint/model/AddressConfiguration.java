@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,13 +19,20 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * Address configuration.
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/AddressConfiguration" target="_top">AWS API
+ *      Documentation</a>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class AddressConfiguration implements Serializable, Cloneable, StructuredPojo {
 
     /** Body override. If specified will override default body. */
     private String bodyOverride;
-    /** Type of channel of this address */
+    /**
+     * The channel type.
+     * 
+     * Valid values: GCM | APNS | APNS_SANDBOX | APNS_VOIP | APNS_VOIP_SANDBOX | ADM | SMS | EMAIL | BAIDU
+     */
     private String channelType;
     /**
      * A map of custom attributes to attributes to be attached to the message for this address. This payload is added to
@@ -77,10 +84,14 @@ public class AddressConfiguration implements Serializable, Cloneable, Structured
     }
 
     /**
-     * Type of channel of this address
+     * The channel type.
+     * 
+     * Valid values: GCM | APNS | APNS_SANDBOX | APNS_VOIP | APNS_VOIP_SANDBOX | ADM | SMS | EMAIL | BAIDU
      * 
      * @param channelType
-     *        Type of channel of this address
+     *        The channel type.
+     * 
+     *        Valid values: GCM | APNS | APNS_SANDBOX | APNS_VOIP | APNS_VOIP_SANDBOX | ADM | SMS | EMAIL | BAIDU
      * @see ChannelType
      */
 
@@ -89,9 +100,13 @@ public class AddressConfiguration implements Serializable, Cloneable, Structured
     }
 
     /**
-     * Type of channel of this address
+     * The channel type.
      * 
-     * @return Type of channel of this address
+     * Valid values: GCM | APNS | APNS_SANDBOX | APNS_VOIP | APNS_VOIP_SANDBOX | ADM | SMS | EMAIL | BAIDU
+     * 
+     * @return The channel type.
+     * 
+     *         Valid values: GCM | APNS | APNS_SANDBOX | APNS_VOIP | APNS_VOIP_SANDBOX | ADM | SMS | EMAIL | BAIDU
      * @see ChannelType
      */
 
@@ -100,10 +115,14 @@ public class AddressConfiguration implements Serializable, Cloneable, Structured
     }
 
     /**
-     * Type of channel of this address
+     * The channel type.
+     * 
+     * Valid values: GCM | APNS | APNS_SANDBOX | APNS_VOIP | APNS_VOIP_SANDBOX | ADM | SMS | EMAIL | BAIDU
      * 
      * @param channelType
-     *        Type of channel of this address
+     *        The channel type.
+     * 
+     *        Valid values: GCM | APNS | APNS_SANDBOX | APNS_VOIP | APNS_VOIP_SANDBOX | ADM | SMS | EMAIL | BAIDU
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ChannelType
      */
@@ -114,10 +133,14 @@ public class AddressConfiguration implements Serializable, Cloneable, Structured
     }
 
     /**
-     * Type of channel of this address
+     * The channel type.
+     * 
+     * Valid values: GCM | APNS | APNS_SANDBOX | APNS_VOIP | APNS_VOIP_SANDBOX | ADM | SMS | EMAIL | BAIDU
      * 
      * @param channelType
-     *        Type of channel of this address
+     *        The channel type.
+     * 
+     *        Valid values: GCM | APNS | APNS_SANDBOX | APNS_VOIP | APNS_VOIP_SANDBOX | ADM | SMS | EMAIL | BAIDU
      * @see ChannelType
      */
 
@@ -126,10 +149,14 @@ public class AddressConfiguration implements Serializable, Cloneable, Structured
     }
 
     /**
-     * Type of channel of this address
+     * The channel type.
+     * 
+     * Valid values: GCM | APNS | APNS_SANDBOX | APNS_VOIP | APNS_VOIP_SANDBOX | ADM | SMS | EMAIL | BAIDU
      * 
      * @param channelType
-     *        Type of channel of this address
+     *        The channel type.
+     * 
+     *        Valid values: GCM | APNS | APNS_SANDBOX | APNS_VOIP | APNS_VOIP_SANDBOX | ADM | SMS | EMAIL | BAIDU
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ChannelType
      */
@@ -333,7 +360,8 @@ public class AddressConfiguration implements Serializable, Cloneable, Structured
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

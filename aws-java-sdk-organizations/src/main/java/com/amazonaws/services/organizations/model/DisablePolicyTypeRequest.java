@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,7 +28,7 @@ public class DisablePolicyTypeRequest extends com.amazonaws.AmazonWebServiceRequ
     /**
      * <p>
      * The unique identifier (ID) of the root in which you want to disable a policy type. You can get the ID from the
-     * <a>ListPolicies</a> operation.
+     * <a>ListRoots</a> operation.
      * </p>
      * <p>
      * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for a root ID string requires "r-" followed by
@@ -46,7 +46,7 @@ public class DisablePolicyTypeRequest extends com.amazonaws.AmazonWebServiceRequ
     /**
      * <p>
      * The unique identifier (ID) of the root in which you want to disable a policy type. You can get the ID from the
-     * <a>ListPolicies</a> operation.
+     * <a>ListRoots</a> operation.
      * </p>
      * <p>
      * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for a root ID string requires "r-" followed by
@@ -55,7 +55,7 @@ public class DisablePolicyTypeRequest extends com.amazonaws.AmazonWebServiceRequ
      * 
      * @param rootId
      *        The unique identifier (ID) of the root in which you want to disable a policy type. You can get the ID from
-     *        the <a>ListPolicies</a> operation.</p>
+     *        the <a>ListRoots</a> operation.</p>
      *        <p>
      *        The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for a root ID string requires "r-"
      *        followed by from 4 to 32 lower-case letters or digits.
@@ -68,7 +68,7 @@ public class DisablePolicyTypeRequest extends com.amazonaws.AmazonWebServiceRequ
     /**
      * <p>
      * The unique identifier (ID) of the root in which you want to disable a policy type. You can get the ID from the
-     * <a>ListPolicies</a> operation.
+     * <a>ListRoots</a> operation.
      * </p>
      * <p>
      * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for a root ID string requires "r-" followed by
@@ -76,7 +76,7 @@ public class DisablePolicyTypeRequest extends com.amazonaws.AmazonWebServiceRequ
      * </p>
      * 
      * @return The unique identifier (ID) of the root in which you want to disable a policy type. You can get the ID
-     *         from the <a>ListPolicies</a> operation.</p>
+     *         from the <a>ListRoots</a> operation.</p>
      *         <p>
      *         The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for a root ID string requires "r-"
      *         followed by from 4 to 32 lower-case letters or digits.
@@ -89,7 +89,7 @@ public class DisablePolicyTypeRequest extends com.amazonaws.AmazonWebServiceRequ
     /**
      * <p>
      * The unique identifier (ID) of the root in which you want to disable a policy type. You can get the ID from the
-     * <a>ListPolicies</a> operation.
+     * <a>ListRoots</a> operation.
      * </p>
      * <p>
      * The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for a root ID string requires "r-" followed by
@@ -98,7 +98,7 @@ public class DisablePolicyTypeRequest extends com.amazonaws.AmazonWebServiceRequ
      * 
      * @param rootId
      *        The unique identifier (ID) of the root in which you want to disable a policy type. You can get the ID from
-     *        the <a>ListPolicies</a> operation.</p>
+     *        the <a>ListRoots</a> operation.</p>
      *        <p>
      *        The <a href="http://wikipedia.org/wiki/regex">regex pattern</a> for a root ID string requires "r-"
      *        followed by from 4 to 32 lower-case letters or digits.
@@ -184,7 +184,8 @@ public class DisablePolicyTypeRequest extends com.amazonaws.AmazonWebServiceRequ
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,7 +28,7 @@ public class DescribeSourceRegionsRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The source region name. For example, <code>us-east-1</code>.
+     * The source AWS Region name. For example, <code>us-east-1</code>.
      * </p>
      * <p>
      * Constraints:
@@ -73,7 +73,7 @@ public class DescribeSourceRegionsRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The source region name. For example, <code>us-east-1</code>.
+     * The source AWS Region name. For example, <code>us-east-1</code>.
      * </p>
      * <p>
      * Constraints:
@@ -87,7 +87,7 @@ public class DescribeSourceRegionsRequest extends com.amazonaws.AmazonWebService
      * </ul>
      * 
      * @param regionName
-     *        The source region name. For example, <code>us-east-1</code>.</p>
+     *        The source AWS Region name. For example, <code>us-east-1</code>.</p>
      *        <p>
      *        Constraints:
      *        </p>
@@ -105,7 +105,7 @@ public class DescribeSourceRegionsRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The source region name. For example, <code>us-east-1</code>.
+     * The source AWS Region name. For example, <code>us-east-1</code>.
      * </p>
      * <p>
      * Constraints:
@@ -118,7 +118,7 @@ public class DescribeSourceRegionsRequest extends com.amazonaws.AmazonWebService
      * </li>
      * </ul>
      * 
-     * @return The source region name. For example, <code>us-east-1</code>.</p>
+     * @return The source AWS Region name. For example, <code>us-east-1</code>.</p>
      *         <p>
      *         Constraints:
      *         </p>
@@ -136,7 +136,7 @@ public class DescribeSourceRegionsRequest extends com.amazonaws.AmazonWebService
 
     /**
      * <p>
-     * The source region name. For example, <code>us-east-1</code>.
+     * The source AWS Region name. For example, <code>us-east-1</code>.
      * </p>
      * <p>
      * Constraints:
@@ -150,7 +150,7 @@ public class DescribeSourceRegionsRequest extends com.amazonaws.AmazonWebService
      * </ul>
      * 
      * @param regionName
-     *        The source region name. For example, <code>us-east-1</code>.</p>
+     *        The source AWS Region name. For example, <code>us-east-1</code>.</p>
      *        <p>
      *        Constraints:
      *        </p>
@@ -379,7 +379,8 @@ public class DescribeSourceRegionsRequest extends com.amazonaws.AmazonWebService
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

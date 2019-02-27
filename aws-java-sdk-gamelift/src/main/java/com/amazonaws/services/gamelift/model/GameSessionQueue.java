@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -22,31 +22,6 @@ import com.amazonaws.protocol.ProtocolMarshaller;
  * Configuration of a queue that is used to process game session placement requests. The queue configuration identifies
  * several game features:
  * </p>
- * <p>
- * Queue-related operations include:
- * </p>
- * <ul>
- * <li>
- * <p>
- * <a>CreateGameSessionQueue</a>
- * </p>
- * </li>
- * <li>
- * <p>
- * <a>DescribeGameSessionQueues</a>
- * </p>
- * </li>
- * <li>
- * <p>
- * <a>UpdateGameSessionQueue</a>
- * </p>
- * </li>
- * <li>
- * <p>
- * <a>DeleteGameSessionQueue</a>
- * </p>
- * </li>
- * </ul>
  * <ul>
  * <li>
  * <p>
@@ -68,9 +43,6 @@ import com.amazonaws.protocol.ProtocolMarshaller;
  * </p>
  * </li>
  * </ul>
- * <p>
- * Queue-related operations include the following:
- * </p>
  * <ul>
  * <li>
  * <p>
@@ -102,13 +74,13 @@ public class GameSessionQueue implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * Descriptive label that is associated with queue. Queue names must be unique within each region.
+     * Descriptive label that is associated with game session queue. Queue names must be unique within each region.
      * </p>
      */
     private String name;
     /**
      * <p>
-     * Amazon Resource Name (<a href="http://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>) that
+     * Amazon Resource Name (<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>) that
      * is assigned to a game session queue and uniquely identifies it. Format is
      * <code>arn:aws:gamelift:&lt;region&gt;::fleet/fleet-a1234567-b8c9-0d1e-2fa3-b45c6d7e8912</code>.
      * </p>
@@ -117,7 +89,7 @@ public class GameSessionQueue implements Serializable, Cloneable, StructuredPojo
     /**
      * <p>
      * Maximum time, in seconds, that a new game session placement request remains in the queue. When a request exceeds
-     * this time, the game session placement changes to a TIMED_OUT status.
+     * this time, the game session placement changes to a <code>TIMED_OUT</code> status.
      * </p>
      */
     private Integer timeoutInSeconds;
@@ -142,11 +114,12 @@ public class GameSessionQueue implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * Descriptive label that is associated with queue. Queue names must be unique within each region.
+     * Descriptive label that is associated with game session queue. Queue names must be unique within each region.
      * </p>
      * 
      * @param name
-     *        Descriptive label that is associated with queue. Queue names must be unique within each region.
+     *        Descriptive label that is associated with game session queue. Queue names must be unique within each
+     *        region.
      */
 
     public void setName(String name) {
@@ -155,10 +128,11 @@ public class GameSessionQueue implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * Descriptive label that is associated with queue. Queue names must be unique within each region.
+     * Descriptive label that is associated with game session queue. Queue names must be unique within each region.
      * </p>
      * 
-     * @return Descriptive label that is associated with queue. Queue names must be unique within each region.
+     * @return Descriptive label that is associated with game session queue. Queue names must be unique within each
+     *         region.
      */
 
     public String getName() {
@@ -167,11 +141,12 @@ public class GameSessionQueue implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * Descriptive label that is associated with queue. Queue names must be unique within each region.
+     * Descriptive label that is associated with game session queue. Queue names must be unique within each region.
      * </p>
      * 
      * @param name
-     *        Descriptive label that is associated with queue. Queue names must be unique within each region.
+     *        Descriptive label that is associated with game session queue. Queue names must be unique within each
+     *        region.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -182,14 +157,15 @@ public class GameSessionQueue implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * Amazon Resource Name (<a href="http://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>) that
+     * Amazon Resource Name (<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>) that
      * is assigned to a game session queue and uniquely identifies it. Format is
      * <code>arn:aws:gamelift:&lt;region&gt;::fleet/fleet-a1234567-b8c9-0d1e-2fa3-b45c6d7e8912</code>.
      * </p>
      * 
      * @param gameSessionQueueArn
-     *        Amazon Resource Name (<a href="http://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>)
-     *        that is assigned to a game session queue and uniquely identifies it. Format is
+     *        Amazon Resource Name (<a
+     *        href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>) that is assigned to a
+     *        game session queue and uniquely identifies it. Format is
      *        <code>arn:aws:gamelift:&lt;region&gt;::fleet/fleet-a1234567-b8c9-0d1e-2fa3-b45c6d7e8912</code>.
      */
 
@@ -199,13 +175,13 @@ public class GameSessionQueue implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * Amazon Resource Name (<a href="http://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>) that
+     * Amazon Resource Name (<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>) that
      * is assigned to a game session queue and uniquely identifies it. Format is
      * <code>arn:aws:gamelift:&lt;region&gt;::fleet/fleet-a1234567-b8c9-0d1e-2fa3-b45c6d7e8912</code>.
      * </p>
      * 
      * @return Amazon Resource Name (<a
-     *         href="http://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>) that is assigned to a
+     *         href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>) that is assigned to a
      *         game session queue and uniquely identifies it. Format is
      *         <code>arn:aws:gamelift:&lt;region&gt;::fleet/fleet-a1234567-b8c9-0d1e-2fa3-b45c6d7e8912</code>.
      */
@@ -216,14 +192,15 @@ public class GameSessionQueue implements Serializable, Cloneable, StructuredPojo
 
     /**
      * <p>
-     * Amazon Resource Name (<a href="http://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>) that
+     * Amazon Resource Name (<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>) that
      * is assigned to a game session queue and uniquely identifies it. Format is
      * <code>arn:aws:gamelift:&lt;region&gt;::fleet/fleet-a1234567-b8c9-0d1e-2fa3-b45c6d7e8912</code>.
      * </p>
      * 
      * @param gameSessionQueueArn
-     *        Amazon Resource Name (<a href="http://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>)
-     *        that is assigned to a game session queue and uniquely identifies it. Format is
+     *        Amazon Resource Name (<a
+     *        href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a>) that is assigned to a
+     *        game session queue and uniquely identifies it. Format is
      *        <code>arn:aws:gamelift:&lt;region&gt;::fleet/fleet-a1234567-b8c9-0d1e-2fa3-b45c6d7e8912</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -236,12 +213,12 @@ public class GameSessionQueue implements Serializable, Cloneable, StructuredPojo
     /**
      * <p>
      * Maximum time, in seconds, that a new game session placement request remains in the queue. When a request exceeds
-     * this time, the game session placement changes to a TIMED_OUT status.
+     * this time, the game session placement changes to a <code>TIMED_OUT</code> status.
      * </p>
      * 
      * @param timeoutInSeconds
      *        Maximum time, in seconds, that a new game session placement request remains in the queue. When a request
-     *        exceeds this time, the game session placement changes to a TIMED_OUT status.
+     *        exceeds this time, the game session placement changes to a <code>TIMED_OUT</code> status.
      */
 
     public void setTimeoutInSeconds(Integer timeoutInSeconds) {
@@ -251,11 +228,11 @@ public class GameSessionQueue implements Serializable, Cloneable, StructuredPojo
     /**
      * <p>
      * Maximum time, in seconds, that a new game session placement request remains in the queue. When a request exceeds
-     * this time, the game session placement changes to a TIMED_OUT status.
+     * this time, the game session placement changes to a <code>TIMED_OUT</code> status.
      * </p>
      * 
      * @return Maximum time, in seconds, that a new game session placement request remains in the queue. When a request
-     *         exceeds this time, the game session placement changes to a TIMED_OUT status.
+     *         exceeds this time, the game session placement changes to a <code>TIMED_OUT</code> status.
      */
 
     public Integer getTimeoutInSeconds() {
@@ -265,12 +242,12 @@ public class GameSessionQueue implements Serializable, Cloneable, StructuredPojo
     /**
      * <p>
      * Maximum time, in seconds, that a new game session placement request remains in the queue. When a request exceeds
-     * this time, the game session placement changes to a TIMED_OUT status.
+     * this time, the game session placement changes to a <code>TIMED_OUT</code> status.
      * </p>
      * 
      * @param timeoutInSeconds
      *        Maximum time, in seconds, that a new game session placement request remains in the queue. When a request
-     *        exceeds this time, the game session placement changes to a TIMED_OUT status.
+     *        exceeds this time, the game session placement changes to a <code>TIMED_OUT</code> status.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -472,7 +449,8 @@ public class GameSessionQueue implements Serializable, Cloneable, StructuredPojo
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

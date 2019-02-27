@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,6 +12,7 @@
  */
 package com.amazonaws.services.batch.model.transform;
 
+import java.util.List;
 import javax.annotation.Generated;
 
 import com.amazonaws.SdkClientException;
@@ -35,6 +36,10 @@ public class AttemptContainerDetailMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("exitCode").build();
     private static final MarshallingInfo<String> REASON_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("reason").build();
+    private static final MarshallingInfo<String> LOGSTREAMNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("logStreamName").build();
+    private static final MarshallingInfo<List> NETWORKINTERFACES_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("networkInterfaces").build();
 
     private static final AttemptContainerDetailMarshaller instance = new AttemptContainerDetailMarshaller();
 
@@ -56,6 +61,8 @@ public class AttemptContainerDetailMarshaller {
             protocolMarshaller.marshall(attemptContainerDetail.getTaskArn(), TASKARN_BINDING);
             protocolMarshaller.marshall(attemptContainerDetail.getExitCode(), EXITCODE_BINDING);
             protocolMarshaller.marshall(attemptContainerDetail.getReason(), REASON_BINDING);
+            protocolMarshaller.marshall(attemptContainerDetail.getLogStreamName(), LOGSTREAMNAME_BINDING);
+            protocolMarshaller.marshall(attemptContainerDetail.getNetworkInterfaces(), NETWORKINTERFACES_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

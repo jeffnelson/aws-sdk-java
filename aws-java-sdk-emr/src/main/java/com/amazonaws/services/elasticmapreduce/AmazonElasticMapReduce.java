@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -53,9 +53,10 @@ public interface AmazonElasticMapReduce {
      * protocol from this client's {@link ClientConfiguration} will be used, which by default is HTTPS.
      * <p>
      * For more information on using AWS regions with the AWS SDK for Java, and a complete list of all available
-     * endpoints for all AWS services, see: <a
-     * href="http://developer.amazonwebservices.com/connect/entry.jspa?externalID=3912">
-     * http://developer.amazonwebservices.com/connect/entry.jspa?externalID=3912</a>
+     * endpoints for all AWS services, see: <a href=
+     * "https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/java-dg-region-selection.html#region-selection-choose-endpoint"
+     * > https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/java-dg-region-selection.html#region-selection-
+     * choose-endpoint</a>
      * <p>
      * <b>This method is not threadsafe. An endpoint should be configured when the client is created and before any
      * service requests are made. Changing it afterwards creates inevitable race conditions for any service requests in
@@ -142,8 +143,8 @@ public interface AmazonElasticMapReduce {
      * to process your data. You can bypass the 256-step limitation in various ways, including using SSH to connect to
      * the master node and submitting queries directly to the software running on the master node, such as Hive and
      * Hadoop. For more information on how to do this, see <a
-     * href="http://docs.aws.amazon.com/ElasticMapReduce/latest/ManagementGuide/AddMoreThan256Steps.html">Add More than
-     * 256 Steps to a Cluster</a> in the <i>Amazon EMR Management Guide</i>.
+     * href="http://docs.aws.amazon.com/emr/latest/ManagementGuide/AddMoreThan256Steps.html">Add More than 256 Steps to
+     * a Cluster</a> in the <i>Amazon EMR Management Guide</i>.
      * </p>
      * <p>
      * A step specifies the location of a JAR file stored either on the master node of the cluster or in Amazon S3. Each
@@ -175,8 +176,7 @@ public interface AmazonElasticMapReduce {
      * <p>
      * Adds tags to an Amazon EMR resource. Tags make it easier to associate clusters in various ways, such as grouping
      * clusters to track your Amazon EMR resource allocation costs. For more information, see <a
-     * href="http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/emr-plan-tags.html">Tagging Amazon EMR
-     * Resources</a>.
+     * href="http://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-tags.html">Tag Clusters</a>.
      * </p>
      * 
      * @param addTagsRequest
@@ -250,7 +250,6 @@ public interface AmazonElasticMapReduce {
     /**
      * <p>
      * Provides cluster-level details including status, hardware and software configuration, VPC settings, and so on.
-     * For information about the cluster steps, see <a>ListSteps</a>.
      * </p>
      * 
      * @param describeClusterRequest
@@ -578,8 +577,7 @@ public interface AmazonElasticMapReduce {
      * <p>
      * Removes tags from an Amazon EMR resource. Tags make it easier to associate clusters in various ways, such as
      * grouping clusters to track your Amazon EMR resource allocation costs. For more information, see <a
-     * href="http://docs.aws.amazon.com/ElasticMapReduce/latest/DeveloperGuide/emr-plan-tags.html">Tagging Amazon EMR
-     * Resources</a>.
+     * href="http://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-tags.html">Tag Clusters</a>.
      * </p>
      * <p>
      * The following example removes the stack tag with value Prod from a cluster:
@@ -619,8 +617,8 @@ public interface AmazonElasticMapReduce {
      * to process your data. You can bypass the 256-step limitation in various ways, including using the SSH shell to
      * connect to the master node and submitting queries directly to the software running on the master node, such as
      * Hive and Hadoop. For more information on how to do this, see <a
-     * href="http://docs.aws.amazon.com/ElasticMapReduce/latest/Management/Guide/AddMoreThan256Steps.html">Add More than
-     * 256 Steps to a Cluster</a> in the <i>Amazon EMR Management Guide</i>.
+     * href="http://docs.aws.amazon.com/emr/latest/ManagementGuide/AddMoreThan256Steps.html">Add More than 256 Steps to
+     * a Cluster</a> in the <i>Amazon EMR Management Guide</i>.
      * </p>
      * <p>
      * For long running clusters, we recommend that you periodically store your results.

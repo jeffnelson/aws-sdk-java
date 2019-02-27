@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,21 +18,23 @@ import javax.annotation.Generated;
 import com.amazonaws.AmazonWebServiceRequest;
 
 /**
- * PutEventStream Request
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/PutEventStream" target="_top">AWS API
+ *      Documentation</a>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class PutEventStreamRequest extends com.amazonaws.AmazonWebServiceRequest implements Serializable, Cloneable {
 
-    /** ApplicationId */
+    /** The unique ID of your Amazon Pinpoint application. */
     private String applicationId;
-    /** EventStream to write. */
+
     private WriteEventStream writeEventStream;
 
     /**
-     * ApplicationId
+     * The unique ID of your Amazon Pinpoint application.
      * 
      * @param applicationId
-     *        ApplicationId
+     *        The unique ID of your Amazon Pinpoint application.
      */
 
     public void setApplicationId(String applicationId) {
@@ -40,9 +42,9 @@ public class PutEventStreamRequest extends com.amazonaws.AmazonWebServiceRequest
     }
 
     /**
-     * ApplicationId
+     * The unique ID of your Amazon Pinpoint application.
      * 
-     * @return ApplicationId
+     * @return The unique ID of your Amazon Pinpoint application.
      */
 
     public String getApplicationId() {
@@ -50,10 +52,10 @@ public class PutEventStreamRequest extends com.amazonaws.AmazonWebServiceRequest
     }
 
     /**
-     * ApplicationId
+     * The unique ID of your Amazon Pinpoint application.
      * 
      * @param applicationId
-     *        ApplicationId
+     *        The unique ID of your Amazon Pinpoint application.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -63,10 +65,7 @@ public class PutEventStreamRequest extends com.amazonaws.AmazonWebServiceRequest
     }
 
     /**
-     * EventStream to write.
-     * 
      * @param writeEventStream
-     *        EventStream to write.
      */
 
     public void setWriteEventStream(WriteEventStream writeEventStream) {
@@ -74,9 +73,7 @@ public class PutEventStreamRequest extends com.amazonaws.AmazonWebServiceRequest
     }
 
     /**
-     * EventStream to write.
-     * 
-     * @return EventStream to write.
+     * @return
      */
 
     public WriteEventStream getWriteEventStream() {
@@ -84,10 +81,7 @@ public class PutEventStreamRequest extends com.amazonaws.AmazonWebServiceRequest
     }
 
     /**
-     * EventStream to write.
-     * 
      * @param writeEventStream
-     *        EventStream to write.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -97,7 +91,8 @@ public class PutEventStreamRequest extends com.amazonaws.AmazonWebServiceRequest
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

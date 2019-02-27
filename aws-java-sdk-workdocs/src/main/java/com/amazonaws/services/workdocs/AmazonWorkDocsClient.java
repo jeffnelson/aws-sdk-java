@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -37,6 +37,8 @@ import com.amazonaws.protocol.json.*;
 import com.amazonaws.util.AWSRequestMetrics.Field;
 import com.amazonaws.annotation.ThreadSafe;
 import com.amazonaws.client.AwsSyncClientParams;
+import com.amazonaws.client.builder.AdvancedConfig;
+
 import com.amazonaws.services.workdocs.AmazonWorkDocsClientBuilder;
 
 import com.amazonaws.AmazonServiceException;
@@ -55,29 +57,29 @@ import com.amazonaws.services.workdocs.model.transform.*;
  * <li>
  * <p>
  * File Migration: File migration applications are supported for users who want to migrate their files from an
- * on-premise or off-premise file system or service. Users can insert files into a user directory structure, as well as
- * allow for basic metadata changes, such as modifications to the permissions of files.
+ * on-premises or off-premises file system or service. Users can insert files into a user directory structure, as well
+ * as allow for basic metadata changes, such as modifications to the permissions of files.
  * </p>
  * </li>
  * <li>
  * <p>
- * Security: Support security applications are supported for users who have additional security needs, such as
- * anti-virus or data loss prevention. The APIs, in conjunction with Amazon CloudTrail, allow these applications to
- * detect when changes occur in Amazon WorkDocs, so the application can take the necessary actions and replace the
- * target file. The application can also choose to email the user if the target file violates the policy.
+ * Security: Support security applications are supported for users who have additional security needs, such as antivirus
+ * or data loss prevention. The API actions, along with AWS CloudTrail, allow these applications to detect when changes
+ * occur in Amazon WorkDocs. Then, the application can take the necessary actions and replace the target file. If the
+ * target file violates the policy, the application can also choose to email the user.
  * </p>
  * </li>
  * <li>
  * <p>
  * eDiscovery/Analytics: General administrative applications are supported, such as eDiscovery and analytics. These
- * applications can choose to mimic and/or record the actions in an Amazon WorkDocs site, in conjunction with Amazon
- * CloudTrails, to replicate data for eDiscovery, backup, or analytical applications.
+ * applications can choose to mimic or record the actions in an Amazon WorkDocs site, along with AWS CloudTrail, to
+ * replicate data for eDiscovery, backup, or analytical applications.
  * </p>
  * </li>
  * </ul>
  * <p>
- * All Amazon WorkDocs APIs are Amazon authenticated, certificate-signed APIs. They not only require the use of the AWS
- * SDK, but also allow for the exclusive use of IAM users and roles to help facilitate access, trust, and permission
+ * All Amazon WorkDocs API actions are Amazon authenticated and certificate-signed. They not only require the use of the
+ * AWS SDK, but also allow for the exclusive use of IAM users and roles to help facilitate access, trust, and permission
  * policies. By creating a role and allowing an IAM user to access the Amazon WorkDocs site, the IAM user gains full
  * administrative visibility into the entire Amazon WorkDocs site (or as set in the IAM policy). This includes, but is
  * not limited to, the ability to modify file permissions and upload any file to any user. This allows developers to
@@ -88,6 +90,7 @@ import com.amazonaws.services.workdocs.model.transform.*;
 @ThreadSafe
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class AmazonWorkDocsClient extends AmazonWebServiceClient implements AmazonWorkDocs {
+
     /** Provider for AWS credentials. */
     private final AWSCredentialsProvider awsCredentialsProvider;
 
@@ -99,7 +102,9 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
     /** Client configuration factory providing ClientConfigurations tailored to this client */
     protected static final ClientConfigurationFactory configFactory = new ClientConfigurationFactory();
 
-    private final com.amazonaws.protocol.json.SdkJsonProtocolFactory protocolFactory = new com.amazonaws.protocol.json.SdkJsonProtocolFactory(
+    private final AdvancedConfig advancedConfig;
+
+    private static final com.amazonaws.protocol.json.SdkJsonProtocolFactory protocolFactory = new com.amazonaws.protocol.json.SdkJsonProtocolFactory(
             new JsonClientMetadata()
                     .withProtocolVersion("1.1")
                     .withSupportsCbor(false)
@@ -151,6 +156,15 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
                             new JsonErrorShapeMetadata().withErrorCode("InvalidArgumentException").withModeledClass(
                                     com.amazonaws.services.workdocs.model.InvalidArgumentException.class))
                     .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("ConflictingOperationException").withModeledClass(
+                                    com.amazonaws.services.workdocs.model.ConflictingOperationException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidCommentOperationException").withModeledClass(
+                                    com.amazonaws.services.workdocs.model.InvalidCommentOperationException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidPasswordException").withModeledClass(
+                                    com.amazonaws.services.workdocs.model.InvalidPasswordException.class))
+                    .addErrorMetadata(
                             new JsonErrorShapeMetadata().withErrorCode("UnauthorizedOperationException").withModeledClass(
                                     com.amazonaws.services.workdocs.model.UnauthorizedOperationException.class))
                     .addErrorMetadata(
@@ -162,6 +176,9 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
                     .addErrorMetadata(
                             new JsonErrorShapeMetadata().withErrorCode("ResourceAlreadyCheckedOutException").withModeledClass(
                                     com.amazonaws.services.workdocs.model.ResourceAlreadyCheckedOutException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("RequestedEntityTooLargeException").withModeledClass(
+                                    com.amazonaws.services.workdocs.model.RequestedEntityTooLargeException.class))
                     .addErrorMetadata(
                             new JsonErrorShapeMetadata().withErrorCode("ServiceUnavailableException").withModeledClass(
                                     com.amazonaws.services.workdocs.model.ServiceUnavailableException.class))
@@ -185,8 +202,23 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
      *        Object providing client parameters.
      */
     AmazonWorkDocsClient(AwsSyncClientParams clientParams) {
+        this(clientParams, false);
+    }
+
+    /**
+     * Constructs a new client to invoke service methods on Amazon WorkDocs using the specified parameters.
+     *
+     * <p>
+     * All service calls made using this new client object are blocking, and will not return until the service call
+     * completes.
+     *
+     * @param clientParams
+     *        Object providing client parameters.
+     */
+    AmazonWorkDocsClient(AwsSyncClientParams clientParams, boolean endpointDiscoveryEnabled) {
         super(clientParams);
         this.awsCredentialsProvider = clientParams.getCredentialsProvider();
+        this.advancedConfig = clientParams.getAdvancedConfig();
         init();
     }
 
@@ -220,7 +252,7 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
      *         The caller does not have access to perform the action on the resource.
      * @throws FailedDependencyException
      *         The AWS Directory Service cannot reach an on-premises instance. Or a dependency under the control of the
-     *         organization is failing, such as a connected active directory.
+     *         organization is failing, such as a connected Active Directory.
      * @throws ServiceUnavailableException
      *         One or more of the dependencies is unavailable.
      * @sample AmazonWorkDocs.AbortDocumentVersionUpload
@@ -249,6 +281,10 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
                         .beforeMarshalling(abortDocumentVersionUploadRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkDocs");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AbortDocumentVersionUpload");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -281,7 +317,7 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
      *         The caller does not have access to perform the action on the resource.
      * @throws FailedDependencyException
      *         The AWS Directory Service cannot reach an on-premises instance. Or a dependency under the control of the
-     *         organization is failing, such as a connected active directory.
+     *         organization is failing, such as a connected Active Directory.
      * @throws ServiceUnavailableException
      *         One or more of the dependencies is unavailable.
      * @sample AmazonWorkDocs.ActivateUser
@@ -309,6 +345,10 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
                 request = new ActivateUserRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(activateUserRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkDocs");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ActivateUser");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -339,7 +379,7 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
      *         The caller does not have access to perform the action on the resource.
      * @throws FailedDependencyException
      *         The AWS Directory Service cannot reach an on-premises instance. Or a dependency under the control of the
-     *         organization is failing, such as a connected active directory.
+     *         organization is failing, such as a connected Active Directory.
      * @throws ServiceUnavailableException
      *         One or more of the dependencies is unavailable.
      * @sample AmazonWorkDocs.AddResourcePermissions
@@ -367,6 +407,10 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
                 request = new AddResourcePermissionsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(addResourcePermissionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkDocs");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AddResourcePermissions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -401,12 +445,14 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
      *         The caller does not have access to perform the action on the resource.
      * @throws FailedDependencyException
      *         The AWS Directory Service cannot reach an on-premises instance. Or a dependency under the control of the
-     *         organization is failing, such as a connected active directory.
+     *         organization is failing, such as a connected Active Directory.
      * @throws ServiceUnavailableException
      *         One or more of the dependencies is unavailable.
      * @throws DocumentLockedForCommentsException
      *         This exception is thrown when the document is locked for comments and user tries to create or delete a
      *         comment on that document.
+     * @throws InvalidCommentOperationException
+     *         The requested operation is not allowed on the specified comment object.
      * @sample AmazonWorkDocs.CreateComment
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workdocs-2016-05-01/CreateComment" target="_top">AWS API
      *      Documentation</a>
@@ -432,6 +478,10 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
                 request = new CreateCommentRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createCommentRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkDocs");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateComment");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -467,7 +517,7 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
      *         The limit has been reached on the number of custom properties for the specified resource.
      * @throws FailedDependencyException
      *         The AWS Directory Service cannot reach an on-premises instance. Or a dependency under the control of the
-     *         organization is failing, such as a connected active directory.
+     *         organization is failing, such as a connected Active Directory.
      * @throws ServiceUnavailableException
      *         One or more of the dependencies is unavailable.
      * @sample AmazonWorkDocs.CreateCustomMetadata
@@ -495,6 +545,10 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
                 request = new CreateCustomMetadataRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createCustomMetadataRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkDocs");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateCustomMetadata");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -524,6 +578,8 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
      *         The resource already exists.
      * @throws ProhibitedStateException
      *         The specified document version is not in the INITIALIZED state.
+     * @throws ConflictingOperationException
+     *         Another operation is in progress on the resource that conflicts with the current operation.
      * @throws LimitExceededException
      *         The maximum of 100,000 folders under the parent folder has been exceeded.
      * @throws UnauthorizedOperationException
@@ -532,7 +588,7 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
      *         The caller does not have access to perform the action on the resource.
      * @throws FailedDependencyException
      *         The AWS Directory Service cannot reach an on-premises instance. Or a dependency under the control of the
-     *         organization is failing, such as a connected active directory.
+     *         organization is failing, such as a connected Active Directory.
      * @throws ServiceUnavailableException
      *         One or more of the dependencies is unavailable.
      * @sample AmazonWorkDocs.CreateFolder
@@ -560,6 +616,10 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
                 request = new CreateFolderRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createFolderRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkDocs");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateFolder");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -591,7 +651,7 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
      *         The caller does not have access to perform the action on the resource.
      * @throws FailedDependencyException
      *         The AWS Directory Service cannot reach an on-premises instance. Or a dependency under the control of the
-     *         organization is failing, such as a connected active directory.
+     *         organization is failing, such as a connected Active Directory.
      * @throws ServiceUnavailableException
      *         One or more of the dependencies is unavailable.
      * @throws TooManyLabelsException
@@ -621,6 +681,10 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
                 request = new CreateLabelsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createLabelsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkDocs");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateLabels");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -639,12 +703,13 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
 
     /**
      * <p>
-     * Configure WorkDocs to use Amazon SNS notifications.
+     * Configure Amazon WorkDocs to use Amazon SNS notifications. The endpoint receives a confirmation message, and must
+     * confirm the subscription.
      * </p>
      * <p>
-     * The endpoint receives a confirmation message, and must confirm the subscription. For more information, see <a
-     * href="http://docs.aws.amazon.com/sns/latest/dg/SendMessageToHttp.html#SendMessageToHttp.confirm">Confirm the
-     * Subscription</a> in the <i>Amazon Simple Notification Service Developer Guide</i>.
+     * For more information, see <a
+     * href="https://docs.aws.amazon.com/workdocs/latest/developerguide/subscribe-notifications.html">Subscribe to
+     * Notifications</a> in the <i>Amazon WorkDocs Developer Guide</i>.
      * </p>
      * 
      * @param createNotificationSubscriptionRequest
@@ -681,6 +746,10 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
                         .beforeMarshalling(createNotificationSubscriptionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkDocs");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateNotificationSubscription");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -714,7 +783,7 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
      *         The caller does not have access to perform the action on the resource.
      * @throws FailedDependencyException
      *         The AWS Directory Service cannot reach an on-premises instance. Or a dependency under the control of the
-     *         organization is failing, such as a connected active directory.
+     *         organization is failing, such as a connected Active Directory.
      * @throws ServiceUnavailableException
      *         One or more of the dependencies is unavailable.
      * @sample AmazonWorkDocs.CreateUser
@@ -742,6 +811,10 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
                 request = new CreateUserRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createUserRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkDocs");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateUser");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -773,7 +846,7 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
      *         The caller does not have access to perform the action on the resource.
      * @throws FailedDependencyException
      *         The AWS Directory Service cannot reach an on-premises instance. Or a dependency under the control of the
-     *         organization is failing, such as a connected active directory.
+     *         organization is failing, such as a connected Active Directory.
      * @throws ServiceUnavailableException
      *         One or more of the dependencies is unavailable.
      * @sample AmazonWorkDocs.DeactivateUser
@@ -801,6 +874,10 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
                 request = new DeactivateUserRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deactivateUserRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkDocs");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeactivateUser");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -834,7 +911,7 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
      *         The caller does not have access to perform the action on the resource.
      * @throws FailedDependencyException
      *         The AWS Directory Service cannot reach an on-premises instance. Or a dependency under the control of the
-     *         organization is failing, such as a connected active directory.
+     *         organization is failing, such as a connected Active Directory.
      * @throws ServiceUnavailableException
      *         One or more of the dependencies is unavailable.
      * @throws DocumentLockedForCommentsException
@@ -865,6 +942,10 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
                 request = new DeleteCommentRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteCommentRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkDocs");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteComment");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -898,7 +979,7 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
      *         The specified document version is not in the INITIALIZED state.
      * @throws FailedDependencyException
      *         The AWS Directory Service cannot reach an on-premises instance. Or a dependency under the control of the
-     *         organization is failing, such as a connected active directory.
+     *         organization is failing, such as a connected Active Directory.
      * @throws ServiceUnavailableException
      *         One or more of the dependencies is unavailable.
      * @sample AmazonWorkDocs.DeleteCustomMetadata
@@ -926,6 +1007,10 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
                 request = new DeleteCustomMetadataRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteCustomMetadataRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkDocs");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteCustomMetadata");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -953,6 +1038,8 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
      *         The resource does not exist.
      * @throws ProhibitedStateException
      *         The specified document version is not in the INITIALIZED state.
+     * @throws ConflictingOperationException
+     *         Another operation is in progress on the resource that conflicts with the current operation.
      * @throws ConcurrentModificationException
      *         The resource hierarchy is changing.
      * @throws UnauthorizedOperationException
@@ -961,7 +1048,7 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
      *         The caller does not have access to perform the action on the resource.
      * @throws FailedDependencyException
      *         The AWS Directory Service cannot reach an on-premises instance. Or a dependency under the control of the
-     *         organization is failing, such as a connected active directory.
+     *         organization is failing, such as a connected Active Directory.
      * @throws ServiceUnavailableException
      *         One or more of the dependencies is unavailable.
      * @sample AmazonWorkDocs.DeleteDocument
@@ -989,6 +1076,10 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
                 request = new DeleteDocumentRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteDocumentRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkDocs");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteDocument");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1016,6 +1107,8 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
      *         The resource does not exist.
      * @throws ProhibitedStateException
      *         The specified document version is not in the INITIALIZED state.
+     * @throws ConflictingOperationException
+     *         Another operation is in progress on the resource that conflicts with the current operation.
      * @throws ConcurrentModificationException
      *         The resource hierarchy is changing.
      * @throws UnauthorizedOperationException
@@ -1024,7 +1117,7 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
      *         The caller does not have access to perform the action on the resource.
      * @throws FailedDependencyException
      *         The AWS Directory Service cannot reach an on-premises instance. Or a dependency under the control of the
-     *         organization is failing, such as a connected active directory.
+     *         organization is failing, such as a connected Active Directory.
      * @throws ServiceUnavailableException
      *         One or more of the dependencies is unavailable.
      * @sample AmazonWorkDocs.DeleteFolder
@@ -1052,6 +1145,10 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
                 request = new DeleteFolderRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteFolderRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkDocs");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteFolder");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1077,13 +1174,17 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
      * @return Result of the DeleteFolderContents operation returned by the service.
      * @throws EntityNotExistsException
      *         The resource does not exist.
+     * @throws ProhibitedStateException
+     *         The specified document version is not in the INITIALIZED state.
+     * @throws ConflictingOperationException
+     *         Another operation is in progress on the resource that conflicts with the current operation.
      * @throws UnauthorizedOperationException
      *         The operation is not permitted.
      * @throws UnauthorizedResourceAccessException
      *         The caller does not have access to perform the action on the resource.
      * @throws FailedDependencyException
      *         The AWS Directory Service cannot reach an on-premises instance. Or a dependency under the control of the
-     *         organization is failing, such as a connected active directory.
+     *         organization is failing, such as a connected Active Directory.
      * @throws ServiceUnavailableException
      *         One or more of the dependencies is unavailable.
      * @sample AmazonWorkDocs.DeleteFolderContents
@@ -1111,6 +1212,10 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
                 request = new DeleteFolderContentsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteFolderContentsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkDocs");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteFolderContents");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1142,7 +1247,7 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
      *         The caller does not have access to perform the action on the resource.
      * @throws FailedDependencyException
      *         The AWS Directory Service cannot reach an on-premises instance. Or a dependency under the control of the
-     *         organization is failing, such as a connected active directory.
+     *         organization is failing, such as a connected Active Directory.
      * @throws ServiceUnavailableException
      *         One or more of the dependencies is unavailable.
      * @sample AmazonWorkDocs.DeleteLabels
@@ -1170,6 +1275,10 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
                 request = new DeleteLabelsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteLabelsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkDocs");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteLabels");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1227,6 +1336,10 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
                         .beforeMarshalling(deleteNotificationSubscriptionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkDocs");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteNotificationSubscription");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1259,7 +1372,7 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
      *         The caller does not have access to perform the action on the resource.
      * @throws FailedDependencyException
      *         The AWS Directory Service cannot reach an on-premises instance. Or a dependency under the control of the
-     *         organization is failing, such as a connected active directory.
+     *         organization is failing, such as a connected Active Directory.
      * @throws ServiceUnavailableException
      *         One or more of the dependencies is unavailable.
      * @sample AmazonWorkDocs.DeleteUser
@@ -1287,6 +1400,10 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
                 request = new DeleteUserRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteUserRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkDocs");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteUser");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1315,10 +1432,10 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
      * @throws UnauthorizedResourceAccessException
      *         The caller does not have access to perform the action on the resource.
      * @throws InvalidArgumentException
-     *         The pagination marker and/or limit fields are not valid.
+     *         The pagination marker or limit fields are not valid.
      * @throws FailedDependencyException
      *         The AWS Directory Service cannot reach an on-premises instance. Or a dependency under the control of the
-     *         organization is failing, such as a connected active directory.
+     *         organization is failing, such as a connected Active Directory.
      * @throws ServiceUnavailableException
      *         One or more of the dependencies is unavailable.
      * @sample AmazonWorkDocs.DescribeActivities
@@ -1346,6 +1463,10 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
                 request = new DescribeActivitiesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeActivitiesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkDocs");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeActivities");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1379,7 +1500,7 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
      *         The caller does not have access to perform the action on the resource.
      * @throws FailedDependencyException
      *         The AWS Directory Service cannot reach an on-premises instance. Or a dependency under the control of the
-     *         organization is failing, such as a connected active directory.
+     *         organization is failing, such as a connected Active Directory.
      * @throws ServiceUnavailableException
      *         One or more of the dependencies is unavailable.
      * @sample AmazonWorkDocs.DescribeComments
@@ -1407,6 +1528,10 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
                 request = new DescribeCommentsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeCommentsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkDocs");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeComments");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1440,10 +1565,10 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
      * @throws UnauthorizedResourceAccessException
      *         The caller does not have access to perform the action on the resource.
      * @throws InvalidArgumentException
-     *         The pagination marker and/or limit fields are not valid.
+     *         The pagination marker or limit fields are not valid.
      * @throws FailedDependencyException
      *         The AWS Directory Service cannot reach an on-premises instance. Or a dependency under the control of the
-     *         organization is failing, such as a connected active directory.
+     *         organization is failing, such as a connected Active Directory.
      * @throws ServiceUnavailableException
      *         One or more of the dependencies is unavailable.
      * @throws ProhibitedStateException
@@ -1474,6 +1599,10 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
                         .beforeMarshalling(describeDocumentVersionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkDocs");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeDocumentVersions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1508,10 +1637,10 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
      * @throws UnauthorizedResourceAccessException
      *         The caller does not have access to perform the action on the resource.
      * @throws InvalidArgumentException
-     *         The pagination marker and/or limit fields are not valid.
+     *         The pagination marker or limit fields are not valid.
      * @throws FailedDependencyException
      *         The AWS Directory Service cannot reach an on-premises instance. Or a dependency under the control of the
-     *         organization is failing, such as a connected active directory.
+     *         organization is failing, such as a connected Active Directory.
      * @throws ServiceUnavailableException
      *         One or more of the dependencies is unavailable.
      * @throws ProhibitedStateException
@@ -1541,6 +1670,10 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
                 request = new DescribeFolderContentsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeFolderContentsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkDocs");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeFolderContents");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1548,6 +1681,67 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
             HttpResponseHandler<AmazonWebServiceResponse<DescribeFolderContentsResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
                     new DescribeFolderContentsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Describes the groups specified by the query. Groups are defined by the underlying Active Directory.
+     * </p>
+     * 
+     * @param describeGroupsRequest
+     * @return Result of the DescribeGroups operation returned by the service.
+     * @throws UnauthorizedOperationException
+     *         The operation is not permitted.
+     * @throws UnauthorizedResourceAccessException
+     *         The caller does not have access to perform the action on the resource.
+     * @throws FailedDependencyException
+     *         The AWS Directory Service cannot reach an on-premises instance. Or a dependency under the control of the
+     *         organization is failing, such as a connected Active Directory.
+     * @throws ServiceUnavailableException
+     *         One or more of the dependencies is unavailable.
+     * @sample AmazonWorkDocs.DescribeGroups
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workdocs-2016-05-01/DescribeGroups" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public DescribeGroupsResult describeGroups(DescribeGroupsRequest request) {
+        request = beforeClientExecution(request);
+        return executeDescribeGroups(request);
+    }
+
+    @SdkInternalApi
+    final DescribeGroupsResult executeDescribeGroups(DescribeGroupsRequest describeGroupsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(describeGroupsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeGroupsRequest> request = null;
+        Response<DescribeGroupsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeGroupsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeGroupsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkDocs");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeGroups");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DescribeGroupsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DescribeGroupsResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1598,6 +1792,10 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
                         .beforeMarshalling(describeNotificationSubscriptionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkDocs");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeNotificationSubscriptions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1628,7 +1826,7 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
      *         The caller does not have access to perform the action on the resource.
      * @throws FailedDependencyException
      *         The AWS Directory Service cannot reach an on-premises instance. Or a dependency under the control of the
-     *         organization is failing, such as a connected active directory.
+     *         organization is failing, such as a connected Active Directory.
      * @throws ServiceUnavailableException
      *         One or more of the dependencies is unavailable.
      * @sample AmazonWorkDocs.DescribeResourcePermissions
@@ -1657,6 +1855,10 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
                         .beforeMarshalling(describeResourcePermissionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkDocs");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeResourcePermissions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1676,9 +1878,15 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
 
     /**
      * <p>
-     * Describes the current user's special folders; the <code>RootFolder</code> and the <code>RecyleBin</code>.
-     * <code>RootFolder</code> is the root of user's files and folders and <code>RecyleBin</code> is the root of
+     * Describes the current user's special folders; the <code>RootFolder</code> and the <code>RecycleBin</code>.
+     * <code>RootFolder</code> is the root of user's files and folders and <code>RecycleBin</code> is the root of
      * recycled items. This is not a valid action for SigV4 (administrative API) clients.
+     * </p>
+     * <p>
+     * This action requires an authentication token. To get an authentication token, register an application with Amazon
+     * WorkDocs. For more information, see <a
+     * href="https://docs.aws.amazon.com/workdocs/latest/developerguide/wd-auth-user.html">Authentication and Access
+     * Control for User Applications</a> in the <i>Amazon WorkDocs Developer Guide</i>.
      * </p>
      * 
      * @param describeRootFoldersRequest
@@ -1688,10 +1896,10 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
      * @throws UnauthorizedResourceAccessException
      *         The caller does not have access to perform the action on the resource.
      * @throws InvalidArgumentException
-     *         The pagination marker and/or limit fields are not valid.
+     *         The pagination marker or limit fields are not valid.
      * @throws FailedDependencyException
      *         The AWS Directory Service cannot reach an on-premises instance. Or a dependency under the control of the
-     *         organization is failing, such as a connected active directory.
+     *         organization is failing, such as a connected Active Directory.
      * @throws ServiceUnavailableException
      *         One or more of the dependencies is unavailable.
      * @sample AmazonWorkDocs.DescribeRootFolders
@@ -1719,6 +1927,10 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
                 request = new DescribeRootFoldersRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeRootFoldersRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkDocs");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeRootFolders");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1747,17 +1959,22 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
      * 
      * @param describeUsersRequest
      * @return Result of the DescribeUsers operation returned by the service.
+     * @throws EntityNotExistsException
+     *         The resource does not exist.
      * @throws UnauthorizedOperationException
      *         The operation is not permitted.
      * @throws UnauthorizedResourceAccessException
      *         The caller does not have access to perform the action on the resource.
      * @throws FailedDependencyException
      *         The AWS Directory Service cannot reach an on-premises instance. Or a dependency under the control of the
-     *         organization is failing, such as a connected active directory.
+     *         organization is failing, such as a connected Active Directory.
      * @throws ServiceUnavailableException
      *         One or more of the dependencies is unavailable.
      * @throws InvalidArgumentException
-     *         The pagination marker and/or limit fields are not valid.
+     *         The pagination marker or limit fields are not valid.
+     * @throws RequestedEntityTooLargeException
+     *         The response is too large to return. The request must include a filter to reduce the size of the
+     *         response.
      * @sample AmazonWorkDocs.DescribeUsers
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workdocs-2016-05-01/DescribeUsers" target="_top">AWS API
      *      Documentation</a>
@@ -1783,6 +2000,10 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
                 request = new DescribeUsersRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeUsersRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkDocs");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeUsers");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1815,7 +2036,7 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
      *         The caller does not have access to perform the action on the resource.
      * @throws FailedDependencyException
      *         The AWS Directory Service cannot reach an on-premises instance. Or a dependency under the control of the
-     *         organization is failing, such as a connected active directory.
+     *         organization is failing, such as a connected Active Directory.
      * @throws ServiceUnavailableException
      *         One or more of the dependencies is unavailable.
      * @sample AmazonWorkDocs.GetCurrentUser
@@ -1843,6 +2064,10 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
                 request = new GetCurrentUserRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getCurrentUserRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkDocs");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetCurrentUser");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1873,12 +2098,14 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
      * @throws UnauthorizedResourceAccessException
      *         The caller does not have access to perform the action on the resource.
      * @throws InvalidArgumentException
-     *         The pagination marker and/or limit fields are not valid.
+     *         The pagination marker or limit fields are not valid.
      * @throws FailedDependencyException
      *         The AWS Directory Service cannot reach an on-premises instance. Or a dependency under the control of the
-     *         organization is failing, such as a connected active directory.
+     *         organization is failing, such as a connected Active Directory.
      * @throws ServiceUnavailableException
      *         One or more of the dependencies is unavailable.
+     * @throws InvalidPasswordException
+     *         The password is invalid.
      * @sample AmazonWorkDocs.GetDocument
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workdocs-2016-05-01/GetDocument" target="_top">AWS API
      *      Documentation</a>
@@ -1904,6 +2131,10 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
                 request = new GetDocumentRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getDocumentRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkDocs");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetDocument");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1940,7 +2171,7 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
      *         The caller does not have access to perform the action on the resource.
      * @throws FailedDependencyException
      *         The AWS Directory Service cannot reach an on-premises instance. Or a dependency under the control of the
-     *         organization is failing, such as a connected active directory.
+     *         organization is failing, such as a connected Active Directory.
      * @throws ServiceUnavailableException
      *         One or more of the dependencies is unavailable.
      * @sample AmazonWorkDocs.GetDocumentPath
@@ -1968,6 +2199,10 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
                 request = new GetDocumentPathRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getDocumentPathRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkDocs");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetDocumentPath");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1999,11 +2234,13 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
      *         The caller does not have access to perform the action on the resource.
      * @throws FailedDependencyException
      *         The AWS Directory Service cannot reach an on-premises instance. Or a dependency under the control of the
-     *         organization is failing, such as a connected active directory.
+     *         organization is failing, such as a connected Active Directory.
      * @throws ServiceUnavailableException
      *         One or more of the dependencies is unavailable.
      * @throws ProhibitedStateException
      *         The specified document version is not in the INITIALIZED state.
+     * @throws InvalidPasswordException
+     *         The password is invalid.
      * @sample AmazonWorkDocs.GetDocumentVersion
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workdocs-2016-05-01/GetDocumentVersion" target="_top">AWS
      *      API Documentation</a>
@@ -2029,6 +2266,10 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
                 request = new GetDocumentVersionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getDocumentVersionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkDocs");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetDocumentVersion");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2059,10 +2300,10 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
      * @throws UnauthorizedResourceAccessException
      *         The caller does not have access to perform the action on the resource.
      * @throws InvalidArgumentException
-     *         The pagination marker and/or limit fields are not valid.
+     *         The pagination marker or limit fields are not valid.
      * @throws FailedDependencyException
      *         The AWS Directory Service cannot reach an on-premises instance. Or a dependency under the control of the
-     *         organization is failing, such as a connected active directory.
+     *         organization is failing, such as a connected Active Directory.
      * @throws ServiceUnavailableException
      *         One or more of the dependencies is unavailable.
      * @throws ProhibitedStateException
@@ -2092,6 +2333,10 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
                 request = new GetFolderRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getFolderRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkDocs");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetFolder");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2128,7 +2373,7 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
      *         The caller does not have access to perform the action on the resource.
      * @throws FailedDependencyException
      *         The AWS Directory Service cannot reach an on-premises instance. Or a dependency under the control of the
-     *         organization is failing, such as a connected active directory.
+     *         organization is failing, such as a connected Active Directory.
      * @throws ServiceUnavailableException
      *         One or more of the dependencies is unavailable.
      * @sample AmazonWorkDocs.GetFolderPath
@@ -2156,12 +2401,80 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
                 request = new GetFolderPathRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getFolderPathRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkDocs");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetFolderPath");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
             HttpResponseHandler<AmazonWebServiceResponse<GetFolderPathResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetFolderPathResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Retrieves a collection of resources, including folders and documents. The only <code>CollectionType</code>
+     * supported is <code>SHARED_WITH_ME</code>.
+     * </p>
+     * 
+     * @param getResourcesRequest
+     * @return Result of the GetResources operation returned by the service.
+     * @throws UnauthorizedResourceAccessException
+     *         The caller does not have access to perform the action on the resource.
+     * @throws UnauthorizedOperationException
+     *         The operation is not permitted.
+     * @throws InvalidArgumentException
+     *         The pagination marker or limit fields are not valid.
+     * @throws FailedDependencyException
+     *         The AWS Directory Service cannot reach an on-premises instance. Or a dependency under the control of the
+     *         organization is failing, such as a connected Active Directory.
+     * @throws ServiceUnavailableException
+     *         One or more of the dependencies is unavailable.
+     * @sample AmazonWorkDocs.GetResources
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workdocs-2016-05-01/GetResources" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public GetResourcesResult getResources(GetResourcesRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetResources(request);
+    }
+
+    @SdkInternalApi
+    final GetResourcesResult executeGetResources(GetResourcesRequest getResourcesRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getResourcesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetResourcesRequest> request = null;
+        Response<GetResourcesResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetResourcesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getResourcesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkDocs");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetResources");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetResourcesResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetResourcesResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2203,7 +2516,7 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
      *         The caller does not have access to perform the action on the resource.
      * @throws FailedDependencyException
      *         The AWS Directory Service cannot reach an on-premises instance. Or a dependency under the control of the
-     *         organization is failing, such as a connected active directory.
+     *         organization is failing, such as a connected Active Directory.
      * @throws ServiceUnavailableException
      *         One or more of the dependencies is unavailable.
      * @throws DraftUploadOutOfSyncException
@@ -2237,6 +2550,10 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
                         .beforeMarshalling(initiateDocumentVersionUploadRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkDocs");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "InitiateDocumentVersionUpload");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2267,7 +2584,7 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
      *         The caller does not have access to perform the action on the resource.
      * @throws FailedDependencyException
      *         The AWS Directory Service cannot reach an on-premises instance. Or a dependency under the control of the
-     *         organization is failing, such as a connected active directory.
+     *         organization is failing, such as a connected Active Directory.
      * @throws ServiceUnavailableException
      *         One or more of the dependencies is unavailable.
      * @sample AmazonWorkDocs.RemoveAllResourcePermissions
@@ -2296,6 +2613,10 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
                         .beforeMarshalling(removeAllResourcePermissionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkDocs");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RemoveAllResourcePermissions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2326,7 +2647,7 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
      *         The caller does not have access to perform the action on the resource.
      * @throws FailedDependencyException
      *         The AWS Directory Service cannot reach an on-premises instance. Or a dependency under the control of the
-     *         organization is failing, such as a connected active directory.
+     *         organization is failing, such as a connected Active Directory.
      * @throws ServiceUnavailableException
      *         One or more of the dependencies is unavailable.
      * @sample AmazonWorkDocs.RemoveResourcePermission
@@ -2355,6 +2676,10 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
                         .beforeMarshalling(removeResourcePermissionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkDocs");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RemoveResourcePermission");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2388,6 +2713,8 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
      *         The maximum of 100,000 folders under the parent folder has been exceeded.
      * @throws ProhibitedStateException
      *         The specified document version is not in the INITIALIZED state.
+     * @throws ConflictingOperationException
+     *         Another operation is in progress on the resource that conflicts with the current operation.
      * @throws ConcurrentModificationException
      *         The resource hierarchy is changing.
      * @throws UnauthorizedOperationException
@@ -2396,7 +2723,7 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
      *         The caller does not have access to perform the action on the resource.
      * @throws FailedDependencyException
      *         The AWS Directory Service cannot reach an on-premises instance. Or a dependency under the control of the
-     *         organization is failing, such as a connected active directory.
+     *         organization is failing, such as a connected Active Directory.
      * @throws ServiceUnavailableException
      *         One or more of the dependencies is unavailable.
      * @sample AmazonWorkDocs.UpdateDocument
@@ -2424,6 +2751,10 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
                 request = new UpdateDocumentRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateDocumentRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkDocs");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateDocument");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2465,7 +2796,7 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
      *         The caller does not have access to perform the action on the resource.
      * @throws FailedDependencyException
      *         The AWS Directory Service cannot reach an on-premises instance. Or a dependency under the control of the
-     *         organization is failing, such as a connected active directory.
+     *         organization is failing, such as a connected Active Directory.
      * @throws ServiceUnavailableException
      *         One or more of the dependencies is unavailable.
      * @sample AmazonWorkDocs.UpdateDocumentVersion
@@ -2493,6 +2824,10 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
                 request = new UpdateDocumentVersionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateDocumentVersionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkDocs");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateDocumentVersion");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2524,6 +2859,8 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
      *         The resource already exists.
      * @throws ProhibitedStateException
      *         The specified document version is not in the INITIALIZED state.
+     * @throws ConflictingOperationException
+     *         Another operation is in progress on the resource that conflicts with the current operation.
      * @throws ConcurrentModificationException
      *         The resource hierarchy is changing.
      * @throws LimitExceededException
@@ -2534,7 +2871,7 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
      *         The caller does not have access to perform the action on the resource.
      * @throws FailedDependencyException
      *         The AWS Directory Service cannot reach an on-premises instance. Or a dependency under the control of the
-     *         organization is failing, such as a connected active directory.
+     *         organization is failing, such as a connected Active Directory.
      * @throws ServiceUnavailableException
      *         One or more of the dependencies is unavailable.
      * @sample AmazonWorkDocs.UpdateFolder
@@ -2562,6 +2899,10 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
                 request = new UpdateFolderRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateFolderRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkDocs");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateFolder");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2596,11 +2937,13 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
      *         The user is undergoing transfer of ownership.
      * @throws FailedDependencyException
      *         The AWS Directory Service cannot reach an on-premises instance. Or a dependency under the control of the
-     *         organization is failing, such as a connected active directory.
+     *         organization is failing, such as a connected Active Directory.
      * @throws ServiceUnavailableException
      *         One or more of the dependencies is unavailable.
      * @throws DeactivatingLastSystemUserException
      *         The last user in the organization is being deactivated.
+     * @throws InvalidArgumentException
+     *         The pagination marker or limit fields are not valid.
      * @sample AmazonWorkDocs.UpdateUser
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/workdocs-2016-05-01/UpdateUser" target="_top">AWS API
      *      Documentation</a>
@@ -2626,6 +2969,10 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
                 request = new UpdateUserRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateUserRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "WorkDocs");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateUser");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2666,9 +3013,18 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
     private <X, Y extends AmazonWebServiceRequest> Response<X> invoke(Request<Y> request, HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler,
             ExecutionContext executionContext) {
 
+        return invoke(request, responseHandler, executionContext, null, null);
+    }
+
+    /**
+     * Normal invoke with authentication. Credentials are required and may be overriden at the request level.
+     **/
+    private <X, Y extends AmazonWebServiceRequest> Response<X> invoke(Request<Y> request, HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler,
+            ExecutionContext executionContext, URI cachedEndpoint, URI uriFromEndpointTrait) {
+
         executionContext.setCredentialsProvider(CredentialUtils.getCredentialsProvider(request.getOriginalRequest(), awsCredentialsProvider));
 
-        return doInvoke(request, responseHandler, executionContext);
+        return doInvoke(request, responseHandler, executionContext, cachedEndpoint, uriFromEndpointTrait);
     }
 
     /**
@@ -2678,7 +3034,7 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
     private <X, Y extends AmazonWebServiceRequest> Response<X> anonymousInvoke(Request<Y> request,
             HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler, ExecutionContext executionContext) {
 
-        return doInvoke(request, responseHandler, executionContext);
+        return doInvoke(request, responseHandler, executionContext, null, null);
     }
 
     /**
@@ -2686,13 +3042,27 @@ public class AmazonWorkDocsClient extends AmazonWebServiceClient implements Amaz
      * ExecutionContext beforehand.
      **/
     private <X, Y extends AmazonWebServiceRequest> Response<X> doInvoke(Request<Y> request, HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler,
-            ExecutionContext executionContext) {
-        request.setEndpoint(endpoint);
+            ExecutionContext executionContext, URI discoveredEndpoint, URI uriFromEndpointTrait) {
+
+        if (discoveredEndpoint != null) {
+            request.setEndpoint(discoveredEndpoint);
+            request.getOriginalRequest().getRequestClientOptions().appendUserAgent("endpoint-discovery");
+        } else if (uriFromEndpointTrait != null) {
+            request.setEndpoint(uriFromEndpointTrait);
+        } else {
+            request.setEndpoint(endpoint);
+        }
+
         request.setTimeOffset(timeOffset);
 
         HttpResponseHandler<AmazonServiceException> errorResponseHandler = protocolFactory.createErrorResponseHandler(new JsonErrorResponseMetadata());
 
         return client.execute(request, responseHandler, errorResponseHandler, executionContext);
+    }
+
+    @com.amazonaws.annotation.SdkInternalApi
+    static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
+        return protocolFactory;
     }
 
 }

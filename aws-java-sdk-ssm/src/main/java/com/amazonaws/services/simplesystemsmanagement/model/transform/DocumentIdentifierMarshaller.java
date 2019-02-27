@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -32,6 +32,8 @@ public class DocumentIdentifierMarshaller {
             .marshallLocationName("Name").build();
     private static final MarshallingInfo<String> OWNER_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Owner").build();
+    private static final MarshallingInfo<String> VERSIONNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("VersionName").build();
     private static final MarshallingInfo<List> PLATFORMTYPES_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("PlatformTypes").build();
     private static final MarshallingInfo<String> DOCUMENTVERSION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
@@ -40,6 +42,12 @@ public class DocumentIdentifierMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DocumentType").build();
     private static final MarshallingInfo<String> SCHEMAVERSION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SchemaVersion").build();
+    private static final MarshallingInfo<String> DOCUMENTFORMAT_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DocumentFormat").build();
+    private static final MarshallingInfo<String> TARGETTYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("TargetType").build();
+    private static final MarshallingInfo<List> TAGS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Tags").build();
 
     private static final DocumentIdentifierMarshaller instance = new DocumentIdentifierMarshaller();
 
@@ -59,10 +67,14 @@ public class DocumentIdentifierMarshaller {
         try {
             protocolMarshaller.marshall(documentIdentifier.getName(), NAME_BINDING);
             protocolMarshaller.marshall(documentIdentifier.getOwner(), OWNER_BINDING);
+            protocolMarshaller.marshall(documentIdentifier.getVersionName(), VERSIONNAME_BINDING);
             protocolMarshaller.marshall(documentIdentifier.getPlatformTypes(), PLATFORMTYPES_BINDING);
             protocolMarshaller.marshall(documentIdentifier.getDocumentVersion(), DOCUMENTVERSION_BINDING);
             protocolMarshaller.marshall(documentIdentifier.getDocumentType(), DOCUMENTTYPE_BINDING);
             protocolMarshaller.marshall(documentIdentifier.getSchemaVersion(), SCHEMAVERSION_BINDING);
+            protocolMarshaller.marshall(documentIdentifier.getDocumentFormat(), DOCUMENTFORMAT_BINDING);
+            protocolMarshaller.marshall(documentIdentifier.getTargetType(), TARGETTYPE_BINDING);
+            protocolMarshaller.marshall(documentIdentifier.getTags(), TAGS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

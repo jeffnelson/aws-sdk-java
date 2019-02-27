@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,20 +27,25 @@ public class CreateConstraintRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The language code to use for this operation. Supported language codes are as follows:
+     * The language code.
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * "en" (English)
+     * <code>en</code> - English (default)
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * "jp" (Japanese)
+     * <code>jp</code> - Japanese
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * "zh" (Chinese)
+     * <code>zh</code> - Chinese
      * </p>
-     * <p>
-     * If no code is specified, "en" is used as the default.
-     * </p>
+     * </li>
+     * </ul>
      */
     private String acceptLanguage;
     /**
@@ -57,71 +62,144 @@ public class CreateConstraintRequest extends com.amazonaws.AmazonWebServiceReque
     private String productId;
     /**
      * <p>
-     * The constraint parameters. Expected values vary depending on which <b>Type</b> is specified. For examples, see
-     * the bottom of this topic.
+     * The constraint parameters, in JSON format. The syntax depends on the constraint type as follows:
+     * </p>
+     * <dl>
+     * <dt>LAUNCH</dt>
+     * <dd>
+     * <p>
+     * Specify the <code>RoleArn</code> property as follows:
      * </p>
      * <p>
-     * For Type <code>LAUNCH</code>, the <code>RoleArn</code> property is required.
+     * <code>{"RoleArn" : "arn:aws:iam::123456789012:role/LaunchRole"}</code>
      * </p>
      * <p>
-     * For Type <code>NOTIFICATION</code>, the <code>NotificationArns</code> property is required.
+     * You cannot have both a <code>LAUNCH</code> and a <code>STACKSET</code> constraint.
      * </p>
      * <p>
-     * For Type <code>TEMPLATE</code>, the <code>Rules</code> property is required.
+     * You also cannot have more than one <code>LAUNCH</code> constraint on a product and portfolio.
      * </p>
+     * </dd>
+     * <dt>NOTIFICATION</dt>
+     * <dd>
+     * <p>
+     * Specify the <code>NotificationArns</code> property as follows:
+     * </p>
+     * <p>
+     * <code>{"NotificationArns" : ["arn:aws:sns:us-east-1:123456789012:Topic"]}</code>
+     * </p>
+     * </dd>
+     * <dt>STACKSET</dt>
+     * <dd>
+     * <p>
+     * Specify the <code>Parameters</code> property as follows:
+     * </p>
+     * <p>
+     * <code>{"Version": "String", "Properties": {"AccountList": [ "String" ], "RegionList": [ "String" ], "AdminRole": "String", "ExecutionRole": "String"}}</code>
+     * </p>
+     * <p>
+     * You cannot have both a <code>LAUNCH</code> and a <code>STACKSET</code> constraint.
+     * </p>
+     * <p>
+     * You also cannot have more than one <code>STACKSET</code> constraint on a product and portfolio.
+     * </p>
+     * <p>
+     * Products with a <code>STACKSET</code> constraint will launch an AWS CloudFormation stack set.
+     * </p>
+     * </dd>
+     * <dt>TEMPLATE</dt>
+     * <dd>
+     * <p>
+     * Specify the <code>Rules</code> property. For more information, see <a
+     * href="http://docs.aws.amazon.com/servicecatalog/latest/adminguide/reference-template_constraint_rules.html"
+     * >Template Constraint Rules</a>.
+     * </p>
+     * </dd>
+     * </dl>
      */
     private String parameters;
     /**
      * <p>
-     * The type of the constraint. Case-sensitive valid values are: <code>LAUNCH</code>, <code>NOTIFICATION</code>, or
-     * <code>TEMPLATE</code>.
+     * The type of constraint.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>LAUNCH</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NOTIFICATION</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>STACKSET</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TEMPLATE</code>
+     * </p>
+     * </li>
+     * </ul>
      */
     private String type;
     /**
      * <p>
-     * The text description of the constraint.
+     * The description of the constraint.
      * </p>
      */
     private String description;
     /**
      * <p>
-     * A token to disambiguate duplicate requests. You can create multiple resources using the same input in multiple
-     * requests, provided that you also specify a different idempotency token for each request.
+     * A unique identifier that you provide to ensure idempotency. If multiple requests differ only by the idempotency
+     * token, the same response is returned for each repeated request.
      * </p>
      */
     private String idempotencyToken;
 
     /**
      * <p>
-     * The language code to use for this operation. Supported language codes are as follows:
+     * The language code.
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * "en" (English)
+     * <code>en</code> - English (default)
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * "jp" (Japanese)
+     * <code>jp</code> - Japanese
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * "zh" (Chinese)
+     * <code>zh</code> - Chinese
      * </p>
-     * <p>
-     * If no code is specified, "en" is used as the default.
-     * </p>
+     * </li>
+     * </ul>
      * 
      * @param acceptLanguage
-     *        The language code to use for this operation. Supported language codes are as follows:</p>
+     *        The language code.</p>
+     *        <ul>
+     *        <li>
      *        <p>
-     *        "en" (English)
+     *        <code>en</code> - English (default)
      *        </p>
+     *        </li>
+     *        <li>
      *        <p>
-     *        "jp" (Japanese)
+     *        <code>jp</code> - Japanese
      *        </p>
+     *        </li>
+     *        <li>
      *        <p>
-     *        "zh" (Chinese)
+     *        <code>zh</code> - Chinese
      *        </p>
-     *        <p>
-     *        If no code is specified, "en" is used as the default.
+     *        </li>
      */
 
     public void setAcceptLanguage(String acceptLanguage) {
@@ -130,33 +208,43 @@ public class CreateConstraintRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The language code to use for this operation. Supported language codes are as follows:
+     * The language code.
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * "en" (English)
+     * <code>en</code> - English (default)
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * "jp" (Japanese)
+     * <code>jp</code> - Japanese
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * "zh" (Chinese)
+     * <code>zh</code> - Chinese
      * </p>
-     * <p>
-     * If no code is specified, "en" is used as the default.
-     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return The language code to use for this operation. Supported language codes are as follows:</p>
+     * @return The language code.</p>
+     *         <ul>
+     *         <li>
      *         <p>
-     *         "en" (English)
+     *         <code>en</code> - English (default)
      *         </p>
+     *         </li>
+     *         <li>
      *         <p>
-     *         "jp" (Japanese)
+     *         <code>jp</code> - Japanese
      *         </p>
+     *         </li>
+     *         <li>
      *         <p>
-     *         "zh" (Chinese)
+     *         <code>zh</code> - Chinese
      *         </p>
-     *         <p>
-     *         If no code is specified, "en" is used as the default.
+     *         </li>
      */
 
     public String getAcceptLanguage() {
@@ -165,34 +253,44 @@ public class CreateConstraintRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The language code to use for this operation. Supported language codes are as follows:
+     * The language code.
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * "en" (English)
+     * <code>en</code> - English (default)
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * "jp" (Japanese)
+     * <code>jp</code> - Japanese
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * "zh" (Chinese)
+     * <code>zh</code> - Chinese
      * </p>
-     * <p>
-     * If no code is specified, "en" is used as the default.
-     * </p>
+     * </li>
+     * </ul>
      * 
      * @param acceptLanguage
-     *        The language code to use for this operation. Supported language codes are as follows:</p>
+     *        The language code.</p>
+     *        <ul>
+     *        <li>
      *        <p>
-     *        "en" (English)
+     *        <code>en</code> - English (default)
      *        </p>
+     *        </li>
+     *        <li>
      *        <p>
-     *        "jp" (Japanese)
+     *        <code>jp</code> - Japanese
      *        </p>
+     *        </li>
+     *        <li>
      *        <p>
-     *        "zh" (Chinese)
+     *        <code>zh</code> - Chinese
      *        </p>
-     *        <p>
-     *        If no code is specified, "en" is used as the default.
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -283,30 +381,114 @@ public class CreateConstraintRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The constraint parameters. Expected values vary depending on which <b>Type</b> is specified. For examples, see
-     * the bottom of this topic.
+     * The constraint parameters, in JSON format. The syntax depends on the constraint type as follows:
+     * </p>
+     * <dl>
+     * <dt>LAUNCH</dt>
+     * <dd>
+     * <p>
+     * Specify the <code>RoleArn</code> property as follows:
      * </p>
      * <p>
-     * For Type <code>LAUNCH</code>, the <code>RoleArn</code> property is required.
+     * <code>{"RoleArn" : "arn:aws:iam::123456789012:role/LaunchRole"}</code>
      * </p>
      * <p>
-     * For Type <code>NOTIFICATION</code>, the <code>NotificationArns</code> property is required.
+     * You cannot have both a <code>LAUNCH</code> and a <code>STACKSET</code> constraint.
      * </p>
      * <p>
-     * For Type <code>TEMPLATE</code>, the <code>Rules</code> property is required.
+     * You also cannot have more than one <code>LAUNCH</code> constraint on a product and portfolio.
      * </p>
+     * </dd>
+     * <dt>NOTIFICATION</dt>
+     * <dd>
+     * <p>
+     * Specify the <code>NotificationArns</code> property as follows:
+     * </p>
+     * <p>
+     * <code>{"NotificationArns" : ["arn:aws:sns:us-east-1:123456789012:Topic"]}</code>
+     * </p>
+     * </dd>
+     * <dt>STACKSET</dt>
+     * <dd>
+     * <p>
+     * Specify the <code>Parameters</code> property as follows:
+     * </p>
+     * <p>
+     * <code>{"Version": "String", "Properties": {"AccountList": [ "String" ], "RegionList": [ "String" ], "AdminRole": "String", "ExecutionRole": "String"}}</code>
+     * </p>
+     * <p>
+     * You cannot have both a <code>LAUNCH</code> and a <code>STACKSET</code> constraint.
+     * </p>
+     * <p>
+     * You also cannot have more than one <code>STACKSET</code> constraint on a product and portfolio.
+     * </p>
+     * <p>
+     * Products with a <code>STACKSET</code> constraint will launch an AWS CloudFormation stack set.
+     * </p>
+     * </dd>
+     * <dt>TEMPLATE</dt>
+     * <dd>
+     * <p>
+     * Specify the <code>Rules</code> property. For more information, see <a
+     * href="http://docs.aws.amazon.com/servicecatalog/latest/adminguide/reference-template_constraint_rules.html"
+     * >Template Constraint Rules</a>.
+     * </p>
+     * </dd>
+     * </dl>
      * 
      * @param parameters
-     *        The constraint parameters. Expected values vary depending on which <b>Type</b> is specified. For examples,
-     *        see the bottom of this topic.</p>
+     *        The constraint parameters, in JSON format. The syntax depends on the constraint type as follows:</p>
+     *        <dl>
+     *        <dt>LAUNCH</dt>
+     *        <dd>
      *        <p>
-     *        For Type <code>LAUNCH</code>, the <code>RoleArn</code> property is required.
+     *        Specify the <code>RoleArn</code> property as follows:
      *        </p>
      *        <p>
-     *        For Type <code>NOTIFICATION</code>, the <code>NotificationArns</code> property is required.
+     *        <code>{"RoleArn" : "arn:aws:iam::123456789012:role/LaunchRole"}</code>
      *        </p>
      *        <p>
-     *        For Type <code>TEMPLATE</code>, the <code>Rules</code> property is required.
+     *        You cannot have both a <code>LAUNCH</code> and a <code>STACKSET</code> constraint.
+     *        </p>
+     *        <p>
+     *        You also cannot have more than one <code>LAUNCH</code> constraint on a product and portfolio.
+     *        </p>
+     *        </dd>
+     *        <dt>NOTIFICATION</dt>
+     *        <dd>
+     *        <p>
+     *        Specify the <code>NotificationArns</code> property as follows:
+     *        </p>
+     *        <p>
+     *        <code>{"NotificationArns" : ["arn:aws:sns:us-east-1:123456789012:Topic"]}</code>
+     *        </p>
+     *        </dd>
+     *        <dt>STACKSET</dt>
+     *        <dd>
+     *        <p>
+     *        Specify the <code>Parameters</code> property as follows:
+     *        </p>
+     *        <p>
+     *        <code>{"Version": "String", "Properties": {"AccountList": [ "String" ], "RegionList": [ "String" ], "AdminRole": "String", "ExecutionRole": "String"}}</code>
+     *        </p>
+     *        <p>
+     *        You cannot have both a <code>LAUNCH</code> and a <code>STACKSET</code> constraint.
+     *        </p>
+     *        <p>
+     *        You also cannot have more than one <code>STACKSET</code> constraint on a product and portfolio.
+     *        </p>
+     *        <p>
+     *        Products with a <code>STACKSET</code> constraint will launch an AWS CloudFormation stack set.
+     *        </p>
+     *        </dd>
+     *        <dt>TEMPLATE</dt>
+     *        <dd>
+     *        <p>
+     *        Specify the <code>Rules</code> property. For more information, see <a
+     *        href="http://docs.aws.amazon.com/servicecatalog/latest/adminguide/reference-template_constraint_rules.html"
+     *        >Template Constraint Rules</a>.
+     *        </p>
+     *        </dd>
      */
 
     public void setParameters(String parameters) {
@@ -315,29 +497,113 @@ public class CreateConstraintRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The constraint parameters. Expected values vary depending on which <b>Type</b> is specified. For examples, see
-     * the bottom of this topic.
+     * The constraint parameters, in JSON format. The syntax depends on the constraint type as follows:
+     * </p>
+     * <dl>
+     * <dt>LAUNCH</dt>
+     * <dd>
+     * <p>
+     * Specify the <code>RoleArn</code> property as follows:
      * </p>
      * <p>
-     * For Type <code>LAUNCH</code>, the <code>RoleArn</code> property is required.
+     * <code>{"RoleArn" : "arn:aws:iam::123456789012:role/LaunchRole"}</code>
      * </p>
      * <p>
-     * For Type <code>NOTIFICATION</code>, the <code>NotificationArns</code> property is required.
+     * You cannot have both a <code>LAUNCH</code> and a <code>STACKSET</code> constraint.
      * </p>
      * <p>
-     * For Type <code>TEMPLATE</code>, the <code>Rules</code> property is required.
+     * You also cannot have more than one <code>LAUNCH</code> constraint on a product and portfolio.
      * </p>
+     * </dd>
+     * <dt>NOTIFICATION</dt>
+     * <dd>
+     * <p>
+     * Specify the <code>NotificationArns</code> property as follows:
+     * </p>
+     * <p>
+     * <code>{"NotificationArns" : ["arn:aws:sns:us-east-1:123456789012:Topic"]}</code>
+     * </p>
+     * </dd>
+     * <dt>STACKSET</dt>
+     * <dd>
+     * <p>
+     * Specify the <code>Parameters</code> property as follows:
+     * </p>
+     * <p>
+     * <code>{"Version": "String", "Properties": {"AccountList": [ "String" ], "RegionList": [ "String" ], "AdminRole": "String", "ExecutionRole": "String"}}</code>
+     * </p>
+     * <p>
+     * You cannot have both a <code>LAUNCH</code> and a <code>STACKSET</code> constraint.
+     * </p>
+     * <p>
+     * You also cannot have more than one <code>STACKSET</code> constraint on a product and portfolio.
+     * </p>
+     * <p>
+     * Products with a <code>STACKSET</code> constraint will launch an AWS CloudFormation stack set.
+     * </p>
+     * </dd>
+     * <dt>TEMPLATE</dt>
+     * <dd>
+     * <p>
+     * Specify the <code>Rules</code> property. For more information, see <a
+     * href="http://docs.aws.amazon.com/servicecatalog/latest/adminguide/reference-template_constraint_rules.html"
+     * >Template Constraint Rules</a>.
+     * </p>
+     * </dd>
+     * </dl>
      * 
-     * @return The constraint parameters. Expected values vary depending on which <b>Type</b> is specified. For
-     *         examples, see the bottom of this topic.</p>
+     * @return The constraint parameters, in JSON format. The syntax depends on the constraint type as follows:</p>
+     *         <dl>
+     *         <dt>LAUNCH</dt>
+     *         <dd>
      *         <p>
-     *         For Type <code>LAUNCH</code>, the <code>RoleArn</code> property is required.
+     *         Specify the <code>RoleArn</code> property as follows:
      *         </p>
      *         <p>
-     *         For Type <code>NOTIFICATION</code>, the <code>NotificationArns</code> property is required.
+     *         <code>{"RoleArn" : "arn:aws:iam::123456789012:role/LaunchRole"}</code>
      *         </p>
      *         <p>
-     *         For Type <code>TEMPLATE</code>, the <code>Rules</code> property is required.
+     *         You cannot have both a <code>LAUNCH</code> and a <code>STACKSET</code> constraint.
+     *         </p>
+     *         <p>
+     *         You also cannot have more than one <code>LAUNCH</code> constraint on a product and portfolio.
+     *         </p>
+     *         </dd>
+     *         <dt>NOTIFICATION</dt>
+     *         <dd>
+     *         <p>
+     *         Specify the <code>NotificationArns</code> property as follows:
+     *         </p>
+     *         <p>
+     *         <code>{"NotificationArns" : ["arn:aws:sns:us-east-1:123456789012:Topic"]}</code>
+     *         </p>
+     *         </dd>
+     *         <dt>STACKSET</dt>
+     *         <dd>
+     *         <p>
+     *         Specify the <code>Parameters</code> property as follows:
+     *         </p>
+     *         <p>
+     *         <code>{"Version": "String", "Properties": {"AccountList": [ "String" ], "RegionList": [ "String" ], "AdminRole": "String", "ExecutionRole": "String"}}</code>
+     *         </p>
+     *         <p>
+     *         You cannot have both a <code>LAUNCH</code> and a <code>STACKSET</code> constraint.
+     *         </p>
+     *         <p>
+     *         You also cannot have more than one <code>STACKSET</code> constraint on a product and portfolio.
+     *         </p>
+     *         <p>
+     *         Products with a <code>STACKSET</code> constraint will launch an AWS CloudFormation stack set.
+     *         </p>
+     *         </dd>
+     *         <dt>TEMPLATE</dt>
+     *         <dd>
+     *         <p>
+     *         Specify the <code>Rules</code> property. For more information, see <a
+     *         href="http://docs.aws.amazon.com/servicecatalog/latest/adminguide/reference-template_constraint_rules.html"
+     *         >Template Constraint Rules</a>.
+     *         </p>
+     *         </dd>
      */
 
     public String getParameters() {
@@ -346,30 +612,114 @@ public class CreateConstraintRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The constraint parameters. Expected values vary depending on which <b>Type</b> is specified. For examples, see
-     * the bottom of this topic.
+     * The constraint parameters, in JSON format. The syntax depends on the constraint type as follows:
+     * </p>
+     * <dl>
+     * <dt>LAUNCH</dt>
+     * <dd>
+     * <p>
+     * Specify the <code>RoleArn</code> property as follows:
      * </p>
      * <p>
-     * For Type <code>LAUNCH</code>, the <code>RoleArn</code> property is required.
+     * <code>{"RoleArn" : "arn:aws:iam::123456789012:role/LaunchRole"}</code>
      * </p>
      * <p>
-     * For Type <code>NOTIFICATION</code>, the <code>NotificationArns</code> property is required.
+     * You cannot have both a <code>LAUNCH</code> and a <code>STACKSET</code> constraint.
      * </p>
      * <p>
-     * For Type <code>TEMPLATE</code>, the <code>Rules</code> property is required.
+     * You also cannot have more than one <code>LAUNCH</code> constraint on a product and portfolio.
      * </p>
+     * </dd>
+     * <dt>NOTIFICATION</dt>
+     * <dd>
+     * <p>
+     * Specify the <code>NotificationArns</code> property as follows:
+     * </p>
+     * <p>
+     * <code>{"NotificationArns" : ["arn:aws:sns:us-east-1:123456789012:Topic"]}</code>
+     * </p>
+     * </dd>
+     * <dt>STACKSET</dt>
+     * <dd>
+     * <p>
+     * Specify the <code>Parameters</code> property as follows:
+     * </p>
+     * <p>
+     * <code>{"Version": "String", "Properties": {"AccountList": [ "String" ], "RegionList": [ "String" ], "AdminRole": "String", "ExecutionRole": "String"}}</code>
+     * </p>
+     * <p>
+     * You cannot have both a <code>LAUNCH</code> and a <code>STACKSET</code> constraint.
+     * </p>
+     * <p>
+     * You also cannot have more than one <code>STACKSET</code> constraint on a product and portfolio.
+     * </p>
+     * <p>
+     * Products with a <code>STACKSET</code> constraint will launch an AWS CloudFormation stack set.
+     * </p>
+     * </dd>
+     * <dt>TEMPLATE</dt>
+     * <dd>
+     * <p>
+     * Specify the <code>Rules</code> property. For more information, see <a
+     * href="http://docs.aws.amazon.com/servicecatalog/latest/adminguide/reference-template_constraint_rules.html"
+     * >Template Constraint Rules</a>.
+     * </p>
+     * </dd>
+     * </dl>
      * 
      * @param parameters
-     *        The constraint parameters. Expected values vary depending on which <b>Type</b> is specified. For examples,
-     *        see the bottom of this topic.</p>
+     *        The constraint parameters, in JSON format. The syntax depends on the constraint type as follows:</p>
+     *        <dl>
+     *        <dt>LAUNCH</dt>
+     *        <dd>
      *        <p>
-     *        For Type <code>LAUNCH</code>, the <code>RoleArn</code> property is required.
+     *        Specify the <code>RoleArn</code> property as follows:
      *        </p>
      *        <p>
-     *        For Type <code>NOTIFICATION</code>, the <code>NotificationArns</code> property is required.
+     *        <code>{"RoleArn" : "arn:aws:iam::123456789012:role/LaunchRole"}</code>
      *        </p>
      *        <p>
-     *        For Type <code>TEMPLATE</code>, the <code>Rules</code> property is required.
+     *        You cannot have both a <code>LAUNCH</code> and a <code>STACKSET</code> constraint.
+     *        </p>
+     *        <p>
+     *        You also cannot have more than one <code>LAUNCH</code> constraint on a product and portfolio.
+     *        </p>
+     *        </dd>
+     *        <dt>NOTIFICATION</dt>
+     *        <dd>
+     *        <p>
+     *        Specify the <code>NotificationArns</code> property as follows:
+     *        </p>
+     *        <p>
+     *        <code>{"NotificationArns" : ["arn:aws:sns:us-east-1:123456789012:Topic"]}</code>
+     *        </p>
+     *        </dd>
+     *        <dt>STACKSET</dt>
+     *        <dd>
+     *        <p>
+     *        Specify the <code>Parameters</code> property as follows:
+     *        </p>
+     *        <p>
+     *        <code>{"Version": "String", "Properties": {"AccountList": [ "String" ], "RegionList": [ "String" ], "AdminRole": "String", "ExecutionRole": "String"}}</code>
+     *        </p>
+     *        <p>
+     *        You cannot have both a <code>LAUNCH</code> and a <code>STACKSET</code> constraint.
+     *        </p>
+     *        <p>
+     *        You also cannot have more than one <code>STACKSET</code> constraint on a product and portfolio.
+     *        </p>
+     *        <p>
+     *        Products with a <code>STACKSET</code> constraint will launch an AWS CloudFormation stack set.
+     *        </p>
+     *        </dd>
+     *        <dt>TEMPLATE</dt>
+     *        <dd>
+     *        <p>
+     *        Specify the <code>Rules</code> property. For more information, see <a
+     *        href="http://docs.aws.amazon.com/servicecatalog/latest/adminguide/reference-template_constraint_rules.html"
+     *        >Template Constraint Rules</a>.
+     *        </p>
+     *        </dd>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -380,13 +730,54 @@ public class CreateConstraintRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The type of the constraint. Case-sensitive valid values are: <code>LAUNCH</code>, <code>NOTIFICATION</code>, or
-     * <code>TEMPLATE</code>.
+     * The type of constraint.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>LAUNCH</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NOTIFICATION</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>STACKSET</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TEMPLATE</code>
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param type
-     *        The type of the constraint. Case-sensitive valid values are: <code>LAUNCH</code>,
-     *        <code>NOTIFICATION</code>, or <code>TEMPLATE</code>.
+     *        The type of constraint.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>LAUNCH</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>NOTIFICATION</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>STACKSET</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TEMPLATE</code>
+     *        </p>
+     *        </li>
      */
 
     public void setType(String type) {
@@ -395,12 +786,53 @@ public class CreateConstraintRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The type of the constraint. Case-sensitive valid values are: <code>LAUNCH</code>, <code>NOTIFICATION</code>, or
-     * <code>TEMPLATE</code>.
+     * The type of constraint.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>LAUNCH</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NOTIFICATION</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>STACKSET</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TEMPLATE</code>
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return The type of the constraint. Case-sensitive valid values are: <code>LAUNCH</code>,
-     *         <code>NOTIFICATION</code>, or <code>TEMPLATE</code>.
+     * @return The type of constraint.</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>LAUNCH</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>NOTIFICATION</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>STACKSET</code>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>TEMPLATE</code>
+     *         </p>
+     *         </li>
      */
 
     public String getType() {
@@ -409,13 +841,54 @@ public class CreateConstraintRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The type of the constraint. Case-sensitive valid values are: <code>LAUNCH</code>, <code>NOTIFICATION</code>, or
-     * <code>TEMPLATE</code>.
+     * The type of constraint.
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>LAUNCH</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>NOTIFICATION</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>STACKSET</code>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>TEMPLATE</code>
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param type
-     *        The type of the constraint. Case-sensitive valid values are: <code>LAUNCH</code>,
-     *        <code>NOTIFICATION</code>, or <code>TEMPLATE</code>.
+     *        The type of constraint.</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>LAUNCH</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>NOTIFICATION</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>STACKSET</code>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>TEMPLATE</code>
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -426,11 +899,11 @@ public class CreateConstraintRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The text description of the constraint.
+     * The description of the constraint.
      * </p>
      * 
      * @param description
-     *        The text description of the constraint.
+     *        The description of the constraint.
      */
 
     public void setDescription(String description) {
@@ -439,10 +912,10 @@ public class CreateConstraintRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The text description of the constraint.
+     * The description of the constraint.
      * </p>
      * 
-     * @return The text description of the constraint.
+     * @return The description of the constraint.
      */
 
     public String getDescription() {
@@ -451,11 +924,11 @@ public class CreateConstraintRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The text description of the constraint.
+     * The description of the constraint.
      * </p>
      * 
      * @param description
-     *        The text description of the constraint.
+     *        The description of the constraint.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -466,13 +939,13 @@ public class CreateConstraintRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * A token to disambiguate duplicate requests. You can create multiple resources using the same input in multiple
-     * requests, provided that you also specify a different idempotency token for each request.
+     * A unique identifier that you provide to ensure idempotency. If multiple requests differ only by the idempotency
+     * token, the same response is returned for each repeated request.
      * </p>
      * 
      * @param idempotencyToken
-     *        A token to disambiguate duplicate requests. You can create multiple resources using the same input in
-     *        multiple requests, provided that you also specify a different idempotency token for each request.
+     *        A unique identifier that you provide to ensure idempotency. If multiple requests differ only by the
+     *        idempotency token, the same response is returned for each repeated request.
      */
 
     public void setIdempotencyToken(String idempotencyToken) {
@@ -481,12 +954,12 @@ public class CreateConstraintRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * A token to disambiguate duplicate requests. You can create multiple resources using the same input in multiple
-     * requests, provided that you also specify a different idempotency token for each request.
+     * A unique identifier that you provide to ensure idempotency. If multiple requests differ only by the idempotency
+     * token, the same response is returned for each repeated request.
      * </p>
      * 
-     * @return A token to disambiguate duplicate requests. You can create multiple resources using the same input in
-     *         multiple requests, provided that you also specify a different idempotency token for each request.
+     * @return A unique identifier that you provide to ensure idempotency. If multiple requests differ only by the
+     *         idempotency token, the same response is returned for each repeated request.
      */
 
     public String getIdempotencyToken() {
@@ -495,13 +968,13 @@ public class CreateConstraintRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * A token to disambiguate duplicate requests. You can create multiple resources using the same input in multiple
-     * requests, provided that you also specify a different idempotency token for each request.
+     * A unique identifier that you provide to ensure idempotency. If multiple requests differ only by the idempotency
+     * token, the same response is returned for each repeated request.
      * </p>
      * 
      * @param idempotencyToken
-     *        A token to disambiguate duplicate requests. You can create multiple resources using the same input in
-     *        multiple requests, provided that you also specify a different idempotency token for each request.
+     *        A unique identifier that you provide to ensure idempotency. If multiple requests differ only by the
+     *        idempotency token, the same response is returned for each repeated request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -511,7 +984,8 @@ public class CreateConstraintRequest extends com.amazonaws.AmazonWebServiceReque
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,24 +25,27 @@ public class DescribeDirectoryConfigsResult extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The list of directory configurations.
+     * Information about the directory configurations. Note that although the response syntax in this topic includes the
+     * account password, this password is not returned in the actual response.
      * </p>
      */
     private java.util.List<DirectoryConfig> directoryConfigs;
     /**
      * <p>
-     * If not null, more results are available. To retrieve the next set of items, pass this value for the NextToken
-     * parameter in a subsequent call to DescribeDirectoryConfigs.
+     * The pagination token to use to retrieve the next page of results for this operation. If there are no more pages,
+     * this value is null.
      * </p>
      */
     private String nextToken;
 
     /**
      * <p>
-     * The list of directory configurations.
+     * Information about the directory configurations. Note that although the response syntax in this topic includes the
+     * account password, this password is not returned in the actual response.
      * </p>
      * 
-     * @return The list of directory configurations.
+     * @return Information about the directory configurations. Note that although the response syntax in this topic
+     *         includes the account password, this password is not returned in the actual response.
      */
 
     public java.util.List<DirectoryConfig> getDirectoryConfigs() {
@@ -51,11 +54,13 @@ public class DescribeDirectoryConfigsResult extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The list of directory configurations.
+     * Information about the directory configurations. Note that although the response syntax in this topic includes the
+     * account password, this password is not returned in the actual response.
      * </p>
      * 
      * @param directoryConfigs
-     *        The list of directory configurations.
+     *        Information about the directory configurations. Note that although the response syntax in this topic
+     *        includes the account password, this password is not returned in the actual response.
      */
 
     public void setDirectoryConfigs(java.util.Collection<DirectoryConfig> directoryConfigs) {
@@ -69,7 +74,8 @@ public class DescribeDirectoryConfigsResult extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The list of directory configurations.
+     * Information about the directory configurations. Note that although the response syntax in this topic includes the
+     * account password, this password is not returned in the actual response.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -78,7 +84,8 @@ public class DescribeDirectoryConfigsResult extends com.amazonaws.AmazonWebServi
      * </p>
      * 
      * @param directoryConfigs
-     *        The list of directory configurations.
+     *        Information about the directory configurations. Note that although the response syntax in this topic
+     *        includes the account password, this password is not returned in the actual response.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -94,11 +101,13 @@ public class DescribeDirectoryConfigsResult extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The list of directory configurations.
+     * Information about the directory configurations. Note that although the response syntax in this topic includes the
+     * account password, this password is not returned in the actual response.
      * </p>
      * 
      * @param directoryConfigs
-     *        The list of directory configurations.
+     *        Information about the directory configurations. Note that although the response syntax in this topic
+     *        includes the account password, this password is not returned in the actual response.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -109,13 +118,13 @@ public class DescribeDirectoryConfigsResult extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * If not null, more results are available. To retrieve the next set of items, pass this value for the NextToken
-     * parameter in a subsequent call to DescribeDirectoryConfigs.
+     * The pagination token to use to retrieve the next page of results for this operation. If there are no more pages,
+     * this value is null.
      * </p>
      * 
      * @param nextToken
-     *        If not null, more results are available. To retrieve the next set of items, pass this value for the
-     *        NextToken parameter in a subsequent call to DescribeDirectoryConfigs.
+     *        The pagination token to use to retrieve the next page of results for this operation. If there are no more
+     *        pages, this value is null.
      */
 
     public void setNextToken(String nextToken) {
@@ -124,12 +133,12 @@ public class DescribeDirectoryConfigsResult extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * If not null, more results are available. To retrieve the next set of items, pass this value for the NextToken
-     * parameter in a subsequent call to DescribeDirectoryConfigs.
+     * The pagination token to use to retrieve the next page of results for this operation. If there are no more pages,
+     * this value is null.
      * </p>
      * 
-     * @return If not null, more results are available. To retrieve the next set of items, pass this value for the
-     *         NextToken parameter in a subsequent call to DescribeDirectoryConfigs.
+     * @return The pagination token to use to retrieve the next page of results for this operation. If there are no more
+     *         pages, this value is null.
      */
 
     public String getNextToken() {
@@ -138,13 +147,13 @@ public class DescribeDirectoryConfigsResult extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * If not null, more results are available. To retrieve the next set of items, pass this value for the NextToken
-     * parameter in a subsequent call to DescribeDirectoryConfigs.
+     * The pagination token to use to retrieve the next page of results for this operation. If there are no more pages,
+     * this value is null.
      * </p>
      * 
      * @param nextToken
-     *        If not null, more results are available. To retrieve the next set of items, pass this value for the
-     *        NextToken parameter in a subsequent call to DescribeDirectoryConfigs.
+     *        The pagination token to use to retrieve the next page of results for this operation. If there are no more
+     *        pages, this value is null.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -154,7 +163,8 @@ public class DescribeDirectoryConfigsResult extends com.amazonaws.AmazonWebServi
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

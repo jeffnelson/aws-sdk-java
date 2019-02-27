@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -55,7 +55,7 @@ import javax.annotation.Generated;
  * <li>
  * <p>
  * You tried to update a <code>ByteMatchSet</code> with a <code>FieldToMatch</code> <code>Type</code> other than HEADER,
- * QUERY_STRING, or URI.
+ * METHOD, QUERY_STRING, URI, or BODY.
  * </p>
  * </li>
  * <li>

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -16,6 +16,7 @@ import javax.annotation.Generated;
 
 import com.amazonaws.services.databasemigrationservice.model.*;
 import com.amazonaws.*;
+import com.amazonaws.services.databasemigrationservice.waiters.AWSDatabaseMigrationServiceWaiters;
 
 /**
  * Abstract implementation of {@code AWSDatabaseMigrationService}. Convenient method forms pass through to the
@@ -148,12 +149,22 @@ public class AbstractAWSDatabaseMigrationService implements AWSDatabaseMigration
     }
 
     @Override
+    public DescribeReplicationInstanceTaskLogsResult describeReplicationInstanceTaskLogs(DescribeReplicationInstanceTaskLogsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public DescribeReplicationInstancesResult describeReplicationInstances(DescribeReplicationInstancesRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
     public DescribeReplicationSubnetGroupsResult describeReplicationSubnetGroups(DescribeReplicationSubnetGroupsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DescribeReplicationTaskAssessmentResultsResult describeReplicationTaskAssessmentResults(DescribeReplicationTaskAssessmentResultsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -208,6 +219,11 @@ public class AbstractAWSDatabaseMigrationService implements AWSDatabaseMigration
     }
 
     @Override
+    public RebootReplicationInstanceResult rebootReplicationInstance(RebootReplicationInstanceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public RefreshSchemasResult refreshSchemas(RefreshSchemasRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -228,6 +244,11 @@ public class AbstractAWSDatabaseMigrationService implements AWSDatabaseMigration
     }
 
     @Override
+    public StartReplicationTaskAssessmentResult startReplicationTaskAssessment(StartReplicationTaskAssessmentRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public StopReplicationTaskResult stopReplicationTask(StopReplicationTaskRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -244,6 +265,11 @@ public class AbstractAWSDatabaseMigrationService implements AWSDatabaseMigration
 
     @Override
     public com.amazonaws.ResponseMetadata getCachedResponseMetadata(com.amazonaws.AmazonWebServiceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public AWSDatabaseMigrationServiceWaiters waiters() {
         throw new java.lang.UnsupportedOperationException();
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -37,6 +37,12 @@ public class ThingAttribute implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private String thingTypeName;
+    /**
+     * <p>
+     * The thing ARN.
+     * </p>
+     */
+    private String thingArn;
     /**
      * <p>
      * A list of thing attributes which are name-value pairs.
@@ -127,6 +133,46 @@ public class ThingAttribute implements Serializable, Cloneable, StructuredPojo {
 
     public ThingAttribute withThingTypeName(String thingTypeName) {
         setThingTypeName(thingTypeName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The thing ARN.
+     * </p>
+     * 
+     * @param thingArn
+     *        The thing ARN.
+     */
+
+    public void setThingArn(String thingArn) {
+        this.thingArn = thingArn;
+    }
+
+    /**
+     * <p>
+     * The thing ARN.
+     * </p>
+     * 
+     * @return The thing ARN.
+     */
+
+    public String getThingArn() {
+        return this.thingArn;
+    }
+
+    /**
+     * <p>
+     * The thing ARN.
+     * </p>
+     * 
+     * @param thingArn
+     *        The thing ARN.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ThingAttribute withThingArn(String thingArn) {
+        setThingArn(thingArn);
         return this;
     }
 
@@ -232,7 +278,8 @@ public class ThingAttribute implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -246,6 +293,8 @@ public class ThingAttribute implements Serializable, Cloneable, StructuredPojo {
             sb.append("ThingName: ").append(getThingName()).append(",");
         if (getThingTypeName() != null)
             sb.append("ThingTypeName: ").append(getThingTypeName()).append(",");
+        if (getThingArn() != null)
+            sb.append("ThingArn: ").append(getThingArn()).append(",");
         if (getAttributes() != null)
             sb.append("Attributes: ").append(getAttributes()).append(",");
         if (getVersion() != null)
@@ -272,6 +321,10 @@ public class ThingAttribute implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getThingTypeName() != null && other.getThingTypeName().equals(this.getThingTypeName()) == false)
             return false;
+        if (other.getThingArn() == null ^ this.getThingArn() == null)
+            return false;
+        if (other.getThingArn() != null && other.getThingArn().equals(this.getThingArn()) == false)
+            return false;
         if (other.getAttributes() == null ^ this.getAttributes() == null)
             return false;
         if (other.getAttributes() != null && other.getAttributes().equals(this.getAttributes()) == false)
@@ -290,6 +343,7 @@ public class ThingAttribute implements Serializable, Cloneable, StructuredPojo {
 
         hashCode = prime * hashCode + ((getThingName() == null) ? 0 : getThingName().hashCode());
         hashCode = prime * hashCode + ((getThingTypeName() == null) ? 0 : getThingTypeName().hashCode());
+        hashCode = prime * hashCode + ((getThingArn() == null) ? 0 : getThingArn().hashCode());
         hashCode = prime * hashCode + ((getAttributes() == null) ? 0 : getAttributes().hashCode());
         hashCode = prime * hashCode + ((getVersion() == null) ? 0 : getVersion().hashCode());
         return hashCode;

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,19 +27,19 @@ public class DescribeSessionsRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The name of the stack for which to list sessions.
+     * The name of the stack. This value is case-sensitive.
      * </p>
      */
     private String stackName;
     /**
      * <p>
-     * The name of the fleet for which to list sessions.
+     * The name of the fleet. This value is case-sensitive.
      * </p>
      */
     private String fleetName;
     /**
      * <p>
-     * The user for whom to list sessions. Use null to describe all the sessions for the stack and fleet.
+     * The user identifier.
      * </p>
      */
     private String userId;
@@ -52,26 +52,26 @@ public class DescribeSessionsRequest extends com.amazonaws.AmazonWebServiceReque
     private String nextToken;
     /**
      * <p>
-     * The size of each page of results. The default value is 20 and the maximum supported value is 50.
+     * The size of each page of results. The default value is 20 and the maximum value is 50.
      * </p>
      */
     private Integer limit;
     /**
      * <p>
-     * The authentication method of the user. It can be <code>API</code> for a user authenticated using a streaming URL,
-     * or <code>SAML</code> for a SAML federated user. If an authentication type is not provided, the operation defaults
-     * to users authenticated using a streaming URL.
+     * The authentication method. Specify <code>API</code> for a user authenticated using a streaming URL,
+     * <code>SAML</code> for a SAML 2.0-federated user, or <code>USERPOOL</code> for a user in the AppStream 2.0 user
+     * pool. The default is to authenticate users using a streaming URL.
      * </p>
      */
     private String authenticationType;
 
     /**
      * <p>
-     * The name of the stack for which to list sessions.
+     * The name of the stack. This value is case-sensitive.
      * </p>
      * 
      * @param stackName
-     *        The name of the stack for which to list sessions.
+     *        The name of the stack. This value is case-sensitive.
      */
 
     public void setStackName(String stackName) {
@@ -80,10 +80,10 @@ public class DescribeSessionsRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The name of the stack for which to list sessions.
+     * The name of the stack. This value is case-sensitive.
      * </p>
      * 
-     * @return The name of the stack for which to list sessions.
+     * @return The name of the stack. This value is case-sensitive.
      */
 
     public String getStackName() {
@@ -92,11 +92,11 @@ public class DescribeSessionsRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The name of the stack for which to list sessions.
+     * The name of the stack. This value is case-sensitive.
      * </p>
      * 
      * @param stackName
-     *        The name of the stack for which to list sessions.
+     *        The name of the stack. This value is case-sensitive.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -107,11 +107,11 @@ public class DescribeSessionsRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The name of the fleet for which to list sessions.
+     * The name of the fleet. This value is case-sensitive.
      * </p>
      * 
      * @param fleetName
-     *        The name of the fleet for which to list sessions.
+     *        The name of the fleet. This value is case-sensitive.
      */
 
     public void setFleetName(String fleetName) {
@@ -120,10 +120,10 @@ public class DescribeSessionsRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The name of the fleet for which to list sessions.
+     * The name of the fleet. This value is case-sensitive.
      * </p>
      * 
-     * @return The name of the fleet for which to list sessions.
+     * @return The name of the fleet. This value is case-sensitive.
      */
 
     public String getFleetName() {
@@ -132,11 +132,11 @@ public class DescribeSessionsRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The name of the fleet for which to list sessions.
+     * The name of the fleet. This value is case-sensitive.
      * </p>
      * 
      * @param fleetName
-     *        The name of the fleet for which to list sessions.
+     *        The name of the fleet. This value is case-sensitive.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -147,11 +147,11 @@ public class DescribeSessionsRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The user for whom to list sessions. Use null to describe all the sessions for the stack and fleet.
+     * The user identifier.
      * </p>
      * 
      * @param userId
-     *        The user for whom to list sessions. Use null to describe all the sessions for the stack and fleet.
+     *        The user identifier.
      */
 
     public void setUserId(String userId) {
@@ -160,10 +160,10 @@ public class DescribeSessionsRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The user for whom to list sessions. Use null to describe all the sessions for the stack and fleet.
+     * The user identifier.
      * </p>
      * 
-     * @return The user for whom to list sessions. Use null to describe all the sessions for the stack and fleet.
+     * @return The user identifier.
      */
 
     public String getUserId() {
@@ -172,11 +172,11 @@ public class DescribeSessionsRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The user for whom to list sessions. Use null to describe all the sessions for the stack and fleet.
+     * The user identifier.
      * </p>
      * 
      * @param userId
-     *        The user for whom to list sessions. Use null to describe all the sessions for the stack and fleet.
+     *        The user identifier.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -233,11 +233,11 @@ public class DescribeSessionsRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The size of each page of results. The default value is 20 and the maximum supported value is 50.
+     * The size of each page of results. The default value is 20 and the maximum value is 50.
      * </p>
      * 
      * @param limit
-     *        The size of each page of results. The default value is 20 and the maximum supported value is 50.
+     *        The size of each page of results. The default value is 20 and the maximum value is 50.
      */
 
     public void setLimit(Integer limit) {
@@ -246,10 +246,10 @@ public class DescribeSessionsRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The size of each page of results. The default value is 20 and the maximum supported value is 50.
+     * The size of each page of results. The default value is 20 and the maximum value is 50.
      * </p>
      * 
-     * @return The size of each page of results. The default value is 20 and the maximum supported value is 50.
+     * @return The size of each page of results. The default value is 20 and the maximum value is 50.
      */
 
     public Integer getLimit() {
@@ -258,11 +258,11 @@ public class DescribeSessionsRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The size of each page of results. The default value is 20 and the maximum supported value is 50.
+     * The size of each page of results. The default value is 20 and the maximum value is 50.
      * </p>
      * 
      * @param limit
-     *        The size of each page of results. The default value is 20 and the maximum supported value is 50.
+     *        The size of each page of results. The default value is 20 and the maximum value is 50.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -273,15 +273,15 @@ public class DescribeSessionsRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The authentication method of the user. It can be <code>API</code> for a user authenticated using a streaming URL,
-     * or <code>SAML</code> for a SAML federated user. If an authentication type is not provided, the operation defaults
-     * to users authenticated using a streaming URL.
+     * The authentication method. Specify <code>API</code> for a user authenticated using a streaming URL,
+     * <code>SAML</code> for a SAML 2.0-federated user, or <code>USERPOOL</code> for a user in the AppStream 2.0 user
+     * pool. The default is to authenticate users using a streaming URL.
      * </p>
      * 
      * @param authenticationType
-     *        The authentication method of the user. It can be <code>API</code> for a user authenticated using a
-     *        streaming URL, or <code>SAML</code> for a SAML federated user. If an authentication type is not provided,
-     *        the operation defaults to users authenticated using a streaming URL.
+     *        The authentication method. Specify <code>API</code> for a user authenticated using a streaming URL,
+     *        <code>SAML</code> for a SAML 2.0-federated user, or <code>USERPOOL</code> for a user in the AppStream 2.0
+     *        user pool. The default is to authenticate users using a streaming URL.
      * @see AuthenticationType
      */
 
@@ -291,14 +291,14 @@ public class DescribeSessionsRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The authentication method of the user. It can be <code>API</code> for a user authenticated using a streaming URL,
-     * or <code>SAML</code> for a SAML federated user. If an authentication type is not provided, the operation defaults
-     * to users authenticated using a streaming URL.
+     * The authentication method. Specify <code>API</code> for a user authenticated using a streaming URL,
+     * <code>SAML</code> for a SAML 2.0-federated user, or <code>USERPOOL</code> for a user in the AppStream 2.0 user
+     * pool. The default is to authenticate users using a streaming URL.
      * </p>
      * 
-     * @return The authentication method of the user. It can be <code>API</code> for a user authenticated using a
-     *         streaming URL, or <code>SAML</code> for a SAML federated user. If an authentication type is not provided,
-     *         the operation defaults to users authenticated using a streaming URL.
+     * @return The authentication method. Specify <code>API</code> for a user authenticated using a streaming URL,
+     *         <code>SAML</code> for a SAML 2.0-federated user, or <code>USERPOOL</code> for a user in the AppStream 2.0
+     *         user pool. The default is to authenticate users using a streaming URL.
      * @see AuthenticationType
      */
 
@@ -308,15 +308,15 @@ public class DescribeSessionsRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The authentication method of the user. It can be <code>API</code> for a user authenticated using a streaming URL,
-     * or <code>SAML</code> for a SAML federated user. If an authentication type is not provided, the operation defaults
-     * to users authenticated using a streaming URL.
+     * The authentication method. Specify <code>API</code> for a user authenticated using a streaming URL,
+     * <code>SAML</code> for a SAML 2.0-federated user, or <code>USERPOOL</code> for a user in the AppStream 2.0 user
+     * pool. The default is to authenticate users using a streaming URL.
      * </p>
      * 
      * @param authenticationType
-     *        The authentication method of the user. It can be <code>API</code> for a user authenticated using a
-     *        streaming URL, or <code>SAML</code> for a SAML federated user. If an authentication type is not provided,
-     *        the operation defaults to users authenticated using a streaming URL.
+     *        The authentication method. Specify <code>API</code> for a user authenticated using a streaming URL,
+     *        <code>SAML</code> for a SAML 2.0-federated user, or <code>USERPOOL</code> for a user in the AppStream 2.0
+     *        user pool. The default is to authenticate users using a streaming URL.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see AuthenticationType
      */
@@ -328,15 +328,15 @@ public class DescribeSessionsRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The authentication method of the user. It can be <code>API</code> for a user authenticated using a streaming URL,
-     * or <code>SAML</code> for a SAML federated user. If an authentication type is not provided, the operation defaults
-     * to users authenticated using a streaming URL.
+     * The authentication method. Specify <code>API</code> for a user authenticated using a streaming URL,
+     * <code>SAML</code> for a SAML 2.0-federated user, or <code>USERPOOL</code> for a user in the AppStream 2.0 user
+     * pool. The default is to authenticate users using a streaming URL.
      * </p>
      * 
      * @param authenticationType
-     *        The authentication method of the user. It can be <code>API</code> for a user authenticated using a
-     *        streaming URL, or <code>SAML</code> for a SAML federated user. If an authentication type is not provided,
-     *        the operation defaults to users authenticated using a streaming URL.
+     *        The authentication method. Specify <code>API</code> for a user authenticated using a streaming URL,
+     *        <code>SAML</code> for a SAML 2.0-federated user, or <code>USERPOOL</code> for a user in the AppStream 2.0
+     *        user pool. The default is to authenticate users using a streaming URL.
      * @see AuthenticationType
      */
 
@@ -346,15 +346,15 @@ public class DescribeSessionsRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * The authentication method of the user. It can be <code>API</code> for a user authenticated using a streaming URL,
-     * or <code>SAML</code> for a SAML federated user. If an authentication type is not provided, the operation defaults
-     * to users authenticated using a streaming URL.
+     * The authentication method. Specify <code>API</code> for a user authenticated using a streaming URL,
+     * <code>SAML</code> for a SAML 2.0-federated user, or <code>USERPOOL</code> for a user in the AppStream 2.0 user
+     * pool. The default is to authenticate users using a streaming URL.
      * </p>
      * 
      * @param authenticationType
-     *        The authentication method of the user. It can be <code>API</code> for a user authenticated using a
-     *        streaming URL, or <code>SAML</code> for a SAML federated user. If an authentication type is not provided,
-     *        the operation defaults to users authenticated using a streaming URL.
+     *        The authentication method. Specify <code>API</code> for a user authenticated using a streaming URL,
+     *        <code>SAML</code> for a SAML 2.0-federated user, or <code>USERPOOL</code> for a user in the AppStream 2.0
+     *        user pool. The default is to authenticate users using a streaming URL.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see AuthenticationType
      */
@@ -365,7 +365,8 @@ public class DescribeSessionsRequest extends com.amazonaws.AmazonWebServiceReque
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

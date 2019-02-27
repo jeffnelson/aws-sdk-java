@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -16,7 +16,8 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Request validation failed, there is no usable message in the context, or the bot build failed.
+ * Request validation failed, there is no usable message in the context, or the bot build failed, is still in progress,
+ * or contains unbuilt changes.
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")

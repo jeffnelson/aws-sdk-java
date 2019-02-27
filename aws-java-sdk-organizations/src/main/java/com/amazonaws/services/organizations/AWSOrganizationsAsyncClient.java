@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -37,7 +37,7 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * </p>
  * <p>
  * This guide provides descriptions of the Organizations API. For more information about using this service, see the <a
- * href="http://docs.aws.amazon.com/organizations/latest/userguide/orgs_introduction.html">AWS Organizations User
+ * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_introduction.html">AWS Organizations User
  * Guide</a>.
  * </p>
  * <p>
@@ -59,7 +59,7 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * <p>
  * We recommend that you use the AWS SDKs to make programmatic API calls to Organizations. However, you also can use the
  * Organizations Query API to make direct calls to the Organizations web service. To learn more about the Organizations
- * Query API, see <a href="http://docs.aws.amazon.com/organizations/latest/userguide/orgs_query-requests.html">Making
+ * Query API, see <a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_query-requests.html">Making
  * Query Requests</a> in the <i>AWS Organizations User Guide</i>. Organizations supports GET and POST requests for all
  * actions. That is, the API does not require you to use GET for some actions and POST for others. However, GET requests
  * are subject to the limitation size of a URL. Therefore, for operations that require larger sizes, use a POST request.
@@ -77,7 +77,7 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * </p>
  * <p>
  * To sign requests, we recommend that you use <a
- * href="http://docs.aws.amazon.com/general/latest/gr/signature-version-4.html">Signature Version 4</a>. If you have an
+ * href="https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html">Signature Version 4</a>. If you have an
  * existing application that uses Signature Version 2, you do not have to update it to use Signature Version 4. However,
  * some operations now require Signature Version 4. The documentation for operations that require version 4 indicate
  * this requirement.
@@ -96,10 +96,9 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * <p>
  * We welcome your feedback. Send your comments to <a
  * href="mailto:feedback-awsorganizations@amazon.com">feedback-awsorganizations@amazon.com</a> or post your feedback and
- * questions in our private <a href="http://forums.aws.amazon.com/forum.jspa?forumID=219">AWS Organizations support
- * forum</a>. If you don't have access to the forum, send a request for access to the email address, along with your
- * forum user ID. For more information about the AWS support forums, see <a
- * href="http://forums.aws.amazon.com/help.jspa">Forums Help</a>.
+ * questions in the <a href="http://forums.aws.amazon.com/forum.jspa?forumID=219">AWS Organizations support forum</a>.
+ * For more information about the AWS support forums, see <a href="http://forums.aws.amazon.com/help.jspa">Forums
+ * Help</a>.
  * </p>
  * <p>
  * <b>Endpoint to Call When Using the CLI or the AWS API</b>
@@ -137,7 +136,7 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * <p>
  * For the various SDKs used to call the APIs, see the documentation for the SDK of interest to learn how to direct the
  * requests to a specific endpoint. For more information, see <a
- * href="http://docs.aws.amazon.com/general/latest/gr/rande.html#sts_region">Regions and Endpoints</a> in the <i>AWS
+ * href="https://docs.aws.amazon.com/general/latest/gr/rande.html#sts_region">Regions and Endpoints</a> in the <i>AWS
  * General Reference</i>.
  * </p>
  * <p>
@@ -158,10 +157,10 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
  * files to an Amazon S3 bucket. By using information collected by AWS CloudTrail, you can determine which requests were
  * successfully made to Organizations, who made the request, when it was made, and so on. For more about AWS
  * Organizations and its support for AWS CloudTrail, see <a
- * href="http://docs.aws.amazon.com/organizations/latest/userguide/orgs_cloudtrail-integration.html">Logging AWS
- * Organizations Events with AWS CloudTrail</a> in the <i>AWS Organizations User Guide</i>. To learn more about
- * CloudTrail, including how to turn it on and find your log files, see the <a
- * href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/what_is_cloud_trail_top_level.html">AWS CloudTrail
+ * href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_monitoring.html#orgs_cloudtrail-integration"
+ * >Logging AWS Organizations Events with AWS CloudTrail</a> in the <i>AWS Organizations User Guide</i>. To learn more
+ * about CloudTrail, including how to turn it on and find your log files, see the <a
+ * href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/what_is_cloud_trail_top_level.html">AWS CloudTrail
  * User Guide</a>.
  * </p>
  */
@@ -969,6 +968,39 @@ public class AWSOrganizationsAsyncClient extends AWSOrganizationsClient implemen
     }
 
     @Override
+    public java.util.concurrent.Future<DisableAWSServiceAccessResult> disableAWSServiceAccessAsync(DisableAWSServiceAccessRequest request) {
+
+        return disableAWSServiceAccessAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DisableAWSServiceAccessResult> disableAWSServiceAccessAsync(final DisableAWSServiceAccessRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DisableAWSServiceAccessRequest, DisableAWSServiceAccessResult> asyncHandler) {
+        final DisableAWSServiceAccessRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DisableAWSServiceAccessResult>() {
+            @Override
+            public DisableAWSServiceAccessResult call() throws Exception {
+                DisableAWSServiceAccessResult result = null;
+
+                try {
+                    result = executeDisableAWSServiceAccess(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DisablePolicyTypeResult> disablePolicyTypeAsync(DisablePolicyTypeRequest request) {
 
         return disablePolicyTypeAsync(request, null);
@@ -986,6 +1018,39 @@ public class AWSOrganizationsAsyncClient extends AWSOrganizationsClient implemen
 
                 try {
                     result = executeDisablePolicyType(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<EnableAWSServiceAccessResult> enableAWSServiceAccessAsync(EnableAWSServiceAccessRequest request) {
+
+        return enableAWSServiceAccessAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<EnableAWSServiceAccessResult> enableAWSServiceAccessAsync(final EnableAWSServiceAccessRequest request,
+            final com.amazonaws.handlers.AsyncHandler<EnableAWSServiceAccessRequest, EnableAWSServiceAccessResult> asyncHandler) {
+        final EnableAWSServiceAccessRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<EnableAWSServiceAccessResult>() {
+            @Override
+            public EnableAWSServiceAccessResult call() throws Exception {
+                EnableAWSServiceAccessResult result = null;
+
+                try {
+                    result = executeEnableAWSServiceAccess(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1118,6 +1183,41 @@ public class AWSOrganizationsAsyncClient extends AWSOrganizationsClient implemen
 
                 try {
                     result = executeLeaveOrganization(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListAWSServiceAccessForOrganizationResult> listAWSServiceAccessForOrganizationAsync(
+            ListAWSServiceAccessForOrganizationRequest request) {
+
+        return listAWSServiceAccessForOrganizationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListAWSServiceAccessForOrganizationResult> listAWSServiceAccessForOrganizationAsync(
+            final ListAWSServiceAccessForOrganizationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListAWSServiceAccessForOrganizationRequest, ListAWSServiceAccessForOrganizationResult> asyncHandler) {
+        final ListAWSServiceAccessForOrganizationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListAWSServiceAccessForOrganizationResult>() {
+            @Override
+            public ListAWSServiceAccessForOrganizationResult call() throws Exception {
+                ListAWSServiceAccessForOrganizationResult result = null;
+
+                try {
+                    result = executeListAWSServiceAccessForOrganization(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

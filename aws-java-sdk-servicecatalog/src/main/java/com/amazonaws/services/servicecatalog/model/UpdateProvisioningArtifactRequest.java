@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,20 +27,25 @@ public class UpdateProvisioningArtifactRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The language code to use for this operation. Supported language codes are as follows:
+     * The language code.
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * "en" (English)
+     * <code>en</code> - English (default)
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * "jp" (Japanese)
+     * <code>jp</code> - Japanese
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * "zh" (Chinese)
+     * <code>zh</code> - Chinese
      * </p>
-     * <p>
-     * If no code is specified, "en" is used as the default.
-     * </p>
+     * </li>
+     * </ul>
      */
     private String acceptLanguage;
     /**
@@ -51,8 +56,7 @@ public class UpdateProvisioningArtifactRequest extends com.amazonaws.AmazonWebSe
     private String productId;
     /**
      * <p>
-     * The identifier of the provisioning artifact for the update request. This is sometimes referred to as the product
-     * version.
+     * The identifier of the provisioning artifact.
      * </p>
      */
     private String provisioningArtifactId;
@@ -64,41 +68,57 @@ public class UpdateProvisioningArtifactRequest extends com.amazonaws.AmazonWebSe
     private String name;
     /**
      * <p>
-     * The updated text description of the provisioning artifact.
+     * The updated description of the provisioning artifact.
      * </p>
      */
     private String description;
+    /**
+     * <p>
+     * Indicates whether the product version is active.
+     * </p>
+     */
+    private Boolean active;
 
     /**
      * <p>
-     * The language code to use for this operation. Supported language codes are as follows:
+     * The language code.
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * "en" (English)
+     * <code>en</code> - English (default)
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * "jp" (Japanese)
+     * <code>jp</code> - Japanese
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * "zh" (Chinese)
+     * <code>zh</code> - Chinese
      * </p>
-     * <p>
-     * If no code is specified, "en" is used as the default.
-     * </p>
+     * </li>
+     * </ul>
      * 
      * @param acceptLanguage
-     *        The language code to use for this operation. Supported language codes are as follows:</p>
+     *        The language code.</p>
+     *        <ul>
+     *        <li>
      *        <p>
-     *        "en" (English)
+     *        <code>en</code> - English (default)
      *        </p>
+     *        </li>
+     *        <li>
      *        <p>
-     *        "jp" (Japanese)
+     *        <code>jp</code> - Japanese
      *        </p>
+     *        </li>
+     *        <li>
      *        <p>
-     *        "zh" (Chinese)
+     *        <code>zh</code> - Chinese
      *        </p>
-     *        <p>
-     *        If no code is specified, "en" is used as the default.
+     *        </li>
      */
 
     public void setAcceptLanguage(String acceptLanguage) {
@@ -107,33 +127,43 @@ public class UpdateProvisioningArtifactRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The language code to use for this operation. Supported language codes are as follows:
+     * The language code.
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * "en" (English)
+     * <code>en</code> - English (default)
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * "jp" (Japanese)
+     * <code>jp</code> - Japanese
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * "zh" (Chinese)
+     * <code>zh</code> - Chinese
      * </p>
-     * <p>
-     * If no code is specified, "en" is used as the default.
-     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return The language code to use for this operation. Supported language codes are as follows:</p>
+     * @return The language code.</p>
+     *         <ul>
+     *         <li>
      *         <p>
-     *         "en" (English)
+     *         <code>en</code> - English (default)
      *         </p>
+     *         </li>
+     *         <li>
      *         <p>
-     *         "jp" (Japanese)
+     *         <code>jp</code> - Japanese
      *         </p>
+     *         </li>
+     *         <li>
      *         <p>
-     *         "zh" (Chinese)
+     *         <code>zh</code> - Chinese
      *         </p>
-     *         <p>
-     *         If no code is specified, "en" is used as the default.
+     *         </li>
      */
 
     public String getAcceptLanguage() {
@@ -142,34 +172,44 @@ public class UpdateProvisioningArtifactRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The language code to use for this operation. Supported language codes are as follows:
+     * The language code.
      * </p>
+     * <ul>
+     * <li>
      * <p>
-     * "en" (English)
+     * <code>en</code> - English (default)
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * "jp" (Japanese)
+     * <code>jp</code> - Japanese
      * </p>
+     * </li>
+     * <li>
      * <p>
-     * "zh" (Chinese)
+     * <code>zh</code> - Chinese
      * </p>
-     * <p>
-     * If no code is specified, "en" is used as the default.
-     * </p>
+     * </li>
+     * </ul>
      * 
      * @param acceptLanguage
-     *        The language code to use for this operation. Supported language codes are as follows:</p>
+     *        The language code.</p>
+     *        <ul>
+     *        <li>
      *        <p>
-     *        "en" (English)
+     *        <code>en</code> - English (default)
      *        </p>
+     *        </li>
+     *        <li>
      *        <p>
-     *        "jp" (Japanese)
+     *        <code>jp</code> - Japanese
      *        </p>
+     *        </li>
+     *        <li>
      *        <p>
-     *        "zh" (Chinese)
+     *        <code>zh</code> - Chinese
      *        </p>
-     *        <p>
-     *        If no code is specified, "en" is used as the default.
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -220,13 +260,11 @@ public class UpdateProvisioningArtifactRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The identifier of the provisioning artifact for the update request. This is sometimes referred to as the product
-     * version.
+     * The identifier of the provisioning artifact.
      * </p>
      * 
      * @param provisioningArtifactId
-     *        The identifier of the provisioning artifact for the update request. This is sometimes referred to as the
-     *        product version.
+     *        The identifier of the provisioning artifact.
      */
 
     public void setProvisioningArtifactId(String provisioningArtifactId) {
@@ -235,12 +273,10 @@ public class UpdateProvisioningArtifactRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The identifier of the provisioning artifact for the update request. This is sometimes referred to as the product
-     * version.
+     * The identifier of the provisioning artifact.
      * </p>
      * 
-     * @return The identifier of the provisioning artifact for the update request. This is sometimes referred to as the
-     *         product version.
+     * @return The identifier of the provisioning artifact.
      */
 
     public String getProvisioningArtifactId() {
@@ -249,13 +285,11 @@ public class UpdateProvisioningArtifactRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The identifier of the provisioning artifact for the update request. This is sometimes referred to as the product
-     * version.
+     * The identifier of the provisioning artifact.
      * </p>
      * 
      * @param provisioningArtifactId
-     *        The identifier of the provisioning artifact for the update request. This is sometimes referred to as the
-     *        product version.
+     *        The identifier of the provisioning artifact.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -306,11 +340,11 @@ public class UpdateProvisioningArtifactRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The updated text description of the provisioning artifact.
+     * The updated description of the provisioning artifact.
      * </p>
      * 
      * @param description
-     *        The updated text description of the provisioning artifact.
+     *        The updated description of the provisioning artifact.
      */
 
     public void setDescription(String description) {
@@ -319,10 +353,10 @@ public class UpdateProvisioningArtifactRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The updated text description of the provisioning artifact.
+     * The updated description of the provisioning artifact.
      * </p>
      * 
-     * @return The updated text description of the provisioning artifact.
+     * @return The updated description of the provisioning artifact.
      */
 
     public String getDescription() {
@@ -331,11 +365,11 @@ public class UpdateProvisioningArtifactRequest extends com.amazonaws.AmazonWebSe
 
     /**
      * <p>
-     * The updated text description of the provisioning artifact.
+     * The updated description of the provisioning artifact.
      * </p>
      * 
      * @param description
-     *        The updated text description of the provisioning artifact.
+     *        The updated description of the provisioning artifact.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -345,7 +379,60 @@ public class UpdateProvisioningArtifactRequest extends com.amazonaws.AmazonWebSe
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * <p>
+     * Indicates whether the product version is active.
+     * </p>
+     * 
+     * @param active
+     *        Indicates whether the product version is active.
+     */
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the product version is active.
+     * </p>
+     * 
+     * @return Indicates whether the product version is active.
+     */
+
+    public Boolean getActive() {
+        return this.active;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the product version is active.
+     * </p>
+     * 
+     * @param active
+     *        Indicates whether the product version is active.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UpdateProvisioningArtifactRequest withActive(Boolean active) {
+        setActive(active);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the product version is active.
+     * </p>
+     * 
+     * @return Indicates whether the product version is active.
+     */
+
+    public Boolean isActive() {
+        return this.active;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -364,7 +451,9 @@ public class UpdateProvisioningArtifactRequest extends com.amazonaws.AmazonWebSe
         if (getName() != null)
             sb.append("Name: ").append(getName()).append(",");
         if (getDescription() != null)
-            sb.append("Description: ").append(getDescription());
+            sb.append("Description: ").append(getDescription()).append(",");
+        if (getActive() != null)
+            sb.append("Active: ").append(getActive());
         sb.append("}");
         return sb.toString();
     }
@@ -399,6 +488,10 @@ public class UpdateProvisioningArtifactRequest extends com.amazonaws.AmazonWebSe
             return false;
         if (other.getDescription() != null && other.getDescription().equals(this.getDescription()) == false)
             return false;
+        if (other.getActive() == null ^ this.getActive() == null)
+            return false;
+        if (other.getActive() != null && other.getActive().equals(this.getActive()) == false)
+            return false;
         return true;
     }
 
@@ -412,6 +505,7 @@ public class UpdateProvisioningArtifactRequest extends com.amazonaws.AmazonWebSe
         hashCode = prime * hashCode + ((getProvisioningArtifactId() == null) ? 0 : getProvisioningArtifactId().hashCode());
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getDescription() == null) ? 0 : getDescription().hashCode());
+        hashCode = prime * hashCode + ((getActive() == null) ? 0 : getActive().hashCode());
         return hashCode;
     }
 

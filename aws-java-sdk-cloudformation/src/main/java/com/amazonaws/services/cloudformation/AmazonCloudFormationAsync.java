@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -254,6 +254,72 @@ public interface AmazonCloudFormationAsync extends AmazonCloudFormation {
 
     /**
      * <p>
+     * Creates stack instances for the specified accounts, within the specified regions. A stack instance refers to a
+     * stack in a specific account and region. <code>Accounts</code> and <code>Regions</code> are required
+     * parameters—you must specify at least one account and one region.
+     * </p>
+     * 
+     * @param createStackInstancesRequest
+     * @return A Java Future containing the result of the CreateStackInstances operation returned by the service.
+     * @sample AmazonCloudFormationAsync.CreateStackInstances
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/CreateStackInstances"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateStackInstancesResult> createStackInstancesAsync(CreateStackInstancesRequest createStackInstancesRequest);
+
+    /**
+     * <p>
+     * Creates stack instances for the specified accounts, within the specified regions. A stack instance refers to a
+     * stack in a specific account and region. <code>Accounts</code> and <code>Regions</code> are required
+     * parameters—you must specify at least one account and one region.
+     * </p>
+     * 
+     * @param createStackInstancesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateStackInstances operation returned by the service.
+     * @sample AmazonCloudFormationAsyncHandler.CreateStackInstances
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/CreateStackInstances"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateStackInstancesResult> createStackInstancesAsync(CreateStackInstancesRequest createStackInstancesRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateStackInstancesRequest, CreateStackInstancesResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a stack set.
+     * </p>
+     * 
+     * @param createStackSetRequest
+     * @return A Java Future containing the result of the CreateStackSet operation returned by the service.
+     * @sample AmazonCloudFormationAsync.CreateStackSet
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/CreateStackSet" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateStackSetResult> createStackSetAsync(CreateStackSetRequest createStackSetRequest);
+
+    /**
+     * <p>
+     * Creates a stack set.
+     * </p>
+     * 
+     * @param createStackSetRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateStackSet operation returned by the service.
+     * @sample AmazonCloudFormationAsyncHandler.CreateStackSet
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/CreateStackSet" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<CreateStackSetResult> createStackSetAsync(CreateStackSetRequest createStackSetRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateStackSetRequest, CreateStackSetResult> asyncHandler);
+
+    /**
+     * <p>
      * Deletes the specified change set. Deleting change sets ensures that no one executes the wrong change set.
      * </p>
      * <p>
@@ -325,6 +391,70 @@ public interface AmazonCloudFormationAsync extends AmazonCloudFormation {
      */
     java.util.concurrent.Future<DeleteStackResult> deleteStackAsync(DeleteStackRequest deleteStackRequest,
             com.amazonaws.handlers.AsyncHandler<DeleteStackRequest, DeleteStackResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes stack instances for the specified accounts, in the specified regions.
+     * </p>
+     * 
+     * @param deleteStackInstancesRequest
+     * @return A Java Future containing the result of the DeleteStackInstances operation returned by the service.
+     * @sample AmazonCloudFormationAsync.DeleteStackInstances
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/DeleteStackInstances"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteStackInstancesResult> deleteStackInstancesAsync(DeleteStackInstancesRequest deleteStackInstancesRequest);
+
+    /**
+     * <p>
+     * Deletes stack instances for the specified accounts, in the specified regions.
+     * </p>
+     * 
+     * @param deleteStackInstancesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteStackInstances operation returned by the service.
+     * @sample AmazonCloudFormationAsyncHandler.DeleteStackInstances
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/DeleteStackInstances"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteStackInstancesResult> deleteStackInstancesAsync(DeleteStackInstancesRequest deleteStackInstancesRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteStackInstancesRequest, DeleteStackInstancesResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes a stack set. Before you can delete a stack set, all of its member stack instances must be deleted. For
+     * more information about how to do this, see <a>DeleteStackInstances</a>.
+     * </p>
+     * 
+     * @param deleteStackSetRequest
+     * @return A Java Future containing the result of the DeleteStackSet operation returned by the service.
+     * @sample AmazonCloudFormationAsync.DeleteStackSet
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/DeleteStackSet" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteStackSetResult> deleteStackSetAsync(DeleteStackSetRequest deleteStackSetRequest);
+
+    /**
+     * <p>
+     * Deletes a stack set. Before you can delete a stack set, all of its member stack instances must be deleted. For
+     * more information about how to do this, see <a>DeleteStackInstances</a>.
+     * </p>
+     * 
+     * @param deleteStackSetRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteStackSet operation returned by the service.
+     * @sample AmazonCloudFormationAsyncHandler.DeleteStackSet
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/DeleteStackSet" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteStackSetResult> deleteStackSetAsync(DeleteStackSetRequest deleteStackSetRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteStackSetRequest, DeleteStackSetResult> asyncHandler);
 
     /**
      * <p>
@@ -402,6 +532,63 @@ public interface AmazonCloudFormationAsync extends AmazonCloudFormation {
 
     /**
      * <p>
+     * Returns information about a stack drift detection operation. A stack drift detection operation detects whether a
+     * stack's actual configuration differs, or has <i>drifted</i>, from it's expected configuration, as defined in the
+     * stack template and any values specified as template parameters. A stack is considered to have drifted if one or
+     * more of its resources have drifted. For more information on stack and resource drift, see <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html">Detecting
+     * Unregulated Configuration Changes to Stacks and Resources</a>.
+     * </p>
+     * <p>
+     * Use <a>DetectStackDrift</a> to initiate a stack drift detection operation. <code>DetectStackDrift</code> returns
+     * a <code>StackDriftDetectionId</code> you can use to monitor the progress of the operation using
+     * <code>DescribeStackDriftDetectionStatus</code>. Once the drift detection operation has completed, use
+     * <a>DescribeStackResourceDrifts</a> to return drift information about the stack and its resources.
+     * </p>
+     * 
+     * @param describeStackDriftDetectionStatusRequest
+     * @return A Java Future containing the result of the DescribeStackDriftDetectionStatus operation returned by the
+     *         service.
+     * @sample AmazonCloudFormationAsync.DescribeStackDriftDetectionStatus
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/DescribeStackDriftDetectionStatus"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeStackDriftDetectionStatusResult> describeStackDriftDetectionStatusAsync(
+            DescribeStackDriftDetectionStatusRequest describeStackDriftDetectionStatusRequest);
+
+    /**
+     * <p>
+     * Returns information about a stack drift detection operation. A stack drift detection operation detects whether a
+     * stack's actual configuration differs, or has <i>drifted</i>, from it's expected configuration, as defined in the
+     * stack template and any values specified as template parameters. A stack is considered to have drifted if one or
+     * more of its resources have drifted. For more information on stack and resource drift, see <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html">Detecting
+     * Unregulated Configuration Changes to Stacks and Resources</a>.
+     * </p>
+     * <p>
+     * Use <a>DetectStackDrift</a> to initiate a stack drift detection operation. <code>DetectStackDrift</code> returns
+     * a <code>StackDriftDetectionId</code> you can use to monitor the progress of the operation using
+     * <code>DescribeStackDriftDetectionStatus</code>. Once the drift detection operation has completed, use
+     * <a>DescribeStackResourceDrifts</a> to return drift information about the stack and its resources.
+     * </p>
+     * 
+     * @param describeStackDriftDetectionStatusRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeStackDriftDetectionStatus operation returned by the
+     *         service.
+     * @sample AmazonCloudFormationAsyncHandler.DescribeStackDriftDetectionStatus
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/DescribeStackDriftDetectionStatus"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeStackDriftDetectionStatusResult> describeStackDriftDetectionStatusAsync(
+            DescribeStackDriftDetectionStatusRequest describeStackDriftDetectionStatusRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeStackDriftDetectionStatusRequest, DescribeStackDriftDetectionStatusResult> asyncHandler);
+
+    /**
+     * <p>
      * Returns all stack related events for a specified stack in reverse chronological order. For more information about
      * a stack's event history, go to <a
      * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/concept-stack.html">Stacks</a> in the AWS
@@ -453,6 +640,43 @@ public interface AmazonCloudFormationAsync extends AmazonCloudFormation {
 
     /**
      * <p>
+     * Returns the stack instance that's associated with the specified stack set, AWS account, and region.
+     * </p>
+     * <p>
+     * For a list of stack instances that are associated with a specific stack set, use <a>ListStackInstances</a>.
+     * </p>
+     * 
+     * @param describeStackInstanceRequest
+     * @return A Java Future containing the result of the DescribeStackInstance operation returned by the service.
+     * @sample AmazonCloudFormationAsync.DescribeStackInstance
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/DescribeStackInstance"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeStackInstanceResult> describeStackInstanceAsync(DescribeStackInstanceRequest describeStackInstanceRequest);
+
+    /**
+     * <p>
+     * Returns the stack instance that's associated with the specified stack set, AWS account, and region.
+     * </p>
+     * <p>
+     * For a list of stack instances that are associated with a specific stack set, use <a>ListStackInstances</a>.
+     * </p>
+     * 
+     * @param describeStackInstanceRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeStackInstance operation returned by the service.
+     * @sample AmazonCloudFormationAsyncHandler.DescribeStackInstance
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/DescribeStackInstance"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeStackInstanceResult> describeStackInstanceAsync(DescribeStackInstanceRequest describeStackInstanceRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeStackInstanceRequest, DescribeStackInstanceResult> asyncHandler);
+
+    /**
+     * <p>
      * Returns a description of the specified resource in the specified stack.
      * </p>
      * <p>
@@ -491,6 +715,67 @@ public interface AmazonCloudFormationAsync extends AmazonCloudFormation {
      */
     java.util.concurrent.Future<DescribeStackResourceResult> describeStackResourceAsync(DescribeStackResourceRequest describeStackResourceRequest,
             com.amazonaws.handlers.AsyncHandler<DescribeStackResourceRequest, DescribeStackResourceResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns drift information for the resources that have been checked for drift in the specified stack. This
+     * includes actual and expected configuration values for resources where AWS CloudFormation detects configuration
+     * drift.
+     * </p>
+     * <p>
+     * For a given stack, there will be one <code>StackResourceDrift</code> for each stack resource that has been
+     * checked for drift. Resources that have not yet been checked for drift are not included. Resources that do not
+     * currently support drift detection are not checked, and so not included. For a list of resources that support
+     * drift detection, see <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html"
+     * >Resources that Support Drift Detection</a>.
+     * </p>
+     * <p>
+     * Use <a>DetectStackResourceDrift</a> to detect drift on individual resources, or <a>DetectStackDrift</a> to detect
+     * drift on all supported resources for a given stack.
+     * </p>
+     * 
+     * @param describeStackResourceDriftsRequest
+     * @return A Java Future containing the result of the DescribeStackResourceDrifts operation returned by the service.
+     * @sample AmazonCloudFormationAsync.DescribeStackResourceDrifts
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/DescribeStackResourceDrifts"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeStackResourceDriftsResult> describeStackResourceDriftsAsync(
+            DescribeStackResourceDriftsRequest describeStackResourceDriftsRequest);
+
+    /**
+     * <p>
+     * Returns drift information for the resources that have been checked for drift in the specified stack. This
+     * includes actual and expected configuration values for resources where AWS CloudFormation detects configuration
+     * drift.
+     * </p>
+     * <p>
+     * For a given stack, there will be one <code>StackResourceDrift</code> for each stack resource that has been
+     * checked for drift. Resources that have not yet been checked for drift are not included. Resources that do not
+     * currently support drift detection are not checked, and so not included. For a list of resources that support
+     * drift detection, see <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html"
+     * >Resources that Support Drift Detection</a>.
+     * </p>
+     * <p>
+     * Use <a>DetectStackResourceDrift</a> to detect drift on individual resources, or <a>DetectStackDrift</a> to detect
+     * drift on all supported resources for a given stack.
+     * </p>
+     * 
+     * @param describeStackResourceDriftsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeStackResourceDrifts operation returned by the service.
+     * @sample AmazonCloudFormationAsyncHandler.DescribeStackResourceDrifts
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/DescribeStackResourceDrifts"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeStackResourceDriftsResult> describeStackResourceDriftsAsync(
+            DescribeStackResourceDriftsRequest describeStackResourceDriftsRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeStackResourceDriftsRequest, DescribeStackResourceDriftsResult> asyncHandler);
 
     /**
      * <p>
@@ -575,6 +860,70 @@ public interface AmazonCloudFormationAsync extends AmazonCloudFormation {
 
     /**
      * <p>
+     * Returns the description of the specified stack set.
+     * </p>
+     * 
+     * @param describeStackSetRequest
+     * @return A Java Future containing the result of the DescribeStackSet operation returned by the service.
+     * @sample AmazonCloudFormationAsync.DescribeStackSet
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/DescribeStackSet"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeStackSetResult> describeStackSetAsync(DescribeStackSetRequest describeStackSetRequest);
+
+    /**
+     * <p>
+     * Returns the description of the specified stack set.
+     * </p>
+     * 
+     * @param describeStackSetRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeStackSet operation returned by the service.
+     * @sample AmazonCloudFormationAsyncHandler.DescribeStackSet
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/DescribeStackSet"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeStackSetResult> describeStackSetAsync(DescribeStackSetRequest describeStackSetRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeStackSetRequest, DescribeStackSetResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns the description of the specified stack set operation.
+     * </p>
+     * 
+     * @param describeStackSetOperationRequest
+     * @return A Java Future containing the result of the DescribeStackSetOperation operation returned by the service.
+     * @sample AmazonCloudFormationAsync.DescribeStackSetOperation
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/DescribeStackSetOperation"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeStackSetOperationResult> describeStackSetOperationAsync(
+            DescribeStackSetOperationRequest describeStackSetOperationRequest);
+
+    /**
+     * <p>
+     * Returns the description of the specified stack set operation.
+     * </p>
+     * 
+     * @param describeStackSetOperationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeStackSetOperation operation returned by the service.
+     * @sample AmazonCloudFormationAsyncHandler.DescribeStackSetOperation
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/DescribeStackSetOperation"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeStackSetOperationResult> describeStackSetOperationAsync(
+            DescribeStackSetOperationRequest describeStackSetOperationRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeStackSetOperationRequest, DescribeStackSetOperationResult> asyncHandler);
+
+    /**
+     * <p>
      * Returns the description for the specified stack; if no stack name was specified, then it returns the description
      * for all the stacks created.
      * </p>
@@ -632,6 +981,152 @@ public interface AmazonCloudFormationAsync extends AmazonCloudFormation {
      */
     java.util.concurrent.Future<DescribeStacksResult> describeStacksAsync(
             com.amazonaws.handlers.AsyncHandler<DescribeStacksRequest, DescribeStacksResult> asyncHandler);
+
+    /**
+     * <p>
+     * Detects whether a stack's actual configuration differs, or has <i>drifted</i>, from it's expected configuration,
+     * as defined in the stack template and any values specified as template parameters. For each resource in the stack
+     * that supports drift detection, AWS CloudFormation compares the actual configuration of the resource with its
+     * expected template configuration. Only resource properties explicitly defined in the stack template are checked
+     * for drift. A stack is considered to have drifted if one or more of its resources differ from their expected
+     * template configurations. For more information, see <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html">Detecting
+     * Unregulated Configuration Changes to Stacks and Resources</a>.
+     * </p>
+     * <p>
+     * Use <code>DetectStackDrift</code> to detect drift on all supported resources for a given stack, or
+     * <a>DetectStackResourceDrift</a> to detect drift on individual resources.
+     * </p>
+     * <p>
+     * For a list of stack resources that currently support drift detection, see <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html"
+     * >Resources that Support Drift Detection</a>.
+     * </p>
+     * <p>
+     * <code>DetectStackDrift</code> can take up to several minutes, depending on the number of resources contained
+     * within the stack. Use <a>DescribeStackDriftDetectionStatus</a> to monitor the progress of a detect stack drift
+     * operation. Once the drift detection operation has completed, use <a>DescribeStackResourceDrifts</a> to return
+     * drift information about the stack and its resources.
+     * </p>
+     * <p>
+     * When detecting drift on a stack, AWS CloudFormation does not detect drift on any nested stacks belonging to that
+     * stack. Perform <code>DetectStackDrift</code> directly on the nested stack itself.
+     * </p>
+     * 
+     * @param detectStackDriftRequest
+     * @return A Java Future containing the result of the DetectStackDrift operation returned by the service.
+     * @sample AmazonCloudFormationAsync.DetectStackDrift
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/DetectStackDrift"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DetectStackDriftResult> detectStackDriftAsync(DetectStackDriftRequest detectStackDriftRequest);
+
+    /**
+     * <p>
+     * Detects whether a stack's actual configuration differs, or has <i>drifted</i>, from it's expected configuration,
+     * as defined in the stack template and any values specified as template parameters. For each resource in the stack
+     * that supports drift detection, AWS CloudFormation compares the actual configuration of the resource with its
+     * expected template configuration. Only resource properties explicitly defined in the stack template are checked
+     * for drift. A stack is considered to have drifted if one or more of its resources differ from their expected
+     * template configurations. For more information, see <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html">Detecting
+     * Unregulated Configuration Changes to Stacks and Resources</a>.
+     * </p>
+     * <p>
+     * Use <code>DetectStackDrift</code> to detect drift on all supported resources for a given stack, or
+     * <a>DetectStackResourceDrift</a> to detect drift on individual resources.
+     * </p>
+     * <p>
+     * For a list of stack resources that currently support drift detection, see <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html"
+     * >Resources that Support Drift Detection</a>.
+     * </p>
+     * <p>
+     * <code>DetectStackDrift</code> can take up to several minutes, depending on the number of resources contained
+     * within the stack. Use <a>DescribeStackDriftDetectionStatus</a> to monitor the progress of a detect stack drift
+     * operation. Once the drift detection operation has completed, use <a>DescribeStackResourceDrifts</a> to return
+     * drift information about the stack and its resources.
+     * </p>
+     * <p>
+     * When detecting drift on a stack, AWS CloudFormation does not detect drift on any nested stacks belonging to that
+     * stack. Perform <code>DetectStackDrift</code> directly on the nested stack itself.
+     * </p>
+     * 
+     * @param detectStackDriftRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DetectStackDrift operation returned by the service.
+     * @sample AmazonCloudFormationAsyncHandler.DetectStackDrift
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/DetectStackDrift"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DetectStackDriftResult> detectStackDriftAsync(DetectStackDriftRequest detectStackDriftRequest,
+            com.amazonaws.handlers.AsyncHandler<DetectStackDriftRequest, DetectStackDriftResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns information about whether a resource's actual configuration differs, or has <i>drifted</i>, from it's
+     * expected configuration, as defined in the stack template and any values specified as template parameters. This
+     * information includes actual and expected property values for resources in which AWS CloudFormation detects drift.
+     * Only resource properties explicitly defined in the stack template are checked for drift. For more information
+     * about stack and resource drift, see <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html">Detecting
+     * Unregulated Configuration Changes to Stacks and Resources</a>.
+     * </p>
+     * <p>
+     * Use <code>DetectStackResourceDrift</code> to detect drift on individual resources, or <a>DetectStackDrift</a> to
+     * detect drift on all resources in a given stack that support drift detection.
+     * </p>
+     * <p>
+     * Resources that do not currently support drift detection cannot be checked. For a list of resources that support
+     * drift detection, see <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html"
+     * >Resources that Support Drift Detection</a>.
+     * </p>
+     * 
+     * @param detectStackResourceDriftRequest
+     * @return A Java Future containing the result of the DetectStackResourceDrift operation returned by the service.
+     * @sample AmazonCloudFormationAsync.DetectStackResourceDrift
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/DetectStackResourceDrift"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DetectStackResourceDriftResult> detectStackResourceDriftAsync(DetectStackResourceDriftRequest detectStackResourceDriftRequest);
+
+    /**
+     * <p>
+     * Returns information about whether a resource's actual configuration differs, or has <i>drifted</i>, from it's
+     * expected configuration, as defined in the stack template and any values specified as template parameters. This
+     * information includes actual and expected property values for resources in which AWS CloudFormation detects drift.
+     * Only resource properties explicitly defined in the stack template are checked for drift. For more information
+     * about stack and resource drift, see <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html">Detecting
+     * Unregulated Configuration Changes to Stacks and Resources</a>.
+     * </p>
+     * <p>
+     * Use <code>DetectStackResourceDrift</code> to detect drift on individual resources, or <a>DetectStackDrift</a> to
+     * detect drift on all resources in a given stack that support drift detection.
+     * </p>
+     * <p>
+     * Resources that do not currently support drift detection cannot be checked. For a list of resources that support
+     * drift detection, see <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html"
+     * >Resources that Support Drift Detection</a>.
+     * </p>
+     * 
+     * @param detectStackResourceDriftRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DetectStackResourceDrift operation returned by the service.
+     * @sample AmazonCloudFormationAsyncHandler.DetectStackResourceDrift
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/DetectStackResourceDrift"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DetectStackResourceDriftResult> detectStackResourceDriftAsync(DetectStackResourceDriftRequest detectStackResourceDriftRequest,
+            com.amazonaws.handlers.AsyncHandler<DetectStackResourceDriftRequest, DetectStackResourceDriftResult> asyncHandler);
 
     /**
      * <p>
@@ -822,11 +1317,11 @@ public interface AmazonCloudFormationAsync extends AmazonCloudFormation {
      * <p>
      * Returns information about a new or existing template. The <code>GetTemplateSummary</code> action is useful for
      * viewing parameter information, such as default parameter values and parameter types, before you create or update
-     * a stack.
+     * a stack or stack set.
      * </p>
      * <p>
      * You can use the <code>GetTemplateSummary</code> action when you submit a template, or you can get template
-     * information for a running or deleted stack.
+     * information for a stack set, or a running or deleted stack.
      * </p>
      * <p>
      * For deleted stacks, <code>GetTemplateSummary</code> returns the template information for up to 90 days after the
@@ -846,11 +1341,11 @@ public interface AmazonCloudFormationAsync extends AmazonCloudFormation {
      * <p>
      * Returns information about a new or existing template. The <code>GetTemplateSummary</code> action is useful for
      * viewing parameter information, such as default parameter values and parameter types, before you create or update
-     * a stack.
+     * a stack or stack set.
      * </p>
      * <p>
      * You can use the <code>GetTemplateSummary</code> action when you submit a template, or you can get template
-     * information for a running or deleted stack.
+     * information for a stack set, or a running or deleted stack.
      * </p>
      * <p>
      * For deleted stacks, <code>GetTemplateSummary</code> returns the template information for up to 90 days after the
@@ -1015,6 +1510,39 @@ public interface AmazonCloudFormationAsync extends AmazonCloudFormation {
 
     /**
      * <p>
+     * Returns summary information about stack instances that are associated with the specified stack set. You can
+     * filter for stack instances that are associated with a specific AWS account name or region.
+     * </p>
+     * 
+     * @param listStackInstancesRequest
+     * @return A Java Future containing the result of the ListStackInstances operation returned by the service.
+     * @sample AmazonCloudFormationAsync.ListStackInstances
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/ListStackInstances"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListStackInstancesResult> listStackInstancesAsync(ListStackInstancesRequest listStackInstancesRequest);
+
+    /**
+     * <p>
+     * Returns summary information about stack instances that are associated with the specified stack set. You can
+     * filter for stack instances that are associated with a specific AWS account name or region.
+     * </p>
+     * 
+     * @param listStackInstancesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListStackInstances operation returned by the service.
+     * @sample AmazonCloudFormationAsyncHandler.ListStackInstances
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/ListStackInstances"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListStackInstancesResult> listStackInstancesAsync(ListStackInstancesRequest listStackInstancesRequest,
+            com.amazonaws.handlers.AsyncHandler<ListStackInstancesRequest, ListStackInstancesResult> asyncHandler);
+
+    /**
+     * <p>
      * Returns descriptions of all resources of the specified stack.
      * </p>
      * <p>
@@ -1053,6 +1581,103 @@ public interface AmazonCloudFormationAsync extends AmazonCloudFormation {
      */
     java.util.concurrent.Future<ListStackResourcesResult> listStackResourcesAsync(ListStackResourcesRequest listStackResourcesRequest,
             com.amazonaws.handlers.AsyncHandler<ListStackResourcesRequest, ListStackResourcesResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns summary information about the results of a stack set operation.
+     * </p>
+     * 
+     * @param listStackSetOperationResultsRequest
+     * @return A Java Future containing the result of the ListStackSetOperationResults operation returned by the
+     *         service.
+     * @sample AmazonCloudFormationAsync.ListStackSetOperationResults
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/ListStackSetOperationResults"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListStackSetOperationResultsResult> listStackSetOperationResultsAsync(
+            ListStackSetOperationResultsRequest listStackSetOperationResultsRequest);
+
+    /**
+     * <p>
+     * Returns summary information about the results of a stack set operation.
+     * </p>
+     * 
+     * @param listStackSetOperationResultsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListStackSetOperationResults operation returned by the
+     *         service.
+     * @sample AmazonCloudFormationAsyncHandler.ListStackSetOperationResults
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/ListStackSetOperationResults"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListStackSetOperationResultsResult> listStackSetOperationResultsAsync(
+            ListStackSetOperationResultsRequest listStackSetOperationResultsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListStackSetOperationResultsRequest, ListStackSetOperationResultsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns summary information about operations performed on a stack set.
+     * </p>
+     * 
+     * @param listStackSetOperationsRequest
+     * @return A Java Future containing the result of the ListStackSetOperations operation returned by the service.
+     * @sample AmazonCloudFormationAsync.ListStackSetOperations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/ListStackSetOperations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListStackSetOperationsResult> listStackSetOperationsAsync(ListStackSetOperationsRequest listStackSetOperationsRequest);
+
+    /**
+     * <p>
+     * Returns summary information about operations performed on a stack set.
+     * </p>
+     * 
+     * @param listStackSetOperationsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListStackSetOperations operation returned by the service.
+     * @sample AmazonCloudFormationAsyncHandler.ListStackSetOperations
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/ListStackSetOperations"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<ListStackSetOperationsResult> listStackSetOperationsAsync(ListStackSetOperationsRequest listStackSetOperationsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListStackSetOperationsRequest, ListStackSetOperationsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns summary information about stack sets that are associated with the user.
+     * </p>
+     * 
+     * @param listStackSetsRequest
+     * @return A Java Future containing the result of the ListStackSets operation returned by the service.
+     * @sample AmazonCloudFormationAsync.ListStackSets
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/ListStackSets" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<ListStackSetsResult> listStackSetsAsync(ListStackSetsRequest listStackSetsRequest);
+
+    /**
+     * <p>
+     * Returns summary information about stack sets that are associated with the user.
+     * </p>
+     * 
+     * @param listStackSetsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListStackSets operation returned by the service.
+     * @sample AmazonCloudFormationAsyncHandler.ListStackSets
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/ListStackSets" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<ListStackSetsResult> listStackSetsAsync(ListStackSetsRequest listStackSetsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListStackSetsRequest, ListStackSetsResult> asyncHandler);
 
     /**
      * <p>
@@ -1183,6 +1808,37 @@ public interface AmazonCloudFormationAsync extends AmazonCloudFormation {
 
     /**
      * <p>
+     * Stops an in-progress operation on a stack set and its associated stack instances.
+     * </p>
+     * 
+     * @param stopStackSetOperationRequest
+     * @return A Java Future containing the result of the StopStackSetOperation operation returned by the service.
+     * @sample AmazonCloudFormationAsync.StopStackSetOperation
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/StopStackSetOperation"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<StopStackSetOperationResult> stopStackSetOperationAsync(StopStackSetOperationRequest stopStackSetOperationRequest);
+
+    /**
+     * <p>
+     * Stops an in-progress operation on a stack set and its associated stack instances.
+     * </p>
+     * 
+     * @param stopStackSetOperationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the StopStackSetOperation operation returned by the service.
+     * @sample AmazonCloudFormationAsyncHandler.StopStackSetOperation
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/StopStackSetOperation"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<StopStackSetOperationResult> stopStackSetOperationAsync(StopStackSetOperationRequest stopStackSetOperationRequest,
+            com.amazonaws.handlers.AsyncHandler<StopStackSetOperationRequest, StopStackSetOperationResult> asyncHandler);
+
+    /**
+     * <p>
      * Updates a stack as specified in the template. After the call completes successfully, the stack update starts. You
      * can check the status of the stack via the <a>DescribeStacks</a> action.
      * </p>
@@ -1233,6 +1889,169 @@ public interface AmazonCloudFormationAsync extends AmazonCloudFormation {
      */
     java.util.concurrent.Future<UpdateStackResult> updateStackAsync(UpdateStackRequest updateStackRequest,
             com.amazonaws.handlers.AsyncHandler<UpdateStackRequest, UpdateStackResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates the parameter values for stack instances for the specified accounts, within the specified regions. A
+     * stack instance refers to a stack in a specific account and region.
+     * </p>
+     * <p>
+     * You can only update stack instances in regions and accounts where they already exist; to create additional stack
+     * instances, use <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateStackInstances.html"
+     * >CreateStackInstances</a>.
+     * </p>
+     * <p>
+     * During stack set updates, any parameters overridden for a stack instance are not updated, but retain their
+     * overridden value.
+     * </p>
+     * <p>
+     * You can only update the parameter <i>values</i> that are specified in the stack set; to add or delete a parameter
+     * itself, use <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_UpdateStackSet.html">UpdateStackSet
+     * </a> to update the stack set template. If you add a parameter to a template, before you can override the
+     * parameter value specified in the stack set you must first use <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_UpdateStackSet.html"
+     * >UpdateStackSet</a> to update all stack instances with the updated template and parameter value specified in the
+     * stack set. Once a stack instance has been updated with the new parameter, you can then override the parameter
+     * value using <code>UpdateStackInstances</code>.
+     * </p>
+     * 
+     * @param updateStackInstancesRequest
+     * @return A Java Future containing the result of the UpdateStackInstances operation returned by the service.
+     * @sample AmazonCloudFormationAsync.UpdateStackInstances
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/UpdateStackInstances"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateStackInstancesResult> updateStackInstancesAsync(UpdateStackInstancesRequest updateStackInstancesRequest);
+
+    /**
+     * <p>
+     * Updates the parameter values for stack instances for the specified accounts, within the specified regions. A
+     * stack instance refers to a stack in a specific account and region.
+     * </p>
+     * <p>
+     * You can only update stack instances in regions and accounts where they already exist; to create additional stack
+     * instances, use <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateStackInstances.html"
+     * >CreateStackInstances</a>.
+     * </p>
+     * <p>
+     * During stack set updates, any parameters overridden for a stack instance are not updated, but retain their
+     * overridden value.
+     * </p>
+     * <p>
+     * You can only update the parameter <i>values</i> that are specified in the stack set; to add or delete a parameter
+     * itself, use <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_UpdateStackSet.html">UpdateStackSet
+     * </a> to update the stack set template. If you add a parameter to a template, before you can override the
+     * parameter value specified in the stack set you must first use <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_UpdateStackSet.html"
+     * >UpdateStackSet</a> to update all stack instances with the updated template and parameter value specified in the
+     * stack set. Once a stack instance has been updated with the new parameter, you can then override the parameter
+     * value using <code>UpdateStackInstances</code>.
+     * </p>
+     * 
+     * @param updateStackInstancesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateStackInstances operation returned by the service.
+     * @sample AmazonCloudFormationAsyncHandler.UpdateStackInstances
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/UpdateStackInstances"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateStackInstancesResult> updateStackInstancesAsync(UpdateStackInstancesRequest updateStackInstancesRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateStackInstancesRequest, UpdateStackInstancesResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates the stack set, and associated stack instances in the specified accounts and regions.
+     * </p>
+     * <p>
+     * Even if the stack set operation created by updating the stack set fails (completely or partially, below or above
+     * a specified failure tolerance), the stack set is updated with your changes. Subsequent
+     * <a>CreateStackInstances</a> calls on the specified stack set use the updated stack set.
+     * </p>
+     * 
+     * @param updateStackSetRequest
+     * @return A Java Future containing the result of the UpdateStackSet operation returned by the service.
+     * @sample AmazonCloudFormationAsync.UpdateStackSet
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/UpdateStackSet" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateStackSetResult> updateStackSetAsync(UpdateStackSetRequest updateStackSetRequest);
+
+    /**
+     * <p>
+     * Updates the stack set, and associated stack instances in the specified accounts and regions.
+     * </p>
+     * <p>
+     * Even if the stack set operation created by updating the stack set fails (completely or partially, below or above
+     * a specified failure tolerance), the stack set is updated with your changes. Subsequent
+     * <a>CreateStackInstances</a> calls on the specified stack set use the updated stack set.
+     * </p>
+     * 
+     * @param updateStackSetRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateStackSet operation returned by the service.
+     * @sample AmazonCloudFormationAsyncHandler.UpdateStackSet
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/UpdateStackSet" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateStackSetResult> updateStackSetAsync(UpdateStackSetRequest updateStackSetRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateStackSetRequest, UpdateStackSetResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates termination protection for the specified stack. If a user attempts to delete a stack with termination
+     * protection enabled, the operation fails and the stack remains unchanged. For more information, see <a
+     * href="AWSCloudFormation/latest/UserGuide/using-cfn-protect-stacks.html">Protecting a Stack From Being Deleted</a>
+     * in the <i>AWS CloudFormation User Guide</i>.
+     * </p>
+     * <p>
+     * For <a href="AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html">nested stacks</a>, termination
+     * protection is set on the root stack and cannot be changed directly on the nested stack.
+     * </p>
+     * 
+     * @param updateTerminationProtectionRequest
+     * @return A Java Future containing the result of the UpdateTerminationProtection operation returned by the service.
+     * @sample AmazonCloudFormationAsync.UpdateTerminationProtection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/UpdateTerminationProtection"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateTerminationProtectionResult> updateTerminationProtectionAsync(
+            UpdateTerminationProtectionRequest updateTerminationProtectionRequest);
+
+    /**
+     * <p>
+     * Updates termination protection for the specified stack. If a user attempts to delete a stack with termination
+     * protection enabled, the operation fails and the stack remains unchanged. For more information, see <a
+     * href="AWSCloudFormation/latest/UserGuide/using-cfn-protect-stacks.html">Protecting a Stack From Being Deleted</a>
+     * in the <i>AWS CloudFormation User Guide</i>.
+     * </p>
+     * <p>
+     * For <a href="AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html">nested stacks</a>, termination
+     * protection is set on the root stack and cannot be changed directly on the nested stack.
+     * </p>
+     * 
+     * @param updateTerminationProtectionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateTerminationProtection operation returned by the service.
+     * @sample AmazonCloudFormationAsyncHandler.UpdateTerminationProtection
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/UpdateTerminationProtection"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateTerminationProtectionResult> updateTerminationProtectionAsync(
+            UpdateTerminationProtectionRequest updateTerminationProtectionRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateTerminationProtectionRequest, UpdateTerminationProtectionResult> asyncHandler);
 
     /**
      * <p>

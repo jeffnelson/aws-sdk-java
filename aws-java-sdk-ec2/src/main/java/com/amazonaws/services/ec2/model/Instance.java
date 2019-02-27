@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -91,7 +91,7 @@ public class Instance implements Serializable, Cloneable {
      * Amazon EC2 network. This name is not available until the instance enters the <code>running</code> state.
      * </p>
      * <p>
-     * [EC2-VPC] The Amazon-provided DNS server will resolve Amazon-provided private DNS hostnames if you've enabled DNS
+     * [EC2-VPC] The Amazon-provided DNS server resolves Amazon-provided private DNS hostnames if you've enabled DNS
      * resolution and DNS hostnames in your VPC. If you are not using the Amazon-provided DNS server in your VPC, your
      * custom domain name servers must resolve the hostname as appropriate.
      * </p>
@@ -173,8 +173,8 @@ public class Instance implements Serializable, Cloneable {
     private String clientToken;
     /**
      * <p>
-     * Indicates whether the instance is optimized for EBS I/O. This optimization provides dedicated throughput to
-     * Amazon EBS and an optimized configuration stack to provide optimal I/O performance. This optimization isn't
+     * Indicates whether the instance is optimized for Amazon EBS I/O. This optimization provides dedicated throughput
+     * to Amazon EBS and an optimized configuration stack to provide optimal I/O performance. This optimization isn't
      * available with all instance types. Additional usage charges apply when using an EBS Optimized instance.
      * </p>
      */
@@ -199,10 +199,22 @@ public class Instance implements Serializable, Cloneable {
     private IamInstanceProfile iamInstanceProfile;
     /**
      * <p>
-     * Indicates whether this is a Spot instance or a Scheduled Instance.
+     * Indicates whether this is a Spot Instance or a Scheduled Instance.
      * </p>
      */
     private String instanceLifecycle;
+    /**
+     * <p>
+     * The Elastic GPU associated with the instance.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<ElasticGpuAssociation> elasticGpuAssociations;
+    /**
+     * <p>
+     * The elastic inference accelerator associated with the instance.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<ElasticInferenceAcceleratorAssociation> elasticInferenceAcceleratorAssociations;
     /**
      * <p>
      * [EC2-VPC] One or more network interfaces for the instance.
@@ -211,7 +223,7 @@ public class Instance implements Serializable, Cloneable {
     private com.amazonaws.internal.SdkInternalList<InstanceNetworkInterface> networkInterfaces;
     /**
      * <p>
-     * The root device name (for example, <code>/dev/sda1</code> or <code>/dev/xvda</code>).
+     * The device name of the root device volume (for example, <code>/dev/sda1</code>).
      * </p>
      */
     private String rootDeviceName;
@@ -230,17 +242,17 @@ public class Instance implements Serializable, Cloneable {
     /**
      * <p>
      * Specifies whether to enable an instance launched in a VPC to perform NAT. This controls whether
-     * source/destination checking is enabled on the instance. A value of <code>true</code> means checking is enabled,
-     * and <code>false</code> means checking is disabled. The value must be <code>false</code> for the instance to
-     * perform NAT. For more information, see <a
-     * href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html">NAT Instances</a> in the
+     * source/destination checking is enabled on the instance. A value of <code>true</code> means that checking is
+     * enabled, and <code>false</code> means that checking is disabled. The value must be <code>false</code> for the
+     * instance to perform NAT. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html">NAT Instances</a> in the
      * <i>Amazon Virtual Private Cloud User Guide</i>.
      * </p>
      */
     private Boolean sourceDestCheck;
     /**
      * <p>
-     * If the request is a Spot instance request, the ID of the request.
+     * If the request is a Spot Instance request, the ID of the request.
      * </p>
      */
     private String spotInstanceRequestId;
@@ -268,6 +280,36 @@ public class Instance implements Serializable, Cloneable {
      * </p>
      */
     private String virtualizationType;
+    /**
+     * <p>
+     * The CPU options for the instance.
+     * </p>
+     */
+    private CpuOptions cpuOptions;
+    /**
+     * <p>
+     * The ID of the Capacity Reservation.
+     * </p>
+     */
+    private String capacityReservationId;
+    /**
+     * <p>
+     * Information about the Capacity Reservation targeting option.
+     * </p>
+     */
+    private CapacityReservationSpecificationResponse capacityReservationSpecification;
+    /**
+     * <p>
+     * Indicates whether the instance is enabled for hibernation.
+     * </p>
+     */
+    private HibernationOptions hibernationOptions;
+    /**
+     * <p>
+     * The license configurations.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<LicenseConfiguration> licenses;
 
     /**
      * <p>
@@ -741,7 +783,7 @@ public class Instance implements Serializable, Cloneable {
      * Amazon EC2 network. This name is not available until the instance enters the <code>running</code> state.
      * </p>
      * <p>
-     * [EC2-VPC] The Amazon-provided DNS server will resolve Amazon-provided private DNS hostnames if you've enabled DNS
+     * [EC2-VPC] The Amazon-provided DNS server resolves Amazon-provided private DNS hostnames if you've enabled DNS
      * resolution and DNS hostnames in your VPC. If you are not using the Amazon-provided DNS server in your VPC, your
      * custom domain name servers must resolve the hostname as appropriate.
      * </p>
@@ -751,9 +793,9 @@ public class Instance implements Serializable, Cloneable {
      *        inside the Amazon EC2 network. This name is not available until the instance enters the
      *        <code>running</code> state. </p>
      *        <p>
-     *        [EC2-VPC] The Amazon-provided DNS server will resolve Amazon-provided private DNS hostnames if you've
-     *        enabled DNS resolution and DNS hostnames in your VPC. If you are not using the Amazon-provided DNS server
-     *        in your VPC, your custom domain name servers must resolve the hostname as appropriate.
+     *        [EC2-VPC] The Amazon-provided DNS server resolves Amazon-provided private DNS hostnames if you've enabled
+     *        DNS resolution and DNS hostnames in your VPC. If you are not using the Amazon-provided DNS server in your
+     *        VPC, your custom domain name servers must resolve the hostname as appropriate.
      */
 
     public void setPrivateDnsName(String privateDnsName) {
@@ -766,7 +808,7 @@ public class Instance implements Serializable, Cloneable {
      * Amazon EC2 network. This name is not available until the instance enters the <code>running</code> state.
      * </p>
      * <p>
-     * [EC2-VPC] The Amazon-provided DNS server will resolve Amazon-provided private DNS hostnames if you've enabled DNS
+     * [EC2-VPC] The Amazon-provided DNS server resolves Amazon-provided private DNS hostnames if you've enabled DNS
      * resolution and DNS hostnames in your VPC. If you are not using the Amazon-provided DNS server in your VPC, your
      * custom domain name servers must resolve the hostname as appropriate.
      * </p>
@@ -775,9 +817,9 @@ public class Instance implements Serializable, Cloneable {
      *         inside the Amazon EC2 network. This name is not available until the instance enters the
      *         <code>running</code> state. </p>
      *         <p>
-     *         [EC2-VPC] The Amazon-provided DNS server will resolve Amazon-provided private DNS hostnames if you've
-     *         enabled DNS resolution and DNS hostnames in your VPC. If you are not using the Amazon-provided DNS server
-     *         in your VPC, your custom domain name servers must resolve the hostname as appropriate.
+     *         [EC2-VPC] The Amazon-provided DNS server resolves Amazon-provided private DNS hostnames if you've enabled
+     *         DNS resolution and DNS hostnames in your VPC. If you are not using the Amazon-provided DNS server in your
+     *         VPC, your custom domain name servers must resolve the hostname as appropriate.
      */
 
     public String getPrivateDnsName() {
@@ -790,7 +832,7 @@ public class Instance implements Serializable, Cloneable {
      * Amazon EC2 network. This name is not available until the instance enters the <code>running</code> state.
      * </p>
      * <p>
-     * [EC2-VPC] The Amazon-provided DNS server will resolve Amazon-provided private DNS hostnames if you've enabled DNS
+     * [EC2-VPC] The Amazon-provided DNS server resolves Amazon-provided private DNS hostnames if you've enabled DNS
      * resolution and DNS hostnames in your VPC. If you are not using the Amazon-provided DNS server in your VPC, your
      * custom domain name servers must resolve the hostname as appropriate.
      * </p>
@@ -800,9 +842,9 @@ public class Instance implements Serializable, Cloneable {
      *        inside the Amazon EC2 network. This name is not available until the instance enters the
      *        <code>running</code> state. </p>
      *        <p>
-     *        [EC2-VPC] The Amazon-provided DNS server will resolve Amazon-provided private DNS hostnames if you've
-     *        enabled DNS resolution and DNS hostnames in your VPC. If you are not using the Amazon-provided DNS server
-     *        in your VPC, your custom domain name servers must resolve the hostname as appropriate.
+     *        [EC2-VPC] The Amazon-provided DNS server resolves Amazon-provided private DNS hostnames if you've enabled
+     *        DNS resolution and DNS hostnames in your VPC. If you are not using the Amazon-provided DNS server in your
+     *        VPC, your custom domain name servers must resolve the hostname as appropriate.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1404,16 +1446,16 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether the instance is optimized for EBS I/O. This optimization provides dedicated throughput to
-     * Amazon EBS and an optimized configuration stack to provide optimal I/O performance. This optimization isn't
+     * Indicates whether the instance is optimized for Amazon EBS I/O. This optimization provides dedicated throughput
+     * to Amazon EBS and an optimized configuration stack to provide optimal I/O performance. This optimization isn't
      * available with all instance types. Additional usage charges apply when using an EBS Optimized instance.
      * </p>
      * 
      * @param ebsOptimized
-     *        Indicates whether the instance is optimized for EBS I/O. This optimization provides dedicated throughput
-     *        to Amazon EBS and an optimized configuration stack to provide optimal I/O performance. This optimization
-     *        isn't available with all instance types. Additional usage charges apply when using an EBS Optimized
-     *        instance.
+     *        Indicates whether the instance is optimized for Amazon EBS I/O. This optimization provides dedicated
+     *        throughput to Amazon EBS and an optimized configuration stack to provide optimal I/O performance. This
+     *        optimization isn't available with all instance types. Additional usage charges apply when using an EBS
+     *        Optimized instance.
      */
 
     public void setEbsOptimized(Boolean ebsOptimized) {
@@ -1422,15 +1464,15 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether the instance is optimized for EBS I/O. This optimization provides dedicated throughput to
-     * Amazon EBS and an optimized configuration stack to provide optimal I/O performance. This optimization isn't
+     * Indicates whether the instance is optimized for Amazon EBS I/O. This optimization provides dedicated throughput
+     * to Amazon EBS and an optimized configuration stack to provide optimal I/O performance. This optimization isn't
      * available with all instance types. Additional usage charges apply when using an EBS Optimized instance.
      * </p>
      * 
-     * @return Indicates whether the instance is optimized for EBS I/O. This optimization provides dedicated throughput
-     *         to Amazon EBS and an optimized configuration stack to provide optimal I/O performance. This optimization
-     *         isn't available with all instance types. Additional usage charges apply when using an EBS Optimized
-     *         instance.
+     * @return Indicates whether the instance is optimized for Amazon EBS I/O. This optimization provides dedicated
+     *         throughput to Amazon EBS and an optimized configuration stack to provide optimal I/O performance. This
+     *         optimization isn't available with all instance types. Additional usage charges apply when using an EBS
+     *         Optimized instance.
      */
 
     public Boolean getEbsOptimized() {
@@ -1439,16 +1481,16 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether the instance is optimized for EBS I/O. This optimization provides dedicated throughput to
-     * Amazon EBS and an optimized configuration stack to provide optimal I/O performance. This optimization isn't
+     * Indicates whether the instance is optimized for Amazon EBS I/O. This optimization provides dedicated throughput
+     * to Amazon EBS and an optimized configuration stack to provide optimal I/O performance. This optimization isn't
      * available with all instance types. Additional usage charges apply when using an EBS Optimized instance.
      * </p>
      * 
      * @param ebsOptimized
-     *        Indicates whether the instance is optimized for EBS I/O. This optimization provides dedicated throughput
-     *        to Amazon EBS and an optimized configuration stack to provide optimal I/O performance. This optimization
-     *        isn't available with all instance types. Additional usage charges apply when using an EBS Optimized
-     *        instance.
+     *        Indicates whether the instance is optimized for Amazon EBS I/O. This optimization provides dedicated
+     *        throughput to Amazon EBS and an optimized configuration stack to provide optimal I/O performance. This
+     *        optimization isn't available with all instance types. Additional usage charges apply when using an EBS
+     *        Optimized instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1459,15 +1501,15 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether the instance is optimized for EBS I/O. This optimization provides dedicated throughput to
-     * Amazon EBS and an optimized configuration stack to provide optimal I/O performance. This optimization isn't
+     * Indicates whether the instance is optimized for Amazon EBS I/O. This optimization provides dedicated throughput
+     * to Amazon EBS and an optimized configuration stack to provide optimal I/O performance. This optimization isn't
      * available with all instance types. Additional usage charges apply when using an EBS Optimized instance.
      * </p>
      * 
-     * @return Indicates whether the instance is optimized for EBS I/O. This optimization provides dedicated throughput
-     *         to Amazon EBS and an optimized configuration stack to provide optimal I/O performance. This optimization
-     *         isn't available with all instance types. Additional usage charges apply when using an EBS Optimized
-     *         instance.
+     * @return Indicates whether the instance is optimized for Amazon EBS I/O. This optimization provides dedicated
+     *         throughput to Amazon EBS and an optimized configuration stack to provide optimal I/O performance. This
+     *         optimization isn't available with all instance types. Additional usage charges apply when using an EBS
+     *         Optimized instance.
      */
 
     public Boolean isEbsOptimized() {
@@ -1641,11 +1683,11 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether this is a Spot instance or a Scheduled Instance.
+     * Indicates whether this is a Spot Instance or a Scheduled Instance.
      * </p>
      * 
      * @param instanceLifecycle
-     *        Indicates whether this is a Spot instance or a Scheduled Instance.
+     *        Indicates whether this is a Spot Instance or a Scheduled Instance.
      * @see InstanceLifecycleType
      */
 
@@ -1655,10 +1697,10 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether this is a Spot instance or a Scheduled Instance.
+     * Indicates whether this is a Spot Instance or a Scheduled Instance.
      * </p>
      * 
-     * @return Indicates whether this is a Spot instance or a Scheduled Instance.
+     * @return Indicates whether this is a Spot Instance or a Scheduled Instance.
      * @see InstanceLifecycleType
      */
 
@@ -1668,11 +1710,11 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether this is a Spot instance or a Scheduled Instance.
+     * Indicates whether this is a Spot Instance or a Scheduled Instance.
      * </p>
      * 
      * @param instanceLifecycle
-     *        Indicates whether this is a Spot instance or a Scheduled Instance.
+     *        Indicates whether this is a Spot Instance or a Scheduled Instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see InstanceLifecycleType
      */
@@ -1684,11 +1726,11 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether this is a Spot instance or a Scheduled Instance.
+     * Indicates whether this is a Spot Instance or a Scheduled Instance.
      * </p>
      * 
      * @param instanceLifecycle
-     *        Indicates whether this is a Spot instance or a Scheduled Instance.
+     *        Indicates whether this is a Spot Instance or a Scheduled Instance.
      * @see InstanceLifecycleType
      */
 
@@ -1698,17 +1740,167 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether this is a Spot instance or a Scheduled Instance.
+     * Indicates whether this is a Spot Instance or a Scheduled Instance.
      * </p>
      * 
      * @param instanceLifecycle
-     *        Indicates whether this is a Spot instance or a Scheduled Instance.
+     *        Indicates whether this is a Spot Instance or a Scheduled Instance.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see InstanceLifecycleType
      */
 
     public Instance withInstanceLifecycle(InstanceLifecycleType instanceLifecycle) {
         this.instanceLifecycle = instanceLifecycle.toString();
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Elastic GPU associated with the instance.
+     * </p>
+     * 
+     * @return The Elastic GPU associated with the instance.
+     */
+
+    public java.util.List<ElasticGpuAssociation> getElasticGpuAssociations() {
+        if (elasticGpuAssociations == null) {
+            elasticGpuAssociations = new com.amazonaws.internal.SdkInternalList<ElasticGpuAssociation>();
+        }
+        return elasticGpuAssociations;
+    }
+
+    /**
+     * <p>
+     * The Elastic GPU associated with the instance.
+     * </p>
+     * 
+     * @param elasticGpuAssociations
+     *        The Elastic GPU associated with the instance.
+     */
+
+    public void setElasticGpuAssociations(java.util.Collection<ElasticGpuAssociation> elasticGpuAssociations) {
+        if (elasticGpuAssociations == null) {
+            this.elasticGpuAssociations = null;
+            return;
+        }
+
+        this.elasticGpuAssociations = new com.amazonaws.internal.SdkInternalList<ElasticGpuAssociation>(elasticGpuAssociations);
+    }
+
+    /**
+     * <p>
+     * The Elastic GPU associated with the instance.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setElasticGpuAssociations(java.util.Collection)} or
+     * {@link #withElasticGpuAssociations(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param elasticGpuAssociations
+     *        The Elastic GPU associated with the instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Instance withElasticGpuAssociations(ElasticGpuAssociation... elasticGpuAssociations) {
+        if (this.elasticGpuAssociations == null) {
+            setElasticGpuAssociations(new com.amazonaws.internal.SdkInternalList<ElasticGpuAssociation>(elasticGpuAssociations.length));
+        }
+        for (ElasticGpuAssociation ele : elasticGpuAssociations) {
+            this.elasticGpuAssociations.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Elastic GPU associated with the instance.
+     * </p>
+     * 
+     * @param elasticGpuAssociations
+     *        The Elastic GPU associated with the instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Instance withElasticGpuAssociations(java.util.Collection<ElasticGpuAssociation> elasticGpuAssociations) {
+        setElasticGpuAssociations(elasticGpuAssociations);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The elastic inference accelerator associated with the instance.
+     * </p>
+     * 
+     * @return The elastic inference accelerator associated with the instance.
+     */
+
+    public java.util.List<ElasticInferenceAcceleratorAssociation> getElasticInferenceAcceleratorAssociations() {
+        if (elasticInferenceAcceleratorAssociations == null) {
+            elasticInferenceAcceleratorAssociations = new com.amazonaws.internal.SdkInternalList<ElasticInferenceAcceleratorAssociation>();
+        }
+        return elasticInferenceAcceleratorAssociations;
+    }
+
+    /**
+     * <p>
+     * The elastic inference accelerator associated with the instance.
+     * </p>
+     * 
+     * @param elasticInferenceAcceleratorAssociations
+     *        The elastic inference accelerator associated with the instance.
+     */
+
+    public void setElasticInferenceAcceleratorAssociations(java.util.Collection<ElasticInferenceAcceleratorAssociation> elasticInferenceAcceleratorAssociations) {
+        if (elasticInferenceAcceleratorAssociations == null) {
+            this.elasticInferenceAcceleratorAssociations = null;
+            return;
+        }
+
+        this.elasticInferenceAcceleratorAssociations = new com.amazonaws.internal.SdkInternalList<ElasticInferenceAcceleratorAssociation>(
+                elasticInferenceAcceleratorAssociations);
+    }
+
+    /**
+     * <p>
+     * The elastic inference accelerator associated with the instance.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setElasticInferenceAcceleratorAssociations(java.util.Collection)} or
+     * {@link #withElasticInferenceAcceleratorAssociations(java.util.Collection)} if you want to override the existing
+     * values.
+     * </p>
+     * 
+     * @param elasticInferenceAcceleratorAssociations
+     *        The elastic inference accelerator associated with the instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Instance withElasticInferenceAcceleratorAssociations(ElasticInferenceAcceleratorAssociation... elasticInferenceAcceleratorAssociations) {
+        if (this.elasticInferenceAcceleratorAssociations == null) {
+            setElasticInferenceAcceleratorAssociations(new com.amazonaws.internal.SdkInternalList<ElasticInferenceAcceleratorAssociation>(
+                    elasticInferenceAcceleratorAssociations.length));
+        }
+        for (ElasticInferenceAcceleratorAssociation ele : elasticInferenceAcceleratorAssociations) {
+            this.elasticInferenceAcceleratorAssociations.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The elastic inference accelerator associated with the instance.
+     * </p>
+     * 
+     * @param elasticInferenceAcceleratorAssociations
+     *        The elastic inference accelerator associated with the instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Instance withElasticInferenceAcceleratorAssociations(
+            java.util.Collection<ElasticInferenceAcceleratorAssociation> elasticInferenceAcceleratorAssociations) {
+        setElasticInferenceAcceleratorAssociations(elasticInferenceAcceleratorAssociations);
         return this;
     }
 
@@ -1787,11 +1979,11 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The root device name (for example, <code>/dev/sda1</code> or <code>/dev/xvda</code>).
+     * The device name of the root device volume (for example, <code>/dev/sda1</code>).
      * </p>
      * 
      * @param rootDeviceName
-     *        The root device name (for example, <code>/dev/sda1</code> or <code>/dev/xvda</code>).
+     *        The device name of the root device volume (for example, <code>/dev/sda1</code>).
      */
 
     public void setRootDeviceName(String rootDeviceName) {
@@ -1800,10 +1992,10 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The root device name (for example, <code>/dev/sda1</code> or <code>/dev/xvda</code>).
+     * The device name of the root device volume (for example, <code>/dev/sda1</code>).
      * </p>
      * 
-     * @return The root device name (for example, <code>/dev/sda1</code> or <code>/dev/xvda</code>).
+     * @return The device name of the root device volume (for example, <code>/dev/sda1</code>).
      */
 
     public String getRootDeviceName() {
@@ -1812,11 +2004,11 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The root device name (for example, <code>/dev/sda1</code> or <code>/dev/xvda</code>).
+     * The device name of the root device volume (for example, <code>/dev/sda1</code>).
      * </p>
      * 
      * @param rootDeviceName
-     *        The root device name (for example, <code>/dev/sda1</code> or <code>/dev/xvda</code>).
+     *        The device name of the root device volume (for example, <code>/dev/sda1</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1974,19 +2166,19 @@ public class Instance implements Serializable, Cloneable {
     /**
      * <p>
      * Specifies whether to enable an instance launched in a VPC to perform NAT. This controls whether
-     * source/destination checking is enabled on the instance. A value of <code>true</code> means checking is enabled,
-     * and <code>false</code> means checking is disabled. The value must be <code>false</code> for the instance to
-     * perform NAT. For more information, see <a
-     * href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html">NAT Instances</a> in the
+     * source/destination checking is enabled on the instance. A value of <code>true</code> means that checking is
+     * enabled, and <code>false</code> means that checking is disabled. The value must be <code>false</code> for the
+     * instance to perform NAT. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html">NAT Instances</a> in the
      * <i>Amazon Virtual Private Cloud User Guide</i>.
      * </p>
      * 
      * @param sourceDestCheck
      *        Specifies whether to enable an instance launched in a VPC to perform NAT. This controls whether
-     *        source/destination checking is enabled on the instance. A value of <code>true</code> means checking is
-     *        enabled, and <code>false</code> means checking is disabled. The value must be <code>false</code> for the
-     *        instance to perform NAT. For more information, see <a
-     *        href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html">NAT Instances</a> in
+     *        source/destination checking is enabled on the instance. A value of <code>true</code> means that checking
+     *        is enabled, and <code>false</code> means that checking is disabled. The value must be <code>false</code>
+     *        for the instance to perform NAT. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html">NAT Instances</a> in
      *        the <i>Amazon Virtual Private Cloud User Guide</i>.
      */
 
@@ -1997,18 +2189,18 @@ public class Instance implements Serializable, Cloneable {
     /**
      * <p>
      * Specifies whether to enable an instance launched in a VPC to perform NAT. This controls whether
-     * source/destination checking is enabled on the instance. A value of <code>true</code> means checking is enabled,
-     * and <code>false</code> means checking is disabled. The value must be <code>false</code> for the instance to
-     * perform NAT. For more information, see <a
-     * href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html">NAT Instances</a> in the
+     * source/destination checking is enabled on the instance. A value of <code>true</code> means that checking is
+     * enabled, and <code>false</code> means that checking is disabled. The value must be <code>false</code> for the
+     * instance to perform NAT. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html">NAT Instances</a> in the
      * <i>Amazon Virtual Private Cloud User Guide</i>.
      * </p>
      * 
      * @return Specifies whether to enable an instance launched in a VPC to perform NAT. This controls whether
-     *         source/destination checking is enabled on the instance. A value of <code>true</code> means checking is
-     *         enabled, and <code>false</code> means checking is disabled. The value must be <code>false</code> for the
-     *         instance to perform NAT. For more information, see <a
-     *         href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html">NAT Instances</a> in
+     *         source/destination checking is enabled on the instance. A value of <code>true</code> means that checking
+     *         is enabled, and <code>false</code> means that checking is disabled. The value must be <code>false</code>
+     *         for the instance to perform NAT. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html">NAT Instances</a> in
      *         the <i>Amazon Virtual Private Cloud User Guide</i>.
      */
 
@@ -2019,19 +2211,19 @@ public class Instance implements Serializable, Cloneable {
     /**
      * <p>
      * Specifies whether to enable an instance launched in a VPC to perform NAT. This controls whether
-     * source/destination checking is enabled on the instance. A value of <code>true</code> means checking is enabled,
-     * and <code>false</code> means checking is disabled. The value must be <code>false</code> for the instance to
-     * perform NAT. For more information, see <a
-     * href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html">NAT Instances</a> in the
+     * source/destination checking is enabled on the instance. A value of <code>true</code> means that checking is
+     * enabled, and <code>false</code> means that checking is disabled. The value must be <code>false</code> for the
+     * instance to perform NAT. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html">NAT Instances</a> in the
      * <i>Amazon Virtual Private Cloud User Guide</i>.
      * </p>
      * 
      * @param sourceDestCheck
      *        Specifies whether to enable an instance launched in a VPC to perform NAT. This controls whether
-     *        source/destination checking is enabled on the instance. A value of <code>true</code> means checking is
-     *        enabled, and <code>false</code> means checking is disabled. The value must be <code>false</code> for the
-     *        instance to perform NAT. For more information, see <a
-     *        href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html">NAT Instances</a> in
+     *        source/destination checking is enabled on the instance. A value of <code>true</code> means that checking
+     *        is enabled, and <code>false</code> means that checking is disabled. The value must be <code>false</code>
+     *        for the instance to perform NAT. For more information, see <a
+     *        href="https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html">NAT Instances</a> in
      *        the <i>Amazon Virtual Private Cloud User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -2044,18 +2236,18 @@ public class Instance implements Serializable, Cloneable {
     /**
      * <p>
      * Specifies whether to enable an instance launched in a VPC to perform NAT. This controls whether
-     * source/destination checking is enabled on the instance. A value of <code>true</code> means checking is enabled,
-     * and <code>false</code> means checking is disabled. The value must be <code>false</code> for the instance to
-     * perform NAT. For more information, see <a
-     * href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html">NAT Instances</a> in the
+     * source/destination checking is enabled on the instance. A value of <code>true</code> means that checking is
+     * enabled, and <code>false</code> means that checking is disabled. The value must be <code>false</code> for the
+     * instance to perform NAT. For more information, see <a
+     * href="https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html">NAT Instances</a> in the
      * <i>Amazon Virtual Private Cloud User Guide</i>.
      * </p>
      * 
      * @return Specifies whether to enable an instance launched in a VPC to perform NAT. This controls whether
-     *         source/destination checking is enabled on the instance. A value of <code>true</code> means checking is
-     *         enabled, and <code>false</code> means checking is disabled. The value must be <code>false</code> for the
-     *         instance to perform NAT. For more information, see <a
-     *         href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html">NAT Instances</a> in
+     *         source/destination checking is enabled on the instance. A value of <code>true</code> means that checking
+     *         is enabled, and <code>false</code> means that checking is disabled. The value must be <code>false</code>
+     *         for the instance to perform NAT. For more information, see <a
+     *         href="https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html">NAT Instances</a> in
      *         the <i>Amazon Virtual Private Cloud User Guide</i>.
      */
 
@@ -2065,11 +2257,11 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * If the request is a Spot instance request, the ID of the request.
+     * If the request is a Spot Instance request, the ID of the request.
      * </p>
      * 
      * @param spotInstanceRequestId
-     *        If the request is a Spot instance request, the ID of the request.
+     *        If the request is a Spot Instance request, the ID of the request.
      */
 
     public void setSpotInstanceRequestId(String spotInstanceRequestId) {
@@ -2078,10 +2270,10 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * If the request is a Spot instance request, the ID of the request.
+     * If the request is a Spot Instance request, the ID of the request.
      * </p>
      * 
-     * @return If the request is a Spot instance request, the ID of the request.
+     * @return If the request is a Spot Instance request, the ID of the request.
      */
 
     public String getSpotInstanceRequestId() {
@@ -2090,11 +2282,11 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * If the request is a Spot instance request, the ID of the request.
+     * If the request is a Spot Instance request, the ID of the request.
      * </p>
      * 
      * @param spotInstanceRequestId
-     *        If the request is a Spot instance request, the ID of the request.
+     *        If the request is a Spot Instance request, the ID of the request.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2330,7 +2522,241 @@ public class Instance implements Serializable, Cloneable {
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * <p>
+     * The CPU options for the instance.
+     * </p>
+     * 
+     * @param cpuOptions
+     *        The CPU options for the instance.
+     */
+
+    public void setCpuOptions(CpuOptions cpuOptions) {
+        this.cpuOptions = cpuOptions;
+    }
+
+    /**
+     * <p>
+     * The CPU options for the instance.
+     * </p>
+     * 
+     * @return The CPU options for the instance.
+     */
+
+    public CpuOptions getCpuOptions() {
+        return this.cpuOptions;
+    }
+
+    /**
+     * <p>
+     * The CPU options for the instance.
+     * </p>
+     * 
+     * @param cpuOptions
+     *        The CPU options for the instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Instance withCpuOptions(CpuOptions cpuOptions) {
+        setCpuOptions(cpuOptions);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The ID of the Capacity Reservation.
+     * </p>
+     * 
+     * @param capacityReservationId
+     *        The ID of the Capacity Reservation.
+     */
+
+    public void setCapacityReservationId(String capacityReservationId) {
+        this.capacityReservationId = capacityReservationId;
+    }
+
+    /**
+     * <p>
+     * The ID of the Capacity Reservation.
+     * </p>
+     * 
+     * @return The ID of the Capacity Reservation.
+     */
+
+    public String getCapacityReservationId() {
+        return this.capacityReservationId;
+    }
+
+    /**
+     * <p>
+     * The ID of the Capacity Reservation.
+     * </p>
+     * 
+     * @param capacityReservationId
+     *        The ID of the Capacity Reservation.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Instance withCapacityReservationId(String capacityReservationId) {
+        setCapacityReservationId(capacityReservationId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Information about the Capacity Reservation targeting option.
+     * </p>
+     * 
+     * @param capacityReservationSpecification
+     *        Information about the Capacity Reservation targeting option.
+     */
+
+    public void setCapacityReservationSpecification(CapacityReservationSpecificationResponse capacityReservationSpecification) {
+        this.capacityReservationSpecification = capacityReservationSpecification;
+    }
+
+    /**
+     * <p>
+     * Information about the Capacity Reservation targeting option.
+     * </p>
+     * 
+     * @return Information about the Capacity Reservation targeting option.
+     */
+
+    public CapacityReservationSpecificationResponse getCapacityReservationSpecification() {
+        return this.capacityReservationSpecification;
+    }
+
+    /**
+     * <p>
+     * Information about the Capacity Reservation targeting option.
+     * </p>
+     * 
+     * @param capacityReservationSpecification
+     *        Information about the Capacity Reservation targeting option.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Instance withCapacityReservationSpecification(CapacityReservationSpecificationResponse capacityReservationSpecification) {
+        setCapacityReservationSpecification(capacityReservationSpecification);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the instance is enabled for hibernation.
+     * </p>
+     * 
+     * @param hibernationOptions
+     *        Indicates whether the instance is enabled for hibernation.
+     */
+
+    public void setHibernationOptions(HibernationOptions hibernationOptions) {
+        this.hibernationOptions = hibernationOptions;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the instance is enabled for hibernation.
+     * </p>
+     * 
+     * @return Indicates whether the instance is enabled for hibernation.
+     */
+
+    public HibernationOptions getHibernationOptions() {
+        return this.hibernationOptions;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the instance is enabled for hibernation.
+     * </p>
+     * 
+     * @param hibernationOptions
+     *        Indicates whether the instance is enabled for hibernation.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Instance withHibernationOptions(HibernationOptions hibernationOptions) {
+        setHibernationOptions(hibernationOptions);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The license configurations.
+     * </p>
+     * 
+     * @return The license configurations.
+     */
+
+    public java.util.List<LicenseConfiguration> getLicenses() {
+        if (licenses == null) {
+            licenses = new com.amazonaws.internal.SdkInternalList<LicenseConfiguration>();
+        }
+        return licenses;
+    }
+
+    /**
+     * <p>
+     * The license configurations.
+     * </p>
+     * 
+     * @param licenses
+     *        The license configurations.
+     */
+
+    public void setLicenses(java.util.Collection<LicenseConfiguration> licenses) {
+        if (licenses == null) {
+            this.licenses = null;
+            return;
+        }
+
+        this.licenses = new com.amazonaws.internal.SdkInternalList<LicenseConfiguration>(licenses);
+    }
+
+    /**
+     * <p>
+     * The license configurations.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setLicenses(java.util.Collection)} or {@link #withLicenses(java.util.Collection)} if you want to override
+     * the existing values.
+     * </p>
+     * 
+     * @param licenses
+     *        The license configurations.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Instance withLicenses(LicenseConfiguration... licenses) {
+        if (this.licenses == null) {
+            setLicenses(new com.amazonaws.internal.SdkInternalList<LicenseConfiguration>(licenses.length));
+        }
+        for (LicenseConfiguration ele : licenses) {
+            this.licenses.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The license configurations.
+     * </p>
+     * 
+     * @param licenses
+     *        The license configurations.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Instance withLicenses(java.util.Collection<LicenseConfiguration> licenses) {
+        setLicenses(licenses);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -2396,6 +2822,10 @@ public class Instance implements Serializable, Cloneable {
             sb.append("IamInstanceProfile: ").append(getIamInstanceProfile()).append(",");
         if (getInstanceLifecycle() != null)
             sb.append("InstanceLifecycle: ").append(getInstanceLifecycle()).append(",");
+        if (getElasticGpuAssociations() != null)
+            sb.append("ElasticGpuAssociations: ").append(getElasticGpuAssociations()).append(",");
+        if (getElasticInferenceAcceleratorAssociations() != null)
+            sb.append("ElasticInferenceAcceleratorAssociations: ").append(getElasticInferenceAcceleratorAssociations()).append(",");
         if (getNetworkInterfaces() != null)
             sb.append("NetworkInterfaces: ").append(getNetworkInterfaces()).append(",");
         if (getRootDeviceName() != null)
@@ -2415,7 +2845,17 @@ public class Instance implements Serializable, Cloneable {
         if (getTags() != null)
             sb.append("Tags: ").append(getTags()).append(",");
         if (getVirtualizationType() != null)
-            sb.append("VirtualizationType: ").append(getVirtualizationType());
+            sb.append("VirtualizationType: ").append(getVirtualizationType()).append(",");
+        if (getCpuOptions() != null)
+            sb.append("CpuOptions: ").append(getCpuOptions()).append(",");
+        if (getCapacityReservationId() != null)
+            sb.append("CapacityReservationId: ").append(getCapacityReservationId()).append(",");
+        if (getCapacityReservationSpecification() != null)
+            sb.append("CapacityReservationSpecification: ").append(getCapacityReservationSpecification()).append(",");
+        if (getHibernationOptions() != null)
+            sb.append("HibernationOptions: ").append(getHibernationOptions()).append(",");
+        if (getLicenses() != null)
+            sb.append("Licenses: ").append(getLicenses());
         sb.append("}");
         return sb.toString();
     }
@@ -2542,6 +2982,15 @@ public class Instance implements Serializable, Cloneable {
             return false;
         if (other.getInstanceLifecycle() != null && other.getInstanceLifecycle().equals(this.getInstanceLifecycle()) == false)
             return false;
+        if (other.getElasticGpuAssociations() == null ^ this.getElasticGpuAssociations() == null)
+            return false;
+        if (other.getElasticGpuAssociations() != null && other.getElasticGpuAssociations().equals(this.getElasticGpuAssociations()) == false)
+            return false;
+        if (other.getElasticInferenceAcceleratorAssociations() == null ^ this.getElasticInferenceAcceleratorAssociations() == null)
+            return false;
+        if (other.getElasticInferenceAcceleratorAssociations() != null
+                && other.getElasticInferenceAcceleratorAssociations().equals(this.getElasticInferenceAcceleratorAssociations()) == false)
+            return false;
         if (other.getNetworkInterfaces() == null ^ this.getNetworkInterfaces() == null)
             return false;
         if (other.getNetworkInterfaces() != null && other.getNetworkInterfaces().equals(this.getNetworkInterfaces()) == false)
@@ -2582,6 +3031,27 @@ public class Instance implements Serializable, Cloneable {
             return false;
         if (other.getVirtualizationType() != null && other.getVirtualizationType().equals(this.getVirtualizationType()) == false)
             return false;
+        if (other.getCpuOptions() == null ^ this.getCpuOptions() == null)
+            return false;
+        if (other.getCpuOptions() != null && other.getCpuOptions().equals(this.getCpuOptions()) == false)
+            return false;
+        if (other.getCapacityReservationId() == null ^ this.getCapacityReservationId() == null)
+            return false;
+        if (other.getCapacityReservationId() != null && other.getCapacityReservationId().equals(this.getCapacityReservationId()) == false)
+            return false;
+        if (other.getCapacityReservationSpecification() == null ^ this.getCapacityReservationSpecification() == null)
+            return false;
+        if (other.getCapacityReservationSpecification() != null
+                && other.getCapacityReservationSpecification().equals(this.getCapacityReservationSpecification()) == false)
+            return false;
+        if (other.getHibernationOptions() == null ^ this.getHibernationOptions() == null)
+            return false;
+        if (other.getHibernationOptions() != null && other.getHibernationOptions().equals(this.getHibernationOptions()) == false)
+            return false;
+        if (other.getLicenses() == null ^ this.getLicenses() == null)
+            return false;
+        if (other.getLicenses() != null && other.getLicenses().equals(this.getLicenses()) == false)
+            return false;
         return true;
     }
 
@@ -2618,6 +3088,8 @@ public class Instance implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getHypervisor() == null) ? 0 : getHypervisor().hashCode());
         hashCode = prime * hashCode + ((getIamInstanceProfile() == null) ? 0 : getIamInstanceProfile().hashCode());
         hashCode = prime * hashCode + ((getInstanceLifecycle() == null) ? 0 : getInstanceLifecycle().hashCode());
+        hashCode = prime * hashCode + ((getElasticGpuAssociations() == null) ? 0 : getElasticGpuAssociations().hashCode());
+        hashCode = prime * hashCode + ((getElasticInferenceAcceleratorAssociations() == null) ? 0 : getElasticInferenceAcceleratorAssociations().hashCode());
         hashCode = prime * hashCode + ((getNetworkInterfaces() == null) ? 0 : getNetworkInterfaces().hashCode());
         hashCode = prime * hashCode + ((getRootDeviceName() == null) ? 0 : getRootDeviceName().hashCode());
         hashCode = prime * hashCode + ((getRootDeviceType() == null) ? 0 : getRootDeviceType().hashCode());
@@ -2628,6 +3100,11 @@ public class Instance implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getStateReason() == null) ? 0 : getStateReason().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         hashCode = prime * hashCode + ((getVirtualizationType() == null) ? 0 : getVirtualizationType().hashCode());
+        hashCode = prime * hashCode + ((getCpuOptions() == null) ? 0 : getCpuOptions().hashCode());
+        hashCode = prime * hashCode + ((getCapacityReservationId() == null) ? 0 : getCapacityReservationId().hashCode());
+        hashCode = prime * hashCode + ((getCapacityReservationSpecification() == null) ? 0 : getCapacityReservationSpecification().hashCode());
+        hashCode = prime * hashCode + ((getHibernationOptions() == null) ? 0 : getHibernationOptions().hashCode());
+        hashCode = prime * hashCode + ((getLicenses() == null) ? 0 : getLicenses().hashCode());
         return hashCode;
     }
 

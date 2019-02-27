@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -245,6 +245,8 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
      * </p>
      */
     private Integer automatedSnapshotRetentionPeriod;
+
+    private Integer manualSnapshotRetentionPeriod;
     /**
      * <p>
      * The AWS Key Management Service (KMS) key ID of the encryption key that you want to use to encrypt data in the
@@ -259,11 +261,13 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
      * <p>
      * Default: The node type of the cluster from which the snapshot was taken. You can modify this if you are using any
      * DS node type. In that case, you can choose to restore into another DS node type of the same size. For example,
-     * you can restore ds1.8xlarge into ds2.8xlarge, or ds2.xlarge into ds1.xlarge. If you have a DC instance type, you
+     * you can restore ds1.8xlarge into ds2.8xlarge, or ds1.xlarge into ds2.xlarge. If you have a DC instance type, you
      * must restore into that same instance type and size. In other words, you can only restore a dc1.large instance
-     * type into another dc1.large instance type. For more information about node types, see <a
+     * type into another dc1.large instance type or dc2.large instance type. You can't restore dc1.8xlarge to
+     * dc2.8xlarge. First restore to a dc1.8xlareg cluster, then resize to a dc2.8large cluster. For more information
+     * about node types, see <a
      * href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html#rs-about-clusters-and-nodes">
-     * About Clusters and Nodes</a> in the <i>Amazon Redshift Cluster Management Guide</i>
+     * About Clusters and Nodes</a> in the <i>Amazon Redshift Cluster Management Guide</i>.
      * </p>
      */
     private String nodeType;
@@ -299,6 +303,22 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> iamRoles;
+    /**
+     * <p>
+     * The name of the maintenance track for the restored cluster. When you take a snapshot, the snapshot inherits the
+     * <code>MaintenanceTrack</code> value from the cluster. The snapshot might be on a different track than the cluster
+     * that was the source for the snapshot. For example, suppose that you take a snapshot of a cluster that is on the
+     * current track and then change the cluster to be on the trailing track. In this case, the snapshot and the source
+     * cluster are on different tracks.
+     * </p>
+     */
+    private String maintenanceTrackName;
+    /**
+     * <p>
+     * A unique identifier for the snapshot schedule.
+     * </p>
+     */
+    private String snapshotScheduleIdentifier;
 
     /**
      * <p>
@@ -1775,6 +1795,32 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
     }
 
     /**
+     * @param manualSnapshotRetentionPeriod
+     */
+
+    public void setManualSnapshotRetentionPeriod(Integer manualSnapshotRetentionPeriod) {
+        this.manualSnapshotRetentionPeriod = manualSnapshotRetentionPeriod;
+    }
+
+    /**
+     * @return
+     */
+
+    public Integer getManualSnapshotRetentionPeriod() {
+        return this.manualSnapshotRetentionPeriod;
+    }
+
+    /**
+     * @param manualSnapshotRetentionPeriod
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreFromClusterSnapshotRequest withManualSnapshotRetentionPeriod(Integer manualSnapshotRetentionPeriod) {
+        setManualSnapshotRetentionPeriod(manualSnapshotRetentionPeriod);
+        return this;
+    }
+
+    /**
      * <p>
      * The AWS Key Management Service (KMS) key ID of the encryption key that you want to use to encrypt data in the
      * cluster that you restore from a shared snapshot.
@@ -1827,11 +1873,13 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
      * <p>
      * Default: The node type of the cluster from which the snapshot was taken. You can modify this if you are using any
      * DS node type. In that case, you can choose to restore into another DS node type of the same size. For example,
-     * you can restore ds1.8xlarge into ds2.8xlarge, or ds2.xlarge into ds1.xlarge. If you have a DC instance type, you
+     * you can restore ds1.8xlarge into ds2.8xlarge, or ds1.xlarge into ds2.xlarge. If you have a DC instance type, you
      * must restore into that same instance type and size. In other words, you can only restore a dc1.large instance
-     * type into another dc1.large instance type. For more information about node types, see <a
+     * type into another dc1.large instance type or dc2.large instance type. You can't restore dc1.8xlarge to
+     * dc2.8xlarge. First restore to a dc1.8xlareg cluster, then resize to a dc2.8large cluster. For more information
+     * about node types, see <a
      * href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html#rs-about-clusters-and-nodes">
-     * About Clusters and Nodes</a> in the <i>Amazon Redshift Cluster Management Guide</i>
+     * About Clusters and Nodes</a> in the <i>Amazon Redshift Cluster Management Guide</i>.
      * </p>
      * 
      * @param nodeType
@@ -1839,12 +1887,13 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
      *        <p>
      *        Default: The node type of the cluster from which the snapshot was taken. You can modify this if you are
      *        using any DS node type. In that case, you can choose to restore into another DS node type of the same
-     *        size. For example, you can restore ds1.8xlarge into ds2.8xlarge, or ds2.xlarge into ds1.xlarge. If you
+     *        size. For example, you can restore ds1.8xlarge into ds2.8xlarge, or ds1.xlarge into ds2.xlarge. If you
      *        have a DC instance type, you must restore into that same instance type and size. In other words, you can
-     *        only restore a dc1.large instance type into another dc1.large instance type. For more information about
-     *        node types, see <a href=
+     *        only restore a dc1.large instance type into another dc1.large instance type or dc2.large instance type.
+     *        You can't restore dc1.8xlarge to dc2.8xlarge. First restore to a dc1.8xlareg cluster, then resize to a
+     *        dc2.8large cluster. For more information about node types, see <a href=
      *        "http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html#rs-about-clusters-and-nodes">
-     *        About Clusters and Nodes</a> in the <i>Amazon Redshift Cluster Management Guide</i>
+     *        About Clusters and Nodes</a> in the <i>Amazon Redshift Cluster Management Guide</i>.
      */
 
     public void setNodeType(String nodeType) {
@@ -1858,23 +1907,26 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
      * <p>
      * Default: The node type of the cluster from which the snapshot was taken. You can modify this if you are using any
      * DS node type. In that case, you can choose to restore into another DS node type of the same size. For example,
-     * you can restore ds1.8xlarge into ds2.8xlarge, or ds2.xlarge into ds1.xlarge. If you have a DC instance type, you
+     * you can restore ds1.8xlarge into ds2.8xlarge, or ds1.xlarge into ds2.xlarge. If you have a DC instance type, you
      * must restore into that same instance type and size. In other words, you can only restore a dc1.large instance
-     * type into another dc1.large instance type. For more information about node types, see <a
+     * type into another dc1.large instance type or dc2.large instance type. You can't restore dc1.8xlarge to
+     * dc2.8xlarge. First restore to a dc1.8xlareg cluster, then resize to a dc2.8large cluster. For more information
+     * about node types, see <a
      * href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html#rs-about-clusters-and-nodes">
-     * About Clusters and Nodes</a> in the <i>Amazon Redshift Cluster Management Guide</i>
+     * About Clusters and Nodes</a> in the <i>Amazon Redshift Cluster Management Guide</i>.
      * </p>
      * 
      * @return The node type that the restored cluster will be provisioned with.</p>
      *         <p>
      *         Default: The node type of the cluster from which the snapshot was taken. You can modify this if you are
      *         using any DS node type. In that case, you can choose to restore into another DS node type of the same
-     *         size. For example, you can restore ds1.8xlarge into ds2.8xlarge, or ds2.xlarge into ds1.xlarge. If you
+     *         size. For example, you can restore ds1.8xlarge into ds2.8xlarge, or ds1.xlarge into ds2.xlarge. If you
      *         have a DC instance type, you must restore into that same instance type and size. In other words, you can
-     *         only restore a dc1.large instance type into another dc1.large instance type. For more information about
-     *         node types, see <a href=
+     *         only restore a dc1.large instance type into another dc1.large instance type or dc2.large instance type.
+     *         You can't restore dc1.8xlarge to dc2.8xlarge. First restore to a dc1.8xlareg cluster, then resize to a
+     *         dc2.8large cluster. For more information about node types, see <a href=
      *         "http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html#rs-about-clusters-and-nodes">
-     *         About Clusters and Nodes</a> in the <i>Amazon Redshift Cluster Management Guide</i>
+     *         About Clusters and Nodes</a> in the <i>Amazon Redshift Cluster Management Guide</i>.
      */
 
     public String getNodeType() {
@@ -1888,11 +1940,13 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
      * <p>
      * Default: The node type of the cluster from which the snapshot was taken. You can modify this if you are using any
      * DS node type. In that case, you can choose to restore into another DS node type of the same size. For example,
-     * you can restore ds1.8xlarge into ds2.8xlarge, or ds2.xlarge into ds1.xlarge. If you have a DC instance type, you
+     * you can restore ds1.8xlarge into ds2.8xlarge, or ds1.xlarge into ds2.xlarge. If you have a DC instance type, you
      * must restore into that same instance type and size. In other words, you can only restore a dc1.large instance
-     * type into another dc1.large instance type. For more information about node types, see <a
+     * type into another dc1.large instance type or dc2.large instance type. You can't restore dc1.8xlarge to
+     * dc2.8xlarge. First restore to a dc1.8xlareg cluster, then resize to a dc2.8large cluster. For more information
+     * about node types, see <a
      * href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html#rs-about-clusters-and-nodes">
-     * About Clusters and Nodes</a> in the <i>Amazon Redshift Cluster Management Guide</i>
+     * About Clusters and Nodes</a> in the <i>Amazon Redshift Cluster Management Guide</i>.
      * </p>
      * 
      * @param nodeType
@@ -1900,12 +1954,13 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
      *        <p>
      *        Default: The node type of the cluster from which the snapshot was taken. You can modify this if you are
      *        using any DS node type. In that case, you can choose to restore into another DS node type of the same
-     *        size. For example, you can restore ds1.8xlarge into ds2.8xlarge, or ds2.xlarge into ds1.xlarge. If you
+     *        size. For example, you can restore ds1.8xlarge into ds2.8xlarge, or ds1.xlarge into ds2.xlarge. If you
      *        have a DC instance type, you must restore into that same instance type and size. In other words, you can
-     *        only restore a dc1.large instance type into another dc1.large instance type. For more information about
-     *        node types, see <a href=
+     *        only restore a dc1.large instance type into another dc1.large instance type or dc2.large instance type.
+     *        You can't restore dc1.8xlarge to dc2.8xlarge. First restore to a dc1.8xlareg cluster, then resize to a
+     *        dc2.8large cluster. For more information about node types, see <a href=
      *        "http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html#rs-about-clusters-and-nodes">
-     *        About Clusters and Nodes</a> in the <i>Amazon Redshift Cluster Management Guide</i>
+     *        About Clusters and Nodes</a> in the <i>Amazon Redshift Cluster Management Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2184,7 +2239,112 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * <p>
+     * The name of the maintenance track for the restored cluster. When you take a snapshot, the snapshot inherits the
+     * <code>MaintenanceTrack</code> value from the cluster. The snapshot might be on a different track than the cluster
+     * that was the source for the snapshot. For example, suppose that you take a snapshot of a cluster that is on the
+     * current track and then change the cluster to be on the trailing track. In this case, the snapshot and the source
+     * cluster are on different tracks.
+     * </p>
+     * 
+     * @param maintenanceTrackName
+     *        The name of the maintenance track for the restored cluster. When you take a snapshot, the snapshot
+     *        inherits the <code>MaintenanceTrack</code> value from the cluster. The snapshot might be on a different
+     *        track than the cluster that was the source for the snapshot. For example, suppose that you take a snapshot
+     *        of a cluster that is on the current track and then change the cluster to be on the trailing track. In this
+     *        case, the snapshot and the source cluster are on different tracks.
+     */
+
+    public void setMaintenanceTrackName(String maintenanceTrackName) {
+        this.maintenanceTrackName = maintenanceTrackName;
+    }
+
+    /**
+     * <p>
+     * The name of the maintenance track for the restored cluster. When you take a snapshot, the snapshot inherits the
+     * <code>MaintenanceTrack</code> value from the cluster. The snapshot might be on a different track than the cluster
+     * that was the source for the snapshot. For example, suppose that you take a snapshot of a cluster that is on the
+     * current track and then change the cluster to be on the trailing track. In this case, the snapshot and the source
+     * cluster are on different tracks.
+     * </p>
+     * 
+     * @return The name of the maintenance track for the restored cluster. When you take a snapshot, the snapshot
+     *         inherits the <code>MaintenanceTrack</code> value from the cluster. The snapshot might be on a different
+     *         track than the cluster that was the source for the snapshot. For example, suppose that you take a
+     *         snapshot of a cluster that is on the current track and then change the cluster to be on the trailing
+     *         track. In this case, the snapshot and the source cluster are on different tracks.
+     */
+
+    public String getMaintenanceTrackName() {
+        return this.maintenanceTrackName;
+    }
+
+    /**
+     * <p>
+     * The name of the maintenance track for the restored cluster. When you take a snapshot, the snapshot inherits the
+     * <code>MaintenanceTrack</code> value from the cluster. The snapshot might be on a different track than the cluster
+     * that was the source for the snapshot. For example, suppose that you take a snapshot of a cluster that is on the
+     * current track and then change the cluster to be on the trailing track. In this case, the snapshot and the source
+     * cluster are on different tracks.
+     * </p>
+     * 
+     * @param maintenanceTrackName
+     *        The name of the maintenance track for the restored cluster. When you take a snapshot, the snapshot
+     *        inherits the <code>MaintenanceTrack</code> value from the cluster. The snapshot might be on a different
+     *        track than the cluster that was the source for the snapshot. For example, suppose that you take a snapshot
+     *        of a cluster that is on the current track and then change the cluster to be on the trailing track. In this
+     *        case, the snapshot and the source cluster are on different tracks.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreFromClusterSnapshotRequest withMaintenanceTrackName(String maintenanceTrackName) {
+        setMaintenanceTrackName(maintenanceTrackName);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A unique identifier for the snapshot schedule.
+     * </p>
+     * 
+     * @param snapshotScheduleIdentifier
+     *        A unique identifier for the snapshot schedule.
+     */
+
+    public void setSnapshotScheduleIdentifier(String snapshotScheduleIdentifier) {
+        this.snapshotScheduleIdentifier = snapshotScheduleIdentifier;
+    }
+
+    /**
+     * <p>
+     * A unique identifier for the snapshot schedule.
+     * </p>
+     * 
+     * @return A unique identifier for the snapshot schedule.
+     */
+
+    public String getSnapshotScheduleIdentifier() {
+        return this.snapshotScheduleIdentifier;
+    }
+
+    /**
+     * <p>
+     * A unique identifier for the snapshot schedule.
+     * </p>
+     * 
+     * @param snapshotScheduleIdentifier
+     *        A unique identifier for the snapshot schedule.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public RestoreFromClusterSnapshotRequest withSnapshotScheduleIdentifier(String snapshotScheduleIdentifier) {
+        setSnapshotScheduleIdentifier(snapshotScheduleIdentifier);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -2228,6 +2388,8 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
             sb.append("PreferredMaintenanceWindow: ").append(getPreferredMaintenanceWindow()).append(",");
         if (getAutomatedSnapshotRetentionPeriod() != null)
             sb.append("AutomatedSnapshotRetentionPeriod: ").append(getAutomatedSnapshotRetentionPeriod()).append(",");
+        if (getManualSnapshotRetentionPeriod() != null)
+            sb.append("ManualSnapshotRetentionPeriod: ").append(getManualSnapshotRetentionPeriod()).append(",");
         if (getKmsKeyId() != null)
             sb.append("KmsKeyId: ").append(getKmsKeyId()).append(",");
         if (getNodeType() != null)
@@ -2237,7 +2399,11 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
         if (getAdditionalInfo() != null)
             sb.append("AdditionalInfo: ").append(getAdditionalInfo()).append(",");
         if (getIamRoles() != null)
-            sb.append("IamRoles: ").append(getIamRoles());
+            sb.append("IamRoles: ").append(getIamRoles()).append(",");
+        if (getMaintenanceTrackName() != null)
+            sb.append("MaintenanceTrackName: ").append(getMaintenanceTrackName()).append(",");
+        if (getSnapshotScheduleIdentifier() != null)
+            sb.append("SnapshotScheduleIdentifier: ").append(getSnapshotScheduleIdentifier());
         sb.append("}");
         return sb.toString();
     }
@@ -2322,6 +2488,11 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
         if (other.getAutomatedSnapshotRetentionPeriod() != null
                 && other.getAutomatedSnapshotRetentionPeriod().equals(this.getAutomatedSnapshotRetentionPeriod()) == false)
             return false;
+        if (other.getManualSnapshotRetentionPeriod() == null ^ this.getManualSnapshotRetentionPeriod() == null)
+            return false;
+        if (other.getManualSnapshotRetentionPeriod() != null
+                && other.getManualSnapshotRetentionPeriod().equals(this.getManualSnapshotRetentionPeriod()) == false)
+            return false;
         if (other.getKmsKeyId() == null ^ this.getKmsKeyId() == null)
             return false;
         if (other.getKmsKeyId() != null && other.getKmsKeyId().equals(this.getKmsKeyId()) == false)
@@ -2341,6 +2512,14 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
         if (other.getIamRoles() == null ^ this.getIamRoles() == null)
             return false;
         if (other.getIamRoles() != null && other.getIamRoles().equals(this.getIamRoles()) == false)
+            return false;
+        if (other.getMaintenanceTrackName() == null ^ this.getMaintenanceTrackName() == null)
+            return false;
+        if (other.getMaintenanceTrackName() != null && other.getMaintenanceTrackName().equals(this.getMaintenanceTrackName()) == false)
+            return false;
+        if (other.getSnapshotScheduleIdentifier() == null ^ this.getSnapshotScheduleIdentifier() == null)
+            return false;
+        if (other.getSnapshotScheduleIdentifier() != null && other.getSnapshotScheduleIdentifier().equals(this.getSnapshotScheduleIdentifier()) == false)
             return false;
         return true;
     }
@@ -2367,11 +2546,14 @@ public class RestoreFromClusterSnapshotRequest extends com.amazonaws.AmazonWebSe
         hashCode = prime * hashCode + ((getVpcSecurityGroupIds() == null) ? 0 : getVpcSecurityGroupIds().hashCode());
         hashCode = prime * hashCode + ((getPreferredMaintenanceWindow() == null) ? 0 : getPreferredMaintenanceWindow().hashCode());
         hashCode = prime * hashCode + ((getAutomatedSnapshotRetentionPeriod() == null) ? 0 : getAutomatedSnapshotRetentionPeriod().hashCode());
+        hashCode = prime * hashCode + ((getManualSnapshotRetentionPeriod() == null) ? 0 : getManualSnapshotRetentionPeriod().hashCode());
         hashCode = prime * hashCode + ((getKmsKeyId() == null) ? 0 : getKmsKeyId().hashCode());
         hashCode = prime * hashCode + ((getNodeType() == null) ? 0 : getNodeType().hashCode());
         hashCode = prime * hashCode + ((getEnhancedVpcRouting() == null) ? 0 : getEnhancedVpcRouting().hashCode());
         hashCode = prime * hashCode + ((getAdditionalInfo() == null) ? 0 : getAdditionalInfo().hashCode());
         hashCode = prime * hashCode + ((getIamRoles() == null) ? 0 : getIamRoles().hashCode());
+        hashCode = prime * hashCode + ((getMaintenanceTrackName() == null) ? 0 : getMaintenanceTrackName().hashCode());
+        hashCode = prime * hashCode + ((getSnapshotScheduleIdentifier() == null) ? 0 : getSnapshotScheduleIdentifier().hashCode());
         return hashCode;
     }
 

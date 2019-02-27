@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -50,6 +50,13 @@ public class DescribeNodeAssociationStatusResult extends com.amazonaws.AmazonWeb
      * </ul>
      */
     private String nodeAssociationStatus;
+    /**
+     * <p>
+     * Attributes specific to the node association. In Puppet, the attibute PUPPET_NODE_CERT contains the signed
+     * certificate (the result of the CSR).
+     * </p>
+     */
+    private java.util.List<EngineAttribute> engineAttributes;
 
     /**
      * <p>
@@ -320,7 +327,86 @@ public class DescribeNodeAssociationStatusResult extends com.amazonaws.AmazonWeb
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * <p>
+     * Attributes specific to the node association. In Puppet, the attibute PUPPET_NODE_CERT contains the signed
+     * certificate (the result of the CSR).
+     * </p>
+     * 
+     * @return Attributes specific to the node association. In Puppet, the attibute PUPPET_NODE_CERT contains the signed
+     *         certificate (the result of the CSR).
+     */
+
+    public java.util.List<EngineAttribute> getEngineAttributes() {
+        return engineAttributes;
+    }
+
+    /**
+     * <p>
+     * Attributes specific to the node association. In Puppet, the attibute PUPPET_NODE_CERT contains the signed
+     * certificate (the result of the CSR).
+     * </p>
+     * 
+     * @param engineAttributes
+     *        Attributes specific to the node association. In Puppet, the attibute PUPPET_NODE_CERT contains the signed
+     *        certificate (the result of the CSR).
+     */
+
+    public void setEngineAttributes(java.util.Collection<EngineAttribute> engineAttributes) {
+        if (engineAttributes == null) {
+            this.engineAttributes = null;
+            return;
+        }
+
+        this.engineAttributes = new java.util.ArrayList<EngineAttribute>(engineAttributes);
+    }
+
+    /**
+     * <p>
+     * Attributes specific to the node association. In Puppet, the attibute PUPPET_NODE_CERT contains the signed
+     * certificate (the result of the CSR).
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setEngineAttributes(java.util.Collection)} or {@link #withEngineAttributes(java.util.Collection)} if you
+     * want to override the existing values.
+     * </p>
+     * 
+     * @param engineAttributes
+     *        Attributes specific to the node association. In Puppet, the attibute PUPPET_NODE_CERT contains the signed
+     *        certificate (the result of the CSR).
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeNodeAssociationStatusResult withEngineAttributes(EngineAttribute... engineAttributes) {
+        if (this.engineAttributes == null) {
+            setEngineAttributes(new java.util.ArrayList<EngineAttribute>(engineAttributes.length));
+        }
+        for (EngineAttribute ele : engineAttributes) {
+            this.engineAttributes.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Attributes specific to the node association. In Puppet, the attibute PUPPET_NODE_CERT contains the signed
+     * certificate (the result of the CSR).
+     * </p>
+     * 
+     * @param engineAttributes
+     *        Attributes specific to the node association. In Puppet, the attibute PUPPET_NODE_CERT contains the signed
+     *        certificate (the result of the CSR).
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeNodeAssociationStatusResult withEngineAttributes(java.util.Collection<EngineAttribute> engineAttributes) {
+        setEngineAttributes(engineAttributes);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -331,7 +417,9 @@ public class DescribeNodeAssociationStatusResult extends com.amazonaws.AmazonWeb
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getNodeAssociationStatus() != null)
-            sb.append("NodeAssociationStatus: ").append(getNodeAssociationStatus());
+            sb.append("NodeAssociationStatus: ").append(getNodeAssociationStatus()).append(",");
+        if (getEngineAttributes() != null)
+            sb.append("EngineAttributes: ").append(getEngineAttributes());
         sb.append("}");
         return sb.toString();
     }
@@ -350,6 +438,10 @@ public class DescribeNodeAssociationStatusResult extends com.amazonaws.AmazonWeb
             return false;
         if (other.getNodeAssociationStatus() != null && other.getNodeAssociationStatus().equals(this.getNodeAssociationStatus()) == false)
             return false;
+        if (other.getEngineAttributes() == null ^ this.getEngineAttributes() == null)
+            return false;
+        if (other.getEngineAttributes() != null && other.getEngineAttributes().equals(this.getEngineAttributes()) == false)
+            return false;
         return true;
     }
 
@@ -359,6 +451,7 @@ public class DescribeNodeAssociationStatusResult extends com.amazonaws.AmazonWeb
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getNodeAssociationStatus() == null) ? 0 : getNodeAssociationStatus().hashCode());
+        hashCode = prime * hashCode + ((getEngineAttributes() == null) ? 0 : getEngineAttributes().hashCode());
         return hashCode;
     }
 

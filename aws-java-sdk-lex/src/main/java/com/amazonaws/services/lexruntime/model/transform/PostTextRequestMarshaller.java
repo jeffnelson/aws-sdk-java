@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -37,6 +37,8 @@ public class PostTextRequestMarshaller {
             .marshallLocationName("userId").build();
     private static final MarshallingInfo<Map> SESSIONATTRIBUTES_BINDING = MarshallingInfo.builder(MarshallingType.MAP)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("sessionAttributes").build();
+    private static final MarshallingInfo<Map> REQUESTATTRIBUTES_BINDING = MarshallingInfo.builder(MarshallingType.MAP)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("requestAttributes").build();
     private static final MarshallingInfo<String> INPUTTEXT_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("inputText").build();
 
@@ -60,6 +62,7 @@ public class PostTextRequestMarshaller {
             protocolMarshaller.marshall(postTextRequest.getBotAlias(), BOTALIAS_BINDING);
             protocolMarshaller.marshall(postTextRequest.getUserId(), USERID_BINDING);
             protocolMarshaller.marshall(postTextRequest.getSessionAttributes(), SESSIONATTRIBUTES_BINDING);
+            protocolMarshaller.marshall(postTextRequest.getRequestAttributes(), REQUESTATTRIBUTES_BINDING);
             protocolMarshaller.marshall(postTextRequest.getInputText(), INPUTTEXT_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);

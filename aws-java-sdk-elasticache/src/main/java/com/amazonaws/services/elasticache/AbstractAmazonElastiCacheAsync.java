@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -140,6 +140,19 @@ public class AbstractAmazonElastiCacheAsync extends AbstractAmazonElastiCache im
     @Override
     public java.util.concurrent.Future<Snapshot> createSnapshotAsync(CreateSnapshotRequest request,
             com.amazonaws.handlers.AsyncHandler<CreateSnapshotRequest, Snapshot> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ReplicationGroup> decreaseReplicaCountAsync(DecreaseReplicaCountRequest request) {
+
+        return decreaseReplicaCountAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ReplicationGroup> decreaseReplicaCountAsync(DecreaseReplicaCountRequest request,
+            com.amazonaws.handlers.AsyncHandler<DecreaseReplicaCountRequest, ReplicationGroup> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -612,6 +625,19 @@ public class AbstractAmazonElastiCacheAsync extends AbstractAmazonElastiCache im
     }
 
     @Override
+    public java.util.concurrent.Future<ReplicationGroup> increaseReplicaCountAsync(IncreaseReplicaCountRequest request) {
+
+        return increaseReplicaCountAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ReplicationGroup> increaseReplicaCountAsync(IncreaseReplicaCountRequest request,
+            com.amazonaws.handlers.AsyncHandler<IncreaseReplicaCountRequest, ReplicationGroup> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<ListAllowedNodeTypeModificationsResult> listAllowedNodeTypeModificationsAsync(
             ListAllowedNodeTypeModificationsRequest request) {
 
@@ -711,6 +737,19 @@ public class AbstractAmazonElastiCacheAsync extends AbstractAmazonElastiCache im
     @Override
     public java.util.concurrent.Future<ReplicationGroup> modifyReplicationGroupAsync(ModifyReplicationGroupRequest request,
             com.amazonaws.handlers.AsyncHandler<ModifyReplicationGroupRequest, ReplicationGroup> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ReplicationGroup> modifyReplicationGroupShardConfigurationAsync(ModifyReplicationGroupShardConfigurationRequest request) {
+
+        return modifyReplicationGroupShardConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ReplicationGroup> modifyReplicationGroupShardConfigurationAsync(ModifyReplicationGroupShardConfigurationRequest request,
+            com.amazonaws.handlers.AsyncHandler<ModifyReplicationGroupShardConfigurationRequest, ReplicationGroup> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }

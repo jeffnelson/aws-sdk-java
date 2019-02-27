@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,7 @@ public class DescribeUsersRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Amazon WorkDocs authentication token. This field should not be set when using administrative API actions, as in
+     * Amazon WorkDocs authentication token. Do not set this field when using administrative API actions, as in
      * accessing the API using AWS credentials.
      * </p>
      */
@@ -90,13 +90,13 @@ public class DescribeUsersRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Amazon WorkDocs authentication token. This field should not be set when using administrative API actions, as in
+     * Amazon WorkDocs authentication token. Do not set this field when using administrative API actions, as in
      * accessing the API using AWS credentials.
      * </p>
      * 
      * @param authenticationToken
-     *        Amazon WorkDocs authentication token. This field should not be set when using administrative API actions,
-     *        as in accessing the API using AWS credentials.
+     *        Amazon WorkDocs authentication token. Do not set this field when using administrative API actions, as in
+     *        accessing the API using AWS credentials.
      */
 
     public void setAuthenticationToken(String authenticationToken) {
@@ -105,12 +105,12 @@ public class DescribeUsersRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Amazon WorkDocs authentication token. This field should not be set when using administrative API actions, as in
+     * Amazon WorkDocs authentication token. Do not set this field when using administrative API actions, as in
      * accessing the API using AWS credentials.
      * </p>
      * 
-     * @return Amazon WorkDocs authentication token. This field should not be set when using administrative API actions,
-     *         as in accessing the API using AWS credentials.
+     * @return Amazon WorkDocs authentication token. Do not set this field when using administrative API actions, as in
+     *         accessing the API using AWS credentials.
      */
 
     public String getAuthenticationToken() {
@@ -119,13 +119,13 @@ public class DescribeUsersRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * Amazon WorkDocs authentication token. This field should not be set when using administrative API actions, as in
+     * Amazon WorkDocs authentication token. Do not set this field when using administrative API actions, as in
      * accessing the API using AWS credentials.
      * </p>
      * 
      * @param authenticationToken
-     *        Amazon WorkDocs authentication token. This field should not be set when using administrative API actions,
-     *        as in accessing the API using AWS credentials.
+     *        Amazon WorkDocs authentication token. Do not set this field when using administrative API actions, as in
+     *        accessing the API using AWS credentials.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -600,7 +600,8 @@ public class DescribeUsersRequest extends com.amazonaws.AmazonWebServiceRequest 
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -611,13 +612,13 @@ public class DescribeUsersRequest extends com.amazonaws.AmazonWebServiceRequest 
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getAuthenticationToken() != null)
-            sb.append("AuthenticationToken: ").append(getAuthenticationToken()).append(",");
+            sb.append("AuthenticationToken: ").append("***Sensitive Data Redacted***").append(",");
         if (getOrganizationId() != null)
             sb.append("OrganizationId: ").append(getOrganizationId()).append(",");
         if (getUserIds() != null)
             sb.append("UserIds: ").append(getUserIds()).append(",");
         if (getQuery() != null)
-            sb.append("Query: ").append(getQuery()).append(",");
+            sb.append("Query: ").append("***Sensitive Data Redacted***").append(",");
         if (getInclude() != null)
             sb.append("Include: ").append(getInclude()).append(",");
         if (getOrder() != null)

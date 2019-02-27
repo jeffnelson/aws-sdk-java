@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,6 +12,7 @@
  */
 package com.amazonaws.services.elasticfilesystem.model.transform;
 
+import java.util.List;
 import javax.annotation.Generated;
 
 import com.amazonaws.SdkClientException;
@@ -31,6 +32,16 @@ public class CreateFileSystemRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CreationToken").build();
     private static final MarshallingInfo<String> PERFORMANCEMODE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("PerformanceMode").build();
+    private static final MarshallingInfo<Boolean> ENCRYPTED_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Encrypted").build();
+    private static final MarshallingInfo<String> KMSKEYID_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("KmsKeyId").build();
+    private static final MarshallingInfo<String> THROUGHPUTMODE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ThroughputMode").build();
+    private static final MarshallingInfo<Double> PROVISIONEDTHROUGHPUTINMIBPS_BINDING = MarshallingInfo.builder(MarshallingType.DOUBLE)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ProvisionedThroughputInMibps").build();
+    private static final MarshallingInfo<List> TAGS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Tags").build();
 
     private static final CreateFileSystemRequestMarshaller instance = new CreateFileSystemRequestMarshaller();
 
@@ -50,6 +61,11 @@ public class CreateFileSystemRequestMarshaller {
         try {
             protocolMarshaller.marshall(createFileSystemRequest.getCreationToken(), CREATIONTOKEN_BINDING);
             protocolMarshaller.marshall(createFileSystemRequest.getPerformanceMode(), PERFORMANCEMODE_BINDING);
+            protocolMarshaller.marshall(createFileSystemRequest.getEncrypted(), ENCRYPTED_BINDING);
+            protocolMarshaller.marshall(createFileSystemRequest.getKmsKeyId(), KMSKEYID_BINDING);
+            protocolMarshaller.marshall(createFileSystemRequest.getThroughputMode(), THROUGHPUTMODE_BINDING);
+            protocolMarshaller.marshall(createFileSystemRequest.getProvisionedThroughputInMibps(), PROVISIONEDTHROUGHPUTINMIBPS_BINDING);
+            protocolMarshaller.marshall(createFileSystemRequest.getTags(), TAGS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

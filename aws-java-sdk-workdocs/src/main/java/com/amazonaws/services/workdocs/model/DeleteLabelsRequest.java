@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,7 +33,7 @@ public class DeleteLabelsRequest extends com.amazonaws.AmazonWebServiceRequest i
     private String resourceId;
     /**
      * <p>
-     * Amazon WorkDocs authentication token. This field should not be set when using administrative API actions, as in
+     * Amazon WorkDocs authentication token. Do not set this field when using administrative API actions, as in
      * accessing the API using AWS credentials.
      * </p>
      */
@@ -93,13 +93,13 @@ public class DeleteLabelsRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Amazon WorkDocs authentication token. This field should not be set when using administrative API actions, as in
+     * Amazon WorkDocs authentication token. Do not set this field when using administrative API actions, as in
      * accessing the API using AWS credentials.
      * </p>
      * 
      * @param authenticationToken
-     *        Amazon WorkDocs authentication token. This field should not be set when using administrative API actions,
-     *        as in accessing the API using AWS credentials.
+     *        Amazon WorkDocs authentication token. Do not set this field when using administrative API actions, as in
+     *        accessing the API using AWS credentials.
      */
 
     public void setAuthenticationToken(String authenticationToken) {
@@ -108,12 +108,12 @@ public class DeleteLabelsRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Amazon WorkDocs authentication token. This field should not be set when using administrative API actions, as in
+     * Amazon WorkDocs authentication token. Do not set this field when using administrative API actions, as in
      * accessing the API using AWS credentials.
      * </p>
      * 
-     * @return Amazon WorkDocs authentication token. This field should not be set when using administrative API actions,
-     *         as in accessing the API using AWS credentials.
+     * @return Amazon WorkDocs authentication token. Do not set this field when using administrative API actions, as in
+     *         accessing the API using AWS credentials.
      */
 
     public String getAuthenticationToken() {
@@ -122,13 +122,13 @@ public class DeleteLabelsRequest extends com.amazonaws.AmazonWebServiceRequest i
 
     /**
      * <p>
-     * Amazon WorkDocs authentication token. This field should not be set when using administrative API actions, as in
+     * Amazon WorkDocs authentication token. Do not set this field when using administrative API actions, as in
      * accessing the API using AWS credentials.
      * </p>
      * 
      * @param authenticationToken
-     *        Amazon WorkDocs authentication token. This field should not be set when using administrative API actions,
-     *        as in accessing the API using AWS credentials.
+     *        Amazon WorkDocs authentication token. Do not set this field when using administrative API actions, as in
+     *        accessing the API using AWS credentials.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -260,7 +260,8 @@ public class DeleteLabelsRequest extends com.amazonaws.AmazonWebServiceRequest i
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -273,7 +274,7 @@ public class DeleteLabelsRequest extends com.amazonaws.AmazonWebServiceRequest i
         if (getResourceId() != null)
             sb.append("ResourceId: ").append(getResourceId()).append(",");
         if (getAuthenticationToken() != null)
-            sb.append("AuthenticationToken: ").append(getAuthenticationToken()).append(",");
+            sb.append("AuthenticationToken: ").append("***Sensitive Data Redacted***").append(",");
         if (getLabels() != null)
             sb.append("Labels: ").append(getLabels()).append(",");
         if (getDeleteAll() != null)

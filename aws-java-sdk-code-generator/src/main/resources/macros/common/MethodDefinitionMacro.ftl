@@ -154,6 +154,8 @@
         this.${variableName} = ${setter.variableName};
     }
 
+    <#-- Do not add Jackson annotations to enum getters and setters. This can break customers.
+         See commit bda4dd89 in codegen package -->
     ${getterDoc}
     ${deprecated}
     <@AdditionalAnnotationsForAccessors.content shape.type member/>
@@ -185,7 +187,9 @@
         </#if>
     </#list>
 
-    <#if member.enumType?has_content && !member.shouldSupressEnumSetter>
+     <#-- Do not add Jackson annotations to enum getters and setters. This can break customers.
+          See commit bda4dd89 in codegen package -->
+    <#if member.enumType?has_content && member.shouldEmitLegacyEnumSetter>
     ${setterDoc}
     ${deprecated}
     public void ${setterMethodName}(${member.enumType} ${setter.variableName}) {

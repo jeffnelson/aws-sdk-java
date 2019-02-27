@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -58,9 +58,18 @@ public class MessageRequestJsonUnmarshaller implements Unmarshaller<MessageReque
                     messageRequest.setContext(new MapUnmarshaller<String, String>(context.getUnmarshaller(String.class), context.getUnmarshaller(String.class))
                             .unmarshall(context));
                 }
+                if (context.testExpression("Endpoints", targetDepth)) {
+                    context.nextToken();
+                    messageRequest.setEndpoints(new MapUnmarshaller<String, EndpointSendConfiguration>(context.getUnmarshaller(String.class),
+                            EndpointSendConfigurationJsonUnmarshaller.getInstance()).unmarshall(context));
+                }
                 if (context.testExpression("MessageConfiguration", targetDepth)) {
                     context.nextToken();
                     messageRequest.setMessageConfiguration(DirectMessageConfigurationJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("TraceId", targetDepth)) {
+                    context.nextToken();
+                    messageRequest.setTraceId(context.getUnmarshaller(String.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

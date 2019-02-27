@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,11 +30,13 @@ public class InstanceAccessDetailsMarshaller {
     private static final MarshallingInfo<String> CERTKEY_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("certKey").build();
     private static final MarshallingInfo<java.util.Date> EXPIRESAT_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
-            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("expiresAt").build();
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("expiresAt").timestampFormat("unixTimestamp").build();
     private static final MarshallingInfo<String> IPADDRESS_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("ipAddress").build();
     private static final MarshallingInfo<String> PASSWORD_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("password").build();
+    private static final MarshallingInfo<StructuredPojo> PASSWORDDATA_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("passwordData").build();
     private static final MarshallingInfo<String> PRIVATEKEY_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("privateKey").build();
     private static final MarshallingInfo<String> PROTOCOL_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
@@ -64,6 +66,7 @@ public class InstanceAccessDetailsMarshaller {
             protocolMarshaller.marshall(instanceAccessDetails.getExpiresAt(), EXPIRESAT_BINDING);
             protocolMarshaller.marshall(instanceAccessDetails.getIpAddress(), IPADDRESS_BINDING);
             protocolMarshaller.marshall(instanceAccessDetails.getPassword(), PASSWORD_BINDING);
+            protocolMarshaller.marshall(instanceAccessDetails.getPasswordData(), PASSWORDDATA_BINDING);
             protocolMarshaller.marshall(instanceAccessDetails.getPrivateKey(), PRIVATEKEY_BINDING);
             protocolMarshaller.marshall(instanceAccessDetails.getProtocol(), PROTOCOL_BINDING);
             protocolMarshaller.marshall(instanceAccessDetails.getInstanceName(), INSTANCENAME_BINDING);

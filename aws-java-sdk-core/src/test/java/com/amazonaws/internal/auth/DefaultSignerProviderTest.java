@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -107,6 +107,27 @@ public class DefaultSignerProviderTest {
         FooSigner fooSigner = (FooSigner) signer;
 
         assertThat(fooSigner.getRegionName(), is(equalTo("us-east-1")));
+        assertThat(fooSigner.getServiceName(), is(equalTo("MockService")));
+    }
+
+    @Test
+    public void testSignerRegionWhenUsingNonStandardEndpoint() throws URISyntaxException {
+        when(mockClient.getServiceName()).thenReturn("MockService");
+        when(mockClient.getEndpointPrefix()).thenReturn("MockEndpointPrefix");
+
+        Request<?> signerAwareRequest = new DefaultRequest<FooSignedRequest>(new FooSignedRequest(), "MockService");
+        String bjsEndpoint = "https://MockEndpointPrefix.cn-north-1.amazonaws.com.cn";
+        signerAwareRequest.setEndpoint(new URI(bjsEndpoint));
+
+        SignerProviderContext ctx = SignerProviderContext.builder()
+                .withRequest(signerAwareRequest)
+                .build();
+
+        Signer signer = defaultSignerProvider.getSigner(ctx);
+
+        FooSigner fooSigner = (FooSigner) signer;
+
+        assertThat(fooSigner.getRegionName(), is(equalTo("cn-north-1")));
         assertThat(fooSigner.getServiceName(), is(equalTo("MockService")));
     }
 

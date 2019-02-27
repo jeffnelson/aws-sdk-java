@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,6 +33,10 @@ public class NotificationMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ComparisonOperator").build();
     private static final MarshallingInfo<Double> THRESHOLD_BINDING = MarshallingInfo.builder(MarshallingType.DOUBLE).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Threshold").build();
+    private static final MarshallingInfo<String> THRESHOLDTYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ThresholdType").build();
+    private static final MarshallingInfo<String> NOTIFICATIONSTATE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("NotificationState").build();
 
     private static final NotificationMarshaller instance = new NotificationMarshaller();
 
@@ -53,6 +57,8 @@ public class NotificationMarshaller {
             protocolMarshaller.marshall(notification.getNotificationType(), NOTIFICATIONTYPE_BINDING);
             protocolMarshaller.marshall(notification.getComparisonOperator(), COMPARISONOPERATOR_BINDING);
             protocolMarshaller.marshall(notification.getThreshold(), THRESHOLD_BINDING);
+            protocolMarshaller.marshall(notification.getThresholdType(), THRESHOLDTYPE_BINDING);
+            protocolMarshaller.marshall(notification.getNotificationState(), NOTIFICATIONSTATE_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

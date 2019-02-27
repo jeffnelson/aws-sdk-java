@@ -36,7 +36,6 @@ import org.apache.http.client.config.AuthSchemes;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpHead;
 import org.apache.http.client.methods.HttpOptions;
 import org.apache.http.client.methods.HttpPatch;
@@ -62,13 +61,22 @@ public class ApacheHttpRequestFactory implements
             FakeIOException {
         URI endpoint = request.getEndpoint();
 
-        /*
-         * HttpClient cannot handle url in pattern of "http://host//path", so we
-         * have to escape the double-slash between endpoint and resource-path
-         * into "/%2F"
-         */
-        String uri = SdkHttpUtils.appendUri(endpoint.toString(), request
-                .getResourcePath(), true);
+
+        String uri;
+
+        // skipAppendUriPath is set for APIs making requests with presigned urls. Otherwise
+        // a slash will be appended at the end and the request will fail
+        if (request.getOriginalRequest().getRequestClientOptions().isSkipAppendUriPath()) {
+            uri = endpoint.toString();
+        } else {
+            /*
+             * HttpClient cannot handle url in pattern of "http://host//path", so we
+             * have to escape the double-slash between endpoint and resource-path
+             * into "/%2F"
+             */
+            uri = SdkHttpUtils.appendUri(endpoint.toString(), request.getResourcePath(), true);
+        }
+
         String encodedParams = SdkHttpUtils.encodeParameters(request);
 
         /*
@@ -121,7 +129,7 @@ public class ApacheHttpRequestFactory implements
             case HEAD:
                 return new HttpHead(uri);
             case GET:
-                return new HttpGet(uri);
+                return wrapEntity(request, new HttpGetWithBody(uri), encodedParams);
             case DELETE:
                 return new HttpDelete(uri);
             case OPTIONS:

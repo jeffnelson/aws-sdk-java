@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -38,7 +38,7 @@ public class TeamMember implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The role assigned to the user in the project. Project roles have different levels of access. For more
      * information, see <a href="http://docs.aws.amazon.com/codestar/latest/userguide/working-with-teams.html">Working
-     * with Teams</a> in the AWS CodeStar User Guide.
+     * with Teams</a> in the <i>AWS CodeStar User Guide</i>.
      * </p>
      */
     private String projectRole;
@@ -93,14 +93,14 @@ public class TeamMember implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The role assigned to the user in the project. Project roles have different levels of access. For more
      * information, see <a href="http://docs.aws.amazon.com/codestar/latest/userguide/working-with-teams.html">Working
-     * with Teams</a> in the AWS CodeStar User Guide.
+     * with Teams</a> in the <i>AWS CodeStar User Guide</i>.
      * </p>
      * 
      * @param projectRole
      *        The role assigned to the user in the project. Project roles have different levels of access. For more
      *        information, see <a
      *        href="http://docs.aws.amazon.com/codestar/latest/userguide/working-with-teams.html">Working with Teams</a>
-     *        in the AWS CodeStar User Guide.
+     *        in the <i>AWS CodeStar User Guide</i>.
      */
 
     public void setProjectRole(String projectRole) {
@@ -111,13 +111,13 @@ public class TeamMember implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The role assigned to the user in the project. Project roles have different levels of access. For more
      * information, see <a href="http://docs.aws.amazon.com/codestar/latest/userguide/working-with-teams.html">Working
-     * with Teams</a> in the AWS CodeStar User Guide.
+     * with Teams</a> in the <i>AWS CodeStar User Guide</i>.
      * </p>
      * 
      * @return The role assigned to the user in the project. Project roles have different levels of access. For more
      *         information, see <a
      *         href="http://docs.aws.amazon.com/codestar/latest/userguide/working-with-teams.html">Working with
-     *         Teams</a> in the AWS CodeStar User Guide.
+     *         Teams</a> in the <i>AWS CodeStar User Guide</i>.
      */
 
     public String getProjectRole() {
@@ -128,14 +128,14 @@ public class TeamMember implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The role assigned to the user in the project. Project roles have different levels of access. For more
      * information, see <a href="http://docs.aws.amazon.com/codestar/latest/userguide/working-with-teams.html">Working
-     * with Teams</a> in the AWS CodeStar User Guide.
+     * with Teams</a> in the <i>AWS CodeStar User Guide</i>.
      * </p>
      * 
      * @param projectRole
      *        The role assigned to the user in the project. Project roles have different levels of access. For more
      *        information, see <a
      *        href="http://docs.aws.amazon.com/codestar/latest/userguide/working-with-teams.html">Working with Teams</a>
-     *        in the AWS CodeStar User Guide.
+     *        in the <i>AWS CodeStar User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -197,7 +197,8 @@ public class TeamMember implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

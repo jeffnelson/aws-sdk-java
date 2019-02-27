@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -21,7 +21,16 @@ import javax.annotation.Generated;
 public enum MetricType {
 
     DynamoDBReadCapacityUtilization("DynamoDBReadCapacityUtilization"),
-    DynamoDBWriteCapacityUtilization("DynamoDBWriteCapacityUtilization");
+    DynamoDBWriteCapacityUtilization("DynamoDBWriteCapacityUtilization"),
+    ALBRequestCountPerTarget("ALBRequestCountPerTarget"),
+    RDSReaderAverageCPUUtilization("RDSReaderAverageCPUUtilization"),
+    RDSReaderAverageDatabaseConnections("RDSReaderAverageDatabaseConnections"),
+    EC2SpotFleetRequestAverageCPUUtilization("EC2SpotFleetRequestAverageCPUUtilization"),
+    EC2SpotFleetRequestAverageNetworkIn("EC2SpotFleetRequestAverageNetworkIn"),
+    EC2SpotFleetRequestAverageNetworkOut("EC2SpotFleetRequestAverageNetworkOut"),
+    SageMakerVariantInvocationsPerInstance("SageMakerVariantInvocationsPerInstance"),
+    ECSServiceAverageCPUUtilization("ECSServiceAverageCPUUtilization"),
+    ECSServiceAverageMemoryUtilization("ECSServiceAverageMemoryUtilization");
 
     private String value;
 
@@ -40,6 +49,9 @@ public enum MetricType {
      * @param value
      *        real value
      * @return MetricType corresponding to the value
+     *
+     * @throws IllegalArgumentException
+     *         If the specified value does not map to one of the known values in this enum.
      */
     public static MetricType fromValue(String value) {
         if (value == null || "".equals(value)) {

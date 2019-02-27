@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -37,6 +37,8 @@ import com.amazonaws.protocol.json.*;
 import com.amazonaws.util.AWSRequestMetrics.Field;
 import com.amazonaws.annotation.ThreadSafe;
 import com.amazonaws.client.AwsSyncClientParams;
+import com.amazonaws.client.builder.AdvancedConfig;
+
 import com.amazonaws.services.cloudhsm.AWSCloudHSMClientBuilder;
 
 import com.amazonaws.AmazonServiceException;
@@ -49,10 +51,22 @@ import com.amazonaws.services.cloudhsm.model.transform.*;
  * service call completes.
  * <p>
  * <fullname>AWS CloudHSM Service</fullname>
+ * <p>
+ * This is documentation for <b>AWS CloudHSM Classic</b>. For more information, see <a
+ * href="http://aws.amazon.com/cloudhsm/faqs-classic/">AWS CloudHSM Classic FAQs</a>, the <a
+ * href="http://docs.aws.amazon.com/cloudhsm/classic/userguide/">AWS CloudHSM Classic User Guide</a>, and the <a
+ * href="http://docs.aws.amazon.com/cloudhsm/classic/APIReference/">AWS CloudHSM Classic API Reference</a>.
+ * </p>
+ * <p>
+ * <b>For information about the current version of AWS CloudHSM</b>, see <a href="http://aws.amazon.com/cloudhsm/">AWS
+ * CloudHSM</a>, the <a href="http://docs.aws.amazon.com/cloudhsm/latest/userguide/">AWS CloudHSM User Guide</a>, and
+ * the <a href="http://docs.aws.amazon.com/cloudhsm/latest/APIReference/">AWS CloudHSM API Reference</a>.
+ * </p>
  */
 @ThreadSafe
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSCloudHSM {
+
     /** Provider for AWS credentials. */
     private final AWSCredentialsProvider awsCredentialsProvider;
 
@@ -64,7 +78,9 @@ public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSClou
     /** Client configuration factory providing ClientConfigurations tailored to this client */
     protected static final ClientConfigurationFactory configFactory = new ClientConfigurationFactory();
 
-    private final com.amazonaws.protocol.json.SdkJsonProtocolFactory protocolFactory = new com.amazonaws.protocol.json.SdkJsonProtocolFactory(
+    private final AdvancedConfig advancedConfig;
+
+    private static final com.amazonaws.protocol.json.SdkJsonProtocolFactory protocolFactory = new com.amazonaws.protocol.json.SdkJsonProtocolFactory(
             new JsonClientMetadata()
                     .withProtocolVersion("1.1")
                     .withSupportsCbor(false)
@@ -163,6 +179,7 @@ public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSClou
     public AWSCloudHSMClient(AWSCredentials awsCredentials, ClientConfiguration clientConfiguration) {
         super(clientConfiguration);
         this.awsCredentialsProvider = new StaticCredentialsProvider(awsCredentials);
+        this.advancedConfig = AdvancedConfig.EMPTY;
         init();
     }
 
@@ -228,6 +245,7 @@ public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSClou
             RequestMetricCollector requestMetricCollector) {
         super(clientConfiguration, requestMetricCollector);
         this.awsCredentialsProvider = awsCredentialsProvider;
+        this.advancedConfig = AdvancedConfig.EMPTY;
         init();
     }
 
@@ -246,8 +264,23 @@ public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSClou
      *        Object providing client parameters.
      */
     AWSCloudHSMClient(AwsSyncClientParams clientParams) {
+        this(clientParams, false);
+    }
+
+    /**
+     * Constructs a new client to invoke service methods on CloudHSM using the specified parameters.
+     *
+     * <p>
+     * All service calls made using this new client object are blocking, and will not return until the service call
+     * completes.
+     *
+     * @param clientParams
+     *        Object providing client parameters.
+     */
+    AWSCloudHSMClient(AwsSyncClientParams clientParams, boolean endpointDiscoveryEnabled) {
         super(clientParams);
         this.awsCredentialsProvider = clientParams.getCredentialsProvider();
+        this.advancedConfig = clientParams.getAdvancedConfig();
         init();
     }
 
@@ -263,6 +296,18 @@ public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSClou
     }
 
     /**
+     * <p>
+     * This is documentation for <b>AWS CloudHSM Classic</b>. For more information, see <a
+     * href="http://aws.amazon.com/cloudhsm/faqs-classic/">AWS CloudHSM Classic FAQs</a>, the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/classic/userguide/">AWS CloudHSM Classic User Guide</a>, and the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/classic/APIReference/">AWS CloudHSM Classic API Reference</a>.
+     * </p>
+     * <p>
+     * <b>For information about the current version of AWS CloudHSM</b>, see <a
+     * href="http://aws.amazon.com/cloudhsm/">AWS CloudHSM</a>, the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/latest/userguide/">AWS CloudHSM User Guide</a>, and the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/latest/APIReference/">AWS CloudHSM API Reference</a>.
+     * </p>
      * <p>
      * Adds or overwrites one or more tags for the specified AWS CloudHSM resource.
      * </p>
@@ -303,6 +348,10 @@ public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSClou
                 request = new AddTagsToResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(addTagsToResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudHSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AddTagsToResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -320,6 +369,18 @@ public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSClou
     }
 
     /**
+     * <p>
+     * This is documentation for <b>AWS CloudHSM Classic</b>. For more information, see <a
+     * href="http://aws.amazon.com/cloudhsm/faqs-classic/">AWS CloudHSM Classic FAQs</a>, the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/classic/userguide/">AWS CloudHSM Classic User Guide</a>, and the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/classic/APIReference/">AWS CloudHSM Classic API Reference</a>.
+     * </p>
+     * <p>
+     * <b>For information about the current version of AWS CloudHSM</b>, see <a
+     * href="http://aws.amazon.com/cloudhsm/">AWS CloudHSM</a>, the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/latest/userguide/">AWS CloudHSM User Guide</a>, and the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/latest/APIReference/">AWS CloudHSM API Reference</a>.
+     * </p>
      * <p>
      * Creates a high-availability partition group. A high-availability partition group is a group of partitions that
      * spans multiple physical HSMs.
@@ -359,6 +420,10 @@ public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSClou
                 request = new CreateHapgRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createHapgRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudHSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateHapg");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -377,12 +442,24 @@ public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSClou
 
     /**
      * <p>
+     * This is documentation for <b>AWS CloudHSM Classic</b>. For more information, see <a
+     * href="http://aws.amazon.com/cloudhsm/faqs-classic/">AWS CloudHSM Classic FAQs</a>, the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/classic/userguide/">AWS CloudHSM Classic User Guide</a>, and the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/classic/APIReference/">AWS CloudHSM Classic API Reference</a>.
+     * </p>
+     * <p>
+     * <b>For information about the current version of AWS CloudHSM</b>, see <a
+     * href="http://aws.amazon.com/cloudhsm/">AWS CloudHSM</a>, the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/latest/userguide/">AWS CloudHSM User Guide</a>, and the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/latest/APIReference/">AWS CloudHSM API Reference</a>.
+     * </p>
+     * <p>
      * Creates an uninitialized HSM instance.
      * </p>
      * <p>
-     * There is an upfront fee charged for each HSM instance that you create with the <a>CreateHsm</a> operation. If you
-     * accidentally provision an HSM and want to request a refund, delete the instance using the <a>DeleteHsm</a>
-     * operation, go to the <a href="https://console.aws.amazon.com/support/home#/">AWS Support Center</a>, create a new
+     * There is an upfront fee charged for each HSM instance that you create with the <code>CreateHsm</code> operation.
+     * If you accidentally provision an HSM and want to request a refund, delete the instance using the <a>DeleteHsm</a>
+     * operation, go to the <a href="https://console.aws.amazon.com/support/home">AWS Support Center</a>, create a new
      * case, and select <b>Account and Billing Support</b>.
      * </p>
      * <important>
@@ -393,7 +470,7 @@ public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSClou
      * </important>
      * 
      * @param createHsmRequest
-     *        Contains the inputs for the <a>CreateHsm</a> operation.
+     *        Contains the inputs for the <code>CreateHsm</code> operation.
      * @return Result of the CreateHsm operation returned by the service.
      * @throws CloudHsmServiceException
      *         Indicates that an exception occurred in the AWS CloudHSM service.
@@ -426,6 +503,10 @@ public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSClou
                 request = new CreateHsmRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createHsmRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudHSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateHsm");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -443,6 +524,18 @@ public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSClou
     }
 
     /**
+     * <p>
+     * This is documentation for <b>AWS CloudHSM Classic</b>. For more information, see <a
+     * href="http://aws.amazon.com/cloudhsm/faqs-classic/">AWS CloudHSM Classic FAQs</a>, the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/classic/userguide/">AWS CloudHSM Classic User Guide</a>, and the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/classic/APIReference/">AWS CloudHSM Classic API Reference</a>.
+     * </p>
+     * <p>
+     * <b>For information about the current version of AWS CloudHSM</b>, see <a
+     * href="http://aws.amazon.com/cloudhsm/">AWS CloudHSM</a>, the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/latest/userguide/">AWS CloudHSM User Guide</a>, and the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/latest/APIReference/">AWS CloudHSM API Reference</a>.
+     * </p>
      * <p>
      * Creates an HSM client.
      * </p>
@@ -481,6 +574,10 @@ public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSClou
                 request = new CreateLunaClientRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createLunaClientRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudHSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateLunaClient");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -498,6 +595,18 @@ public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSClou
     }
 
     /**
+     * <p>
+     * This is documentation for <b>AWS CloudHSM Classic</b>. For more information, see <a
+     * href="http://aws.amazon.com/cloudhsm/faqs-classic/">AWS CloudHSM Classic FAQs</a>, the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/classic/userguide/">AWS CloudHSM Classic User Guide</a>, and the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/classic/APIReference/">AWS CloudHSM Classic API Reference</a>.
+     * </p>
+     * <p>
+     * <b>For information about the current version of AWS CloudHSM</b>, see <a
+     * href="http://aws.amazon.com/cloudhsm/">AWS CloudHSM</a>, the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/latest/userguide/">AWS CloudHSM User Guide</a>, and the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/latest/APIReference/">AWS CloudHSM API Reference</a>.
+     * </p>
      * <p>
      * Deletes a high-availability partition group.
      * </p>
@@ -536,6 +645,10 @@ public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSClou
                 request = new DeleteHapgRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteHapgRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudHSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteHapg");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -553,6 +666,18 @@ public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSClou
     }
 
     /**
+     * <p>
+     * This is documentation for <b>AWS CloudHSM Classic</b>. For more information, see <a
+     * href="http://aws.amazon.com/cloudhsm/faqs-classic/">AWS CloudHSM Classic FAQs</a>, the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/classic/userguide/">AWS CloudHSM Classic User Guide</a>, and the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/classic/APIReference/">AWS CloudHSM Classic API Reference</a>.
+     * </p>
+     * <p>
+     * <b>For information about the current version of AWS CloudHSM</b>, see <a
+     * href="http://aws.amazon.com/cloudhsm/">AWS CloudHSM</a>, the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/latest/userguide/">AWS CloudHSM User Guide</a>, and the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/latest/APIReference/">AWS CloudHSM API Reference</a>.
+     * </p>
      * <p>
      * Deletes an HSM. After completion, this operation cannot be undone and your key material cannot be recovered.
      * </p>
@@ -591,6 +716,10 @@ public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSClou
                 request = new DeleteHsmRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteHsmRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudHSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteHsm");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -608,6 +737,18 @@ public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSClou
     }
 
     /**
+     * <p>
+     * This is documentation for <b>AWS CloudHSM Classic</b>. For more information, see <a
+     * href="http://aws.amazon.com/cloudhsm/faqs-classic/">AWS CloudHSM Classic FAQs</a>, the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/classic/userguide/">AWS CloudHSM Classic User Guide</a>, and the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/classic/APIReference/">AWS CloudHSM Classic API Reference</a>.
+     * </p>
+     * <p>
+     * <b>For information about the current version of AWS CloudHSM</b>, see <a
+     * href="http://aws.amazon.com/cloudhsm/">AWS CloudHSM</a>, the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/latest/userguide/">AWS CloudHSM User Guide</a>, and the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/latest/APIReference/">AWS CloudHSM API Reference</a>.
+     * </p>
      * <p>
      * Deletes a client.
      * </p>
@@ -645,6 +786,10 @@ public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSClou
                 request = new DeleteLunaClientRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteLunaClientRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudHSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteLunaClient");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -662,6 +807,18 @@ public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSClou
     }
 
     /**
+     * <p>
+     * This is documentation for <b>AWS CloudHSM Classic</b>. For more information, see <a
+     * href="http://aws.amazon.com/cloudhsm/faqs-classic/">AWS CloudHSM Classic FAQs</a>, the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/classic/userguide/">AWS CloudHSM Classic User Guide</a>, and the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/classic/APIReference/">AWS CloudHSM Classic API Reference</a>.
+     * </p>
+     * <p>
+     * <b>For information about the current version of AWS CloudHSM</b>, see <a
+     * href="http://aws.amazon.com/cloudhsm/">AWS CloudHSM</a>, the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/latest/userguide/">AWS CloudHSM User Guide</a>, and the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/latest/APIReference/">AWS CloudHSM API Reference</a>.
+     * </p>
      * <p>
      * Retrieves information about a high-availability partition group.
      * </p>
@@ -700,6 +857,10 @@ public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSClou
                 request = new DescribeHapgRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeHapgRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudHSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeHapg");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -717,6 +878,18 @@ public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSClou
     }
 
     /**
+     * <p>
+     * This is documentation for <b>AWS CloudHSM Classic</b>. For more information, see <a
+     * href="http://aws.amazon.com/cloudhsm/faqs-classic/">AWS CloudHSM Classic FAQs</a>, the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/classic/userguide/">AWS CloudHSM Classic User Guide</a>, and the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/classic/APIReference/">AWS CloudHSM Classic API Reference</a>.
+     * </p>
+     * <p>
+     * <b>For information about the current version of AWS CloudHSM</b>, see <a
+     * href="http://aws.amazon.com/cloudhsm/">AWS CloudHSM</a>, the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/latest/userguide/">AWS CloudHSM User Guide</a>, and the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/latest/APIReference/">AWS CloudHSM API Reference</a>.
+     * </p>
      * <p>
      * Retrieves information about an HSM. You can identify the HSM by its ARN or its serial number.
      * </p>
@@ -755,6 +928,10 @@ public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSClou
                 request = new DescribeHsmRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeHsmRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudHSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeHsm");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -777,6 +954,18 @@ public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSClou
     }
 
     /**
+     * <p>
+     * This is documentation for <b>AWS CloudHSM Classic</b>. For more information, see <a
+     * href="http://aws.amazon.com/cloudhsm/faqs-classic/">AWS CloudHSM Classic FAQs</a>, the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/classic/userguide/">AWS CloudHSM Classic User Guide</a>, and the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/classic/APIReference/">AWS CloudHSM Classic API Reference</a>.
+     * </p>
+     * <p>
+     * <b>For information about the current version of AWS CloudHSM</b>, see <a
+     * href="http://aws.amazon.com/cloudhsm/">AWS CloudHSM</a>, the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/latest/userguide/">AWS CloudHSM User Guide</a>, and the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/latest/APIReference/">AWS CloudHSM API Reference</a>.
+     * </p>
      * <p>
      * Retrieves information about an HSM client.
      * </p>
@@ -814,6 +1003,10 @@ public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSClou
                 request = new DescribeLunaClientRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(describeLunaClientRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudHSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeLunaClient");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -836,6 +1029,18 @@ public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSClou
     }
 
     /**
+     * <p>
+     * This is documentation for <b>AWS CloudHSM Classic</b>. For more information, see <a
+     * href="http://aws.amazon.com/cloudhsm/faqs-classic/">AWS CloudHSM Classic FAQs</a>, the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/classic/userguide/">AWS CloudHSM Classic User Guide</a>, and the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/classic/APIReference/">AWS CloudHSM Classic API Reference</a>.
+     * </p>
+     * <p>
+     * <b>For information about the current version of AWS CloudHSM</b>, see <a
+     * href="http://aws.amazon.com/cloudhsm/">AWS CloudHSM</a>, the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/latest/userguide/">AWS CloudHSM User Guide</a>, and the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/latest/APIReference/">AWS CloudHSM API Reference</a>.
+     * </p>
      * <p>
      * Gets the configuration files necessary to connect to all high availability partition groups the client is
      * associated with.
@@ -874,6 +1079,10 @@ public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSClou
                 request = new GetConfigRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getConfigRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudHSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetConfig");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -891,6 +1100,18 @@ public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSClou
     }
 
     /**
+     * <p>
+     * This is documentation for <b>AWS CloudHSM Classic</b>. For more information, see <a
+     * href="http://aws.amazon.com/cloudhsm/faqs-classic/">AWS CloudHSM Classic FAQs</a>, the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/classic/userguide/">AWS CloudHSM Classic User Guide</a>, and the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/classic/APIReference/">AWS CloudHSM Classic API Reference</a>.
+     * </p>
+     * <p>
+     * <b>For information about the current version of AWS CloudHSM</b>, see <a
+     * href="http://aws.amazon.com/cloudhsm/">AWS CloudHSM</a>, the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/latest/userguide/">AWS CloudHSM User Guide</a>, and the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/latest/APIReference/">AWS CloudHSM API Reference</a>.
+     * </p>
      * <p>
      * Lists the Availability Zones that have available AWS CloudHSM capacity.
      * </p>
@@ -929,6 +1150,10 @@ public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSClou
                 request = new ListAvailableZonesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listAvailableZonesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudHSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListAvailableZones");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -952,12 +1177,24 @@ public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSClou
 
     /**
      * <p>
+     * This is documentation for <b>AWS CloudHSM Classic</b>. For more information, see <a
+     * href="http://aws.amazon.com/cloudhsm/faqs-classic/">AWS CloudHSM Classic FAQs</a>, the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/classic/userguide/">AWS CloudHSM Classic User Guide</a>, and the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/classic/APIReference/">AWS CloudHSM Classic API Reference</a>.
+     * </p>
+     * <p>
+     * <b>For information about the current version of AWS CloudHSM</b>, see <a
+     * href="http://aws.amazon.com/cloudhsm/">AWS CloudHSM</a>, the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/latest/userguide/">AWS CloudHSM User Guide</a>, and the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/latest/APIReference/">AWS CloudHSM API Reference</a>.
+     * </p>
+     * <p>
      * Lists the high-availability partition groups for the account.
      * </p>
      * <p>
-     * This operation supports pagination with the use of the <i>NextToken</i> member. If more results are available,
-     * the <i>NextToken</i> member of the response contains a token that you pass in the next call to <a>ListHapgs</a>
-     * to retrieve the next set of items.
+     * This operation supports pagination with the use of the <code>NextToken</code> member. If more results are
+     * available, the <code>NextToken</code> member of the response contains a token that you pass in the next call to
+     * <code>ListHapgs</code> to retrieve the next set of items.
      * </p>
      * 
      * @param listHapgsRequest
@@ -993,6 +1230,10 @@ public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSClou
                 request = new ListHapgsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listHapgsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudHSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListHapgs");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1016,12 +1257,24 @@ public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSClou
 
     /**
      * <p>
+     * This is documentation for <b>AWS CloudHSM Classic</b>. For more information, see <a
+     * href="http://aws.amazon.com/cloudhsm/faqs-classic/">AWS CloudHSM Classic FAQs</a>, the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/classic/userguide/">AWS CloudHSM Classic User Guide</a>, and the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/classic/APIReference/">AWS CloudHSM Classic API Reference</a>.
+     * </p>
+     * <p>
+     * <b>For information about the current version of AWS CloudHSM</b>, see <a
+     * href="http://aws.amazon.com/cloudhsm/">AWS CloudHSM</a>, the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/latest/userguide/">AWS CloudHSM User Guide</a>, and the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/latest/APIReference/">AWS CloudHSM API Reference</a>.
+     * </p>
+     * <p>
      * Retrieves the identifiers of all of the HSMs provisioned for the current customer.
      * </p>
      * <p>
-     * This operation supports pagination with the use of the <i>NextToken</i> member. If more results are available,
-     * the <i>NextToken</i> member of the response contains a token that you pass in the next call to <a>ListHsms</a> to
-     * retrieve the next set of items.
+     * This operation supports pagination with the use of the <code>NextToken</code> member. If more results are
+     * available, the <code>NextToken</code> member of the response contains a token that you pass in the next call to
+     * <code>ListHsms</code> to retrieve the next set of items.
      * </p>
      * 
      * @param listHsmsRequest
@@ -1057,6 +1310,10 @@ public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSClou
                 request = new ListHsmsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listHsmsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudHSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListHsms");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1080,12 +1337,24 @@ public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSClou
 
     /**
      * <p>
+     * This is documentation for <b>AWS CloudHSM Classic</b>. For more information, see <a
+     * href="http://aws.amazon.com/cloudhsm/faqs-classic/">AWS CloudHSM Classic FAQs</a>, the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/classic/userguide/">AWS CloudHSM Classic User Guide</a>, and the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/classic/APIReference/">AWS CloudHSM Classic API Reference</a>.
+     * </p>
+     * <p>
+     * <b>For information about the current version of AWS CloudHSM</b>, see <a
+     * href="http://aws.amazon.com/cloudhsm/">AWS CloudHSM</a>, the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/latest/userguide/">AWS CloudHSM User Guide</a>, and the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/latest/APIReference/">AWS CloudHSM API Reference</a>.
+     * </p>
+     * <p>
      * Lists all of the clients.
      * </p>
      * <p>
-     * This operation supports pagination with the use of the <i>NextToken</i> member. If more results are available,
-     * the <i>NextToken</i> member of the response contains a token that you pass in the next call to
-     * <a>ListLunaClients</a> to retrieve the next set of items.
+     * This operation supports pagination with the use of the <code>NextToken</code> member. If more results are
+     * available, the <code>NextToken</code> member of the response contains a token that you pass in the next call to
+     * <code>ListLunaClients</code> to retrieve the next set of items.
      * </p>
      * 
      * @param listLunaClientsRequest
@@ -1121,6 +1390,10 @@ public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSClou
                 request = new ListLunaClientsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listLunaClientsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudHSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListLunaClients");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1143,6 +1416,18 @@ public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSClou
     }
 
     /**
+     * <p>
+     * This is documentation for <b>AWS CloudHSM Classic</b>. For more information, see <a
+     * href="http://aws.amazon.com/cloudhsm/faqs-classic/">AWS CloudHSM Classic FAQs</a>, the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/classic/userguide/">AWS CloudHSM Classic User Guide</a>, and the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/classic/APIReference/">AWS CloudHSM Classic API Reference</a>.
+     * </p>
+     * <p>
+     * <b>For information about the current version of AWS CloudHSM</b>, see <a
+     * href="http://aws.amazon.com/cloudhsm/">AWS CloudHSM</a>, the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/latest/userguide/">AWS CloudHSM User Guide</a>, and the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/latest/APIReference/">AWS CloudHSM API Reference</a>.
+     * </p>
      * <p>
      * Returns a list of all tags for the specified AWS CloudHSM resource.
      * </p>
@@ -1180,6 +1465,10 @@ public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSClou
                 request = new ListTagsForResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listTagsForResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudHSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListTagsForResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1197,6 +1486,18 @@ public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSClou
     }
 
     /**
+     * <p>
+     * This is documentation for <b>AWS CloudHSM Classic</b>. For more information, see <a
+     * href="http://aws.amazon.com/cloudhsm/faqs-classic/">AWS CloudHSM Classic FAQs</a>, the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/classic/userguide/">AWS CloudHSM Classic User Guide</a>, and the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/classic/APIReference/">AWS CloudHSM Classic API Reference</a>.
+     * </p>
+     * <p>
+     * <b>For information about the current version of AWS CloudHSM</b>, see <a
+     * href="http://aws.amazon.com/cloudhsm/">AWS CloudHSM</a>, the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/latest/userguide/">AWS CloudHSM User Guide</a>, and the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/latest/APIReference/">AWS CloudHSM API Reference</a>.
+     * </p>
      * <p>
      * Modifies an existing high-availability partition group.
      * </p>
@@ -1234,6 +1535,10 @@ public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSClou
                 request = new ModifyHapgRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(modifyHapgRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudHSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ModifyHapg");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1251,6 +1556,18 @@ public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSClou
     }
 
     /**
+     * <p>
+     * This is documentation for <b>AWS CloudHSM Classic</b>. For more information, see <a
+     * href="http://aws.amazon.com/cloudhsm/faqs-classic/">AWS CloudHSM Classic FAQs</a>, the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/classic/userguide/">AWS CloudHSM Classic User Guide</a>, and the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/classic/APIReference/">AWS CloudHSM Classic API Reference</a>.
+     * </p>
+     * <p>
+     * <b>For information about the current version of AWS CloudHSM</b>, see <a
+     * href="http://aws.amazon.com/cloudhsm/">AWS CloudHSM</a>, the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/latest/userguide/">AWS CloudHSM User Guide</a>, and the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/latest/APIReference/">AWS CloudHSM API Reference</a>.
+     * </p>
      * <p>
      * Modifies an HSM.
      * </p>
@@ -1296,6 +1613,10 @@ public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSClou
                 request = new ModifyHsmRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(modifyHsmRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudHSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ModifyHsm");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1313,6 +1634,18 @@ public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSClou
     }
 
     /**
+     * <p>
+     * This is documentation for <b>AWS CloudHSM Classic</b>. For more information, see <a
+     * href="http://aws.amazon.com/cloudhsm/faqs-classic/">AWS CloudHSM Classic FAQs</a>, the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/classic/userguide/">AWS CloudHSM Classic User Guide</a>, and the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/classic/APIReference/">AWS CloudHSM Classic API Reference</a>.
+     * </p>
+     * <p>
+     * <b>For information about the current version of AWS CloudHSM</b>, see <a
+     * href="http://aws.amazon.com/cloudhsm/">AWS CloudHSM</a>, the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/latest/userguide/">AWS CloudHSM User Guide</a>, and the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/latest/APIReference/">AWS CloudHSM API Reference</a>.
+     * </p>
      * <p>
      * Modifies the certificate used by the client.
      * </p>
@@ -1349,6 +1682,10 @@ public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSClou
                 request = new ModifyLunaClientRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(modifyLunaClientRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudHSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ModifyLunaClient");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1366,6 +1703,18 @@ public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSClou
     }
 
     /**
+     * <p>
+     * This is documentation for <b>AWS CloudHSM Classic</b>. For more information, see <a
+     * href="http://aws.amazon.com/cloudhsm/faqs-classic/">AWS CloudHSM Classic FAQs</a>, the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/classic/userguide/">AWS CloudHSM Classic User Guide</a>, and the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/classic/APIReference/">AWS CloudHSM Classic API Reference</a>.
+     * </p>
+     * <p>
+     * <b>For information about the current version of AWS CloudHSM</b>, see <a
+     * href="http://aws.amazon.com/cloudhsm/">AWS CloudHSM</a>, the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/latest/userguide/">AWS CloudHSM User Guide</a>, and the <a
+     * href="http://docs.aws.amazon.com/cloudhsm/latest/APIReference/">AWS CloudHSM API Reference</a>.
+     * </p>
      * <p>
      * Removes one or more tags from the specified AWS CloudHSM resource.
      * </p>
@@ -1407,6 +1756,10 @@ public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSClou
                 request = new RemoveTagsFromResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(removeTagsFromResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudHSM");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RemoveTagsFromResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1448,9 +1801,18 @@ public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSClou
     private <X, Y extends AmazonWebServiceRequest> Response<X> invoke(Request<Y> request, HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler,
             ExecutionContext executionContext) {
 
+        return invoke(request, responseHandler, executionContext, null, null);
+    }
+
+    /**
+     * Normal invoke with authentication. Credentials are required and may be overriden at the request level.
+     **/
+    private <X, Y extends AmazonWebServiceRequest> Response<X> invoke(Request<Y> request, HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler,
+            ExecutionContext executionContext, URI cachedEndpoint, URI uriFromEndpointTrait) {
+
         executionContext.setCredentialsProvider(CredentialUtils.getCredentialsProvider(request.getOriginalRequest(), awsCredentialsProvider));
 
-        return doInvoke(request, responseHandler, executionContext);
+        return doInvoke(request, responseHandler, executionContext, cachedEndpoint, uriFromEndpointTrait);
     }
 
     /**
@@ -1460,7 +1822,7 @@ public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSClou
     private <X, Y extends AmazonWebServiceRequest> Response<X> anonymousInvoke(Request<Y> request,
             HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler, ExecutionContext executionContext) {
 
-        return doInvoke(request, responseHandler, executionContext);
+        return doInvoke(request, responseHandler, executionContext, null, null);
     }
 
     /**
@@ -1468,13 +1830,27 @@ public class AWSCloudHSMClient extends AmazonWebServiceClient implements AWSClou
      * ExecutionContext beforehand.
      **/
     private <X, Y extends AmazonWebServiceRequest> Response<X> doInvoke(Request<Y> request, HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler,
-            ExecutionContext executionContext) {
-        request.setEndpoint(endpoint);
+            ExecutionContext executionContext, URI discoveredEndpoint, URI uriFromEndpointTrait) {
+
+        if (discoveredEndpoint != null) {
+            request.setEndpoint(discoveredEndpoint);
+            request.getOriginalRequest().getRequestClientOptions().appendUserAgent("endpoint-discovery");
+        } else if (uriFromEndpointTrait != null) {
+            request.setEndpoint(uriFromEndpointTrait);
+        } else {
+            request.setEndpoint(endpoint);
+        }
+
         request.setTimeOffset(timeOffset);
 
         HttpResponseHandler<AmazonServiceException> errorResponseHandler = protocolFactory.createErrorResponseHandler(new JsonErrorResponseMetadata());
 
         return client.execute(request, responseHandler, errorResponseHandler, executionContext);
+    }
+
+    @com.amazonaws.annotation.SdkInternalApi
+    static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
+        return protocolFactory;
     }
 
 }

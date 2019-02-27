@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,13 +19,16 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * Send message request.
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/MessageRequest" target="_top">AWS API
+ *      Documentation</a>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class MessageRequest implements Serializable, Cloneable, StructuredPojo {
 
     /**
-     * A map of destination addresses, with the address as the key(Email address, phone number or push token) and the
-     * Address Configuration as the value.
+     * A map of key-value pairs, where each key is an address and each value is an AddressConfiguration object. An
+     * address can be a push notification token, a phone number, or an email address.
      */
     private java.util.Map<String, AddressConfiguration> addresses;
     /**
@@ -33,15 +36,23 @@ public class MessageRequest implements Serializable, Cloneable, StructuredPojo {
      * notification's 'data.pinpoint' object or added to the email/sms delivery receipt event attributes.
      */
     private java.util.Map<String, String> context;
+    /**
+     * A map of key-value pairs, where each key is an endpoint ID and each value is an EndpointSendConfiguration object.
+     * Within an EndpointSendConfiguration object, you can tailor the message for an endpoint by specifying message
+     * overrides or substitutions.
+     */
+    private java.util.Map<String, EndpointSendConfiguration> endpoints;
     /** Message configuration. */
     private DirectMessageConfiguration messageConfiguration;
+    /** A unique ID that you can use to trace a message. This ID is visible to recipients. */
+    private String traceId;
 
     /**
-     * A map of destination addresses, with the address as the key(Email address, phone number or push token) and the
-     * Address Configuration as the value.
+     * A map of key-value pairs, where each key is an address and each value is an AddressConfiguration object. An
+     * address can be a push notification token, a phone number, or an email address.
      * 
-     * @return A map of destination addresses, with the address as the key(Email address, phone number or push token)
-     *         and the Address Configuration as the value.
+     * @return A map of key-value pairs, where each key is an address and each value is an AddressConfiguration object.
+     *         An address can be a push notification token, a phone number, or an email address.
      */
 
     public java.util.Map<String, AddressConfiguration> getAddresses() {
@@ -49,12 +60,12 @@ public class MessageRequest implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * A map of destination addresses, with the address as the key(Email address, phone number or push token) and the
-     * Address Configuration as the value.
+     * A map of key-value pairs, where each key is an address and each value is an AddressConfiguration object. An
+     * address can be a push notification token, a phone number, or an email address.
      * 
      * @param addresses
-     *        A map of destination addresses, with the address as the key(Email address, phone number or push token) and
-     *        the Address Configuration as the value.
+     *        A map of key-value pairs, where each key is an address and each value is an AddressConfiguration object.
+     *        An address can be a push notification token, a phone number, or an email address.
      */
 
     public void setAddresses(java.util.Map<String, AddressConfiguration> addresses) {
@@ -62,12 +73,12 @@ public class MessageRequest implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * A map of destination addresses, with the address as the key(Email address, phone number or push token) and the
-     * Address Configuration as the value.
+     * A map of key-value pairs, where each key is an address and each value is an AddressConfiguration object. An
+     * address can be a push notification token, a phone number, or an email address.
      * 
      * @param addresses
-     *        A map of destination addresses, with the address as the key(Email address, phone number or push token) and
-     *        the Address Configuration as the value.
+     *        A map of key-value pairs, where each key is an address and each value is an AddressConfiguration object.
+     *        An address can be a push notification token, a phone number, or an email address.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -159,6 +170,73 @@ public class MessageRequest implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * A map of key-value pairs, where each key is an endpoint ID and each value is an EndpointSendConfiguration object.
+     * Within an EndpointSendConfiguration object, you can tailor the message for an endpoint by specifying message
+     * overrides or substitutions.
+     * 
+     * @return A map of key-value pairs, where each key is an endpoint ID and each value is an EndpointSendConfiguration
+     *         object. Within an EndpointSendConfiguration object, you can tailor the message for an endpoint by
+     *         specifying message overrides or substitutions.
+     */
+
+    public java.util.Map<String, EndpointSendConfiguration> getEndpoints() {
+        return endpoints;
+    }
+
+    /**
+     * A map of key-value pairs, where each key is an endpoint ID and each value is an EndpointSendConfiguration object.
+     * Within an EndpointSendConfiguration object, you can tailor the message for an endpoint by specifying message
+     * overrides or substitutions.
+     * 
+     * @param endpoints
+     *        A map of key-value pairs, where each key is an endpoint ID and each value is an EndpointSendConfiguration
+     *        object. Within an EndpointSendConfiguration object, you can tailor the message for an endpoint by
+     *        specifying message overrides or substitutions.
+     */
+
+    public void setEndpoints(java.util.Map<String, EndpointSendConfiguration> endpoints) {
+        this.endpoints = endpoints;
+    }
+
+    /**
+     * A map of key-value pairs, where each key is an endpoint ID and each value is an EndpointSendConfiguration object.
+     * Within an EndpointSendConfiguration object, you can tailor the message for an endpoint by specifying message
+     * overrides or substitutions.
+     * 
+     * @param endpoints
+     *        A map of key-value pairs, where each key is an endpoint ID and each value is an EndpointSendConfiguration
+     *        object. Within an EndpointSendConfiguration object, you can tailor the message for an endpoint by
+     *        specifying message overrides or substitutions.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public MessageRequest withEndpoints(java.util.Map<String, EndpointSendConfiguration> endpoints) {
+        setEndpoints(endpoints);
+        return this;
+    }
+
+    public MessageRequest addEndpointsEntry(String key, EndpointSendConfiguration value) {
+        if (null == this.endpoints) {
+            this.endpoints = new java.util.HashMap<String, EndpointSendConfiguration>();
+        }
+        if (this.endpoints.containsKey(key))
+            throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
+        this.endpoints.put(key, value);
+        return this;
+    }
+
+    /**
+     * Removes all the entries added into Endpoints.
+     *
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public MessageRequest clearEndpointsEntries() {
+        this.endpoints = null;
+        return this;
+    }
+
+    /**
      * Message configuration.
      * 
      * @param messageConfiguration
@@ -193,7 +271,42 @@ public class MessageRequest implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * A unique ID that you can use to trace a message. This ID is visible to recipients.
+     * 
+     * @param traceId
+     *        A unique ID that you can use to trace a message. This ID is visible to recipients.
+     */
+
+    public void setTraceId(String traceId) {
+        this.traceId = traceId;
+    }
+
+    /**
+     * A unique ID that you can use to trace a message. This ID is visible to recipients.
+     * 
+     * @return A unique ID that you can use to trace a message. This ID is visible to recipients.
+     */
+
+    public String getTraceId() {
+        return this.traceId;
+    }
+
+    /**
+     * A unique ID that you can use to trace a message. This ID is visible to recipients.
+     * 
+     * @param traceId
+     *        A unique ID that you can use to trace a message. This ID is visible to recipients.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public MessageRequest withTraceId(String traceId) {
+        setTraceId(traceId);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -207,8 +320,12 @@ public class MessageRequest implements Serializable, Cloneable, StructuredPojo {
             sb.append("Addresses: ").append(getAddresses()).append(",");
         if (getContext() != null)
             sb.append("Context: ").append(getContext()).append(",");
+        if (getEndpoints() != null)
+            sb.append("Endpoints: ").append(getEndpoints()).append(",");
         if (getMessageConfiguration() != null)
-            sb.append("MessageConfiguration: ").append(getMessageConfiguration());
+            sb.append("MessageConfiguration: ").append(getMessageConfiguration()).append(",");
+        if (getTraceId() != null)
+            sb.append("TraceId: ").append(getTraceId());
         sb.append("}");
         return sb.toString();
     }
@@ -231,9 +348,17 @@ public class MessageRequest implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getContext() != null && other.getContext().equals(this.getContext()) == false)
             return false;
+        if (other.getEndpoints() == null ^ this.getEndpoints() == null)
+            return false;
+        if (other.getEndpoints() != null && other.getEndpoints().equals(this.getEndpoints()) == false)
+            return false;
         if (other.getMessageConfiguration() == null ^ this.getMessageConfiguration() == null)
             return false;
         if (other.getMessageConfiguration() != null && other.getMessageConfiguration().equals(this.getMessageConfiguration()) == false)
+            return false;
+        if (other.getTraceId() == null ^ this.getTraceId() == null)
+            return false;
+        if (other.getTraceId() != null && other.getTraceId().equals(this.getTraceId()) == false)
             return false;
         return true;
     }
@@ -245,7 +370,9 @@ public class MessageRequest implements Serializable, Cloneable, StructuredPojo {
 
         hashCode = prime * hashCode + ((getAddresses() == null) ? 0 : getAddresses().hashCode());
         hashCode = prime * hashCode + ((getContext() == null) ? 0 : getContext().hashCode());
+        hashCode = prime * hashCode + ((getEndpoints() == null) ? 0 : getEndpoints().hashCode());
         hashCode = prime * hashCode + ((getMessageConfiguration() == null) ? 0 : getMessageConfiguration().hashCode());
+        hashCode = prime * hashCode + ((getTraceId() == null) ? 0 : getTraceId().hashCode());
         return hashCode;
     }
 

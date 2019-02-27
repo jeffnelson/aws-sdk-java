@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -52,8 +52,8 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * </li>
      * <li>
      * <p>
-     * <code>block-device-mapping.device-name</code> - The device name for the EBS volume (for example,
-     * <code>/dev/sdh</code>).
+     * <code>block-device-mapping.device-name</code> - The device name specified in the block device mapping (for
+     * example, <code>/dev/sdh</code> or <code>xvdh</code>).
      * </p>
      * </li>
      * <li>
@@ -70,6 +70,11 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * <p>
      * <code>block-device-mapping.volume-type</code> - The volume type of the EBS volume (<code>gp2</code> |
      * <code>io1</code> | <code>st1 </code>| <code>sc1</code> | <code>standard</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>block-device-mapping.encrypted</code> - A Boolean that indicates whether the EBS volume is encrypted.
      * </p>
      * </li>
      * <li>
@@ -151,7 +156,7 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * </li>
      * <li>
      * <p>
-     * <code>root-device-name</code> - The name of the root device volume (for example, <code>/dev/sda1</code>).
+     * <code>root-device-name</code> - The device name of the root device volume (for example, <code>/dev/sda1</code>).
      * </p>
      * </li>
      * <li>
@@ -178,24 +183,22 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * </li>
      * <li>
      * <p>
-     * <code>tag</code>:<i>key</i>=<i>value</i> - The key/value combination of a tag assigned to the resource. Specify
-     * the key of the tag in the filter name and the value of the tag in the filter value. For example, for the tag
-     * Purpose=X, specify <code>tag:Purpose</code> for the filter name and <code>X</code> for the filter value.
+     * <code>sriov-net-support</code> - A value of <code>simple</code> indicates that enhanced networking with the Intel
+     * 82599 VF interface is enabled.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>tag-key</code> - The key of a tag assigned to the resource. This filter is independent of the tag-value
-     * filter. For example, if you use both the filter "tag-key=Purpose" and the filter "tag-value=X", you get any
-     * resources assigned both the tag key Purpose (regardless of what the tag's value is), and the tag value X
-     * (regardless of what the tag's key is). If you want to list only resources where Purpose is X, see the
-     * <code>tag</code>:<i>key</i>=<i>value</i> filter.
+     * <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in
+     * the filter name and the tag value as the filter value. For example, to find all resources that have a tag with
+     * the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name
+     * and <code>TeamA</code> for the filter value.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>tag-value</code> - The value of a tag assigned to the resource. This filter is independent of the
-     * <code>tag-key</code> filter.
+     * <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources assigned
+     * a tag with a specific key, regardless of the tag value.
      * </p>
      * </li>
      * <li>
@@ -324,8 +327,8 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * </li>
      * <li>
      * <p>
-     * <code>block-device-mapping.device-name</code> - The device name for the EBS volume (for example,
-     * <code>/dev/sdh</code>).
+     * <code>block-device-mapping.device-name</code> - The device name specified in the block device mapping (for
+     * example, <code>/dev/sdh</code> or <code>xvdh</code>).
      * </p>
      * </li>
      * <li>
@@ -342,6 +345,11 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * <p>
      * <code>block-device-mapping.volume-type</code> - The volume type of the EBS volume (<code>gp2</code> |
      * <code>io1</code> | <code>st1 </code>| <code>sc1</code> | <code>standard</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>block-device-mapping.encrypted</code> - A Boolean that indicates whether the EBS volume is encrypted.
      * </p>
      * </li>
      * <li>
@@ -423,7 +431,7 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * </li>
      * <li>
      * <p>
-     * <code>root-device-name</code> - The name of the root device volume (for example, <code>/dev/sda1</code>).
+     * <code>root-device-name</code> - The device name of the root device volume (for example, <code>/dev/sda1</code>).
      * </p>
      * </li>
      * <li>
@@ -450,24 +458,22 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * </li>
      * <li>
      * <p>
-     * <code>tag</code>:<i>key</i>=<i>value</i> - The key/value combination of a tag assigned to the resource. Specify
-     * the key of the tag in the filter name and the value of the tag in the filter value. For example, for the tag
-     * Purpose=X, specify <code>tag:Purpose</code> for the filter name and <code>X</code> for the filter value.
+     * <code>sriov-net-support</code> - A value of <code>simple</code> indicates that enhanced networking with the Intel
+     * 82599 VF interface is enabled.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>tag-key</code> - The key of a tag assigned to the resource. This filter is independent of the tag-value
-     * filter. For example, if you use both the filter "tag-key=Purpose" and the filter "tag-value=X", you get any
-     * resources assigned both the tag key Purpose (regardless of what the tag's value is), and the tag value X
-     * (regardless of what the tag's key is). If you want to list only resources where Purpose is X, see the
-     * <code>tag</code>:<i>key</i>=<i>value</i> filter.
+     * <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in
+     * the filter name and the tag value as the filter value. For example, to find all resources that have a tag with
+     * the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name
+     * and <code>TeamA</code> for the filter value.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>tag-value</code> - The value of a tag assigned to the resource. This filter is independent of the
-     * <code>tag-key</code> filter.
+     * <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources assigned
+     * a tag with a specific key, regardless of the tag value.
      * </p>
      * </li>
      * <li>
@@ -492,8 +498,8 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      *         </li>
      *         <li>
      *         <p>
-     *         <code>block-device-mapping.device-name</code> - The device name for the EBS volume (for example,
-     *         <code>/dev/sdh</code>).
+     *         <code>block-device-mapping.device-name</code> - The device name specified in the block device mapping
+     *         (for example, <code>/dev/sdh</code> or <code>xvdh</code>).
      *         </p>
      *         </li>
      *         <li>
@@ -510,6 +516,12 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      *         <p>
      *         <code>block-device-mapping.volume-type</code> - The volume type of the EBS volume (<code>gp2</code> |
      *         <code>io1</code> | <code>st1 </code>| <code>sc1</code> | <code>standard</code>).
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>block-device-mapping.encrypted</code> - A Boolean that indicates whether the EBS volume is
+     *         encrypted.
      *         </p>
      *         </li>
      *         <li>
@@ -593,7 +605,8 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      *         </li>
      *         <li>
      *         <p>
-     *         <code>root-device-name</code> - The name of the root device volume (for example, <code>/dev/sda1</code>).
+     *         <code>root-device-name</code> - The device name of the root device volume (for example,
+     *         <code>/dev/sda1</code>).
      *         </p>
      *         </li>
      *         <li>
@@ -620,25 +633,22 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      *         </li>
      *         <li>
      *         <p>
-     *         <code>tag</code>:<i>key</i>=<i>value</i> - The key/value combination of a tag assigned to the resource.
-     *         Specify the key of the tag in the filter name and the value of the tag in the filter value. For example,
-     *         for the tag Purpose=X, specify <code>tag:Purpose</code> for the filter name and <code>X</code> for the
-     *         filter value.
+     *         <code>sriov-net-support</code> - A value of <code>simple</code> indicates that enhanced networking with
+     *         the Intel 82599 VF interface is enabled.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>tag-key</code> - The key of a tag assigned to the resource. This filter is independent of the
-     *         tag-value filter. For example, if you use both the filter "tag-key=Purpose" and the filter "tag-value=X",
-     *         you get any resources assigned both the tag key Purpose (regardless of what the tag's value is), and the
-     *         tag value X (regardless of what the tag's key is). If you want to list only resources where Purpose is X,
-     *         see the <code>tag</code>:<i>key</i>=<i>value</i> filter.
+     *         <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag
+     *         key in the filter name and the tag value as the filter value. For example, to find all resources that
+     *         have a tag with the key <code>Owner</code> and the value <code>TeamA</code>, specify
+     *         <code>tag:Owner</code> for the filter name and <code>TeamA</code> for the filter value.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>tag-value</code> - The value of a tag assigned to the resource. This filter is independent of the
-     *         <code>tag-key</code> filter.
+     *         <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources
+     *         assigned a tag with a specific key, regardless of the tag value.
      *         </p>
      *         </li>
      *         <li>
@@ -673,8 +683,8 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * </li>
      * <li>
      * <p>
-     * <code>block-device-mapping.device-name</code> - The device name for the EBS volume (for example,
-     * <code>/dev/sdh</code>).
+     * <code>block-device-mapping.device-name</code> - The device name specified in the block device mapping (for
+     * example, <code>/dev/sdh</code> or <code>xvdh</code>).
      * </p>
      * </li>
      * <li>
@@ -691,6 +701,11 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * <p>
      * <code>block-device-mapping.volume-type</code> - The volume type of the EBS volume (<code>gp2</code> |
      * <code>io1</code> | <code>st1 </code>| <code>sc1</code> | <code>standard</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>block-device-mapping.encrypted</code> - A Boolean that indicates whether the EBS volume is encrypted.
      * </p>
      * </li>
      * <li>
@@ -772,7 +787,7 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * </li>
      * <li>
      * <p>
-     * <code>root-device-name</code> - The name of the root device volume (for example, <code>/dev/sda1</code>).
+     * <code>root-device-name</code> - The device name of the root device volume (for example, <code>/dev/sda1</code>).
      * </p>
      * </li>
      * <li>
@@ -799,24 +814,22 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * </li>
      * <li>
      * <p>
-     * <code>tag</code>:<i>key</i>=<i>value</i> - The key/value combination of a tag assigned to the resource. Specify
-     * the key of the tag in the filter name and the value of the tag in the filter value. For example, for the tag
-     * Purpose=X, specify <code>tag:Purpose</code> for the filter name and <code>X</code> for the filter value.
+     * <code>sriov-net-support</code> - A value of <code>simple</code> indicates that enhanced networking with the Intel
+     * 82599 VF interface is enabled.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>tag-key</code> - The key of a tag assigned to the resource. This filter is independent of the tag-value
-     * filter. For example, if you use both the filter "tag-key=Purpose" and the filter "tag-value=X", you get any
-     * resources assigned both the tag key Purpose (regardless of what the tag's value is), and the tag value X
-     * (regardless of what the tag's key is). If you want to list only resources where Purpose is X, see the
-     * <code>tag</code>:<i>key</i>=<i>value</i> filter.
+     * <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in
+     * the filter name and the tag value as the filter value. For example, to find all resources that have a tag with
+     * the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name
+     * and <code>TeamA</code> for the filter value.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>tag-value</code> - The value of a tag assigned to the resource. This filter is independent of the
-     * <code>tag-key</code> filter.
+     * <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources assigned
+     * a tag with a specific key, regardless of the tag value.
      * </p>
      * </li>
      * <li>
@@ -842,8 +855,8 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      *        </li>
      *        <li>
      *        <p>
-     *        <code>block-device-mapping.device-name</code> - The device name for the EBS volume (for example,
-     *        <code>/dev/sdh</code>).
+     *        <code>block-device-mapping.device-name</code> - The device name specified in the block device mapping (for
+     *        example, <code>/dev/sdh</code> or <code>xvdh</code>).
      *        </p>
      *        </li>
      *        <li>
@@ -860,6 +873,12 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      *        <p>
      *        <code>block-device-mapping.volume-type</code> - The volume type of the EBS volume (<code>gp2</code> |
      *        <code>io1</code> | <code>st1 </code>| <code>sc1</code> | <code>standard</code>).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>block-device-mapping.encrypted</code> - A Boolean that indicates whether the EBS volume is
+     *        encrypted.
      *        </p>
      *        </li>
      *        <li>
@@ -943,7 +962,8 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      *        </li>
      *        <li>
      *        <p>
-     *        <code>root-device-name</code> - The name of the root device volume (for example, <code>/dev/sda1</code>).
+     *        <code>root-device-name</code> - The device name of the root device volume (for example,
+     *        <code>/dev/sda1</code>).
      *        </p>
      *        </li>
      *        <li>
@@ -970,25 +990,22 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      *        </li>
      *        <li>
      *        <p>
-     *        <code>tag</code>:<i>key</i>=<i>value</i> - The key/value combination of a tag assigned to the resource.
-     *        Specify the key of the tag in the filter name and the value of the tag in the filter value. For example,
-     *        for the tag Purpose=X, specify <code>tag:Purpose</code> for the filter name and <code>X</code> for the
-     *        filter value.
+     *        <code>sriov-net-support</code> - A value of <code>simple</code> indicates that enhanced networking with
+     *        the Intel 82599 VF interface is enabled.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>tag-key</code> - The key of a tag assigned to the resource. This filter is independent of the
-     *        tag-value filter. For example, if you use both the filter "tag-key=Purpose" and the filter "tag-value=X",
-     *        you get any resources assigned both the tag key Purpose (regardless of what the tag's value is), and the
-     *        tag value X (regardless of what the tag's key is). If you want to list only resources where Purpose is X,
-     *        see the <code>tag</code>:<i>key</i>=<i>value</i> filter.
+     *        <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag
+     *        key in the filter name and the tag value as the filter value. For example, to find all resources that have
+     *        a tag with the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for
+     *        the filter name and <code>TeamA</code> for the filter value.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>tag-value</code> - The value of a tag assigned to the resource. This filter is independent of the
-     *        <code>tag-key</code> filter.
+     *        <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources
+     *        assigned a tag with a specific key, regardless of the tag value.
      *        </p>
      *        </li>
      *        <li>
@@ -1025,8 +1042,8 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * </li>
      * <li>
      * <p>
-     * <code>block-device-mapping.device-name</code> - The device name for the EBS volume (for example,
-     * <code>/dev/sdh</code>).
+     * <code>block-device-mapping.device-name</code> - The device name specified in the block device mapping (for
+     * example, <code>/dev/sdh</code> or <code>xvdh</code>).
      * </p>
      * </li>
      * <li>
@@ -1043,6 +1060,11 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * <p>
      * <code>block-device-mapping.volume-type</code> - The volume type of the EBS volume (<code>gp2</code> |
      * <code>io1</code> | <code>st1 </code>| <code>sc1</code> | <code>standard</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>block-device-mapping.encrypted</code> - A Boolean that indicates whether the EBS volume is encrypted.
      * </p>
      * </li>
      * <li>
@@ -1124,7 +1146,7 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * </li>
      * <li>
      * <p>
-     * <code>root-device-name</code> - The name of the root device volume (for example, <code>/dev/sda1</code>).
+     * <code>root-device-name</code> - The device name of the root device volume (for example, <code>/dev/sda1</code>).
      * </p>
      * </li>
      * <li>
@@ -1151,24 +1173,22 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * </li>
      * <li>
      * <p>
-     * <code>tag</code>:<i>key</i>=<i>value</i> - The key/value combination of a tag assigned to the resource. Specify
-     * the key of the tag in the filter name and the value of the tag in the filter value. For example, for the tag
-     * Purpose=X, specify <code>tag:Purpose</code> for the filter name and <code>X</code> for the filter value.
+     * <code>sriov-net-support</code> - A value of <code>simple</code> indicates that enhanced networking with the Intel
+     * 82599 VF interface is enabled.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>tag-key</code> - The key of a tag assigned to the resource. This filter is independent of the tag-value
-     * filter. For example, if you use both the filter "tag-key=Purpose" and the filter "tag-value=X", you get any
-     * resources assigned both the tag key Purpose (regardless of what the tag's value is), and the tag value X
-     * (regardless of what the tag's key is). If you want to list only resources where Purpose is X, see the
-     * <code>tag</code>:<i>key</i>=<i>value</i> filter.
+     * <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in
+     * the filter name and the tag value as the filter value. For example, to find all resources that have a tag with
+     * the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name
+     * and <code>TeamA</code> for the filter value.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>tag-value</code> - The value of a tag assigned to the resource. This filter is independent of the
-     * <code>tag-key</code> filter.
+     * <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources assigned
+     * a tag with a specific key, regardless of the tag value.
      * </p>
      * </li>
      * <li>
@@ -1199,8 +1219,8 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      *        </li>
      *        <li>
      *        <p>
-     *        <code>block-device-mapping.device-name</code> - The device name for the EBS volume (for example,
-     *        <code>/dev/sdh</code>).
+     *        <code>block-device-mapping.device-name</code> - The device name specified in the block device mapping (for
+     *        example, <code>/dev/sdh</code> or <code>xvdh</code>).
      *        </p>
      *        </li>
      *        <li>
@@ -1217,6 +1237,12 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      *        <p>
      *        <code>block-device-mapping.volume-type</code> - The volume type of the EBS volume (<code>gp2</code> |
      *        <code>io1</code> | <code>st1 </code>| <code>sc1</code> | <code>standard</code>).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>block-device-mapping.encrypted</code> - A Boolean that indicates whether the EBS volume is
+     *        encrypted.
      *        </p>
      *        </li>
      *        <li>
@@ -1300,7 +1326,8 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      *        </li>
      *        <li>
      *        <p>
-     *        <code>root-device-name</code> - The name of the root device volume (for example, <code>/dev/sda1</code>).
+     *        <code>root-device-name</code> - The device name of the root device volume (for example,
+     *        <code>/dev/sda1</code>).
      *        </p>
      *        </li>
      *        <li>
@@ -1327,25 +1354,22 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      *        </li>
      *        <li>
      *        <p>
-     *        <code>tag</code>:<i>key</i>=<i>value</i> - The key/value combination of a tag assigned to the resource.
-     *        Specify the key of the tag in the filter name and the value of the tag in the filter value. For example,
-     *        for the tag Purpose=X, specify <code>tag:Purpose</code> for the filter name and <code>X</code> for the
-     *        filter value.
+     *        <code>sriov-net-support</code> - A value of <code>simple</code> indicates that enhanced networking with
+     *        the Intel 82599 VF interface is enabled.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>tag-key</code> - The key of a tag assigned to the resource. This filter is independent of the
-     *        tag-value filter. For example, if you use both the filter "tag-key=Purpose" and the filter "tag-value=X",
-     *        you get any resources assigned both the tag key Purpose (regardless of what the tag's value is), and the
-     *        tag value X (regardless of what the tag's key is). If you want to list only resources where Purpose is X,
-     *        see the <code>tag</code>:<i>key</i>=<i>value</i> filter.
+     *        <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag
+     *        key in the filter name and the tag value as the filter value. For example, to find all resources that have
+     *        a tag with the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for
+     *        the filter name and <code>TeamA</code> for the filter value.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>tag-value</code> - The value of a tag assigned to the resource. This filter is independent of the
-     *        <code>tag-key</code> filter.
+     *        <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources
+     *        assigned a tag with a specific key, regardless of the tag value.
      *        </p>
      *        </li>
      *        <li>
@@ -1384,8 +1408,8 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * </li>
      * <li>
      * <p>
-     * <code>block-device-mapping.device-name</code> - The device name for the EBS volume (for example,
-     * <code>/dev/sdh</code>).
+     * <code>block-device-mapping.device-name</code> - The device name specified in the block device mapping (for
+     * example, <code>/dev/sdh</code> or <code>xvdh</code>).
      * </p>
      * </li>
      * <li>
@@ -1402,6 +1426,11 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * <p>
      * <code>block-device-mapping.volume-type</code> - The volume type of the EBS volume (<code>gp2</code> |
      * <code>io1</code> | <code>st1 </code>| <code>sc1</code> | <code>standard</code>).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>block-device-mapping.encrypted</code> - A Boolean that indicates whether the EBS volume is encrypted.
      * </p>
      * </li>
      * <li>
@@ -1483,7 +1512,7 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * </li>
      * <li>
      * <p>
-     * <code>root-device-name</code> - The name of the root device volume (for example, <code>/dev/sda1</code>).
+     * <code>root-device-name</code> - The device name of the root device volume (for example, <code>/dev/sda1</code>).
      * </p>
      * </li>
      * <li>
@@ -1510,24 +1539,22 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * </li>
      * <li>
      * <p>
-     * <code>tag</code>:<i>key</i>=<i>value</i> - The key/value combination of a tag assigned to the resource. Specify
-     * the key of the tag in the filter name and the value of the tag in the filter value. For example, for the tag
-     * Purpose=X, specify <code>tag:Purpose</code> for the filter name and <code>X</code> for the filter value.
+     * <code>sriov-net-support</code> - A value of <code>simple</code> indicates that enhanced networking with the Intel
+     * 82599 VF interface is enabled.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>tag-key</code> - The key of a tag assigned to the resource. This filter is independent of the tag-value
-     * filter. For example, if you use both the filter "tag-key=Purpose" and the filter "tag-value=X", you get any
-     * resources assigned both the tag key Purpose (regardless of what the tag's value is), and the tag value X
-     * (regardless of what the tag's key is). If you want to list only resources where Purpose is X, see the
-     * <code>tag</code>:<i>key</i>=<i>value</i> filter.
+     * <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in
+     * the filter name and the tag value as the filter value. For example, to find all resources that have a tag with
+     * the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name
+     * and <code>TeamA</code> for the filter value.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>tag-value</code> - The value of a tag assigned to the resource. This filter is independent of the
-     * <code>tag-key</code> filter.
+     * <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources assigned
+     * a tag with a specific key, regardless of the tag value.
      * </p>
      * </li>
      * <li>
@@ -1553,8 +1580,8 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      *        </li>
      *        <li>
      *        <p>
-     *        <code>block-device-mapping.device-name</code> - The device name for the EBS volume (for example,
-     *        <code>/dev/sdh</code>).
+     *        <code>block-device-mapping.device-name</code> - The device name specified in the block device mapping (for
+     *        example, <code>/dev/sdh</code> or <code>xvdh</code>).
      *        </p>
      *        </li>
      *        <li>
@@ -1571,6 +1598,12 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      *        <p>
      *        <code>block-device-mapping.volume-type</code> - The volume type of the EBS volume (<code>gp2</code> |
      *        <code>io1</code> | <code>st1 </code>| <code>sc1</code> | <code>standard</code>).
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>block-device-mapping.encrypted</code> - A Boolean that indicates whether the EBS volume is
+     *        encrypted.
      *        </p>
      *        </li>
      *        <li>
@@ -1654,7 +1687,8 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      *        </li>
      *        <li>
      *        <p>
-     *        <code>root-device-name</code> - The name of the root device volume (for example, <code>/dev/sda1</code>).
+     *        <code>root-device-name</code> - The device name of the root device volume (for example,
+     *        <code>/dev/sda1</code>).
      *        </p>
      *        </li>
      *        <li>
@@ -1681,25 +1715,22 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      *        </li>
      *        <li>
      *        <p>
-     *        <code>tag</code>:<i>key</i>=<i>value</i> - The key/value combination of a tag assigned to the resource.
-     *        Specify the key of the tag in the filter name and the value of the tag in the filter value. For example,
-     *        for the tag Purpose=X, specify <code>tag:Purpose</code> for the filter name and <code>X</code> for the
-     *        filter value.
+     *        <code>sriov-net-support</code> - A value of <code>simple</code> indicates that enhanced networking with
+     *        the Intel 82599 VF interface is enabled.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>tag-key</code> - The key of a tag assigned to the resource. This filter is independent of the
-     *        tag-value filter. For example, if you use both the filter "tag-key=Purpose" and the filter "tag-value=X",
-     *        you get any resources assigned both the tag key Purpose (regardless of what the tag's value is), and the
-     *        tag value X (regardless of what the tag's key is). If you want to list only resources where Purpose is X,
-     *        see the <code>tag</code>:<i>key</i>=<i>value</i> filter.
+     *        <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag
+     *        key in the filter name and the tag value as the filter value. For example, to find all resources that have
+     *        a tag with the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for
+     *        the filter name and <code>TeamA</code> for the filter value.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>tag-value</code> - The value of a tag assigned to the resource. This filter is independent of the
-     *        <code>tag-key</code> filter.
+     *        <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources
+     *        assigned a tag with a specific key, regardless of the tag value.
      *        </p>
      *        </li>
      *        <li>
@@ -1917,7 +1948,8 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

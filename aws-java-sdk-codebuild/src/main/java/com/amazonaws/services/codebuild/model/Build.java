@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -104,13 +104,36 @@ public class Build implements Serializable, Cloneable, StructuredPojo {
     private String sourceVersion;
     /**
      * <p>
-     * The name of the build project.
+     * An identifier for the version of this build's source code.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For AWS CodeCommit, GitHub, GitHub Enterprise, and BitBucket, the commit ID.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For AWS CodePipeline, the source revision provided by AWS CodePipeline.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For Amazon Simple Storage Service (Amazon S3), this does not apply.
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private String resolvedSourceVersion;
+    /**
+     * <p>
+     * The name of the AWS CodeBuild project.
      * </p>
      */
     private String projectName;
     /**
      * <p>
-     * Information about all previous build phases that are completed and information about any current build phase that
+     * Information about all previous build phases that are complete and information about any current build phase that
      * is not yet complete.
      * </p>
      */
@@ -123,16 +146,74 @@ public class Build implements Serializable, Cloneable, StructuredPojo {
     private ProjectSource source;
     /**
      * <p>
+     * An array of <code>ProjectSource</code> objects.
+     * </p>
+     */
+    private java.util.List<ProjectSource> secondarySources;
+    /**
+     * <p>
+     * An array of <code>ProjectSourceVersion</code> objects. Each <code>ProjectSourceVersion</code> must be one of:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For AWS CodeCommit: the commit ID to use.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For GitHub: the commit ID, pull request ID, branch name, or tag name that corresponds to the version of the
+     * source code you want to build. If a pull request ID is specified, it must use the format
+     * <code>pr/pull-request-ID</code> (for example, <code>pr/25</code>). If a branch name is specified, the branch's
+     * HEAD commit ID is used. If not specified, the default branch's HEAD commit ID is used.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For Bitbucket: the commit ID, branch name, or tag name that corresponds to the version of the source code you
+     * want to build. If a branch name is specified, the branch's HEAD commit ID is used. If not specified, the default
+     * branch's HEAD commit ID is used.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For Amazon Simple Storage Service (Amazon S3): the version ID of the object that represents the build input ZIP
+     * file to use.
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private java.util.List<ProjectSourceVersion> secondarySourceVersions;
+    /**
+     * <p>
      * Information about the output artifacts for the build.
      * </p>
      */
     private BuildArtifacts artifacts;
     /**
      * <p>
+     * An array of <code>ProjectArtifacts</code> objects.
+     * </p>
+     */
+    private java.util.List<BuildArtifacts> secondaryArtifacts;
+    /**
+     * <p>
+     * Information about the cache for the build.
+     * </p>
+     */
+    private ProjectCache cache;
+    /**
+     * <p>
      * Information about the build environment for this build.
      * </p>
      */
     private ProjectEnvironment environment;
+    /**
+     * <p>
+     * The name of a service role used for this build.
+     * </p>
+     */
+    private String serviceRole;
     /**
      * <p>
      * Information about the build's logs in Amazon CloudWatch Logs.
@@ -148,7 +229,13 @@ public class Build implements Serializable, Cloneable, StructuredPojo {
     private Integer timeoutInMinutes;
     /**
      * <p>
-     * Whether the build has finished. True if completed; otherwise, false.
+     * The number of minutes a build is allowed to be queued before it times out.
+     * </p>
+     */
+    private Integer queuedTimeoutInMinutes;
+    /**
+     * <p>
+     * Whether the build is complete. True if complete; otherwise, false.
      * </p>
      */
     private Boolean buildComplete;
@@ -165,7 +252,7 @@ public class Build implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * If an AWS Identity and Access Management (IAM) user started the build, the user's name (for example
+     * If an AWS Identity and Access Management (IAM) user started the build, the user's name (for example,
      * <code>MyUserName</code>).
      * </p>
      * </li>
@@ -177,6 +264,31 @@ public class Build implements Serializable, Cloneable, StructuredPojo {
      * </ul>
      */
     private String initiator;
+    /**
+     * <p>
+     * If your AWS CodeBuild project accesses resources in an Amazon VPC, you provide this parameter that identifies the
+     * VPC ID and the list of security group IDs and subnet IDs. The security groups and subnets must belong to the same
+     * VPC. You must provide at least one security group and one subnet ID.
+     * </p>
+     */
+    private VpcConfig vpcConfig;
+    /**
+     * <p>
+     * Describes a network interface.
+     * </p>
+     */
+    private NetworkInterface networkInterface;
+    /**
+     * <p>
+     * The AWS Key Management Service (AWS KMS) customer master key (CMK) to be used for encrypting the build output
+     * artifacts.
+     * </p>
+     * <p>
+     * This is expressed either as the Amazon Resource Name (ARN) of the CMK or, if specified, the CMK's alias (using
+     * the format <code>alias/<i>alias-name</i> </code>).
+     * </p>
+     */
+    private String encryptionKey;
 
     /**
      * <p>
@@ -808,11 +920,150 @@ public class Build implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the build project.
+     * An identifier for the version of this build's source code.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For AWS CodeCommit, GitHub, GitHub Enterprise, and BitBucket, the commit ID.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For AWS CodePipeline, the source revision provided by AWS CodePipeline.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For Amazon Simple Storage Service (Amazon S3), this does not apply.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param resolvedSourceVersion
+     *        An identifier for the version of this build's source code. </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        For AWS CodeCommit, GitHub, GitHub Enterprise, and BitBucket, the commit ID.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For AWS CodePipeline, the source revision provided by AWS CodePipeline.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For Amazon Simple Storage Service (Amazon S3), this does not apply.
+     *        </p>
+     *        </li>
+     */
+
+    public void setResolvedSourceVersion(String resolvedSourceVersion) {
+        this.resolvedSourceVersion = resolvedSourceVersion;
+    }
+
+    /**
+     * <p>
+     * An identifier for the version of this build's source code.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For AWS CodeCommit, GitHub, GitHub Enterprise, and BitBucket, the commit ID.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For AWS CodePipeline, the source revision provided by AWS CodePipeline.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For Amazon Simple Storage Service (Amazon S3), this does not apply.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return An identifier for the version of this build's source code. </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         For AWS CodeCommit, GitHub, GitHub Enterprise, and BitBucket, the commit ID.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         For AWS CodePipeline, the source revision provided by AWS CodePipeline.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         For Amazon Simple Storage Service (Amazon S3), this does not apply.
+     *         </p>
+     *         </li>
+     */
+
+    public String getResolvedSourceVersion() {
+        return this.resolvedSourceVersion;
+    }
+
+    /**
+     * <p>
+     * An identifier for the version of this build's source code.
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For AWS CodeCommit, GitHub, GitHub Enterprise, and BitBucket, the commit ID.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For AWS CodePipeline, the source revision provided by AWS CodePipeline.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For Amazon Simple Storage Service (Amazon S3), this does not apply.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param resolvedSourceVersion
+     *        An identifier for the version of this build's source code. </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        For AWS CodeCommit, GitHub, GitHub Enterprise, and BitBucket, the commit ID.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For AWS CodePipeline, the source revision provided by AWS CodePipeline.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For Amazon Simple Storage Service (Amazon S3), this does not apply.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Build withResolvedSourceVersion(String resolvedSourceVersion) {
+        setResolvedSourceVersion(resolvedSourceVersion);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The name of the AWS CodeBuild project.
      * </p>
      * 
      * @param projectName
-     *        The name of the build project.
+     *        The name of the AWS CodeBuild project.
      */
 
     public void setProjectName(String projectName) {
@@ -821,10 +1072,10 @@ public class Build implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the build project.
+     * The name of the AWS CodeBuild project.
      * </p>
      * 
-     * @return The name of the build project.
+     * @return The name of the AWS CodeBuild project.
      */
 
     public String getProjectName() {
@@ -833,11 +1084,11 @@ public class Build implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The name of the build project.
+     * The name of the AWS CodeBuild project.
      * </p>
      * 
      * @param projectName
-     *        The name of the build project.
+     *        The name of the AWS CodeBuild project.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -848,11 +1099,11 @@ public class Build implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Information about all previous build phases that are completed and information about any current build phase that
+     * Information about all previous build phases that are complete and information about any current build phase that
      * is not yet complete.
      * </p>
      * 
-     * @return Information about all previous build phases that are completed and information about any current build
+     * @return Information about all previous build phases that are complete and information about any current build
      *         phase that is not yet complete.
      */
 
@@ -862,12 +1113,12 @@ public class Build implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Information about all previous build phases that are completed and information about any current build phase that
+     * Information about all previous build phases that are complete and information about any current build phase that
      * is not yet complete.
      * </p>
      * 
      * @param phases
-     *        Information about all previous build phases that are completed and information about any current build
+     *        Information about all previous build phases that are complete and information about any current build
      *        phase that is not yet complete.
      */
 
@@ -882,7 +1133,7 @@ public class Build implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Information about all previous build phases that are completed and information about any current build phase that
+     * Information about all previous build phases that are complete and information about any current build phase that
      * is not yet complete.
      * </p>
      * <p>
@@ -892,7 +1143,7 @@ public class Build implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param phases
-     *        Information about all previous build phases that are completed and information about any current build
+     *        Information about all previous build phases that are complete and information about any current build
      *        phase that is not yet complete.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -909,12 +1160,12 @@ public class Build implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Information about all previous build phases that are completed and information about any current build phase that
+     * Information about all previous build phases that are complete and information about any current build phase that
      * is not yet complete.
      * </p>
      * 
      * @param phases
-     *        Information about all previous build phases that are completed and information about any current build
+     *        Information about all previous build phases that are complete and information about any current build
      *        phase that is not yet complete.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -966,6 +1217,370 @@ public class Build implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
+     * An array of <code>ProjectSource</code> objects.
+     * </p>
+     * 
+     * @return An array of <code>ProjectSource</code> objects.
+     */
+
+    public java.util.List<ProjectSource> getSecondarySources() {
+        return secondarySources;
+    }
+
+    /**
+     * <p>
+     * An array of <code>ProjectSource</code> objects.
+     * </p>
+     * 
+     * @param secondarySources
+     *        An array of <code>ProjectSource</code> objects.
+     */
+
+    public void setSecondarySources(java.util.Collection<ProjectSource> secondarySources) {
+        if (secondarySources == null) {
+            this.secondarySources = null;
+            return;
+        }
+
+        this.secondarySources = new java.util.ArrayList<ProjectSource>(secondarySources);
+    }
+
+    /**
+     * <p>
+     * An array of <code>ProjectSource</code> objects.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setSecondarySources(java.util.Collection)} or {@link #withSecondarySources(java.util.Collection)} if you
+     * want to override the existing values.
+     * </p>
+     * 
+     * @param secondarySources
+     *        An array of <code>ProjectSource</code> objects.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Build withSecondarySources(ProjectSource... secondarySources) {
+        if (this.secondarySources == null) {
+            setSecondarySources(new java.util.ArrayList<ProjectSource>(secondarySources.length));
+        }
+        for (ProjectSource ele : secondarySources) {
+            this.secondarySources.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * An array of <code>ProjectSource</code> objects.
+     * </p>
+     * 
+     * @param secondarySources
+     *        An array of <code>ProjectSource</code> objects.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Build withSecondarySources(java.util.Collection<ProjectSource> secondarySources) {
+        setSecondarySources(secondarySources);
+        return this;
+    }
+
+    /**
+     * <p>
+     * An array of <code>ProjectSourceVersion</code> objects. Each <code>ProjectSourceVersion</code> must be one of:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For AWS CodeCommit: the commit ID to use.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For GitHub: the commit ID, pull request ID, branch name, or tag name that corresponds to the version of the
+     * source code you want to build. If a pull request ID is specified, it must use the format
+     * <code>pr/pull-request-ID</code> (for example, <code>pr/25</code>). If a branch name is specified, the branch's
+     * HEAD commit ID is used. If not specified, the default branch's HEAD commit ID is used.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For Bitbucket: the commit ID, branch name, or tag name that corresponds to the version of the source code you
+     * want to build. If a branch name is specified, the branch's HEAD commit ID is used. If not specified, the default
+     * branch's HEAD commit ID is used.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For Amazon Simple Storage Service (Amazon S3): the version ID of the object that represents the build input ZIP
+     * file to use.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return An array of <code>ProjectSourceVersion</code> objects. Each <code>ProjectSourceVersion</code> must be one
+     *         of: </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         For AWS CodeCommit: the commit ID to use.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         For GitHub: the commit ID, pull request ID, branch name, or tag name that corresponds to the version of
+     *         the source code you want to build. If a pull request ID is specified, it must use the format
+     *         <code>pr/pull-request-ID</code> (for example, <code>pr/25</code>). If a branch name is specified, the
+     *         branch's HEAD commit ID is used. If not specified, the default branch's HEAD commit ID is used.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         For Bitbucket: the commit ID, branch name, or tag name that corresponds to the version of the source code
+     *         you want to build. If a branch name is specified, the branch's HEAD commit ID is used. If not specified,
+     *         the default branch's HEAD commit ID is used.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         For Amazon Simple Storage Service (Amazon S3): the version ID of the object that represents the build
+     *         input ZIP file to use.
+     *         </p>
+     *         </li>
+     */
+
+    public java.util.List<ProjectSourceVersion> getSecondarySourceVersions() {
+        return secondarySourceVersions;
+    }
+
+    /**
+     * <p>
+     * An array of <code>ProjectSourceVersion</code> objects. Each <code>ProjectSourceVersion</code> must be one of:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For AWS CodeCommit: the commit ID to use.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For GitHub: the commit ID, pull request ID, branch name, or tag name that corresponds to the version of the
+     * source code you want to build. If a pull request ID is specified, it must use the format
+     * <code>pr/pull-request-ID</code> (for example, <code>pr/25</code>). If a branch name is specified, the branch's
+     * HEAD commit ID is used. If not specified, the default branch's HEAD commit ID is used.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For Bitbucket: the commit ID, branch name, or tag name that corresponds to the version of the source code you
+     * want to build. If a branch name is specified, the branch's HEAD commit ID is used. If not specified, the default
+     * branch's HEAD commit ID is used.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For Amazon Simple Storage Service (Amazon S3): the version ID of the object that represents the build input ZIP
+     * file to use.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param secondarySourceVersions
+     *        An array of <code>ProjectSourceVersion</code> objects. Each <code>ProjectSourceVersion</code> must be one
+     *        of: </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        For AWS CodeCommit: the commit ID to use.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For GitHub: the commit ID, pull request ID, branch name, or tag name that corresponds to the version of
+     *        the source code you want to build. If a pull request ID is specified, it must use the format
+     *        <code>pr/pull-request-ID</code> (for example, <code>pr/25</code>). If a branch name is specified, the
+     *        branch's HEAD commit ID is used. If not specified, the default branch's HEAD commit ID is used.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For Bitbucket: the commit ID, branch name, or tag name that corresponds to the version of the source code
+     *        you want to build. If a branch name is specified, the branch's HEAD commit ID is used. If not specified,
+     *        the default branch's HEAD commit ID is used.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For Amazon Simple Storage Service (Amazon S3): the version ID of the object that represents the build
+     *        input ZIP file to use.
+     *        </p>
+     *        </li>
+     */
+
+    public void setSecondarySourceVersions(java.util.Collection<ProjectSourceVersion> secondarySourceVersions) {
+        if (secondarySourceVersions == null) {
+            this.secondarySourceVersions = null;
+            return;
+        }
+
+        this.secondarySourceVersions = new java.util.ArrayList<ProjectSourceVersion>(secondarySourceVersions);
+    }
+
+    /**
+     * <p>
+     * An array of <code>ProjectSourceVersion</code> objects. Each <code>ProjectSourceVersion</code> must be one of:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For AWS CodeCommit: the commit ID to use.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For GitHub: the commit ID, pull request ID, branch name, or tag name that corresponds to the version of the
+     * source code you want to build. If a pull request ID is specified, it must use the format
+     * <code>pr/pull-request-ID</code> (for example, <code>pr/25</code>). If a branch name is specified, the branch's
+     * HEAD commit ID is used. If not specified, the default branch's HEAD commit ID is used.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For Bitbucket: the commit ID, branch name, or tag name that corresponds to the version of the source code you
+     * want to build. If a branch name is specified, the branch's HEAD commit ID is used. If not specified, the default
+     * branch's HEAD commit ID is used.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For Amazon Simple Storage Service (Amazon S3): the version ID of the object that represents the build input ZIP
+     * file to use.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setSecondarySourceVersions(java.util.Collection)} or
+     * {@link #withSecondarySourceVersions(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param secondarySourceVersions
+     *        An array of <code>ProjectSourceVersion</code> objects. Each <code>ProjectSourceVersion</code> must be one
+     *        of: </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        For AWS CodeCommit: the commit ID to use.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For GitHub: the commit ID, pull request ID, branch name, or tag name that corresponds to the version of
+     *        the source code you want to build. If a pull request ID is specified, it must use the format
+     *        <code>pr/pull-request-ID</code> (for example, <code>pr/25</code>). If a branch name is specified, the
+     *        branch's HEAD commit ID is used. If not specified, the default branch's HEAD commit ID is used.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For Bitbucket: the commit ID, branch name, or tag name that corresponds to the version of the source code
+     *        you want to build. If a branch name is specified, the branch's HEAD commit ID is used. If not specified,
+     *        the default branch's HEAD commit ID is used.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For Amazon Simple Storage Service (Amazon S3): the version ID of the object that represents the build
+     *        input ZIP file to use.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Build withSecondarySourceVersions(ProjectSourceVersion... secondarySourceVersions) {
+        if (this.secondarySourceVersions == null) {
+            setSecondarySourceVersions(new java.util.ArrayList<ProjectSourceVersion>(secondarySourceVersions.length));
+        }
+        for (ProjectSourceVersion ele : secondarySourceVersions) {
+            this.secondarySourceVersions.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * An array of <code>ProjectSourceVersion</code> objects. Each <code>ProjectSourceVersion</code> must be one of:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * For AWS CodeCommit: the commit ID to use.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For GitHub: the commit ID, pull request ID, branch name, or tag name that corresponds to the version of the
+     * source code you want to build. If a pull request ID is specified, it must use the format
+     * <code>pr/pull-request-ID</code> (for example, <code>pr/25</code>). If a branch name is specified, the branch's
+     * HEAD commit ID is used. If not specified, the default branch's HEAD commit ID is used.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For Bitbucket: the commit ID, branch name, or tag name that corresponds to the version of the source code you
+     * want to build. If a branch name is specified, the branch's HEAD commit ID is used. If not specified, the default
+     * branch's HEAD commit ID is used.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * For Amazon Simple Storage Service (Amazon S3): the version ID of the object that represents the build input ZIP
+     * file to use.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param secondarySourceVersions
+     *        An array of <code>ProjectSourceVersion</code> objects. Each <code>ProjectSourceVersion</code> must be one
+     *        of: </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        For AWS CodeCommit: the commit ID to use.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For GitHub: the commit ID, pull request ID, branch name, or tag name that corresponds to the version of
+     *        the source code you want to build. If a pull request ID is specified, it must use the format
+     *        <code>pr/pull-request-ID</code> (for example, <code>pr/25</code>). If a branch name is specified, the
+     *        branch's HEAD commit ID is used. If not specified, the default branch's HEAD commit ID is used.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For Bitbucket: the commit ID, branch name, or tag name that corresponds to the version of the source code
+     *        you want to build. If a branch name is specified, the branch's HEAD commit ID is used. If not specified,
+     *        the default branch's HEAD commit ID is used.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        For Amazon Simple Storage Service (Amazon S3): the version ID of the object that represents the build
+     *        input ZIP file to use.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Build withSecondarySourceVersions(java.util.Collection<ProjectSourceVersion> secondarySourceVersions) {
+        setSecondarySourceVersions(secondarySourceVersions);
+        return this;
+    }
+
+    /**
+     * <p>
      * Information about the output artifacts for the build.
      * </p>
      * 
@@ -1006,6 +1621,116 @@ public class Build implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
+     * An array of <code>ProjectArtifacts</code> objects.
+     * </p>
+     * 
+     * @return An array of <code>ProjectArtifacts</code> objects.
+     */
+
+    public java.util.List<BuildArtifacts> getSecondaryArtifacts() {
+        return secondaryArtifacts;
+    }
+
+    /**
+     * <p>
+     * An array of <code>ProjectArtifacts</code> objects.
+     * </p>
+     * 
+     * @param secondaryArtifacts
+     *        An array of <code>ProjectArtifacts</code> objects.
+     */
+
+    public void setSecondaryArtifacts(java.util.Collection<BuildArtifacts> secondaryArtifacts) {
+        if (secondaryArtifacts == null) {
+            this.secondaryArtifacts = null;
+            return;
+        }
+
+        this.secondaryArtifacts = new java.util.ArrayList<BuildArtifacts>(secondaryArtifacts);
+    }
+
+    /**
+     * <p>
+     * An array of <code>ProjectArtifacts</code> objects.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setSecondaryArtifacts(java.util.Collection)} or {@link #withSecondaryArtifacts(java.util.Collection)} if
+     * you want to override the existing values.
+     * </p>
+     * 
+     * @param secondaryArtifacts
+     *        An array of <code>ProjectArtifacts</code> objects.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Build withSecondaryArtifacts(BuildArtifacts... secondaryArtifacts) {
+        if (this.secondaryArtifacts == null) {
+            setSecondaryArtifacts(new java.util.ArrayList<BuildArtifacts>(secondaryArtifacts.length));
+        }
+        for (BuildArtifacts ele : secondaryArtifacts) {
+            this.secondaryArtifacts.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * An array of <code>ProjectArtifacts</code> objects.
+     * </p>
+     * 
+     * @param secondaryArtifacts
+     *        An array of <code>ProjectArtifacts</code> objects.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Build withSecondaryArtifacts(java.util.Collection<BuildArtifacts> secondaryArtifacts) {
+        setSecondaryArtifacts(secondaryArtifacts);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Information about the cache for the build.
+     * </p>
+     * 
+     * @param cache
+     *        Information about the cache for the build.
+     */
+
+    public void setCache(ProjectCache cache) {
+        this.cache = cache;
+    }
+
+    /**
+     * <p>
+     * Information about the cache for the build.
+     * </p>
+     * 
+     * @return Information about the cache for the build.
+     */
+
+    public ProjectCache getCache() {
+        return this.cache;
+    }
+
+    /**
+     * <p>
+     * Information about the cache for the build.
+     * </p>
+     * 
+     * @param cache
+     *        Information about the cache for the build.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Build withCache(ProjectCache cache) {
+        setCache(cache);
+        return this;
+    }
+
+    /**
+     * <p>
      * Information about the build environment for this build.
      * </p>
      * 
@@ -1041,6 +1766,46 @@ public class Build implements Serializable, Cloneable, StructuredPojo {
 
     public Build withEnvironment(ProjectEnvironment environment) {
         setEnvironment(environment);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The name of a service role used for this build.
+     * </p>
+     * 
+     * @param serviceRole
+     *        The name of a service role used for this build.
+     */
+
+    public void setServiceRole(String serviceRole) {
+        this.serviceRole = serviceRole;
+    }
+
+    /**
+     * <p>
+     * The name of a service role used for this build.
+     * </p>
+     * 
+     * @return The name of a service role used for this build.
+     */
+
+    public String getServiceRole() {
+        return this.serviceRole;
+    }
+
+    /**
+     * <p>
+     * The name of a service role used for this build.
+     * </p>
+     * 
+     * @param serviceRole
+     *        The name of a service role used for this build.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Build withServiceRole(String serviceRole) {
+        setServiceRole(serviceRole);
         return this;
     }
 
@@ -1132,11 +1897,51 @@ public class Build implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Whether the build has finished. True if completed; otherwise, false.
+     * The number of minutes a build is allowed to be queued before it times out.
+     * </p>
+     * 
+     * @param queuedTimeoutInMinutes
+     *        The number of minutes a build is allowed to be queued before it times out.
+     */
+
+    public void setQueuedTimeoutInMinutes(Integer queuedTimeoutInMinutes) {
+        this.queuedTimeoutInMinutes = queuedTimeoutInMinutes;
+    }
+
+    /**
+     * <p>
+     * The number of minutes a build is allowed to be queued before it times out.
+     * </p>
+     * 
+     * @return The number of minutes a build is allowed to be queued before it times out.
+     */
+
+    public Integer getQueuedTimeoutInMinutes() {
+        return this.queuedTimeoutInMinutes;
+    }
+
+    /**
+     * <p>
+     * The number of minutes a build is allowed to be queued before it times out.
+     * </p>
+     * 
+     * @param queuedTimeoutInMinutes
+     *        The number of minutes a build is allowed to be queued before it times out.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Build withQueuedTimeoutInMinutes(Integer queuedTimeoutInMinutes) {
+        setQueuedTimeoutInMinutes(queuedTimeoutInMinutes);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Whether the build is complete. True if complete; otherwise, false.
      * </p>
      * 
      * @param buildComplete
-     *        Whether the build has finished. True if completed; otherwise, false.
+     *        Whether the build is complete. True if complete; otherwise, false.
      */
 
     public void setBuildComplete(Boolean buildComplete) {
@@ -1145,10 +1950,10 @@ public class Build implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Whether the build has finished. True if completed; otherwise, false.
+     * Whether the build is complete. True if complete; otherwise, false.
      * </p>
      * 
-     * @return Whether the build has finished. True if completed; otherwise, false.
+     * @return Whether the build is complete. True if complete; otherwise, false.
      */
 
     public Boolean getBuildComplete() {
@@ -1157,11 +1962,11 @@ public class Build implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Whether the build has finished. True if completed; otherwise, false.
+     * Whether the build is complete. True if complete; otherwise, false.
      * </p>
      * 
      * @param buildComplete
-     *        Whether the build has finished. True if completed; otherwise, false.
+     *        Whether the build is complete. True if complete; otherwise, false.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1172,10 +1977,10 @@ public class Build implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Whether the build has finished. True if completed; otherwise, false.
+     * Whether the build is complete. True if complete; otherwise, false.
      * </p>
      * 
-     * @return Whether the build has finished. True if completed; otherwise, false.
+     * @return Whether the build is complete. True if complete; otherwise, false.
      */
 
     public Boolean isBuildComplete() {
@@ -1195,7 +2000,7 @@ public class Build implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * If an AWS Identity and Access Management (IAM) user started the build, the user's name (for example
+     * If an AWS Identity and Access Management (IAM) user started the build, the user's name (for example,
      * <code>MyUserName</code>).
      * </p>
      * </li>
@@ -1217,7 +2022,7 @@ public class Build implements Serializable, Cloneable, StructuredPojo {
      *        </li>
      *        <li>
      *        <p>
-     *        If an AWS Identity and Access Management (IAM) user started the build, the user's name (for example
+     *        If an AWS Identity and Access Management (IAM) user started the build, the user's name (for example,
      *        <code>MyUserName</code>).
      *        </p>
      *        </li>
@@ -1246,7 +2051,7 @@ public class Build implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * If an AWS Identity and Access Management (IAM) user started the build, the user's name (for example
+     * If an AWS Identity and Access Management (IAM) user started the build, the user's name (for example,
      * <code>MyUserName</code>).
      * </p>
      * </li>
@@ -1267,7 +2072,7 @@ public class Build implements Serializable, Cloneable, StructuredPojo {
      *         </li>
      *         <li>
      *         <p>
-     *         If an AWS Identity and Access Management (IAM) user started the build, the user's name (for example
+     *         If an AWS Identity and Access Management (IAM) user started the build, the user's name (for example,
      *         <code>MyUserName</code>).
      *         </p>
      *         </li>
@@ -1296,7 +2101,7 @@ public class Build implements Serializable, Cloneable, StructuredPojo {
      * </li>
      * <li>
      * <p>
-     * If an AWS Identity and Access Management (IAM) user started the build, the user's name (for example
+     * If an AWS Identity and Access Management (IAM) user started the build, the user's name (for example,
      * <code>MyUserName</code>).
      * </p>
      * </li>
@@ -1318,7 +2123,7 @@ public class Build implements Serializable, Cloneable, StructuredPojo {
      *        </li>
      *        <li>
      *        <p>
-     *        If an AWS Identity and Access Management (IAM) user started the build, the user's name (for example
+     *        If an AWS Identity and Access Management (IAM) user started the build, the user's name (for example,
      *        <code>MyUserName</code>).
      *        </p>
      *        </li>
@@ -1337,7 +2142,167 @@ public class Build implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * <p>
+     * If your AWS CodeBuild project accesses resources in an Amazon VPC, you provide this parameter that identifies the
+     * VPC ID and the list of security group IDs and subnet IDs. The security groups and subnets must belong to the same
+     * VPC. You must provide at least one security group and one subnet ID.
+     * </p>
+     * 
+     * @param vpcConfig
+     *        If your AWS CodeBuild project accesses resources in an Amazon VPC, you provide this parameter that
+     *        identifies the VPC ID and the list of security group IDs and subnet IDs. The security groups and subnets
+     *        must belong to the same VPC. You must provide at least one security group and one subnet ID.
+     */
+
+    public void setVpcConfig(VpcConfig vpcConfig) {
+        this.vpcConfig = vpcConfig;
+    }
+
+    /**
+     * <p>
+     * If your AWS CodeBuild project accesses resources in an Amazon VPC, you provide this parameter that identifies the
+     * VPC ID and the list of security group IDs and subnet IDs. The security groups and subnets must belong to the same
+     * VPC. You must provide at least one security group and one subnet ID.
+     * </p>
+     * 
+     * @return If your AWS CodeBuild project accesses resources in an Amazon VPC, you provide this parameter that
+     *         identifies the VPC ID and the list of security group IDs and subnet IDs. The security groups and subnets
+     *         must belong to the same VPC. You must provide at least one security group and one subnet ID.
+     */
+
+    public VpcConfig getVpcConfig() {
+        return this.vpcConfig;
+    }
+
+    /**
+     * <p>
+     * If your AWS CodeBuild project accesses resources in an Amazon VPC, you provide this parameter that identifies the
+     * VPC ID and the list of security group IDs and subnet IDs. The security groups and subnets must belong to the same
+     * VPC. You must provide at least one security group and one subnet ID.
+     * </p>
+     * 
+     * @param vpcConfig
+     *        If your AWS CodeBuild project accesses resources in an Amazon VPC, you provide this parameter that
+     *        identifies the VPC ID and the list of security group IDs and subnet IDs. The security groups and subnets
+     *        must belong to the same VPC. You must provide at least one security group and one subnet ID.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Build withVpcConfig(VpcConfig vpcConfig) {
+        setVpcConfig(vpcConfig);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Describes a network interface.
+     * </p>
+     * 
+     * @param networkInterface
+     *        Describes a network interface.
+     */
+
+    public void setNetworkInterface(NetworkInterface networkInterface) {
+        this.networkInterface = networkInterface;
+    }
+
+    /**
+     * <p>
+     * Describes a network interface.
+     * </p>
+     * 
+     * @return Describes a network interface.
+     */
+
+    public NetworkInterface getNetworkInterface() {
+        return this.networkInterface;
+    }
+
+    /**
+     * <p>
+     * Describes a network interface.
+     * </p>
+     * 
+     * @param networkInterface
+     *        Describes a network interface.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Build withNetworkInterface(NetworkInterface networkInterface) {
+        setNetworkInterface(networkInterface);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The AWS Key Management Service (AWS KMS) customer master key (CMK) to be used for encrypting the build output
+     * artifacts.
+     * </p>
+     * <p>
+     * This is expressed either as the Amazon Resource Name (ARN) of the CMK or, if specified, the CMK's alias (using
+     * the format <code>alias/<i>alias-name</i> </code>).
+     * </p>
+     * 
+     * @param encryptionKey
+     *        The AWS Key Management Service (AWS KMS) customer master key (CMK) to be used for encrypting the build
+     *        output artifacts.</p>
+     *        <p>
+     *        This is expressed either as the Amazon Resource Name (ARN) of the CMK or, if specified, the CMK's alias
+     *        (using the format <code>alias/<i>alias-name</i> </code>).
+     */
+
+    public void setEncryptionKey(String encryptionKey) {
+        this.encryptionKey = encryptionKey;
+    }
+
+    /**
+     * <p>
+     * The AWS Key Management Service (AWS KMS) customer master key (CMK) to be used for encrypting the build output
+     * artifacts.
+     * </p>
+     * <p>
+     * This is expressed either as the Amazon Resource Name (ARN) of the CMK or, if specified, the CMK's alias (using
+     * the format <code>alias/<i>alias-name</i> </code>).
+     * </p>
+     * 
+     * @return The AWS Key Management Service (AWS KMS) customer master key (CMK) to be used for encrypting the build
+     *         output artifacts.</p>
+     *         <p>
+     *         This is expressed either as the Amazon Resource Name (ARN) of the CMK or, if specified, the CMK's alias
+     *         (using the format <code>alias/<i>alias-name</i> </code>).
+     */
+
+    public String getEncryptionKey() {
+        return this.encryptionKey;
+    }
+
+    /**
+     * <p>
+     * The AWS Key Management Service (AWS KMS) customer master key (CMK) to be used for encrypting the build output
+     * artifacts.
+     * </p>
+     * <p>
+     * This is expressed either as the Amazon Resource Name (ARN) of the CMK or, if specified, the CMK's alias (using
+     * the format <code>alias/<i>alias-name</i> </code>).
+     * </p>
+     * 
+     * @param encryptionKey
+     *        The AWS Key Management Service (AWS KMS) customer master key (CMK) to be used for encrypting the build
+     *        output artifacts.</p>
+     *        <p>
+     *        This is expressed either as the Amazon Resource Name (ARN) of the CMK or, if specified, the CMK's alias
+     *        (using the format <code>alias/<i>alias-name</i> </code>).
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Build withEncryptionKey(String encryptionKey) {
+        setEncryptionKey(encryptionKey);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -1361,24 +2326,44 @@ public class Build implements Serializable, Cloneable, StructuredPojo {
             sb.append("BuildStatus: ").append(getBuildStatus()).append(",");
         if (getSourceVersion() != null)
             sb.append("SourceVersion: ").append(getSourceVersion()).append(",");
+        if (getResolvedSourceVersion() != null)
+            sb.append("ResolvedSourceVersion: ").append(getResolvedSourceVersion()).append(",");
         if (getProjectName() != null)
             sb.append("ProjectName: ").append(getProjectName()).append(",");
         if (getPhases() != null)
             sb.append("Phases: ").append(getPhases()).append(",");
         if (getSource() != null)
             sb.append("Source: ").append(getSource()).append(",");
+        if (getSecondarySources() != null)
+            sb.append("SecondarySources: ").append(getSecondarySources()).append(",");
+        if (getSecondarySourceVersions() != null)
+            sb.append("SecondarySourceVersions: ").append(getSecondarySourceVersions()).append(",");
         if (getArtifacts() != null)
             sb.append("Artifacts: ").append(getArtifacts()).append(",");
+        if (getSecondaryArtifacts() != null)
+            sb.append("SecondaryArtifacts: ").append(getSecondaryArtifacts()).append(",");
+        if (getCache() != null)
+            sb.append("Cache: ").append(getCache()).append(",");
         if (getEnvironment() != null)
             sb.append("Environment: ").append(getEnvironment()).append(",");
+        if (getServiceRole() != null)
+            sb.append("ServiceRole: ").append(getServiceRole()).append(",");
         if (getLogs() != null)
             sb.append("Logs: ").append(getLogs()).append(",");
         if (getTimeoutInMinutes() != null)
             sb.append("TimeoutInMinutes: ").append(getTimeoutInMinutes()).append(",");
+        if (getQueuedTimeoutInMinutes() != null)
+            sb.append("QueuedTimeoutInMinutes: ").append(getQueuedTimeoutInMinutes()).append(",");
         if (getBuildComplete() != null)
             sb.append("BuildComplete: ").append(getBuildComplete()).append(",");
         if (getInitiator() != null)
-            sb.append("Initiator: ").append(getInitiator());
+            sb.append("Initiator: ").append(getInitiator()).append(",");
+        if (getVpcConfig() != null)
+            sb.append("VpcConfig: ").append(getVpcConfig()).append(",");
+        if (getNetworkInterface() != null)
+            sb.append("NetworkInterface: ").append(getNetworkInterface()).append(",");
+        if (getEncryptionKey() != null)
+            sb.append("EncryptionKey: ").append(getEncryptionKey());
         sb.append("}");
         return sb.toString();
     }
@@ -1421,6 +2406,10 @@ public class Build implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getSourceVersion() != null && other.getSourceVersion().equals(this.getSourceVersion()) == false)
             return false;
+        if (other.getResolvedSourceVersion() == null ^ this.getResolvedSourceVersion() == null)
+            return false;
+        if (other.getResolvedSourceVersion() != null && other.getResolvedSourceVersion().equals(this.getResolvedSourceVersion()) == false)
+            return false;
         if (other.getProjectName() == null ^ this.getProjectName() == null)
             return false;
         if (other.getProjectName() != null && other.getProjectName().equals(this.getProjectName()) == false)
@@ -1433,13 +2422,33 @@ public class Build implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getSource() != null && other.getSource().equals(this.getSource()) == false)
             return false;
+        if (other.getSecondarySources() == null ^ this.getSecondarySources() == null)
+            return false;
+        if (other.getSecondarySources() != null && other.getSecondarySources().equals(this.getSecondarySources()) == false)
+            return false;
+        if (other.getSecondarySourceVersions() == null ^ this.getSecondarySourceVersions() == null)
+            return false;
+        if (other.getSecondarySourceVersions() != null && other.getSecondarySourceVersions().equals(this.getSecondarySourceVersions()) == false)
+            return false;
         if (other.getArtifacts() == null ^ this.getArtifacts() == null)
             return false;
         if (other.getArtifacts() != null && other.getArtifacts().equals(this.getArtifacts()) == false)
             return false;
+        if (other.getSecondaryArtifacts() == null ^ this.getSecondaryArtifacts() == null)
+            return false;
+        if (other.getSecondaryArtifacts() != null && other.getSecondaryArtifacts().equals(this.getSecondaryArtifacts()) == false)
+            return false;
+        if (other.getCache() == null ^ this.getCache() == null)
+            return false;
+        if (other.getCache() != null && other.getCache().equals(this.getCache()) == false)
+            return false;
         if (other.getEnvironment() == null ^ this.getEnvironment() == null)
             return false;
         if (other.getEnvironment() != null && other.getEnvironment().equals(this.getEnvironment()) == false)
+            return false;
+        if (other.getServiceRole() == null ^ this.getServiceRole() == null)
+            return false;
+        if (other.getServiceRole() != null && other.getServiceRole().equals(this.getServiceRole()) == false)
             return false;
         if (other.getLogs() == null ^ this.getLogs() == null)
             return false;
@@ -1449,6 +2458,10 @@ public class Build implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getTimeoutInMinutes() != null && other.getTimeoutInMinutes().equals(this.getTimeoutInMinutes()) == false)
             return false;
+        if (other.getQueuedTimeoutInMinutes() == null ^ this.getQueuedTimeoutInMinutes() == null)
+            return false;
+        if (other.getQueuedTimeoutInMinutes() != null && other.getQueuedTimeoutInMinutes().equals(this.getQueuedTimeoutInMinutes()) == false)
+            return false;
         if (other.getBuildComplete() == null ^ this.getBuildComplete() == null)
             return false;
         if (other.getBuildComplete() != null && other.getBuildComplete().equals(this.getBuildComplete()) == false)
@@ -1456,6 +2469,18 @@ public class Build implements Serializable, Cloneable, StructuredPojo {
         if (other.getInitiator() == null ^ this.getInitiator() == null)
             return false;
         if (other.getInitiator() != null && other.getInitiator().equals(this.getInitiator()) == false)
+            return false;
+        if (other.getVpcConfig() == null ^ this.getVpcConfig() == null)
+            return false;
+        if (other.getVpcConfig() != null && other.getVpcConfig().equals(this.getVpcConfig()) == false)
+            return false;
+        if (other.getNetworkInterface() == null ^ this.getNetworkInterface() == null)
+            return false;
+        if (other.getNetworkInterface() != null && other.getNetworkInterface().equals(this.getNetworkInterface()) == false)
+            return false;
+        if (other.getEncryptionKey() == null ^ this.getEncryptionKey() == null)
+            return false;
+        if (other.getEncryptionKey() != null && other.getEncryptionKey().equals(this.getEncryptionKey()) == false)
             return false;
         return true;
     }
@@ -1472,15 +2497,25 @@ public class Build implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getCurrentPhase() == null) ? 0 : getCurrentPhase().hashCode());
         hashCode = prime * hashCode + ((getBuildStatus() == null) ? 0 : getBuildStatus().hashCode());
         hashCode = prime * hashCode + ((getSourceVersion() == null) ? 0 : getSourceVersion().hashCode());
+        hashCode = prime * hashCode + ((getResolvedSourceVersion() == null) ? 0 : getResolvedSourceVersion().hashCode());
         hashCode = prime * hashCode + ((getProjectName() == null) ? 0 : getProjectName().hashCode());
         hashCode = prime * hashCode + ((getPhases() == null) ? 0 : getPhases().hashCode());
         hashCode = prime * hashCode + ((getSource() == null) ? 0 : getSource().hashCode());
+        hashCode = prime * hashCode + ((getSecondarySources() == null) ? 0 : getSecondarySources().hashCode());
+        hashCode = prime * hashCode + ((getSecondarySourceVersions() == null) ? 0 : getSecondarySourceVersions().hashCode());
         hashCode = prime * hashCode + ((getArtifacts() == null) ? 0 : getArtifacts().hashCode());
+        hashCode = prime * hashCode + ((getSecondaryArtifacts() == null) ? 0 : getSecondaryArtifacts().hashCode());
+        hashCode = prime * hashCode + ((getCache() == null) ? 0 : getCache().hashCode());
         hashCode = prime * hashCode + ((getEnvironment() == null) ? 0 : getEnvironment().hashCode());
+        hashCode = prime * hashCode + ((getServiceRole() == null) ? 0 : getServiceRole().hashCode());
         hashCode = prime * hashCode + ((getLogs() == null) ? 0 : getLogs().hashCode());
         hashCode = prime * hashCode + ((getTimeoutInMinutes() == null) ? 0 : getTimeoutInMinutes().hashCode());
+        hashCode = prime * hashCode + ((getQueuedTimeoutInMinutes() == null) ? 0 : getQueuedTimeoutInMinutes().hashCode());
         hashCode = prime * hashCode + ((getBuildComplete() == null) ? 0 : getBuildComplete().hashCode());
         hashCode = prime * hashCode + ((getInitiator() == null) ? 0 : getInitiator().hashCode());
+        hashCode = prime * hashCode + ((getVpcConfig() == null) ? 0 : getVpcConfig().hashCode());
+        hashCode = prime * hashCode + ((getNetworkInterface() == null) ? 0 : getNetworkInterface().hashCode());
+        hashCode = prime * hashCode + ((getEncryptionKey() == null) ? 0 : getEncryptionKey().hashCode());
         return hashCode;
     }
 

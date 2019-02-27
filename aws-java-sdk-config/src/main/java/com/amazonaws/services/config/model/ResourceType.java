@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -54,7 +54,36 @@ public enum ResourceType {
     AWSRedshiftClusterSecurityGroup("AWS::Redshift::ClusterSecurityGroup"),
     AWSRedshiftClusterSubnetGroup("AWS::Redshift::ClusterSubnetGroup"),
     AWSRedshiftEventSubscription("AWS::Redshift::EventSubscription"),
-    AWSCloudWatchAlarm("AWS::CloudWatch::Alarm");
+    AWSCloudWatchAlarm("AWS::CloudWatch::Alarm"),
+    AWSCloudFormationStack("AWS::CloudFormation::Stack"),
+    AWSDynamoDBTable("AWS::DynamoDB::Table"),
+    AWSAutoScalingAutoScalingGroup("AWS::AutoScaling::AutoScalingGroup"),
+    AWSAutoScalingLaunchConfiguration("AWS::AutoScaling::LaunchConfiguration"),
+    AWSAutoScalingScalingPolicy("AWS::AutoScaling::ScalingPolicy"),
+    AWSAutoScalingScheduledAction("AWS::AutoScaling::ScheduledAction"),
+    AWSCodeBuildProject("AWS::CodeBuild::Project"),
+    AWSWAFRateBasedRule("AWS::WAF::RateBasedRule"),
+    AWSWAFRule("AWS::WAF::Rule"),
+    AWSWAFWebACL("AWS::WAF::WebACL"),
+    AWSWAFRegionalRateBasedRule("AWS::WAFRegional::RateBasedRule"),
+    AWSWAFRegionalRule("AWS::WAFRegional::Rule"),
+    AWSWAFRegionalWebACL("AWS::WAFRegional::WebACL"),
+    AWSCloudFrontDistribution("AWS::CloudFront::Distribution"),
+    AWSCloudFrontStreamingDistribution("AWS::CloudFront::StreamingDistribution"),
+    AWSWAFRuleGroup("AWS::WAF::RuleGroup"),
+    AWSWAFRegionalRuleGroup("AWS::WAFRegional::RuleGroup"),
+    AWSLambdaFunction("AWS::Lambda::Function"),
+    AWSElasticBeanstalkApplication("AWS::ElasticBeanstalk::Application"),
+    AWSElasticBeanstalkApplicationVersion("AWS::ElasticBeanstalk::ApplicationVersion"),
+    AWSElasticBeanstalkEnvironment("AWS::ElasticBeanstalk::Environment"),
+    AWSElasticLoadBalancingLoadBalancer("AWS::ElasticLoadBalancing::LoadBalancer"),
+    AWSXRayEncryptionConfig("AWS::XRay::EncryptionConfig"),
+    AWSSSMAssociationCompliance("AWS::SSM::AssociationCompliance"),
+    AWSSSMPatchCompliance("AWS::SSM::PatchCompliance"),
+    AWSShieldProtection("AWS::Shield::Protection"),
+    AWSShieldRegionalProtection("AWS::ShieldRegional::Protection"),
+    AWSConfigResourceCompliance("AWS::Config::ResourceCompliance"),
+    AWSCodePipelinePipeline("AWS::CodePipeline::Pipeline");
 
     private String value;
 
@@ -73,6 +102,9 @@ public enum ResourceType {
      * @param value
      *        real value
      * @return ResourceType corresponding to the value
+     *
+     * @throws IllegalArgumentException
+     *         If the specified value does not map to one of the known values in this enum.
      */
     public static ResourceType fromValue(String value) {
         if (value == null || "".equals(value)) {

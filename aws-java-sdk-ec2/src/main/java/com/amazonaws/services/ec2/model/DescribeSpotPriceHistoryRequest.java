@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -58,7 +58,7 @@ public class DescribeSpotPriceHistoryRequest extends AmazonWebServiceRequest imp
      * </li>
      * <li>
      * <p>
-     * <code>timestamp</code> - The timestamp of the Spot price history, in UTC format (for example,
+     * <code>timestamp</code> - The time stamp of the Spot price history, in UTC format (for example,
      * <i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z). You can use wildcards (* and ?). Greater than or
      * less than comparison is not supported.
      * </p>
@@ -81,7 +81,7 @@ public class DescribeSpotPriceHistoryRequest extends AmazonWebServiceRequest imp
     private java.util.Date endTime;
     /**
      * <p>
-     * Filters the results by the specified instance types. Note that T2 and HS1 instance types are not supported.
+     * Filters the results by the specified instance types.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<String> instanceTypes;
@@ -142,7 +142,7 @@ public class DescribeSpotPriceHistoryRequest extends AmazonWebServiceRequest imp
      * </li>
      * <li>
      * <p>
-     * <code>timestamp</code> - The timestamp of the Spot price history, in UTC format (for example,
+     * <code>timestamp</code> - The time stamp of the Spot price history, in UTC format (for example,
      * <i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z). You can use wildcards (* and ?). Greater than or
      * less than comparison is not supported.
      * </p>
@@ -176,7 +176,7 @@ public class DescribeSpotPriceHistoryRequest extends AmazonWebServiceRequest imp
      *         </li>
      *         <li>
      *         <p>
-     *         <code>timestamp</code> - The timestamp of the Spot price history, in UTC format (for example,
+     *         <code>timestamp</code> - The time stamp of the Spot price history, in UTC format (for example,
      *         <i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z). You can use wildcards (* and ?). Greater
      *         than or less than comparison is not supported.
      *         </p>
@@ -220,7 +220,7 @@ public class DescribeSpotPriceHistoryRequest extends AmazonWebServiceRequest imp
      * </li>
      * <li>
      * <p>
-     * <code>timestamp</code> - The timestamp of the Spot price history, in UTC format (for example,
+     * <code>timestamp</code> - The time stamp of the Spot price history, in UTC format (for example,
      * <i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z). You can use wildcards (* and ?). Greater than or
      * less than comparison is not supported.
      * </p>
@@ -255,7 +255,7 @@ public class DescribeSpotPriceHistoryRequest extends AmazonWebServiceRequest imp
      *        </li>
      *        <li>
      *        <p>
-     *        <code>timestamp</code> - The timestamp of the Spot price history, in UTC format (for example,
+     *        <code>timestamp</code> - The time stamp of the Spot price history, in UTC format (for example,
      *        <i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z). You can use wildcards (* and ?). Greater
      *        than or less than comparison is not supported.
      *        </p>
@@ -301,7 +301,7 @@ public class DescribeSpotPriceHistoryRequest extends AmazonWebServiceRequest imp
      * </li>
      * <li>
      * <p>
-     * <code>timestamp</code> - The timestamp of the Spot price history, in UTC format (for example,
+     * <code>timestamp</code> - The time stamp of the Spot price history, in UTC format (for example,
      * <i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z). You can use wildcards (* and ?). Greater than or
      * less than comparison is not supported.
      * </p>
@@ -341,7 +341,7 @@ public class DescribeSpotPriceHistoryRequest extends AmazonWebServiceRequest imp
      *        </li>
      *        <li>
      *        <p>
-     *        <code>timestamp</code> - The timestamp of the Spot price history, in UTC format (for example,
+     *        <code>timestamp</code> - The time stamp of the Spot price history, in UTC format (for example,
      *        <i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z). You can use wildcards (* and ?). Greater
      *        than or less than comparison is not supported.
      *        </p>
@@ -389,7 +389,7 @@ public class DescribeSpotPriceHistoryRequest extends AmazonWebServiceRequest imp
      * </li>
      * <li>
      * <p>
-     * <code>timestamp</code> - The timestamp of the Spot price history, in UTC format (for example,
+     * <code>timestamp</code> - The time stamp of the Spot price history, in UTC format (for example,
      * <i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z). You can use wildcards (* and ?). Greater than or
      * less than comparison is not supported.
      * </p>
@@ -424,7 +424,7 @@ public class DescribeSpotPriceHistoryRequest extends AmazonWebServiceRequest imp
      *        </li>
      *        <li>
      *        <p>
-     *        <code>timestamp</code> - The timestamp of the Spot price history, in UTC format (for example,
+     *        <code>timestamp</code> - The time stamp of the Spot price history, in UTC format (for example,
      *        <i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z). You can use wildcards (* and ?). Greater
      *        than or less than comparison is not supported.
      *        </p>
@@ -525,11 +525,10 @@ public class DescribeSpotPriceHistoryRequest extends AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * Filters the results by the specified instance types. Note that T2 and HS1 instance types are not supported.
+     * Filters the results by the specified instance types.
      * </p>
      * 
-     * @return Filters the results by the specified instance types. Note that T2 and HS1 instance types are not
-     *         supported.
+     * @return Filters the results by the specified instance types.
      * @see InstanceType
      */
 
@@ -542,12 +541,11 @@ public class DescribeSpotPriceHistoryRequest extends AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * Filters the results by the specified instance types. Note that T2 and HS1 instance types are not supported.
+     * Filters the results by the specified instance types.
      * </p>
      * 
      * @param instanceTypes
-     *        Filters the results by the specified instance types. Note that T2 and HS1 instance types are not
-     *        supported.
+     *        Filters the results by the specified instance types.
      * @see InstanceType
      */
 
@@ -562,7 +560,7 @@ public class DescribeSpotPriceHistoryRequest extends AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * Filters the results by the specified instance types. Note that T2 and HS1 instance types are not supported.
+     * Filters the results by the specified instance types.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -571,8 +569,7 @@ public class DescribeSpotPriceHistoryRequest extends AmazonWebServiceRequest imp
      * </p>
      * 
      * @param instanceTypes
-     *        Filters the results by the specified instance types. Note that T2 and HS1 instance types are not
-     *        supported.
+     *        Filters the results by the specified instance types.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see InstanceType
      */
@@ -589,12 +586,11 @@ public class DescribeSpotPriceHistoryRequest extends AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * Filters the results by the specified instance types. Note that T2 and HS1 instance types are not supported.
+     * Filters the results by the specified instance types.
      * </p>
      * 
      * @param instanceTypes
-     *        Filters the results by the specified instance types. Note that T2 and HS1 instance types are not
-     *        supported.
+     *        Filters the results by the specified instance types.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see InstanceType
      */
@@ -606,12 +602,11 @@ public class DescribeSpotPriceHistoryRequest extends AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * Filters the results by the specified instance types. Note that T2 and HS1 instance types are not supported.
+     * Filters the results by the specified instance types.
      * </p>
      * 
      * @param instanceTypes
-     *        Filters the results by the specified instance types. Note that T2 and HS1 instance types are not
-     *        supported.
+     *        Filters the results by the specified instance types.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see InstanceType
      */
@@ -849,7 +844,8 @@ public class DescribeSpotPriceHistoryRequest extends AmazonWebServiceRequest imp
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

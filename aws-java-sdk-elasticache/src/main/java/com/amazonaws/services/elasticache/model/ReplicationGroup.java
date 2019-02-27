@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,7 +34,7 @@ public class ReplicationGroup implements Serializable, Cloneable {
     private String replicationGroupId;
     /**
      * <p>
-     * The description of the replication group.
+     * The user supplied description of the replication group.
      * </p>
      */
     private String description;
@@ -60,23 +60,24 @@ public class ReplicationGroup implements Serializable, Cloneable {
     private com.amazonaws.internal.SdkInternalList<String> memberClusters;
     /**
      * <p>
-     * A single element list with information about the nodes in the replication group.
+     * A list of node groups in this replication group. For Redis (cluster mode disabled) replication groups, this is a
+     * single-element list. For Redis (cluster mode enabled) replication groups, the list contains an entry for each
+     * node group (shard).
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<NodeGroup> nodeGroups;
     /**
      * <p>
-     * The cache cluster ID that is used as the daily snapshot source for the replication group.
+     * The cluster ID that is used as the daily snapshot source for the replication group.
      * </p>
      */
     private String snapshottingClusterId;
     /**
      * <p>
-     * Indicates the status of Multi-AZ for this replication group.
+     * Indicates the status of Multi-AZ with automatic failover for this Redis replication group.
      * </p>
-     * <note>
      * <p>
-     * ElastiCache Multi-AZ replication groups are not supported on:
+     * Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
      * </p>
      * <ul>
      * <li>
@@ -86,28 +87,29 @@ public class ReplicationGroup implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * Redis (cluster mode disabled):T1 and T2 cache node types.
+     * Redis (cluster mode disabled): T1 and T2 cache node types.
      * </p>
+     * </li>
+     * <li>
      * <p>
      * Redis (cluster mode enabled): T1 node types.
      * </p>
      * </li>
      * </ul>
-     * </note>
      */
     private String automaticFailover;
     /**
      * <p>
-     * The configuration endpoint for this replicaiton group. Use the configuration endpoint to connect to this
+     * The configuration endpoint for this replication group. Use the configuration endpoint to connect to this
      * replication group.
      * </p>
      */
     private Endpoint configurationEndpoint;
     /**
      * <p>
-     * The number of days for which ElastiCache retains automatic cache cluster snapshots before deleting them. For
-     * example, if you set <code>SnapshotRetentionLimit</code> to 5, a snapshot that was taken today is retained for 5
-     * days before being deleted.
+     * The number of days for which ElastiCache retains automatic cluster snapshots before deleting them. For example,
+     * if you set <code>SnapshotRetentionLimit</code> to 5, a snapshot that was taken today is retained for 5 days
+     * before being deleted.
      * </p>
      * <important>
      * <p>
@@ -126,9 +128,11 @@ public class ReplicationGroup implements Serializable, Cloneable {
      * <p>
      * If you do not specify this parameter, ElastiCache automatically chooses an appropriate time range.
      * </p>
+     * <note>
      * <p>
-     * <b>Note:</b> This parameter is only valid if the <code>Engine</code> parameter is <code>redis</code>.
+     * This parameter is only valid if the <code>Engine</code> parameter is <code>redis</code>.
      * </p>
+     * </note>
      */
     private String snapshotWindow;
     /**
@@ -147,6 +151,51 @@ public class ReplicationGroup implements Serializable, Cloneable {
      * </p>
      */
     private String cacheNodeType;
+    /**
+     * <p>
+     * A flag that enables using an <code>AuthToken</code> (password) when issuing Redis commands.
+     * </p>
+     * <p>
+     * Default: <code>false</code>
+     * </p>
+     */
+    private Boolean authTokenEnabled;
+    /**
+     * <p>
+     * A flag that enables in-transit encryption when set to <code>true</code>.
+     * </p>
+     * <p>
+     * You cannot modify the value of <code>TransitEncryptionEnabled</code> after the cluster is created. To enable
+     * in-transit encryption on a cluster you must set <code>TransitEncryptionEnabled</code> to <code>true</code> when
+     * you create a cluster.
+     * </p>
+     * <p>
+     * <b>Required:</b> Only available when creating a replication group in an Amazon VPC using redis version
+     * <code>3.2.6</code> or <code>4.x</code>.
+     * </p>
+     * <p>
+     * Default: <code>false</code>
+     * </p>
+     */
+    private Boolean transitEncryptionEnabled;
+    /**
+     * <p>
+     * A flag that enables encryption at-rest when set to <code>true</code>.
+     * </p>
+     * <p>
+     * You cannot modify the value of <code>AtRestEncryptionEnabled</code> after the cluster is created. To enable
+     * encryption at-rest on a cluster you must set <code>AtRestEncryptionEnabled</code> to <code>true</code> when you
+     * create a cluster.
+     * </p>
+     * <p>
+     * <b>Required:</b> Only available when creating a replication group in an Amazon VPC using redis version
+     * <code>3.2.6</code> or <code>4.x</code>.
+     * </p>
+     * <p>
+     * Default: <code>false</code>
+     * </p>
+     */
+    private Boolean atRestEncryptionEnabled;
 
     /**
      * <p>
@@ -190,11 +239,11 @@ public class ReplicationGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The description of the replication group.
+     * The user supplied description of the replication group.
      * </p>
      * 
      * @param description
-     *        The description of the replication group.
+     *        The user supplied description of the replication group.
      */
 
     public void setDescription(String description) {
@@ -203,10 +252,10 @@ public class ReplicationGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The description of the replication group.
+     * The user supplied description of the replication group.
      * </p>
      * 
-     * @return The description of the replication group.
+     * @return The user supplied description of the replication group.
      */
 
     public String getDescription() {
@@ -215,11 +264,11 @@ public class ReplicationGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The description of the replication group.
+     * The user supplied description of the replication group.
      * </p>
      * 
      * @param description
-     *        The description of the replication group.
+     *        The user supplied description of the replication group.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -395,10 +444,14 @@ public class ReplicationGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A single element list with information about the nodes in the replication group.
+     * A list of node groups in this replication group. For Redis (cluster mode disabled) replication groups, this is a
+     * single-element list. For Redis (cluster mode enabled) replication groups, the list contains an entry for each
+     * node group (shard).
      * </p>
      * 
-     * @return A single element list with information about the nodes in the replication group.
+     * @return A list of node groups in this replication group. For Redis (cluster mode disabled) replication groups,
+     *         this is a single-element list. For Redis (cluster mode enabled) replication groups, the list contains an
+     *         entry for each node group (shard).
      */
 
     public java.util.List<NodeGroup> getNodeGroups() {
@@ -410,11 +463,15 @@ public class ReplicationGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A single element list with information about the nodes in the replication group.
+     * A list of node groups in this replication group. For Redis (cluster mode disabled) replication groups, this is a
+     * single-element list. For Redis (cluster mode enabled) replication groups, the list contains an entry for each
+     * node group (shard).
      * </p>
      * 
      * @param nodeGroups
-     *        A single element list with information about the nodes in the replication group.
+     *        A list of node groups in this replication group. For Redis (cluster mode disabled) replication groups,
+     *        this is a single-element list. For Redis (cluster mode enabled) replication groups, the list contains an
+     *        entry for each node group (shard).
      */
 
     public void setNodeGroups(java.util.Collection<NodeGroup> nodeGroups) {
@@ -428,7 +485,9 @@ public class ReplicationGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A single element list with information about the nodes in the replication group.
+     * A list of node groups in this replication group. For Redis (cluster mode disabled) replication groups, this is a
+     * single-element list. For Redis (cluster mode enabled) replication groups, the list contains an entry for each
+     * node group (shard).
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -437,7 +496,9 @@ public class ReplicationGroup implements Serializable, Cloneable {
      * </p>
      * 
      * @param nodeGroups
-     *        A single element list with information about the nodes in the replication group.
+     *        A list of node groups in this replication group. For Redis (cluster mode disabled) replication groups,
+     *        this is a single-element list. For Redis (cluster mode enabled) replication groups, the list contains an
+     *        entry for each node group (shard).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -453,11 +514,15 @@ public class ReplicationGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A single element list with information about the nodes in the replication group.
+     * A list of node groups in this replication group. For Redis (cluster mode disabled) replication groups, this is a
+     * single-element list. For Redis (cluster mode enabled) replication groups, the list contains an entry for each
+     * node group (shard).
      * </p>
      * 
      * @param nodeGroups
-     *        A single element list with information about the nodes in the replication group.
+     *        A list of node groups in this replication group. For Redis (cluster mode disabled) replication groups,
+     *        this is a single-element list. For Redis (cluster mode enabled) replication groups, the list contains an
+     *        entry for each node group (shard).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -468,11 +533,11 @@ public class ReplicationGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The cache cluster ID that is used as the daily snapshot source for the replication group.
+     * The cluster ID that is used as the daily snapshot source for the replication group.
      * </p>
      * 
      * @param snapshottingClusterId
-     *        The cache cluster ID that is used as the daily snapshot source for the replication group.
+     *        The cluster ID that is used as the daily snapshot source for the replication group.
      */
 
     public void setSnapshottingClusterId(String snapshottingClusterId) {
@@ -481,10 +546,10 @@ public class ReplicationGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The cache cluster ID that is used as the daily snapshot source for the replication group.
+     * The cluster ID that is used as the daily snapshot source for the replication group.
      * </p>
      * 
-     * @return The cache cluster ID that is used as the daily snapshot source for the replication group.
+     * @return The cluster ID that is used as the daily snapshot source for the replication group.
      */
 
     public String getSnapshottingClusterId() {
@@ -493,11 +558,11 @@ public class ReplicationGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The cache cluster ID that is used as the daily snapshot source for the replication group.
+     * The cluster ID that is used as the daily snapshot source for the replication group.
      * </p>
      * 
      * @param snapshottingClusterId
-     *        The cache cluster ID that is used as the daily snapshot source for the replication group.
+     *        The cluster ID that is used as the daily snapshot source for the replication group.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -508,11 +573,10 @@ public class ReplicationGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates the status of Multi-AZ for this replication group.
+     * Indicates the status of Multi-AZ with automatic failover for this Redis replication group.
      * </p>
-     * <note>
      * <p>
-     * ElastiCache Multi-AZ replication groups are not supported on:
+     * Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
      * </p>
      * <ul>
      * <li>
@@ -522,19 +586,20 @@ public class ReplicationGroup implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * Redis (cluster mode disabled):T1 and T2 cache node types.
+     * Redis (cluster mode disabled): T1 and T2 cache node types.
      * </p>
+     * </li>
+     * <li>
      * <p>
      * Redis (cluster mode enabled): T1 node types.
      * </p>
      * </li>
      * </ul>
-     * </note>
      * 
      * @param automaticFailover
-     *        Indicates the status of Multi-AZ for this replication group.</p> <note>
+     *        Indicates the status of Multi-AZ with automatic failover for this Redis replication group.</p>
      *        <p>
-     *        ElastiCache Multi-AZ replication groups are not supported on:
+     *        Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
      *        </p>
      *        <ul>
      *        <li>
@@ -544,13 +609,14 @@ public class ReplicationGroup implements Serializable, Cloneable {
      *        </li>
      *        <li>
      *        <p>
-     *        Redis (cluster mode disabled):T1 and T2 cache node types.
+     *        Redis (cluster mode disabled): T1 and T2 cache node types.
      *        </p>
+     *        </li>
+     *        <li>
      *        <p>
      *        Redis (cluster mode enabled): T1 node types.
      *        </p>
      *        </li>
-     *        </ul>
      * @see AutomaticFailoverStatus
      */
 
@@ -560,11 +626,10 @@ public class ReplicationGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates the status of Multi-AZ for this replication group.
+     * Indicates the status of Multi-AZ with automatic failover for this Redis replication group.
      * </p>
-     * <note>
      * <p>
-     * ElastiCache Multi-AZ replication groups are not supported on:
+     * Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
      * </p>
      * <ul>
      * <li>
@@ -574,18 +639,19 @@ public class ReplicationGroup implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * Redis (cluster mode disabled):T1 and T2 cache node types.
+     * Redis (cluster mode disabled): T1 and T2 cache node types.
      * </p>
+     * </li>
+     * <li>
      * <p>
      * Redis (cluster mode enabled): T1 node types.
      * </p>
      * </li>
      * </ul>
-     * </note>
      * 
-     * @return Indicates the status of Multi-AZ for this replication group.</p> <note>
+     * @return Indicates the status of Multi-AZ with automatic failover for this Redis replication group.</p>
      *         <p>
-     *         ElastiCache Multi-AZ replication groups are not supported on:
+     *         Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
      *         </p>
      *         <ul>
      *         <li>
@@ -595,13 +661,14 @@ public class ReplicationGroup implements Serializable, Cloneable {
      *         </li>
      *         <li>
      *         <p>
-     *         Redis (cluster mode disabled):T1 and T2 cache node types.
+     *         Redis (cluster mode disabled): T1 and T2 cache node types.
      *         </p>
+     *         </li>
+     *         <li>
      *         <p>
      *         Redis (cluster mode enabled): T1 node types.
      *         </p>
      *         </li>
-     *         </ul>
      * @see AutomaticFailoverStatus
      */
 
@@ -611,11 +678,10 @@ public class ReplicationGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates the status of Multi-AZ for this replication group.
+     * Indicates the status of Multi-AZ with automatic failover for this Redis replication group.
      * </p>
-     * <note>
      * <p>
-     * ElastiCache Multi-AZ replication groups are not supported on:
+     * Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
      * </p>
      * <ul>
      * <li>
@@ -625,19 +691,20 @@ public class ReplicationGroup implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * Redis (cluster mode disabled):T1 and T2 cache node types.
+     * Redis (cluster mode disabled): T1 and T2 cache node types.
      * </p>
+     * </li>
+     * <li>
      * <p>
      * Redis (cluster mode enabled): T1 node types.
      * </p>
      * </li>
      * </ul>
-     * </note>
      * 
      * @param automaticFailover
-     *        Indicates the status of Multi-AZ for this replication group.</p> <note>
+     *        Indicates the status of Multi-AZ with automatic failover for this Redis replication group.</p>
      *        <p>
-     *        ElastiCache Multi-AZ replication groups are not supported on:
+     *        Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
      *        </p>
      *        <ul>
      *        <li>
@@ -647,13 +714,14 @@ public class ReplicationGroup implements Serializable, Cloneable {
      *        </li>
      *        <li>
      *        <p>
-     *        Redis (cluster mode disabled):T1 and T2 cache node types.
+     *        Redis (cluster mode disabled): T1 and T2 cache node types.
      *        </p>
+     *        </li>
+     *        <li>
      *        <p>
      *        Redis (cluster mode enabled): T1 node types.
      *        </p>
      *        </li>
-     *        </ul>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see AutomaticFailoverStatus
      */
@@ -665,11 +733,10 @@ public class ReplicationGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates the status of Multi-AZ for this replication group.
+     * Indicates the status of Multi-AZ with automatic failover for this Redis replication group.
      * </p>
-     * <note>
      * <p>
-     * ElastiCache Multi-AZ replication groups are not supported on:
+     * Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
      * </p>
      * <ul>
      * <li>
@@ -679,19 +746,20 @@ public class ReplicationGroup implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * Redis (cluster mode disabled):T1 and T2 cache node types.
+     * Redis (cluster mode disabled): T1 and T2 cache node types.
      * </p>
+     * </li>
+     * <li>
      * <p>
      * Redis (cluster mode enabled): T1 node types.
      * </p>
      * </li>
      * </ul>
-     * </note>
      * 
      * @param automaticFailover
-     *        Indicates the status of Multi-AZ for this replication group.</p> <note>
+     *        Indicates the status of Multi-AZ with automatic failover for this Redis replication group.</p>
      *        <p>
-     *        ElastiCache Multi-AZ replication groups are not supported on:
+     *        Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
      *        </p>
      *        <ul>
      *        <li>
@@ -701,13 +769,14 @@ public class ReplicationGroup implements Serializable, Cloneable {
      *        </li>
      *        <li>
      *        <p>
-     *        Redis (cluster mode disabled):T1 and T2 cache node types.
+     *        Redis (cluster mode disabled): T1 and T2 cache node types.
      *        </p>
+     *        </li>
+     *        <li>
      *        <p>
      *        Redis (cluster mode enabled): T1 node types.
      *        </p>
      *        </li>
-     *        </ul>
      * @see AutomaticFailoverStatus
      */
 
@@ -717,11 +786,10 @@ public class ReplicationGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates the status of Multi-AZ for this replication group.
+     * Indicates the status of Multi-AZ with automatic failover for this Redis replication group.
      * </p>
-     * <note>
      * <p>
-     * ElastiCache Multi-AZ replication groups are not supported on:
+     * Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
      * </p>
      * <ul>
      * <li>
@@ -731,19 +799,20 @@ public class ReplicationGroup implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * Redis (cluster mode disabled):T1 and T2 cache node types.
+     * Redis (cluster mode disabled): T1 and T2 cache node types.
      * </p>
+     * </li>
+     * <li>
      * <p>
      * Redis (cluster mode enabled): T1 node types.
      * </p>
      * </li>
      * </ul>
-     * </note>
      * 
      * @param automaticFailover
-     *        Indicates the status of Multi-AZ for this replication group.</p> <note>
+     *        Indicates the status of Multi-AZ with automatic failover for this Redis replication group.</p>
      *        <p>
-     *        ElastiCache Multi-AZ replication groups are not supported on:
+     *        Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
      *        </p>
      *        <ul>
      *        <li>
@@ -753,13 +822,14 @@ public class ReplicationGroup implements Serializable, Cloneable {
      *        </li>
      *        <li>
      *        <p>
-     *        Redis (cluster mode disabled):T1 and T2 cache node types.
+     *        Redis (cluster mode disabled): T1 and T2 cache node types.
      *        </p>
+     *        </li>
+     *        <li>
      *        <p>
      *        Redis (cluster mode enabled): T1 node types.
      *        </p>
      *        </li>
-     *        </ul>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see AutomaticFailoverStatus
      */
@@ -771,12 +841,12 @@ public class ReplicationGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The configuration endpoint for this replicaiton group. Use the configuration endpoint to connect to this
+     * The configuration endpoint for this replication group. Use the configuration endpoint to connect to this
      * replication group.
      * </p>
      * 
      * @param configurationEndpoint
-     *        The configuration endpoint for this replicaiton group. Use the configuration endpoint to connect to this
+     *        The configuration endpoint for this replication group. Use the configuration endpoint to connect to this
      *        replication group.
      */
 
@@ -786,11 +856,11 @@ public class ReplicationGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The configuration endpoint for this replicaiton group. Use the configuration endpoint to connect to this
+     * The configuration endpoint for this replication group. Use the configuration endpoint to connect to this
      * replication group.
      * </p>
      * 
-     * @return The configuration endpoint for this replicaiton group. Use the configuration endpoint to connect to this
+     * @return The configuration endpoint for this replication group. Use the configuration endpoint to connect to this
      *         replication group.
      */
 
@@ -800,12 +870,12 @@ public class ReplicationGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The configuration endpoint for this replicaiton group. Use the configuration endpoint to connect to this
+     * The configuration endpoint for this replication group. Use the configuration endpoint to connect to this
      * replication group.
      * </p>
      * 
      * @param configurationEndpoint
-     *        The configuration endpoint for this replicaiton group. Use the configuration endpoint to connect to this
+     *        The configuration endpoint for this replication group. Use the configuration endpoint to connect to this
      *        replication group.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -817,9 +887,9 @@ public class ReplicationGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of days for which ElastiCache retains automatic cache cluster snapshots before deleting them. For
-     * example, if you set <code>SnapshotRetentionLimit</code> to 5, a snapshot that was taken today is retained for 5
-     * days before being deleted.
+     * The number of days for which ElastiCache retains automatic cluster snapshots before deleting them. For example,
+     * if you set <code>SnapshotRetentionLimit</code> to 5, a snapshot that was taken today is retained for 5 days
+     * before being deleted.
      * </p>
      * <important>
      * <p>
@@ -828,9 +898,9 @@ public class ReplicationGroup implements Serializable, Cloneable {
      * </important>
      * 
      * @param snapshotRetentionLimit
-     *        The number of days for which ElastiCache retains automatic cache cluster snapshots before deleting them.
-     *        For example, if you set <code>SnapshotRetentionLimit</code> to 5, a snapshot that was taken today is
-     *        retained for 5 days before being deleted.</p> <important>
+     *        The number of days for which ElastiCache retains automatic cluster snapshots before deleting them. For
+     *        example, if you set <code>SnapshotRetentionLimit</code> to 5, a snapshot that was taken today is retained
+     *        for 5 days before being deleted.</p> <important>
      *        <p>
      *        If the value of <code>SnapshotRetentionLimit</code> is set to zero (0), backups are turned off.
      *        </p>
@@ -842,9 +912,9 @@ public class ReplicationGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of days for which ElastiCache retains automatic cache cluster snapshots before deleting them. For
-     * example, if you set <code>SnapshotRetentionLimit</code> to 5, a snapshot that was taken today is retained for 5
-     * days before being deleted.
+     * The number of days for which ElastiCache retains automatic cluster snapshots before deleting them. For example,
+     * if you set <code>SnapshotRetentionLimit</code> to 5, a snapshot that was taken today is retained for 5 days
+     * before being deleted.
      * </p>
      * <important>
      * <p>
@@ -852,9 +922,9 @@ public class ReplicationGroup implements Serializable, Cloneable {
      * </p>
      * </important>
      * 
-     * @return The number of days for which ElastiCache retains automatic cache cluster snapshots before deleting them.
-     *         For example, if you set <code>SnapshotRetentionLimit</code> to 5, a snapshot that was taken today is
-     *         retained for 5 days before being deleted.</p> <important>
+     * @return The number of days for which ElastiCache retains automatic cluster snapshots before deleting them. For
+     *         example, if you set <code>SnapshotRetentionLimit</code> to 5, a snapshot that was taken today is retained
+     *         for 5 days before being deleted.</p> <important>
      *         <p>
      *         If the value of <code>SnapshotRetentionLimit</code> is set to zero (0), backups are turned off.
      *         </p>
@@ -866,9 +936,9 @@ public class ReplicationGroup implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of days for which ElastiCache retains automatic cache cluster snapshots before deleting them. For
-     * example, if you set <code>SnapshotRetentionLimit</code> to 5, a snapshot that was taken today is retained for 5
-     * days before being deleted.
+     * The number of days for which ElastiCache retains automatic cluster snapshots before deleting them. For example,
+     * if you set <code>SnapshotRetentionLimit</code> to 5, a snapshot that was taken today is retained for 5 days
+     * before being deleted.
      * </p>
      * <important>
      * <p>
@@ -877,9 +947,9 @@ public class ReplicationGroup implements Serializable, Cloneable {
      * </important>
      * 
      * @param snapshotRetentionLimit
-     *        The number of days for which ElastiCache retains automatic cache cluster snapshots before deleting them.
-     *        For example, if you set <code>SnapshotRetentionLimit</code> to 5, a snapshot that was taken today is
-     *        retained for 5 days before being deleted.</p> <important>
+     *        The number of days for which ElastiCache retains automatic cluster snapshots before deleting them. For
+     *        example, if you set <code>SnapshotRetentionLimit</code> to 5, a snapshot that was taken today is retained
+     *        for 5 days before being deleted.</p> <important>
      *        <p>
      *        If the value of <code>SnapshotRetentionLimit</code> is set to zero (0), backups are turned off.
      *        </p>
@@ -901,9 +971,11 @@ public class ReplicationGroup implements Serializable, Cloneable {
      * <p>
      * If you do not specify this parameter, ElastiCache automatically chooses an appropriate time range.
      * </p>
+     * <note>
      * <p>
-     * <b>Note:</b> This parameter is only valid if the <code>Engine</code> parameter is <code>redis</code>.
+     * This parameter is only valid if the <code>Engine</code> parameter is <code>redis</code>.
      * </p>
+     * </note>
      * 
      * @param snapshotWindow
      *        The daily time range (in UTC) during which ElastiCache begins taking a daily snapshot of your node group
@@ -914,8 +986,10 @@ public class ReplicationGroup implements Serializable, Cloneable {
      *        <p>
      *        If you do not specify this parameter, ElastiCache automatically chooses an appropriate time range.
      *        </p>
+     *        <note>
      *        <p>
-     *        <b>Note:</b> This parameter is only valid if the <code>Engine</code> parameter is <code>redis</code>.
+     *        This parameter is only valid if the <code>Engine</code> parameter is <code>redis</code>.
+     *        </p>
      */
 
     public void setSnapshotWindow(String snapshotWindow) {
@@ -932,9 +1006,11 @@ public class ReplicationGroup implements Serializable, Cloneable {
      * <p>
      * If you do not specify this parameter, ElastiCache automatically chooses an appropriate time range.
      * </p>
+     * <note>
      * <p>
-     * <b>Note:</b> This parameter is only valid if the <code>Engine</code> parameter is <code>redis</code>.
+     * This parameter is only valid if the <code>Engine</code> parameter is <code>redis</code>.
      * </p>
+     * </note>
      * 
      * @return The daily time range (in UTC) during which ElastiCache begins taking a daily snapshot of your node group
      *         (shard).</p>
@@ -944,8 +1020,10 @@ public class ReplicationGroup implements Serializable, Cloneable {
      *         <p>
      *         If you do not specify this parameter, ElastiCache automatically chooses an appropriate time range.
      *         </p>
+     *         <note>
      *         <p>
-     *         <b>Note:</b> This parameter is only valid if the <code>Engine</code> parameter is <code>redis</code>.
+     *         This parameter is only valid if the <code>Engine</code> parameter is <code>redis</code>.
+     *         </p>
      */
 
     public String getSnapshotWindow() {
@@ -962,9 +1040,11 @@ public class ReplicationGroup implements Serializable, Cloneable {
      * <p>
      * If you do not specify this parameter, ElastiCache automatically chooses an appropriate time range.
      * </p>
+     * <note>
      * <p>
-     * <b>Note:</b> This parameter is only valid if the <code>Engine</code> parameter is <code>redis</code>.
+     * This parameter is only valid if the <code>Engine</code> parameter is <code>redis</code>.
      * </p>
+     * </note>
      * 
      * @param snapshotWindow
      *        The daily time range (in UTC) during which ElastiCache begins taking a daily snapshot of your node group
@@ -975,8 +1055,10 @@ public class ReplicationGroup implements Serializable, Cloneable {
      *        <p>
      *        If you do not specify this parameter, ElastiCache automatically chooses an appropriate time range.
      *        </p>
+     *        <note>
      *        <p>
-     *        <b>Note:</b> This parameter is only valid if the <code>Engine</code> parameter is <code>redis</code>.
+     *        This parameter is only valid if the <code>Engine</code> parameter is <code>redis</code>.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1106,7 +1188,368 @@ public class ReplicationGroup implements Serializable, Cloneable {
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * <p>
+     * A flag that enables using an <code>AuthToken</code> (password) when issuing Redis commands.
+     * </p>
+     * <p>
+     * Default: <code>false</code>
+     * </p>
+     * 
+     * @param authTokenEnabled
+     *        A flag that enables using an <code>AuthToken</code> (password) when issuing Redis commands.</p>
+     *        <p>
+     *        Default: <code>false</code>
+     */
+
+    public void setAuthTokenEnabled(Boolean authTokenEnabled) {
+        this.authTokenEnabled = authTokenEnabled;
+    }
+
+    /**
+     * <p>
+     * A flag that enables using an <code>AuthToken</code> (password) when issuing Redis commands.
+     * </p>
+     * <p>
+     * Default: <code>false</code>
+     * </p>
+     * 
+     * @return A flag that enables using an <code>AuthToken</code> (password) when issuing Redis commands.</p>
+     *         <p>
+     *         Default: <code>false</code>
+     */
+
+    public Boolean getAuthTokenEnabled() {
+        return this.authTokenEnabled;
+    }
+
+    /**
+     * <p>
+     * A flag that enables using an <code>AuthToken</code> (password) when issuing Redis commands.
+     * </p>
+     * <p>
+     * Default: <code>false</code>
+     * </p>
+     * 
+     * @param authTokenEnabled
+     *        A flag that enables using an <code>AuthToken</code> (password) when issuing Redis commands.</p>
+     *        <p>
+     *        Default: <code>false</code>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ReplicationGroup withAuthTokenEnabled(Boolean authTokenEnabled) {
+        setAuthTokenEnabled(authTokenEnabled);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A flag that enables using an <code>AuthToken</code> (password) when issuing Redis commands.
+     * </p>
+     * <p>
+     * Default: <code>false</code>
+     * </p>
+     * 
+     * @return A flag that enables using an <code>AuthToken</code> (password) when issuing Redis commands.</p>
+     *         <p>
+     *         Default: <code>false</code>
+     */
+
+    public Boolean isAuthTokenEnabled() {
+        return this.authTokenEnabled;
+    }
+
+    /**
+     * <p>
+     * A flag that enables in-transit encryption when set to <code>true</code>.
+     * </p>
+     * <p>
+     * You cannot modify the value of <code>TransitEncryptionEnabled</code> after the cluster is created. To enable
+     * in-transit encryption on a cluster you must set <code>TransitEncryptionEnabled</code> to <code>true</code> when
+     * you create a cluster.
+     * </p>
+     * <p>
+     * <b>Required:</b> Only available when creating a replication group in an Amazon VPC using redis version
+     * <code>3.2.6</code> or <code>4.x</code>.
+     * </p>
+     * <p>
+     * Default: <code>false</code>
+     * </p>
+     * 
+     * @param transitEncryptionEnabled
+     *        A flag that enables in-transit encryption when set to <code>true</code>.</p>
+     *        <p>
+     *        You cannot modify the value of <code>TransitEncryptionEnabled</code> after the cluster is created. To
+     *        enable in-transit encryption on a cluster you must set <code>TransitEncryptionEnabled</code> to
+     *        <code>true</code> when you create a cluster.
+     *        </p>
+     *        <p>
+     *        <b>Required:</b> Only available when creating a replication group in an Amazon VPC using redis version
+     *        <code>3.2.6</code> or <code>4.x</code>.
+     *        </p>
+     *        <p>
+     *        Default: <code>false</code>
+     */
+
+    public void setTransitEncryptionEnabled(Boolean transitEncryptionEnabled) {
+        this.transitEncryptionEnabled = transitEncryptionEnabled;
+    }
+
+    /**
+     * <p>
+     * A flag that enables in-transit encryption when set to <code>true</code>.
+     * </p>
+     * <p>
+     * You cannot modify the value of <code>TransitEncryptionEnabled</code> after the cluster is created. To enable
+     * in-transit encryption on a cluster you must set <code>TransitEncryptionEnabled</code> to <code>true</code> when
+     * you create a cluster.
+     * </p>
+     * <p>
+     * <b>Required:</b> Only available when creating a replication group in an Amazon VPC using redis version
+     * <code>3.2.6</code> or <code>4.x</code>.
+     * </p>
+     * <p>
+     * Default: <code>false</code>
+     * </p>
+     * 
+     * @return A flag that enables in-transit encryption when set to <code>true</code>.</p>
+     *         <p>
+     *         You cannot modify the value of <code>TransitEncryptionEnabled</code> after the cluster is created. To
+     *         enable in-transit encryption on a cluster you must set <code>TransitEncryptionEnabled</code> to
+     *         <code>true</code> when you create a cluster.
+     *         </p>
+     *         <p>
+     *         <b>Required:</b> Only available when creating a replication group in an Amazon VPC using redis version
+     *         <code>3.2.6</code> or <code>4.x</code>.
+     *         </p>
+     *         <p>
+     *         Default: <code>false</code>
+     */
+
+    public Boolean getTransitEncryptionEnabled() {
+        return this.transitEncryptionEnabled;
+    }
+
+    /**
+     * <p>
+     * A flag that enables in-transit encryption when set to <code>true</code>.
+     * </p>
+     * <p>
+     * You cannot modify the value of <code>TransitEncryptionEnabled</code> after the cluster is created. To enable
+     * in-transit encryption on a cluster you must set <code>TransitEncryptionEnabled</code> to <code>true</code> when
+     * you create a cluster.
+     * </p>
+     * <p>
+     * <b>Required:</b> Only available when creating a replication group in an Amazon VPC using redis version
+     * <code>3.2.6</code> or <code>4.x</code>.
+     * </p>
+     * <p>
+     * Default: <code>false</code>
+     * </p>
+     * 
+     * @param transitEncryptionEnabled
+     *        A flag that enables in-transit encryption when set to <code>true</code>.</p>
+     *        <p>
+     *        You cannot modify the value of <code>TransitEncryptionEnabled</code> after the cluster is created. To
+     *        enable in-transit encryption on a cluster you must set <code>TransitEncryptionEnabled</code> to
+     *        <code>true</code> when you create a cluster.
+     *        </p>
+     *        <p>
+     *        <b>Required:</b> Only available when creating a replication group in an Amazon VPC using redis version
+     *        <code>3.2.6</code> or <code>4.x</code>.
+     *        </p>
+     *        <p>
+     *        Default: <code>false</code>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ReplicationGroup withTransitEncryptionEnabled(Boolean transitEncryptionEnabled) {
+        setTransitEncryptionEnabled(transitEncryptionEnabled);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A flag that enables in-transit encryption when set to <code>true</code>.
+     * </p>
+     * <p>
+     * You cannot modify the value of <code>TransitEncryptionEnabled</code> after the cluster is created. To enable
+     * in-transit encryption on a cluster you must set <code>TransitEncryptionEnabled</code> to <code>true</code> when
+     * you create a cluster.
+     * </p>
+     * <p>
+     * <b>Required:</b> Only available when creating a replication group in an Amazon VPC using redis version
+     * <code>3.2.6</code> or <code>4.x</code>.
+     * </p>
+     * <p>
+     * Default: <code>false</code>
+     * </p>
+     * 
+     * @return A flag that enables in-transit encryption when set to <code>true</code>.</p>
+     *         <p>
+     *         You cannot modify the value of <code>TransitEncryptionEnabled</code> after the cluster is created. To
+     *         enable in-transit encryption on a cluster you must set <code>TransitEncryptionEnabled</code> to
+     *         <code>true</code> when you create a cluster.
+     *         </p>
+     *         <p>
+     *         <b>Required:</b> Only available when creating a replication group in an Amazon VPC using redis version
+     *         <code>3.2.6</code> or <code>4.x</code>.
+     *         </p>
+     *         <p>
+     *         Default: <code>false</code>
+     */
+
+    public Boolean isTransitEncryptionEnabled() {
+        return this.transitEncryptionEnabled;
+    }
+
+    /**
+     * <p>
+     * A flag that enables encryption at-rest when set to <code>true</code>.
+     * </p>
+     * <p>
+     * You cannot modify the value of <code>AtRestEncryptionEnabled</code> after the cluster is created. To enable
+     * encryption at-rest on a cluster you must set <code>AtRestEncryptionEnabled</code> to <code>true</code> when you
+     * create a cluster.
+     * </p>
+     * <p>
+     * <b>Required:</b> Only available when creating a replication group in an Amazon VPC using redis version
+     * <code>3.2.6</code> or <code>4.x</code>.
+     * </p>
+     * <p>
+     * Default: <code>false</code>
+     * </p>
+     * 
+     * @param atRestEncryptionEnabled
+     *        A flag that enables encryption at-rest when set to <code>true</code>.</p>
+     *        <p>
+     *        You cannot modify the value of <code>AtRestEncryptionEnabled</code> after the cluster is created. To
+     *        enable encryption at-rest on a cluster you must set <code>AtRestEncryptionEnabled</code> to
+     *        <code>true</code> when you create a cluster.
+     *        </p>
+     *        <p>
+     *        <b>Required:</b> Only available when creating a replication group in an Amazon VPC using redis version
+     *        <code>3.2.6</code> or <code>4.x</code>.
+     *        </p>
+     *        <p>
+     *        Default: <code>false</code>
+     */
+
+    public void setAtRestEncryptionEnabled(Boolean atRestEncryptionEnabled) {
+        this.atRestEncryptionEnabled = atRestEncryptionEnabled;
+    }
+
+    /**
+     * <p>
+     * A flag that enables encryption at-rest when set to <code>true</code>.
+     * </p>
+     * <p>
+     * You cannot modify the value of <code>AtRestEncryptionEnabled</code> after the cluster is created. To enable
+     * encryption at-rest on a cluster you must set <code>AtRestEncryptionEnabled</code> to <code>true</code> when you
+     * create a cluster.
+     * </p>
+     * <p>
+     * <b>Required:</b> Only available when creating a replication group in an Amazon VPC using redis version
+     * <code>3.2.6</code> or <code>4.x</code>.
+     * </p>
+     * <p>
+     * Default: <code>false</code>
+     * </p>
+     * 
+     * @return A flag that enables encryption at-rest when set to <code>true</code>.</p>
+     *         <p>
+     *         You cannot modify the value of <code>AtRestEncryptionEnabled</code> after the cluster is created. To
+     *         enable encryption at-rest on a cluster you must set <code>AtRestEncryptionEnabled</code> to
+     *         <code>true</code> when you create a cluster.
+     *         </p>
+     *         <p>
+     *         <b>Required:</b> Only available when creating a replication group in an Amazon VPC using redis version
+     *         <code>3.2.6</code> or <code>4.x</code>.
+     *         </p>
+     *         <p>
+     *         Default: <code>false</code>
+     */
+
+    public Boolean getAtRestEncryptionEnabled() {
+        return this.atRestEncryptionEnabled;
+    }
+
+    /**
+     * <p>
+     * A flag that enables encryption at-rest when set to <code>true</code>.
+     * </p>
+     * <p>
+     * You cannot modify the value of <code>AtRestEncryptionEnabled</code> after the cluster is created. To enable
+     * encryption at-rest on a cluster you must set <code>AtRestEncryptionEnabled</code> to <code>true</code> when you
+     * create a cluster.
+     * </p>
+     * <p>
+     * <b>Required:</b> Only available when creating a replication group in an Amazon VPC using redis version
+     * <code>3.2.6</code> or <code>4.x</code>.
+     * </p>
+     * <p>
+     * Default: <code>false</code>
+     * </p>
+     * 
+     * @param atRestEncryptionEnabled
+     *        A flag that enables encryption at-rest when set to <code>true</code>.</p>
+     *        <p>
+     *        You cannot modify the value of <code>AtRestEncryptionEnabled</code> after the cluster is created. To
+     *        enable encryption at-rest on a cluster you must set <code>AtRestEncryptionEnabled</code> to
+     *        <code>true</code> when you create a cluster.
+     *        </p>
+     *        <p>
+     *        <b>Required:</b> Only available when creating a replication group in an Amazon VPC using redis version
+     *        <code>3.2.6</code> or <code>4.x</code>.
+     *        </p>
+     *        <p>
+     *        Default: <code>false</code>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ReplicationGroup withAtRestEncryptionEnabled(Boolean atRestEncryptionEnabled) {
+        setAtRestEncryptionEnabled(atRestEncryptionEnabled);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A flag that enables encryption at-rest when set to <code>true</code>.
+     * </p>
+     * <p>
+     * You cannot modify the value of <code>AtRestEncryptionEnabled</code> after the cluster is created. To enable
+     * encryption at-rest on a cluster you must set <code>AtRestEncryptionEnabled</code> to <code>true</code> when you
+     * create a cluster.
+     * </p>
+     * <p>
+     * <b>Required:</b> Only available when creating a replication group in an Amazon VPC using redis version
+     * <code>3.2.6</code> or <code>4.x</code>.
+     * </p>
+     * <p>
+     * Default: <code>false</code>
+     * </p>
+     * 
+     * @return A flag that enables encryption at-rest when set to <code>true</code>.</p>
+     *         <p>
+     *         You cannot modify the value of <code>AtRestEncryptionEnabled</code> after the cluster is created. To
+     *         enable encryption at-rest on a cluster you must set <code>AtRestEncryptionEnabled</code> to
+     *         <code>true</code> when you create a cluster.
+     *         </p>
+     *         <p>
+     *         <b>Required:</b> Only available when creating a replication group in an Amazon VPC using redis version
+     *         <code>3.2.6</code> or <code>4.x</code>.
+     *         </p>
+     *         <p>
+     *         Default: <code>false</code>
+     */
+
+    public Boolean isAtRestEncryptionEnabled() {
+        return this.atRestEncryptionEnabled;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -1141,7 +1584,13 @@ public class ReplicationGroup implements Serializable, Cloneable {
         if (getClusterEnabled() != null)
             sb.append("ClusterEnabled: ").append(getClusterEnabled()).append(",");
         if (getCacheNodeType() != null)
-            sb.append("CacheNodeType: ").append(getCacheNodeType());
+            sb.append("CacheNodeType: ").append(getCacheNodeType()).append(",");
+        if (getAuthTokenEnabled() != null)
+            sb.append("AuthTokenEnabled: ").append(getAuthTokenEnabled()).append(",");
+        if (getTransitEncryptionEnabled() != null)
+            sb.append("TransitEncryptionEnabled: ").append(getTransitEncryptionEnabled()).append(",");
+        if (getAtRestEncryptionEnabled() != null)
+            sb.append("AtRestEncryptionEnabled: ").append(getAtRestEncryptionEnabled());
         sb.append("}");
         return sb.toString();
     }
@@ -1208,6 +1657,18 @@ public class ReplicationGroup implements Serializable, Cloneable {
             return false;
         if (other.getCacheNodeType() != null && other.getCacheNodeType().equals(this.getCacheNodeType()) == false)
             return false;
+        if (other.getAuthTokenEnabled() == null ^ this.getAuthTokenEnabled() == null)
+            return false;
+        if (other.getAuthTokenEnabled() != null && other.getAuthTokenEnabled().equals(this.getAuthTokenEnabled()) == false)
+            return false;
+        if (other.getTransitEncryptionEnabled() == null ^ this.getTransitEncryptionEnabled() == null)
+            return false;
+        if (other.getTransitEncryptionEnabled() != null && other.getTransitEncryptionEnabled().equals(this.getTransitEncryptionEnabled()) == false)
+            return false;
+        if (other.getAtRestEncryptionEnabled() == null ^ this.getAtRestEncryptionEnabled() == null)
+            return false;
+        if (other.getAtRestEncryptionEnabled() != null && other.getAtRestEncryptionEnabled().equals(this.getAtRestEncryptionEnabled()) == false)
+            return false;
         return true;
     }
 
@@ -1229,6 +1690,9 @@ public class ReplicationGroup implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getSnapshotWindow() == null) ? 0 : getSnapshotWindow().hashCode());
         hashCode = prime * hashCode + ((getClusterEnabled() == null) ? 0 : getClusterEnabled().hashCode());
         hashCode = prime * hashCode + ((getCacheNodeType() == null) ? 0 : getCacheNodeType().hashCode());
+        hashCode = prime * hashCode + ((getAuthTokenEnabled() == null) ? 0 : getAuthTokenEnabled().hashCode());
+        hashCode = prime * hashCode + ((getTransitEncryptionEnabled() == null) ? 0 : getTransitEncryptionEnabled().hashCode());
+        hashCode = prime * hashCode + ((getAtRestEncryptionEnabled() == null) ? 0 : getAtRestEncryptionEnabled().hashCode());
         return hashCode;
     }
 

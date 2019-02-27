@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -43,12 +43,19 @@ public class SendEmailRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * href="http://docs.aws.amazon.com/ses/latest/DeveloperGuide/sending-authorization.html">Amazon SES Developer
      * Guide</a>.
      * </p>
+     * <note>
      * <p>
-     * In all cases, the email address must be 7-bit ASCII. If the text must contain any other characters, then you must
-     * use MIME encoded-word syntax (RFC 2047) instead of a literal string. MIME encoded-word syntax uses the following
-     * form: <code>=?charset?encoding?encoded-text?=</code>. For more information, see <a
-     * href="http://tools.ietf.org/html/rfc2047">RFC 2047</a>.
+     * Amazon SES does not support the SMTPUTF8 extension, as described in <a
+     * href="https://tools.ietf.org/html/rfc6531">RFC6531</a>. For this reason, the <i>local part</i> of a source email
+     * address (the part of the email address that precedes the @ sign) may only contain <a
+     * href="https://en.wikipedia.org/wiki/Email_address#Local-part">7-bit ASCII characters</a>. If the <i>domain
+     * part</i> of an address (the part after the @ sign) contains non-ASCII characters, they must be encoded using
+     * Punycode, as described in <a href="https://tools.ietf.org/html/rfc3492.html">RFC3492</a>. The sender name (also
+     * known as the <i>friendly name</i>) may contain non-ASCII characters. These characters must be encoded using MIME
+     * encoded-word syntax, as described in <a href="https://tools.ietf.org/html/rfc2047">RFC 2047</a>. MIME
+     * encoded-word syntax uses the following form: <code>=?charset?encoding?encoded-text?=</code>.
      * </p>
+     * </note>
      */
     private String source;
     /**
@@ -72,7 +79,7 @@ public class SendEmailRequest extends com.amazonaws.AmazonWebServiceRequest impl
     private com.amazonaws.internal.SdkInternalList<String> replyToAddresses;
     /**
      * <p>
-     * The email address to which bounces and complaints are to be forwarded when feedback forwarding is enabled. If the
+     * The email address that bounces and complaints will be forwarded to when feedback forwarding is enabled. If the
      * message cannot be delivered to the recipient, then an error message will be returned from the recipient's ISP;
      * this message will then be forwarded to the email address specified by the <code>ReturnPath</code> parameter. The
      * <code>ReturnPath</code> parameter is never overwritten. This email address must be either individually verified
@@ -158,11 +165,19 @@ public class SendEmailRequest extends com.amazonaws.AmazonWebServiceRequest impl
      *        href="http://docs.aws.amazon.com/ses/latest/DeveloperGuide/sending-authorization.html">Amazon SES
      *        Developer Guide</a>.
      *        </p>
+     *        <note>
      *        <p>
-     *        In all cases, the email address must be 7-bit ASCII. If the text must contain any other characters, then
-     *        you must use MIME encoded-word syntax (RFC 2047) instead of a literal string. MIME encoded-word syntax
-     *        uses the following form: <code>=?charset?encoding?encoded-text?=</code>. For more information, see <a
-     *        href="http://tools.ietf.org/html/rfc2047">RFC 2047</a>.
+     *        Amazon SES does not support the SMTPUTF8 extension, as described in <a
+     *        href="https://tools.ietf.org/html/rfc6531">RFC6531</a>. For this reason, the <i>local part</i> of a source
+     *        email address (the part of the email address that precedes the @ sign) may only contain <a
+     *        href="https://en.wikipedia.org/wiki/Email_address#Local-part">7-bit ASCII characters</a>. If the <i>domain
+     *        part</i> of an address (the part after the @ sign) contains non-ASCII characters, they must be encoded
+     *        using Punycode, as described in <a href="https://tools.ietf.org/html/rfc3492.html">RFC3492</a>. The sender
+     *        name (also known as the <i>friendly name</i>) may contain non-ASCII characters. These characters must be
+     *        encoded using MIME encoded-word syntax, as described in <a href="https://tools.ietf.org/html/rfc2047">RFC
+     *        2047</a>. MIME encoded-word syntax uses the following form: <code>=?charset?encoding?encoded-text?=</code>
+     *        .
+     *        </p>
      * @param destination
      *        The destination for this email, composed of To:, CC:, and BCC: fields.
      * @param message
@@ -188,12 +203,19 @@ public class SendEmailRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * href="http://docs.aws.amazon.com/ses/latest/DeveloperGuide/sending-authorization.html">Amazon SES Developer
      * Guide</a>.
      * </p>
+     * <note>
      * <p>
-     * In all cases, the email address must be 7-bit ASCII. If the text must contain any other characters, then you must
-     * use MIME encoded-word syntax (RFC 2047) instead of a literal string. MIME encoded-word syntax uses the following
-     * form: <code>=?charset?encoding?encoded-text?=</code>. For more information, see <a
-     * href="http://tools.ietf.org/html/rfc2047">RFC 2047</a>.
+     * Amazon SES does not support the SMTPUTF8 extension, as described in <a
+     * href="https://tools.ietf.org/html/rfc6531">RFC6531</a>. For this reason, the <i>local part</i> of a source email
+     * address (the part of the email address that precedes the @ sign) may only contain <a
+     * href="https://en.wikipedia.org/wiki/Email_address#Local-part">7-bit ASCII characters</a>. If the <i>domain
+     * part</i> of an address (the part after the @ sign) contains non-ASCII characters, they must be encoded using
+     * Punycode, as described in <a href="https://tools.ietf.org/html/rfc3492.html">RFC3492</a>. The sender name (also
+     * known as the <i>friendly name</i>) may contain non-ASCII characters. These characters must be encoded using MIME
+     * encoded-word syntax, as described in <a href="https://tools.ietf.org/html/rfc2047">RFC 2047</a>. MIME
+     * encoded-word syntax uses the following form: <code>=?charset?encoding?encoded-text?=</code>.
      * </p>
+     * </note>
      * 
      * @param source
      *        The email address that is sending the email. This email address must be either individually verified with
@@ -208,11 +230,19 @@ public class SendEmailRequest extends com.amazonaws.AmazonWebServiceRequest impl
      *        href="http://docs.aws.amazon.com/ses/latest/DeveloperGuide/sending-authorization.html">Amazon SES
      *        Developer Guide</a>.
      *        </p>
+     *        <note>
      *        <p>
-     *        In all cases, the email address must be 7-bit ASCII. If the text must contain any other characters, then
-     *        you must use MIME encoded-word syntax (RFC 2047) instead of a literal string. MIME encoded-word syntax
-     *        uses the following form: <code>=?charset?encoding?encoded-text?=</code>. For more information, see <a
-     *        href="http://tools.ietf.org/html/rfc2047">RFC 2047</a>.
+     *        Amazon SES does not support the SMTPUTF8 extension, as described in <a
+     *        href="https://tools.ietf.org/html/rfc6531">RFC6531</a>. For this reason, the <i>local part</i> of a source
+     *        email address (the part of the email address that precedes the @ sign) may only contain <a
+     *        href="https://en.wikipedia.org/wiki/Email_address#Local-part">7-bit ASCII characters</a>. If the <i>domain
+     *        part</i> of an address (the part after the @ sign) contains non-ASCII characters, they must be encoded
+     *        using Punycode, as described in <a href="https://tools.ietf.org/html/rfc3492.html">RFC3492</a>. The sender
+     *        name (also known as the <i>friendly name</i>) may contain non-ASCII characters. These characters must be
+     *        encoded using MIME encoded-word syntax, as described in <a href="https://tools.ietf.org/html/rfc2047">RFC
+     *        2047</a>. MIME encoded-word syntax uses the following form: <code>=?charset?encoding?encoded-text?=</code>
+     *        .
+     *        </p>
      */
 
     public void setSource(String source) {
@@ -233,12 +263,19 @@ public class SendEmailRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * href="http://docs.aws.amazon.com/ses/latest/DeveloperGuide/sending-authorization.html">Amazon SES Developer
      * Guide</a>.
      * </p>
+     * <note>
      * <p>
-     * In all cases, the email address must be 7-bit ASCII. If the text must contain any other characters, then you must
-     * use MIME encoded-word syntax (RFC 2047) instead of a literal string. MIME encoded-word syntax uses the following
-     * form: <code>=?charset?encoding?encoded-text?=</code>. For more information, see <a
-     * href="http://tools.ietf.org/html/rfc2047">RFC 2047</a>.
+     * Amazon SES does not support the SMTPUTF8 extension, as described in <a
+     * href="https://tools.ietf.org/html/rfc6531">RFC6531</a>. For this reason, the <i>local part</i> of a source email
+     * address (the part of the email address that precedes the @ sign) may only contain <a
+     * href="https://en.wikipedia.org/wiki/Email_address#Local-part">7-bit ASCII characters</a>. If the <i>domain
+     * part</i> of an address (the part after the @ sign) contains non-ASCII characters, they must be encoded using
+     * Punycode, as described in <a href="https://tools.ietf.org/html/rfc3492.html">RFC3492</a>. The sender name (also
+     * known as the <i>friendly name</i>) may contain non-ASCII characters. These characters must be encoded using MIME
+     * encoded-word syntax, as described in <a href="https://tools.ietf.org/html/rfc2047">RFC 2047</a>. MIME
+     * encoded-word syntax uses the following form: <code>=?charset?encoding?encoded-text?=</code>.
      * </p>
+     * </note>
      * 
      * @return The email address that is sending the email. This email address must be either individually verified with
      *         Amazon SES, or from a domain that has been verified with Amazon SES. For information about verifying
@@ -252,11 +289,19 @@ public class SendEmailRequest extends com.amazonaws.AmazonWebServiceRequest impl
      *         href="http://docs.aws.amazon.com/ses/latest/DeveloperGuide/sending-authorization.html">Amazon SES
      *         Developer Guide</a>.
      *         </p>
+     *         <note>
      *         <p>
-     *         In all cases, the email address must be 7-bit ASCII. If the text must contain any other characters, then
-     *         you must use MIME encoded-word syntax (RFC 2047) instead of a literal string. MIME encoded-word syntax
-     *         uses the following form: <code>=?charset?encoding?encoded-text?=</code>. For more information, see <a
-     *         href="http://tools.ietf.org/html/rfc2047">RFC 2047</a>.
+     *         Amazon SES does not support the SMTPUTF8 extension, as described in <a
+     *         href="https://tools.ietf.org/html/rfc6531">RFC6531</a>. For this reason, the <i>local part</i> of a
+     *         source email address (the part of the email address that precedes the @ sign) may only contain <a
+     *         href="https://en.wikipedia.org/wiki/Email_address#Local-part">7-bit ASCII characters</a>. If the
+     *         <i>domain part</i> of an address (the part after the @ sign) contains non-ASCII characters, they must be
+     *         encoded using Punycode, as described in <a href="https://tools.ietf.org/html/rfc3492.html">RFC3492</a>.
+     *         The sender name (also known as the <i>friendly name</i>) may contain non-ASCII characters. These
+     *         characters must be encoded using MIME encoded-word syntax, as described in <a
+     *         href="https://tools.ietf.org/html/rfc2047">RFC 2047</a>. MIME encoded-word syntax uses the following
+     *         form: <code>=?charset?encoding?encoded-text?=</code>.
+     *         </p>
      */
 
     public String getSource() {
@@ -277,12 +322,19 @@ public class SendEmailRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * href="http://docs.aws.amazon.com/ses/latest/DeveloperGuide/sending-authorization.html">Amazon SES Developer
      * Guide</a>.
      * </p>
+     * <note>
      * <p>
-     * In all cases, the email address must be 7-bit ASCII. If the text must contain any other characters, then you must
-     * use MIME encoded-word syntax (RFC 2047) instead of a literal string. MIME encoded-word syntax uses the following
-     * form: <code>=?charset?encoding?encoded-text?=</code>. For more information, see <a
-     * href="http://tools.ietf.org/html/rfc2047">RFC 2047</a>.
+     * Amazon SES does not support the SMTPUTF8 extension, as described in <a
+     * href="https://tools.ietf.org/html/rfc6531">RFC6531</a>. For this reason, the <i>local part</i> of a source email
+     * address (the part of the email address that precedes the @ sign) may only contain <a
+     * href="https://en.wikipedia.org/wiki/Email_address#Local-part">7-bit ASCII characters</a>. If the <i>domain
+     * part</i> of an address (the part after the @ sign) contains non-ASCII characters, they must be encoded using
+     * Punycode, as described in <a href="https://tools.ietf.org/html/rfc3492.html">RFC3492</a>. The sender name (also
+     * known as the <i>friendly name</i>) may contain non-ASCII characters. These characters must be encoded using MIME
+     * encoded-word syntax, as described in <a href="https://tools.ietf.org/html/rfc2047">RFC 2047</a>. MIME
+     * encoded-word syntax uses the following form: <code>=?charset?encoding?encoded-text?=</code>.
      * </p>
+     * </note>
      * 
      * @param source
      *        The email address that is sending the email. This email address must be either individually verified with
@@ -297,11 +349,19 @@ public class SendEmailRequest extends com.amazonaws.AmazonWebServiceRequest impl
      *        href="http://docs.aws.amazon.com/ses/latest/DeveloperGuide/sending-authorization.html">Amazon SES
      *        Developer Guide</a>.
      *        </p>
+     *        <note>
      *        <p>
-     *        In all cases, the email address must be 7-bit ASCII. If the text must contain any other characters, then
-     *        you must use MIME encoded-word syntax (RFC 2047) instead of a literal string. MIME encoded-word syntax
-     *        uses the following form: <code>=?charset?encoding?encoded-text?=</code>. For more information, see <a
-     *        href="http://tools.ietf.org/html/rfc2047">RFC 2047</a>.
+     *        Amazon SES does not support the SMTPUTF8 extension, as described in <a
+     *        href="https://tools.ietf.org/html/rfc6531">RFC6531</a>. For this reason, the <i>local part</i> of a source
+     *        email address (the part of the email address that precedes the @ sign) may only contain <a
+     *        href="https://en.wikipedia.org/wiki/Email_address#Local-part">7-bit ASCII characters</a>. If the <i>domain
+     *        part</i> of an address (the part after the @ sign) contains non-ASCII characters, they must be encoded
+     *        using Punycode, as described in <a href="https://tools.ietf.org/html/rfc3492.html">RFC3492</a>. The sender
+     *        name (also known as the <i>friendly name</i>) may contain non-ASCII characters. These characters must be
+     *        encoded using MIME encoded-word syntax, as described in <a href="https://tools.ietf.org/html/rfc2047">RFC
+     *        2047</a>. MIME encoded-word syntax uses the following form: <code>=?charset?encoding?encoded-text?=</code>
+     *        .
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -473,7 +533,7 @@ public class SendEmailRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The email address to which bounces and complaints are to be forwarded when feedback forwarding is enabled. If the
+     * The email address that bounces and complaints will be forwarded to when feedback forwarding is enabled. If the
      * message cannot be delivered to the recipient, then an error message will be returned from the recipient's ISP;
      * this message will then be forwarded to the email address specified by the <code>ReturnPath</code> parameter. The
      * <code>ReturnPath</code> parameter is never overwritten. This email address must be either individually verified
@@ -481,8 +541,8 @@ public class SendEmailRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * </p>
      * 
      * @param returnPath
-     *        The email address to which bounces and complaints are to be forwarded when feedback forwarding is enabled.
-     *        If the message cannot be delivered to the recipient, then an error message will be returned from the
+     *        The email address that bounces and complaints will be forwarded to when feedback forwarding is enabled. If
+     *        the message cannot be delivered to the recipient, then an error message will be returned from the
      *        recipient's ISP; this message will then be forwarded to the email address specified by the
      *        <code>ReturnPath</code> parameter. The <code>ReturnPath</code> parameter is never overwritten. This email
      *        address must be either individually verified with Amazon SES, or from a domain that has been verified with
@@ -495,16 +555,16 @@ public class SendEmailRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The email address to which bounces and complaints are to be forwarded when feedback forwarding is enabled. If the
+     * The email address that bounces and complaints will be forwarded to when feedback forwarding is enabled. If the
      * message cannot be delivered to the recipient, then an error message will be returned from the recipient's ISP;
      * this message will then be forwarded to the email address specified by the <code>ReturnPath</code> parameter. The
      * <code>ReturnPath</code> parameter is never overwritten. This email address must be either individually verified
      * with Amazon SES, or from a domain that has been verified with Amazon SES.
      * </p>
      * 
-     * @return The email address to which bounces and complaints are to be forwarded when feedback forwarding is
-     *         enabled. If the message cannot be delivered to the recipient, then an error message will be returned from
-     *         the recipient's ISP; this message will then be forwarded to the email address specified by the
+     * @return The email address that bounces and complaints will be forwarded to when feedback forwarding is enabled.
+     *         If the message cannot be delivered to the recipient, then an error message will be returned from the
+     *         recipient's ISP; this message will then be forwarded to the email address specified by the
      *         <code>ReturnPath</code> parameter. The <code>ReturnPath</code> parameter is never overwritten. This email
      *         address must be either individually verified with Amazon SES, or from a domain that has been verified
      *         with Amazon SES.
@@ -516,7 +576,7 @@ public class SendEmailRequest extends com.amazonaws.AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * The email address to which bounces and complaints are to be forwarded when feedback forwarding is enabled. If the
+     * The email address that bounces and complaints will be forwarded to when feedback forwarding is enabled. If the
      * message cannot be delivered to the recipient, then an error message will be returned from the recipient's ISP;
      * this message will then be forwarded to the email address specified by the <code>ReturnPath</code> parameter. The
      * <code>ReturnPath</code> parameter is never overwritten. This email address must be either individually verified
@@ -524,8 +584,8 @@ public class SendEmailRequest extends com.amazonaws.AmazonWebServiceRequest impl
      * </p>
      * 
      * @param returnPath
-     *        The email address to which bounces and complaints are to be forwarded when feedback forwarding is enabled.
-     *        If the message cannot be delivered to the recipient, then an error message will be returned from the
+     *        The email address that bounces and complaints will be forwarded to when feedback forwarding is enabled. If
+     *        the message cannot be delivered to the recipient, then an error message will be returned from the
      *        recipient's ISP; this message will then be forwarded to the email address specified by the
      *        <code>ReturnPath</code> parameter. The <code>ReturnPath</code> parameter is never overwritten. This email
      *        address must be either individually verified with Amazon SES, or from a domain that has been verified with
@@ -906,7 +966,8 @@ public class SendEmailRequest extends com.amazonaws.AmazonWebServiceRequest impl
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

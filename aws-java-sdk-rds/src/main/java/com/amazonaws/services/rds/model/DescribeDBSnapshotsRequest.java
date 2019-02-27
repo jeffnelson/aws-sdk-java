@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,7 +28,7 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The ID of the DB instance to retrieve the list of DB snapshots for. This parameter cannot be used in conjunction
+     * The ID of the DB instance to retrieve the list of DB snapshots for. This parameter can't be used in conjunction
      * with <code>DBSnapshotIdentifier</code>. This parameter is not case-sensitive.
      * </p>
      * <p>
@@ -37,17 +37,7 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
      * <ul>
      * <li>
      * <p>
-     * Must contain from 1 to 63 alphanumeric characters or hyphens
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * First character must be a letter
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Cannot end with a hyphen or contain two consecutive hyphens
+     * If supplied, must match the identifier of an existing DBInstance.
      * </p>
      * </li>
      * </ul>
@@ -55,7 +45,7 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
     private String dBInstanceIdentifier;
     /**
      * <p>
-     * A specific DB snapshot identifier to describe. This parameter cannot be used in conjunction with
+     * A specific DB snapshot identifier to describe. This parameter can't be used in conjunction with
      * <code>DBInstanceIdentifier</code>. This value is stored as a lowercase string.
      * </p>
      * <p>
@@ -64,17 +54,7 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
      * <ul>
      * <li>
      * <p>
-     * Must be 1 to 255 alphanumeric characters.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * First character must be a letter.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Cannot end with a hyphen or contain two consecutive hyphens.
+     * If supplied, must match the identifier of an existing DBSnapshot.
      * </p>
      * </li>
      * <li>
@@ -157,9 +137,8 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
     private String marker;
     /**
      * <p>
-     * Set this value to <code>true</code> to include shared manual DB snapshots from other AWS accounts that this AWS
-     * account has been given permission to copy or restore, otherwise set this value to <code>false</code>. The default
-     * is <code>false</code>.
+     * True to include shared manual DB snapshots from other AWS accounts that this AWS account has been given
+     * permission to copy or restore, and otherwise false. The default is <code>false</code>.
      * </p>
      * <p>
      * You can give an AWS account permission to restore a manual DB snapshot from another AWS account by using the
@@ -169,18 +148,24 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
     private Boolean includeShared;
     /**
      * <p>
-     * Set this value to <code>true</code> to include manual DB snapshots that are public and can be copied or restored
-     * by any AWS account, otherwise set this value to <code>false</code>. The default is <code>false</code>.
+     * True to include manual DB snapshots that are public and can be copied or restored by any AWS account, and
+     * otherwise false. The default is false.
      * </p>
      * <p>
      * You can share a manual DB snapshot as public by using the <a>ModifyDBSnapshotAttribute</a> API.
      * </p>
      */
     private Boolean includePublic;
+    /**
+     * <p>
+     * A specific DB resource ID to describe.
+     * </p>
+     */
+    private String dbiResourceId;
 
     /**
      * <p>
-     * The ID of the DB instance to retrieve the list of DB snapshots for. This parameter cannot be used in conjunction
+     * The ID of the DB instance to retrieve the list of DB snapshots for. This parameter can't be used in conjunction
      * with <code>DBSnapshotIdentifier</code>. This parameter is not case-sensitive.
      * </p>
      * <p>
@@ -189,23 +174,13 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
      * <ul>
      * <li>
      * <p>
-     * Must contain from 1 to 63 alphanumeric characters or hyphens
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * First character must be a letter
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Cannot end with a hyphen or contain two consecutive hyphens
+     * If supplied, must match the identifier of an existing DBInstance.
      * </p>
      * </li>
      * </ul>
      * 
      * @param dBInstanceIdentifier
-     *        The ID of the DB instance to retrieve the list of DB snapshots for. This parameter cannot be used in
+     *        The ID of the DB instance to retrieve the list of DB snapshots for. This parameter can't be used in
      *        conjunction with <code>DBSnapshotIdentifier</code>. This parameter is not case-sensitive. </p>
      *        <p>
      *        Constraints:
@@ -213,17 +188,7 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
      *        <ul>
      *        <li>
      *        <p>
-     *        Must contain from 1 to 63 alphanumeric characters or hyphens
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        First character must be a letter
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        Cannot end with a hyphen or contain two consecutive hyphens
+     *        If supplied, must match the identifier of an existing DBInstance.
      *        </p>
      *        </li>
      */
@@ -234,7 +199,7 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The ID of the DB instance to retrieve the list of DB snapshots for. This parameter cannot be used in conjunction
+     * The ID of the DB instance to retrieve the list of DB snapshots for. This parameter can't be used in conjunction
      * with <code>DBSnapshotIdentifier</code>. This parameter is not case-sensitive.
      * </p>
      * <p>
@@ -243,22 +208,12 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
      * <ul>
      * <li>
      * <p>
-     * Must contain from 1 to 63 alphanumeric characters or hyphens
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * First character must be a letter
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Cannot end with a hyphen or contain two consecutive hyphens
+     * If supplied, must match the identifier of an existing DBInstance.
      * </p>
      * </li>
      * </ul>
      * 
-     * @return The ID of the DB instance to retrieve the list of DB snapshots for. This parameter cannot be used in
+     * @return The ID of the DB instance to retrieve the list of DB snapshots for. This parameter can't be used in
      *         conjunction with <code>DBSnapshotIdentifier</code>. This parameter is not case-sensitive. </p>
      *         <p>
      *         Constraints:
@@ -266,17 +221,7 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
      *         <ul>
      *         <li>
      *         <p>
-     *         Must contain from 1 to 63 alphanumeric characters or hyphens
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         First character must be a letter
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         Cannot end with a hyphen or contain two consecutive hyphens
+     *         If supplied, must match the identifier of an existing DBInstance.
      *         </p>
      *         </li>
      */
@@ -287,7 +232,7 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * The ID of the DB instance to retrieve the list of DB snapshots for. This parameter cannot be used in conjunction
+     * The ID of the DB instance to retrieve the list of DB snapshots for. This parameter can't be used in conjunction
      * with <code>DBSnapshotIdentifier</code>. This parameter is not case-sensitive.
      * </p>
      * <p>
@@ -296,23 +241,13 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
      * <ul>
      * <li>
      * <p>
-     * Must contain from 1 to 63 alphanumeric characters or hyphens
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * First character must be a letter
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Cannot end with a hyphen or contain two consecutive hyphens
+     * If supplied, must match the identifier of an existing DBInstance.
      * </p>
      * </li>
      * </ul>
      * 
      * @param dBInstanceIdentifier
-     *        The ID of the DB instance to retrieve the list of DB snapshots for. This parameter cannot be used in
+     *        The ID of the DB instance to retrieve the list of DB snapshots for. This parameter can't be used in
      *        conjunction with <code>DBSnapshotIdentifier</code>. This parameter is not case-sensitive. </p>
      *        <p>
      *        Constraints:
@@ -320,17 +255,7 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
      *        <ul>
      *        <li>
      *        <p>
-     *        Must contain from 1 to 63 alphanumeric characters or hyphens
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        First character must be a letter
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        Cannot end with a hyphen or contain two consecutive hyphens
+     *        If supplied, must match the identifier of an existing DBInstance.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -343,7 +268,7 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * A specific DB snapshot identifier to describe. This parameter cannot be used in conjunction with
+     * A specific DB snapshot identifier to describe. This parameter can't be used in conjunction with
      * <code>DBInstanceIdentifier</code>. This value is stored as a lowercase string.
      * </p>
      * <p>
@@ -352,17 +277,7 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
      * <ul>
      * <li>
      * <p>
-     * Must be 1 to 255 alphanumeric characters.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * First character must be a letter.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Cannot end with a hyphen or contain two consecutive hyphens.
+     * If supplied, must match the identifier of an existing DBSnapshot.
      * </p>
      * </li>
      * <li>
@@ -373,7 +288,7 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
      * </ul>
      * 
      * @param dBSnapshotIdentifier
-     *        A specific DB snapshot identifier to describe. This parameter cannot be used in conjunction with
+     *        A specific DB snapshot identifier to describe. This parameter can't be used in conjunction with
      *        <code>DBInstanceIdentifier</code>. This value is stored as a lowercase string. </p>
      *        <p>
      *        Constraints:
@@ -381,17 +296,7 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
      *        <ul>
      *        <li>
      *        <p>
-     *        Must be 1 to 255 alphanumeric characters.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        First character must be a letter.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        Cannot end with a hyphen or contain two consecutive hyphens.
+     *        If supplied, must match the identifier of an existing DBSnapshot.
      *        </p>
      *        </li>
      *        <li>
@@ -408,7 +313,7 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * A specific DB snapshot identifier to describe. This parameter cannot be used in conjunction with
+     * A specific DB snapshot identifier to describe. This parameter can't be used in conjunction with
      * <code>DBInstanceIdentifier</code>. This value is stored as a lowercase string.
      * </p>
      * <p>
@@ -417,17 +322,7 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
      * <ul>
      * <li>
      * <p>
-     * Must be 1 to 255 alphanumeric characters.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * First character must be a letter.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Cannot end with a hyphen or contain two consecutive hyphens.
+     * If supplied, must match the identifier of an existing DBSnapshot.
      * </p>
      * </li>
      * <li>
@@ -437,7 +332,7 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
      * </li>
      * </ul>
      * 
-     * @return A specific DB snapshot identifier to describe. This parameter cannot be used in conjunction with
+     * @return A specific DB snapshot identifier to describe. This parameter can't be used in conjunction with
      *         <code>DBInstanceIdentifier</code>. This value is stored as a lowercase string. </p>
      *         <p>
      *         Constraints:
@@ -445,17 +340,7 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
      *         <ul>
      *         <li>
      *         <p>
-     *         Must be 1 to 255 alphanumeric characters.
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         First character must be a letter.
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         Cannot end with a hyphen or contain two consecutive hyphens.
+     *         If supplied, must match the identifier of an existing DBSnapshot.
      *         </p>
      *         </li>
      *         <li>
@@ -472,7 +357,7 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * A specific DB snapshot identifier to describe. This parameter cannot be used in conjunction with
+     * A specific DB snapshot identifier to describe. This parameter can't be used in conjunction with
      * <code>DBInstanceIdentifier</code>. This value is stored as a lowercase string.
      * </p>
      * <p>
@@ -481,17 +366,7 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
      * <ul>
      * <li>
      * <p>
-     * Must be 1 to 255 alphanumeric characters.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * First character must be a letter.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * Cannot end with a hyphen or contain two consecutive hyphens.
+     * If supplied, must match the identifier of an existing DBSnapshot.
      * </p>
      * </li>
      * <li>
@@ -502,7 +377,7 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
      * </ul>
      * 
      * @param dBSnapshotIdentifier
-     *        A specific DB snapshot identifier to describe. This parameter cannot be used in conjunction with
+     *        A specific DB snapshot identifier to describe. This parameter can't be used in conjunction with
      *        <code>DBInstanceIdentifier</code>. This value is stored as a lowercase string. </p>
      *        <p>
      *        Constraints:
@@ -510,17 +385,7 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
      *        <ul>
      *        <li>
      *        <p>
-     *        Must be 1 to 255 alphanumeric characters.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        First character must be a letter.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        Cannot end with a hyphen or contain two consecutive hyphens.
+     *        If supplied, must match the identifier of an existing DBSnapshot.
      *        </p>
      *        </li>
      *        <li>
@@ -1005,9 +870,8 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Set this value to <code>true</code> to include shared manual DB snapshots from other AWS accounts that this AWS
-     * account has been given permission to copy or restore, otherwise set this value to <code>false</code>. The default
-     * is <code>false</code>.
+     * True to include shared manual DB snapshots from other AWS accounts that this AWS account has been given
+     * permission to copy or restore, and otherwise false. The default is <code>false</code>.
      * </p>
      * <p>
      * You can give an AWS account permission to restore a manual DB snapshot from another AWS account by using the
@@ -1015,9 +879,8 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
      * </p>
      * 
      * @param includeShared
-     *        Set this value to <code>true</code> to include shared manual DB snapshots from other AWS accounts that
-     *        this AWS account has been given permission to copy or restore, otherwise set this value to
-     *        <code>false</code>. The default is <code>false</code>.</p>
+     *        True to include shared manual DB snapshots from other AWS accounts that this AWS account has been given
+     *        permission to copy or restore, and otherwise false. The default is <code>false</code>.</p>
      *        <p>
      *        You can give an AWS account permission to restore a manual DB snapshot from another AWS account by using
      *        the <a>ModifyDBSnapshotAttribute</a> API action.
@@ -1029,18 +892,16 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Set this value to <code>true</code> to include shared manual DB snapshots from other AWS accounts that this AWS
-     * account has been given permission to copy or restore, otherwise set this value to <code>false</code>. The default
-     * is <code>false</code>.
+     * True to include shared manual DB snapshots from other AWS accounts that this AWS account has been given
+     * permission to copy or restore, and otherwise false. The default is <code>false</code>.
      * </p>
      * <p>
      * You can give an AWS account permission to restore a manual DB snapshot from another AWS account by using the
      * <a>ModifyDBSnapshotAttribute</a> API action.
      * </p>
      * 
-     * @return Set this value to <code>true</code> to include shared manual DB snapshots from other AWS accounts that
-     *         this AWS account has been given permission to copy or restore, otherwise set this value to
-     *         <code>false</code>. The default is <code>false</code>.</p>
+     * @return True to include shared manual DB snapshots from other AWS accounts that this AWS account has been given
+     *         permission to copy or restore, and otherwise false. The default is <code>false</code>.</p>
      *         <p>
      *         You can give an AWS account permission to restore a manual DB snapshot from another AWS account by using
      *         the <a>ModifyDBSnapshotAttribute</a> API action.
@@ -1052,9 +913,8 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Set this value to <code>true</code> to include shared manual DB snapshots from other AWS accounts that this AWS
-     * account has been given permission to copy or restore, otherwise set this value to <code>false</code>. The default
-     * is <code>false</code>.
+     * True to include shared manual DB snapshots from other AWS accounts that this AWS account has been given
+     * permission to copy or restore, and otherwise false. The default is <code>false</code>.
      * </p>
      * <p>
      * You can give an AWS account permission to restore a manual DB snapshot from another AWS account by using the
@@ -1062,9 +922,8 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
      * </p>
      * 
      * @param includeShared
-     *        Set this value to <code>true</code> to include shared manual DB snapshots from other AWS accounts that
-     *        this AWS account has been given permission to copy or restore, otherwise set this value to
-     *        <code>false</code>. The default is <code>false</code>.</p>
+     *        True to include shared manual DB snapshots from other AWS accounts that this AWS account has been given
+     *        permission to copy or restore, and otherwise false. The default is <code>false</code>.</p>
      *        <p>
      *        You can give an AWS account permission to restore a manual DB snapshot from another AWS account by using
      *        the <a>ModifyDBSnapshotAttribute</a> API action.
@@ -1078,18 +937,16 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Set this value to <code>true</code> to include shared manual DB snapshots from other AWS accounts that this AWS
-     * account has been given permission to copy or restore, otherwise set this value to <code>false</code>. The default
-     * is <code>false</code>.
+     * True to include shared manual DB snapshots from other AWS accounts that this AWS account has been given
+     * permission to copy or restore, and otherwise false. The default is <code>false</code>.
      * </p>
      * <p>
      * You can give an AWS account permission to restore a manual DB snapshot from another AWS account by using the
      * <a>ModifyDBSnapshotAttribute</a> API action.
      * </p>
      * 
-     * @return Set this value to <code>true</code> to include shared manual DB snapshots from other AWS accounts that
-     *         this AWS account has been given permission to copy or restore, otherwise set this value to
-     *         <code>false</code>. The default is <code>false</code>.</p>
+     * @return True to include shared manual DB snapshots from other AWS accounts that this AWS account has been given
+     *         permission to copy or restore, and otherwise false. The default is <code>false</code>.</p>
      *         <p>
      *         You can give an AWS account permission to restore a manual DB snapshot from another AWS account by using
      *         the <a>ModifyDBSnapshotAttribute</a> API action.
@@ -1101,17 +958,16 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Set this value to <code>true</code> to include manual DB snapshots that are public and can be copied or restored
-     * by any AWS account, otherwise set this value to <code>false</code>. The default is <code>false</code>.
+     * True to include manual DB snapshots that are public and can be copied or restored by any AWS account, and
+     * otherwise false. The default is false.
      * </p>
      * <p>
      * You can share a manual DB snapshot as public by using the <a>ModifyDBSnapshotAttribute</a> API.
      * </p>
      * 
      * @param includePublic
-     *        Set this value to <code>true</code> to include manual DB snapshots that are public and can be copied or
-     *        restored by any AWS account, otherwise set this value to <code>false</code>. The default is
-     *        <code>false</code>.</p>
+     *        True to include manual DB snapshots that are public and can be copied or restored by any AWS account, and
+     *        otherwise false. The default is false.</p>
      *        <p>
      *        You can share a manual DB snapshot as public by using the <a>ModifyDBSnapshotAttribute</a> API.
      */
@@ -1122,16 +978,15 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Set this value to <code>true</code> to include manual DB snapshots that are public and can be copied or restored
-     * by any AWS account, otherwise set this value to <code>false</code>. The default is <code>false</code>.
+     * True to include manual DB snapshots that are public and can be copied or restored by any AWS account, and
+     * otherwise false. The default is false.
      * </p>
      * <p>
      * You can share a manual DB snapshot as public by using the <a>ModifyDBSnapshotAttribute</a> API.
      * </p>
      * 
-     * @return Set this value to <code>true</code> to include manual DB snapshots that are public and can be copied or
-     *         restored by any AWS account, otherwise set this value to <code>false</code>. The default is
-     *         <code>false</code>.</p>
+     * @return True to include manual DB snapshots that are public and can be copied or restored by any AWS account, and
+     *         otherwise false. The default is false.</p>
      *         <p>
      *         You can share a manual DB snapshot as public by using the <a>ModifyDBSnapshotAttribute</a> API.
      */
@@ -1142,17 +997,16 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Set this value to <code>true</code> to include manual DB snapshots that are public and can be copied or restored
-     * by any AWS account, otherwise set this value to <code>false</code>. The default is <code>false</code>.
+     * True to include manual DB snapshots that are public and can be copied or restored by any AWS account, and
+     * otherwise false. The default is false.
      * </p>
      * <p>
      * You can share a manual DB snapshot as public by using the <a>ModifyDBSnapshotAttribute</a> API.
      * </p>
      * 
      * @param includePublic
-     *        Set this value to <code>true</code> to include manual DB snapshots that are public and can be copied or
-     *        restored by any AWS account, otherwise set this value to <code>false</code>. The default is
-     *        <code>false</code>.</p>
+     *        True to include manual DB snapshots that are public and can be copied or restored by any AWS account, and
+     *        otherwise false. The default is false.</p>
      *        <p>
      *        You can share a manual DB snapshot as public by using the <a>ModifyDBSnapshotAttribute</a> API.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -1165,16 +1019,15 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * Set this value to <code>true</code> to include manual DB snapshots that are public and can be copied or restored
-     * by any AWS account, otherwise set this value to <code>false</code>. The default is <code>false</code>.
+     * True to include manual DB snapshots that are public and can be copied or restored by any AWS account, and
+     * otherwise false. The default is false.
      * </p>
      * <p>
      * You can share a manual DB snapshot as public by using the <a>ModifyDBSnapshotAttribute</a> API.
      * </p>
      * 
-     * @return Set this value to <code>true</code> to include manual DB snapshots that are public and can be copied or
-     *         restored by any AWS account, otherwise set this value to <code>false</code>. The default is
-     *         <code>false</code>.</p>
+     * @return True to include manual DB snapshots that are public and can be copied or restored by any AWS account, and
+     *         otherwise false. The default is false.</p>
      *         <p>
      *         You can share a manual DB snapshot as public by using the <a>ModifyDBSnapshotAttribute</a> API.
      */
@@ -1184,7 +1037,48 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * <p>
+     * A specific DB resource ID to describe.
+     * </p>
+     * 
+     * @param dbiResourceId
+     *        A specific DB resource ID to describe.
+     */
+
+    public void setDbiResourceId(String dbiResourceId) {
+        this.dbiResourceId = dbiResourceId;
+    }
+
+    /**
+     * <p>
+     * A specific DB resource ID to describe.
+     * </p>
+     * 
+     * @return A specific DB resource ID to describe.
+     */
+
+    public String getDbiResourceId() {
+        return this.dbiResourceId;
+    }
+
+    /**
+     * <p>
+     * A specific DB resource ID to describe.
+     * </p>
+     * 
+     * @param dbiResourceId
+     *        A specific DB resource ID to describe.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public DescribeDBSnapshotsRequest withDbiResourceId(String dbiResourceId) {
+        setDbiResourceId(dbiResourceId);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -1209,7 +1103,9 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
         if (getIncludeShared() != null)
             sb.append("IncludeShared: ").append(getIncludeShared()).append(",");
         if (getIncludePublic() != null)
-            sb.append("IncludePublic: ").append(getIncludePublic());
+            sb.append("IncludePublic: ").append(getIncludePublic()).append(",");
+        if (getDbiResourceId() != null)
+            sb.append("DbiResourceId: ").append(getDbiResourceId());
         sb.append("}");
         return sb.toString();
     }
@@ -1256,6 +1152,10 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
             return false;
         if (other.getIncludePublic() != null && other.getIncludePublic().equals(this.getIncludePublic()) == false)
             return false;
+        if (other.getDbiResourceId() == null ^ this.getDbiResourceId() == null)
+            return false;
+        if (other.getDbiResourceId() != null && other.getDbiResourceId().equals(this.getDbiResourceId()) == false)
+            return false;
         return true;
     }
 
@@ -1272,6 +1172,7 @@ public class DescribeDBSnapshotsRequest extends com.amazonaws.AmazonWebServiceRe
         hashCode = prime * hashCode + ((getMarker() == null) ? 0 : getMarker().hashCode());
         hashCode = prime * hashCode + ((getIncludeShared() == null) ? 0 : getIncludeShared().hashCode());
         hashCode = prime * hashCode + ((getIncludePublic() == null) ? 0 : getIncludePublic().hashCode());
+        hashCode = prime * hashCode + ((getDbiResourceId() == null) ? 0 : getDbiResourceId().hashCode());
         return hashCode;
     }
 

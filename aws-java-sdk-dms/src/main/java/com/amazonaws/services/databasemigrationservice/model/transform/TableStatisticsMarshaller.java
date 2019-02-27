@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -46,9 +46,19 @@ public class TableStatisticsMarshaller {
     private static final MarshallingInfo<Long> FULLLOADERRORROWS_BINDING = MarshallingInfo.builder(MarshallingType.LONG)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("FullLoadErrorRows").build();
     private static final MarshallingInfo<java.util.Date> LASTUPDATETIME_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
-            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("LastUpdateTime").build();
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("LastUpdateTime").timestampFormat("unixTimestamp").build();
     private static final MarshallingInfo<String> TABLESTATE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("TableState").build();
+    private static final MarshallingInfo<Long> VALIDATIONPENDINGRECORDS_BINDING = MarshallingInfo.builder(MarshallingType.LONG)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ValidationPendingRecords").build();
+    private static final MarshallingInfo<Long> VALIDATIONFAILEDRECORDS_BINDING = MarshallingInfo.builder(MarshallingType.LONG)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ValidationFailedRecords").build();
+    private static final MarshallingInfo<Long> VALIDATIONSUSPENDEDRECORDS_BINDING = MarshallingInfo.builder(MarshallingType.LONG)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ValidationSuspendedRecords").build();
+    private static final MarshallingInfo<String> VALIDATIONSTATE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ValidationState").build();
+    private static final MarshallingInfo<String> VALIDATIONSTATEDETAILS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ValidationStateDetails").build();
 
     private static final TableStatisticsMarshaller instance = new TableStatisticsMarshaller();
 
@@ -77,6 +87,11 @@ public class TableStatisticsMarshaller {
             protocolMarshaller.marshall(tableStatistics.getFullLoadErrorRows(), FULLLOADERRORROWS_BINDING);
             protocolMarshaller.marshall(tableStatistics.getLastUpdateTime(), LASTUPDATETIME_BINDING);
             protocolMarshaller.marshall(tableStatistics.getTableState(), TABLESTATE_BINDING);
+            protocolMarshaller.marshall(tableStatistics.getValidationPendingRecords(), VALIDATIONPENDINGRECORDS_BINDING);
+            protocolMarshaller.marshall(tableStatistics.getValidationFailedRecords(), VALIDATIONFAILEDRECORDS_BINDING);
+            protocolMarshaller.marshall(tableStatistics.getValidationSuspendedRecords(), VALIDATIONSUSPENDEDRECORDS_BINDING);
+            protocolMarshaller.marshall(tableStatistics.getValidationState(), VALIDATIONSTATE_BINDING);
+            protocolMarshaller.marshall(tableStatistics.getValidationStateDetails(), VALIDATIONSTATEDETAILS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

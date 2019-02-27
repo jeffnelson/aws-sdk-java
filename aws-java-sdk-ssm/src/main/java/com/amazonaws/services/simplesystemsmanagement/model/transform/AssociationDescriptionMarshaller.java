@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,16 +33,20 @@ public class AssociationDescriptionMarshaller {
             .marshallLocationName("Name").build();
     private static final MarshallingInfo<String> INSTANCEID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("InstanceId").build();
+    private static final MarshallingInfo<String> ASSOCIATIONVERSION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AssociationVersion").build();
     private static final MarshallingInfo<java.util.Date> DATE_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
-            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Date").build();
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Date").timestampFormat("unixTimestamp").build();
     private static final MarshallingInfo<java.util.Date> LASTUPDATEASSOCIATIONDATE_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
-            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("LastUpdateAssociationDate").build();
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("LastUpdateAssociationDate").timestampFormat("unixTimestamp").build();
     private static final MarshallingInfo<StructuredPojo> STATUS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Status").build();
     private static final MarshallingInfo<StructuredPojo> OVERVIEW_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Overview").build();
     private static final MarshallingInfo<String> DOCUMENTVERSION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DocumentVersion").build();
+    private static final MarshallingInfo<String> AUTOMATIONTARGETPARAMETERNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AutomationTargetParameterName").build();
     private static final MarshallingInfo<Map> PARAMETERS_BINDING = MarshallingInfo.builder(MarshallingType.MAP).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Parameters").build();
     private static final MarshallingInfo<String> ASSOCIATIONID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
@@ -54,9 +58,17 @@ public class AssociationDescriptionMarshaller {
     private static final MarshallingInfo<StructuredPojo> OUTPUTLOCATION_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("OutputLocation").build();
     private static final MarshallingInfo<java.util.Date> LASTEXECUTIONDATE_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
-            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("LastExecutionDate").build();
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("LastExecutionDate").timestampFormat("unixTimestamp").build();
     private static final MarshallingInfo<java.util.Date> LASTSUCCESSFULEXECUTIONDATE_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
-            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("LastSuccessfulExecutionDate").build();
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("LastSuccessfulExecutionDate").timestampFormat("unixTimestamp").build();
+    private static final MarshallingInfo<String> ASSOCIATIONNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AssociationName").build();
+    private static final MarshallingInfo<String> MAXERRORS_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("MaxErrors").build();
+    private static final MarshallingInfo<String> MAXCONCURRENCY_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("MaxConcurrency").build();
+    private static final MarshallingInfo<String> COMPLIANCESEVERITY_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ComplianceSeverity").build();
 
     private static final AssociationDescriptionMarshaller instance = new AssociationDescriptionMarshaller();
 
@@ -76,11 +88,13 @@ public class AssociationDescriptionMarshaller {
         try {
             protocolMarshaller.marshall(associationDescription.getName(), NAME_BINDING);
             protocolMarshaller.marshall(associationDescription.getInstanceId(), INSTANCEID_BINDING);
+            protocolMarshaller.marshall(associationDescription.getAssociationVersion(), ASSOCIATIONVERSION_BINDING);
             protocolMarshaller.marshall(associationDescription.getDate(), DATE_BINDING);
             protocolMarshaller.marshall(associationDescription.getLastUpdateAssociationDate(), LASTUPDATEASSOCIATIONDATE_BINDING);
             protocolMarshaller.marshall(associationDescription.getStatus(), STATUS_BINDING);
             protocolMarshaller.marshall(associationDescription.getOverview(), OVERVIEW_BINDING);
             protocolMarshaller.marshall(associationDescription.getDocumentVersion(), DOCUMENTVERSION_BINDING);
+            protocolMarshaller.marshall(associationDescription.getAutomationTargetParameterName(), AUTOMATIONTARGETPARAMETERNAME_BINDING);
             protocolMarshaller.marshall(associationDescription.getParameters(), PARAMETERS_BINDING);
             protocolMarshaller.marshall(associationDescription.getAssociationId(), ASSOCIATIONID_BINDING);
             protocolMarshaller.marshall(associationDescription.getTargets(), TARGETS_BINDING);
@@ -88,6 +102,10 @@ public class AssociationDescriptionMarshaller {
             protocolMarshaller.marshall(associationDescription.getOutputLocation(), OUTPUTLOCATION_BINDING);
             protocolMarshaller.marshall(associationDescription.getLastExecutionDate(), LASTEXECUTIONDATE_BINDING);
             protocolMarshaller.marshall(associationDescription.getLastSuccessfulExecutionDate(), LASTSUCCESSFULEXECUTIONDATE_BINDING);
+            protocolMarshaller.marshall(associationDescription.getAssociationName(), ASSOCIATIONNAME_BINDING);
+            protocolMarshaller.marshall(associationDescription.getMaxErrors(), MAXERRORS_BINDING);
+            protocolMarshaller.marshall(associationDescription.getMaxConcurrency(), MAXCONCURRENCY_BINDING);
+            protocolMarshaller.marshall(associationDescription.getComplianceSeverity(), COMPLIANCESEVERITY_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

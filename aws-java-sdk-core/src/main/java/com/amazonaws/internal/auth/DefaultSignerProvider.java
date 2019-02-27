@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights
  * Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
@@ -63,7 +63,7 @@ public class DefaultSignerProvider extends SignerProvider {
     private String getSigningRegionForRequestURI(URI uri) {
         String regionName = awsClient.getSignerRegionOverride();
         if (regionName == null) {
-            regionName = AwsHostNameUtils.parseRegion(uri.getHost(), awsClient.getServiceName());
+            regionName = AwsHostNameUtils.parseRegion(uri.getHost(), awsClient.getEndpointPrefix());
         }
         return regionName;
     }

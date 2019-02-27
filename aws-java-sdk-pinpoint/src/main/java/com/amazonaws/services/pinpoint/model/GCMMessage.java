@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,6 +19,9 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * GCM Message.
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GCMMessage" target="_top">AWS API
+ *      Documentation</a>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class GCMMessage implements Serializable, Cloneable, StructuredPojo {
@@ -31,7 +34,7 @@ public class GCMMessage implements Serializable, Cloneable, StructuredPojo {
      * specify. Possible values include: OPEN_APP | DEEP_LINK | URL
      */
     private String action;
-    /** The message body of the notification, the email body or the text message. */
+    /** The message body of the notification. */
     private String body;
     /**
      * This parameter identifies a group of messages (e.g., with collapse_key: "Updates Available") that can be
@@ -50,6 +53,21 @@ public class GCMMessage implements Serializable, Cloneable, StructuredPojo {
     private String imageIconUrl;
     /** The URL that points to an image used in the push notification. */
     private String imageUrl;
+    /**
+     * The message priority. Amazon Pinpoint uses this value to set the FCM or GCM priority parameter when it sends the
+     * message. Accepts the following values:
+     * 
+     * "Normal" - Messages might be delayed. Delivery is optimized for battery usage on the receiving device. Use normal
+     * priority unless immediate delivery is required.
+     * 
+     * "High" - Messages are sent immediately and might wake a sleeping device.
+     * 
+     * The equivalent values for APNs messages are "5" and "10". Amazon Pinpoint accepts these values here and converts
+     * them.
+     * 
+     * For more information, see About FCM Messages in the Firebase documentation.
+     */
+    private String priority;
     /** The Raw JSON formatted string to be used as the payload. This value overrides the message. */
     private String rawContent;
     /**
@@ -74,6 +92,12 @@ public class GCMMessage implements Serializable, Cloneable, StructuredPojo {
     private String sound;
     /** Default message substitutions. Can be overridden by individual address substitutions. */
     private java.util.Map<String, java.util.List<String>> substitutions;
+    /**
+     * The length of time (in seconds) that FCM or GCM stores and attempts to deliver the message. If unspecified, the
+     * value defaults to the maximum, which is 2,419,200 seconds (28 days). Amazon Pinpoint uses this value to set the
+     * FCM or GCM time_to_live parameter.
+     */
+    private Integer timeToLive;
     /** The message title that displays above the message on the user's device. */
     private String title;
     /** The URL to open in the user's mobile browser. Used if the value for Action is URL. */
@@ -183,10 +207,10 @@ public class GCMMessage implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * The message body of the notification, the email body or the text message.
+     * The message body of the notification.
      * 
      * @param body
-     *        The message body of the notification, the email body or the text message.
+     *        The message body of the notification.
      */
 
     public void setBody(String body) {
@@ -194,9 +218,9 @@ public class GCMMessage implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * The message body of the notification, the email body or the text message.
+     * The message body of the notification.
      * 
-     * @return The message body of the notification, the email body or the text message.
+     * @return The message body of the notification.
      */
 
     public String getBody() {
@@ -204,10 +228,10 @@ public class GCMMessage implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * The message body of the notification, the email body or the text message.
+     * The message body of the notification.
      * 
      * @param body
-     *        The message body of the notification, the email body or the text message.
+     *        The message body of the notification.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -422,6 +446,106 @@ public class GCMMessage implements Serializable, Cloneable, StructuredPojo {
 
     public GCMMessage withImageUrl(String imageUrl) {
         setImageUrl(imageUrl);
+        return this;
+    }
+
+    /**
+     * The message priority. Amazon Pinpoint uses this value to set the FCM or GCM priority parameter when it sends the
+     * message. Accepts the following values:
+     * 
+     * "Normal" - Messages might be delayed. Delivery is optimized for battery usage on the receiving device. Use normal
+     * priority unless immediate delivery is required.
+     * 
+     * "High" - Messages are sent immediately and might wake a sleeping device.
+     * 
+     * The equivalent values for APNs messages are "5" and "10". Amazon Pinpoint accepts these values here and converts
+     * them.
+     * 
+     * For more information, see About FCM Messages in the Firebase documentation.
+     * 
+     * @param priority
+     *        The message priority. Amazon Pinpoint uses this value to set the FCM or GCM priority parameter when it
+     *        sends the message. Accepts the following values:
+     * 
+     *        "Normal" - Messages might be delayed. Delivery is optimized for battery usage on the receiving device. Use
+     *        normal priority unless immediate delivery is required.
+     * 
+     *        "High" - Messages are sent immediately and might wake a sleeping device.
+     * 
+     *        The equivalent values for APNs messages are "5" and "10". Amazon Pinpoint accepts these values here and
+     *        converts them.
+     * 
+     *        For more information, see About FCM Messages in the Firebase documentation.
+     */
+
+    public void setPriority(String priority) {
+        this.priority = priority;
+    }
+
+    /**
+     * The message priority. Amazon Pinpoint uses this value to set the FCM or GCM priority parameter when it sends the
+     * message. Accepts the following values:
+     * 
+     * "Normal" - Messages might be delayed. Delivery is optimized for battery usage on the receiving device. Use normal
+     * priority unless immediate delivery is required.
+     * 
+     * "High" - Messages are sent immediately and might wake a sleeping device.
+     * 
+     * The equivalent values for APNs messages are "5" and "10". Amazon Pinpoint accepts these values here and converts
+     * them.
+     * 
+     * For more information, see About FCM Messages in the Firebase documentation.
+     * 
+     * @return The message priority. Amazon Pinpoint uses this value to set the FCM or GCM priority parameter when it
+     *         sends the message. Accepts the following values:
+     * 
+     *         "Normal" - Messages might be delayed. Delivery is optimized for battery usage on the receiving device.
+     *         Use normal priority unless immediate delivery is required.
+     * 
+     *         "High" - Messages are sent immediately and might wake a sleeping device.
+     * 
+     *         The equivalent values for APNs messages are "5" and "10". Amazon Pinpoint accepts these values here and
+     *         converts them.
+     * 
+     *         For more information, see About FCM Messages in the Firebase documentation.
+     */
+
+    public String getPriority() {
+        return this.priority;
+    }
+
+    /**
+     * The message priority. Amazon Pinpoint uses this value to set the FCM or GCM priority parameter when it sends the
+     * message. Accepts the following values:
+     * 
+     * "Normal" - Messages might be delayed. Delivery is optimized for battery usage on the receiving device. Use normal
+     * priority unless immediate delivery is required.
+     * 
+     * "High" - Messages are sent immediately and might wake a sleeping device.
+     * 
+     * The equivalent values for APNs messages are "5" and "10". Amazon Pinpoint accepts these values here and converts
+     * them.
+     * 
+     * For more information, see About FCM Messages in the Firebase documentation.
+     * 
+     * @param priority
+     *        The message priority. Amazon Pinpoint uses this value to set the FCM or GCM priority parameter when it
+     *        sends the message. Accepts the following values:
+     * 
+     *        "Normal" - Messages might be delayed. Delivery is optimized for battery usage on the receiving device. Use
+     *        normal priority unless immediate delivery is required.
+     * 
+     *        "High" - Messages are sent immediately and might wake a sleeping device.
+     * 
+     *        The equivalent values for APNs messages are "5" and "10". Amazon Pinpoint accepts these values here and
+     *        converts them.
+     * 
+     *        For more information, see About FCM Messages in the Firebase documentation.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GCMMessage withPriority(String priority) {
+        setPriority(priority);
         return this;
     }
 
@@ -687,6 +811,52 @@ public class GCMMessage implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
+     * The length of time (in seconds) that FCM or GCM stores and attempts to deliver the message. If unspecified, the
+     * value defaults to the maximum, which is 2,419,200 seconds (28 days). Amazon Pinpoint uses this value to set the
+     * FCM or GCM time_to_live parameter.
+     * 
+     * @param timeToLive
+     *        The length of time (in seconds) that FCM or GCM stores and attempts to deliver the message. If
+     *        unspecified, the value defaults to the maximum, which is 2,419,200 seconds (28 days). Amazon Pinpoint uses
+     *        this value to set the FCM or GCM time_to_live parameter.
+     */
+
+    public void setTimeToLive(Integer timeToLive) {
+        this.timeToLive = timeToLive;
+    }
+
+    /**
+     * The length of time (in seconds) that FCM or GCM stores and attempts to deliver the message. If unspecified, the
+     * value defaults to the maximum, which is 2,419,200 seconds (28 days). Amazon Pinpoint uses this value to set the
+     * FCM or GCM time_to_live parameter.
+     * 
+     * @return The length of time (in seconds) that FCM or GCM stores and attempts to deliver the message. If
+     *         unspecified, the value defaults to the maximum, which is 2,419,200 seconds (28 days). Amazon Pinpoint
+     *         uses this value to set the FCM or GCM time_to_live parameter.
+     */
+
+    public Integer getTimeToLive() {
+        return this.timeToLive;
+    }
+
+    /**
+     * The length of time (in seconds) that FCM or GCM stores and attempts to deliver the message. If unspecified, the
+     * value defaults to the maximum, which is 2,419,200 seconds (28 days). Amazon Pinpoint uses this value to set the
+     * FCM or GCM time_to_live parameter.
+     * 
+     * @param timeToLive
+     *        The length of time (in seconds) that FCM or GCM stores and attempts to deliver the message. If
+     *        unspecified, the value defaults to the maximum, which is 2,419,200 seconds (28 days). Amazon Pinpoint uses
+     *        this value to set the FCM or GCM time_to_live parameter.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GCMMessage withTimeToLive(Integer timeToLive) {
+        setTimeToLive(timeToLive);
+        return this;
+    }
+
+    /**
      * The message title that displays above the message on the user's device.
      * 
      * @param title
@@ -755,7 +925,8 @@ public class GCMMessage implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -779,6 +950,8 @@ public class GCMMessage implements Serializable, Cloneable, StructuredPojo {
             sb.append("ImageIconUrl: ").append(getImageIconUrl()).append(",");
         if (getImageUrl() != null)
             sb.append("ImageUrl: ").append(getImageUrl()).append(",");
+        if (getPriority() != null)
+            sb.append("Priority: ").append(getPriority()).append(",");
         if (getRawContent() != null)
             sb.append("RawContent: ").append(getRawContent()).append(",");
         if (getRestrictedPackageName() != null)
@@ -791,6 +964,8 @@ public class GCMMessage implements Serializable, Cloneable, StructuredPojo {
             sb.append("Sound: ").append(getSound()).append(",");
         if (getSubstitutions() != null)
             sb.append("Substitutions: ").append(getSubstitutions()).append(",");
+        if (getTimeToLive() != null)
+            sb.append("TimeToLive: ").append(getTimeToLive()).append(",");
         if (getTitle() != null)
             sb.append("Title: ").append(getTitle()).append(",");
         if (getUrl() != null)
@@ -837,6 +1012,10 @@ public class GCMMessage implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getImageUrl() != null && other.getImageUrl().equals(this.getImageUrl()) == false)
             return false;
+        if (other.getPriority() == null ^ this.getPriority() == null)
+            return false;
+        if (other.getPriority() != null && other.getPriority().equals(this.getPriority()) == false)
+            return false;
         if (other.getRawContent() == null ^ this.getRawContent() == null)
             return false;
         if (other.getRawContent() != null && other.getRawContent().equals(this.getRawContent()) == false)
@@ -861,6 +1040,10 @@ public class GCMMessage implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getSubstitutions() != null && other.getSubstitutions().equals(this.getSubstitutions()) == false)
             return false;
+        if (other.getTimeToLive() == null ^ this.getTimeToLive() == null)
+            return false;
+        if (other.getTimeToLive() != null && other.getTimeToLive().equals(this.getTimeToLive()) == false)
+            return false;
         if (other.getTitle() == null ^ this.getTitle() == null)
             return false;
         if (other.getTitle() != null && other.getTitle().equals(this.getTitle()) == false)
@@ -884,12 +1067,14 @@ public class GCMMessage implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getIconReference() == null) ? 0 : getIconReference().hashCode());
         hashCode = prime * hashCode + ((getImageIconUrl() == null) ? 0 : getImageIconUrl().hashCode());
         hashCode = prime * hashCode + ((getImageUrl() == null) ? 0 : getImageUrl().hashCode());
+        hashCode = prime * hashCode + ((getPriority() == null) ? 0 : getPriority().hashCode());
         hashCode = prime * hashCode + ((getRawContent() == null) ? 0 : getRawContent().hashCode());
         hashCode = prime * hashCode + ((getRestrictedPackageName() == null) ? 0 : getRestrictedPackageName().hashCode());
         hashCode = prime * hashCode + ((getSilentPush() == null) ? 0 : getSilentPush().hashCode());
         hashCode = prime * hashCode + ((getSmallImageIconUrl() == null) ? 0 : getSmallImageIconUrl().hashCode());
         hashCode = prime * hashCode + ((getSound() == null) ? 0 : getSound().hashCode());
         hashCode = prime * hashCode + ((getSubstitutions() == null) ? 0 : getSubstitutions().hashCode());
+        hashCode = prime * hashCode + ((getTimeToLive() == null) ? 0 : getTimeToLive().hashCode());
         hashCode = prime * hashCode + ((getTitle() == null) ? 0 : getTitle().hashCode());
         hashCode = prime * hashCode + ((getUrl() == null) ? 0 : getUrl().hashCode());
         return hashCode;

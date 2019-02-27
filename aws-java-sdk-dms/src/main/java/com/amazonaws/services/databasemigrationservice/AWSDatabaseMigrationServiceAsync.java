@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,8 +34,8 @@ import com.amazonaws.services.databasemigrationservice.model.*;
  * Server to PostgreSQL.
  * </p>
  * <p>
- * For more information about AWS DMS, see the AWS DMS user guide at <a
- * href="http://docs.aws.amazon.com/dms/latest/userguide/Welcome.html"> What Is AWS Database Migration Service? </a>
+ * For more information about AWS DMS, see <a href="http://docs.aws.amazon.com/dms/latest/userguide/Welcome.html">What
+ * Is AWS Database Migration Service?</a> in the <i>AWS Database Migration User Guide.</i>
  * </p>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -43,9 +43,9 @@ public interface AWSDatabaseMigrationServiceAsync extends AWSDatabaseMigrationSe
 
     /**
      * <p>
-     * Adds metadata tags to a DMS resource, including replication instance, endpoint, security group, and migration
-     * task. These tags can also be used with cost allocation reporting to track cost associated with DMS resources, or
-     * used in a Condition statement in an IAM policy for DMS.
+     * Adds metadata tags to an AWS DMS resource, including replication instance, endpoint, security group, and
+     * migration task. These tags can also be used with cost allocation reporting to track cost associated with DMS
+     * resources, or used in a Condition statement in an IAM policy for DMS.
      * </p>
      * 
      * @param addTagsToResourceRequest
@@ -58,9 +58,9 @@ public interface AWSDatabaseMigrationServiceAsync extends AWSDatabaseMigrationSe
 
     /**
      * <p>
-     * Adds metadata tags to a DMS resource, including replication instance, endpoint, security group, and migration
-     * task. These tags can also be used with cost allocation reporting to track cost associated with DMS resources, or
-     * used in a Condition statement in an IAM policy for DMS.
+     * Adds metadata tags to an AWS DMS resource, including replication instance, endpoint, security group, and
+     * migration task. These tags can also be used with cost allocation reporting to track cost associated with DMS
+     * resources, or used in a Condition statement in an IAM policy for DMS.
      * </p>
      * 
      * @param addTagsToResourceRequest
@@ -124,8 +124,8 @@ public interface AWSDatabaseMigrationServiceAsync extends AWSDatabaseMigrationSe
      * </p>
      * <p>
      * For more information about AWS DMS events, see <a
-     * href="http://docs.aws.amazon.com/dms/latest/userguide/CHAP_Events.html"> Working with Events and Notifications
-     * </a> in the AWS Database MIgration Service User Guide.
+     * href="http://docs.aws.amazon.com/dms/latest/userguide/CHAP_Events.html">Working with Events and Notifications</a>
+     * in the <i>AWS Database Migration Service User Guide.</i>
      * </p>
      * 
      * @param createEventSubscriptionRequest
@@ -153,8 +153,8 @@ public interface AWSDatabaseMigrationServiceAsync extends AWSDatabaseMigrationSe
      * </p>
      * <p>
      * For more information about AWS DMS events, see <a
-     * href="http://docs.aws.amazon.com/dms/latest/userguide/CHAP_Events.html"> Working with Events and Notifications
-     * </a> in the AWS Database MIgration Service User Guide.
+     * href="http://docs.aws.amazon.com/dms/latest/userguide/CHAP_Events.html">Working with Events and Notifications</a>
+     * in the <i>AWS Database Migration Service User Guide.</i>
      * </p>
      * 
      * @param createEventSubscriptionRequest
@@ -658,8 +658,8 @@ public interface AWSDatabaseMigrationServiceAsync extends AWSDatabaseMigrationSe
      * <p>
      * Lists categories for all event source types, or, if specified, for a specified source type. You can see a list of
      * the event categories and source types in <a
-     * href="http://docs.aws.amazon.com/dms/latest/userguide/CHAP_Events.html"> Working with Events and Notifications
-     * </a> in the AWS Database Migration Service User Guide.
+     * href="http://docs.aws.amazon.com/dms/latest/userguide/CHAP_Events.html">Working with Events and Notifications</a>
+     * in the <i>AWS Database Migration Service User Guide.</i>
      * </p>
      * 
      * @param describeEventCategoriesRequest
@@ -674,8 +674,8 @@ public interface AWSDatabaseMigrationServiceAsync extends AWSDatabaseMigrationSe
      * <p>
      * Lists categories for all event source types, or, if specified, for a specified source type. You can see a list of
      * the event categories and source types in <a
-     * href="http://docs.aws.amazon.com/dms/latest/userguide/CHAP_Events.html"> Working with Events and Notifications
-     * </a> in the AWS Database Migration Service User Guide.
+     * href="http://docs.aws.amazon.com/dms/latest/userguide/CHAP_Events.html">Working with Events and Notifications</a>
+     * in the <i>AWS Database Migration Service User Guide.</i>
      * </p>
      * 
      * @param describeEventCategoriesRequest
@@ -737,8 +737,9 @@ public interface AWSDatabaseMigrationServiceAsync extends AWSDatabaseMigrationSe
     /**
      * <p>
      * Lists events for a given source identifier and source type. You can also specify a start and end time. For more
-     * information on AWS DMS events, see <a href="http://docs.aws.amazon.com/dms/latest/userguide/CHAP_Events.html">
-     * Working with Events and Notifications </a>.
+     * information on AWS DMS events, see <a
+     * href="http://docs.aws.amazon.com/dms/latest/userguide/CHAP_Events.html">Working with Events and Notifications</a>
+     * in the <i>AWS Database Migration User Guide.</i>
      * </p>
      * 
      * @param describeEventsRequest
@@ -752,8 +753,9 @@ public interface AWSDatabaseMigrationServiceAsync extends AWSDatabaseMigrationSe
     /**
      * <p>
      * Lists events for a given source identifier and source type. You can also specify a start and end time. For more
-     * information on AWS DMS events, see <a href="http://docs.aws.amazon.com/dms/latest/userguide/CHAP_Events.html">
-     * Working with Events and Notifications </a>.
+     * information on AWS DMS events, see <a
+     * href="http://docs.aws.amazon.com/dms/latest/userguide/CHAP_Events.html">Working with Events and Notifications</a>
+     * in the <i>AWS Database Migration User Guide.</i>
      * </p>
      * 
      * @param describeEventsRequest
@@ -841,6 +843,41 @@ public interface AWSDatabaseMigrationServiceAsync extends AWSDatabaseMigrationSe
 
     /**
      * <p>
+     * Returns information about the task logs for the specified task.
+     * </p>
+     * 
+     * @param describeReplicationInstanceTaskLogsRequest
+     * @return A Java Future containing the result of the DescribeReplicationInstanceTaskLogs operation returned by the
+     *         service.
+     * @sample AWSDatabaseMigrationServiceAsync.DescribeReplicationInstanceTaskLogs
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeReplicationInstanceTaskLogs"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeReplicationInstanceTaskLogsResult> describeReplicationInstanceTaskLogsAsync(
+            DescribeReplicationInstanceTaskLogsRequest describeReplicationInstanceTaskLogsRequest);
+
+    /**
+     * <p>
+     * Returns information about the task logs for the specified task.
+     * </p>
+     * 
+     * @param describeReplicationInstanceTaskLogsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeReplicationInstanceTaskLogs operation returned by the
+     *         service.
+     * @sample AWSDatabaseMigrationServiceAsyncHandler.DescribeReplicationInstanceTaskLogs
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeReplicationInstanceTaskLogs"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeReplicationInstanceTaskLogsResult> describeReplicationInstanceTaskLogsAsync(
+            DescribeReplicationInstanceTaskLogsRequest describeReplicationInstanceTaskLogsRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeReplicationInstanceTaskLogsRequest, DescribeReplicationInstanceTaskLogsResult> asyncHandler);
+
+    /**
+     * <p>
      * Returns information about replication instances for your account in the current region.
      * </p>
      * 
@@ -911,6 +948,41 @@ public interface AWSDatabaseMigrationServiceAsync extends AWSDatabaseMigrationSe
 
     /**
      * <p>
+     * Returns the task assessment results from Amazon S3. This action always returns the latest results.
+     * </p>
+     * 
+     * @param describeReplicationTaskAssessmentResultsRequest
+     * @return A Java Future containing the result of the DescribeReplicationTaskAssessmentResults operation returned by
+     *         the service.
+     * @sample AWSDatabaseMigrationServiceAsync.DescribeReplicationTaskAssessmentResults
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeReplicationTaskAssessmentResults"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeReplicationTaskAssessmentResultsResult> describeReplicationTaskAssessmentResultsAsync(
+            DescribeReplicationTaskAssessmentResultsRequest describeReplicationTaskAssessmentResultsRequest);
+
+    /**
+     * <p>
+     * Returns the task assessment results from Amazon S3. This action always returns the latest results.
+     * </p>
+     * 
+     * @param describeReplicationTaskAssessmentResultsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeReplicationTaskAssessmentResults operation returned by
+     *         the service.
+     * @sample AWSDatabaseMigrationServiceAsyncHandler.DescribeReplicationTaskAssessmentResults
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeReplicationTaskAssessmentResults"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeReplicationTaskAssessmentResultsResult> describeReplicationTaskAssessmentResultsAsync(
+            DescribeReplicationTaskAssessmentResultsRequest describeReplicationTaskAssessmentResultsRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeReplicationTaskAssessmentResultsRequest, DescribeReplicationTaskAssessmentResultsResult> asyncHandler);
+
+    /**
+     * <p>
      * Returns information about replication tasks for your account in the current region.
      * </p>
      * 
@@ -978,6 +1050,10 @@ public interface AWSDatabaseMigrationServiceAsync extends AWSDatabaseMigrationSe
      * Returns table statistics on the database migration task, including table name, rows inserted, rows updated, and
      * rows deleted.
      * </p>
+     * <p>
+     * Note that the "last updated" column the DMS console only indicates the time that AWS DMS last updated the table
+     * statistics record for a table. It does not indicate the time of the last update to the table.
+     * </p>
      * 
      * @param describeTableStatisticsRequest
      * @return A Java Future containing the result of the DescribeTableStatistics operation returned by the service.
@@ -991,6 +1067,10 @@ public interface AWSDatabaseMigrationServiceAsync extends AWSDatabaseMigrationSe
      * <p>
      * Returns table statistics on the database migration task, including table name, rows inserted, rows updated, and
      * rows deleted.
+     * </p>
+     * <p>
+     * Note that the "last updated" column the DMS console only indicates the time that AWS DMS last updated the table
+     * statistics record for a table. It does not indicate the time of the last update to the table.
      * </p>
      * 
      * @param describeTableStatisticsRequest
@@ -1216,8 +1296,9 @@ public interface AWSDatabaseMigrationServiceAsync extends AWSDatabaseMigrationSe
      * You can't modify the task endpoints. The task must be stopped before you can modify it.
      * </p>
      * <p>
-     * For more information about AWS DMS tasks, see the AWS DMS user guide at <a
-     * href="http://docs.aws.amazon.com/dms/latest/userguide/CHAP_Tasks.html"> Working with Migration Tasks </a>
+     * For more information about AWS DMS tasks, see <a
+     * href="http://docs.aws.amazon.com/dms/latest/userguide/CHAP_Tasks.html">Working with Migration Tasks</a> in the
+     * <i>AWS Database Migration Service User Guide</i>.
      * </p>
      * 
      * @param modifyReplicationTaskRequest
@@ -1236,8 +1317,9 @@ public interface AWSDatabaseMigrationServiceAsync extends AWSDatabaseMigrationSe
      * You can't modify the task endpoints. The task must be stopped before you can modify it.
      * </p>
      * <p>
-     * For more information about AWS DMS tasks, see the AWS DMS user guide at <a
-     * href="http://docs.aws.amazon.com/dms/latest/userguide/CHAP_Tasks.html"> Working with Migration Tasks </a>
+     * For more information about AWS DMS tasks, see <a
+     * href="http://docs.aws.amazon.com/dms/latest/userguide/CHAP_Tasks.html">Working with Migration Tasks</a> in the
+     * <i>AWS Database Migration Service User Guide</i>.
      * </p>
      * 
      * @param modifyReplicationTaskRequest
@@ -1252,6 +1334,41 @@ public interface AWSDatabaseMigrationServiceAsync extends AWSDatabaseMigrationSe
      */
     java.util.concurrent.Future<ModifyReplicationTaskResult> modifyReplicationTaskAsync(ModifyReplicationTaskRequest modifyReplicationTaskRequest,
             com.amazonaws.handlers.AsyncHandler<ModifyReplicationTaskRequest, ModifyReplicationTaskResult> asyncHandler);
+
+    /**
+     * <p>
+     * Reboots a replication instance. Rebooting results in a momentary outage, until the replication instance becomes
+     * available again.
+     * </p>
+     * 
+     * @param rebootReplicationInstanceRequest
+     * @return A Java Future containing the result of the RebootReplicationInstance operation returned by the service.
+     * @sample AWSDatabaseMigrationServiceAsync.RebootReplicationInstance
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/RebootReplicationInstance" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<RebootReplicationInstanceResult> rebootReplicationInstanceAsync(
+            RebootReplicationInstanceRequest rebootReplicationInstanceRequest);
+
+    /**
+     * <p>
+     * Reboots a replication instance. Rebooting results in a momentary outage, until the replication instance becomes
+     * available again.
+     * </p>
+     * 
+     * @param rebootReplicationInstanceRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the RebootReplicationInstance operation returned by the service.
+     * @sample AWSDatabaseMigrationServiceAsyncHandler.RebootReplicationInstance
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/RebootReplicationInstance" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<RebootReplicationInstanceResult> rebootReplicationInstanceAsync(
+            RebootReplicationInstanceRequest rebootReplicationInstanceRequest,
+            com.amazonaws.handlers.AsyncHandler<RebootReplicationInstanceRequest, RebootReplicationInstanceResult> asyncHandler);
 
     /**
      * <p>
@@ -1353,8 +1470,9 @@ public interface AWSDatabaseMigrationServiceAsync extends AWSDatabaseMigrationSe
      * Starts the replication task.
      * </p>
      * <p>
-     * For more information about AWS DMS tasks, see the AWS DMS user guide at <a
-     * href="http://docs.aws.amazon.com/dms/latest/userguide/CHAP_Tasks.html"> Working with Migration Tasks </a>
+     * For more information about AWS DMS tasks, see <a
+     * href="http://docs.aws.amazon.com/dms/latest/userguide/CHAP_Tasks.html">Working with Migration Tasks </a> in the
+     * <i>AWS Database Migration Service User Guide.</i>
      * </p>
      * 
      * @param startReplicationTaskRequest
@@ -1370,8 +1488,9 @@ public interface AWSDatabaseMigrationServiceAsync extends AWSDatabaseMigrationSe
      * Starts the replication task.
      * </p>
      * <p>
-     * For more information about AWS DMS tasks, see the AWS DMS user guide at <a
-     * href="http://docs.aws.amazon.com/dms/latest/userguide/CHAP_Tasks.html"> Working with Migration Tasks </a>
+     * For more information about AWS DMS tasks, see <a
+     * href="http://docs.aws.amazon.com/dms/latest/userguide/CHAP_Tasks.html">Working with Migration Tasks </a> in the
+     * <i>AWS Database Migration Service User Guide.</i>
      * </p>
      * 
      * @param startReplicationTaskRequest
@@ -1386,6 +1505,41 @@ public interface AWSDatabaseMigrationServiceAsync extends AWSDatabaseMigrationSe
      */
     java.util.concurrent.Future<StartReplicationTaskResult> startReplicationTaskAsync(StartReplicationTaskRequest startReplicationTaskRequest,
             com.amazonaws.handlers.AsyncHandler<StartReplicationTaskRequest, StartReplicationTaskResult> asyncHandler);
+
+    /**
+     * <p>
+     * Starts the replication task assessment for unsupported data types in the source database.
+     * </p>
+     * 
+     * @param startReplicationTaskAssessmentRequest
+     * @return A Java Future containing the result of the StartReplicationTaskAssessment operation returned by the
+     *         service.
+     * @sample AWSDatabaseMigrationServiceAsync.StartReplicationTaskAssessment
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/StartReplicationTaskAssessment"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<StartReplicationTaskAssessmentResult> startReplicationTaskAssessmentAsync(
+            StartReplicationTaskAssessmentRequest startReplicationTaskAssessmentRequest);
+
+    /**
+     * <p>
+     * Starts the replication task assessment for unsupported data types in the source database.
+     * </p>
+     * 
+     * @param startReplicationTaskAssessmentRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the StartReplicationTaskAssessment operation returned by the
+     *         service.
+     * @sample AWSDatabaseMigrationServiceAsyncHandler.StartReplicationTaskAssessment
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/StartReplicationTaskAssessment"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<StartReplicationTaskAssessmentResult> startReplicationTaskAssessmentAsync(
+            StartReplicationTaskAssessmentRequest startReplicationTaskAssessmentRequest,
+            com.amazonaws.handlers.AsyncHandler<StartReplicationTaskAssessmentRequest, StartReplicationTaskAssessmentResult> asyncHandler);
 
     /**
      * <p>

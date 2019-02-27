@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -103,7 +103,7 @@ public class NatGateway implements Serializable, Cloneable {
     /**
      * <p>
      * Reserved. If you need to sustain traffic greater than the <a
-     * href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-nat-gateway.html">documented limits</a>, contact
+     * href="https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-nat-gateway.html">documented limits</a>, contact
      * us through the <a href="https://console.aws.amazon.com/support/home?">Support Center</a>.
      * </p>
      */
@@ -155,6 +155,12 @@ public class NatGateway implements Serializable, Cloneable {
      * </p>
      */
     private String vpcId;
+    /**
+     * <p>
+     * The tags for the NAT gateway.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<Tag> tags;
 
     /**
      * <p>
@@ -659,13 +665,13 @@ public class NatGateway implements Serializable, Cloneable {
     /**
      * <p>
      * Reserved. If you need to sustain traffic greater than the <a
-     * href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-nat-gateway.html">documented limits</a>, contact
+     * href="https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-nat-gateway.html">documented limits</a>, contact
      * us through the <a href="https://console.aws.amazon.com/support/home?">Support Center</a>.
      * </p>
      * 
      * @param provisionedBandwidth
      *        Reserved. If you need to sustain traffic greater than the <a
-     *        href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-nat-gateway.html">documented limits</a>,
+     *        href="https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-nat-gateway.html">documented limits</a>,
      *        contact us through the <a href="https://console.aws.amazon.com/support/home?">Support Center</a>.
      */
 
@@ -676,12 +682,12 @@ public class NatGateway implements Serializable, Cloneable {
     /**
      * <p>
      * Reserved. If you need to sustain traffic greater than the <a
-     * href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-nat-gateway.html">documented limits</a>, contact
+     * href="https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-nat-gateway.html">documented limits</a>, contact
      * us through the <a href="https://console.aws.amazon.com/support/home?">Support Center</a>.
      * </p>
      * 
      * @return Reserved. If you need to sustain traffic greater than the <a
-     *         href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-nat-gateway.html">documented limits</a>,
+     *         href="https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-nat-gateway.html">documented limits</a>,
      *         contact us through the <a href="https://console.aws.amazon.com/support/home?">Support Center</a>.
      */
 
@@ -692,13 +698,13 @@ public class NatGateway implements Serializable, Cloneable {
     /**
      * <p>
      * Reserved. If you need to sustain traffic greater than the <a
-     * href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-nat-gateway.html">documented limits</a>, contact
+     * href="https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-nat-gateway.html">documented limits</a>, contact
      * us through the <a href="https://console.aws.amazon.com/support/home?">Support Center</a>.
      * </p>
      * 
      * @param provisionedBandwidth
      *        Reserved. If you need to sustain traffic greater than the <a
-     *        href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-nat-gateway.html">documented limits</a>,
+     *        href="https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-nat-gateway.html">documented limits</a>,
      *        contact us through the <a href="https://console.aws.amazon.com/support/home?">Support Center</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -1152,7 +1158,81 @@ public class NatGateway implements Serializable, Cloneable {
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * <p>
+     * The tags for the NAT gateway.
+     * </p>
+     * 
+     * @return The tags for the NAT gateway.
+     */
+
+    public java.util.List<Tag> getTags() {
+        if (tags == null) {
+            tags = new com.amazonaws.internal.SdkInternalList<Tag>();
+        }
+        return tags;
+    }
+
+    /**
+     * <p>
+     * The tags for the NAT gateway.
+     * </p>
+     * 
+     * @param tags
+     *        The tags for the NAT gateway.
+     */
+
+    public void setTags(java.util.Collection<Tag> tags) {
+        if (tags == null) {
+            this.tags = null;
+            return;
+        }
+
+        this.tags = new com.amazonaws.internal.SdkInternalList<Tag>(tags);
+    }
+
+    /**
+     * <p>
+     * The tags for the NAT gateway.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setTags(java.util.Collection)} or {@link #withTags(java.util.Collection)} if you want to override the
+     * existing values.
+     * </p>
+     * 
+     * @param tags
+     *        The tags for the NAT gateway.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public NatGateway withTags(Tag... tags) {
+        if (this.tags == null) {
+            setTags(new com.amazonaws.internal.SdkInternalList<Tag>(tags.length));
+        }
+        for (Tag ele : tags) {
+            this.tags.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The tags for the NAT gateway.
+     * </p>
+     * 
+     * @param tags
+     *        The tags for the NAT gateway.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public NatGateway withTags(java.util.Collection<Tag> tags) {
+        setTags(tags);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -1181,7 +1261,9 @@ public class NatGateway implements Serializable, Cloneable {
         if (getSubnetId() != null)
             sb.append("SubnetId: ").append(getSubnetId()).append(",");
         if (getVpcId() != null)
-            sb.append("VpcId: ").append(getVpcId());
+            sb.append("VpcId: ").append(getVpcId()).append(",");
+        if (getTags() != null)
+            sb.append("Tags: ").append(getTags());
         sb.append("}");
         return sb.toString();
     }
@@ -1236,6 +1318,10 @@ public class NatGateway implements Serializable, Cloneable {
             return false;
         if (other.getVpcId() != null && other.getVpcId().equals(this.getVpcId()) == false)
             return false;
+        if (other.getTags() == null ^ this.getTags() == null)
+            return false;
+        if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
+            return false;
         return true;
     }
 
@@ -1254,6 +1340,7 @@ public class NatGateway implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getState() == null) ? 0 : getState().hashCode());
         hashCode = prime * hashCode + ((getSubnetId() == null) ? 0 : getSubnetId().hashCode());
         hashCode = prime * hashCode + ((getVpcId() == null) ? 0 : getVpcId().hashCode());
+        hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         return hashCode;
     }
 

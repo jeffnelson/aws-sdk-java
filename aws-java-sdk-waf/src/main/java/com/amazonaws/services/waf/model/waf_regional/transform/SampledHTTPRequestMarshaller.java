@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -32,9 +32,11 @@ public class SampledHTTPRequestMarshaller {
     private static final MarshallingInfo<Long> WEIGHT_BINDING = MarshallingInfo.builder(MarshallingType.LONG).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Weight").build();
     private static final MarshallingInfo<java.util.Date> TIMESTAMP_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
-            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Timestamp").build();
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Timestamp").timestampFormat("unixTimestamp").build();
     private static final MarshallingInfo<String> ACTION_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Action").build();
+    private static final MarshallingInfo<String> RULEWITHINRULEGROUP_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("RuleWithinRuleGroup").build();
 
     private static final SampledHTTPRequestMarshaller instance = new SampledHTTPRequestMarshaller();
 
@@ -56,6 +58,7 @@ public class SampledHTTPRequestMarshaller {
             protocolMarshaller.marshall(sampledHTTPRequest.getWeight(), WEIGHT_BINDING);
             protocolMarshaller.marshall(sampledHTTPRequest.getTimestamp(), TIMESTAMP_BINDING);
             protocolMarshaller.marshall(sampledHTTPRequest.getAction(), ACTION_BINDING);
+            protocolMarshaller.marshall(sampledHTTPRequest.getRuleWithinRuleGroup(), RULEWITHINRULEGROUP_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

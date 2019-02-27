@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -20,9 +20,7 @@ import com.amazonaws.Request;
 import com.amazonaws.services.ec2.model.transform.ModifyInstanceAttributeRequestMarshaller;
 
 /**
- * <p>
- * Contains the parameters for ModifyInstanceAttribute.
- * </p>
+ * 
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest implements Serializable, Cloneable,
@@ -31,7 +29,7 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
     /**
      * <p>
      * Specifies whether source/destination checking is enabled. A value of <code>true</code> means that checking is
-     * enabled, and <code>false</code> means checking is disabled. This value must be <code>false</code> for a NAT
+     * enabled, and <code>false</code> means that checking is disabled. This value must be <code>false</code> for a NAT
      * instance to perform NAT.
      * </p>
      */
@@ -51,7 +49,7 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
      * <p>
      * To add instance store volumes to an Amazon EBS-backed instance, you must add them when you launch the instance.
      * For more information, see <a href=
-     * "http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html#Using_OverridingAMIBDM"
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html#Using_OverridingAMIBDM"
      * >Updating the Block Device Mapping when Launching an Instance</a> in the <i>Amazon Elastic Compute Cloud User
      * Guide</i>.
      * </p>
@@ -66,9 +64,9 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
     private Boolean disableApiTermination;
     /**
      * <p>
-     * Specifies whether the instance is optimized for EBS I/O. This optimization provides dedicated throughput to
-     * Amazon EBS and an optimized configuration stack to provide optimal EBS I/O performance. This optimization isn't
-     * available with all instance types. Additional usage charges apply when using an EBS Optimized instance.
+     * Specifies whether the instance is optimized for Amazon EBS I/O. This optimization provides dedicated throughput
+     * to Amazon EBS and an optimized configuration stack to provide optimal EBS I/O performance. This optimization
+     * isn't available with all instance types. Additional usage charges apply when using an EBS Optimized instance.
      * </p>
      */
     private Boolean ebsOptimized;
@@ -105,8 +103,8 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
     /**
      * <p>
      * Changes the instance type to the specified value. For more information, see <a
-     * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance Types</a>. If the instance
-     * type is not valid, the error returned is <code>InvalidInstanceAttributeValue</code>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance Types</a>. If the
+     * instance type is not valid, the error returned is <code>InvalidInstanceAttributeValue</code>.
      * </p>
      */
     private String instanceType;
@@ -114,7 +112,7 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
      * <p>
      * Changes the instance's kernel to the specified value. We recommend that you use PV-GRUB instead of kernels and
      * RAM disks. For more information, see <a
-     * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedKernels.html">PV-GRUB</a>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedKernels.html">PV-GRUB</a>.
      * </p>
      */
     private String kernel;
@@ -122,7 +120,7 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
      * <p>
      * Changes the instance's RAM disk to the specified value. We recommend that you use PV-GRUB instead of kernels and
      * RAM disks. For more information, see <a
-     * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedKernels.html">PV-GRUB</a>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedKernels.html">PV-GRUB</a>.
      * </p>
      */
     private String ramdisk;
@@ -143,8 +141,8 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
     /**
      * <p>
      * Changes the instance's user data to the specified value. If you are using an AWS SDK or command line tool,
-     * Base64-encoding is performed for you, and you can load the text from a file. Otherwise, you must provide
-     * Base64-encoded text.
+     * base64-encoding is performed for you, and you can load the text from a file. Otherwise, you must provide
+     * base64-encoded text.
      * </p>
      */
     private String userData;
@@ -193,14 +191,14 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
     /**
      * <p>
      * Specifies whether source/destination checking is enabled. A value of <code>true</code> means that checking is
-     * enabled, and <code>false</code> means checking is disabled. This value must be <code>false</code> for a NAT
+     * enabled, and <code>false</code> means that checking is disabled. This value must be <code>false</code> for a NAT
      * instance to perform NAT.
      * </p>
      * 
      * @param sourceDestCheck
      *        Specifies whether source/destination checking is enabled. A value of <code>true</code> means that checking
-     *        is enabled, and <code>false</code> means checking is disabled. This value must be <code>false</code> for a
-     *        NAT instance to perform NAT.
+     *        is enabled, and <code>false</code> means that checking is disabled. This value must be <code>false</code>
+     *        for a NAT instance to perform NAT.
      */
 
     public void setSourceDestCheck(Boolean sourceDestCheck) {
@@ -210,12 +208,12 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
     /**
      * <p>
      * Specifies whether source/destination checking is enabled. A value of <code>true</code> means that checking is
-     * enabled, and <code>false</code> means checking is disabled. This value must be <code>false</code> for a NAT
+     * enabled, and <code>false</code> means that checking is disabled. This value must be <code>false</code> for a NAT
      * instance to perform NAT.
      * </p>
      * 
      * @return Specifies whether source/destination checking is enabled. A value of <code>true</code> means that
-     *         checking is enabled, and <code>false</code> means checking is disabled. This value must be
+     *         checking is enabled, and <code>false</code> means that checking is disabled. This value must be
      *         <code>false</code> for a NAT instance to perform NAT.
      */
 
@@ -226,14 +224,14 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
     /**
      * <p>
      * Specifies whether source/destination checking is enabled. A value of <code>true</code> means that checking is
-     * enabled, and <code>false</code> means checking is disabled. This value must be <code>false</code> for a NAT
+     * enabled, and <code>false</code> means that checking is disabled. This value must be <code>false</code> for a NAT
      * instance to perform NAT.
      * </p>
      * 
      * @param sourceDestCheck
      *        Specifies whether source/destination checking is enabled. A value of <code>true</code> means that checking
-     *        is enabled, and <code>false</code> means checking is disabled. This value must be <code>false</code> for a
-     *        NAT instance to perform NAT.
+     *        is enabled, and <code>false</code> means that checking is disabled. This value must be <code>false</code>
+     *        for a NAT instance to perform NAT.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -245,12 +243,12 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
     /**
      * <p>
      * Specifies whether source/destination checking is enabled. A value of <code>true</code> means that checking is
-     * enabled, and <code>false</code> means checking is disabled. This value must be <code>false</code> for a NAT
+     * enabled, and <code>false</code> means that checking is disabled. This value must be <code>false</code> for a NAT
      * instance to perform NAT.
      * </p>
      * 
      * @return Specifies whether source/destination checking is enabled. A value of <code>true</code> means that
-     *         checking is enabled, and <code>false</code> means checking is disabled. This value must be
+     *         checking is enabled, and <code>false</code> means that checking is disabled. This value must be
      *         <code>false</code> for a NAT instance to perform NAT.
      */
 
@@ -340,7 +338,7 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
      * <p>
      * To add instance store volumes to an Amazon EBS-backed instance, you must add them when you launch the instance.
      * For more information, see <a href=
-     * "http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html#Using_OverridingAMIBDM"
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html#Using_OverridingAMIBDM"
      * >Updating the Block Device Mapping when Launching an Instance</a> in the <i>Amazon Elastic Compute Cloud User
      * Guide</i>.
      * </p>
@@ -351,7 +349,7 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
      *         <p>
      *         To add instance store volumes to an Amazon EBS-backed instance, you must add them when you launch the
      *         instance. For more information, see <a href=
-     *         "http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html#Using_OverridingAMIBDM"
+     *         "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html#Using_OverridingAMIBDM"
      *         >Updating the Block Device Mapping when Launching an Instance</a> in the <i>Amazon Elastic Compute Cloud
      *         User Guide</i>.
      */
@@ -372,7 +370,7 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
      * <p>
      * To add instance store volumes to an Amazon EBS-backed instance, you must add them when you launch the instance.
      * For more information, see <a href=
-     * "http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html#Using_OverridingAMIBDM"
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html#Using_OverridingAMIBDM"
      * >Updating the Block Device Mapping when Launching an Instance</a> in the <i>Amazon Elastic Compute Cloud User
      * Guide</i>.
      * </p>
@@ -384,7 +382,7 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
      *        <p>
      *        To add instance store volumes to an Amazon EBS-backed instance, you must add them when you launch the
      *        instance. For more information, see <a href=
-     *        "http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html#Using_OverridingAMIBDM"
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html#Using_OverridingAMIBDM"
      *        >Updating the Block Device Mapping when Launching an Instance</a> in the <i>Amazon Elastic Compute Cloud
      *        User Guide</i>.
      */
@@ -407,7 +405,7 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
      * <p>
      * To add instance store volumes to an Amazon EBS-backed instance, you must add them when you launch the instance.
      * For more information, see <a href=
-     * "http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html#Using_OverridingAMIBDM"
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html#Using_OverridingAMIBDM"
      * >Updating the Block Device Mapping when Launching an Instance</a> in the <i>Amazon Elastic Compute Cloud User
      * Guide</i>.
      * </p>
@@ -424,7 +422,7 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
      *        <p>
      *        To add instance store volumes to an Amazon EBS-backed instance, you must add them when you launch the
      *        instance. For more information, see <a href=
-     *        "http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html#Using_OverridingAMIBDM"
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html#Using_OverridingAMIBDM"
      *        >Updating the Block Device Mapping when Launching an Instance</a> in the <i>Amazon Elastic Compute Cloud
      *        User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -449,7 +447,7 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
      * <p>
      * To add instance store volumes to an Amazon EBS-backed instance, you must add them when you launch the instance.
      * For more information, see <a href=
-     * "http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html#Using_OverridingAMIBDM"
+     * "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html#Using_OverridingAMIBDM"
      * >Updating the Block Device Mapping when Launching an Instance</a> in the <i>Amazon Elastic Compute Cloud User
      * Guide</i>.
      * </p>
@@ -461,7 +459,7 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
      *        <p>
      *        To add instance store volumes to an Amazon EBS-backed instance, you must add them when you launch the
      *        instance. For more information, see <a href=
-     *        "http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html#Using_OverridingAMIBDM"
+     *        "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html#Using_OverridingAMIBDM"
      *        >Updating the Block Device Mapping when Launching an Instance</a> in the <i>Amazon Elastic Compute Cloud
      *        User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -534,14 +532,14 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * Specifies whether the instance is optimized for EBS I/O. This optimization provides dedicated throughput to
-     * Amazon EBS and an optimized configuration stack to provide optimal EBS I/O performance. This optimization isn't
-     * available with all instance types. Additional usage charges apply when using an EBS Optimized instance.
+     * Specifies whether the instance is optimized for Amazon EBS I/O. This optimization provides dedicated throughput
+     * to Amazon EBS and an optimized configuration stack to provide optimal EBS I/O performance. This optimization
+     * isn't available with all instance types. Additional usage charges apply when using an EBS Optimized instance.
      * </p>
      * 
      * @param ebsOptimized
-     *        Specifies whether the instance is optimized for EBS I/O. This optimization provides dedicated throughput
-     *        to Amazon EBS and an optimized configuration stack to provide optimal EBS I/O performance. This
+     *        Specifies whether the instance is optimized for Amazon EBS I/O. This optimization provides dedicated
+     *        throughput to Amazon EBS and an optimized configuration stack to provide optimal EBS I/O performance. This
      *        optimization isn't available with all instance types. Additional usage charges apply when using an EBS
      *        Optimized instance.
      */
@@ -552,15 +550,15 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * Specifies whether the instance is optimized for EBS I/O. This optimization provides dedicated throughput to
-     * Amazon EBS and an optimized configuration stack to provide optimal EBS I/O performance. This optimization isn't
-     * available with all instance types. Additional usage charges apply when using an EBS Optimized instance.
+     * Specifies whether the instance is optimized for Amazon EBS I/O. This optimization provides dedicated throughput
+     * to Amazon EBS and an optimized configuration stack to provide optimal EBS I/O performance. This optimization
+     * isn't available with all instance types. Additional usage charges apply when using an EBS Optimized instance.
      * </p>
      * 
-     * @return Specifies whether the instance is optimized for EBS I/O. This optimization provides dedicated throughput
-     *         to Amazon EBS and an optimized configuration stack to provide optimal EBS I/O performance. This
-     *         optimization isn't available with all instance types. Additional usage charges apply when using an EBS
-     *         Optimized instance.
+     * @return Specifies whether the instance is optimized for Amazon EBS I/O. This optimization provides dedicated
+     *         throughput to Amazon EBS and an optimized configuration stack to provide optimal EBS I/O performance.
+     *         This optimization isn't available with all instance types. Additional usage charges apply when using an
+     *         EBS Optimized instance.
      */
 
     public Boolean getEbsOptimized() {
@@ -569,14 +567,14 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * Specifies whether the instance is optimized for EBS I/O. This optimization provides dedicated throughput to
-     * Amazon EBS and an optimized configuration stack to provide optimal EBS I/O performance. This optimization isn't
-     * available with all instance types. Additional usage charges apply when using an EBS Optimized instance.
+     * Specifies whether the instance is optimized for Amazon EBS I/O. This optimization provides dedicated throughput
+     * to Amazon EBS and an optimized configuration stack to provide optimal EBS I/O performance. This optimization
+     * isn't available with all instance types. Additional usage charges apply when using an EBS Optimized instance.
      * </p>
      * 
      * @param ebsOptimized
-     *        Specifies whether the instance is optimized for EBS I/O. This optimization provides dedicated throughput
-     *        to Amazon EBS and an optimized configuration stack to provide optimal EBS I/O performance. This
+     *        Specifies whether the instance is optimized for Amazon EBS I/O. This optimization provides dedicated
+     *        throughput to Amazon EBS and an optimized configuration stack to provide optimal EBS I/O performance. This
      *        optimization isn't available with all instance types. Additional usage charges apply when using an EBS
      *        Optimized instance.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -589,15 +587,15 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
 
     /**
      * <p>
-     * Specifies whether the instance is optimized for EBS I/O. This optimization provides dedicated throughput to
-     * Amazon EBS and an optimized configuration stack to provide optimal EBS I/O performance. This optimization isn't
-     * available with all instance types. Additional usage charges apply when using an EBS Optimized instance.
+     * Specifies whether the instance is optimized for Amazon EBS I/O. This optimization provides dedicated throughput
+     * to Amazon EBS and an optimized configuration stack to provide optimal EBS I/O performance. This optimization
+     * isn't available with all instance types. Additional usage charges apply when using an EBS Optimized instance.
      * </p>
      * 
-     * @return Specifies whether the instance is optimized for EBS I/O. This optimization provides dedicated throughput
-     *         to Amazon EBS and an optimized configuration stack to provide optimal EBS I/O performance. This
-     *         optimization isn't available with all instance types. Additional usage charges apply when using an EBS
-     *         Optimized instance.
+     * @return Specifies whether the instance is optimized for Amazon EBS I/O. This optimization provides dedicated
+     *         throughput to Amazon EBS and an optimized configuration stack to provide optimal EBS I/O performance.
+     *         This optimization isn't available with all instance types. Additional usage charges apply when using an
+     *         EBS Optimized instance.
      */
 
     public Boolean isEbsOptimized() {
@@ -858,13 +856,13 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
     /**
      * <p>
      * Changes the instance type to the specified value. For more information, see <a
-     * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance Types</a>. If the instance
-     * type is not valid, the error returned is <code>InvalidInstanceAttributeValue</code>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance Types</a>. If the
+     * instance type is not valid, the error returned is <code>InvalidInstanceAttributeValue</code>.
      * </p>
      * 
      * @param instanceType
      *        Changes the instance type to the specified value. For more information, see <a
-     *        href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance Types</a>. If the
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance Types</a>. If the
      *        instance type is not valid, the error returned is <code>InvalidInstanceAttributeValue</code>.
      */
 
@@ -875,12 +873,12 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
     /**
      * <p>
      * Changes the instance type to the specified value. For more information, see <a
-     * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance Types</a>. If the instance
-     * type is not valid, the error returned is <code>InvalidInstanceAttributeValue</code>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance Types</a>. If the
+     * instance type is not valid, the error returned is <code>InvalidInstanceAttributeValue</code>.
      * </p>
      * 
      * @return Changes the instance type to the specified value. For more information, see <a
-     *         href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance Types</a>. If the
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance Types</a>. If the
      *         instance type is not valid, the error returned is <code>InvalidInstanceAttributeValue</code>.
      */
 
@@ -891,13 +889,13 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
     /**
      * <p>
      * Changes the instance type to the specified value. For more information, see <a
-     * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance Types</a>. If the instance
-     * type is not valid, the error returned is <code>InvalidInstanceAttributeValue</code>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance Types</a>. If the
+     * instance type is not valid, the error returned is <code>InvalidInstanceAttributeValue</code>.
      * </p>
      * 
      * @param instanceType
      *        Changes the instance type to the specified value. For more information, see <a
-     *        href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance Types</a>. If the
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance Types</a>. If the
      *        instance type is not valid, the error returned is <code>InvalidInstanceAttributeValue</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -911,13 +909,13 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
      * <p>
      * Changes the instance's kernel to the specified value. We recommend that you use PV-GRUB instead of kernels and
      * RAM disks. For more information, see <a
-     * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedKernels.html">PV-GRUB</a>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedKernels.html">PV-GRUB</a>.
      * </p>
      * 
      * @param kernel
      *        Changes the instance's kernel to the specified value. We recommend that you use PV-GRUB instead of kernels
      *        and RAM disks. For more information, see <a
-     *        href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedKernels.html">PV-GRUB</a>.
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedKernels.html">PV-GRUB</a>.
      */
 
     public void setKernel(String kernel) {
@@ -928,12 +926,12 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
      * <p>
      * Changes the instance's kernel to the specified value. We recommend that you use PV-GRUB instead of kernels and
      * RAM disks. For more information, see <a
-     * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedKernels.html">PV-GRUB</a>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedKernels.html">PV-GRUB</a>.
      * </p>
      * 
      * @return Changes the instance's kernel to the specified value. We recommend that you use PV-GRUB instead of
      *         kernels and RAM disks. For more information, see <a
-     *         href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedKernels.html">PV-GRUB</a>.
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedKernels.html">PV-GRUB</a>.
      */
 
     public String getKernel() {
@@ -944,13 +942,13 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
      * <p>
      * Changes the instance's kernel to the specified value. We recommend that you use PV-GRUB instead of kernels and
      * RAM disks. For more information, see <a
-     * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedKernels.html">PV-GRUB</a>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedKernels.html">PV-GRUB</a>.
      * </p>
      * 
      * @param kernel
      *        Changes the instance's kernel to the specified value. We recommend that you use PV-GRUB instead of kernels
      *        and RAM disks. For more information, see <a
-     *        href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedKernels.html">PV-GRUB</a>.
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedKernels.html">PV-GRUB</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -963,13 +961,13 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
      * <p>
      * Changes the instance's RAM disk to the specified value. We recommend that you use PV-GRUB instead of kernels and
      * RAM disks. For more information, see <a
-     * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedKernels.html">PV-GRUB</a>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedKernels.html">PV-GRUB</a>.
      * </p>
      * 
      * @param ramdisk
      *        Changes the instance's RAM disk to the specified value. We recommend that you use PV-GRUB instead of
      *        kernels and RAM disks. For more information, see <a
-     *        href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedKernels.html">PV-GRUB</a>.
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedKernels.html">PV-GRUB</a>.
      */
 
     public void setRamdisk(String ramdisk) {
@@ -980,12 +978,12 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
      * <p>
      * Changes the instance's RAM disk to the specified value. We recommend that you use PV-GRUB instead of kernels and
      * RAM disks. For more information, see <a
-     * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedKernels.html">PV-GRUB</a>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedKernels.html">PV-GRUB</a>.
      * </p>
      * 
      * @return Changes the instance's RAM disk to the specified value. We recommend that you use PV-GRUB instead of
      *         kernels and RAM disks. For more information, see <a
-     *         href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedKernels.html">PV-GRUB</a>.
+     *         href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedKernels.html">PV-GRUB</a>.
      */
 
     public String getRamdisk() {
@@ -996,13 +994,13 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
      * <p>
      * Changes the instance's RAM disk to the specified value. We recommend that you use PV-GRUB instead of kernels and
      * RAM disks. For more information, see <a
-     * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedKernels.html">PV-GRUB</a>.
+     * href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedKernels.html">PV-GRUB</a>.
      * </p>
      * 
      * @param ramdisk
      *        Changes the instance's RAM disk to the specified value. We recommend that you use PV-GRUB instead of
      *        kernels and RAM disks. For more information, see <a
-     *        href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedKernels.html">PV-GRUB</a>.
+     *        href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedKernels.html">PV-GRUB</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1102,14 +1100,14 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
     /**
      * <p>
      * Changes the instance's user data to the specified value. If you are using an AWS SDK or command line tool,
-     * Base64-encoding is performed for you, and you can load the text from a file. Otherwise, you must provide
-     * Base64-encoded text.
+     * base64-encoding is performed for you, and you can load the text from a file. Otherwise, you must provide
+     * base64-encoded text.
      * </p>
      * 
      * @param userData
      *        Changes the instance's user data to the specified value. If you are using an AWS SDK or command line tool,
-     *        Base64-encoding is performed for you, and you can load the text from a file. Otherwise, you must provide
-     *        Base64-encoded text.
+     *        base64-encoding is performed for you, and you can load the text from a file. Otherwise, you must provide
+     *        base64-encoded text.
      */
 
     public void setUserData(String userData) {
@@ -1119,13 +1117,13 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
     /**
      * <p>
      * Changes the instance's user data to the specified value. If you are using an AWS SDK or command line tool,
-     * Base64-encoding is performed for you, and you can load the text from a file. Otherwise, you must provide
-     * Base64-encoded text.
+     * base64-encoding is performed for you, and you can load the text from a file. Otherwise, you must provide
+     * base64-encoded text.
      * </p>
      * 
      * @return Changes the instance's user data to the specified value. If you are using an AWS SDK or command line
-     *         tool, Base64-encoding is performed for you, and you can load the text from a file. Otherwise, you must
-     *         provide Base64-encoded text.
+     *         tool, base64-encoding is performed for you, and you can load the text from a file. Otherwise, you must
+     *         provide base64-encoded text.
      */
 
     public String getUserData() {
@@ -1135,14 +1133,14 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
     /**
      * <p>
      * Changes the instance's user data to the specified value. If you are using an AWS SDK or command line tool,
-     * Base64-encoding is performed for you, and you can load the text from a file. Otherwise, you must provide
-     * Base64-encoded text.
+     * base64-encoding is performed for you, and you can load the text from a file. Otherwise, you must provide
+     * base64-encoded text.
      * </p>
      * 
      * @param userData
      *        Changes the instance's user data to the specified value. If you are using an AWS SDK or command line tool,
-     *        Base64-encoding is performed for you, and you can load the text from a file. Otherwise, you must provide
-     *        Base64-encoded text.
+     *        base64-encoding is performed for you, and you can load the text from a file. Otherwise, you must provide
+     *        base64-encoded text.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1209,7 +1207,8 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

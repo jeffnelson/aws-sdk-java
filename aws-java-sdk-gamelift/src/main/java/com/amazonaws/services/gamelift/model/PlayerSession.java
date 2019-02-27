@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,12 +19,15 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Properties describing a player session. A player session represents either a player reservation for a game session or
- * actual player activity in a game session. A player session object (including player data) is automatically passed to
- * a game session when the player connects to the game session and is validated.
+ * Properties describing a player session. Player session objects are created either by creating a player session for a
+ * specific game session, or as part of a game session placement. A player session represents either a player
+ * reservation for a game session (status <code>RESERVED</code>) or actual player activity in a game session (status
+ * <code>ACTIVE</code>). A player session object (including player data) is automatically passed to a game session when
+ * the player connects to the game session and is validated.
  * </p>
  * <p>
- * Player-session-related operations include:
+ * When a player disconnects, the player session status changes to <code>COMPLETED</code>. Once the session ends, the
+ * player session object is retained for 30 days and then removed.
  * </p>
  * <ul>
  * <li>
@@ -120,24 +123,24 @@ public class PlayerSession implements Serializable, Cloneable, StructuredPojo {
      * <ul>
      * <li>
      * <p>
-     * <b>RESERVED</b> – The player session request has been received, but the player has not yet connected to the
+     * <b>RESERVED</b> -- The player session request has been received, but the player has not yet connected to the
      * server process and/or been validated.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>ACTIVE</b> – The player has been validated by the server process and is currently connected.
+     * <b>ACTIVE</b> -- The player has been validated by the server process and is currently connected.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>COMPLETED</b> – The player connection has been dropped.
+     * <b>COMPLETED</b> -- The player connection has been dropped.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>TIMEDOUT</b> – A player session request was received, but the player did not connect and/or was not validated
-     * within the time-out limit (60 seconds).
+     * <b>TIMEDOUT</b> -- A player session request was received, but the player did not connect and/or was not validated
+     * within the timeout limit (60 seconds).
      * </p>
      * </li>
      * </ul>
@@ -427,24 +430,24 @@ public class PlayerSession implements Serializable, Cloneable, StructuredPojo {
      * <ul>
      * <li>
      * <p>
-     * <b>RESERVED</b> – The player session request has been received, but the player has not yet connected to the
+     * <b>RESERVED</b> -- The player session request has been received, but the player has not yet connected to the
      * server process and/or been validated.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>ACTIVE</b> – The player has been validated by the server process and is currently connected.
+     * <b>ACTIVE</b> -- The player has been validated by the server process and is currently connected.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>COMPLETED</b> – The player connection has been dropped.
+     * <b>COMPLETED</b> -- The player connection has been dropped.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>TIMEDOUT</b> – A player session request was received, but the player did not connect and/or was not validated
-     * within the time-out limit (60 seconds).
+     * <b>TIMEDOUT</b> -- A player session request was received, but the player did not connect and/or was not validated
+     * within the timeout limit (60 seconds).
      * </p>
      * </li>
      * </ul>
@@ -457,24 +460,24 @@ public class PlayerSession implements Serializable, Cloneable, StructuredPojo {
      *        <ul>
      *        <li>
      *        <p>
-     *        <b>RESERVED</b> – The player session request has been received, but the player has not yet connected to
+     *        <b>RESERVED</b> -- The player session request has been received, but the player has not yet connected to
      *        the server process and/or been validated.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <b>ACTIVE</b> – The player has been validated by the server process and is currently connected.
+     *        <b>ACTIVE</b> -- The player has been validated by the server process and is currently connected.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <b>COMPLETED</b> – The player connection has been dropped.
+     *        <b>COMPLETED</b> -- The player connection has been dropped.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <b>TIMEDOUT</b> – A player session request was received, but the player did not connect and/or was not
-     *        validated within the time-out limit (60 seconds).
+     *        <b>TIMEDOUT</b> -- A player session request was received, but the player did not connect and/or was not
+     *        validated within the timeout limit (60 seconds).
      *        </p>
      *        </li>
      * @see PlayerSessionStatus
@@ -494,24 +497,24 @@ public class PlayerSession implements Serializable, Cloneable, StructuredPojo {
      * <ul>
      * <li>
      * <p>
-     * <b>RESERVED</b> – The player session request has been received, but the player has not yet connected to the
+     * <b>RESERVED</b> -- The player session request has been received, but the player has not yet connected to the
      * server process and/or been validated.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>ACTIVE</b> – The player has been validated by the server process and is currently connected.
+     * <b>ACTIVE</b> -- The player has been validated by the server process and is currently connected.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>COMPLETED</b> – The player connection has been dropped.
+     * <b>COMPLETED</b> -- The player connection has been dropped.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>TIMEDOUT</b> – A player session request was received, but the player did not connect and/or was not validated
-     * within the time-out limit (60 seconds).
+     * <b>TIMEDOUT</b> -- A player session request was received, but the player did not connect and/or was not validated
+     * within the timeout limit (60 seconds).
      * </p>
      * </li>
      * </ul>
@@ -523,24 +526,24 @@ public class PlayerSession implements Serializable, Cloneable, StructuredPojo {
      *         <ul>
      *         <li>
      *         <p>
-     *         <b>RESERVED</b> – The player session request has been received, but the player has not yet connected to
+     *         <b>RESERVED</b> -- The player session request has been received, but the player has not yet connected to
      *         the server process and/or been validated.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <b>ACTIVE</b> – The player has been validated by the server process and is currently connected.
+     *         <b>ACTIVE</b> -- The player has been validated by the server process and is currently connected.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <b>COMPLETED</b> – The player connection has been dropped.
+     *         <b>COMPLETED</b> -- The player connection has been dropped.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <b>TIMEDOUT</b> – A player session request was received, but the player did not connect and/or was not
-     *         validated within the time-out limit (60 seconds).
+     *         <b>TIMEDOUT</b> -- A player session request was received, but the player did not connect and/or was not
+     *         validated within the timeout limit (60 seconds).
      *         </p>
      *         </li>
      * @see PlayerSessionStatus
@@ -560,24 +563,24 @@ public class PlayerSession implements Serializable, Cloneable, StructuredPojo {
      * <ul>
      * <li>
      * <p>
-     * <b>RESERVED</b> – The player session request has been received, but the player has not yet connected to the
+     * <b>RESERVED</b> -- The player session request has been received, but the player has not yet connected to the
      * server process and/or been validated.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>ACTIVE</b> – The player has been validated by the server process and is currently connected.
+     * <b>ACTIVE</b> -- The player has been validated by the server process and is currently connected.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>COMPLETED</b> – The player connection has been dropped.
+     * <b>COMPLETED</b> -- The player connection has been dropped.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>TIMEDOUT</b> – A player session request was received, but the player did not connect and/or was not validated
-     * within the time-out limit (60 seconds).
+     * <b>TIMEDOUT</b> -- A player session request was received, but the player did not connect and/or was not validated
+     * within the timeout limit (60 seconds).
      * </p>
      * </li>
      * </ul>
@@ -590,24 +593,24 @@ public class PlayerSession implements Serializable, Cloneable, StructuredPojo {
      *        <ul>
      *        <li>
      *        <p>
-     *        <b>RESERVED</b> – The player session request has been received, but the player has not yet connected to
+     *        <b>RESERVED</b> -- The player session request has been received, but the player has not yet connected to
      *        the server process and/or been validated.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <b>ACTIVE</b> – The player has been validated by the server process and is currently connected.
+     *        <b>ACTIVE</b> -- The player has been validated by the server process and is currently connected.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <b>COMPLETED</b> – The player connection has been dropped.
+     *        <b>COMPLETED</b> -- The player connection has been dropped.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <b>TIMEDOUT</b> – A player session request was received, but the player did not connect and/or was not
-     *        validated within the time-out limit (60 seconds).
+     *        <b>TIMEDOUT</b> -- A player session request was received, but the player did not connect and/or was not
+     *        validated within the timeout limit (60 seconds).
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -629,24 +632,24 @@ public class PlayerSession implements Serializable, Cloneable, StructuredPojo {
      * <ul>
      * <li>
      * <p>
-     * <b>RESERVED</b> – The player session request has been received, but the player has not yet connected to the
+     * <b>RESERVED</b> -- The player session request has been received, but the player has not yet connected to the
      * server process and/or been validated.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>ACTIVE</b> – The player has been validated by the server process and is currently connected.
+     * <b>ACTIVE</b> -- The player has been validated by the server process and is currently connected.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>COMPLETED</b> – The player connection has been dropped.
+     * <b>COMPLETED</b> -- The player connection has been dropped.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>TIMEDOUT</b> – A player session request was received, but the player did not connect and/or was not validated
-     * within the time-out limit (60 seconds).
+     * <b>TIMEDOUT</b> -- A player session request was received, but the player did not connect and/or was not validated
+     * within the timeout limit (60 seconds).
      * </p>
      * </li>
      * </ul>
@@ -659,24 +662,24 @@ public class PlayerSession implements Serializable, Cloneable, StructuredPojo {
      *        <ul>
      *        <li>
      *        <p>
-     *        <b>RESERVED</b> – The player session request has been received, but the player has not yet connected to
+     *        <b>RESERVED</b> -- The player session request has been received, but the player has not yet connected to
      *        the server process and/or been validated.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <b>ACTIVE</b> – The player has been validated by the server process and is currently connected.
+     *        <b>ACTIVE</b> -- The player has been validated by the server process and is currently connected.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <b>COMPLETED</b> – The player connection has been dropped.
+     *        <b>COMPLETED</b> -- The player connection has been dropped.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <b>TIMEDOUT</b> – A player session request was received, but the player did not connect and/or was not
-     *        validated within the time-out limit (60 seconds).
+     *        <b>TIMEDOUT</b> -- A player session request was received, but the player did not connect and/or was not
+     *        validated within the timeout limit (60 seconds).
      *        </p>
      *        </li>
      * @see PlayerSessionStatus
@@ -696,24 +699,24 @@ public class PlayerSession implements Serializable, Cloneable, StructuredPojo {
      * <ul>
      * <li>
      * <p>
-     * <b>RESERVED</b> – The player session request has been received, but the player has not yet connected to the
+     * <b>RESERVED</b> -- The player session request has been received, but the player has not yet connected to the
      * server process and/or been validated.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>ACTIVE</b> – The player has been validated by the server process and is currently connected.
+     * <b>ACTIVE</b> -- The player has been validated by the server process and is currently connected.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>COMPLETED</b> – The player connection has been dropped.
+     * <b>COMPLETED</b> -- The player connection has been dropped.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>TIMEDOUT</b> – A player session request was received, but the player did not connect and/or was not validated
-     * within the time-out limit (60 seconds).
+     * <b>TIMEDOUT</b> -- A player session request was received, but the player did not connect and/or was not validated
+     * within the timeout limit (60 seconds).
      * </p>
      * </li>
      * </ul>
@@ -726,24 +729,24 @@ public class PlayerSession implements Serializable, Cloneable, StructuredPojo {
      *        <ul>
      *        <li>
      *        <p>
-     *        <b>RESERVED</b> – The player session request has been received, but the player has not yet connected to
+     *        <b>RESERVED</b> -- The player session request has been received, but the player has not yet connected to
      *        the server process and/or been validated.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <b>ACTIVE</b> – The player has been validated by the server process and is currently connected.
+     *        <b>ACTIVE</b> -- The player has been validated by the server process and is currently connected.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <b>COMPLETED</b> – The player connection has been dropped.
+     *        <b>COMPLETED</b> -- The player connection has been dropped.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <b>TIMEDOUT</b> – A player session request was received, but the player did not connect and/or was not
-     *        validated within the time-out limit (60 seconds).
+     *        <b>TIMEDOUT</b> -- A player session request was received, but the player did not connect and/or was not
+     *        validated within the timeout limit (60 seconds).
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -894,7 +897,8 @@ public class PlayerSession implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

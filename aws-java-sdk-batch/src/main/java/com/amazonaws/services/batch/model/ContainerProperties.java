@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -75,7 +75,7 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
      * container</a> section of the <a
      * href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.23/">Docker Remote API</a> and the
      * <code>--cpu-shares</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>. Each
-     * vCPU is equivalent to 1,024 CPU shares.
+     * vCPU is equivalent to 1,024 CPU shares. You must specify at least one vCPU.
      * </p>
      */
     private Integer vcpus;
@@ -86,8 +86,17 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
      * href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.23/#create-a-container">Create a
      * container</a> section of the <a
      * href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.23/">Docker Remote API</a> and the
-     * <code>--memory</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>.
+     * <code>--memory</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>. You must
+     * specify at least 4 MiB of memory for a job.
      * </p>
+     * <note>
+     * <p>
+     * If you are trying to maximize your resource utilization by providing your jobs as much memory as possible for a
+     * particular instance type, see <a
+     * href="http://docs.aws.amazon.com/batch/latest/userguide/memory-management.html">Memory Management</a> in the
+     * <i>AWS Batch User Guide</i>.
+     * </p>
+     * </note>
      */
     private Integer memory;
     /**
@@ -125,9 +134,14 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
      * </p>
      * <important>
      * <p>
-     * We do not recommend using plain text environment variables for sensitive information, such as credential data.
+     * We do not recommend using plaintext environment variables for sensitive information, such as credential data.
      * </p>
-     * </important>
+     * </important> <note>
+     * <p>
+     * Environment variables must not start with <code>AWS_BATCH</code>; this naming convention is reserved for
+     * variables that are set by the AWS Batch service.
+     * </p>
+     * </note>
      */
     private java.util.List<KeyValuePair> environment;
     /**
@@ -182,6 +196,13 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
      * </p>
      */
     private String user;
+    /**
+     * <p>
+     * The instance type to use for a multi-node parallel job. Currently all node groups in a multi-node parallel job
+     * must use the same instance type. This parameter is not valid for single-node container jobs.
+     * </p>
+     */
+    private String instanceType;
 
     /**
      * <p>
@@ -434,7 +455,7 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
      * container</a> section of the <a
      * href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.23/">Docker Remote API</a> and the
      * <code>--cpu-shares</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>. Each
-     * vCPU is equivalent to 1,024 CPU shares.
+     * vCPU is equivalent to 1,024 CPU shares. You must specify at least one vCPU.
      * </p>
      * 
      * @param vcpus
@@ -443,7 +464,7 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
      *        container</a> section of the <a
      *        href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.23/">Docker Remote API</a> and the
      *        <code>--cpu-shares</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker
-     *        run</a>. Each vCPU is equivalent to 1,024 CPU shares.
+     *        run</a>. Each vCPU is equivalent to 1,024 CPU shares. You must specify at least one vCPU.
      */
 
     public void setVcpus(Integer vcpus) {
@@ -457,7 +478,7 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
      * container</a> section of the <a
      * href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.23/">Docker Remote API</a> and the
      * <code>--cpu-shares</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>. Each
-     * vCPU is equivalent to 1,024 CPU shares.
+     * vCPU is equivalent to 1,024 CPU shares. You must specify at least one vCPU.
      * </p>
      * 
      * @return The number of vCPUs reserved for the container. This parameter maps to <code>CpuShares</code> in the <a
@@ -465,7 +486,7 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
      *         container</a> section of the <a
      *         href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.23/">Docker Remote API</a> and
      *         the <code>--cpu-shares</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker
-     *         run</a>. Each vCPU is equivalent to 1,024 CPU shares.
+     *         run</a>. Each vCPU is equivalent to 1,024 CPU shares. You must specify at least one vCPU.
      */
 
     public Integer getVcpus() {
@@ -479,7 +500,7 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
      * container</a> section of the <a
      * href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.23/">Docker Remote API</a> and the
      * <code>--cpu-shares</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>. Each
-     * vCPU is equivalent to 1,024 CPU shares.
+     * vCPU is equivalent to 1,024 CPU shares. You must specify at least one vCPU.
      * </p>
      * 
      * @param vcpus
@@ -488,7 +509,7 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
      *        container</a> section of the <a
      *        href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.23/">Docker Remote API</a> and the
      *        <code>--cpu-shares</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker
-     *        run</a>. Each vCPU is equivalent to 1,024 CPU shares.
+     *        run</a>. Each vCPU is equivalent to 1,024 CPU shares. You must specify at least one vCPU.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -504,8 +525,17 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
      * href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.23/#create-a-container">Create a
      * container</a> section of the <a
      * href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.23/">Docker Remote API</a> and the
-     * <code>--memory</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>.
+     * <code>--memory</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>. You must
+     * specify at least 4 MiB of memory for a job.
      * </p>
+     * <note>
+     * <p>
+     * If you are trying to maximize your resource utilization by providing your jobs as much memory as possible for a
+     * particular instance type, see <a
+     * href="http://docs.aws.amazon.com/batch/latest/userguide/memory-management.html">Memory Management</a> in the
+     * <i>AWS Batch User Guide</i>.
+     * </p>
+     * </note>
      * 
      * @param memory
      *        The hard limit (in MiB) of memory to present to the container. If your container attempts to exceed the
@@ -514,6 +544,13 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
      *        container</a> section of the <a
      *        href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.23/">Docker Remote API</a> and the
      *        <code>--memory</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>.
+     *        You must specify at least 4 MiB of memory for a job.</p> <note>
+     *        <p>
+     *        If you are trying to maximize your resource utilization by providing your jobs as much memory as possible
+     *        for a particular instance type, see <a
+     *        href="http://docs.aws.amazon.com/batch/latest/userguide/memory-management.html">Memory Management</a> in
+     *        the <i>AWS Batch User Guide</i>.
+     *        </p>
      */
 
     public void setMemory(Integer memory) {
@@ -527,8 +564,17 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
      * href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.23/#create-a-container">Create a
      * container</a> section of the <a
      * href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.23/">Docker Remote API</a> and the
-     * <code>--memory</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>.
+     * <code>--memory</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>. You must
+     * specify at least 4 MiB of memory for a job.
      * </p>
+     * <note>
+     * <p>
+     * If you are trying to maximize your resource utilization by providing your jobs as much memory as possible for a
+     * particular instance type, see <a
+     * href="http://docs.aws.amazon.com/batch/latest/userguide/memory-management.html">Memory Management</a> in the
+     * <i>AWS Batch User Guide</i>.
+     * </p>
+     * </note>
      * 
      * @return The hard limit (in MiB) of memory to present to the container. If your container attempts to exceed the
      *         memory specified here, the container is killed. This parameter maps to <code>Memory</code> in the <a
@@ -536,7 +582,13 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
      *         container</a> section of the <a
      *         href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.23/">Docker Remote API</a> and
      *         the <code>--memory</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker
-     *         run</a>.
+     *         run</a>. You must specify at least 4 MiB of memory for a job.</p> <note>
+     *         <p>
+     *         If you are trying to maximize your resource utilization by providing your jobs as much memory as possible
+     *         for a particular instance type, see <a
+     *         href="http://docs.aws.amazon.com/batch/latest/userguide/memory-management.html">Memory Management</a> in
+     *         the <i>AWS Batch User Guide</i>.
+     *         </p>
      */
 
     public Integer getMemory() {
@@ -550,8 +602,17 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
      * href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.23/#create-a-container">Create a
      * container</a> section of the <a
      * href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.23/">Docker Remote API</a> and the
-     * <code>--memory</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>.
+     * <code>--memory</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>. You must
+     * specify at least 4 MiB of memory for a job.
      * </p>
+     * <note>
+     * <p>
+     * If you are trying to maximize your resource utilization by providing your jobs as much memory as possible for a
+     * particular instance type, see <a
+     * href="http://docs.aws.amazon.com/batch/latest/userguide/memory-management.html">Memory Management</a> in the
+     * <i>AWS Batch User Guide</i>.
+     * </p>
+     * </note>
      * 
      * @param memory
      *        The hard limit (in MiB) of memory to present to the container. If your container attempts to exceed the
@@ -560,6 +621,13 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
      *        container</a> section of the <a
      *        href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.23/">Docker Remote API</a> and the
      *        <code>--memory</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>.
+     *        You must specify at least 4 MiB of memory for a job.</p> <note>
+     *        <p>
+     *        If you are trying to maximize your resource utilization by providing your jobs as much memory as possible
+     *        for a particular instance type, see <a
+     *        href="http://docs.aws.amazon.com/batch/latest/userguide/memory-management.html">Memory Management</a> in
+     *        the <i>AWS Batch User Guide</i>.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -814,9 +882,14 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
      * </p>
      * <important>
      * <p>
-     * We do not recommend using plain text environment variables for sensitive information, such as credential data.
+     * We do not recommend using plaintext environment variables for sensitive information, such as credential data.
      * </p>
-     * </important>
+     * </important> <note>
+     * <p>
+     * Environment variables must not start with <code>AWS_BATCH</code>; this naming convention is reserved for
+     * variables that are set by the AWS Batch service.
+     * </p>
+     * </note>
      * 
      * @return The environment variables to pass to a container. This parameter maps to <code>Env</code> in the <a
      *         href="https://docs.docker.com/engine/reference/api/docker_remote_api_v1.23/#create-a-container">Create a
@@ -825,8 +898,13 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
      *         the <code>--env</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker
      *         run</a>.</p> <important>
      *         <p>
-     *         We do not recommend using plain text environment variables for sensitive information, such as credential
+     *         We do not recommend using plaintext environment variables for sensitive information, such as credential
      *         data.
+     *         </p>
+     *         </important> <note>
+     *         <p>
+     *         Environment variables must not start with <code>AWS_BATCH</code>; this naming convention is reserved for
+     *         variables that are set by the AWS Batch service.
      *         </p>
      */
 
@@ -844,9 +922,14 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
      * </p>
      * <important>
      * <p>
-     * We do not recommend using plain text environment variables for sensitive information, such as credential data.
+     * We do not recommend using plaintext environment variables for sensitive information, such as credential data.
      * </p>
-     * </important>
+     * </important> <note>
+     * <p>
+     * Environment variables must not start with <code>AWS_BATCH</code>; this naming convention is reserved for
+     * variables that are set by the AWS Batch service.
+     * </p>
+     * </note>
      * 
      * @param environment
      *        The environment variables to pass to a container. This parameter maps to <code>Env</code> in the <a
@@ -856,8 +939,13 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
      *        <code>--env</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>.</p>
      *        <important>
      *        <p>
-     *        We do not recommend using plain text environment variables for sensitive information, such as credential
+     *        We do not recommend using plaintext environment variables for sensitive information, such as credential
      *        data.
+     *        </p>
+     *        </important> <note>
+     *        <p>
+     *        Environment variables must not start with <code>AWS_BATCH</code>; this naming convention is reserved for
+     *        variables that are set by the AWS Batch service.
      *        </p>
      */
 
@@ -880,9 +968,14 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
      * </p>
      * <important>
      * <p>
-     * We do not recommend using plain text environment variables for sensitive information, such as credential data.
+     * We do not recommend using plaintext environment variables for sensitive information, such as credential data.
      * </p>
-     * </important>
+     * </important> <note>
+     * <p>
+     * Environment variables must not start with <code>AWS_BATCH</code>; this naming convention is reserved for
+     * variables that are set by the AWS Batch service.
+     * </p>
+     * </note>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setEnvironment(java.util.Collection)} or {@link #withEnvironment(java.util.Collection)} if you want to
@@ -897,8 +990,13 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
      *        <code>--env</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>.</p>
      *        <important>
      *        <p>
-     *        We do not recommend using plain text environment variables for sensitive information, such as credential
+     *        We do not recommend using plaintext environment variables for sensitive information, such as credential
      *        data.
+     *        </p>
+     *        </important> <note>
+     *        <p>
+     *        Environment variables must not start with <code>AWS_BATCH</code>; this naming convention is reserved for
+     *        variables that are set by the AWS Batch service.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -923,9 +1021,14 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
      * </p>
      * <important>
      * <p>
-     * We do not recommend using plain text environment variables for sensitive information, such as credential data.
+     * We do not recommend using plaintext environment variables for sensitive information, such as credential data.
      * </p>
-     * </important>
+     * </important> <note>
+     * <p>
+     * Environment variables must not start with <code>AWS_BATCH</code>; this naming convention is reserved for
+     * variables that are set by the AWS Batch service.
+     * </p>
+     * </note>
      * 
      * @param environment
      *        The environment variables to pass to a container. This parameter maps to <code>Env</code> in the <a
@@ -935,8 +1038,13 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
      *        <code>--env</code> option to <a href="https://docs.docker.com/engine/reference/run/">docker run</a>.</p>
      *        <important>
      *        <p>
-     *        We do not recommend using plain text environment variables for sensitive information, such as credential
+     *        We do not recommend using plaintext environment variables for sensitive information, such as credential
      *        data.
+     *        </p>
+     *        </important> <note>
+     *        <p>
+     *        Environment variables must not start with <code>AWS_BATCH</code>; this naming convention is reserved for
+     *        variables that are set by the AWS Batch service.
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -1406,7 +1514,54 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * <p>
+     * The instance type to use for a multi-node parallel job. Currently all node groups in a multi-node parallel job
+     * must use the same instance type. This parameter is not valid for single-node container jobs.
+     * </p>
+     * 
+     * @param instanceType
+     *        The instance type to use for a multi-node parallel job. Currently all node groups in a multi-node parallel
+     *        job must use the same instance type. This parameter is not valid for single-node container jobs.
+     */
+
+    public void setInstanceType(String instanceType) {
+        this.instanceType = instanceType;
+    }
+
+    /**
+     * <p>
+     * The instance type to use for a multi-node parallel job. Currently all node groups in a multi-node parallel job
+     * must use the same instance type. This parameter is not valid for single-node container jobs.
+     * </p>
+     * 
+     * @return The instance type to use for a multi-node parallel job. Currently all node groups in a multi-node
+     *         parallel job must use the same instance type. This parameter is not valid for single-node container jobs.
+     */
+
+    public String getInstanceType() {
+        return this.instanceType;
+    }
+
+    /**
+     * <p>
+     * The instance type to use for a multi-node parallel job. Currently all node groups in a multi-node parallel job
+     * must use the same instance type. This parameter is not valid for single-node container jobs.
+     * </p>
+     * 
+     * @param instanceType
+     *        The instance type to use for a multi-node parallel job. Currently all node groups in a multi-node parallel
+     *        job must use the same instance type. This parameter is not valid for single-node container jobs.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public ContainerProperties withInstanceType(String instanceType) {
+        setInstanceType(instanceType);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -1439,7 +1594,9 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
         if (getUlimits() != null)
             sb.append("Ulimits: ").append(getUlimits()).append(",");
         if (getUser() != null)
-            sb.append("User: ").append(getUser());
+            sb.append("User: ").append(getUser()).append(",");
+        if (getInstanceType() != null)
+            sb.append("InstanceType: ").append(getInstanceType());
         sb.append("}");
         return sb.toString();
     }
@@ -1502,6 +1659,10 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
             return false;
         if (other.getUser() != null && other.getUser().equals(this.getUser()) == false)
             return false;
+        if (other.getInstanceType() == null ^ this.getInstanceType() == null)
+            return false;
+        if (other.getInstanceType() != null && other.getInstanceType().equals(this.getInstanceType()) == false)
+            return false;
         return true;
     }
 
@@ -1522,6 +1683,7 @@ public class ContainerProperties implements Serializable, Cloneable, StructuredP
         hashCode = prime * hashCode + ((getPrivileged() == null) ? 0 : getPrivileged().hashCode());
         hashCode = prime * hashCode + ((getUlimits() == null) ? 0 : getUlimits().hashCode());
         hashCode = prime * hashCode + ((getUser() == null) ? 0 : getUser().hashCode());
+        hashCode = prime * hashCode + ((getInstanceType() == null) ? 0 : getInstanceType().hashCode());
         return hashCode;
     }
 

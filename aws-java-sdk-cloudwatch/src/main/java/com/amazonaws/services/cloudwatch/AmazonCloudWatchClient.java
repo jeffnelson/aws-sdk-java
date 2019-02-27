@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -37,6 +37,8 @@ import com.amazonaws.protocol.json.*;
 import com.amazonaws.util.AWSRequestMetrics.Field;
 import com.amazonaws.annotation.ThreadSafe;
 import com.amazonaws.client.AwsSyncClientParams;
+import com.amazonaws.client.builder.AdvancedConfig;
+
 import com.amazonaws.services.cloudwatch.AmazonCloudWatchClientBuilder;
 import com.amazonaws.services.cloudwatch.waiters.AmazonCloudWatchWaiters;
 
@@ -69,6 +71,7 @@ import com.amazonaws.services.cloudwatch.model.transform.*;
 @ThreadSafe
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class AmazonCloudWatchClient extends AmazonWebServiceClient implements AmazonCloudWatch {
+
     /** Provider for AWS credentials. */
     private final AWSCredentialsProvider awsCredentialsProvider;
 
@@ -81,6 +84,8 @@ public class AmazonCloudWatchClient extends AmazonWebServiceClient implements Am
 
     /** Client configuration factory providing ClientConfigurations tailored to this client */
     protected static final ClientConfigurationFactory configFactory = new ClientConfigurationFactory();
+
+    private final AdvancedConfig advancedConfig;
 
     /**
      * List of exception unmarshallers for all modeled exceptions
@@ -170,6 +175,7 @@ public class AmazonCloudWatchClient extends AmazonWebServiceClient implements Am
     public AmazonCloudWatchClient(AWSCredentials awsCredentials, ClientConfiguration clientConfiguration) {
         super(clientConfiguration);
         this.awsCredentialsProvider = new StaticCredentialsProvider(awsCredentials);
+        this.advancedConfig = AdvancedConfig.EMPTY;
         init();
     }
 
@@ -235,6 +241,7 @@ public class AmazonCloudWatchClient extends AmazonWebServiceClient implements Am
             RequestMetricCollector requestMetricCollector) {
         super(clientConfiguration, requestMetricCollector);
         this.awsCredentialsProvider = awsCredentialsProvider;
+        this.advancedConfig = AdvancedConfig.EMPTY;
         init();
     }
 
@@ -253,8 +260,23 @@ public class AmazonCloudWatchClient extends AmazonWebServiceClient implements Am
      *        Object providing client parameters.
      */
     AmazonCloudWatchClient(AwsSyncClientParams clientParams) {
+        this(clientParams, false);
+    }
+
+    /**
+     * Constructs a new client to invoke service methods on CloudWatch using the specified parameters.
+     *
+     * <p>
+     * All service calls made using this new client object are blocking, and will not return until the service call
+     * completes.
+     *
+     * @param clientParams
+     *        Object providing client parameters.
+     */
+    AmazonCloudWatchClient(AwsSyncClientParams clientParams, boolean endpointDiscoveryEnabled) {
         super(clientParams);
         this.awsCredentialsProvider = clientParams.getCredentialsProvider();
+        this.advancedConfig = clientParams.getAdvancedConfig();
         init();
     }
 
@@ -315,6 +337,10 @@ public class AmazonCloudWatchClient extends AmazonWebServiceClient implements Am
                 request = new DeleteAlarmsRequestMarshaller().marshall(super.beforeMarshalling(deleteAlarmsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudWatch");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteAlarms");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -369,6 +395,10 @@ public class AmazonCloudWatchClient extends AmazonWebServiceClient implements Am
                 request = new DeleteDashboardsRequestMarshaller().marshall(super.beforeMarshalling(deleteDashboardsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudWatch");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteDashboards");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -423,6 +453,10 @@ public class AmazonCloudWatchClient extends AmazonWebServiceClient implements Am
                 request = new DescribeAlarmHistoryRequestMarshaller().marshall(super.beforeMarshalling(describeAlarmHistoryRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudWatch");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeAlarmHistory");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -479,6 +513,10 @@ public class AmazonCloudWatchClient extends AmazonWebServiceClient implements Am
                 request = new DescribeAlarmsRequestMarshaller().marshall(super.beforeMarshalling(describeAlarmsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudWatch");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeAlarms");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -532,6 +570,10 @@ public class AmazonCloudWatchClient extends AmazonWebServiceClient implements Am
                 request = new DescribeAlarmsForMetricRequestMarshaller().marshall(super.beforeMarshalling(describeAlarmsForMetricRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudWatch");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DescribeAlarmsForMetric");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -581,6 +623,10 @@ public class AmazonCloudWatchClient extends AmazonWebServiceClient implements Am
                 request = new DisableAlarmActionsRequestMarshaller().marshall(super.beforeMarshalling(disableAlarmActionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudWatch");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DisableAlarmActions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -629,6 +675,10 @@ public class AmazonCloudWatchClient extends AmazonWebServiceClient implements Am
                 request = new EnableAlarmActionsRequestMarshaller().marshall(super.beforeMarshalling(enableAlarmActionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudWatch");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "EnableAlarmActions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -688,6 +738,10 @@ public class AmazonCloudWatchClient extends AmazonWebServiceClient implements Am
                 request = new GetDashboardRequestMarshaller().marshall(super.beforeMarshalling(getDashboardRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudWatch");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetDashboard");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -705,7 +759,18 @@ public class AmazonCloudWatchClient extends AmazonWebServiceClient implements Am
 
     /**
      * <p>
-     * Gets statistics for the specified metric.
+     * You can use the <code>GetMetricData</code> API to retrieve as many as 100 different metrics in a single request,
+     * with a total of as many as 100,800 datapoints. You can also optionally perform math expressions on the values of
+     * the returned statistics, to create new time series that represent new insights into your data. For example, using
+     * Lambda metrics, you could divide the Errors metric by the Invocations metric to get an error rate time series.
+     * For more information about metric math expressions, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/using-metric-math.html#metric-math-syntax"
+     * >Metric Math Syntax and Functions</a> in the <i>Amazon CloudWatch User Guide</i>.
+     * </p>
+     * <p>
+     * Calls to the <code>GetMetricData</code> API have a different pricing structure than calls to
+     * <code>GetMetricStatistics</code>. For more information about pricing, see <a
+     * href="https://aws.amazon.com/cloudwatch/pricing/">Amazon CloudWatch Pricing</a>.
      * </p>
      * <p>
      * Amazon CloudWatch retains metric data as follows:
@@ -713,28 +778,91 @@ public class AmazonCloudWatchClient extends AmazonWebServiceClient implements Am
      * <ul>
      * <li>
      * <p>
-     * Data points with a period of 60 seconds (1-minute) are available for 15 days
+     * Data points with a period of less than 60 seconds are available for 3 hours. These data points are
+     * high-resolution metrics and are available only for custom metrics that have been defined with a
+     * <code>StorageResolution</code> of 1.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Data points with a period of 300 seconds (5-minute) are available for 63 days
+     * Data points with a period of 60 seconds (1-minute) are available for 15 days.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Data points with a period of 3600 seconds (1 hour) are available for 455 days (15 months)
+     * Data points with a period of 300 seconds (5-minute) are available for 63 days.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Data points with a period of 3600 seconds (1 hour) are available for 455 days (15 months).
      * </p>
      * </li>
      * </ul>
      * <p>
-     * CloudWatch started retaining 5-minute and 1-hour metric data as of July 9, 2016.
+     * Data points that are initially published with a shorter period are aggregated together for long-term storage. For
+     * example, if you collect data using a period of 1 minute, the data remains available for 15 days with 1-minute
+     * resolution. After 15 days, this data is still available, but is aggregated and retrievable only with a resolution
+     * of 5 minutes. After 63 days, the data is further aggregated and is available with a resolution of 1 hour.
+     * </p>
+     * 
+     * @param getMetricDataRequest
+     * @return Result of the GetMetricData operation returned by the service.
+     * @throws InvalidNextTokenException
+     *         The next token specified is invalid.
+     * @sample AmazonCloudWatch.GetMetricData
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/GetMetricData" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public GetMetricDataResult getMetricData(GetMetricDataRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetMetricData(request);
+    }
+
+    @SdkInternalApi
+    final GetMetricDataResult executeGetMetricData(GetMetricDataRequest getMetricDataRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getMetricDataRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetMetricDataRequest> request = null;
+        Response<GetMetricDataResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetMetricDataRequestMarshaller().marshall(super.beforeMarshalling(getMetricDataRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudWatch");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetMetricData");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<GetMetricDataResult> responseHandler = new StaxResponseHandler<GetMetricDataResult>(new GetMetricDataResultStaxUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets statistics for the specified metric.
      * </p>
      * <p>
      * The maximum number of data points returned from a single call is 1,440. If you request more than 1,440 data
      * points, CloudWatch returns an error. To reduce the number of data points, you can narrow the specified time range
-     * and make multiple requests across adjacent time ranges, or you can increase the specified period. A period can be
-     * as short as one minute (60 seconds). Data points are not returned in chronological order.
+     * and make multiple requests across adjacent time ranges, or you can increase the specified period. Data points are
+     * not returned in chronological order.
      * </p>
      * <p>
      * CloudWatch aggregates data points based on the length of the period that you specify. For example, if you request
@@ -759,8 +887,47 @@ public class AmazonCloudWatchClient extends AmazonWebServiceClient implements Am
      * </li>
      * </ul>
      * <p>
-     * For a list of metrics and dimensions supported by AWS services, see the <a
-     * href="http://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CW_Support_For_AWS.html">Amazon CloudWatch
+     * Percentile statistics are not available for metrics when any of the metric values are negative numbers.
+     * </p>
+     * <p>
+     * Amazon CloudWatch retains metric data as follows:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Data points with a period of less than 60 seconds are available for 3 hours. These data points are
+     * high-resolution metrics and are available only for custom metrics that have been defined with a
+     * <code>StorageResolution</code> of 1.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Data points with a period of 60 seconds (1-minute) are available for 15 days.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Data points with a period of 300 seconds (5-minute) are available for 63 days.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Data points with a period of 3600 seconds (1 hour) are available for 455 days (15 months).
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * Data points that are initially published with a shorter period are aggregated together for long-term storage. For
+     * example, if you collect data using a period of 1 minute, the data remains available for 15 days with 1-minute
+     * resolution. After 15 days, this data is still available, but is aggregated and retrievable only with a resolution
+     * of 5 minutes. After 63 days, the data is further aggregated and is available with a resolution of 1 hour.
+     * </p>
+     * <p>
+     * CloudWatch started retaining 5-minute and 1-hour metric data as of July 9, 2016.
+     * </p>
+     * <p>
+     * For information about metrics and dimensions supported by AWS services, see the <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CW_Support_For_AWS.html">Amazon CloudWatch
      * Metrics and Dimensions Reference</a> in the <i>Amazon CloudWatch User Guide</i>.
      * </p>
      * 
@@ -799,6 +966,10 @@ public class AmazonCloudWatchClient extends AmazonWebServiceClient implements Am
                 request = new GetMetricStatisticsRequestMarshaller().marshall(super.beforeMarshalling(getMetricStatisticsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudWatch");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetMetricStatistics");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -817,8 +988,88 @@ public class AmazonCloudWatchClient extends AmazonWebServiceClient implements Am
 
     /**
      * <p>
+     * You can use the <code>GetMetricWidgetImage</code> API to retrieve a snapshot graph of one or more Amazon
+     * CloudWatch metrics as a bitmap image. You can then embed this image into your services and products, such as wiki
+     * pages, reports, and documents. You could also retrieve images regularly, such as every minute, and create your
+     * own custom live dashboard.
+     * </p>
+     * <p>
+     * The graph you retrieve can include all CloudWatch metric graph features, including metric math and horizontal and
+     * vertical annotations.
+     * </p>
+     * <p>
+     * There is a limit of 20 transactions per second for this API. Each <code>GetMetricWidgetImage</code> action has
+     * the following limits:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * As many as 100 metrics in the graph.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Up to 100 KB uncompressed payload.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param getMetricWidgetImageRequest
+     * @return Result of the GetMetricWidgetImage operation returned by the service.
+     * @sample AmazonCloudWatch.GetMetricWidgetImage
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/GetMetricWidgetImage"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GetMetricWidgetImageResult getMetricWidgetImage(GetMetricWidgetImageRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetMetricWidgetImage(request);
+    }
+
+    @SdkInternalApi
+    final GetMetricWidgetImageResult executeGetMetricWidgetImage(GetMetricWidgetImageRequest getMetricWidgetImageRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getMetricWidgetImageRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetMetricWidgetImageRequest> request = null;
+        Response<GetMetricWidgetImageResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetMetricWidgetImageRequestMarshaller().marshall(super.beforeMarshalling(getMetricWidgetImageRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudWatch");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetMetricWidgetImage");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            StaxResponseHandler<GetMetricWidgetImageResult> responseHandler = new StaxResponseHandler<GetMetricWidgetImageResult>(
+                    new GetMetricWidgetImageResultStaxUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Returns a list of the dashboards for your account. If you include <code>DashboardNamePrefix</code>, only those
      * dashboards with names starting with the prefix are listed. Otherwise, all dashboards in your account are listed.
+     * </p>
+     * <p>
+     * <code>ListDashboards</code> returns up to 1000 results on one page. If there are more than 1000 dashboards, you
+     * can call <code>ListDashboards</code> again and include the value you received for <code>NextToken</code> in the
+     * first call, to receive the next 1000 results.
      * </p>
      * 
      * @param listDashboardsRequest
@@ -852,6 +1103,10 @@ public class AmazonCloudWatchClient extends AmazonWebServiceClient implements Am
                 request = new ListDashboardsRequestMarshaller().marshall(super.beforeMarshalling(listDashboardsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudWatch");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListDashboards");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -870,8 +1125,8 @@ public class AmazonCloudWatchClient extends AmazonWebServiceClient implements Am
 
     /**
      * <p>
-     * List the specified metrics. You can use the returned metrics with <a>GetMetricStatistics</a> to obtain
-     * statistical data.
+     * List the specified metrics. You can use the returned metrics with <a>GetMetricData</a> or
+     * <a>GetMetricStatistics</a> to obtain statistical data.
      * </p>
      * <p>
      * Up to 500 results are returned for any one call. To retrieve additional results, use the returned token with
@@ -879,7 +1134,7 @@ public class AmazonCloudWatchClient extends AmazonWebServiceClient implements Am
      * </p>
      * <p>
      * After you create a metric, allow up to fifteen minutes before the metric appears. Statistics about the metric,
-     * however, are available sooner using <a>GetMetricStatistics</a>.
+     * however, are available sooner using <a>GetMetricData</a> or <a>GetMetricStatistics</a>.
      * </p>
      * 
      * @param listMetricsRequest
@@ -913,6 +1168,10 @@ public class AmazonCloudWatchClient extends AmazonWebServiceClient implements Am
                 request = new ListMetricsRequestMarshaller().marshall(super.beforeMarshalling(listMetricsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudWatch");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListMetrics");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -939,12 +1198,21 @@ public class AmazonCloudWatchClient extends AmazonWebServiceClient implements Am
      * the entire contents are replaced with what you specify here.
      * </p>
      * <p>
-     * You can have up to 500 dashboards per account. All dashboards in your account are global, not region-specific.
+     * There is no limit to the number of dashboards in your account. All dashboards in your account are global, not
+     * region-specific.
      * </p>
      * <p>
-     * To copy an existing dashboard, use <code>GetDashboard</code>, and then use the data returned within
-     * <code>DashboardBody</code> as the template for the new dashboard when you call <code>PutDashboard</code> to
-     * create the copy.
+     * A simple way to create a dashboard using <code>PutDashboard</code> is to copy an existing dashboard. To copy an
+     * existing dashboard using the console, you can load the dashboard and then use the View/edit source command in the
+     * Actions menu to display the JSON block for that dashboard. Another way to copy a dashboard is to use
+     * <code>GetDashboard</code>, and then use the data returned within <code>DashboardBody</code> as the template for
+     * the new dashboard when you call <code>PutDashboard</code>.
+     * </p>
+     * <p>
+     * When you create a dashboard with <code>PutDashboard</code>, a good practice is to add a text widget at the top of
+     * the dashboard with a message that the dashboard was created by script and should not be changed in the console.
+     * This message could also point console users to the location of the <code>DashboardBody</code> script or the
+     * CloudFormation template used to create the dashboard.
      * </p>
      * 
      * @param putDashboardRequest
@@ -978,6 +1246,10 @@ public class AmazonCloudWatchClient extends AmazonWebServiceClient implements Am
                 request = new PutDashboardRequestMarshaller().marshall(super.beforeMarshalling(putDashboardRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudWatch");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutDashboard");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -995,21 +1267,26 @@ public class AmazonCloudWatchClient extends AmazonWebServiceClient implements Am
 
     /**
      * <p>
-     * Creates or updates an alarm and associates it with the specified metric. Optionally, this operation can associate
-     * one or more Amazon SNS resources with the alarm.
+     * Creates or updates an alarm and associates it with the specified metric or metric math expression.
      * </p>
      * <p>
      * When this operation creates an alarm, the alarm state is immediately set to <code>INSUFFICIENT_DATA</code>. The
-     * alarm is evaluated and its state is set appropriately. Any actions associated with the state are then executed.
+     * alarm is then evaluated and its state is set appropriately. Any actions associated with the new state are then
+     * executed.
      * </p>
      * <p>
      * When you update an existing alarm, its state is left unchanged, but the update completely overwrites the previous
      * configuration of the alarm.
      * </p>
      * <p>
-     * If you are an IAM user, you must have Amazon EC2 permissions for some operations:
+     * If you are an IAM user, you must have Amazon EC2 permissions for some alarm operations:
      * </p>
      * <ul>
+     * <li>
+     * <p>
+     * <code>iam:CreateServiceLinkedRole</code> for all alarms with EC2 actions
+     * </p>
+     * </li>
      * <li>
      * <p>
      * <code>ec2:DescribeInstanceStatus</code> and <code>ec2:DescribeInstances</code> for all alarms on EC2 instance
@@ -1048,9 +1325,11 @@ public class AmazonCloudWatchClient extends AmazonWebServiceClient implements Am
      * instance using alarm actions.
      * </p>
      * <p>
-     * You must create at least one stop, terminate, or reboot alarm using either the Amazon EC2 or CloudWatch consoles
-     * to create the <b>EC2ActionsAccess</b> IAM role. After this IAM role is created, you can create stop, terminate,
-     * or reboot alarms using a command-line interface or API.
+     * The first time you create an alarm in the AWS Management Console, the CLI, or by using the PutMetricAlarm API,
+     * CloudWatch creates the necessary service-linked role for you. The service-linked role is called
+     * <code>AWSServiceRoleForCloudWatchEvents</code>. For more information, see <a href=
+     * "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_terms-and-concepts.html#iam-term-service-linked-role"
+     * >AWS service-linked role</a>.
      * </p>
      * 
      * @param putMetricAlarmRequest
@@ -1082,6 +1361,10 @@ public class AmazonCloudWatchClient extends AmazonWebServiceClient implements Am
                 request = new PutMetricAlarmRequestMarshaller().marshall(super.beforeMarshalling(putMetricAlarmRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudWatch");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutMetricAlarm");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1105,7 +1388,15 @@ public class AmazonCloudWatchClient extends AmazonWebServiceClient implements Am
      * it can take up to fifteen minutes for the metric to appear in calls to <a>ListMetrics</a>.
      * </p>
      * <p>
-     * Each <code>PutMetricData</code> request is limited to 40 KB in size for HTTP POST requests.
+     * You can publish either individual data points in the <code>Value</code> field, or arrays of values and the number
+     * of times each value occurred during the period by using the <code>Values</code> and <code>Counts</code> fields in
+     * the <code>MetricDatum</code> structure. Using the <code>Values</code> and <code>Counts</code> method enables you
+     * to publish up to 150 values per metric with one <code>PutMetricData</code> request, and supports retrieving
+     * percentile statistics on this data.
+     * </p>
+     * <p>
+     * Each <code>PutMetricData</code> request is limited to 40 KB in size for HTTP POST requests. You can send a
+     * payload compressed by gzip. Each request is also limited to no more than 20 different metrics.
      * </p>
      * <p>
      * Although the <code>Value</code> parameter accepts numbers of type <code>Double</code>, CloudWatch rejects values
@@ -1114,14 +1405,14 @@ public class AmazonCloudWatchClient extends AmazonWebServiceClient implements Am
      * supported.
      * </p>
      * <p>
-     * You can use up to 10 dimensions per metric to further clarify what data the metric collects. For more information
-     * about specifying dimensions, see <a
-     * href="http://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/publishingMetrics.html">Publishing
+     * You can use up to 10 dimensions per metric to further clarify what data the metric collects. Each dimension
+     * consists of a Name and Value pair. For more information about specifying dimensions, see <a
+     * href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/publishingMetrics.html">Publishing
      * Metrics</a> in the <i>Amazon CloudWatch User Guide</i>.
      * </p>
      * <p>
      * Data points with time stamps from 24 hours ago or longer can take at least 48 hours to become available for
-     * <a>GetMetricStatistics</a> from the time they are submitted.
+     * <a>GetMetricData</a> or <a>GetMetricStatistics</a> from the time they are submitted.
      * </p>
      * <p>
      * CloudWatch needs raw data points to calculate percentile statistics. If you publish data using a statistic set
@@ -1130,12 +1421,14 @@ public class AmazonCloudWatchClient extends AmazonWebServiceClient implements Am
      * <ul>
      * <li>
      * <p>
-     * The SampleCount value of the statistic set is 1
+     * The <code>SampleCount</code> value of the statistic set is 1 and <code>Min</code>, <code>Max</code>, and
+     * <code>Sum</code> are all equal.
      * </p>
      * </li>
      * <li>
      * <p>
-     * The Min and the Max values of the statistic set are equal
+     * The <code>Min</code> and <code>Max</code> are equal, and <code>Sum</code> is equal to <code>Min</code> multiplied
+     * by <code>SampleCount</code>.
      * </p>
      * </li>
      * </ul>
@@ -1175,6 +1468,10 @@ public class AmazonCloudWatchClient extends AmazonWebServiceClient implements Am
                 request = new PutMetricDataRequestMarshaller().marshall(super.beforeMarshalling(putMetricDataRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudWatch");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutMetricData");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1231,6 +1528,10 @@ public class AmazonCloudWatchClient extends AmazonWebServiceClient implements Am
                 request = new SetAlarmStateRequestMarshaller().marshall(super.beforeMarshalling(setAlarmStateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CloudWatch");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "SetAlarmState");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1270,9 +1571,18 @@ public class AmazonCloudWatchClient extends AmazonWebServiceClient implements Am
     private <X, Y extends AmazonWebServiceRequest> Response<X> invoke(Request<Y> request, HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler,
             ExecutionContext executionContext) {
 
+        return invoke(request, responseHandler, executionContext, null, null);
+    }
+
+    /**
+     * Normal invoke with authentication. Credentials are required and may be overriden at the request level.
+     **/
+    private <X, Y extends AmazonWebServiceRequest> Response<X> invoke(Request<Y> request, HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler,
+            ExecutionContext executionContext, URI cachedEndpoint, URI uriFromEndpointTrait) {
+
         executionContext.setCredentialsProvider(CredentialUtils.getCredentialsProvider(request.getOriginalRequest(), awsCredentialsProvider));
 
-        return doInvoke(request, responseHandler, executionContext);
+        return doInvoke(request, responseHandler, executionContext, cachedEndpoint, uriFromEndpointTrait);
     }
 
     /**
@@ -1282,7 +1592,7 @@ public class AmazonCloudWatchClient extends AmazonWebServiceClient implements Am
     private <X, Y extends AmazonWebServiceRequest> Response<X> anonymousInvoke(Request<Y> request,
             HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler, ExecutionContext executionContext) {
 
-        return doInvoke(request, responseHandler, executionContext);
+        return doInvoke(request, responseHandler, executionContext, null, null);
     }
 
     /**
@@ -1290,8 +1600,17 @@ public class AmazonCloudWatchClient extends AmazonWebServiceClient implements Am
      * ExecutionContext beforehand.
      **/
     private <X, Y extends AmazonWebServiceRequest> Response<X> doInvoke(Request<Y> request, HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler,
-            ExecutionContext executionContext) {
-        request.setEndpoint(endpoint);
+            ExecutionContext executionContext, URI discoveredEndpoint, URI uriFromEndpointTrait) {
+
+        if (discoveredEndpoint != null) {
+            request.setEndpoint(discoveredEndpoint);
+            request.getOriginalRequest().getRequestClientOptions().appendUserAgent("endpoint-discovery");
+        } else if (uriFromEndpointTrait != null) {
+            request.setEndpoint(uriFromEndpointTrait);
+        } else {
+            request.setEndpoint(endpoint);
+        }
+
         request.setTimeOffset(timeOffset);
 
         DefaultErrorResponseHandler errorResponseHandler = new DefaultErrorResponseHandler(exceptionUnmarshallers);

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -52,6 +52,12 @@ public class CreateFleetRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ResourceCreationLimitPolicy").build();
     private static final MarshallingInfo<List> METRICGROUPS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("MetricGroups").build();
+    private static final MarshallingInfo<String> PEERVPCAWSACCOUNTID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("PeerVpcAwsAccountId").build();
+    private static final MarshallingInfo<String> PEERVPCID_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("PeerVpcId").build();
+    private static final MarshallingInfo<String> FLEETTYPE_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("FleetType").build();
 
     private static final CreateFleetRequestMarshaller instance = new CreateFleetRequestMarshaller();
 
@@ -81,6 +87,9 @@ public class CreateFleetRequestMarshaller {
             protocolMarshaller.marshall(createFleetRequest.getRuntimeConfiguration(), RUNTIMECONFIGURATION_BINDING);
             protocolMarshaller.marshall(createFleetRequest.getResourceCreationLimitPolicy(), RESOURCECREATIONLIMITPOLICY_BINDING);
             protocolMarshaller.marshall(createFleetRequest.getMetricGroups(), METRICGROUPS_BINDING);
+            protocolMarshaller.marshall(createFleetRequest.getPeerVpcAwsAccountId(), PEERVPCAWSACCOUNTID_BINDING);
+            protocolMarshaller.marshall(createFleetRequest.getPeerVpcId(), PEERVPCID_BINDING);
+            protocolMarshaller.marshall(createFleetRequest.getFleetType(), FLEETTYPE_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

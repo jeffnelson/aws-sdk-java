@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,7 +36,7 @@ public class LogGroup implements Serializable, Cloneable, StructuredPojo {
     private String logGroupName;
     /**
      * <p>
-     * The creation time of the log group, expressed as the number of milliseconds since Jan 1, 1970 00:00:00 UTC.
+     * The creation time of the log group, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC.
      * </p>
      */
     private Long creationTime;
@@ -60,6 +60,12 @@ public class LogGroup implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private Long storedBytes;
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the CMK to use when encrypting log data.
+     * </p>
+     */
+    private String kmsKeyId;
 
     /**
      * <p>
@@ -103,11 +109,11 @@ public class LogGroup implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The creation time of the log group, expressed as the number of milliseconds since Jan 1, 1970 00:00:00 UTC.
+     * The creation time of the log group, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC.
      * </p>
      * 
      * @param creationTime
-     *        The creation time of the log group, expressed as the number of milliseconds since Jan 1, 1970 00:00:00
+     *        The creation time of the log group, expressed as the number of milliseconds after Jan 1, 1970 00:00:00
      *        UTC.
      */
 
@@ -117,10 +123,10 @@ public class LogGroup implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The creation time of the log group, expressed as the number of milliseconds since Jan 1, 1970 00:00:00 UTC.
+     * The creation time of the log group, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC.
      * </p>
      * 
-     * @return The creation time of the log group, expressed as the number of milliseconds since Jan 1, 1970 00:00:00
+     * @return The creation time of the log group, expressed as the number of milliseconds after Jan 1, 1970 00:00:00
      *         UTC.
      */
 
@@ -130,11 +136,11 @@ public class LogGroup implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The creation time of the log group, expressed as the number of milliseconds since Jan 1, 1970 00:00:00 UTC.
+     * The creation time of the log group, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC.
      * </p>
      * 
      * @param creationTime
-     *        The creation time of the log group, expressed as the number of milliseconds since Jan 1, 1970 00:00:00
+     *        The creation time of the log group, expressed as the number of milliseconds after Jan 1, 1970 00:00:00
      *        UTC.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -291,7 +297,48 @@ public class LogGroup implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * <p>
+     * The Amazon Resource Name (ARN) of the CMK to use when encrypting log data.
+     * </p>
+     * 
+     * @param kmsKeyId
+     *        The Amazon Resource Name (ARN) of the CMK to use when encrypting log data.
+     */
+
+    public void setKmsKeyId(String kmsKeyId) {
+        this.kmsKeyId = kmsKeyId;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the CMK to use when encrypting log data.
+     * </p>
+     * 
+     * @return The Amazon Resource Name (ARN) of the CMK to use when encrypting log data.
+     */
+
+    public String getKmsKeyId() {
+        return this.kmsKeyId;
+    }
+
+    /**
+     * <p>
+     * The Amazon Resource Name (ARN) of the CMK to use when encrypting log data.
+     * </p>
+     * 
+     * @param kmsKeyId
+     *        The Amazon Resource Name (ARN) of the CMK to use when encrypting log data.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public LogGroup withKmsKeyId(String kmsKeyId) {
+        setKmsKeyId(kmsKeyId);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -312,7 +359,9 @@ public class LogGroup implements Serializable, Cloneable, StructuredPojo {
         if (getArn() != null)
             sb.append("Arn: ").append(getArn()).append(",");
         if (getStoredBytes() != null)
-            sb.append("StoredBytes: ").append(getStoredBytes());
+            sb.append("StoredBytes: ").append(getStoredBytes()).append(",");
+        if (getKmsKeyId() != null)
+            sb.append("KmsKeyId: ").append(getKmsKeyId());
         sb.append("}");
         return sb.toString();
     }
@@ -351,6 +400,10 @@ public class LogGroup implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getStoredBytes() != null && other.getStoredBytes().equals(this.getStoredBytes()) == false)
             return false;
+        if (other.getKmsKeyId() == null ^ this.getKmsKeyId() == null)
+            return false;
+        if (other.getKmsKeyId() != null && other.getKmsKeyId().equals(this.getKmsKeyId()) == false)
+            return false;
         return true;
     }
 
@@ -365,6 +418,7 @@ public class LogGroup implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getMetricFilterCount() == null) ? 0 : getMetricFilterCount().hashCode());
         hashCode = prime * hashCode + ((getArn() == null) ? 0 : getArn().hashCode());
         hashCode = prime * hashCode + ((getStoredBytes() == null) ? 0 : getStoredBytes().hashCode());
+        hashCode = prime * hashCode + ((getKmsKeyId() == null) ? 0 : getKmsKeyId().hashCode());
         return hashCode;
     }
 

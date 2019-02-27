@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,6 +12,7 @@
  */
 package com.amazonaws.services.lightsail.model.transform;
 
+import java.util.Map;
 import java.util.List;
 import javax.annotation.Generated;
 
@@ -30,6 +31,8 @@ public class CreateInstancesFromSnapshotRequestMarshaller {
 
     private static final MarshallingInfo<List> INSTANCENAMES_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("instanceNames").build();
+    private static final MarshallingInfo<Map> ATTACHEDDISKMAPPING_BINDING = MarshallingInfo.builder(MarshallingType.MAP)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("attachedDiskMapping").build();
     private static final MarshallingInfo<String> AVAILABILITYZONE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("availabilityZone").build();
     private static final MarshallingInfo<String> INSTANCESNAPSHOTNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
@@ -40,6 +43,8 @@ public class CreateInstancesFromSnapshotRequestMarshaller {
             .marshallLocationName("userData").build();
     private static final MarshallingInfo<String> KEYPAIRNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("keyPairName").build();
+    private static final MarshallingInfo<List> TAGS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("tags").build();
 
     private static final CreateInstancesFromSnapshotRequestMarshaller instance = new CreateInstancesFromSnapshotRequestMarshaller();
 
@@ -58,11 +63,13 @@ public class CreateInstancesFromSnapshotRequestMarshaller {
 
         try {
             protocolMarshaller.marshall(createInstancesFromSnapshotRequest.getInstanceNames(), INSTANCENAMES_BINDING);
+            protocolMarshaller.marshall(createInstancesFromSnapshotRequest.getAttachedDiskMapping(), ATTACHEDDISKMAPPING_BINDING);
             protocolMarshaller.marshall(createInstancesFromSnapshotRequest.getAvailabilityZone(), AVAILABILITYZONE_BINDING);
             protocolMarshaller.marshall(createInstancesFromSnapshotRequest.getInstanceSnapshotName(), INSTANCESNAPSHOTNAME_BINDING);
             protocolMarshaller.marshall(createInstancesFromSnapshotRequest.getBundleId(), BUNDLEID_BINDING);
             protocolMarshaller.marshall(createInstancesFromSnapshotRequest.getUserData(), USERDATA_BINDING);
             protocolMarshaller.marshall(createInstancesFromSnapshotRequest.getKeyPairName(), KEYPAIRNAME_BINDING);
+            protocolMarshaller.marshall(createInstancesFromSnapshotRequest.getTags(), TAGS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

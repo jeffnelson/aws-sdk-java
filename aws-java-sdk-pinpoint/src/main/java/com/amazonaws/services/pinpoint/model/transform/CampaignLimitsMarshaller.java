@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -29,6 +29,10 @@ public class CampaignLimitsMarshaller {
 
     private static final MarshallingInfo<Integer> DAILY_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Daily").build();
+    private static final MarshallingInfo<Integer> MAXIMUMDURATION_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("MaximumDuration").build();
+    private static final MarshallingInfo<Integer> MESSAGESPERSECOND_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("MessagesPerSecond").build();
     private static final MarshallingInfo<Integer> TOTAL_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Total").build();
 
@@ -49,6 +53,8 @@ public class CampaignLimitsMarshaller {
 
         try {
             protocolMarshaller.marshall(campaignLimits.getDaily(), DAILY_BINDING);
+            protocolMarshaller.marshall(campaignLimits.getMaximumDuration(), MAXIMUMDURATION_BINDING);
+            protocolMarshaller.marshall(campaignLimits.getMessagesPerSecond(), MESSAGESPERSECOND_BINDING);
             protocolMarshaller.marshall(campaignLimits.getTotal(), TOTAL_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);

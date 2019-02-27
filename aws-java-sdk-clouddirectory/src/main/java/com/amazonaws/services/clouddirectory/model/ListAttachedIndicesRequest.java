@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.AmazonWebServiceRequest;
 
 /**
  * 
- * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2016-05-10/ListAttachedIndices" target="_top">AWS
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2017-01-11/ListAttachedIndices" target="_top">AWS
  *      API Documentation</a>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -33,7 +33,7 @@ public class ListAttachedIndicesRequest extends com.amazonaws.AmazonWebServiceRe
     private String directoryArn;
     /**
      * <p>
-     * A reference to the object to that has indices attached.
+     * A reference to the object that has indices attached.
      * </p>
      */
     private ObjectReference targetReference;
@@ -98,11 +98,11 @@ public class ListAttachedIndicesRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * A reference to the object to that has indices attached.
+     * A reference to the object that has indices attached.
      * </p>
      * 
      * @param targetReference
-     *        A reference to the object to that has indices attached.
+     *        A reference to the object that has indices attached.
      */
 
     public void setTargetReference(ObjectReference targetReference) {
@@ -111,10 +111,10 @@ public class ListAttachedIndicesRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * A reference to the object to that has indices attached.
+     * A reference to the object that has indices attached.
      * </p>
      * 
-     * @return A reference to the object to that has indices attached.
+     * @return A reference to the object that has indices attached.
      */
 
     public ObjectReference getTargetReference() {
@@ -123,11 +123,11 @@ public class ListAttachedIndicesRequest extends com.amazonaws.AmazonWebServiceRe
 
     /**
      * <p>
-     * A reference to the object to that has indices attached.
+     * A reference to the object that has indices attached.
      * </p>
      * 
      * @param targetReference
-     *        A reference to the object to that has indices attached.
+     *        A reference to the object that has indices attached.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -290,7 +290,8 @@ public class ListAttachedIndicesRequest extends com.amazonaws.AmazonWebServiceRe
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -54,6 +54,32 @@ public class AmazonElasticLoadBalancingWaiters {
                 .withSdkFunction(new DescribeLoadBalancersFunction(client))
                 .withAcceptors(new LoadBalancerAvailable.IsActiveMatcher(), new LoadBalancerAvailable.IsProvisioningMatcher(),
                         new LoadBalancerAvailable.IsLoadBalancerNotFoundMatcher())
+                .withDefaultPollingStrategy(new PollingStrategy(new MaxAttemptsRetryStrategy(40), new FixedDelayStrategy(15)))
+                .withExecutorService(executorService).build();
+    }
+
+    /**
+     * Builds a TargetDeregistered waiter by using custom parameters waiterParameters and other parameters defined in
+     * the waiters specification, and then polls until it determines whether the resource entered the desired state or
+     * not, where polling criteria is bound by either default polling strategy or custom polling strategy.
+     */
+    public Waiter<DescribeTargetHealthRequest> targetDeregistered() {
+
+        return new WaiterBuilder<DescribeTargetHealthRequest, DescribeTargetHealthResult>().withSdkFunction(new DescribeTargetHealthFunction(client))
+                .withAcceptors(new TargetDeregistered.IsInvalidTargetMatcher(), new TargetDeregistered.IsUnusedMatcher())
+                .withDefaultPollingStrategy(new PollingStrategy(new MaxAttemptsRetryStrategy(40), new FixedDelayStrategy(15)))
+                .withExecutorService(executorService).build();
+    }
+
+    /**
+     * Builds a TargetInService waiter by using custom parameters waiterParameters and other parameters defined in the
+     * waiters specification, and then polls until it determines whether the resource entered the desired state or not,
+     * where polling criteria is bound by either default polling strategy or custom polling strategy.
+     */
+    public Waiter<DescribeTargetHealthRequest> targetInService() {
+
+        return new WaiterBuilder<DescribeTargetHealthRequest, DescribeTargetHealthResult>().withSdkFunction(new DescribeTargetHealthFunction(client))
+                .withAcceptors(new TargetInService.IsHealthyMatcher(), new TargetInService.IsInvalidInstanceMatcher())
                 .withDefaultPollingStrategy(new PollingStrategy(new MaxAttemptsRetryStrategy(40), new FixedDelayStrategy(15)))
                 .withExecutorService(executorService).build();
     }

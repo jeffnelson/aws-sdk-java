@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -36,10 +36,9 @@ import com.amazonaws.services.glacier.model.*;
  * failure and recovery, or time-consuming hardware migrations.
  * </p>
  * <p>
- * Amazon Glacier is a great storage choice when low storage cost is paramount, your data is rarely retrieved, and
- * retrieval latency of several hours is acceptable. If your application requires fast or frequent access to your data,
- * consider using Amazon S3. For more information, see <a href="http://aws.amazon.com/s3/">Amazon Simple Storage Service
- * (Amazon S3)</a>.
+ * Amazon Glacier is a great storage choice when low storage cost is paramount and your data is rarely retrieved. If
+ * your application requires fast or frequent access to your data, consider using Amazon S3. For more information, see
+ * <a href="http://aws.amazon.com/s3/">Amazon Simple Storage Service (Amazon S3)</a>.
  * </p>
  * <p>
  * You can store any kind of data in any format. There is no maximum limit on the total amount of data you can store in
@@ -750,8 +749,8 @@ public interface AmazonGlacierAsync extends AmazonGlacier {
      * An AWS account has full permission to perform all operations (actions). However, AWS Identity and Access
      * Management (IAM) users don't have any permissions by default. You must grant them explicit permission to perform
      * specific actions. For more information, see <a
-     * href="http://docs.aws.amazon.com/latest/dev/using-iam-with-amazon-glacier.html">Access Control Using AWS Identity
-     * and Access Management (IAM)</a>.
+     * href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html">Access Control
+     * Using AWS Identity and Access Management (IAM)</a>.
      * </p>
      * <p>
      * For conceptual information and underlying REST API, see <a
@@ -778,8 +777,8 @@ public interface AmazonGlacierAsync extends AmazonGlacier {
      * An AWS account has full permission to perform all operations (actions). However, AWS Identity and Access
      * Management (IAM) users don't have any permissions by default. You must grant them explicit permission to perform
      * specific actions. For more information, see <a
-     * href="http://docs.aws.amazon.com/latest/dev/using-iam-with-amazon-glacier.html">Access Control Using AWS Identity
-     * and Access Management (IAM)</a>.
+     * href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html">Access Control
+     * Using AWS Identity and Access Management (IAM)</a>.
      * </p>
      * <p>
      * For conceptual information and underlying REST API, see <a
@@ -825,9 +824,9 @@ public interface AmazonGlacierAsync extends AmazonGlacier {
      * Using AWS Identity and Access Management (IAM)</a>.
      * </p>
      * <p>
-     * For information about the underlying REST API, see <a
-     * href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-describe-job-get.html">Working with Archives in
-     * Amazon Glacier</a> in the <i>Amazon Glacier Developer Guide</i>.
+     * For more information about using this operation, see the documentation for the underlying REST API <a
+     * href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-describe-job-get.html">Describe Job</a> in the
+     * <i>Amazon Glacier Developer Guide</i>.
      * </p>
      * 
      * @param describeJobRequest
@@ -861,9 +860,9 @@ public interface AmazonGlacierAsync extends AmazonGlacier {
      * Using AWS Identity and Access Management (IAM)</a>.
      * </p>
      * <p>
-     * For information about the underlying REST API, see <a
-     * href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-describe-job-get.html">Working with Archives in
-     * Amazon Glacier</a> in the <i>Amazon Glacier Developer Guide</i>.
+     * For more information about using this operation, see the documentation for the underlying REST API <a
+     * href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-describe-job-get.html">Describe Job</a> in the
+     * <i>Amazon Glacier Developer Guide</i>.
      * </p>
      * 
      * @param describeJobRequest
@@ -1314,177 +1313,9 @@ public interface AmazonGlacierAsync extends AmazonGlacier {
 
     /**
      * <p>
-     * This operation initiates a job of the specified type. In this release, you can initiate a job to retrieve either
-     * an archive or a vault inventory (a list of archives in a vault).
-     * </p>
-     * <p>
-     * Retrieving data from Amazon Glacier is a two-step process:
-     * </p>
-     * <ol>
-     * <li>
-     * <p>
-     * Initiate a retrieval job.
-     * </p>
-     * <note>
-     * <p>
-     * A data retrieval policy can cause your initiate retrieval job request to fail with a PolicyEnforcedException
-     * exception. For more information about data retrieval policies, see <a
-     * href="http://docs.aws.amazon.com/amazonglacier/latest/dev/data-retrieval-policy.html">Amazon Glacier Data
-     * Retrieval Policies</a>. For more information about the PolicyEnforcedException exception, see <a
-     * href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-error-responses.html">Error Responses</a>.
-     * </p>
-     * </note></li>
-     * <li>
-     * <p>
-     * After the job completes, download the bytes.
-     * </p>
-     * </li>
-     * </ol>
-     * <p>
-     * The retrieval request is executed asynchronously. When you initiate a retrieval job, Amazon Glacier creates a job
-     * and returns a job ID in the response. When Amazon Glacier completes the job, you can get the job output (archive
-     * or inventory data). For information about getting job output, see <a>GetJobOutput</a> operation.
-     * </p>
-     * <p>
-     * The job must complete before you can get its output. To determine when a job is complete, you have the following
-     * options:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * <b>Use Amazon SNS Notification</b> You can specify an Amazon Simple Notification Service (Amazon SNS) topic to
-     * which Amazon Glacier can post a notification after the job is completed. You can specify an SNS topic per job
-     * request. The notification is sent only after Amazon Glacier completes the job. In addition to specifying an SNS
-     * topic per job request, you can configure vault notifications for a vault so that job notifications are always
-     * sent. For more information, see <a>SetVaultNotifications</a>.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <b>Get job details</b> You can make a <a>DescribeJob</a> request to obtain job status information while a job is
-     * in progress. However, it is more efficient to use an Amazon SNS notification to determine when a job is complete.
-     * </p>
-     * </li>
-     * </ul>
-     * <note>
-     * <p>
-     * The information you get via notification is same that you get by calling <a>DescribeJob</a>.
-     * </p>
-     * </note>
-     * <p>
-     * If for a specific event, you add both the notification configuration on the vault and also specify an SNS topic
-     * in your initiate job request, Amazon Glacier sends both notifications. For more information, see
-     * <a>SetVaultNotifications</a>.
-     * </p>
-     * <p>
-     * An AWS account has full permission to perform all operations (actions). However, AWS Identity and Access
-     * Management (IAM) users don't have any permissions by default. You must grant them explicit permission to perform
-     * specific actions. For more information, see <a
-     * href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html">Access Control
-     * Using AWS Identity and Access Management (IAM)</a>.
-     * </p>
-     * <p>
-     * <b>About the Vault Inventory</b>
-     * </p>
-     * <p>
-     * Amazon Glacier prepares an inventory for each vault periodically, every 24 hours. When you initiate a job for a
-     * vault inventory, Amazon Glacier returns the last inventory for the vault. The inventory data you get might be up
-     * to a day or two days old. Also, the initiate inventory job might take some time to complete before you can
-     * download the vault inventory. So you do not want to retrieve a vault inventory for each vault operation. However,
-     * in some scenarios, you might find the vault inventory useful. For example, when you upload an archive, you can
-     * provide an archive description but not an archive name. Amazon Glacier provides you a unique archive ID, an
-     * opaque string of characters. So, you might maintain your own database that maps archive names to their
-     * corresponding Amazon Glacier assigned archive IDs. You might find the vault inventory useful in the event you
-     * need to reconcile information in your database with the actual vault inventory.
-     * </p>
-     * <p>
-     * <b>Range Inventory Retrieval</b>
-     * </p>
-     * <p>
-     * You can limit the number of inventory items retrieved by filtering on the archive creation date or by setting a
-     * limit.
-     * </p>
-     * <p>
-     * <i>Filtering by Archive Creation Date</i>
-     * </p>
-     * <p>
-     * You can retrieve inventory items for archives created between <code>StartDate</code> and <code>EndDate</code> by
-     * specifying values for these parameters in the <b>InitiateJob</b> request. Archives created on or after the
-     * <code>StartDate</code> and before the <code>EndDate</code> will be returned. If you only provide the
-     * <code>StartDate</code> without the <code>EndDate</code>, you will retrieve the inventory for all archives created
-     * on or after the <code>StartDate</code>. If you only provide the <code>EndDate</code> without the
-     * <code>StartDate</code>, you will get back the inventory for all archives created before the <code>EndDate</code>.
-     * </p>
-     * <p>
-     * <i>Limiting Inventory Items per Retrieval</i>
-     * </p>
-     * <p>
-     * You can limit the number of inventory items returned by setting the <code>Limit</code> parameter in the
-     * <b>InitiateJob</b> request. The inventory job output will contain inventory items up to the specified
-     * <code>Limit</code>. If there are more inventory items available, the result is paginated. After a job is complete
-     * you can use the <a>DescribeJob</a> operation to get a marker that you use in a subsequent <b>InitiateJob</b>
-     * request. The marker will indicate the starting point to retrieve the next set of inventory items. You can page
-     * through your entire inventory by repeatedly making <b>InitiateJob</b> requests with the marker from the previous
-     * <b>DescribeJob</b> output, until you get a marker from <b>DescribeJob</b> that returns null, indicating that
-     * there are no more inventory items available.
-     * </p>
-     * <p>
-     * You can use the <code>Limit</code> parameter together with the date range parameters.
-     * </p>
-     * <p>
-     * <b>About Ranged Archive Retrieval</b>
-     * </p>
-     * <p>
-     * You can initiate an archive retrieval for the whole archive or a range of the archive. In the case of ranged
-     * archive retrieval, you specify a byte range to return or the whole archive. The range specified must be megabyte
-     * (MB) aligned, that is the range start value must be divisible by 1 MB and range end value plus 1 must be
-     * divisible by 1 MB or equal the end of the archive. If the ranged archive retrieval is not megabyte aligned, this
-     * operation returns a 400 response. Furthermore, to ensure you get checksum values for data you download using Get
-     * Job Output API, the range must be tree hash aligned.
-     * </p>
-     * <p>
-     * An AWS account has full permission to perform all operations (actions). However, AWS Identity and Access
-     * Management (IAM) users don't have any permissions by default. You must grant them explicit permission to perform
-     * specific actions. For more information, see <a
-     * href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html">Access Control
-     * Using AWS Identity and Access Management (IAM)</a>.
-     * </p>
-     * <p>
-     * For conceptual information and the underlying REST API, see <a
-     * href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-initiate-job-post.html">Initiate a Job</a> and <a
-     * href="http://docs.aws.amazon.com/amazonglacier/latest/dev/vault-inventory.html">Downloading a Vault Inventory</a>
-     * </p>
-     * <p>
-     * <b>Expedited and Bulk Archive Retrievals</b>
-     * </p>
-     * <p>
-     * When retrieving an archive, you can specify one of the following options in the <code>Tier</code> field of the
-     * request body:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * <b>Standard</b> The default type of retrieval, which allows access to any of your archives within several hours.
-     * Standard retrievals typically complete within 3–5 hours.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <b>Bulk</b> Amazon Glacier’s lowest-cost retrieval option, which enables you to retrieve large amounts of data
-     * inexpensively in a day. Bulk retrieval requests typically complete within 5–12 hours.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <b>Expedited</b> Amazon Glacier’s option for the fastest retrievals. Archives requested using the expedited
-     * retrievals typically become accessible within 1–5 minutes.
-     * </p>
-     * </li>
-     * </ul>
-     * <p>
-     * For more information about expedited and bulk retrievals, see <a
-     * href="http://docs.aws.amazon.com/amazonglacier/latest/dev/downloading-an-archive-two-steps.html">Retrieving
-     * Amazon Glacier Archives</a>.
+     * This operation initiates a job of the specified type, which can be a select, an archival retrieval, or a vault
+     * retrieval. For more information about using this operation, see the documentation for the underlying REST API <a
+     * href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-initiate-job-post.html">Initiate a Job</a>.
      * </p>
      * 
      * @param initiateJobRequest
@@ -1496,177 +1327,9 @@ public interface AmazonGlacierAsync extends AmazonGlacier {
 
     /**
      * <p>
-     * This operation initiates a job of the specified type. In this release, you can initiate a job to retrieve either
-     * an archive or a vault inventory (a list of archives in a vault).
-     * </p>
-     * <p>
-     * Retrieving data from Amazon Glacier is a two-step process:
-     * </p>
-     * <ol>
-     * <li>
-     * <p>
-     * Initiate a retrieval job.
-     * </p>
-     * <note>
-     * <p>
-     * A data retrieval policy can cause your initiate retrieval job request to fail with a PolicyEnforcedException
-     * exception. For more information about data retrieval policies, see <a
-     * href="http://docs.aws.amazon.com/amazonglacier/latest/dev/data-retrieval-policy.html">Amazon Glacier Data
-     * Retrieval Policies</a>. For more information about the PolicyEnforcedException exception, see <a
-     * href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-error-responses.html">Error Responses</a>.
-     * </p>
-     * </note></li>
-     * <li>
-     * <p>
-     * After the job completes, download the bytes.
-     * </p>
-     * </li>
-     * </ol>
-     * <p>
-     * The retrieval request is executed asynchronously. When you initiate a retrieval job, Amazon Glacier creates a job
-     * and returns a job ID in the response. When Amazon Glacier completes the job, you can get the job output (archive
-     * or inventory data). For information about getting job output, see <a>GetJobOutput</a> operation.
-     * </p>
-     * <p>
-     * The job must complete before you can get its output. To determine when a job is complete, you have the following
-     * options:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * <b>Use Amazon SNS Notification</b> You can specify an Amazon Simple Notification Service (Amazon SNS) topic to
-     * which Amazon Glacier can post a notification after the job is completed. You can specify an SNS topic per job
-     * request. The notification is sent only after Amazon Glacier completes the job. In addition to specifying an SNS
-     * topic per job request, you can configure vault notifications for a vault so that job notifications are always
-     * sent. For more information, see <a>SetVaultNotifications</a>.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <b>Get job details</b> You can make a <a>DescribeJob</a> request to obtain job status information while a job is
-     * in progress. However, it is more efficient to use an Amazon SNS notification to determine when a job is complete.
-     * </p>
-     * </li>
-     * </ul>
-     * <note>
-     * <p>
-     * The information you get via notification is same that you get by calling <a>DescribeJob</a>.
-     * </p>
-     * </note>
-     * <p>
-     * If for a specific event, you add both the notification configuration on the vault and also specify an SNS topic
-     * in your initiate job request, Amazon Glacier sends both notifications. For more information, see
-     * <a>SetVaultNotifications</a>.
-     * </p>
-     * <p>
-     * An AWS account has full permission to perform all operations (actions). However, AWS Identity and Access
-     * Management (IAM) users don't have any permissions by default. You must grant them explicit permission to perform
-     * specific actions. For more information, see <a
-     * href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html">Access Control
-     * Using AWS Identity and Access Management (IAM)</a>.
-     * </p>
-     * <p>
-     * <b>About the Vault Inventory</b>
-     * </p>
-     * <p>
-     * Amazon Glacier prepares an inventory for each vault periodically, every 24 hours. When you initiate a job for a
-     * vault inventory, Amazon Glacier returns the last inventory for the vault. The inventory data you get might be up
-     * to a day or two days old. Also, the initiate inventory job might take some time to complete before you can
-     * download the vault inventory. So you do not want to retrieve a vault inventory for each vault operation. However,
-     * in some scenarios, you might find the vault inventory useful. For example, when you upload an archive, you can
-     * provide an archive description but not an archive name. Amazon Glacier provides you a unique archive ID, an
-     * opaque string of characters. So, you might maintain your own database that maps archive names to their
-     * corresponding Amazon Glacier assigned archive IDs. You might find the vault inventory useful in the event you
-     * need to reconcile information in your database with the actual vault inventory.
-     * </p>
-     * <p>
-     * <b>Range Inventory Retrieval</b>
-     * </p>
-     * <p>
-     * You can limit the number of inventory items retrieved by filtering on the archive creation date or by setting a
-     * limit.
-     * </p>
-     * <p>
-     * <i>Filtering by Archive Creation Date</i>
-     * </p>
-     * <p>
-     * You can retrieve inventory items for archives created between <code>StartDate</code> and <code>EndDate</code> by
-     * specifying values for these parameters in the <b>InitiateJob</b> request. Archives created on or after the
-     * <code>StartDate</code> and before the <code>EndDate</code> will be returned. If you only provide the
-     * <code>StartDate</code> without the <code>EndDate</code>, you will retrieve the inventory for all archives created
-     * on or after the <code>StartDate</code>. If you only provide the <code>EndDate</code> without the
-     * <code>StartDate</code>, you will get back the inventory for all archives created before the <code>EndDate</code>.
-     * </p>
-     * <p>
-     * <i>Limiting Inventory Items per Retrieval</i>
-     * </p>
-     * <p>
-     * You can limit the number of inventory items returned by setting the <code>Limit</code> parameter in the
-     * <b>InitiateJob</b> request. The inventory job output will contain inventory items up to the specified
-     * <code>Limit</code>. If there are more inventory items available, the result is paginated. After a job is complete
-     * you can use the <a>DescribeJob</a> operation to get a marker that you use in a subsequent <b>InitiateJob</b>
-     * request. The marker will indicate the starting point to retrieve the next set of inventory items. You can page
-     * through your entire inventory by repeatedly making <b>InitiateJob</b> requests with the marker from the previous
-     * <b>DescribeJob</b> output, until you get a marker from <b>DescribeJob</b> that returns null, indicating that
-     * there are no more inventory items available.
-     * </p>
-     * <p>
-     * You can use the <code>Limit</code> parameter together with the date range parameters.
-     * </p>
-     * <p>
-     * <b>About Ranged Archive Retrieval</b>
-     * </p>
-     * <p>
-     * You can initiate an archive retrieval for the whole archive or a range of the archive. In the case of ranged
-     * archive retrieval, you specify a byte range to return or the whole archive. The range specified must be megabyte
-     * (MB) aligned, that is the range start value must be divisible by 1 MB and range end value plus 1 must be
-     * divisible by 1 MB or equal the end of the archive. If the ranged archive retrieval is not megabyte aligned, this
-     * operation returns a 400 response. Furthermore, to ensure you get checksum values for data you download using Get
-     * Job Output API, the range must be tree hash aligned.
-     * </p>
-     * <p>
-     * An AWS account has full permission to perform all operations (actions). However, AWS Identity and Access
-     * Management (IAM) users don't have any permissions by default. You must grant them explicit permission to perform
-     * specific actions. For more information, see <a
-     * href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html">Access Control
-     * Using AWS Identity and Access Management (IAM)</a>.
-     * </p>
-     * <p>
-     * For conceptual information and the underlying REST API, see <a
-     * href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-initiate-job-post.html">Initiate a Job</a> and <a
-     * href="http://docs.aws.amazon.com/amazonglacier/latest/dev/vault-inventory.html">Downloading a Vault Inventory</a>
-     * </p>
-     * <p>
-     * <b>Expedited and Bulk Archive Retrievals</b>
-     * </p>
-     * <p>
-     * When retrieving an archive, you can specify one of the following options in the <code>Tier</code> field of the
-     * request body:
-     * </p>
-     * <ul>
-     * <li>
-     * <p>
-     * <b>Standard</b> The default type of retrieval, which allows access to any of your archives within several hours.
-     * Standard retrievals typically complete within 3–5 hours.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <b>Bulk</b> Amazon Glacier’s lowest-cost retrieval option, which enables you to retrieve large amounts of data
-     * inexpensively in a day. Bulk retrieval requests typically complete within 5–12 hours.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <b>Expedited</b> Amazon Glacier’s option for the fastest retrievals. Archives requested using the expedited
-     * retrievals typically become accessible within 1–5 minutes.
-     * </p>
-     * </li>
-     * </ul>
-     * <p>
-     * For more information about expedited and bulk retrievals, see <a
-     * href="http://docs.aws.amazon.com/amazonglacier/latest/dev/downloading-an-archive-two-steps.html">Retrieving
-     * Amazon Glacier Archives</a>.
+     * This operation initiates a job of the specified type, which can be a select, an archival retrieval, or a vault
+     * retrieval. For more information about using this operation, see the documentation for the underlying REST API <a
+     * href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-initiate-job-post.html">Initiate a Job</a>.
      * </p>
      * 
      * @param initiateJobRequest
@@ -1904,6 +1567,7 @@ public interface AmazonGlacierAsync extends AmazonGlacier {
     /**
      * <p>
      * This operation lists jobs for a vault, including jobs that are in-progress and jobs that have recently finished.
+     * The List Job operation returns a list of these jobs sorted by job initiation time.
      * </p>
      * <note>
      * <p>
@@ -1916,12 +1580,6 @@ public interface AmazonGlacierAsync extends AmazonGlacier {
      * </p>
      * </note>
      * <p>
-     * To retrieve an archive or retrieve a vault inventory from Amazon Glacier, you first initiate a job, and after the
-     * job completes, you download the data. For an archive retrieval, the output is the archive data. For an inventory
-     * retrieval, it is the inventory list. The List Job operation returns a list of these jobs sorted by job initiation
-     * time.
-     * </p>
-     * <p>
      * The List Jobs operation supports pagination. You should always check the response <code>Marker</code> field. If
      * there are no more jobs to list, the <code>Marker</code> field is set to <code>null</code>. If there are more jobs
      * to list, the <code>Marker</code> field is set to a non-null value, which you can use to continue the pagination
@@ -1930,8 +1588,8 @@ public interface AmazonGlacierAsync extends AmazonGlacier {
      * </p>
      * <p>
      * You can set a maximum limit for the number of jobs returned in the response by specifying the <code>limit</code>
-     * parameter in the request. The default limit is 1000. The number of jobs returned might be fewer than the limit,
-     * but the number of returned jobs never exceeds the limit.
+     * parameter in the request. The default limit is 50. The number of jobs returned might be fewer than the limit, but
+     * the number of returned jobs never exceeds the limit.
      * </p>
      * <p>
      * Additionally, you can filter the jobs list returned by specifying the optional <code>statuscode</code> parameter
@@ -1941,7 +1599,7 @@ public interface AmazonGlacierAsync extends AmazonGlacier {
      * <code>true</code>) or jobs that were not completed (<code>false</code>).
      * </p>
      * <p>
-     * For the underlying REST API, see <a
+     * For more information about using this operation, see the documentation for the underlying REST API <a
      * href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-jobs-get.html">List Jobs</a>.
      * </p>
      * 
@@ -1955,6 +1613,7 @@ public interface AmazonGlacierAsync extends AmazonGlacier {
     /**
      * <p>
      * This operation lists jobs for a vault, including jobs that are in-progress and jobs that have recently finished.
+     * The List Job operation returns a list of these jobs sorted by job initiation time.
      * </p>
      * <note>
      * <p>
@@ -1967,12 +1626,6 @@ public interface AmazonGlacierAsync extends AmazonGlacier {
      * </p>
      * </note>
      * <p>
-     * To retrieve an archive or retrieve a vault inventory from Amazon Glacier, you first initiate a job, and after the
-     * job completes, you download the data. For an archive retrieval, the output is the archive data. For an inventory
-     * retrieval, it is the inventory list. The List Job operation returns a list of these jobs sorted by job initiation
-     * time.
-     * </p>
-     * <p>
      * The List Jobs operation supports pagination. You should always check the response <code>Marker</code> field. If
      * there are no more jobs to list, the <code>Marker</code> field is set to <code>null</code>. If there are more jobs
      * to list, the <code>Marker</code> field is set to a non-null value, which you can use to continue the pagination
@@ -1981,8 +1634,8 @@ public interface AmazonGlacierAsync extends AmazonGlacier {
      * </p>
      * <p>
      * You can set a maximum limit for the number of jobs returned in the response by specifying the <code>limit</code>
-     * parameter in the request. The default limit is 1000. The number of jobs returned might be fewer than the limit,
-     * but the number of returned jobs never exceeds the limit.
+     * parameter in the request. The default limit is 50. The number of jobs returned might be fewer than the limit, but
+     * the number of returned jobs never exceeds the limit.
      * </p>
      * <p>
      * Additionally, you can filter the jobs list returned by specifying the optional <code>statuscode</code> parameter
@@ -1992,7 +1645,7 @@ public interface AmazonGlacierAsync extends AmazonGlacier {
      * <code>true</code>) or jobs that were not completed (<code>false</code>).
      * </p>
      * <p>
-     * For the underlying REST API, see <a
+     * For more information about using this operation, see the documentation for the underlying REST API <a
      * href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-jobs-get.html">List Jobs</a>.
      * </p>
      * 
@@ -2015,12 +1668,12 @@ public interface AmazonGlacierAsync extends AmazonGlacier {
      * completed or aborted. The list returned in the List Multipart Upload response has no guaranteed order.
      * </p>
      * <p>
-     * The List Multipart Uploads operation supports pagination. By default, this operation returns up to 1,000
-     * multipart uploads in the response. You should always check the response for a <code>marker</code> at which to
-     * continue the list; if there are no more items the <code>marker</code> is <code>null</code>. To return a list of
-     * multipart uploads that begins at a specific upload, set the <code>marker</code> request parameter to the value
-     * you obtained from a previous List Multipart Upload request. You can also limit the number of uploads returned in
-     * the response by specifying the <code>limit</code> parameter in the request.
+     * The List Multipart Uploads operation supports pagination. By default, this operation returns up to 50 multipart
+     * uploads in the response. You should always check the response for a <code>marker</code> at which to continue the
+     * list; if there are no more items the <code>marker</code> is <code>null</code>. To return a list of multipart
+     * uploads that begins at a specific upload, set the <code>marker</code> request parameter to the value you obtained
+     * from a previous List Multipart Upload request. You can also limit the number of uploads returned in the response
+     * by specifying the <code>limit</code> parameter in the request.
      * </p>
      * <p>
      * Note the difference between this operation and listing parts (<a>ListParts</a>). The List Multipart Uploads
@@ -2056,12 +1709,12 @@ public interface AmazonGlacierAsync extends AmazonGlacier {
      * completed or aborted. The list returned in the List Multipart Upload response has no guaranteed order.
      * </p>
      * <p>
-     * The List Multipart Uploads operation supports pagination. By default, this operation returns up to 1,000
-     * multipart uploads in the response. You should always check the response for a <code>marker</code> at which to
-     * continue the list; if there are no more items the <code>marker</code> is <code>null</code>. To return a list of
-     * multipart uploads that begins at a specific upload, set the <code>marker</code> request parameter to the value
-     * you obtained from a previous List Multipart Upload request. You can also limit the number of uploads returned in
-     * the response by specifying the <code>limit</code> parameter in the request.
+     * The List Multipart Uploads operation supports pagination. By default, this operation returns up to 50 multipart
+     * uploads in the response. You should always check the response for a <code>marker</code> at which to continue the
+     * list; if there are no more items the <code>marker</code> is <code>null</code>. To return a list of multipart
+     * uploads that begins at a specific upload, set the <code>marker</code> request parameter to the value you obtained
+     * from a previous List Multipart Upload request. You can also limit the number of uploads returned in the response
+     * by specifying the <code>limit</code> parameter in the request.
      * </p>
      * <p>
      * Note the difference between this operation and listing parts (<a>ListParts</a>). The List Multipart Uploads
@@ -2103,9 +1756,9 @@ public interface AmazonGlacierAsync extends AmazonGlacier {
      * Parts response is sorted by part range.
      * </p>
      * <p>
-     * The List Parts operation supports pagination. By default, this operation returns up to 1,000 uploaded parts in
-     * the response. You should always check the response for a <code>marker</code> at which to continue the list; if
-     * there are no more items the <code>marker</code> is <code>null</code>. To return a list of parts that begins at a
+     * The List Parts operation supports pagination. By default, this operation returns up to 50 uploaded parts in the
+     * response. You should always check the response for a <code>marker</code> at which to continue the list; if there
+     * are no more items the <code>marker</code> is <code>null</code>. To return a list of parts that begins at a
      * specific part, set the <code>marker</code> request parameter to the value you obtained from a previous List Parts
      * request. You can also limit the number of parts returned in the response by specifying the <code>limit</code>
      * parameter in the request.
@@ -2141,9 +1794,9 @@ public interface AmazonGlacierAsync extends AmazonGlacier {
      * Parts response is sorted by part range.
      * </p>
      * <p>
-     * The List Parts operation supports pagination. By default, this operation returns up to 1,000 uploaded parts in
-     * the response. You should always check the response for a <code>marker</code> at which to continue the list; if
-     * there are no more items the <code>marker</code> is <code>null</code>. To return a list of parts that begins at a
+     * The List Parts operation supports pagination. By default, this operation returns up to 50 uploaded parts in the
+     * response. You should always check the response for a <code>marker</code> at which to continue the list; if there
+     * are no more items the <code>marker</code> is <code>null</code>. To return a list of parts that begins at a
      * specific part, set the <code>marker</code> request parameter to the value you obtained from a previous List Parts
      * request. You can also limit the number of parts returned in the response by specifying the <code>limit</code>
      * parameter in the request.
@@ -2178,7 +1831,7 @@ public interface AmazonGlacierAsync extends AmazonGlacier {
 
     /**
      * <p>
-     * This operation lists the provisioned capacity for the specified AWS account.
+     * This operation lists the provisioned capacity units for the specified AWS account.
      * </p>
      * 
      * @param listProvisionedCapacityRequest
@@ -2189,7 +1842,7 @@ public interface AmazonGlacierAsync extends AmazonGlacier {
 
     /**
      * <p>
-     * This operation lists the provisioned capacity for the specified AWS account.
+     * This operation lists the provisioned capacity units for the specified AWS account.
      * </p>
      * 
      * @param listProvisionedCapacityRequest
@@ -2242,7 +1895,7 @@ public interface AmazonGlacierAsync extends AmazonGlacier {
      * ASCII-sorted by vault name.
      * </p>
      * <p>
-     * By default, this operation returns up to 1,000 items. If there are more vaults to list, the response
+     * By default, this operation returns up to 10 items. If there are more vaults to list, the response
      * <code>marker</code> field contains the vault Amazon Resource Name (ARN) at which to continue the list with a new
      * List Vaults request; otherwise, the <code>marker</code> field is <code>null</code>. To return a list of vaults
      * that begins at a specific vault, set the <code>marker</code> request parameter to the vault ARN you obtained from
@@ -2277,7 +1930,7 @@ public interface AmazonGlacierAsync extends AmazonGlacier {
      * ASCII-sorted by vault name.
      * </p>
      * <p>
-     * By default, this operation returns up to 1,000 items. If there are more vaults to list, the response
+     * By default, this operation returns up to 10 items. If there are more vaults to list, the response
      * <code>marker</code> field contains the vault Amazon Resource Name (ARN) at which to continue the list with a new
      * List Vaults request; otherwise, the <code>marker</code> field is <code>null</code>. To return a list of vaults
      * that begins at a specific vault, set the <code>marker</code> request parameter to the vault ARN you obtained from

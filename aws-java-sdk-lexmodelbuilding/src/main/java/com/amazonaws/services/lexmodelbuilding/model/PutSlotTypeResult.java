@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -66,6 +66,15 @@ public class PutSlotTypeResult extends com.amazonaws.AmazonWebServiceResult<com.
      * </p>
      */
     private String checksum;
+    /**
+     * <p>
+     * The slot resolution strategy that Amazon Lex uses to determine the value of the slot. For more information, see
+     * <a>PutSlotType</a>.
+     * </p>
+     */
+    private String valueSelectionStrategy;
+
+    private Boolean createVersion;
 
     /**
      * <p>
@@ -384,7 +393,109 @@ public class PutSlotTypeResult extends com.amazonaws.AmazonWebServiceResult<com.
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * <p>
+     * The slot resolution strategy that Amazon Lex uses to determine the value of the slot. For more information, see
+     * <a>PutSlotType</a>.
+     * </p>
+     * 
+     * @param valueSelectionStrategy
+     *        The slot resolution strategy that Amazon Lex uses to determine the value of the slot. For more
+     *        information, see <a>PutSlotType</a>.
+     * @see SlotValueSelectionStrategy
+     */
+
+    public void setValueSelectionStrategy(String valueSelectionStrategy) {
+        this.valueSelectionStrategy = valueSelectionStrategy;
+    }
+
+    /**
+     * <p>
+     * The slot resolution strategy that Amazon Lex uses to determine the value of the slot. For more information, see
+     * <a>PutSlotType</a>.
+     * </p>
+     * 
+     * @return The slot resolution strategy that Amazon Lex uses to determine the value of the slot. For more
+     *         information, see <a>PutSlotType</a>.
+     * @see SlotValueSelectionStrategy
+     */
+
+    public String getValueSelectionStrategy() {
+        return this.valueSelectionStrategy;
+    }
+
+    /**
+     * <p>
+     * The slot resolution strategy that Amazon Lex uses to determine the value of the slot. For more information, see
+     * <a>PutSlotType</a>.
+     * </p>
+     * 
+     * @param valueSelectionStrategy
+     *        The slot resolution strategy that Amazon Lex uses to determine the value of the slot. For more
+     *        information, see <a>PutSlotType</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see SlotValueSelectionStrategy
+     */
+
+    public PutSlotTypeResult withValueSelectionStrategy(String valueSelectionStrategy) {
+        setValueSelectionStrategy(valueSelectionStrategy);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The slot resolution strategy that Amazon Lex uses to determine the value of the slot. For more information, see
+     * <a>PutSlotType</a>.
+     * </p>
+     * 
+     * @param valueSelectionStrategy
+     *        The slot resolution strategy that Amazon Lex uses to determine the value of the slot. For more
+     *        information, see <a>PutSlotType</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see SlotValueSelectionStrategy
+     */
+
+    public PutSlotTypeResult withValueSelectionStrategy(SlotValueSelectionStrategy valueSelectionStrategy) {
+        this.valueSelectionStrategy = valueSelectionStrategy.toString();
+        return this;
+    }
+
+    /**
+     * @param createVersion
+     */
+
+    public void setCreateVersion(Boolean createVersion) {
+        this.createVersion = createVersion;
+    }
+
+    /**
+     * @return
+     */
+
+    public Boolean getCreateVersion() {
+        return this.createVersion;
+    }
+
+    /**
+     * @param createVersion
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public PutSlotTypeResult withCreateVersion(Boolean createVersion) {
+        setCreateVersion(createVersion);
+        return this;
+    }
+
+    /**
+     * @return
+     */
+
+    public Boolean isCreateVersion() {
+        return this.createVersion;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -407,7 +518,11 @@ public class PutSlotTypeResult extends com.amazonaws.AmazonWebServiceResult<com.
         if (getVersion() != null)
             sb.append("Version: ").append(getVersion()).append(",");
         if (getChecksum() != null)
-            sb.append("Checksum: ").append(getChecksum());
+            sb.append("Checksum: ").append(getChecksum()).append(",");
+        if (getValueSelectionStrategy() != null)
+            sb.append("ValueSelectionStrategy: ").append(getValueSelectionStrategy()).append(",");
+        if (getCreateVersion() != null)
+            sb.append("CreateVersion: ").append(getCreateVersion());
         sb.append("}");
         return sb.toString();
     }
@@ -450,6 +565,14 @@ public class PutSlotTypeResult extends com.amazonaws.AmazonWebServiceResult<com.
             return false;
         if (other.getChecksum() != null && other.getChecksum().equals(this.getChecksum()) == false)
             return false;
+        if (other.getValueSelectionStrategy() == null ^ this.getValueSelectionStrategy() == null)
+            return false;
+        if (other.getValueSelectionStrategy() != null && other.getValueSelectionStrategy().equals(this.getValueSelectionStrategy()) == false)
+            return false;
+        if (other.getCreateVersion() == null ^ this.getCreateVersion() == null)
+            return false;
+        if (other.getCreateVersion() != null && other.getCreateVersion().equals(this.getCreateVersion()) == false)
+            return false;
         return true;
     }
 
@@ -465,6 +588,8 @@ public class PutSlotTypeResult extends com.amazonaws.AmazonWebServiceResult<com.
         hashCode = prime * hashCode + ((getCreatedDate() == null) ? 0 : getCreatedDate().hashCode());
         hashCode = prime * hashCode + ((getVersion() == null) ? 0 : getVersion().hashCode());
         hashCode = prime * hashCode + ((getChecksum() == null) ? 0 : getChecksum().hashCode());
+        hashCode = prime * hashCode + ((getValueSelectionStrategy() == null) ? 0 : getValueSelectionStrategy().hashCode());
+        hashCode = prime * hashCode + ((getCreateVersion() == null) ? 0 : getCreateVersion().hashCode());
         return hashCode;
     }
 

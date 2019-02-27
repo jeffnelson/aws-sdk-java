@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -55,13 +55,13 @@ public class ApplicationDetail implements Serializable, Cloneable, StructuredPoj
     private String applicationStatus;
     /**
      * <p>
-     * Timestamp when the application version was created.
+     * Time stamp when the application version was created.
      * </p>
      */
     private java.util.Date createTimestamp;
     /**
      * <p>
-     * Timestamp when the application was last updated.
+     * Time stamp when the application was last updated.
      * </p>
      */
     private java.util.Date lastUpdateTimestamp;
@@ -91,10 +91,10 @@ public class ApplicationDetail implements Serializable, Cloneable, StructuredPoj
     private java.util.List<ReferenceDataSourceDescription> referenceDataSourceDescriptions;
     /**
      * <p>
-     * Describes the CloudWatch log streams configured to receive application messages. For more information about using
-     * CloudWatch log streams with Amazon Kinesis Analytics applications, see <a
-     * href="http://docs.aws.amazon.com/kinesisanalytics/latest/dev/cloudwatch-monitor-configuration.html">Monitoring
-     * Configuration Errors</a>.
+     * Describes the CloudWatch log streams that are configured to receive application messages. For more information
+     * about using CloudWatch log streams with Amazon Kinesis Analytics applications, see <a
+     * href="http://docs.aws.amazon.com/kinesisanalytics/latest/dev/cloudwatch-logs.html">Working with Amazon CloudWatch
+     * Logs</a>.
      * </p>
      */
     private java.util.List<CloudWatchLoggingOptionDescription> cloudWatchLoggingOptionDescriptions;
@@ -307,11 +307,11 @@ public class ApplicationDetail implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Timestamp when the application version was created.
+     * Time stamp when the application version was created.
      * </p>
      * 
      * @param createTimestamp
-     *        Timestamp when the application version was created.
+     *        Time stamp when the application version was created.
      */
 
     public void setCreateTimestamp(java.util.Date createTimestamp) {
@@ -320,10 +320,10 @@ public class ApplicationDetail implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Timestamp when the application version was created.
+     * Time stamp when the application version was created.
      * </p>
      * 
-     * @return Timestamp when the application version was created.
+     * @return Time stamp when the application version was created.
      */
 
     public java.util.Date getCreateTimestamp() {
@@ -332,11 +332,11 @@ public class ApplicationDetail implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Timestamp when the application version was created.
+     * Time stamp when the application version was created.
      * </p>
      * 
      * @param createTimestamp
-     *        Timestamp when the application version was created.
+     *        Time stamp when the application version was created.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -347,11 +347,11 @@ public class ApplicationDetail implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Timestamp when the application was last updated.
+     * Time stamp when the application was last updated.
      * </p>
      * 
      * @param lastUpdateTimestamp
-     *        Timestamp when the application was last updated.
+     *        Time stamp when the application was last updated.
      */
 
     public void setLastUpdateTimestamp(java.util.Date lastUpdateTimestamp) {
@@ -360,10 +360,10 @@ public class ApplicationDetail implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Timestamp when the application was last updated.
+     * Time stamp when the application was last updated.
      * </p>
      * 
-     * @return Timestamp when the application was last updated.
+     * @return Time stamp when the application was last updated.
      */
 
     public java.util.Date getLastUpdateTimestamp() {
@@ -372,11 +372,11 @@ public class ApplicationDetail implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Timestamp when the application was last updated.
+     * Time stamp when the application was last updated.
      * </p>
      * 
      * @param lastUpdateTimestamp
-     *        Timestamp when the application was last updated.
+     *        Time stamp when the application was last updated.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -645,16 +645,16 @@ public class ApplicationDetail implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Describes the CloudWatch log streams configured to receive application messages. For more information about using
-     * CloudWatch log streams with Amazon Kinesis Analytics applications, see <a
-     * href="http://docs.aws.amazon.com/kinesisanalytics/latest/dev/cloudwatch-monitor-configuration.html">Monitoring
-     * Configuration Errors</a>.
+     * Describes the CloudWatch log streams that are configured to receive application messages. For more information
+     * about using CloudWatch log streams with Amazon Kinesis Analytics applications, see <a
+     * href="http://docs.aws.amazon.com/kinesisanalytics/latest/dev/cloudwatch-logs.html">Working with Amazon CloudWatch
+     * Logs</a>.
      * </p>
      * 
-     * @return Describes the CloudWatch log streams configured to receive application messages. For more information
-     *         about using CloudWatch log streams with Amazon Kinesis Analytics applications, see <a
-     *         href="http://docs.aws.amazon.com/kinesisanalytics/latest/dev/cloudwatch-monitor-configuration.html"
-     *         >Monitoring Configuration Errors</a>.
+     * @return Describes the CloudWatch log streams that are configured to receive application messages. For more
+     *         information about using CloudWatch log streams with Amazon Kinesis Analytics applications, see <a
+     *         href="http://docs.aws.amazon.com/kinesisanalytics/latest/dev/cloudwatch-logs.html">Working with Amazon
+     *         CloudWatch Logs</a>.
      */
 
     public java.util.List<CloudWatchLoggingOptionDescription> getCloudWatchLoggingOptionDescriptions() {
@@ -663,17 +663,17 @@ public class ApplicationDetail implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Describes the CloudWatch log streams configured to receive application messages. For more information about using
-     * CloudWatch log streams with Amazon Kinesis Analytics applications, see <a
-     * href="http://docs.aws.amazon.com/kinesisanalytics/latest/dev/cloudwatch-monitor-configuration.html">Monitoring
-     * Configuration Errors</a>.
+     * Describes the CloudWatch log streams that are configured to receive application messages. For more information
+     * about using CloudWatch log streams with Amazon Kinesis Analytics applications, see <a
+     * href="http://docs.aws.amazon.com/kinesisanalytics/latest/dev/cloudwatch-logs.html">Working with Amazon CloudWatch
+     * Logs</a>.
      * </p>
      * 
      * @param cloudWatchLoggingOptionDescriptions
-     *        Describes the CloudWatch log streams configured to receive application messages. For more information
-     *        about using CloudWatch log streams with Amazon Kinesis Analytics applications, see <a
-     *        href="http://docs.aws.amazon.com/kinesisanalytics/latest/dev/cloudwatch-monitor-configuration.html"
-     *        >Monitoring Configuration Errors</a>.
+     *        Describes the CloudWatch log streams that are configured to receive application messages. For more
+     *        information about using CloudWatch log streams with Amazon Kinesis Analytics applications, see <a
+     *        href="http://docs.aws.amazon.com/kinesisanalytics/latest/dev/cloudwatch-logs.html">Working with Amazon
+     *        CloudWatch Logs</a>.
      */
 
     public void setCloudWatchLoggingOptionDescriptions(java.util.Collection<CloudWatchLoggingOptionDescription> cloudWatchLoggingOptionDescriptions) {
@@ -687,10 +687,10 @@ public class ApplicationDetail implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Describes the CloudWatch log streams configured to receive application messages. For more information about using
-     * CloudWatch log streams with Amazon Kinesis Analytics applications, see <a
-     * href="http://docs.aws.amazon.com/kinesisanalytics/latest/dev/cloudwatch-monitor-configuration.html">Monitoring
-     * Configuration Errors</a>.
+     * Describes the CloudWatch log streams that are configured to receive application messages. For more information
+     * about using CloudWatch log streams with Amazon Kinesis Analytics applications, see <a
+     * href="http://docs.aws.amazon.com/kinesisanalytics/latest/dev/cloudwatch-logs.html">Working with Amazon CloudWatch
+     * Logs</a>.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -700,10 +700,10 @@ public class ApplicationDetail implements Serializable, Cloneable, StructuredPoj
      * </p>
      * 
      * @param cloudWatchLoggingOptionDescriptions
-     *        Describes the CloudWatch log streams configured to receive application messages. For more information
-     *        about using CloudWatch log streams with Amazon Kinesis Analytics applications, see <a
-     *        href="http://docs.aws.amazon.com/kinesisanalytics/latest/dev/cloudwatch-monitor-configuration.html"
-     *        >Monitoring Configuration Errors</a>.
+     *        Describes the CloudWatch log streams that are configured to receive application messages. For more
+     *        information about using CloudWatch log streams with Amazon Kinesis Analytics applications, see <a
+     *        href="http://docs.aws.amazon.com/kinesisanalytics/latest/dev/cloudwatch-logs.html">Working with Amazon
+     *        CloudWatch Logs</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -719,17 +719,17 @@ public class ApplicationDetail implements Serializable, Cloneable, StructuredPoj
 
     /**
      * <p>
-     * Describes the CloudWatch log streams configured to receive application messages. For more information about using
-     * CloudWatch log streams with Amazon Kinesis Analytics applications, see <a
-     * href="http://docs.aws.amazon.com/kinesisanalytics/latest/dev/cloudwatch-monitor-configuration.html">Monitoring
-     * Configuration Errors</a>.
+     * Describes the CloudWatch log streams that are configured to receive application messages. For more information
+     * about using CloudWatch log streams with Amazon Kinesis Analytics applications, see <a
+     * href="http://docs.aws.amazon.com/kinesisanalytics/latest/dev/cloudwatch-logs.html">Working with Amazon CloudWatch
+     * Logs</a>.
      * </p>
      * 
      * @param cloudWatchLoggingOptionDescriptions
-     *        Describes the CloudWatch log streams configured to receive application messages. For more information
-     *        about using CloudWatch log streams with Amazon Kinesis Analytics applications, see <a
-     *        href="http://docs.aws.amazon.com/kinesisanalytics/latest/dev/cloudwatch-monitor-configuration.html"
-     *        >Monitoring Configuration Errors</a>.
+     *        Describes the CloudWatch log streams that are configured to receive application messages. For more
+     *        information about using CloudWatch log streams with Amazon Kinesis Analytics applications, see <a
+     *        href="http://docs.aws.amazon.com/kinesisanalytics/latest/dev/cloudwatch-logs.html">Working with Amazon
+     *        CloudWatch Logs</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -826,7 +826,8 @@ public class ApplicationDetail implements Serializable, Cloneable, StructuredPoj
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

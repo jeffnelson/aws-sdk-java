@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -18,9 +18,7 @@ import javax.annotation.Generated;
 import com.amazonaws.AmazonWebServiceResult;
 
 /**
- * <p>
- * Contains the output of GetPasswordData.
- * </p>
+ * 
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class GetPasswordDataResult extends com.amazonaws.AmazonWebServiceResult<com.amazonaws.ResponseMetadata> implements Serializable, Cloneable {
@@ -33,7 +31,7 @@ public class GetPasswordDataResult extends com.amazonaws.AmazonWebServiceResult<
     private String instanceId;
     /**
      * <p>
-     * The password of the instance.
+     * The password of the instance. Returns an empty string if the password is not available.
      * </p>
      */
     private String passwordData;
@@ -86,11 +84,11 @@ public class GetPasswordDataResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * The password of the instance.
+     * The password of the instance. Returns an empty string if the password is not available.
      * </p>
      * 
      * @param passwordData
-     *        The password of the instance.
+     *        The password of the instance. Returns an empty string if the password is not available.
      */
 
     public void setPasswordData(String passwordData) {
@@ -99,10 +97,10 @@ public class GetPasswordDataResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * The password of the instance.
+     * The password of the instance. Returns an empty string if the password is not available.
      * </p>
      * 
-     * @return The password of the instance.
+     * @return The password of the instance. Returns an empty string if the password is not available.
      */
 
     public String getPasswordData() {
@@ -111,11 +109,11 @@ public class GetPasswordDataResult extends com.amazonaws.AmazonWebServiceResult<
 
     /**
      * <p>
-     * The password of the instance.
+     * The password of the instance. Returns an empty string if the password is not available.
      * </p>
      * 
      * @param passwordData
-     *        The password of the instance.
+     *        The password of the instance. Returns an empty string if the password is not available.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -165,7 +163,8 @@ public class GetPasswordDataResult extends com.amazonaws.AmazonWebServiceResult<
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -42,15 +42,21 @@ public class InputUpdate implements Serializable, Cloneable, StructuredPojo {
     private String namePrefixUpdate;
     /**
      * <p>
-     * If a Amazon Kinesis stream is the streaming source to be updated, provides an updated stream ARN and IAM role
-     * ARN.
+     * Describes updates for an input processing configuration.
+     * </p>
+     */
+    private InputProcessingConfigurationUpdate inputProcessingConfigurationUpdate;
+    /**
+     * <p>
+     * If an Amazon Kinesis stream is the streaming source to be updated, provides an updated stream Amazon Resource
+     * Name (ARN) and IAM role ARN.
      * </p>
      */
     private KinesisStreamsInputUpdate kinesisStreamsInputUpdate;
     /**
      * <p>
      * If an Amazon Kinesis Firehose delivery stream is the streaming source to be updated, provides an updated stream
-     * Amazon Resource Name (ARN) and IAM role ARN.
+     * ARN and IAM role ARN.
      * </p>
      */
     private KinesisFirehoseInputUpdate kinesisFirehoseInputUpdate;
@@ -154,13 +160,53 @@ public class InputUpdate implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * If a Amazon Kinesis stream is the streaming source to be updated, provides an updated stream ARN and IAM role
-     * ARN.
+     * Describes updates for an input processing configuration.
+     * </p>
+     * 
+     * @param inputProcessingConfigurationUpdate
+     *        Describes updates for an input processing configuration.
+     */
+
+    public void setInputProcessingConfigurationUpdate(InputProcessingConfigurationUpdate inputProcessingConfigurationUpdate) {
+        this.inputProcessingConfigurationUpdate = inputProcessingConfigurationUpdate;
+    }
+
+    /**
+     * <p>
+     * Describes updates for an input processing configuration.
+     * </p>
+     * 
+     * @return Describes updates for an input processing configuration.
+     */
+
+    public InputProcessingConfigurationUpdate getInputProcessingConfigurationUpdate() {
+        return this.inputProcessingConfigurationUpdate;
+    }
+
+    /**
+     * <p>
+     * Describes updates for an input processing configuration.
+     * </p>
+     * 
+     * @param inputProcessingConfigurationUpdate
+     *        Describes updates for an input processing configuration.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public InputUpdate withInputProcessingConfigurationUpdate(InputProcessingConfigurationUpdate inputProcessingConfigurationUpdate) {
+        setInputProcessingConfigurationUpdate(inputProcessingConfigurationUpdate);
+        return this;
+    }
+
+    /**
+     * <p>
+     * If an Amazon Kinesis stream is the streaming source to be updated, provides an updated stream Amazon Resource
+     * Name (ARN) and IAM role ARN.
      * </p>
      * 
      * @param kinesisStreamsInputUpdate
-     *        If a Amazon Kinesis stream is the streaming source to be updated, provides an updated stream ARN and IAM
-     *        role ARN.
+     *        If an Amazon Kinesis stream is the streaming source to be updated, provides an updated stream Amazon
+     *        Resource Name (ARN) and IAM role ARN.
      */
 
     public void setKinesisStreamsInputUpdate(KinesisStreamsInputUpdate kinesisStreamsInputUpdate) {
@@ -169,12 +215,12 @@ public class InputUpdate implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * If a Amazon Kinesis stream is the streaming source to be updated, provides an updated stream ARN and IAM role
-     * ARN.
+     * If an Amazon Kinesis stream is the streaming source to be updated, provides an updated stream Amazon Resource
+     * Name (ARN) and IAM role ARN.
      * </p>
      * 
-     * @return If a Amazon Kinesis stream is the streaming source to be updated, provides an updated stream ARN and IAM
-     *         role ARN.
+     * @return If an Amazon Kinesis stream is the streaming source to be updated, provides an updated stream Amazon
+     *         Resource Name (ARN) and IAM role ARN.
      */
 
     public KinesisStreamsInputUpdate getKinesisStreamsInputUpdate() {
@@ -183,13 +229,13 @@ public class InputUpdate implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * If a Amazon Kinesis stream is the streaming source to be updated, provides an updated stream ARN and IAM role
-     * ARN.
+     * If an Amazon Kinesis stream is the streaming source to be updated, provides an updated stream Amazon Resource
+     * Name (ARN) and IAM role ARN.
      * </p>
      * 
      * @param kinesisStreamsInputUpdate
-     *        If a Amazon Kinesis stream is the streaming source to be updated, provides an updated stream ARN and IAM
-     *        role ARN.
+     *        If an Amazon Kinesis stream is the streaming source to be updated, provides an updated stream Amazon
+     *        Resource Name (ARN) and IAM role ARN.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -201,12 +247,12 @@ public class InputUpdate implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * If an Amazon Kinesis Firehose delivery stream is the streaming source to be updated, provides an updated stream
-     * Amazon Resource Name (ARN) and IAM role ARN.
+     * ARN and IAM role ARN.
      * </p>
      * 
      * @param kinesisFirehoseInputUpdate
      *        If an Amazon Kinesis Firehose delivery stream is the streaming source to be updated, provides an updated
-     *        stream Amazon Resource Name (ARN) and IAM role ARN.
+     *        stream ARN and IAM role ARN.
      */
 
     public void setKinesisFirehoseInputUpdate(KinesisFirehoseInputUpdate kinesisFirehoseInputUpdate) {
@@ -216,11 +262,11 @@ public class InputUpdate implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * If an Amazon Kinesis Firehose delivery stream is the streaming source to be updated, provides an updated stream
-     * Amazon Resource Name (ARN) and IAM role ARN.
+     * ARN and IAM role ARN.
      * </p>
      * 
      * @return If an Amazon Kinesis Firehose delivery stream is the streaming source to be updated, provides an updated
-     *         stream Amazon Resource Name (ARN) and IAM role ARN.
+     *         stream ARN and IAM role ARN.
      */
 
     public KinesisFirehoseInputUpdate getKinesisFirehoseInputUpdate() {
@@ -230,12 +276,12 @@ public class InputUpdate implements Serializable, Cloneable, StructuredPojo {
     /**
      * <p>
      * If an Amazon Kinesis Firehose delivery stream is the streaming source to be updated, provides an updated stream
-     * Amazon Resource Name (ARN) and IAM role ARN.
+     * ARN and IAM role ARN.
      * </p>
      * 
      * @param kinesisFirehoseInputUpdate
      *        If an Amazon Kinesis Firehose delivery stream is the streaming source to be updated, provides an updated
-     *        stream Amazon Resource Name (ARN) and IAM role ARN.
+     *        stream ARN and IAM role ARN.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -337,7 +383,8 @@ public class InputUpdate implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -351,6 +398,8 @@ public class InputUpdate implements Serializable, Cloneable, StructuredPojo {
             sb.append("InputId: ").append(getInputId()).append(",");
         if (getNamePrefixUpdate() != null)
             sb.append("NamePrefixUpdate: ").append(getNamePrefixUpdate()).append(",");
+        if (getInputProcessingConfigurationUpdate() != null)
+            sb.append("InputProcessingConfigurationUpdate: ").append(getInputProcessingConfigurationUpdate()).append(",");
         if (getKinesisStreamsInputUpdate() != null)
             sb.append("KinesisStreamsInputUpdate: ").append(getKinesisStreamsInputUpdate()).append(",");
         if (getKinesisFirehoseInputUpdate() != null)
@@ -381,6 +430,11 @@ public class InputUpdate implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getNamePrefixUpdate() != null && other.getNamePrefixUpdate().equals(this.getNamePrefixUpdate()) == false)
             return false;
+        if (other.getInputProcessingConfigurationUpdate() == null ^ this.getInputProcessingConfigurationUpdate() == null)
+            return false;
+        if (other.getInputProcessingConfigurationUpdate() != null
+                && other.getInputProcessingConfigurationUpdate().equals(this.getInputProcessingConfigurationUpdate()) == false)
+            return false;
         if (other.getKinesisStreamsInputUpdate() == null ^ this.getKinesisStreamsInputUpdate() == null)
             return false;
         if (other.getKinesisStreamsInputUpdate() != null && other.getKinesisStreamsInputUpdate().equals(this.getKinesisStreamsInputUpdate()) == false)
@@ -407,6 +461,7 @@ public class InputUpdate implements Serializable, Cloneable, StructuredPojo {
 
         hashCode = prime * hashCode + ((getInputId() == null) ? 0 : getInputId().hashCode());
         hashCode = prime * hashCode + ((getNamePrefixUpdate() == null) ? 0 : getNamePrefixUpdate().hashCode());
+        hashCode = prime * hashCode + ((getInputProcessingConfigurationUpdate() == null) ? 0 : getInputProcessingConfigurationUpdate().hashCode());
         hashCode = prime * hashCode + ((getKinesisStreamsInputUpdate() == null) ? 0 : getKinesisStreamsInputUpdate().hashCode());
         hashCode = prime * hashCode + ((getKinesisFirehoseInputUpdate() == null) ? 0 : getKinesisFirehoseInputUpdate().hashCode());
         hashCode = prime * hashCode + ((getInputSchemaUpdate() == null) ? 0 : getInputSchemaUpdate().hashCode());

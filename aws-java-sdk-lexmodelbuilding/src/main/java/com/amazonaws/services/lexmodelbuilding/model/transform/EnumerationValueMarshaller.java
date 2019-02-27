@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -12,6 +12,7 @@
  */
 package com.amazonaws.services.lexmodelbuilding.model.transform;
 
+import java.util.List;
 import javax.annotation.Generated;
 
 import com.amazonaws.SdkClientException;
@@ -29,6 +30,8 @@ public class EnumerationValueMarshaller {
 
     private static final MarshallingInfo<String> VALUE_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("value").build();
+    private static final MarshallingInfo<List> SYNONYMS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("synonyms").build();
 
     private static final EnumerationValueMarshaller instance = new EnumerationValueMarshaller();
 
@@ -47,6 +50,7 @@ public class EnumerationValueMarshaller {
 
         try {
             protocolMarshaller.marshall(enumerationValue.getValue(), VALUE_BINDING);
+            protocolMarshaller.marshall(enumerationValue.getSynonyms(), SYNONYMS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

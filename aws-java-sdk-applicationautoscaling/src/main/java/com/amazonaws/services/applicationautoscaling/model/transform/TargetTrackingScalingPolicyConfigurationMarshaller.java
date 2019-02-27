@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -37,6 +37,8 @@ public class TargetTrackingScalingPolicyConfigurationMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ScaleOutCooldown").build();
     private static final MarshallingInfo<Integer> SCALEINCOOLDOWN_BINDING = MarshallingInfo.builder(MarshallingType.INTEGER)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ScaleInCooldown").build();
+    private static final MarshallingInfo<Boolean> DISABLESCALEIN_BINDING = MarshallingInfo.builder(MarshallingType.BOOLEAN)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DisableScaleIn").build();
 
     private static final TargetTrackingScalingPolicyConfigurationMarshaller instance = new TargetTrackingScalingPolicyConfigurationMarshaller();
 
@@ -59,6 +61,7 @@ public class TargetTrackingScalingPolicyConfigurationMarshaller {
             protocolMarshaller.marshall(targetTrackingScalingPolicyConfiguration.getCustomizedMetricSpecification(), CUSTOMIZEDMETRICSPECIFICATION_BINDING);
             protocolMarshaller.marshall(targetTrackingScalingPolicyConfiguration.getScaleOutCooldown(), SCALEOUTCOOLDOWN_BINDING);
             protocolMarshaller.marshall(targetTrackingScalingPolicyConfiguration.getScaleInCooldown(), SCALEINCOOLDOWN_BINDING);
+            protocolMarshaller.marshall(targetTrackingScalingPolicyConfiguration.getDisableScaleIn(), DISABLESCALEIN_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

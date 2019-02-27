@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -32,6 +32,7 @@ public enum FleetErrorCode {
     IMAGE_NOT_FOUND("IMAGE_NOT_FOUND"),
     INVALID_SUBNET_CONFIGURATION("INVALID_SUBNET_CONFIGURATION"),
     SECURITY_GROUPS_NOT_FOUND("SECURITY_GROUPS_NOT_FOUND"),
+    IGW_NOT_ATTACHED("IGW_NOT_ATTACHED"),
     IAM_SERVICE_ROLE_MISSING_DESCRIBE_SECURITY_GROUPS_ACTION("IAM_SERVICE_ROLE_MISSING_DESCRIBE_SECURITY_GROUPS_ACTION"),
     DOMAIN_JOIN_ERROR_FILE_NOT_FOUND("DOMAIN_JOIN_ERROR_FILE_NOT_FOUND"),
     DOMAIN_JOIN_ERROR_ACCESS_DENIED("DOMAIN_JOIN_ERROR_ACCESS_DENIED"),
@@ -63,6 +64,9 @@ public enum FleetErrorCode {
      * @param value
      *        real value
      * @return FleetErrorCode corresponding to the value
+     *
+     * @throws IllegalArgumentException
+     *         If the specified value does not map to one of the known values in this enum.
      */
     public static FleetErrorCode fromValue(String value) {
         if (value == null || "".equals(value)) {

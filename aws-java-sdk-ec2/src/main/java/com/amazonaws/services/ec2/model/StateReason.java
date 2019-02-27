@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -39,13 +39,13 @@ public class StateReason implements Serializable, Cloneable {
      * <ul>
      * <li>
      * <p>
-     * <code>Server.InsufficientInstanceCapacity</code>: There was insufficient instance capacity to satisfy the launch
+     * <code>Server.InsufficientInstanceCapacity</code>: There was insufficient capacity available to satisfy the launch
      * request.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>Server.InternalError</code>: An internal error occurred during instance launch, resulting in termination.
+     * <code>Server.InternalError</code>: An internal error caused the instance to terminate during launch.
      * </p>
      * </li>
      * <li>
@@ -55,13 +55,16 @@ public class StateReason implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * <code>Server.SpotInstanceTermination</code>: A Spot instance was terminated due to an increase in the market
-     * price.
+     * <code>Server.SpotInstanceShutdown</code>: The instance was stopped because the number of Spot requests with a
+     * maximum price equal to or higher than the Spot price exceeded available capacity or because of an increase in the
+     * Spot price.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>Client.InternalError</code>: A client error caused the instance to terminate on launch.
+     * <code>Server.SpotInstanceTermination</code>: The instance was terminated because the number of Spot requests with
+     * a maximum price equal to or higher than the Spot price exceeded available capacity or because of an increase in
+     * the Spot price.
      * </p>
      * </li>
      * <li>
@@ -72,18 +75,33 @@ public class StateReason implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
+     * <code>Client.InstanceTerminated</code>: The instance was terminated or rebooted during AMI creation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Client.InternalError</code>: A client error caused the instance to terminate during launch.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Client.InvalidSnapshot.NotFound</code>: The specified snapshot was not found.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Client.UserInitiatedHibernate</code>: Hibernation was initiated on the instance.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>Client.UserInitiatedShutdown</code>: The instance was shut down using the Amazon EC2 API.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>Client.VolumeLimitExceeded</code>: The limit on the number of EBS volumes or total storage was exceeded.
-     * Decrease usage or request an increase in your limits.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>Client.InvalidSnapshot.NotFound</code>: The specified snapshot was not found.
+     * Decrease usage or request an increase in your account limits.
      * </p>
      * </li>
      * </ul>
@@ -137,13 +155,13 @@ public class StateReason implements Serializable, Cloneable {
      * <ul>
      * <li>
      * <p>
-     * <code>Server.InsufficientInstanceCapacity</code>: There was insufficient instance capacity to satisfy the launch
+     * <code>Server.InsufficientInstanceCapacity</code>: There was insufficient capacity available to satisfy the launch
      * request.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>Server.InternalError</code>: An internal error occurred during instance launch, resulting in termination.
+     * <code>Server.InternalError</code>: An internal error caused the instance to terminate during launch.
      * </p>
      * </li>
      * <li>
@@ -153,13 +171,16 @@ public class StateReason implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * <code>Server.SpotInstanceTermination</code>: A Spot instance was terminated due to an increase in the market
-     * price.
+     * <code>Server.SpotInstanceShutdown</code>: The instance was stopped because the number of Spot requests with a
+     * maximum price equal to or higher than the Spot price exceeded available capacity or because of an increase in the
+     * Spot price.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>Client.InternalError</code>: A client error caused the instance to terminate on launch.
+     * <code>Server.SpotInstanceTermination</code>: The instance was terminated because the number of Spot requests with
+     * a maximum price equal to or higher than the Spot price exceeded available capacity or because of an increase in
+     * the Spot price.
      * </p>
      * </li>
      * <li>
@@ -170,18 +191,33 @@ public class StateReason implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
+     * <code>Client.InstanceTerminated</code>: The instance was terminated or rebooted during AMI creation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Client.InternalError</code>: A client error caused the instance to terminate during launch.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Client.InvalidSnapshot.NotFound</code>: The specified snapshot was not found.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Client.UserInitiatedHibernate</code>: Hibernation was initiated on the instance.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>Client.UserInitiatedShutdown</code>: The instance was shut down using the Amazon EC2 API.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>Client.VolumeLimitExceeded</code>: The limit on the number of EBS volumes or total storage was exceeded.
-     * Decrease usage or request an increase in your limits.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>Client.InvalidSnapshot.NotFound</code>: The specified snapshot was not found.
+     * Decrease usage or request an increase in your account limits.
      * </p>
      * </li>
      * </ul>
@@ -191,14 +227,13 @@ public class StateReason implements Serializable, Cloneable {
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>Server.InsufficientInstanceCapacity</code>: There was insufficient instance capacity to satisfy the
+     *        <code>Server.InsufficientInstanceCapacity</code>: There was insufficient capacity available to satisfy the
      *        launch request.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>Server.InternalError</code>: An internal error occurred during instance launch, resulting in
-     *        termination.
+     *        <code>Server.InternalError</code>: An internal error caused the instance to terminate during launch.
      *        </p>
      *        </li>
      *        <li>
@@ -208,13 +243,16 @@ public class StateReason implements Serializable, Cloneable {
      *        </li>
      *        <li>
      *        <p>
-     *        <code>Server.SpotInstanceTermination</code>: A Spot instance was terminated due to an increase in the
-     *        market price.
+     *        <code>Server.SpotInstanceShutdown</code>: The instance was stopped because the number of Spot requests
+     *        with a maximum price equal to or higher than the Spot price exceeded available capacity or because of an
+     *        increase in the Spot price.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>Client.InternalError</code>: A client error caused the instance to terminate on launch.
+     *        <code>Server.SpotInstanceTermination</code>: The instance was terminated because the number of Spot
+     *        requests with a maximum price equal to or higher than the Spot price exceeded available capacity or
+     *        because of an increase in the Spot price.
      *        </p>
      *        </li>
      *        <li>
@@ -225,18 +263,33 @@ public class StateReason implements Serializable, Cloneable {
      *        </li>
      *        <li>
      *        <p>
+     *        <code>Client.InstanceTerminated</code>: The instance was terminated or rebooted during AMI creation.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Client.InternalError</code>: A client error caused the instance to terminate during launch.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Client.InvalidSnapshot.NotFound</code>: The specified snapshot was not found.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Client.UserInitiatedHibernate</code>: Hibernation was initiated on the instance.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
      *        <code>Client.UserInitiatedShutdown</code>: The instance was shut down using the Amazon EC2 API.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>Client.VolumeLimitExceeded</code>: The limit on the number of EBS volumes or total storage was
-     *        exceeded. Decrease usage or request an increase in your limits.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        <code>Client.InvalidSnapshot.NotFound</code>: The specified snapshot was not found.
+     *        exceeded. Decrease usage or request an increase in your account limits.
      *        </p>
      *        </li>
      */
@@ -252,13 +305,13 @@ public class StateReason implements Serializable, Cloneable {
      * <ul>
      * <li>
      * <p>
-     * <code>Server.InsufficientInstanceCapacity</code>: There was insufficient instance capacity to satisfy the launch
+     * <code>Server.InsufficientInstanceCapacity</code>: There was insufficient capacity available to satisfy the launch
      * request.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>Server.InternalError</code>: An internal error occurred during instance launch, resulting in termination.
+     * <code>Server.InternalError</code>: An internal error caused the instance to terminate during launch.
      * </p>
      * </li>
      * <li>
@@ -268,13 +321,16 @@ public class StateReason implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * <code>Server.SpotInstanceTermination</code>: A Spot instance was terminated due to an increase in the market
-     * price.
+     * <code>Server.SpotInstanceShutdown</code>: The instance was stopped because the number of Spot requests with a
+     * maximum price equal to or higher than the Spot price exceeded available capacity or because of an increase in the
+     * Spot price.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>Client.InternalError</code>: A client error caused the instance to terminate on launch.
+     * <code>Server.SpotInstanceTermination</code>: The instance was terminated because the number of Spot requests with
+     * a maximum price equal to or higher than the Spot price exceeded available capacity or because of an increase in
+     * the Spot price.
      * </p>
      * </li>
      * <li>
@@ -285,18 +341,33 @@ public class StateReason implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
+     * <code>Client.InstanceTerminated</code>: The instance was terminated or rebooted during AMI creation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Client.InternalError</code>: A client error caused the instance to terminate during launch.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Client.InvalidSnapshot.NotFound</code>: The specified snapshot was not found.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Client.UserInitiatedHibernate</code>: Hibernation was initiated on the instance.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>Client.UserInitiatedShutdown</code>: The instance was shut down using the Amazon EC2 API.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>Client.VolumeLimitExceeded</code>: The limit on the number of EBS volumes or total storage was exceeded.
-     * Decrease usage or request an increase in your limits.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>Client.InvalidSnapshot.NotFound</code>: The specified snapshot was not found.
+     * Decrease usage or request an increase in your account limits.
      * </p>
      * </li>
      * </ul>
@@ -305,14 +376,13 @@ public class StateReason implements Serializable, Cloneable {
      *         <ul>
      *         <li>
      *         <p>
-     *         <code>Server.InsufficientInstanceCapacity</code>: There was insufficient instance capacity to satisfy the
-     *         launch request.
+     *         <code>Server.InsufficientInstanceCapacity</code>: There was insufficient capacity available to satisfy
+     *         the launch request.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>Server.InternalError</code>: An internal error occurred during instance launch, resulting in
-     *         termination.
+     *         <code>Server.InternalError</code>: An internal error caused the instance to terminate during launch.
      *         </p>
      *         </li>
      *         <li>
@@ -322,13 +392,16 @@ public class StateReason implements Serializable, Cloneable {
      *         </li>
      *         <li>
      *         <p>
-     *         <code>Server.SpotInstanceTermination</code>: A Spot instance was terminated due to an increase in the
-     *         market price.
+     *         <code>Server.SpotInstanceShutdown</code>: The instance was stopped because the number of Spot requests
+     *         with a maximum price equal to or higher than the Spot price exceeded available capacity or because of an
+     *         increase in the Spot price.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <code>Client.InternalError</code>: A client error caused the instance to terminate on launch.
+     *         <code>Server.SpotInstanceTermination</code>: The instance was terminated because the number of Spot
+     *         requests with a maximum price equal to or higher than the Spot price exceeded available capacity or
+     *         because of an increase in the Spot price.
      *         </p>
      *         </li>
      *         <li>
@@ -339,18 +412,33 @@ public class StateReason implements Serializable, Cloneable {
      *         </li>
      *         <li>
      *         <p>
+     *         <code>Client.InstanceTerminated</code>: The instance was terminated or rebooted during AMI creation.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>Client.InternalError</code>: A client error caused the instance to terminate during launch.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>Client.InvalidSnapshot.NotFound</code>: The specified snapshot was not found.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>Client.UserInitiatedHibernate</code>: Hibernation was initiated on the instance.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
      *         <code>Client.UserInitiatedShutdown</code>: The instance was shut down using the Amazon EC2 API.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
      *         <code>Client.VolumeLimitExceeded</code>: The limit on the number of EBS volumes or total storage was
-     *         exceeded. Decrease usage or request an increase in your limits.
-     *         </p>
-     *         </li>
-     *         <li>
-     *         <p>
-     *         <code>Client.InvalidSnapshot.NotFound</code>: The specified snapshot was not found.
+     *         exceeded. Decrease usage or request an increase in your account limits.
      *         </p>
      *         </li>
      */
@@ -366,13 +454,13 @@ public class StateReason implements Serializable, Cloneable {
      * <ul>
      * <li>
      * <p>
-     * <code>Server.InsufficientInstanceCapacity</code>: There was insufficient instance capacity to satisfy the launch
+     * <code>Server.InsufficientInstanceCapacity</code>: There was insufficient capacity available to satisfy the launch
      * request.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>Server.InternalError</code>: An internal error occurred during instance launch, resulting in termination.
+     * <code>Server.InternalError</code>: An internal error caused the instance to terminate during launch.
      * </p>
      * </li>
      * <li>
@@ -382,13 +470,16 @@ public class StateReason implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * <code>Server.SpotInstanceTermination</code>: A Spot instance was terminated due to an increase in the market
-     * price.
+     * <code>Server.SpotInstanceShutdown</code>: The instance was stopped because the number of Spot requests with a
+     * maximum price equal to or higher than the Spot price exceeded available capacity or because of an increase in the
+     * Spot price.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <code>Client.InternalError</code>: A client error caused the instance to terminate on launch.
+     * <code>Server.SpotInstanceTermination</code>: The instance was terminated because the number of Spot requests with
+     * a maximum price equal to or higher than the Spot price exceeded available capacity or because of an increase in
+     * the Spot price.
      * </p>
      * </li>
      * <li>
@@ -399,18 +490,33 @@ public class StateReason implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
+     * <code>Client.InstanceTerminated</code>: The instance was terminated or rebooted during AMI creation.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Client.InternalError</code>: A client error caused the instance to terminate during launch.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Client.InvalidSnapshot.NotFound</code>: The specified snapshot was not found.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Client.UserInitiatedHibernate</code>: Hibernation was initiated on the instance.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * <code>Client.UserInitiatedShutdown</code>: The instance was shut down using the Amazon EC2 API.
      * </p>
      * </li>
      * <li>
      * <p>
      * <code>Client.VolumeLimitExceeded</code>: The limit on the number of EBS volumes or total storage was exceeded.
-     * Decrease usage or request an increase in your limits.
-     * </p>
-     * </li>
-     * <li>
-     * <p>
-     * <code>Client.InvalidSnapshot.NotFound</code>: The specified snapshot was not found.
+     * Decrease usage or request an increase in your account limits.
      * </p>
      * </li>
      * </ul>
@@ -420,14 +526,13 @@ public class StateReason implements Serializable, Cloneable {
      *        <ul>
      *        <li>
      *        <p>
-     *        <code>Server.InsufficientInstanceCapacity</code>: There was insufficient instance capacity to satisfy the
+     *        <code>Server.InsufficientInstanceCapacity</code>: There was insufficient capacity available to satisfy the
      *        launch request.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>Server.InternalError</code>: An internal error occurred during instance launch, resulting in
-     *        termination.
+     *        <code>Server.InternalError</code>: An internal error caused the instance to terminate during launch.
      *        </p>
      *        </li>
      *        <li>
@@ -437,13 +542,16 @@ public class StateReason implements Serializable, Cloneable {
      *        </li>
      *        <li>
      *        <p>
-     *        <code>Server.SpotInstanceTermination</code>: A Spot instance was terminated due to an increase in the
-     *        market price.
+     *        <code>Server.SpotInstanceShutdown</code>: The instance was stopped because the number of Spot requests
+     *        with a maximum price equal to or higher than the Spot price exceeded available capacity or because of an
+     *        increase in the Spot price.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <code>Client.InternalError</code>: A client error caused the instance to terminate on launch.
+     *        <code>Server.SpotInstanceTermination</code>: The instance was terminated because the number of Spot
+     *        requests with a maximum price equal to or higher than the Spot price exceeded available capacity or
+     *        because of an increase in the Spot price.
      *        </p>
      *        </li>
      *        <li>
@@ -454,18 +562,33 @@ public class StateReason implements Serializable, Cloneable {
      *        </li>
      *        <li>
      *        <p>
+     *        <code>Client.InstanceTerminated</code>: The instance was terminated or rebooted during AMI creation.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Client.InternalError</code>: A client error caused the instance to terminate during launch.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Client.InvalidSnapshot.NotFound</code>: The specified snapshot was not found.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>Client.UserInitiatedHibernate</code>: Hibernation was initiated on the instance.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
      *        <code>Client.UserInitiatedShutdown</code>: The instance was shut down using the Amazon EC2 API.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        <code>Client.VolumeLimitExceeded</code>: The limit on the number of EBS volumes or total storage was
-     *        exceeded. Decrease usage or request an increase in your limits.
-     *        </p>
-     *        </li>
-     *        <li>
-     *        <p>
-     *        <code>Client.InvalidSnapshot.NotFound</code>: The specified snapshot was not found.
+     *        exceeded. Decrease usage or request an increase in your account limits.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -477,7 +600,8 @@ public class StateReason implements Serializable, Cloneable {
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

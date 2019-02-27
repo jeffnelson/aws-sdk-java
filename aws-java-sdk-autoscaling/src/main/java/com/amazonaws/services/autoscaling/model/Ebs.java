@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -48,22 +48,16 @@ public class Ebs implements Serializable, Cloneable {
      * <p>
      * The volume type. For more information, see <a
      * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">Amazon EBS Volume Types</a> in the
-     * <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * <i>Amazon EC2 User Guide for Linux Instances</i>.
      * </p>
      * <p>
      * Valid values: <code>standard</code> | <code>io1</code> | <code>gp2</code>
-     * </p>
-     * <p>
-     * Default: <code>standard</code>
      * </p>
      */
     private String volumeType;
     /**
      * <p>
-     * Indicates whether the volume is deleted on instance termination.
-     * </p>
-     * <p>
-     * Default: <code>true</code>
+     * Indicates whether the volume is deleted on instance termination. The default is <code>true</code>.
      * </p>
      */
     private Boolean deleteOnTermination;
@@ -83,7 +77,7 @@ public class Ebs implements Serializable, Cloneable {
      * There is no way to create an encrypted volume from an unencrypted snapshot or an unencrypted volume from an
      * encrypted snapshot. For more information, see <a
      * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html">Amazon EBS Encryption</a> in the
-     * <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * <i>Amazon EC2 User Guide for Linux Instances</i>.
      * </p>
      */
     private Boolean encrypted;
@@ -208,24 +202,18 @@ public class Ebs implements Serializable, Cloneable {
      * <p>
      * The volume type. For more information, see <a
      * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">Amazon EBS Volume Types</a> in the
-     * <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * <i>Amazon EC2 User Guide for Linux Instances</i>.
      * </p>
      * <p>
      * Valid values: <code>standard</code> | <code>io1</code> | <code>gp2</code>
-     * </p>
-     * <p>
-     * Default: <code>standard</code>
      * </p>
      * 
      * @param volumeType
      *        The volume type. For more information, see <a
      *        href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">Amazon EBS Volume Types</a>
-     *        in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
+     *        in the <i>Amazon EC2 User Guide for Linux Instances</i>.</p>
      *        <p>
      *        Valid values: <code>standard</code> | <code>io1</code> | <code>gp2</code>
-     *        </p>
-     *        <p>
-     *        Default: <code>standard</code>
      */
 
     public void setVolumeType(String volumeType) {
@@ -236,23 +224,17 @@ public class Ebs implements Serializable, Cloneable {
      * <p>
      * The volume type. For more information, see <a
      * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">Amazon EBS Volume Types</a> in the
-     * <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * <i>Amazon EC2 User Guide for Linux Instances</i>.
      * </p>
      * <p>
      * Valid values: <code>standard</code> | <code>io1</code> | <code>gp2</code>
      * </p>
-     * <p>
-     * Default: <code>standard</code>
-     * </p>
      * 
      * @return The volume type. For more information, see <a
      *         href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">Amazon EBS Volume Types</a>
-     *         in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
+     *         in the <i>Amazon EC2 User Guide for Linux Instances</i>.</p>
      *         <p>
      *         Valid values: <code>standard</code> | <code>io1</code> | <code>gp2</code>
-     *         </p>
-     *         <p>
-     *         Default: <code>standard</code>
      */
 
     public String getVolumeType() {
@@ -263,24 +245,18 @@ public class Ebs implements Serializable, Cloneable {
      * <p>
      * The volume type. For more information, see <a
      * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">Amazon EBS Volume Types</a> in the
-     * <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * <i>Amazon EC2 User Guide for Linux Instances</i>.
      * </p>
      * <p>
      * Valid values: <code>standard</code> | <code>io1</code> | <code>gp2</code>
-     * </p>
-     * <p>
-     * Default: <code>standard</code>
      * </p>
      * 
      * @param volumeType
      *        The volume type. For more information, see <a
      *        href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">Amazon EBS Volume Types</a>
-     *        in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
+     *        in the <i>Amazon EC2 User Guide for Linux Instances</i>.</p>
      *        <p>
      *        Valid values: <code>standard</code> | <code>io1</code> | <code>gp2</code>
-     *        </p>
-     *        <p>
-     *        Default: <code>standard</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -291,16 +267,11 @@ public class Ebs implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether the volume is deleted on instance termination.
-     * </p>
-     * <p>
-     * Default: <code>true</code>
+     * Indicates whether the volume is deleted on instance termination. The default is <code>true</code>.
      * </p>
      * 
      * @param deleteOnTermination
-     *        Indicates whether the volume is deleted on instance termination.</p>
-     *        <p>
-     *        Default: <code>true</code>
+     *        Indicates whether the volume is deleted on instance termination. The default is <code>true</code>.
      */
 
     public void setDeleteOnTermination(Boolean deleteOnTermination) {
@@ -309,15 +280,10 @@ public class Ebs implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether the volume is deleted on instance termination.
-     * </p>
-     * <p>
-     * Default: <code>true</code>
+     * Indicates whether the volume is deleted on instance termination. The default is <code>true</code>.
      * </p>
      * 
-     * @return Indicates whether the volume is deleted on instance termination.</p>
-     *         <p>
-     *         Default: <code>true</code>
+     * @return Indicates whether the volume is deleted on instance termination. The default is <code>true</code>.
      */
 
     public Boolean getDeleteOnTermination() {
@@ -326,16 +292,11 @@ public class Ebs implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether the volume is deleted on instance termination.
-     * </p>
-     * <p>
-     * Default: <code>true</code>
+     * Indicates whether the volume is deleted on instance termination. The default is <code>true</code>.
      * </p>
      * 
      * @param deleteOnTermination
-     *        Indicates whether the volume is deleted on instance termination.</p>
-     *        <p>
-     *        Default: <code>true</code>
+     *        Indicates whether the volume is deleted on instance termination. The default is <code>true</code>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -346,15 +307,10 @@ public class Ebs implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether the volume is deleted on instance termination.
-     * </p>
-     * <p>
-     * Default: <code>true</code>
+     * Indicates whether the volume is deleted on instance termination. The default is <code>true</code>.
      * </p>
      * 
-     * @return Indicates whether the volume is deleted on instance termination.</p>
-     *         <p>
-     *         Default: <code>true</code>
+     * @return Indicates whether the volume is deleted on instance termination. The default is <code>true</code>.
      */
 
     public Boolean isDeleteOnTermination() {
@@ -423,7 +379,7 @@ public class Ebs implements Serializable, Cloneable {
      * There is no way to create an encrypted volume from an unencrypted snapshot or an unencrypted volume from an
      * encrypted snapshot. For more information, see <a
      * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html">Amazon EBS Encryption</a> in the
-     * <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * <i>Amazon EC2 User Guide for Linux Instances</i>.
      * </p>
      * 
      * @param encrypted
@@ -432,7 +388,7 @@ public class Ebs implements Serializable, Cloneable {
      *        encrypted. There is no way to create an encrypted volume from an unencrypted snapshot or an unencrypted
      *        volume from an encrypted snapshot. For more information, see <a
      *        href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html">Amazon EBS Encryption</a> in
-     *        the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     *        the <i>Amazon EC2 User Guide for Linux Instances</i>.
      */
 
     public void setEncrypted(Boolean encrypted) {
@@ -446,7 +402,7 @@ public class Ebs implements Serializable, Cloneable {
      * There is no way to create an encrypted volume from an unencrypted snapshot or an unencrypted volume from an
      * encrypted snapshot. For more information, see <a
      * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html">Amazon EBS Encryption</a> in the
-     * <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * <i>Amazon EC2 User Guide for Linux Instances</i>.
      * </p>
      * 
      * @return Indicates whether the volume should be encrypted. Encrypted EBS volumes must be attached to instances
@@ -454,7 +410,7 @@ public class Ebs implements Serializable, Cloneable {
      *         encrypted. There is no way to create an encrypted volume from an unencrypted snapshot or an unencrypted
      *         volume from an encrypted snapshot. For more information, see <a
      *         href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html">Amazon EBS Encryption</a> in
-     *         the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     *         the <i>Amazon EC2 User Guide for Linux Instances</i>.
      */
 
     public Boolean getEncrypted() {
@@ -468,7 +424,7 @@ public class Ebs implements Serializable, Cloneable {
      * There is no way to create an encrypted volume from an unencrypted snapshot or an unencrypted volume from an
      * encrypted snapshot. For more information, see <a
      * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html">Amazon EBS Encryption</a> in the
-     * <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * <i>Amazon EC2 User Guide for Linux Instances</i>.
      * </p>
      * 
      * @param encrypted
@@ -477,7 +433,7 @@ public class Ebs implements Serializable, Cloneable {
      *        encrypted. There is no way to create an encrypted volume from an unencrypted snapshot or an unencrypted
      *        volume from an encrypted snapshot. For more information, see <a
      *        href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html">Amazon EBS Encryption</a> in
-     *        the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     *        the <i>Amazon EC2 User Guide for Linux Instances</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -493,7 +449,7 @@ public class Ebs implements Serializable, Cloneable {
      * There is no way to create an encrypted volume from an unencrypted snapshot or an unencrypted volume from an
      * encrypted snapshot. For more information, see <a
      * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html">Amazon EBS Encryption</a> in the
-     * <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * <i>Amazon EC2 User Guide for Linux Instances</i>.
      * </p>
      * 
      * @return Indicates whether the volume should be encrypted. Encrypted EBS volumes must be attached to instances
@@ -501,7 +457,7 @@ public class Ebs implements Serializable, Cloneable {
      *         encrypted. There is no way to create an encrypted volume from an unencrypted snapshot or an unencrypted
      *         volume from an encrypted snapshot. For more information, see <a
      *         href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html">Amazon EBS Encryption</a> in
-     *         the <i>Amazon Elastic Compute Cloud User Guide</i>.
+     *         the <i>Amazon EC2 User Guide for Linux Instances</i>.
      */
 
     public Boolean isEncrypted() {
@@ -509,7 +465,8 @@ public class Ebs implements Serializable, Cloneable {
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

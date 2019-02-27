@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -291,6 +291,108 @@ public class AmazonLightsailAsyncClient extends AmazonLightsailClient implements
     }
 
     @Override
+    public java.util.concurrent.Future<AttachDiskResult> attachDiskAsync(AttachDiskRequest request) {
+
+        return attachDiskAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AttachDiskResult> attachDiskAsync(final AttachDiskRequest request,
+            final com.amazonaws.handlers.AsyncHandler<AttachDiskRequest, AttachDiskResult> asyncHandler) {
+        final AttachDiskRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<AttachDiskResult>() {
+            @Override
+            public AttachDiskResult call() throws Exception {
+                AttachDiskResult result = null;
+
+                try {
+                    result = executeAttachDisk(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<AttachInstancesToLoadBalancerResult> attachInstancesToLoadBalancerAsync(AttachInstancesToLoadBalancerRequest request) {
+
+        return attachInstancesToLoadBalancerAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AttachInstancesToLoadBalancerResult> attachInstancesToLoadBalancerAsync(
+            final AttachInstancesToLoadBalancerRequest request,
+            final com.amazonaws.handlers.AsyncHandler<AttachInstancesToLoadBalancerRequest, AttachInstancesToLoadBalancerResult> asyncHandler) {
+        final AttachInstancesToLoadBalancerRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<AttachInstancesToLoadBalancerResult>() {
+            @Override
+            public AttachInstancesToLoadBalancerResult call() throws Exception {
+                AttachInstancesToLoadBalancerResult result = null;
+
+                try {
+                    result = executeAttachInstancesToLoadBalancer(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<AttachLoadBalancerTlsCertificateResult> attachLoadBalancerTlsCertificateAsync(
+            AttachLoadBalancerTlsCertificateRequest request) {
+
+        return attachLoadBalancerTlsCertificateAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AttachLoadBalancerTlsCertificateResult> attachLoadBalancerTlsCertificateAsync(
+            final AttachLoadBalancerTlsCertificateRequest request,
+            final com.amazonaws.handlers.AsyncHandler<AttachLoadBalancerTlsCertificateRequest, AttachLoadBalancerTlsCertificateResult> asyncHandler) {
+        final AttachLoadBalancerTlsCertificateRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<AttachLoadBalancerTlsCertificateResult>() {
+            @Override
+            public AttachLoadBalancerTlsCertificateResult call() throws Exception {
+                AttachLoadBalancerTlsCertificateResult result = null;
+
+                try {
+                    result = executeAttachLoadBalancerTlsCertificate(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<AttachStaticIpResult> attachStaticIpAsync(AttachStaticIpRequest request) {
 
         return attachStaticIpAsync(request, null);
@@ -341,6 +443,171 @@ public class AmazonLightsailAsyncClient extends AmazonLightsailClient implements
 
                 try {
                     result = executeCloseInstancePublicPorts(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CopySnapshotResult> copySnapshotAsync(CopySnapshotRequest request) {
+
+        return copySnapshotAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CopySnapshotResult> copySnapshotAsync(final CopySnapshotRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CopySnapshotRequest, CopySnapshotResult> asyncHandler) {
+        final CopySnapshotRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CopySnapshotResult>() {
+            @Override
+            public CopySnapshotResult call() throws Exception {
+                CopySnapshotResult result = null;
+
+                try {
+                    result = executeCopySnapshot(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateCloudFormationStackResult> createCloudFormationStackAsync(CreateCloudFormationStackRequest request) {
+
+        return createCloudFormationStackAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateCloudFormationStackResult> createCloudFormationStackAsync(final CreateCloudFormationStackRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateCloudFormationStackRequest, CreateCloudFormationStackResult> asyncHandler) {
+        final CreateCloudFormationStackRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateCloudFormationStackResult>() {
+            @Override
+            public CreateCloudFormationStackResult call() throws Exception {
+                CreateCloudFormationStackResult result = null;
+
+                try {
+                    result = executeCreateCloudFormationStack(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateDiskResult> createDiskAsync(CreateDiskRequest request) {
+
+        return createDiskAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateDiskResult> createDiskAsync(final CreateDiskRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateDiskRequest, CreateDiskResult> asyncHandler) {
+        final CreateDiskRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateDiskResult>() {
+            @Override
+            public CreateDiskResult call() throws Exception {
+                CreateDiskResult result = null;
+
+                try {
+                    result = executeCreateDisk(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateDiskFromSnapshotResult> createDiskFromSnapshotAsync(CreateDiskFromSnapshotRequest request) {
+
+        return createDiskFromSnapshotAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateDiskFromSnapshotResult> createDiskFromSnapshotAsync(final CreateDiskFromSnapshotRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateDiskFromSnapshotRequest, CreateDiskFromSnapshotResult> asyncHandler) {
+        final CreateDiskFromSnapshotRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateDiskFromSnapshotResult>() {
+            @Override
+            public CreateDiskFromSnapshotResult call() throws Exception {
+                CreateDiskFromSnapshotResult result = null;
+
+                try {
+                    result = executeCreateDiskFromSnapshot(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateDiskSnapshotResult> createDiskSnapshotAsync(CreateDiskSnapshotRequest request) {
+
+        return createDiskSnapshotAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateDiskSnapshotResult> createDiskSnapshotAsync(final CreateDiskSnapshotRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateDiskSnapshotRequest, CreateDiskSnapshotResult> asyncHandler) {
+        final CreateDiskSnapshotRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateDiskSnapshotResult>() {
+            @Override
+            public CreateDiskSnapshotResult call() throws Exception {
+                CreateDiskSnapshotResult result = null;
+
+                try {
+                    result = executeCreateDiskSnapshot(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -555,6 +822,243 @@ public class AmazonLightsailAsyncClient extends AmazonLightsailClient implements
     }
 
     @Override
+    public java.util.concurrent.Future<CreateLoadBalancerResult> createLoadBalancerAsync(CreateLoadBalancerRequest request) {
+
+        return createLoadBalancerAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateLoadBalancerResult> createLoadBalancerAsync(final CreateLoadBalancerRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateLoadBalancerRequest, CreateLoadBalancerResult> asyncHandler) {
+        final CreateLoadBalancerRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateLoadBalancerResult>() {
+            @Override
+            public CreateLoadBalancerResult call() throws Exception {
+                CreateLoadBalancerResult result = null;
+
+                try {
+                    result = executeCreateLoadBalancer(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateLoadBalancerTlsCertificateResult> createLoadBalancerTlsCertificateAsync(
+            CreateLoadBalancerTlsCertificateRequest request) {
+
+        return createLoadBalancerTlsCertificateAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateLoadBalancerTlsCertificateResult> createLoadBalancerTlsCertificateAsync(
+            final CreateLoadBalancerTlsCertificateRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateLoadBalancerTlsCertificateRequest, CreateLoadBalancerTlsCertificateResult> asyncHandler) {
+        final CreateLoadBalancerTlsCertificateRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateLoadBalancerTlsCertificateResult>() {
+            @Override
+            public CreateLoadBalancerTlsCertificateResult call() throws Exception {
+                CreateLoadBalancerTlsCertificateResult result = null;
+
+                try {
+                    result = executeCreateLoadBalancerTlsCertificate(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateRelationalDatabaseResult> createRelationalDatabaseAsync(CreateRelationalDatabaseRequest request) {
+
+        return createRelationalDatabaseAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateRelationalDatabaseResult> createRelationalDatabaseAsync(final CreateRelationalDatabaseRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateRelationalDatabaseRequest, CreateRelationalDatabaseResult> asyncHandler) {
+        final CreateRelationalDatabaseRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateRelationalDatabaseResult>() {
+            @Override
+            public CreateRelationalDatabaseResult call() throws Exception {
+                CreateRelationalDatabaseResult result = null;
+
+                try {
+                    result = executeCreateRelationalDatabase(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateRelationalDatabaseFromSnapshotResult> createRelationalDatabaseFromSnapshotAsync(
+            CreateRelationalDatabaseFromSnapshotRequest request) {
+
+        return createRelationalDatabaseFromSnapshotAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateRelationalDatabaseFromSnapshotResult> createRelationalDatabaseFromSnapshotAsync(
+            final CreateRelationalDatabaseFromSnapshotRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateRelationalDatabaseFromSnapshotRequest, CreateRelationalDatabaseFromSnapshotResult> asyncHandler) {
+        final CreateRelationalDatabaseFromSnapshotRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateRelationalDatabaseFromSnapshotResult>() {
+            @Override
+            public CreateRelationalDatabaseFromSnapshotResult call() throws Exception {
+                CreateRelationalDatabaseFromSnapshotResult result = null;
+
+                try {
+                    result = executeCreateRelationalDatabaseFromSnapshot(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateRelationalDatabaseSnapshotResult> createRelationalDatabaseSnapshotAsync(
+            CreateRelationalDatabaseSnapshotRequest request) {
+
+        return createRelationalDatabaseSnapshotAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateRelationalDatabaseSnapshotResult> createRelationalDatabaseSnapshotAsync(
+            final CreateRelationalDatabaseSnapshotRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateRelationalDatabaseSnapshotRequest, CreateRelationalDatabaseSnapshotResult> asyncHandler) {
+        final CreateRelationalDatabaseSnapshotRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateRelationalDatabaseSnapshotResult>() {
+            @Override
+            public CreateRelationalDatabaseSnapshotResult call() throws Exception {
+                CreateRelationalDatabaseSnapshotResult result = null;
+
+                try {
+                    result = executeCreateRelationalDatabaseSnapshot(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteDiskResult> deleteDiskAsync(DeleteDiskRequest request) {
+
+        return deleteDiskAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteDiskResult> deleteDiskAsync(final DeleteDiskRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteDiskRequest, DeleteDiskResult> asyncHandler) {
+        final DeleteDiskRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteDiskResult>() {
+            @Override
+            public DeleteDiskResult call() throws Exception {
+                DeleteDiskResult result = null;
+
+                try {
+                    result = executeDeleteDisk(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteDiskSnapshotResult> deleteDiskSnapshotAsync(DeleteDiskSnapshotRequest request) {
+
+        return deleteDiskSnapshotAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteDiskSnapshotResult> deleteDiskSnapshotAsync(final DeleteDiskSnapshotRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteDiskSnapshotRequest, DeleteDiskSnapshotResult> asyncHandler) {
+        final DeleteDiskSnapshotRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteDiskSnapshotResult>() {
+            @Override
+            public DeleteDiskSnapshotResult call() throws Exception {
+                DeleteDiskSnapshotResult result = null;
+
+                try {
+                    result = executeDeleteDiskSnapshot(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteDomainResult> deleteDomainAsync(DeleteDomainRequest request) {
 
         return deleteDomainAsync(request, null);
@@ -720,6 +1224,210 @@ public class AmazonLightsailAsyncClient extends AmazonLightsailClient implements
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteLoadBalancerResult> deleteLoadBalancerAsync(DeleteLoadBalancerRequest request) {
+
+        return deleteLoadBalancerAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteLoadBalancerResult> deleteLoadBalancerAsync(final DeleteLoadBalancerRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteLoadBalancerRequest, DeleteLoadBalancerResult> asyncHandler) {
+        final DeleteLoadBalancerRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteLoadBalancerResult>() {
+            @Override
+            public DeleteLoadBalancerResult call() throws Exception {
+                DeleteLoadBalancerResult result = null;
+
+                try {
+                    result = executeDeleteLoadBalancer(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteLoadBalancerTlsCertificateResult> deleteLoadBalancerTlsCertificateAsync(
+            DeleteLoadBalancerTlsCertificateRequest request) {
+
+        return deleteLoadBalancerTlsCertificateAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteLoadBalancerTlsCertificateResult> deleteLoadBalancerTlsCertificateAsync(
+            final DeleteLoadBalancerTlsCertificateRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteLoadBalancerTlsCertificateRequest, DeleteLoadBalancerTlsCertificateResult> asyncHandler) {
+        final DeleteLoadBalancerTlsCertificateRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteLoadBalancerTlsCertificateResult>() {
+            @Override
+            public DeleteLoadBalancerTlsCertificateResult call() throws Exception {
+                DeleteLoadBalancerTlsCertificateResult result = null;
+
+                try {
+                    result = executeDeleteLoadBalancerTlsCertificate(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteRelationalDatabaseResult> deleteRelationalDatabaseAsync(DeleteRelationalDatabaseRequest request) {
+
+        return deleteRelationalDatabaseAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteRelationalDatabaseResult> deleteRelationalDatabaseAsync(final DeleteRelationalDatabaseRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteRelationalDatabaseRequest, DeleteRelationalDatabaseResult> asyncHandler) {
+        final DeleteRelationalDatabaseRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteRelationalDatabaseResult>() {
+            @Override
+            public DeleteRelationalDatabaseResult call() throws Exception {
+                DeleteRelationalDatabaseResult result = null;
+
+                try {
+                    result = executeDeleteRelationalDatabase(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteRelationalDatabaseSnapshotResult> deleteRelationalDatabaseSnapshotAsync(
+            DeleteRelationalDatabaseSnapshotRequest request) {
+
+        return deleteRelationalDatabaseSnapshotAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteRelationalDatabaseSnapshotResult> deleteRelationalDatabaseSnapshotAsync(
+            final DeleteRelationalDatabaseSnapshotRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteRelationalDatabaseSnapshotRequest, DeleteRelationalDatabaseSnapshotResult> asyncHandler) {
+        final DeleteRelationalDatabaseSnapshotRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteRelationalDatabaseSnapshotResult>() {
+            @Override
+            public DeleteRelationalDatabaseSnapshotResult call() throws Exception {
+                DeleteRelationalDatabaseSnapshotResult result = null;
+
+                try {
+                    result = executeDeleteRelationalDatabaseSnapshot(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DetachDiskResult> detachDiskAsync(DetachDiskRequest request) {
+
+        return detachDiskAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DetachDiskResult> detachDiskAsync(final DetachDiskRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DetachDiskRequest, DetachDiskResult> asyncHandler) {
+        final DetachDiskRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DetachDiskResult>() {
+            @Override
+            public DetachDiskResult call() throws Exception {
+                DetachDiskResult result = null;
+
+                try {
+                    result = executeDetachDisk(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DetachInstancesFromLoadBalancerResult> detachInstancesFromLoadBalancerAsync(
+            DetachInstancesFromLoadBalancerRequest request) {
+
+        return detachInstancesFromLoadBalancerAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DetachInstancesFromLoadBalancerResult> detachInstancesFromLoadBalancerAsync(
+            final DetachInstancesFromLoadBalancerRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DetachInstancesFromLoadBalancerRequest, DetachInstancesFromLoadBalancerResult> asyncHandler) {
+        final DetachInstancesFromLoadBalancerRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DetachInstancesFromLoadBalancerResult>() {
+            @Override
+            public DetachInstancesFromLoadBalancerResult call() throws Exception {
+                DetachInstancesFromLoadBalancerResult result = null;
+
+                try {
+                    result = executeDetachInstancesFromLoadBalancer(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DetachStaticIpResult> detachStaticIpAsync(DetachStaticIpRequest request) {
 
         return detachStaticIpAsync(request, null);
@@ -770,6 +1478,39 @@ public class AmazonLightsailAsyncClient extends AmazonLightsailClient implements
 
                 try {
                     result = executeDownloadDefaultKeyPair(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ExportSnapshotResult> exportSnapshotAsync(ExportSnapshotRequest request) {
+
+        return exportSnapshotAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ExportSnapshotResult> exportSnapshotAsync(final ExportSnapshotRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ExportSnapshotRequest, ExportSnapshotResult> asyncHandler) {
+        final ExportSnapshotRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ExportSnapshotResult>() {
+            @Override
+            public ExportSnapshotResult call() throws Exception {
+                ExportSnapshotResult result = null;
+
+                try {
+                    result = executeExportSnapshot(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -885,6 +1626,172 @@ public class AmazonLightsailAsyncClient extends AmazonLightsailClient implements
     }
 
     @Override
+    public java.util.concurrent.Future<GetCloudFormationStackRecordsResult> getCloudFormationStackRecordsAsync(GetCloudFormationStackRecordsRequest request) {
+
+        return getCloudFormationStackRecordsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetCloudFormationStackRecordsResult> getCloudFormationStackRecordsAsync(
+            final GetCloudFormationStackRecordsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetCloudFormationStackRecordsRequest, GetCloudFormationStackRecordsResult> asyncHandler) {
+        final GetCloudFormationStackRecordsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetCloudFormationStackRecordsResult>() {
+            @Override
+            public GetCloudFormationStackRecordsResult call() throws Exception {
+                GetCloudFormationStackRecordsResult result = null;
+
+                try {
+                    result = executeGetCloudFormationStackRecords(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetDiskResult> getDiskAsync(GetDiskRequest request) {
+
+        return getDiskAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetDiskResult> getDiskAsync(final GetDiskRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetDiskRequest, GetDiskResult> asyncHandler) {
+        final GetDiskRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetDiskResult>() {
+            @Override
+            public GetDiskResult call() throws Exception {
+                GetDiskResult result = null;
+
+                try {
+                    result = executeGetDisk(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetDiskSnapshotResult> getDiskSnapshotAsync(GetDiskSnapshotRequest request) {
+
+        return getDiskSnapshotAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetDiskSnapshotResult> getDiskSnapshotAsync(final GetDiskSnapshotRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetDiskSnapshotRequest, GetDiskSnapshotResult> asyncHandler) {
+        final GetDiskSnapshotRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetDiskSnapshotResult>() {
+            @Override
+            public GetDiskSnapshotResult call() throws Exception {
+                GetDiskSnapshotResult result = null;
+
+                try {
+                    result = executeGetDiskSnapshot(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetDiskSnapshotsResult> getDiskSnapshotsAsync(GetDiskSnapshotsRequest request) {
+
+        return getDiskSnapshotsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetDiskSnapshotsResult> getDiskSnapshotsAsync(final GetDiskSnapshotsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetDiskSnapshotsRequest, GetDiskSnapshotsResult> asyncHandler) {
+        final GetDiskSnapshotsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetDiskSnapshotsResult>() {
+            @Override
+            public GetDiskSnapshotsResult call() throws Exception {
+                GetDiskSnapshotsResult result = null;
+
+                try {
+                    result = executeGetDiskSnapshots(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetDisksResult> getDisksAsync(GetDisksRequest request) {
+
+        return getDisksAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetDisksResult> getDisksAsync(final GetDisksRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetDisksRequest, GetDisksResult> asyncHandler) {
+        final GetDisksRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetDisksResult>() {
+            @Override
+            public GetDisksResult call() throws Exception {
+                GetDisksResult result = null;
+
+                try {
+                    result = executeGetDisks(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<GetDomainResult> getDomainAsync(GetDomainRequest request) {
 
         return getDomainAsync(request, null);
@@ -935,6 +1842,39 @@ public class AmazonLightsailAsyncClient extends AmazonLightsailClient implements
 
                 try {
                     result = executeGetDomains(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetExportSnapshotRecordsResult> getExportSnapshotRecordsAsync(GetExportSnapshotRecordsRequest request) {
+
+        return getExportSnapshotRecordsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetExportSnapshotRecordsResult> getExportSnapshotRecordsAsync(final GetExportSnapshotRecordsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetExportSnapshotRecordsRequest, GetExportSnapshotRecordsResult> asyncHandler) {
+        final GetExportSnapshotRecordsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetExportSnapshotRecordsResult>() {
+            @Override
+            public GetExportSnapshotRecordsResult call() throws Exception {
+                GetExportSnapshotRecordsResult result = null;
+
+                try {
+                    result = executeGetExportSnapshotRecords(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1281,6 +2221,139 @@ public class AmazonLightsailAsyncClient extends AmazonLightsailClient implements
     }
 
     @Override
+    public java.util.concurrent.Future<GetLoadBalancerResult> getLoadBalancerAsync(GetLoadBalancerRequest request) {
+
+        return getLoadBalancerAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetLoadBalancerResult> getLoadBalancerAsync(final GetLoadBalancerRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetLoadBalancerRequest, GetLoadBalancerResult> asyncHandler) {
+        final GetLoadBalancerRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetLoadBalancerResult>() {
+            @Override
+            public GetLoadBalancerResult call() throws Exception {
+                GetLoadBalancerResult result = null;
+
+                try {
+                    result = executeGetLoadBalancer(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetLoadBalancerMetricDataResult> getLoadBalancerMetricDataAsync(GetLoadBalancerMetricDataRequest request) {
+
+        return getLoadBalancerMetricDataAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetLoadBalancerMetricDataResult> getLoadBalancerMetricDataAsync(final GetLoadBalancerMetricDataRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetLoadBalancerMetricDataRequest, GetLoadBalancerMetricDataResult> asyncHandler) {
+        final GetLoadBalancerMetricDataRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetLoadBalancerMetricDataResult>() {
+            @Override
+            public GetLoadBalancerMetricDataResult call() throws Exception {
+                GetLoadBalancerMetricDataResult result = null;
+
+                try {
+                    result = executeGetLoadBalancerMetricData(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetLoadBalancerTlsCertificatesResult> getLoadBalancerTlsCertificatesAsync(GetLoadBalancerTlsCertificatesRequest request) {
+
+        return getLoadBalancerTlsCertificatesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetLoadBalancerTlsCertificatesResult> getLoadBalancerTlsCertificatesAsync(
+            final GetLoadBalancerTlsCertificatesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetLoadBalancerTlsCertificatesRequest, GetLoadBalancerTlsCertificatesResult> asyncHandler) {
+        final GetLoadBalancerTlsCertificatesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetLoadBalancerTlsCertificatesResult>() {
+            @Override
+            public GetLoadBalancerTlsCertificatesResult call() throws Exception {
+                GetLoadBalancerTlsCertificatesResult result = null;
+
+                try {
+                    result = executeGetLoadBalancerTlsCertificates(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetLoadBalancersResult> getLoadBalancersAsync(GetLoadBalancersRequest request) {
+
+        return getLoadBalancersAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetLoadBalancersResult> getLoadBalancersAsync(final GetLoadBalancersRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetLoadBalancersRequest, GetLoadBalancersResult> asyncHandler) {
+        final GetLoadBalancersRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetLoadBalancersResult>() {
+            @Override
+            public GetLoadBalancersResult call() throws Exception {
+                GetLoadBalancersResult result = null;
+
+                try {
+                    result = executeGetLoadBalancers(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<GetOperationResult> getOperationAsync(GetOperationRequest request) {
 
         return getOperationAsync(request, null);
@@ -1397,6 +2470,415 @@ public class AmazonLightsailAsyncClient extends AmazonLightsailClient implements
 
                 try {
                     result = executeGetRegions(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRelationalDatabaseResult> getRelationalDatabaseAsync(GetRelationalDatabaseRequest request) {
+
+        return getRelationalDatabaseAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRelationalDatabaseResult> getRelationalDatabaseAsync(final GetRelationalDatabaseRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetRelationalDatabaseRequest, GetRelationalDatabaseResult> asyncHandler) {
+        final GetRelationalDatabaseRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetRelationalDatabaseResult>() {
+            @Override
+            public GetRelationalDatabaseResult call() throws Exception {
+                GetRelationalDatabaseResult result = null;
+
+                try {
+                    result = executeGetRelationalDatabase(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRelationalDatabaseBlueprintsResult> getRelationalDatabaseBlueprintsAsync(
+            GetRelationalDatabaseBlueprintsRequest request) {
+
+        return getRelationalDatabaseBlueprintsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRelationalDatabaseBlueprintsResult> getRelationalDatabaseBlueprintsAsync(
+            final GetRelationalDatabaseBlueprintsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetRelationalDatabaseBlueprintsRequest, GetRelationalDatabaseBlueprintsResult> asyncHandler) {
+        final GetRelationalDatabaseBlueprintsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetRelationalDatabaseBlueprintsResult>() {
+            @Override
+            public GetRelationalDatabaseBlueprintsResult call() throws Exception {
+                GetRelationalDatabaseBlueprintsResult result = null;
+
+                try {
+                    result = executeGetRelationalDatabaseBlueprints(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRelationalDatabaseBundlesResult> getRelationalDatabaseBundlesAsync(GetRelationalDatabaseBundlesRequest request) {
+
+        return getRelationalDatabaseBundlesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRelationalDatabaseBundlesResult> getRelationalDatabaseBundlesAsync(final GetRelationalDatabaseBundlesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetRelationalDatabaseBundlesRequest, GetRelationalDatabaseBundlesResult> asyncHandler) {
+        final GetRelationalDatabaseBundlesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetRelationalDatabaseBundlesResult>() {
+            @Override
+            public GetRelationalDatabaseBundlesResult call() throws Exception {
+                GetRelationalDatabaseBundlesResult result = null;
+
+                try {
+                    result = executeGetRelationalDatabaseBundles(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRelationalDatabaseEventsResult> getRelationalDatabaseEventsAsync(GetRelationalDatabaseEventsRequest request) {
+
+        return getRelationalDatabaseEventsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRelationalDatabaseEventsResult> getRelationalDatabaseEventsAsync(final GetRelationalDatabaseEventsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetRelationalDatabaseEventsRequest, GetRelationalDatabaseEventsResult> asyncHandler) {
+        final GetRelationalDatabaseEventsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetRelationalDatabaseEventsResult>() {
+            @Override
+            public GetRelationalDatabaseEventsResult call() throws Exception {
+                GetRelationalDatabaseEventsResult result = null;
+
+                try {
+                    result = executeGetRelationalDatabaseEvents(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRelationalDatabaseLogEventsResult> getRelationalDatabaseLogEventsAsync(GetRelationalDatabaseLogEventsRequest request) {
+
+        return getRelationalDatabaseLogEventsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRelationalDatabaseLogEventsResult> getRelationalDatabaseLogEventsAsync(
+            final GetRelationalDatabaseLogEventsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetRelationalDatabaseLogEventsRequest, GetRelationalDatabaseLogEventsResult> asyncHandler) {
+        final GetRelationalDatabaseLogEventsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetRelationalDatabaseLogEventsResult>() {
+            @Override
+            public GetRelationalDatabaseLogEventsResult call() throws Exception {
+                GetRelationalDatabaseLogEventsResult result = null;
+
+                try {
+                    result = executeGetRelationalDatabaseLogEvents(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRelationalDatabaseLogStreamsResult> getRelationalDatabaseLogStreamsAsync(
+            GetRelationalDatabaseLogStreamsRequest request) {
+
+        return getRelationalDatabaseLogStreamsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRelationalDatabaseLogStreamsResult> getRelationalDatabaseLogStreamsAsync(
+            final GetRelationalDatabaseLogStreamsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetRelationalDatabaseLogStreamsRequest, GetRelationalDatabaseLogStreamsResult> asyncHandler) {
+        final GetRelationalDatabaseLogStreamsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetRelationalDatabaseLogStreamsResult>() {
+            @Override
+            public GetRelationalDatabaseLogStreamsResult call() throws Exception {
+                GetRelationalDatabaseLogStreamsResult result = null;
+
+                try {
+                    result = executeGetRelationalDatabaseLogStreams(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRelationalDatabaseMasterUserPasswordResult> getRelationalDatabaseMasterUserPasswordAsync(
+            GetRelationalDatabaseMasterUserPasswordRequest request) {
+
+        return getRelationalDatabaseMasterUserPasswordAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRelationalDatabaseMasterUserPasswordResult> getRelationalDatabaseMasterUserPasswordAsync(
+            final GetRelationalDatabaseMasterUserPasswordRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetRelationalDatabaseMasterUserPasswordRequest, GetRelationalDatabaseMasterUserPasswordResult> asyncHandler) {
+        final GetRelationalDatabaseMasterUserPasswordRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetRelationalDatabaseMasterUserPasswordResult>() {
+            @Override
+            public GetRelationalDatabaseMasterUserPasswordResult call() throws Exception {
+                GetRelationalDatabaseMasterUserPasswordResult result = null;
+
+                try {
+                    result = executeGetRelationalDatabaseMasterUserPassword(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRelationalDatabaseMetricDataResult> getRelationalDatabaseMetricDataAsync(
+            GetRelationalDatabaseMetricDataRequest request) {
+
+        return getRelationalDatabaseMetricDataAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRelationalDatabaseMetricDataResult> getRelationalDatabaseMetricDataAsync(
+            final GetRelationalDatabaseMetricDataRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetRelationalDatabaseMetricDataRequest, GetRelationalDatabaseMetricDataResult> asyncHandler) {
+        final GetRelationalDatabaseMetricDataRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetRelationalDatabaseMetricDataResult>() {
+            @Override
+            public GetRelationalDatabaseMetricDataResult call() throws Exception {
+                GetRelationalDatabaseMetricDataResult result = null;
+
+                try {
+                    result = executeGetRelationalDatabaseMetricData(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRelationalDatabaseParametersResult> getRelationalDatabaseParametersAsync(
+            GetRelationalDatabaseParametersRequest request) {
+
+        return getRelationalDatabaseParametersAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRelationalDatabaseParametersResult> getRelationalDatabaseParametersAsync(
+            final GetRelationalDatabaseParametersRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetRelationalDatabaseParametersRequest, GetRelationalDatabaseParametersResult> asyncHandler) {
+        final GetRelationalDatabaseParametersRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetRelationalDatabaseParametersResult>() {
+            @Override
+            public GetRelationalDatabaseParametersResult call() throws Exception {
+                GetRelationalDatabaseParametersResult result = null;
+
+                try {
+                    result = executeGetRelationalDatabaseParameters(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRelationalDatabaseSnapshotResult> getRelationalDatabaseSnapshotAsync(GetRelationalDatabaseSnapshotRequest request) {
+
+        return getRelationalDatabaseSnapshotAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRelationalDatabaseSnapshotResult> getRelationalDatabaseSnapshotAsync(
+            final GetRelationalDatabaseSnapshotRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetRelationalDatabaseSnapshotRequest, GetRelationalDatabaseSnapshotResult> asyncHandler) {
+        final GetRelationalDatabaseSnapshotRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetRelationalDatabaseSnapshotResult>() {
+            @Override
+            public GetRelationalDatabaseSnapshotResult call() throws Exception {
+                GetRelationalDatabaseSnapshotResult result = null;
+
+                try {
+                    result = executeGetRelationalDatabaseSnapshot(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRelationalDatabaseSnapshotsResult> getRelationalDatabaseSnapshotsAsync(GetRelationalDatabaseSnapshotsRequest request) {
+
+        return getRelationalDatabaseSnapshotsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRelationalDatabaseSnapshotsResult> getRelationalDatabaseSnapshotsAsync(
+            final GetRelationalDatabaseSnapshotsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetRelationalDatabaseSnapshotsRequest, GetRelationalDatabaseSnapshotsResult> asyncHandler) {
+        final GetRelationalDatabaseSnapshotsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetRelationalDatabaseSnapshotsResult>() {
+            @Override
+            public GetRelationalDatabaseSnapshotsResult call() throws Exception {
+                GetRelationalDatabaseSnapshotsResult result = null;
+
+                try {
+                    result = executeGetRelationalDatabaseSnapshots(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRelationalDatabasesResult> getRelationalDatabasesAsync(GetRelationalDatabasesRequest request) {
+
+        return getRelationalDatabasesAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRelationalDatabasesResult> getRelationalDatabasesAsync(final GetRelationalDatabasesRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetRelationalDatabasesRequest, GetRelationalDatabasesResult> asyncHandler) {
+        final GetRelationalDatabasesRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetRelationalDatabasesResult>() {
+            @Override
+            public GetRelationalDatabasesResult call() throws Exception {
+                GetRelationalDatabasesResult result = null;
+
+                try {
+                    result = executeGetRelationalDatabases(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1677,6 +3159,39 @@ public class AmazonLightsailAsyncClient extends AmazonLightsailClient implements
     }
 
     @Override
+    public java.util.concurrent.Future<RebootRelationalDatabaseResult> rebootRelationalDatabaseAsync(RebootRelationalDatabaseRequest request) {
+
+        return rebootRelationalDatabaseAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<RebootRelationalDatabaseResult> rebootRelationalDatabaseAsync(final RebootRelationalDatabaseRequest request,
+            final com.amazonaws.handlers.AsyncHandler<RebootRelationalDatabaseRequest, RebootRelationalDatabaseResult> asyncHandler) {
+        final RebootRelationalDatabaseRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<RebootRelationalDatabaseResult>() {
+            @Override
+            public RebootRelationalDatabaseResult call() throws Exception {
+                RebootRelationalDatabaseResult result = null;
+
+                try {
+                    result = executeRebootRelationalDatabase(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ReleaseStaticIpResult> releaseStaticIpAsync(ReleaseStaticIpRequest request) {
 
         return releaseStaticIpAsync(request, null);
@@ -1743,6 +3258,39 @@ public class AmazonLightsailAsyncClient extends AmazonLightsailClient implements
     }
 
     @Override
+    public java.util.concurrent.Future<StartRelationalDatabaseResult> startRelationalDatabaseAsync(StartRelationalDatabaseRequest request) {
+
+        return startRelationalDatabaseAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StartRelationalDatabaseResult> startRelationalDatabaseAsync(final StartRelationalDatabaseRequest request,
+            final com.amazonaws.handlers.AsyncHandler<StartRelationalDatabaseRequest, StartRelationalDatabaseResult> asyncHandler) {
+        final StartRelationalDatabaseRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<StartRelationalDatabaseResult>() {
+            @Override
+            public StartRelationalDatabaseResult call() throws Exception {
+                StartRelationalDatabaseResult result = null;
+
+                try {
+                    result = executeStartRelationalDatabase(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<StopInstanceResult> stopInstanceAsync(StopInstanceRequest request) {
 
         return stopInstanceAsync(request, null);
@@ -1760,6 +3308,72 @@ public class AmazonLightsailAsyncClient extends AmazonLightsailClient implements
 
                 try {
                     result = executeStopInstance(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopRelationalDatabaseResult> stopRelationalDatabaseAsync(StopRelationalDatabaseRequest request) {
+
+        return stopRelationalDatabaseAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<StopRelationalDatabaseResult> stopRelationalDatabaseAsync(final StopRelationalDatabaseRequest request,
+            final com.amazonaws.handlers.AsyncHandler<StopRelationalDatabaseRequest, StopRelationalDatabaseResult> asyncHandler) {
+        final StopRelationalDatabaseRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<StopRelationalDatabaseResult>() {
+            @Override
+            public StopRelationalDatabaseResult call() throws Exception {
+                StopRelationalDatabaseResult result = null;
+
+                try {
+                    result = executeStopRelationalDatabase(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(TagResourceRequest request) {
+
+        return tagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<TagResourceResult> tagResourceAsync(final TagResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<TagResourceRequest, TagResourceResult> asyncHandler) {
+        final TagResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<TagResourceResult>() {
+            @Override
+            public TagResourceResult call() throws Exception {
+                TagResourceResult result = null;
+
+                try {
+                    result = executeTagResource(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1809,6 +3423,39 @@ public class AmazonLightsailAsyncClient extends AmazonLightsailClient implements
     }
 
     @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest request) {
+
+        return untagResourceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(final UntagResourceRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UntagResourceRequest, UntagResourceResult> asyncHandler) {
+        final UntagResourceRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UntagResourceResult>() {
+            @Override
+            public UntagResourceResult call() throws Exception {
+                UntagResourceResult result = null;
+
+                try {
+                    result = executeUntagResource(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<UpdateDomainEntryResult> updateDomainEntryAsync(UpdateDomainEntryRequest request) {
 
         return updateDomainEntryAsync(request, null);
@@ -1826,6 +3473,107 @@ public class AmazonLightsailAsyncClient extends AmazonLightsailClient implements
 
                 try {
                     result = executeUpdateDomainEntry(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateLoadBalancerAttributeResult> updateLoadBalancerAttributeAsync(UpdateLoadBalancerAttributeRequest request) {
+
+        return updateLoadBalancerAttributeAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateLoadBalancerAttributeResult> updateLoadBalancerAttributeAsync(final UpdateLoadBalancerAttributeRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateLoadBalancerAttributeRequest, UpdateLoadBalancerAttributeResult> asyncHandler) {
+        final UpdateLoadBalancerAttributeRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateLoadBalancerAttributeResult>() {
+            @Override
+            public UpdateLoadBalancerAttributeResult call() throws Exception {
+                UpdateLoadBalancerAttributeResult result = null;
+
+                try {
+                    result = executeUpdateLoadBalancerAttribute(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateRelationalDatabaseResult> updateRelationalDatabaseAsync(UpdateRelationalDatabaseRequest request) {
+
+        return updateRelationalDatabaseAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateRelationalDatabaseResult> updateRelationalDatabaseAsync(final UpdateRelationalDatabaseRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateRelationalDatabaseRequest, UpdateRelationalDatabaseResult> asyncHandler) {
+        final UpdateRelationalDatabaseRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateRelationalDatabaseResult>() {
+            @Override
+            public UpdateRelationalDatabaseResult call() throws Exception {
+                UpdateRelationalDatabaseResult result = null;
+
+                try {
+                    result = executeUpdateRelationalDatabase(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateRelationalDatabaseParametersResult> updateRelationalDatabaseParametersAsync(
+            UpdateRelationalDatabaseParametersRequest request) {
+
+        return updateRelationalDatabaseParametersAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateRelationalDatabaseParametersResult> updateRelationalDatabaseParametersAsync(
+            final UpdateRelationalDatabaseParametersRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateRelationalDatabaseParametersRequest, UpdateRelationalDatabaseParametersResult> asyncHandler) {
+        final UpdateRelationalDatabaseParametersRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateRelationalDatabaseParametersResult>() {
+            @Override
+            public UpdateRelationalDatabaseParametersResult call() throws Exception {
+                UpdateRelationalDatabaseParametersResult result = null;
+
+                try {
+                    result = executeUpdateRelationalDatabaseParameters(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

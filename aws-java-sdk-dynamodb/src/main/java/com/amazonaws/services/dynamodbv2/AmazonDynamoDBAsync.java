@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -310,6 +310,12 @@ public interface AmazonDynamoDBAsync extends AmazonDynamoDB {
      * </li>
      * <li>
      * <p>
+     * Your request contains at least two items with identical hash and range keys (which essentially is two put
+     * operations).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * There are more than 25 requests in the batch.
      * </p>
      * </li>
@@ -416,6 +422,12 @@ public interface AmazonDynamoDBAsync extends AmazonDynamoDB {
      * </li>
      * <li>
      * <p>
+     * Your request contains at least two items with identical hash and range keys (which essentially is two put
+     * operations).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
      * There are more than 25 requests in the batch.
      * </p>
      * </li>
@@ -459,6 +471,266 @@ public interface AmazonDynamoDBAsync extends AmazonDynamoDB {
      */
     java.util.concurrent.Future<BatchWriteItemResult> batchWriteItemAsync(java.util.Map<String, java.util.List<WriteRequest>> requestItems,
             com.amazonaws.handlers.AsyncHandler<BatchWriteItemRequest, BatchWriteItemResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a backup for an existing table.
+     * </p>
+     * <p>
+     * Each time you create an On-Demand Backup, the entire table data is backed up. There is no limit to the number of
+     * on-demand backups that can be taken.
+     * </p>
+     * <p>
+     * When you create an On-Demand Backup, a time marker of the request is cataloged, and the backup is created
+     * asynchronously, by applying all changes until the time of the request to the last full table snapshot. Backup
+     * requests are processed instantaneously and become available for restore within minutes.
+     * </p>
+     * <p>
+     * You can call <code>CreateBackup</code> at a maximum rate of 50 times per second.
+     * </p>
+     * <p>
+     * All backups in DynamoDB work without consuming any provisioned throughput on the table.
+     * </p>
+     * <p>
+     * If you submit a backup request on 2018-12-14 at 14:25:00, the backup is guaranteed to contain all data committed
+     * to the table up to 14:24:00, and data committed after 14:26:00 will not be. The backup may or may not contain
+     * data modifications made between 14:24:00 and 14:26:00. On-Demand Backup does not support causal consistency.
+     * </p>
+     * <p>
+     * Along with data, the following are also included on the backups:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Global secondary indexes (GSIs)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Local secondary indexes (LSIs)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Streams
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Provisioned read and write capacity
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param createBackupRequest
+     * @return A Java Future containing the result of the CreateBackup operation returned by the service.
+     * @sample AmazonDynamoDBAsync.CreateBackup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dynamodb-2012-08-10/CreateBackup" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateBackupResult> createBackupAsync(CreateBackupRequest createBackupRequest);
+
+    /**
+     * <p>
+     * Creates a backup for an existing table.
+     * </p>
+     * <p>
+     * Each time you create an On-Demand Backup, the entire table data is backed up. There is no limit to the number of
+     * on-demand backups that can be taken.
+     * </p>
+     * <p>
+     * When you create an On-Demand Backup, a time marker of the request is cataloged, and the backup is created
+     * asynchronously, by applying all changes until the time of the request to the last full table snapshot. Backup
+     * requests are processed instantaneously and become available for restore within minutes.
+     * </p>
+     * <p>
+     * You can call <code>CreateBackup</code> at a maximum rate of 50 times per second.
+     * </p>
+     * <p>
+     * All backups in DynamoDB work without consuming any provisioned throughput on the table.
+     * </p>
+     * <p>
+     * If you submit a backup request on 2018-12-14 at 14:25:00, the backup is guaranteed to contain all data committed
+     * to the table up to 14:24:00, and data committed after 14:26:00 will not be. The backup may or may not contain
+     * data modifications made between 14:24:00 and 14:26:00. On-Demand Backup does not support causal consistency.
+     * </p>
+     * <p>
+     * Along with data, the following are also included on the backups:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Global secondary indexes (GSIs)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Local secondary indexes (LSIs)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Streams
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Provisioned read and write capacity
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param createBackupRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateBackup operation returned by the service.
+     * @sample AmazonDynamoDBAsyncHandler.CreateBackup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dynamodb-2012-08-10/CreateBackup" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateBackupResult> createBackupAsync(CreateBackupRequest createBackupRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateBackupRequest, CreateBackupResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a global table from an existing table. A global table creates a replication relationship between two or
+     * more DynamoDB tables with the same table name in the provided regions.
+     * </p>
+     * <p>
+     * If you want to add a new replica table to a global table, each of the following conditions must be true:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The table must have the same primary key as all of the other replicas.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The table must have the same name as all of the other replicas.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The table must have DynamoDB Streams enabled, with the stream containing both the new and the old images of the
+     * item.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * None of the replica tables in the global table can contain any data.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If global secondary indexes are specified, then the following conditions must also be met:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The global secondary indexes must have the same name.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The global secondary indexes must have the same hash key and sort key (if present).
+     * </p>
+     * </li>
+     * </ul>
+     * <important>
+     * <p>
+     * Write capacity settings should be set consistently across your replica tables and secondary indexes. DynamoDB
+     * strongly recommends enabling auto scaling to manage the write capacity settings for all of your global tables
+     * replicas and indexes.
+     * </p>
+     * <p>
+     * If you prefer to manage write capacity settings manually, you should provision equal replicated write capacity
+     * units to your replica tables. You should also provision equal replicated write capacity units to matching
+     * secondary indexes across your global table.
+     * </p>
+     * </important>
+     * 
+     * @param createGlobalTableRequest
+     * @return A Java Future containing the result of the CreateGlobalTable operation returned by the service.
+     * @sample AmazonDynamoDBAsync.CreateGlobalTable
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dynamodb-2012-08-10/CreateGlobalTable" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateGlobalTableResult> createGlobalTableAsync(CreateGlobalTableRequest createGlobalTableRequest);
+
+    /**
+     * <p>
+     * Creates a global table from an existing table. A global table creates a replication relationship between two or
+     * more DynamoDB tables with the same table name in the provided regions.
+     * </p>
+     * <p>
+     * If you want to add a new replica table to a global table, each of the following conditions must be true:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The table must have the same primary key as all of the other replicas.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The table must have the same name as all of the other replicas.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The table must have DynamoDB Streams enabled, with the stream containing both the new and the old images of the
+     * item.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * None of the replica tables in the global table can contain any data.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * If global secondary indexes are specified, then the following conditions must also be met:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The global secondary indexes must have the same name.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The global secondary indexes must have the same hash key and sort key (if present).
+     * </p>
+     * </li>
+     * </ul>
+     * <important>
+     * <p>
+     * Write capacity settings should be set consistently across your replica tables and secondary indexes. DynamoDB
+     * strongly recommends enabling auto scaling to manage the write capacity settings for all of your global tables
+     * replicas and indexes.
+     * </p>
+     * <p>
+     * If you prefer to manage write capacity settings manually, you should provision equal replicated write capacity
+     * units to your replica tables. You should also provision equal replicated write capacity units to matching
+     * secondary indexes across your global table.
+     * </p>
+     * </important>
+     * 
+     * @param createGlobalTableRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateGlobalTable operation returned by the service.
+     * @sample AmazonDynamoDBAsyncHandler.CreateGlobalTable
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dynamodb-2012-08-10/CreateGlobalTable" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<CreateGlobalTableResult> createGlobalTableAsync(CreateGlobalTableRequest createGlobalTableRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateGlobalTableRequest, CreateGlobalTableResult> asyncHandler);
 
     /**
      * <p>
@@ -541,6 +813,43 @@ public interface AmazonDynamoDBAsync extends AmazonDynamoDB {
     java.util.concurrent.Future<CreateTableResult> createTableAsync(java.util.List<AttributeDefinition> attributeDefinitions, String tableName,
             java.util.List<KeySchemaElement> keySchema, ProvisionedThroughput provisionedThroughput,
             com.amazonaws.handlers.AsyncHandler<CreateTableRequest, CreateTableResult> asyncHandler);
+
+    /**
+     * <p>
+     * Deletes an existing backup of a table.
+     * </p>
+     * <p>
+     * You can call <code>DeleteBackup</code> at a maximum rate of 10 times per second.
+     * </p>
+     * 
+     * @param deleteBackupRequest
+     * @return A Java Future containing the result of the DeleteBackup operation returned by the service.
+     * @sample AmazonDynamoDBAsync.DeleteBackup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dynamodb-2012-08-10/DeleteBackup" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteBackupResult> deleteBackupAsync(DeleteBackupRequest deleteBackupRequest);
+
+    /**
+     * <p>
+     * Deletes an existing backup of a table.
+     * </p>
+     * <p>
+     * You can call <code>DeleteBackup</code> at a maximum rate of 10 times per second.
+     * </p>
+     * 
+     * @param deleteBackupRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DeleteBackup operation returned by the service.
+     * @sample AmazonDynamoDBAsyncHandler.DeleteBackup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dynamodb-2012-08-10/DeleteBackup" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DeleteBackupResult> deleteBackupAsync(DeleteBackupRequest deleteBackupRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteBackupRequest, DeleteBackupResult> asyncHandler);
 
     /**
      * <p>
@@ -720,6 +1029,197 @@ public interface AmazonDynamoDBAsync extends AmazonDynamoDB {
      */
     java.util.concurrent.Future<DeleteTableResult> deleteTableAsync(String tableName,
             com.amazonaws.handlers.AsyncHandler<DeleteTableRequest, DeleteTableResult> asyncHandler);
+
+    /**
+     * <p>
+     * Describes an existing backup of a table.
+     * </p>
+     * <p>
+     * You can call <code>DescribeBackup</code> at a maximum rate of 10 times per second.
+     * </p>
+     * 
+     * @param describeBackupRequest
+     * @return A Java Future containing the result of the DescribeBackup operation returned by the service.
+     * @sample AmazonDynamoDBAsync.DescribeBackup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dynamodb-2012-08-10/DescribeBackup" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeBackupResult> describeBackupAsync(DescribeBackupRequest describeBackupRequest);
+
+    /**
+     * <p>
+     * Describes an existing backup of a table.
+     * </p>
+     * <p>
+     * You can call <code>DescribeBackup</code> at a maximum rate of 10 times per second.
+     * </p>
+     * 
+     * @param describeBackupRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeBackup operation returned by the service.
+     * @sample AmazonDynamoDBAsyncHandler.DescribeBackup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dynamodb-2012-08-10/DescribeBackup" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeBackupResult> describeBackupAsync(DescribeBackupRequest describeBackupRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeBackupRequest, DescribeBackupResult> asyncHandler);
+
+    /**
+     * <p>
+     * Checks the status of continuous backups and point in time recovery on the specified table. Continuous backups are
+     * <code>ENABLED</code> on all tables at table creation. If point in time recovery is enabled,
+     * <code>PointInTimeRecoveryStatus</code> will be set to ENABLED.
+     * </p>
+     * <p>
+     * Once continuous backups and point in time recovery are enabled, you can restore to any point in time within
+     * <code>EarliestRestorableDateTime</code> and <code>LatestRestorableDateTime</code>.
+     * </p>
+     * <p>
+     * <code>LatestRestorableDateTime</code> is typically 5 minutes before the current time. You can restore your table
+     * to any point in time during the last 35 days.
+     * </p>
+     * <p>
+     * You can call <code>DescribeContinuousBackups</code> at a maximum rate of 10 times per second.
+     * </p>
+     * 
+     * @param describeContinuousBackupsRequest
+     * @return A Java Future containing the result of the DescribeContinuousBackups operation returned by the service.
+     * @sample AmazonDynamoDBAsync.DescribeContinuousBackups
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dynamodb-2012-08-10/DescribeContinuousBackups"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeContinuousBackupsResult> describeContinuousBackupsAsync(
+            DescribeContinuousBackupsRequest describeContinuousBackupsRequest);
+
+    /**
+     * <p>
+     * Checks the status of continuous backups and point in time recovery on the specified table. Continuous backups are
+     * <code>ENABLED</code> on all tables at table creation. If point in time recovery is enabled,
+     * <code>PointInTimeRecoveryStatus</code> will be set to ENABLED.
+     * </p>
+     * <p>
+     * Once continuous backups and point in time recovery are enabled, you can restore to any point in time within
+     * <code>EarliestRestorableDateTime</code> and <code>LatestRestorableDateTime</code>.
+     * </p>
+     * <p>
+     * <code>LatestRestorableDateTime</code> is typically 5 minutes before the current time. You can restore your table
+     * to any point in time during the last 35 days.
+     * </p>
+     * <p>
+     * You can call <code>DescribeContinuousBackups</code> at a maximum rate of 10 times per second.
+     * </p>
+     * 
+     * @param describeContinuousBackupsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeContinuousBackups operation returned by the service.
+     * @sample AmazonDynamoDBAsyncHandler.DescribeContinuousBackups
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dynamodb-2012-08-10/DescribeContinuousBackups"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeContinuousBackupsResult> describeContinuousBackupsAsync(
+            DescribeContinuousBackupsRequest describeContinuousBackupsRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeContinuousBackupsRequest, DescribeContinuousBackupsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns the regional endpoint information.
+     * </p>
+     * 
+     * @param describeEndpointsRequest
+     * @return A Java Future containing the result of the DescribeEndpoints operation returned by the service.
+     * @sample AmazonDynamoDBAsync.DescribeEndpoints
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dynamodb-2012-08-10/DescribeEndpoints" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeEndpointsResult> describeEndpointsAsync(DescribeEndpointsRequest describeEndpointsRequest);
+
+    /**
+     * <p>
+     * Returns the regional endpoint information.
+     * </p>
+     * 
+     * @param describeEndpointsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeEndpoints operation returned by the service.
+     * @sample AmazonDynamoDBAsyncHandler.DescribeEndpoints
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dynamodb-2012-08-10/DescribeEndpoints" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeEndpointsResult> describeEndpointsAsync(DescribeEndpointsRequest describeEndpointsRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeEndpointsRequest, DescribeEndpointsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns information about the specified global table.
+     * </p>
+     * 
+     * @param describeGlobalTableRequest
+     * @return A Java Future containing the result of the DescribeGlobalTable operation returned by the service.
+     * @sample AmazonDynamoDBAsync.DescribeGlobalTable
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dynamodb-2012-08-10/DescribeGlobalTable" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeGlobalTableResult> describeGlobalTableAsync(DescribeGlobalTableRequest describeGlobalTableRequest);
+
+    /**
+     * <p>
+     * Returns information about the specified global table.
+     * </p>
+     * 
+     * @param describeGlobalTableRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeGlobalTable operation returned by the service.
+     * @sample AmazonDynamoDBAsyncHandler.DescribeGlobalTable
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dynamodb-2012-08-10/DescribeGlobalTable" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeGlobalTableResult> describeGlobalTableAsync(DescribeGlobalTableRequest describeGlobalTableRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeGlobalTableRequest, DescribeGlobalTableResult> asyncHandler);
+
+    /**
+     * <p>
+     * Describes region specific settings for a global table.
+     * </p>
+     * 
+     * @param describeGlobalTableSettingsRequest
+     * @return A Java Future containing the result of the DescribeGlobalTableSettings operation returned by the service.
+     * @sample AmazonDynamoDBAsync.DescribeGlobalTableSettings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dynamodb-2012-08-10/DescribeGlobalTableSettings"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeGlobalTableSettingsResult> describeGlobalTableSettingsAsync(
+            DescribeGlobalTableSettingsRequest describeGlobalTableSettingsRequest);
+
+    /**
+     * <p>
+     * Describes region specific settings for a global table.
+     * </p>
+     * 
+     * @param describeGlobalTableSettingsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeGlobalTableSettings operation returned by the service.
+     * @sample AmazonDynamoDBAsyncHandler.DescribeGlobalTableSettings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dynamodb-2012-08-10/DescribeGlobalTableSettings"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<DescribeGlobalTableSettingsResult> describeGlobalTableSettingsAsync(
+            DescribeGlobalTableSettingsRequest describeGlobalTableSettingsRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeGlobalTableSettingsRequest, DescribeGlobalTableSettingsResult> asyncHandler);
 
     /**
      * <p>
@@ -1106,6 +1606,86 @@ public interface AmazonDynamoDBAsync extends AmazonDynamoDB {
 
     /**
      * <p>
+     * List backups associated with an AWS account. To list backups for a given table, specify <code>TableName</code>.
+     * <code>ListBackups</code> returns a paginated list of results with at most 1MB worth of items in a page. You can
+     * also specify a limit for the maximum number of entries to be returned in a page.
+     * </p>
+     * <p>
+     * In the request, start time is inclusive but end time is exclusive. Note that these limits are for the time at
+     * which the original backup was requested.
+     * </p>
+     * <p>
+     * You can call <code>ListBackups</code> a maximum of 5 times per second.
+     * </p>
+     * 
+     * @param listBackupsRequest
+     * @return A Java Future containing the result of the ListBackups operation returned by the service.
+     * @sample AmazonDynamoDBAsync.ListBackups
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dynamodb-2012-08-10/ListBackups" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListBackupsResult> listBackupsAsync(ListBackupsRequest listBackupsRequest);
+
+    /**
+     * <p>
+     * List backups associated with an AWS account. To list backups for a given table, specify <code>TableName</code>.
+     * <code>ListBackups</code> returns a paginated list of results with at most 1MB worth of items in a page. You can
+     * also specify a limit for the maximum number of entries to be returned in a page.
+     * </p>
+     * <p>
+     * In the request, start time is inclusive but end time is exclusive. Note that these limits are for the time at
+     * which the original backup was requested.
+     * </p>
+     * <p>
+     * You can call <code>ListBackups</code> a maximum of 5 times per second.
+     * </p>
+     * 
+     * @param listBackupsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListBackups operation returned by the service.
+     * @sample AmazonDynamoDBAsyncHandler.ListBackups
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dynamodb-2012-08-10/ListBackups" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListBackupsResult> listBackupsAsync(ListBackupsRequest listBackupsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListBackupsRequest, ListBackupsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Lists all global tables that have a replica in the specified region.
+     * </p>
+     * 
+     * @param listGlobalTablesRequest
+     * @return A Java Future containing the result of the ListGlobalTables operation returned by the service.
+     * @sample AmazonDynamoDBAsync.ListGlobalTables
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dynamodb-2012-08-10/ListGlobalTables" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListGlobalTablesResult> listGlobalTablesAsync(ListGlobalTablesRequest listGlobalTablesRequest);
+
+    /**
+     * <p>
+     * Lists all global tables that have a replica in the specified region.
+     * </p>
+     * 
+     * @param listGlobalTablesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListGlobalTables operation returned by the service.
+     * @sample AmazonDynamoDBAsyncHandler.ListGlobalTables
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dynamodb-2012-08-10/ListGlobalTables" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<ListGlobalTablesResult> listGlobalTablesAsync(ListGlobalTablesRequest listGlobalTablesRequest,
+            com.amazonaws.handlers.AsyncHandler<ListGlobalTablesRequest, ListGlobalTablesResult> asyncHandler);
+
+    /**
+     * <p>
      * Returns an array of table names associated with the current account and endpoint. The output from
      * <code>ListTables</code> is paginated, with each page returning a maximum of 100 table names.
      * </p>
@@ -1246,12 +1826,74 @@ public interface AmazonDynamoDBAsync extends AmazonDynamoDB {
      * Creates a new item, or replaces an old item with a new item. If an item that has the same primary key as the new
      * item already exists in the specified table, the new item completely replaces the existing item. You can perform a
      * conditional put operation (add a new item if one with the specified primary key doesn't exist), or replace an
-     * existing item if it has certain attribute values.
+     * existing item if it has certain attribute values. You can return the item's attribute values in the same
+     * operation, using the <code>ReturnValues</code> parameter.
+     * </p>
+     * <important>
+     * <p>
+     * This topic provides general information about the <code>PutItem</code> API.
      * </p>
      * <p>
-     * In addition to putting an item, you can also return the item's attribute values in the same operation, using the
-     * <code>ReturnValues</code> parameter.
+     * For information on how to call the <code>PutItem</code> API using the AWS SDK in specific languages, see the
+     * following:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a href="http://docs.aws.amazon.com/goto/aws-cli/dynamodb-2012-08-10/PutItem"> PutItem in the AWS Command Line
+     * Interface </a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="http://docs.aws.amazon.com/goto/DotNetSDKV3/dynamodb-2012-08-10/PutItem"> PutItem in the AWS SDK for
+     * .NET </a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="http://docs.aws.amazon.com/goto/SdkForCpp/dynamodb-2012-08-10/PutItem"> PutItem in the AWS SDK for C++
+     * </a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="http://docs.aws.amazon.com/goto/SdkForGoV1/dynamodb-2012-08-10/PutItem"> PutItem in the AWS SDK for Go
+     * </a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="http://docs.aws.amazon.com/goto/SdkForJava/dynamodb-2012-08-10/PutItem"> PutItem in the AWS SDK for Java
+     * </a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="http://docs.aws.amazon.com/goto/AWSJavaScriptSDK/dynamodb-2012-08-10/PutItem"> PutItem in the AWS SDK
+     * for JavaScript </a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="http://docs.aws.amazon.com/goto/SdkForPHPV3/dynamodb-2012-08-10/PutItem"> PutItem in the AWS SDK for PHP
+     * V3 </a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="http://docs.aws.amazon.com/goto/boto3/dynamodb-2012-08-10/PutItem"> PutItem in the AWS SDK for Python
+     * </a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="http://docs.aws.amazon.com/goto/SdkForRubyV2/dynamodb-2012-08-10/PutItem"> PutItem in the AWS SDK for
+     * Ruby V2 </a>
+     * </p>
+     * </li>
+     * </ul>
+     * </important>
      * <p>
      * When you add an item, the primary key attribute(s) are the only required attributes. Attribute values cannot be
      * null. String and Binary type attributes must have lengths greater than zero. Set type attributes cannot be empty.
@@ -1285,12 +1927,74 @@ public interface AmazonDynamoDBAsync extends AmazonDynamoDB {
      * Creates a new item, or replaces an old item with a new item. If an item that has the same primary key as the new
      * item already exists in the specified table, the new item completely replaces the existing item. You can perform a
      * conditional put operation (add a new item if one with the specified primary key doesn't exist), or replace an
-     * existing item if it has certain attribute values.
+     * existing item if it has certain attribute values. You can return the item's attribute values in the same
+     * operation, using the <code>ReturnValues</code> parameter.
+     * </p>
+     * <important>
+     * <p>
+     * This topic provides general information about the <code>PutItem</code> API.
      * </p>
      * <p>
-     * In addition to putting an item, you can also return the item's attribute values in the same operation, using the
-     * <code>ReturnValues</code> parameter.
+     * For information on how to call the <code>PutItem</code> API using the AWS SDK in specific languages, see the
+     * following:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a href="http://docs.aws.amazon.com/goto/aws-cli/dynamodb-2012-08-10/PutItem"> PutItem in the AWS Command Line
+     * Interface </a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="http://docs.aws.amazon.com/goto/DotNetSDKV3/dynamodb-2012-08-10/PutItem"> PutItem in the AWS SDK for
+     * .NET </a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="http://docs.aws.amazon.com/goto/SdkForCpp/dynamodb-2012-08-10/PutItem"> PutItem in the AWS SDK for C++
+     * </a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="http://docs.aws.amazon.com/goto/SdkForGoV1/dynamodb-2012-08-10/PutItem"> PutItem in the AWS SDK for Go
+     * </a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="http://docs.aws.amazon.com/goto/SdkForJava/dynamodb-2012-08-10/PutItem"> PutItem in the AWS SDK for Java
+     * </a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="http://docs.aws.amazon.com/goto/AWSJavaScriptSDK/dynamodb-2012-08-10/PutItem"> PutItem in the AWS SDK
+     * for JavaScript </a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="http://docs.aws.amazon.com/goto/SdkForPHPV3/dynamodb-2012-08-10/PutItem"> PutItem in the AWS SDK for PHP
+     * V3 </a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="http://docs.aws.amazon.com/goto/boto3/dynamodb-2012-08-10/PutItem"> PutItem in the AWS SDK for Python
+     * </a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href="http://docs.aws.amazon.com/goto/SdkForRubyV2/dynamodb-2012-08-10/PutItem"> PutItem in the AWS SDK for
+     * Ruby V2 </a>
+     * </p>
+     * </li>
+     * </ul>
+     * </important>
      * <p>
      * When you add an item, the primary key attribute(s) are the only required attributes. Attribute values cannot be
      * null. String and Binary type attributes must have lengths greater than zero. Set type attributes cannot be empty.
@@ -1356,28 +2060,55 @@ public interface AmazonDynamoDBAsync extends AmazonDynamoDB {
 
     /**
      * <p>
-     * A <code>Query</code> operation uses the primary key of a table or a secondary index to directly access items from
-     * that table or index.
+     * The <code>Query</code> operation finds items based on primary key values. You can query any table or secondary
+     * index that has a composite primary key (a partition key and a sort key).
      * </p>
      * <p>
      * Use the <code>KeyConditionExpression</code> parameter to provide a specific value for the partition key. The
      * <code>Query</code> operation will return all of the items from the table or index with that partition key value.
      * You can optionally narrow the scope of the <code>Query</code> operation by specifying a sort key value and a
-     * comparison operator in <code>KeyConditionExpression</code>. You can use the <code>ScanIndexForward</code>
-     * parameter to get results in forward or reverse order, by sort key.
+     * comparison operator in <code>KeyConditionExpression</code>. To further refine the <code>Query</code> results, you
+     * can optionally provide a <code>FilterExpression</code>. A <code>FilterExpression</code> determines which items
+     * within the results should be returned to you. All of the other results are discarded.
      * </p>
      * <p>
-     * Queries that do not return results consume the minimum number of read capacity units for that type of read
-     * operation.
+     * A <code>Query</code> operation always returns a result set. If no matching items are found, the result set will
+     * be empty. Queries that do not return results consume the minimum number of read capacity units for that type of
+     * read operation.
+     * </p>
+     * <note>
+     * <p>
+     * DynamoDB calculates the number of read capacity units consumed based on item size, not on the amount of data that
+     * is returned to an application. The number of capacity units consumed will be the same whether you request all of
+     * the attributes (the default behavior) or just some of them (using a projection expression). The number will also
+     * be the same whether or not you use a <code>FilterExpression</code>.
+     * </p>
+     * </note>
+     * <p>
+     * <code>Query</code> results are always sorted by the sort key value. If the data type of the sort key is Number,
+     * the results are returned in numeric order; otherwise, the results are returned in order of UTF-8 bytes. By
+     * default, the sort order is ascending. To reverse the order, set the <code>ScanIndexForward</code> parameter to
+     * false.
      * </p>
      * <p>
-     * If the total number of items meeting the query criteria exceeds the result set size limit of 1 MB, the query
-     * stops and results are returned to the user with the <code>LastEvaluatedKey</code> element to continue the query
-     * in a subsequent operation. Unlike a <code>Scan</code> operation, a <code>Query</code> operation never returns
-     * both an empty result set and a <code>LastEvaluatedKey</code> value. <code>LastEvaluatedKey</code> is only
-     * provided if you have used the <code>Limit</code> parameter, or if the result set exceeds 1 MB (prior to applying
-     * a filter).
+     * A single <code>Query</code> operation will read up to the maximum number of items set (if using the
+     * <code>Limit</code> parameter) or a maximum of 1 MB of data and then apply any filtering to the results using
+     * <code>FilterExpression</code>. If <code>LastEvaluatedKey</code> is present in the response, you will need to
+     * paginate the result set. For more information, see <a
+     * href="http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Query.html#Query.Pagination">Paginating the
+     * Results</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      * </p>
+     * <p>
+     * <code>FilterExpression</code> is applied after a <code>Query</code> finishes, but before the results are
+     * returned. A <code>FilterExpression</code> cannot contain partition key or sort key attributes. You need to
+     * specify those attributes in the <code>KeyConditionExpression</code>.
+     * </p>
+     * <note>
+     * <p>
+     * A <code>Query</code> operation can return an empty result set and a <code>LastEvaluatedKey</code> if all the
+     * items read for the page of results are filtered out.
+     * </p>
+     * </note>
      * <p>
      * You can query a table, a local secondary index, or a global secondary index. For a query on a table or on a local
      * secondary index, you can set the <code>ConsistentRead</code> parameter to <code>true</code> and obtain a strongly
@@ -1396,28 +2127,55 @@ public interface AmazonDynamoDBAsync extends AmazonDynamoDB {
 
     /**
      * <p>
-     * A <code>Query</code> operation uses the primary key of a table or a secondary index to directly access items from
-     * that table or index.
+     * The <code>Query</code> operation finds items based on primary key values. You can query any table or secondary
+     * index that has a composite primary key (a partition key and a sort key).
      * </p>
      * <p>
      * Use the <code>KeyConditionExpression</code> parameter to provide a specific value for the partition key. The
      * <code>Query</code> operation will return all of the items from the table or index with that partition key value.
      * You can optionally narrow the scope of the <code>Query</code> operation by specifying a sort key value and a
-     * comparison operator in <code>KeyConditionExpression</code>. You can use the <code>ScanIndexForward</code>
-     * parameter to get results in forward or reverse order, by sort key.
+     * comparison operator in <code>KeyConditionExpression</code>. To further refine the <code>Query</code> results, you
+     * can optionally provide a <code>FilterExpression</code>. A <code>FilterExpression</code> determines which items
+     * within the results should be returned to you. All of the other results are discarded.
      * </p>
      * <p>
-     * Queries that do not return results consume the minimum number of read capacity units for that type of read
-     * operation.
+     * A <code>Query</code> operation always returns a result set. If no matching items are found, the result set will
+     * be empty. Queries that do not return results consume the minimum number of read capacity units for that type of
+     * read operation.
+     * </p>
+     * <note>
+     * <p>
+     * DynamoDB calculates the number of read capacity units consumed based on item size, not on the amount of data that
+     * is returned to an application. The number of capacity units consumed will be the same whether you request all of
+     * the attributes (the default behavior) or just some of them (using a projection expression). The number will also
+     * be the same whether or not you use a <code>FilterExpression</code>.
+     * </p>
+     * </note>
+     * <p>
+     * <code>Query</code> results are always sorted by the sort key value. If the data type of the sort key is Number,
+     * the results are returned in numeric order; otherwise, the results are returned in order of UTF-8 bytes. By
+     * default, the sort order is ascending. To reverse the order, set the <code>ScanIndexForward</code> parameter to
+     * false.
      * </p>
      * <p>
-     * If the total number of items meeting the query criteria exceeds the result set size limit of 1 MB, the query
-     * stops and results are returned to the user with the <code>LastEvaluatedKey</code> element to continue the query
-     * in a subsequent operation. Unlike a <code>Scan</code> operation, a <code>Query</code> operation never returns
-     * both an empty result set and a <code>LastEvaluatedKey</code> value. <code>LastEvaluatedKey</code> is only
-     * provided if you have used the <code>Limit</code> parameter, or if the result set exceeds 1 MB (prior to applying
-     * a filter).
+     * A single <code>Query</code> operation will read up to the maximum number of items set (if using the
+     * <code>Limit</code> parameter) or a maximum of 1 MB of data and then apply any filtering to the results using
+     * <code>FilterExpression</code>. If <code>LastEvaluatedKey</code> is present in the response, you will need to
+     * paginate the result set. For more information, see <a
+     * href="http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Query.html#Query.Pagination">Paginating the
+     * Results</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      * </p>
+     * <p>
+     * <code>FilterExpression</code> is applied after a <code>Query</code> finishes, but before the results are
+     * returned. A <code>FilterExpression</code> cannot contain partition key or sort key attributes. You need to
+     * specify those attributes in the <code>KeyConditionExpression</code>.
+     * </p>
+     * <note>
+     * <p>
+     * A <code>Query</code> operation can return an empty result set and a <code>LastEvaluatedKey</code> if all the
+     * items read for the page of results are filtered out.
+     * </p>
+     * </note>
      * <p>
      * You can query a table, a local secondary index, or a global secondary index. For a query on a table or on a local
      * secondary index, you can set the <code>ConsistentRead</code> parameter to <code>true</code> and obtain a strongly
@@ -1440,6 +2198,298 @@ public interface AmazonDynamoDBAsync extends AmazonDynamoDB {
 
     /**
      * <p>
+     * Creates a new table from an existing backup. Any number of users can execute up to 4 concurrent restores (any
+     * type of restore) in a given account.
+     * </p>
+     * <p>
+     * You can call <code>RestoreTableFromBackup</code> at a maximum rate of 10 times per second.
+     * </p>
+     * <p>
+     * You must manually set up the following on the restored table:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Auto scaling policies
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * IAM policies
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Cloudwatch metrics and alarms
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Tags
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Stream settings
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Time to Live (TTL) settings
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param restoreTableFromBackupRequest
+     * @return A Java Future containing the result of the RestoreTableFromBackup operation returned by the service.
+     * @sample AmazonDynamoDBAsync.RestoreTableFromBackup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dynamodb-2012-08-10/RestoreTableFromBackup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<RestoreTableFromBackupResult> restoreTableFromBackupAsync(RestoreTableFromBackupRequest restoreTableFromBackupRequest);
+
+    /**
+     * <p>
+     * Creates a new table from an existing backup. Any number of users can execute up to 4 concurrent restores (any
+     * type of restore) in a given account.
+     * </p>
+     * <p>
+     * You can call <code>RestoreTableFromBackup</code> at a maximum rate of 10 times per second.
+     * </p>
+     * <p>
+     * You must manually set up the following on the restored table:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Auto scaling policies
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * IAM policies
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Cloudwatch metrics and alarms
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Tags
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Stream settings
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Time to Live (TTL) settings
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param restoreTableFromBackupRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the RestoreTableFromBackup operation returned by the service.
+     * @sample AmazonDynamoDBAsyncHandler.RestoreTableFromBackup
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dynamodb-2012-08-10/RestoreTableFromBackup"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<RestoreTableFromBackupResult> restoreTableFromBackupAsync(RestoreTableFromBackupRequest restoreTableFromBackupRequest,
+            com.amazonaws.handlers.AsyncHandler<RestoreTableFromBackupRequest, RestoreTableFromBackupResult> asyncHandler);
+
+    /**
+     * <p>
+     * Restores the specified table to the specified point in time within <code>EarliestRestorableDateTime</code> and
+     * <code>LatestRestorableDateTime</code>. You can restore your table to any point in time during the last 35 days.
+     * Any number of users can execute up to 4 concurrent restores (any type of restore) in a given account.
+     * </p>
+     * <p>
+     * When you restore using point in time recovery, DynamoDB restores your table data to the state based on the
+     * selected date and time (day:hour:minute:second) to a new table.
+     * </p>
+     * <p>
+     * Along with data, the following are also included on the new restored table using point in time recovery:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Global secondary indexes (GSIs)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Local secondary indexes (LSIs)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Provisioned read and write capacity
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Encryption settings
+     * </p>
+     * <important>
+     * <p>
+     * All these settings come from the current settings of the source table at the time of restore.
+     * </p>
+     * </important></li>
+     * </ul>
+     * <p>
+     * You must manually set up the following on the restored table:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Auto scaling policies
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * IAM policies
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Cloudwatch metrics and alarms
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Tags
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Stream settings
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Time to Live (TTL) settings
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Point in time recovery settings
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param restoreTableToPointInTimeRequest
+     * @return A Java Future containing the result of the RestoreTableToPointInTime operation returned by the service.
+     * @sample AmazonDynamoDBAsync.RestoreTableToPointInTime
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dynamodb-2012-08-10/RestoreTableToPointInTime"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<RestoreTableToPointInTimeResult> restoreTableToPointInTimeAsync(
+            RestoreTableToPointInTimeRequest restoreTableToPointInTimeRequest);
+
+    /**
+     * <p>
+     * Restores the specified table to the specified point in time within <code>EarliestRestorableDateTime</code> and
+     * <code>LatestRestorableDateTime</code>. You can restore your table to any point in time during the last 35 days.
+     * Any number of users can execute up to 4 concurrent restores (any type of restore) in a given account.
+     * </p>
+     * <p>
+     * When you restore using point in time recovery, DynamoDB restores your table data to the state based on the
+     * selected date and time (day:hour:minute:second) to a new table.
+     * </p>
+     * <p>
+     * Along with data, the following are also included on the new restored table using point in time recovery:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Global secondary indexes (GSIs)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Local secondary indexes (LSIs)
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Provisioned read and write capacity
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Encryption settings
+     * </p>
+     * <important>
+     * <p>
+     * All these settings come from the current settings of the source table at the time of restore.
+     * </p>
+     * </important></li>
+     * </ul>
+     * <p>
+     * You must manually set up the following on the restored table:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Auto scaling policies
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * IAM policies
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Cloudwatch metrics and alarms
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Tags
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Stream settings
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Time to Live (TTL) settings
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Point in time recovery settings
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param restoreTableToPointInTimeRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the RestoreTableToPointInTime operation returned by the service.
+     * @sample AmazonDynamoDBAsyncHandler.RestoreTableToPointInTime
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dynamodb-2012-08-10/RestoreTableToPointInTime"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<RestoreTableToPointInTimeResult> restoreTableToPointInTimeAsync(
+            RestoreTableToPointInTimeRequest restoreTableToPointInTimeRequest,
+            com.amazonaws.handlers.AsyncHandler<RestoreTableToPointInTimeRequest, RestoreTableToPointInTimeResult> asyncHandler);
+
+    /**
+     * <p>
      * The <code>Scan</code> operation returns one or more items and item attributes by accessing every item in a table
      * or a secondary index. To have DynamoDB return fewer items, you can provide a <code>FilterExpression</code>
      * operation.
@@ -1451,17 +2501,25 @@ public interface AmazonDynamoDBAsync extends AmazonDynamoDB {
      * filter criteria.
      * </p>
      * <p>
-     * By default, <code>Scan</code> operations proceed sequentially; however, for faster performance on a large table
-     * or secondary index, applications can request a parallel <code>Scan</code> operation by providing the
-     * <code>Segment</code> and <code>TotalSegments</code> parameters. For more information, see <a href=
-     * "http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html#QueryAndScanParallelScan"
-     * >Parallel Scan</a> in the <i>Amazon DynamoDB Developer Guide</i>.
+     * A single <code>Scan</code> operation will read up to the maximum number of items set (if using the
+     * <code>Limit</code> parameter) or a maximum of 1 MB of data and then apply any filtering to the results using
+     * <code>FilterExpression</code>. If <code>LastEvaluatedKey</code> is present in the response, you will need to
+     * paginate the result set. For more information, see <a
+     * href="http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Scan.html#Scan.Pagination">Paginating the
+     * Results</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      * </p>
      * <p>
-     * By default, <code>Scan</code> uses eventually consistent reads when accessing the data in a table; therefore, the
-     * result set might not include the changes to data in the table immediately before the operation began. If you need
-     * a consistent copy of the data, as of the time that the Scan begins, you can set the <code>ConsistentRead</code>
-     * parameter to <code>true</code>.
+     * <code>Scan</code> operations proceed sequentially; however, for faster performance on a large table or secondary
+     * index, applications can request a parallel <code>Scan</code> operation by providing the <code>Segment</code> and
+     * <code>TotalSegments</code> parameters. For more information, see <a
+     * href="http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Scan.html#Scan.ParallelScan">Parallel
+     * Scan</a> in the <i>Amazon DynamoDB Developer Guide</i>.
+     * </p>
+     * <p>
+     * <code>Scan</code> uses eventually consistent reads when accessing the data in a table; therefore, the result set
+     * might not include the changes to data in the table immediately before the operation began. If you need a
+     * consistent copy of the data, as of the time that the <code>Scan</code> begins, you can set the
+     * <code>ConsistentRead</code> parameter to <code>true</code>.
      * </p>
      * 
      * @param scanRequest
@@ -1486,17 +2544,25 @@ public interface AmazonDynamoDBAsync extends AmazonDynamoDB {
      * filter criteria.
      * </p>
      * <p>
-     * By default, <code>Scan</code> operations proceed sequentially; however, for faster performance on a large table
-     * or secondary index, applications can request a parallel <code>Scan</code> operation by providing the
-     * <code>Segment</code> and <code>TotalSegments</code> parameters. For more information, see <a href=
-     * "http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html#QueryAndScanParallelScan"
-     * >Parallel Scan</a> in the <i>Amazon DynamoDB Developer Guide</i>.
+     * A single <code>Scan</code> operation will read up to the maximum number of items set (if using the
+     * <code>Limit</code> parameter) or a maximum of 1 MB of data and then apply any filtering to the results using
+     * <code>FilterExpression</code>. If <code>LastEvaluatedKey</code> is present in the response, you will need to
+     * paginate the result set. For more information, see <a
+     * href="http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Scan.html#Scan.Pagination">Paginating the
+     * Results</a> in the <i>Amazon DynamoDB Developer Guide</i>.
      * </p>
      * <p>
-     * By default, <code>Scan</code> uses eventually consistent reads when accessing the data in a table; therefore, the
-     * result set might not include the changes to data in the table immediately before the operation began. If you need
-     * a consistent copy of the data, as of the time that the Scan begins, you can set the <code>ConsistentRead</code>
-     * parameter to <code>true</code>.
+     * <code>Scan</code> operations proceed sequentially; however, for faster performance on a large table or secondary
+     * index, applications can request a parallel <code>Scan</code> operation by providing the <code>Segment</code> and
+     * <code>TotalSegments</code> parameters. For more information, see <a
+     * href="http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Scan.html#Scan.ParallelScan">Parallel
+     * Scan</a> in the <i>Amazon DynamoDB Developer Guide</i>.
+     * </p>
+     * <p>
+     * <code>Scan</code> uses eventually consistent reads when accessing the data in a table; therefore, the result set
+     * might not include the changes to data in the table immediately before the operation began. If you need a
+     * consistent copy of the data, as of the time that the <code>Scan</code> begins, you can set the
+     * <code>ConsistentRead</code> parameter to <code>true</code>.
      * </p>
      * 
      * @param scanRequest
@@ -1604,6 +2670,262 @@ public interface AmazonDynamoDBAsync extends AmazonDynamoDB {
 
     /**
      * <p>
+     * <code>TransactGetItems</code> is a synchronous operation that atomically retrieves multiple items from one or
+     * more tables (but not from indexes) in a single account and region. A <code>TransactGetItems</code> call can
+     * contain up to 10 <code>TransactGetItem</code> objects, each of which contains a <code>Get</code> structure that
+     * specifies an item to retrieve from a table in the account and region. A call to <code>TransactGetItems</code>
+     * cannot retrieve items from tables in more than one AWS account or region.
+     * </p>
+     * <p>
+     * DynamoDB rejects the entire <code>TransactGetItems</code> request if any of the following is true:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * A conflicting operation is in the process of updating an item to be read.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * There is insufficient provisioned capacity for the transaction to be completed.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * There is a user error, such as an invalid data format.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param transactGetItemsRequest
+     * @return A Java Future containing the result of the TransactGetItems operation returned by the service.
+     * @sample AmazonDynamoDBAsync.TransactGetItems
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dynamodb-2012-08-10/TransactGetItems" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<TransactGetItemsResult> transactGetItemsAsync(TransactGetItemsRequest transactGetItemsRequest);
+
+    /**
+     * <p>
+     * <code>TransactGetItems</code> is a synchronous operation that atomically retrieves multiple items from one or
+     * more tables (but not from indexes) in a single account and region. A <code>TransactGetItems</code> call can
+     * contain up to 10 <code>TransactGetItem</code> objects, each of which contains a <code>Get</code> structure that
+     * specifies an item to retrieve from a table in the account and region. A call to <code>TransactGetItems</code>
+     * cannot retrieve items from tables in more than one AWS account or region.
+     * </p>
+     * <p>
+     * DynamoDB rejects the entire <code>TransactGetItems</code> request if any of the following is true:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * A conflicting operation is in the process of updating an item to be read.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * There is insufficient provisioned capacity for the transaction to be completed.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * There is a user error, such as an invalid data format.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param transactGetItemsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the TransactGetItems operation returned by the service.
+     * @sample AmazonDynamoDBAsyncHandler.TransactGetItems
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dynamodb-2012-08-10/TransactGetItems" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<TransactGetItemsResult> transactGetItemsAsync(TransactGetItemsRequest transactGetItemsRequest,
+            com.amazonaws.handlers.AsyncHandler<TransactGetItemsRequest, TransactGetItemsResult> asyncHandler);
+
+    /**
+     * <p>
+     * <code>TransactWriteItems</code> is a synchronous write operation that groups up to 10 action requests. These
+     * actions can target items in different tables, but not in different AWS accounts or regions, and no two actions
+     * can target the same item. For example, you cannot both <code>ConditionCheck</code> and <code>Update</code> the
+     * same item.
+     * </p>
+     * <p>
+     * The actions are completed atomically so that either all of them succeed, or all of them fail. They are defined by
+     * the following objects:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Put</code>  &#x97;   Initiates a <code>PutItem</code> operation to write a new item. This structure
+     * specifies the primary key of the item to be written, the name of the table to write it in, an optional condition
+     * expression that must be satisfied for the write to succeed, a list of the item's attributes, and a field
+     * indicating whether or not to retrieve the item's attributes if the condition is not met.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Update</code>  &#x97;   Initiates an <code>UpdateItem</code> operation to update an existing item. This
+     * structure specifies the primary key of the item to be updated, the name of the table where it resides, an
+     * optional condition expression that must be satisfied for the update to succeed, an expression that defines one or
+     * more attributes to be updated, and a field indicating whether or not to retrieve the item's attributes if the
+     * condition is not met.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Delete</code>  &#x97;   Initiates a <code>DeleteItem</code> operation to delete an existing item. This
+     * structure specifies the primary key of the item to be deleted, the name of the table where it resides, an
+     * optional condition expression that must be satisfied for the deletion to succeed, and a field indicating whether
+     * or not to retrieve the item's attributes if the condition is not met.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ConditionCheck</code>  &#x97;   Applies a condition to an item that is not being modified by the
+     * transaction. This structure specifies the primary key of the item to be checked, the name of the table where it
+     * resides, a condition expression that must be satisfied for the transaction to succeed, and a field indicating
+     * whether or not to retrieve the item's attributes if the condition is not met.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * DynamoDB rejects the entire <code>TransactWriteItems</code> request if any of the following is true:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * A condition in one of the condition expressions is not met.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * A conflicting operation is in the process of updating the same item.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * There is insufficient provisioned capacity for the transaction to be completed.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * An item size becomes too large (bigger than 400 KB), a Local Secondary Index (LSI) becomes too large, or a
+     * similar validation error occurs because of changes made by the transaction.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * There is a user error, such as an invalid data format.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param transactWriteItemsRequest
+     * @return A Java Future containing the result of the TransactWriteItems operation returned by the service.
+     * @sample AmazonDynamoDBAsync.TransactWriteItems
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dynamodb-2012-08-10/TransactWriteItems" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<TransactWriteItemsResult> transactWriteItemsAsync(TransactWriteItemsRequest transactWriteItemsRequest);
+
+    /**
+     * <p>
+     * <code>TransactWriteItems</code> is a synchronous write operation that groups up to 10 action requests. These
+     * actions can target items in different tables, but not in different AWS accounts or regions, and no two actions
+     * can target the same item. For example, you cannot both <code>ConditionCheck</code> and <code>Update</code> the
+     * same item.
+     * </p>
+     * <p>
+     * The actions are completed atomically so that either all of them succeed, or all of them fail. They are defined by
+     * the following objects:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>Put</code>  &#x97;   Initiates a <code>PutItem</code> operation to write a new item. This structure
+     * specifies the primary key of the item to be written, the name of the table to write it in, an optional condition
+     * expression that must be satisfied for the write to succeed, a list of the item's attributes, and a field
+     * indicating whether or not to retrieve the item's attributes if the condition is not met.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Update</code>  &#x97;   Initiates an <code>UpdateItem</code> operation to update an existing item. This
+     * structure specifies the primary key of the item to be updated, the name of the table where it resides, an
+     * optional condition expression that must be satisfied for the update to succeed, an expression that defines one or
+     * more attributes to be updated, and a field indicating whether or not to retrieve the item's attributes if the
+     * condition is not met.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>Delete</code>  &#x97;   Initiates a <code>DeleteItem</code> operation to delete an existing item. This
+     * structure specifies the primary key of the item to be deleted, the name of the table where it resides, an
+     * optional condition expression that must be satisfied for the deletion to succeed, and a field indicating whether
+     * or not to retrieve the item's attributes if the condition is not met.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>ConditionCheck</code>  &#x97;   Applies a condition to an item that is not being modified by the
+     * transaction. This structure specifies the primary key of the item to be checked, the name of the table where it
+     * resides, a condition expression that must be satisfied for the transaction to succeed, and a field indicating
+     * whether or not to retrieve the item's attributes if the condition is not met.
+     * </p>
+     * </li>
+     * </ul>
+     * <p>
+     * DynamoDB rejects the entire <code>TransactWriteItems</code> request if any of the following is true:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * A condition in one of the condition expressions is not met.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * A conflicting operation is in the process of updating the same item.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * There is insufficient provisioned capacity for the transaction to be completed.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * An item size becomes too large (bigger than 400 KB), a Local Secondary Index (LSI) becomes too large, or a
+     * similar validation error occurs because of changes made by the transaction.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * There is a user error, such as an invalid data format.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param transactWriteItemsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the TransactWriteItems operation returned by the service.
+     * @sample AmazonDynamoDBAsyncHandler.TransactWriteItems
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dynamodb-2012-08-10/TransactWriteItems" target="_top">AWS
+     *      API Documentation</a>
+     */
+    java.util.concurrent.Future<TransactWriteItemsResult> transactWriteItemsAsync(TransactWriteItemsRequest transactWriteItemsRequest,
+            com.amazonaws.handlers.AsyncHandler<TransactWriteItemsRequest, TransactWriteItemsResult> asyncHandler);
+
+    /**
+     * <p>
      * Removes the association of tags from an Amazon DynamoDB resource. You can call UntagResource up to 5 times per
      * second, per account.
      * </p>
@@ -1644,6 +2966,181 @@ public interface AmazonDynamoDBAsync extends AmazonDynamoDB {
      */
     java.util.concurrent.Future<UntagResourceResult> untagResourceAsync(UntagResourceRequest untagResourceRequest,
             com.amazonaws.handlers.AsyncHandler<UntagResourceRequest, UntagResourceResult> asyncHandler);
+
+    /**
+     * <p>
+     * <code>UpdateContinuousBackups</code> enables or disables point in time recovery for the specified table. A
+     * successful <code>UpdateContinuousBackups</code> call returns the current
+     * <code>ContinuousBackupsDescription</code>. Continuous backups are <code>ENABLED</code> on all tables at table
+     * creation. If point in time recovery is enabled, <code>PointInTimeRecoveryStatus</code> will be set to ENABLED.
+     * </p>
+     * <p>
+     * Once continuous backups and point in time recovery are enabled, you can restore to any point in time within
+     * <code>EarliestRestorableDateTime</code> and <code>LatestRestorableDateTime</code>.
+     * </p>
+     * <p>
+     * <code>LatestRestorableDateTime</code> is typically 5 minutes before the current time. You can restore your table
+     * to any point in time during the last 35 days..
+     * </p>
+     * 
+     * @param updateContinuousBackupsRequest
+     * @return A Java Future containing the result of the UpdateContinuousBackups operation returned by the service.
+     * @sample AmazonDynamoDBAsync.UpdateContinuousBackups
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dynamodb-2012-08-10/UpdateContinuousBackups"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateContinuousBackupsResult> updateContinuousBackupsAsync(UpdateContinuousBackupsRequest updateContinuousBackupsRequest);
+
+    /**
+     * <p>
+     * <code>UpdateContinuousBackups</code> enables or disables point in time recovery for the specified table. A
+     * successful <code>UpdateContinuousBackups</code> call returns the current
+     * <code>ContinuousBackupsDescription</code>. Continuous backups are <code>ENABLED</code> on all tables at table
+     * creation. If point in time recovery is enabled, <code>PointInTimeRecoveryStatus</code> will be set to ENABLED.
+     * </p>
+     * <p>
+     * Once continuous backups and point in time recovery are enabled, you can restore to any point in time within
+     * <code>EarliestRestorableDateTime</code> and <code>LatestRestorableDateTime</code>.
+     * </p>
+     * <p>
+     * <code>LatestRestorableDateTime</code> is typically 5 minutes before the current time. You can restore your table
+     * to any point in time during the last 35 days..
+     * </p>
+     * 
+     * @param updateContinuousBackupsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateContinuousBackups operation returned by the service.
+     * @sample AmazonDynamoDBAsyncHandler.UpdateContinuousBackups
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dynamodb-2012-08-10/UpdateContinuousBackups"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateContinuousBackupsResult> updateContinuousBackupsAsync(UpdateContinuousBackupsRequest updateContinuousBackupsRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateContinuousBackupsRequest, UpdateContinuousBackupsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Adds or removes replicas in the specified global table. The global table must already exist to be able to use
+     * this operation. Any replica to be added must be empty, must have the same name as the global table, must have the
+     * same key schema, and must have DynamoDB Streams enabled and must have same provisioned and maximum write capacity
+     * units.
+     * </p>
+     * <note>
+     * <p>
+     * Although you can use <code>UpdateGlobalTable</code> to add replicas and remove replicas in a single request, for
+     * simplicity we recommend that you issue separate requests for adding or removing replicas.
+     * </p>
+     * </note>
+     * <p>
+     * If global secondary indexes are specified, then the following conditions must also be met:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The global secondary indexes must have the same name.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The global secondary indexes must have the same hash key and sort key (if present).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The global secondary indexes must have the same provisioned and maximum write capacity units.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param updateGlobalTableRequest
+     * @return A Java Future containing the result of the UpdateGlobalTable operation returned by the service.
+     * @sample AmazonDynamoDBAsync.UpdateGlobalTable
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dynamodb-2012-08-10/UpdateGlobalTable" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateGlobalTableResult> updateGlobalTableAsync(UpdateGlobalTableRequest updateGlobalTableRequest);
+
+    /**
+     * <p>
+     * Adds or removes replicas in the specified global table. The global table must already exist to be able to use
+     * this operation. Any replica to be added must be empty, must have the same name as the global table, must have the
+     * same key schema, and must have DynamoDB Streams enabled and must have same provisioned and maximum write capacity
+     * units.
+     * </p>
+     * <note>
+     * <p>
+     * Although you can use <code>UpdateGlobalTable</code> to add replicas and remove replicas in a single request, for
+     * simplicity we recommend that you issue separate requests for adding or removing replicas.
+     * </p>
+     * </note>
+     * <p>
+     * If global secondary indexes are specified, then the following conditions must also be met:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * The global secondary indexes must have the same name.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The global secondary indexes must have the same hash key and sort key (if present).
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * The global secondary indexes must have the same provisioned and maximum write capacity units.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param updateGlobalTableRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateGlobalTable operation returned by the service.
+     * @sample AmazonDynamoDBAsyncHandler.UpdateGlobalTable
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dynamodb-2012-08-10/UpdateGlobalTable" target="_top">AWS API
+     *      Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateGlobalTableResult> updateGlobalTableAsync(UpdateGlobalTableRequest updateGlobalTableRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateGlobalTableRequest, UpdateGlobalTableResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates settings for a global table.
+     * </p>
+     * 
+     * @param updateGlobalTableSettingsRequest
+     * @return A Java Future containing the result of the UpdateGlobalTableSettings operation returned by the service.
+     * @sample AmazonDynamoDBAsync.UpdateGlobalTableSettings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dynamodb-2012-08-10/UpdateGlobalTableSettings"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateGlobalTableSettingsResult> updateGlobalTableSettingsAsync(
+            UpdateGlobalTableSettingsRequest updateGlobalTableSettingsRequest);
+
+    /**
+     * <p>
+     * Updates settings for a global table.
+     * </p>
+     * 
+     * @param updateGlobalTableSettingsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the request. Users can provide an
+     *        implementation of the callback methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the UpdateGlobalTableSettings operation returned by the service.
+     * @sample AmazonDynamoDBAsyncHandler.UpdateGlobalTableSettings
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/dynamodb-2012-08-10/UpdateGlobalTableSettings"
+     *      target="_top">AWS API Documentation</a>
+     */
+    java.util.concurrent.Future<UpdateGlobalTableSettingsResult> updateGlobalTableSettingsAsync(
+            UpdateGlobalTableSettingsRequest updateGlobalTableSettingsRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateGlobalTableSettingsRequest, UpdateGlobalTableSettingsResult> asyncHandler);
 
     /**
      * <p>
@@ -1841,10 +3338,10 @@ public interface AmazonDynamoDBAsync extends AmazonDynamoDB {
 
     /**
      * <p>
-     * Specify the lifetime of individual table items. The database automatically removes the item at the expiration of
-     * the item. The UpdateTimeToLive method will enable or disable TTL for the specified table. A successful
+     * The UpdateTimeToLive method will enable or disable TTL for the specified table. A successful
      * <code>UpdateTimeToLive</code> call returns the current <code>TimeToLiveSpecification</code>; it may take up to
-     * one hour for the change to fully process.
+     * one hour for the change to fully process. Any additional <code>UpdateTimeToLive</code> calls for the same table
+     * during this one hour duration result in a <code>ValidationException</code>.
      * </p>
      * <p>
      * TTL compares the current time in epoch time format to the time stored in the TTL attribute of an item. If the
@@ -1887,10 +3384,10 @@ public interface AmazonDynamoDBAsync extends AmazonDynamoDB {
 
     /**
      * <p>
-     * Specify the lifetime of individual table items. The database automatically removes the item at the expiration of
-     * the item. The UpdateTimeToLive method will enable or disable TTL for the specified table. A successful
+     * The UpdateTimeToLive method will enable or disable TTL for the specified table. A successful
      * <code>UpdateTimeToLive</code> call returns the current <code>TimeToLiveSpecification</code>; it may take up to
-     * one hour for the change to fully process.
+     * one hour for the change to fully process. Any additional <code>UpdateTimeToLive</code> calls for the same table
+     * during this one hour duration result in a <code>ValidationException</code>.
      * </p>
      * <p>
      * TTL compares the current time in epoch time format to the time stored in the TTL attribute of an item. If the

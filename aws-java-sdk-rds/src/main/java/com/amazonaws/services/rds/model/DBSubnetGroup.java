@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,30 +17,8 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Contains the result of a successful invocation of the following actions:
+ * Contains the details of an Amazon RDS DB subnet group.
  * </p>
- * <ul>
- * <li>
- * <p>
- * <a>CreateDBSubnetGroup</a>
- * </p>
- * </li>
- * <li>
- * <p>
- * <a>ModifyDBSubnetGroup</a>
- * </p>
- * </li>
- * <li>
- * <p>
- * <a>DescribeDBSubnetGroups</a>
- * </p>
- * </li>
- * <li>
- * <p>
- * <a>DeleteDBSubnetGroup</a>
- * </p>
- * </li>
- * </ul>
  * <p>
  * This data type is used as a response element in the <a>DescribeDBSubnetGroups</a> action.
  * </p>
@@ -362,7 +340,8 @@ public class DBSubnetGroup implements Serializable, Cloneable {
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

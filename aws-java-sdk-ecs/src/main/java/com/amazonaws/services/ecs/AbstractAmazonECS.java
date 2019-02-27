@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -50,6 +50,11 @@ public class AbstractAmazonECS implements AmazonECS {
 
     @Override
     public CreateServiceResult createService(CreateServiceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteAccountSettingResult deleteAccountSetting(DeleteAccountSettingRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -119,6 +124,11 @@ public class AbstractAmazonECS implements AmazonECS {
     }
 
     @Override
+    public ListAccountSettingsResult listAccountSettings(ListAccountSettingsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListAttributesResult listAttributes(ListAttributesRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -154,6 +164,11 @@ public class AbstractAmazonECS implements AmazonECS {
     }
 
     @Override
+    public ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListTaskDefinitionFamiliesResult listTaskDefinitionFamilies(ListTaskDefinitionFamiliesRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -181,6 +196,16 @@ public class AbstractAmazonECS implements AmazonECS {
     @Override
     public ListTasksResult listTasks() {
         return listTasks(new ListTasksRequest());
+    }
+
+    @Override
+    public PutAccountSettingResult putAccountSetting(PutAccountSettingRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public PutAccountSettingDefaultResult putAccountSettingDefault(PutAccountSettingDefaultRequest request) {
+        throw new java.lang.UnsupportedOperationException();
     }
 
     @Override
@@ -225,6 +250,16 @@ public class AbstractAmazonECS implements AmazonECS {
 
     @Override
     public SubmitTaskStateChangeResult submitTaskStateChange(SubmitTaskStateChangeRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public TagResourceResult tagResource(TagResourceRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UntagResourceResult untagResource(UntagResourceRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

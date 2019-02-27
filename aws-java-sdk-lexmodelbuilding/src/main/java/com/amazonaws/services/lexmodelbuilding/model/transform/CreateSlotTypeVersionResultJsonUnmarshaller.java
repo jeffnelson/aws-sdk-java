@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -63,11 +63,11 @@ public class CreateSlotTypeVersionResultJsonUnmarshaller implements Unmarshaller
                 }
                 if (context.testExpression("lastUpdatedDate", targetDepth)) {
                     context.nextToken();
-                    createSlotTypeVersionResult.setLastUpdatedDate(context.getUnmarshaller(java.util.Date.class).unmarshall(context));
+                    createSlotTypeVersionResult.setLastUpdatedDate(DateJsonUnmarshallerFactory.getInstance("unixTimestamp").unmarshall(context));
                 }
                 if (context.testExpression("createdDate", targetDepth)) {
                     context.nextToken();
-                    createSlotTypeVersionResult.setCreatedDate(context.getUnmarshaller(java.util.Date.class).unmarshall(context));
+                    createSlotTypeVersionResult.setCreatedDate(DateJsonUnmarshallerFactory.getInstance("unixTimestamp").unmarshall(context));
                 }
                 if (context.testExpression("version", targetDepth)) {
                     context.nextToken();
@@ -76,6 +76,10 @@ public class CreateSlotTypeVersionResultJsonUnmarshaller implements Unmarshaller
                 if (context.testExpression("checksum", targetDepth)) {
                     context.nextToken();
                     createSlotTypeVersionResult.setChecksum(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("valueSelectionStrategy", targetDepth)) {
+                    context.nextToken();
+                    createSlotTypeVersionResult.setValueSelectionStrategy(context.getUnmarshaller(String.class).unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

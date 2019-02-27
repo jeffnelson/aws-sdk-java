@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -39,7 +39,7 @@ public class ListResourcesRequest extends com.amazonaws.AmazonWebServiceRequest 
     private String nextToken;
     /**
      * <p>
-     * he maximum amount of data that can be contained in a single set of results.
+     * The maximum amount of data that can be contained in a single set of results.
      * </p>
      */
     private Integer maxResults;
@@ -126,11 +126,11 @@ public class ListResourcesRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * he maximum amount of data that can be contained in a single set of results.
+     * The maximum amount of data that can be contained in a single set of results.
      * </p>
      * 
      * @param maxResults
-     *        he maximum amount of data that can be contained in a single set of results.
+     *        The maximum amount of data that can be contained in a single set of results.
      */
 
     public void setMaxResults(Integer maxResults) {
@@ -139,10 +139,10 @@ public class ListResourcesRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * he maximum amount of data that can be contained in a single set of results.
+     * The maximum amount of data that can be contained in a single set of results.
      * </p>
      * 
-     * @return he maximum amount of data that can be contained in a single set of results.
+     * @return The maximum amount of data that can be contained in a single set of results.
      */
 
     public Integer getMaxResults() {
@@ -151,11 +151,11 @@ public class ListResourcesRequest extends com.amazonaws.AmazonWebServiceRequest 
 
     /**
      * <p>
-     * he maximum amount of data that can be contained in a single set of results.
+     * The maximum amount of data that can be contained in a single set of results.
      * </p>
      * 
      * @param maxResults
-     *        he maximum amount of data that can be contained in a single set of results.
+     *        The maximum amount of data that can be contained in a single set of results.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -165,7 +165,8 @@ public class ListResourcesRequest extends com.amazonaws.AmazonWebServiceRequest 
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

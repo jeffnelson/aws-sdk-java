@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -75,7 +75,7 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
     private StorageRuleType storageRule;
     /**
      * <p>
-     * Amazon WorkDocs authentication token. This field should not be set when using administrative API actions, as in
+     * Amazon WorkDocs authentication token. Do not set this field when using administrative API actions, as in
      * accessing the API using AWS credentials.
      * </p>
      */
@@ -403,13 +403,13 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * Amazon WorkDocs authentication token. This field should not be set when using administrative API actions, as in
+     * Amazon WorkDocs authentication token. Do not set this field when using administrative API actions, as in
      * accessing the API using AWS credentials.
      * </p>
      * 
      * @param authenticationToken
-     *        Amazon WorkDocs authentication token. This field should not be set when using administrative API actions,
-     *        as in accessing the API using AWS credentials.
+     *        Amazon WorkDocs authentication token. Do not set this field when using administrative API actions, as in
+     *        accessing the API using AWS credentials.
      */
 
     public void setAuthenticationToken(String authenticationToken) {
@@ -418,12 +418,12 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * Amazon WorkDocs authentication token. This field should not be set when using administrative API actions, as in
+     * Amazon WorkDocs authentication token. Do not set this field when using administrative API actions, as in
      * accessing the API using AWS credentials.
      * </p>
      * 
-     * @return Amazon WorkDocs authentication token. This field should not be set when using administrative API actions,
-     *         as in accessing the API using AWS credentials.
+     * @return Amazon WorkDocs authentication token. Do not set this field when using administrative API actions, as in
+     *         accessing the API using AWS credentials.
      */
 
     public String getAuthenticationToken() {
@@ -432,13 +432,13 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
 
     /**
      * <p>
-     * Amazon WorkDocs authentication token. This field should not be set when using administrative API actions, as in
+     * Amazon WorkDocs authentication token. Do not set this field when using administrative API actions, as in
      * accessing the API using AWS credentials.
      * </p>
      * 
      * @param authenticationToken
-     *        Amazon WorkDocs authentication token. This field should not be set when using administrative API actions,
-     *        as in accessing the API using AWS credentials.
+     *        Amazon WorkDocs authentication token. Do not set this field when using administrative API actions, as in
+     *        accessing the API using AWS credentials.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -448,7 +448,8 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -469,13 +470,13 @@ public class CreateUserRequest extends com.amazonaws.AmazonWebServiceRequest imp
         if (getSurname() != null)
             sb.append("Surname: ").append(getSurname()).append(",");
         if (getPassword() != null)
-            sb.append("Password: ").append(getPassword()).append(",");
+            sb.append("Password: ").append("***Sensitive Data Redacted***").append(",");
         if (getTimeZoneId() != null)
             sb.append("TimeZoneId: ").append(getTimeZoneId()).append(",");
         if (getStorageRule() != null)
             sb.append("StorageRule: ").append(getStorageRule()).append(",");
         if (getAuthenticationToken() != null)
-            sb.append("AuthenticationToken: ").append(getAuthenticationToken());
+            sb.append("AuthenticationToken: ").append("***Sensitive Data Redacted***");
         sb.append("}");
         return sb.toString();
     }

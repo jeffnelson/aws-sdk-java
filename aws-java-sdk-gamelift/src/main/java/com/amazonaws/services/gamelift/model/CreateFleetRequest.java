@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -69,7 +69,7 @@ public class CreateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      * This parameter is no longer used. Instead, to specify where Amazon GameLift should store log files once a server
      * process shuts down, use the Amazon GameLift server API <code>ProcessReady()</code> and specify one or more
      * directory paths in <code>logParameters</code>. See more information in the <a href=
-     * "http://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-server-api-ref.html#gamelift-sdk-server-api-ref-dataypes-process"
+     * "https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-server-api-ref.html#gamelift-sdk-server-api-ref-dataypes-process"
      * >Server API Reference</a>.
      * </p>
      */
@@ -94,20 +94,20 @@ public class CreateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * Game session protection policy to apply to all instances in this fleet. If this parameter is not set, instances
-     * in this fleet default to no protection. You can change a fleet's protection policy using UpdateFleetAttributes,
-     * but this change will only affect sessions created after the policy change. You can also set protection for
-     * individual instances using <a>UpdateGameSession</a>.
+     * in this fleet default to no protection. You can change a fleet's protection policy using
+     * <a>UpdateFleetAttributes</a>, but this change will only affect sessions created after the policy change. You can
+     * also set protection for individual instances using <a>UpdateGameSession</a>.
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <b>NoProtection</b> – The game session can be terminated during a scale-down event.
+     * <b>NoProtection</b> -- The game session can be terminated during a scale-down event.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>FullProtection</b> – If the game session is in an <code>ACTIVE</code> status, it cannot be terminated during a
-     * scale-down event.
+     * <b>FullProtection</b> -- If the game session is in an <code>ACTIVE</code> status, it cannot be terminated during
+     * a scale-down event.
      * </p>
      * </li>
      * </ul>
@@ -135,11 +135,41 @@ public class CreateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
     private ResourceCreationLimitPolicy resourceCreationLimitPolicy;
     /**
      * <p>
-     * Names of metric groups to add this fleet to. Use an existing metric group name to add this fleet to the group. Or
-     * use a new name to create a new metric group. A fleet can only be included in one metric group at a time.
+     * Name of an Amazon CloudWatch metric group to add this fleet to. A metric group aggregates the metrics for all
+     * fleets in the group. Specify an existing metric group name, or provide a new name to create a new metric group. A
+     * fleet can only be included in one metric group at a time.
      * </p>
      */
     private java.util.List<String> metricGroups;
+    /**
+     * <p>
+     * Unique identifier for the AWS account with the VPC that you want to peer your Amazon GameLift fleet with. You can
+     * find your Account ID in the AWS Management Console under account settings.
+     * </p>
+     */
+    private String peerVpcAwsAccountId;
+    /**
+     * <p>
+     * Unique identifier for a VPC with resources to be accessed by your Amazon GameLift fleet. The VPC must be in the
+     * same region where your fleet is deployed. Look up a VPC ID using the <a
+     * href="https://console.aws.amazon.com/vpc/">VPC Dashboard</a> in the AWS Management Console. Learn more about VPC
+     * peering in <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/vpc-peering.html">VPC Peering with
+     * Amazon GameLift Fleets</a>.
+     * </p>
+     */
+    private String peerVpcId;
+    /**
+     * <p>
+     * Indicates whether to use on-demand instances or spot instances for this fleet. If empty, the default is
+     * ON_DEMAND. Both categories of instances use identical hardware and configurations, based on the instance type
+     * selected for this fleet. You can acquire on-demand instances at any time for a fixed price and keep them as long
+     * as you need them. Spot instances have lower prices, but spot pricing is variable, and while in use they can be
+     * interrupted (with a two-minute notification). Learn more about Amazon GameLift spot instances with at <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-server-credentials.html"> Set up
+     * Access to External Services</a>.
+     * </p>
+     */
+    private String fleetType;
 
     /**
      * <p>
@@ -382,14 +412,14 @@ public class CreateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      * This parameter is no longer used. Instead, to specify where Amazon GameLift should store log files once a server
      * process shuts down, use the Amazon GameLift server API <code>ProcessReady()</code> and specify one or more
      * directory paths in <code>logParameters</code>. See more information in the <a href=
-     * "http://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-server-api-ref.html#gamelift-sdk-server-api-ref-dataypes-process"
+     * "https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-server-api-ref.html#gamelift-sdk-server-api-ref-dataypes-process"
      * >Server API Reference</a>.
      * </p>
      * 
      * @return This parameter is no longer used. Instead, to specify where Amazon GameLift should store log files once a
      *         server process shuts down, use the Amazon GameLift server API <code>ProcessReady()</code> and specify one
      *         or more directory paths in <code>logParameters</code>. See more information in the <a href=
-     *         "http://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-server-api-ref.html#gamelift-sdk-server-api-ref-dataypes-process"
+     *         "https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-server-api-ref.html#gamelift-sdk-server-api-ref-dataypes-process"
      *         >Server API Reference</a>.
      */
 
@@ -402,7 +432,7 @@ public class CreateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      * This parameter is no longer used. Instead, to specify where Amazon GameLift should store log files once a server
      * process shuts down, use the Amazon GameLift server API <code>ProcessReady()</code> and specify one or more
      * directory paths in <code>logParameters</code>. See more information in the <a href=
-     * "http://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-server-api-ref.html#gamelift-sdk-server-api-ref-dataypes-process"
+     * "https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-server-api-ref.html#gamelift-sdk-server-api-ref-dataypes-process"
      * >Server API Reference</a>.
      * </p>
      * 
@@ -410,7 +440,7 @@ public class CreateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      *        This parameter is no longer used. Instead, to specify where Amazon GameLift should store log files once a
      *        server process shuts down, use the Amazon GameLift server API <code>ProcessReady()</code> and specify one
      *        or more directory paths in <code>logParameters</code>. See more information in the <a href=
-     *        "http://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-server-api-ref.html#gamelift-sdk-server-api-ref-dataypes-process"
+     *        "https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-server-api-ref.html#gamelift-sdk-server-api-ref-dataypes-process"
      *        >Server API Reference</a>.
      */
 
@@ -428,7 +458,7 @@ public class CreateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      * This parameter is no longer used. Instead, to specify where Amazon GameLift should store log files once a server
      * process shuts down, use the Amazon GameLift server API <code>ProcessReady()</code> and specify one or more
      * directory paths in <code>logParameters</code>. See more information in the <a href=
-     * "http://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-server-api-ref.html#gamelift-sdk-server-api-ref-dataypes-process"
+     * "https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-server-api-ref.html#gamelift-sdk-server-api-ref-dataypes-process"
      * >Server API Reference</a>.
      * </p>
      * <p>
@@ -441,7 +471,7 @@ public class CreateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      *        This parameter is no longer used. Instead, to specify where Amazon GameLift should store log files once a
      *        server process shuts down, use the Amazon GameLift server API <code>ProcessReady()</code> and specify one
      *        or more directory paths in <code>logParameters</code>. See more information in the <a href=
-     *        "http://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-server-api-ref.html#gamelift-sdk-server-api-ref-dataypes-process"
+     *        "https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-server-api-ref.html#gamelift-sdk-server-api-ref-dataypes-process"
      *        >Server API Reference</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -461,7 +491,7 @@ public class CreateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      * This parameter is no longer used. Instead, to specify where Amazon GameLift should store log files once a server
      * process shuts down, use the Amazon GameLift server API <code>ProcessReady()</code> and specify one or more
      * directory paths in <code>logParameters</code>. See more information in the <a href=
-     * "http://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-server-api-ref.html#gamelift-sdk-server-api-ref-dataypes-process"
+     * "https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-server-api-ref.html#gamelift-sdk-server-api-ref-dataypes-process"
      * >Server API Reference</a>.
      * </p>
      * 
@@ -469,7 +499,7 @@ public class CreateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      *        This parameter is no longer used. Instead, to specify where Amazon GameLift should store log files once a
      *        server process shuts down, use the Amazon GameLift server API <code>ProcessReady()</code> and specify one
      *        or more directory paths in <code>logParameters</code>. See more information in the <a href=
-     *        "http://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-server-api-ref.html#gamelift-sdk-server-api-ref-dataypes-process"
+     *        "https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-server-api-ref.html#gamelift-sdk-server-api-ref-dataypes-process"
      *        >Server API Reference</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -675,20 +705,20 @@ public class CreateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * Game session protection policy to apply to all instances in this fleet. If this parameter is not set, instances
-     * in this fleet default to no protection. You can change a fleet's protection policy using UpdateFleetAttributes,
-     * but this change will only affect sessions created after the policy change. You can also set protection for
-     * individual instances using <a>UpdateGameSession</a>.
+     * in this fleet default to no protection. You can change a fleet's protection policy using
+     * <a>UpdateFleetAttributes</a>, but this change will only affect sessions created after the policy change. You can
+     * also set protection for individual instances using <a>UpdateGameSession</a>.
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <b>NoProtection</b> – The game session can be terminated during a scale-down event.
+     * <b>NoProtection</b> -- The game session can be terminated during a scale-down event.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>FullProtection</b> – If the game session is in an <code>ACTIVE</code> status, it cannot be terminated during a
-     * scale-down event.
+     * <b>FullProtection</b> -- If the game session is in an <code>ACTIVE</code> status, it cannot be terminated during
+     * a scale-down event.
      * </p>
      * </li>
      * </ul>
@@ -696,17 +726,17 @@ public class CreateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      * @param newGameSessionProtectionPolicy
      *        Game session protection policy to apply to all instances in this fleet. If this parameter is not set,
      *        instances in this fleet default to no protection. You can change a fleet's protection policy using
-     *        UpdateFleetAttributes, but this change will only affect sessions created after the policy change. You can
-     *        also set protection for individual instances using <a>UpdateGameSession</a>.</p>
+     *        <a>UpdateFleetAttributes</a>, but this change will only affect sessions created after the policy change.
+     *        You can also set protection for individual instances using <a>UpdateGameSession</a>.</p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <b>NoProtection</b> – The game session can be terminated during a scale-down event.
+     *        <b>NoProtection</b> -- The game session can be terminated during a scale-down event.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <b>FullProtection</b> – If the game session is in an <code>ACTIVE</code> status, it cannot be terminated
+     *        <b>FullProtection</b> -- If the game session is in an <code>ACTIVE</code> status, it cannot be terminated
      *        during a scale-down event.
      *        </p>
      *        </li>
@@ -720,37 +750,37 @@ public class CreateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * Game session protection policy to apply to all instances in this fleet. If this parameter is not set, instances
-     * in this fleet default to no protection. You can change a fleet's protection policy using UpdateFleetAttributes,
-     * but this change will only affect sessions created after the policy change. You can also set protection for
-     * individual instances using <a>UpdateGameSession</a>.
+     * in this fleet default to no protection. You can change a fleet's protection policy using
+     * <a>UpdateFleetAttributes</a>, but this change will only affect sessions created after the policy change. You can
+     * also set protection for individual instances using <a>UpdateGameSession</a>.
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <b>NoProtection</b> – The game session can be terminated during a scale-down event.
+     * <b>NoProtection</b> -- The game session can be terminated during a scale-down event.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>FullProtection</b> – If the game session is in an <code>ACTIVE</code> status, it cannot be terminated during a
-     * scale-down event.
+     * <b>FullProtection</b> -- If the game session is in an <code>ACTIVE</code> status, it cannot be terminated during
+     * a scale-down event.
      * </p>
      * </li>
      * </ul>
      * 
      * @return Game session protection policy to apply to all instances in this fleet. If this parameter is not set,
      *         instances in this fleet default to no protection. You can change a fleet's protection policy using
-     *         UpdateFleetAttributes, but this change will only affect sessions created after the policy change. You can
-     *         also set protection for individual instances using <a>UpdateGameSession</a>.</p>
+     *         <a>UpdateFleetAttributes</a>, but this change will only affect sessions created after the policy change.
+     *         You can also set protection for individual instances using <a>UpdateGameSession</a>.</p>
      *         <ul>
      *         <li>
      *         <p>
-     *         <b>NoProtection</b> – The game session can be terminated during a scale-down event.
+     *         <b>NoProtection</b> -- The game session can be terminated during a scale-down event.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <b>FullProtection</b> – If the game session is in an <code>ACTIVE</code> status, it cannot be terminated
+     *         <b>FullProtection</b> -- If the game session is in an <code>ACTIVE</code> status, it cannot be terminated
      *         during a scale-down event.
      *         </p>
      *         </li>
@@ -764,20 +794,20 @@ public class CreateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * Game session protection policy to apply to all instances in this fleet. If this parameter is not set, instances
-     * in this fleet default to no protection. You can change a fleet's protection policy using UpdateFleetAttributes,
-     * but this change will only affect sessions created after the policy change. You can also set protection for
-     * individual instances using <a>UpdateGameSession</a>.
+     * in this fleet default to no protection. You can change a fleet's protection policy using
+     * <a>UpdateFleetAttributes</a>, but this change will only affect sessions created after the policy change. You can
+     * also set protection for individual instances using <a>UpdateGameSession</a>.
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <b>NoProtection</b> – The game session can be terminated during a scale-down event.
+     * <b>NoProtection</b> -- The game session can be terminated during a scale-down event.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>FullProtection</b> – If the game session is in an <code>ACTIVE</code> status, it cannot be terminated during a
-     * scale-down event.
+     * <b>FullProtection</b> -- If the game session is in an <code>ACTIVE</code> status, it cannot be terminated during
+     * a scale-down event.
      * </p>
      * </li>
      * </ul>
@@ -785,17 +815,17 @@ public class CreateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      * @param newGameSessionProtectionPolicy
      *        Game session protection policy to apply to all instances in this fleet. If this parameter is not set,
      *        instances in this fleet default to no protection. You can change a fleet's protection policy using
-     *        UpdateFleetAttributes, but this change will only affect sessions created after the policy change. You can
-     *        also set protection for individual instances using <a>UpdateGameSession</a>.</p>
+     *        <a>UpdateFleetAttributes</a>, but this change will only affect sessions created after the policy change.
+     *        You can also set protection for individual instances using <a>UpdateGameSession</a>.</p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <b>NoProtection</b> – The game session can be terminated during a scale-down event.
+     *        <b>NoProtection</b> -- The game session can be terminated during a scale-down event.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <b>FullProtection</b> – If the game session is in an <code>ACTIVE</code> status, it cannot be terminated
+     *        <b>FullProtection</b> -- If the game session is in an <code>ACTIVE</code> status, it cannot be terminated
      *        during a scale-down event.
      *        </p>
      *        </li>
@@ -811,20 +841,20 @@ public class CreateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * Game session protection policy to apply to all instances in this fleet. If this parameter is not set, instances
-     * in this fleet default to no protection. You can change a fleet's protection policy using UpdateFleetAttributes,
-     * but this change will only affect sessions created after the policy change. You can also set protection for
-     * individual instances using <a>UpdateGameSession</a>.
+     * in this fleet default to no protection. You can change a fleet's protection policy using
+     * <a>UpdateFleetAttributes</a>, but this change will only affect sessions created after the policy change. You can
+     * also set protection for individual instances using <a>UpdateGameSession</a>.
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <b>NoProtection</b> – The game session can be terminated during a scale-down event.
+     * <b>NoProtection</b> -- The game session can be terminated during a scale-down event.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>FullProtection</b> – If the game session is in an <code>ACTIVE</code> status, it cannot be terminated during a
-     * scale-down event.
+     * <b>FullProtection</b> -- If the game session is in an <code>ACTIVE</code> status, it cannot be terminated during
+     * a scale-down event.
      * </p>
      * </li>
      * </ul>
@@ -832,17 +862,17 @@ public class CreateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      * @param newGameSessionProtectionPolicy
      *        Game session protection policy to apply to all instances in this fleet. If this parameter is not set,
      *        instances in this fleet default to no protection. You can change a fleet's protection policy using
-     *        UpdateFleetAttributes, but this change will only affect sessions created after the policy change. You can
-     *        also set protection for individual instances using <a>UpdateGameSession</a>.</p>
+     *        <a>UpdateFleetAttributes</a>, but this change will only affect sessions created after the policy change.
+     *        You can also set protection for individual instances using <a>UpdateGameSession</a>.</p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <b>NoProtection</b> – The game session can be terminated during a scale-down event.
+     *        <b>NoProtection</b> -- The game session can be terminated during a scale-down event.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <b>FullProtection</b> – If the game session is in an <code>ACTIVE</code> status, it cannot be terminated
+     *        <b>FullProtection</b> -- If the game session is in an <code>ACTIVE</code> status, it cannot be terminated
      *        during a scale-down event.
      *        </p>
      *        </li>
@@ -856,20 +886,20 @@ public class CreateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
     /**
      * <p>
      * Game session protection policy to apply to all instances in this fleet. If this parameter is not set, instances
-     * in this fleet default to no protection. You can change a fleet's protection policy using UpdateFleetAttributes,
-     * but this change will only affect sessions created after the policy change. You can also set protection for
-     * individual instances using <a>UpdateGameSession</a>.
+     * in this fleet default to no protection. You can change a fleet's protection policy using
+     * <a>UpdateFleetAttributes</a>, but this change will only affect sessions created after the policy change. You can
+     * also set protection for individual instances using <a>UpdateGameSession</a>.
      * </p>
      * <ul>
      * <li>
      * <p>
-     * <b>NoProtection</b> – The game session can be terminated during a scale-down event.
+     * <b>NoProtection</b> -- The game session can be terminated during a scale-down event.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>FullProtection</b> – If the game session is in an <code>ACTIVE</code> status, it cannot be terminated during a
-     * scale-down event.
+     * <b>FullProtection</b> -- If the game session is in an <code>ACTIVE</code> status, it cannot be terminated during
+     * a scale-down event.
      * </p>
      * </li>
      * </ul>
@@ -877,17 +907,17 @@ public class CreateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      * @param newGameSessionProtectionPolicy
      *        Game session protection policy to apply to all instances in this fleet. If this parameter is not set,
      *        instances in this fleet default to no protection. You can change a fleet's protection policy using
-     *        UpdateFleetAttributes, but this change will only affect sessions created after the policy change. You can
-     *        also set protection for individual instances using <a>UpdateGameSession</a>.</p>
+     *        <a>UpdateFleetAttributes</a>, but this change will only affect sessions created after the policy change.
+     *        You can also set protection for individual instances using <a>UpdateGameSession</a>.</p>
      *        <ul>
      *        <li>
      *        <p>
-     *        <b>NoProtection</b> – The game session can be terminated during a scale-down event.
+     *        <b>NoProtection</b> -- The game session can be terminated during a scale-down event.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <b>FullProtection</b> – If the game session is in an <code>ACTIVE</code> status, it cannot be terminated
+     *        <b>FullProtection</b> -- If the game session is in an <code>ACTIVE</code> status, it cannot be terminated
      *        during a scale-down event.
      *        </p>
      *        </li>
@@ -1030,13 +1060,14 @@ public class CreateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Names of metric groups to add this fleet to. Use an existing metric group name to add this fleet to the group. Or
-     * use a new name to create a new metric group. A fleet can only be included in one metric group at a time.
+     * Name of an Amazon CloudWatch metric group to add this fleet to. A metric group aggregates the metrics for all
+     * fleets in the group. Specify an existing metric group name, or provide a new name to create a new metric group. A
+     * fleet can only be included in one metric group at a time.
      * </p>
      * 
-     * @return Names of metric groups to add this fleet to. Use an existing metric group name to add this fleet to the
-     *         group. Or use a new name to create a new metric group. A fleet can only be included in one metric group
-     *         at a time.
+     * @return Name of an Amazon CloudWatch metric group to add this fleet to. A metric group aggregates the metrics for
+     *         all fleets in the group. Specify an existing metric group name, or provide a new name to create a new
+     *         metric group. A fleet can only be included in one metric group at a time.
      */
 
     public java.util.List<String> getMetricGroups() {
@@ -1045,14 +1076,15 @@ public class CreateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Names of metric groups to add this fleet to. Use an existing metric group name to add this fleet to the group. Or
-     * use a new name to create a new metric group. A fleet can only be included in one metric group at a time.
+     * Name of an Amazon CloudWatch metric group to add this fleet to. A metric group aggregates the metrics for all
+     * fleets in the group. Specify an existing metric group name, or provide a new name to create a new metric group. A
+     * fleet can only be included in one metric group at a time.
      * </p>
      * 
      * @param metricGroups
-     *        Names of metric groups to add this fleet to. Use an existing metric group name to add this fleet to the
-     *        group. Or use a new name to create a new metric group. A fleet can only be included in one metric group at
-     *        a time.
+     *        Name of an Amazon CloudWatch metric group to add this fleet to. A metric group aggregates the metrics for
+     *        all fleets in the group. Specify an existing metric group name, or provide a new name to create a new
+     *        metric group. A fleet can only be included in one metric group at a time.
      */
 
     public void setMetricGroups(java.util.Collection<String> metricGroups) {
@@ -1066,8 +1098,9 @@ public class CreateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Names of metric groups to add this fleet to. Use an existing metric group name to add this fleet to the group. Or
-     * use a new name to create a new metric group. A fleet can only be included in one metric group at a time.
+     * Name of an Amazon CloudWatch metric group to add this fleet to. A metric group aggregates the metrics for all
+     * fleets in the group. Specify an existing metric group name, or provide a new name to create a new metric group. A
+     * fleet can only be included in one metric group at a time.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -1076,9 +1109,9 @@ public class CreateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
      * </p>
      * 
      * @param metricGroups
-     *        Names of metric groups to add this fleet to. Use an existing metric group name to add this fleet to the
-     *        group. Or use a new name to create a new metric group. A fleet can only be included in one metric group at
-     *        a time.
+     *        Name of an Amazon CloudWatch metric group to add this fleet to. A metric group aggregates the metrics for
+     *        all fleets in the group. Specify an existing metric group name, or provide a new name to create a new
+     *        metric group. A fleet can only be included in one metric group at a time.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1094,14 +1127,15 @@ public class CreateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
 
     /**
      * <p>
-     * Names of metric groups to add this fleet to. Use an existing metric group name to add this fleet to the group. Or
-     * use a new name to create a new metric group. A fleet can only be included in one metric group at a time.
+     * Name of an Amazon CloudWatch metric group to add this fleet to. A metric group aggregates the metrics for all
+     * fleets in the group. Specify an existing metric group name, or provide a new name to create a new metric group. A
+     * fleet can only be included in one metric group at a time.
      * </p>
      * 
      * @param metricGroups
-     *        Names of metric groups to add this fleet to. Use an existing metric group name to add this fleet to the
-     *        group. Or use a new name to create a new metric group. A fleet can only be included in one metric group at
-     *        a time.
+     *        Name of an Amazon CloudWatch metric group to add this fleet to. A metric group aggregates the metrics for
+     *        all fleets in the group. Specify an existing metric group name, or provide a new name to create a new
+     *        metric group. A fleet can only be included in one metric group at a time.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1111,7 +1145,259 @@ public class CreateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * <p>
+     * Unique identifier for the AWS account with the VPC that you want to peer your Amazon GameLift fleet with. You can
+     * find your Account ID in the AWS Management Console under account settings.
+     * </p>
+     * 
+     * @param peerVpcAwsAccountId
+     *        Unique identifier for the AWS account with the VPC that you want to peer your Amazon GameLift fleet with.
+     *        You can find your Account ID in the AWS Management Console under account settings.
+     */
+
+    public void setPeerVpcAwsAccountId(String peerVpcAwsAccountId) {
+        this.peerVpcAwsAccountId = peerVpcAwsAccountId;
+    }
+
+    /**
+     * <p>
+     * Unique identifier for the AWS account with the VPC that you want to peer your Amazon GameLift fleet with. You can
+     * find your Account ID in the AWS Management Console under account settings.
+     * </p>
+     * 
+     * @return Unique identifier for the AWS account with the VPC that you want to peer your Amazon GameLift fleet with.
+     *         You can find your Account ID in the AWS Management Console under account settings.
+     */
+
+    public String getPeerVpcAwsAccountId() {
+        return this.peerVpcAwsAccountId;
+    }
+
+    /**
+     * <p>
+     * Unique identifier for the AWS account with the VPC that you want to peer your Amazon GameLift fleet with. You can
+     * find your Account ID in the AWS Management Console under account settings.
+     * </p>
+     * 
+     * @param peerVpcAwsAccountId
+     *        Unique identifier for the AWS account with the VPC that you want to peer your Amazon GameLift fleet with.
+     *        You can find your Account ID in the AWS Management Console under account settings.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateFleetRequest withPeerVpcAwsAccountId(String peerVpcAwsAccountId) {
+        setPeerVpcAwsAccountId(peerVpcAwsAccountId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Unique identifier for a VPC with resources to be accessed by your Amazon GameLift fleet. The VPC must be in the
+     * same region where your fleet is deployed. Look up a VPC ID using the <a
+     * href="https://console.aws.amazon.com/vpc/">VPC Dashboard</a> in the AWS Management Console. Learn more about VPC
+     * peering in <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/vpc-peering.html">VPC Peering with
+     * Amazon GameLift Fleets</a>.
+     * </p>
+     * 
+     * @param peerVpcId
+     *        Unique identifier for a VPC with resources to be accessed by your Amazon GameLift fleet. The VPC must be
+     *        in the same region where your fleet is deployed. Look up a VPC ID using the <a
+     *        href="https://console.aws.amazon.com/vpc/">VPC Dashboard</a> in the AWS Management Console. Learn more
+     *        about VPC peering in <a
+     *        href="https://docs.aws.amazon.com/gamelift/latest/developerguide/vpc-peering.html">VPC Peering with Amazon
+     *        GameLift Fleets</a>.
+     */
+
+    public void setPeerVpcId(String peerVpcId) {
+        this.peerVpcId = peerVpcId;
+    }
+
+    /**
+     * <p>
+     * Unique identifier for a VPC with resources to be accessed by your Amazon GameLift fleet. The VPC must be in the
+     * same region where your fleet is deployed. Look up a VPC ID using the <a
+     * href="https://console.aws.amazon.com/vpc/">VPC Dashboard</a> in the AWS Management Console. Learn more about VPC
+     * peering in <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/vpc-peering.html">VPC Peering with
+     * Amazon GameLift Fleets</a>.
+     * </p>
+     * 
+     * @return Unique identifier for a VPC with resources to be accessed by your Amazon GameLift fleet. The VPC must be
+     *         in the same region where your fleet is deployed. Look up a VPC ID using the <a
+     *         href="https://console.aws.amazon.com/vpc/">VPC Dashboard</a> in the AWS Management Console. Learn more
+     *         about VPC peering in <a
+     *         href="https://docs.aws.amazon.com/gamelift/latest/developerguide/vpc-peering.html">VPC Peering with
+     *         Amazon GameLift Fleets</a>.
+     */
+
+    public String getPeerVpcId() {
+        return this.peerVpcId;
+    }
+
+    /**
+     * <p>
+     * Unique identifier for a VPC with resources to be accessed by your Amazon GameLift fleet. The VPC must be in the
+     * same region where your fleet is deployed. Look up a VPC ID using the <a
+     * href="https://console.aws.amazon.com/vpc/">VPC Dashboard</a> in the AWS Management Console. Learn more about VPC
+     * peering in <a href="https://docs.aws.amazon.com/gamelift/latest/developerguide/vpc-peering.html">VPC Peering with
+     * Amazon GameLift Fleets</a>.
+     * </p>
+     * 
+     * @param peerVpcId
+     *        Unique identifier for a VPC with resources to be accessed by your Amazon GameLift fleet. The VPC must be
+     *        in the same region where your fleet is deployed. Look up a VPC ID using the <a
+     *        href="https://console.aws.amazon.com/vpc/">VPC Dashboard</a> in the AWS Management Console. Learn more
+     *        about VPC peering in <a
+     *        href="https://docs.aws.amazon.com/gamelift/latest/developerguide/vpc-peering.html">VPC Peering with Amazon
+     *        GameLift Fleets</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public CreateFleetRequest withPeerVpcId(String peerVpcId) {
+        setPeerVpcId(peerVpcId);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether to use on-demand instances or spot instances for this fleet. If empty, the default is
+     * ON_DEMAND. Both categories of instances use identical hardware and configurations, based on the instance type
+     * selected for this fleet. You can acquire on-demand instances at any time for a fixed price and keep them as long
+     * as you need them. Spot instances have lower prices, but spot pricing is variable, and while in use they can be
+     * interrupted (with a two-minute notification). Learn more about Amazon GameLift spot instances with at <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-server-credentials.html"> Set up
+     * Access to External Services</a>.
+     * </p>
+     * 
+     * @param fleetType
+     *        Indicates whether to use on-demand instances or spot instances for this fleet. If empty, the default is
+     *        ON_DEMAND. Both categories of instances use identical hardware and configurations, based on the instance
+     *        type selected for this fleet. You can acquire on-demand instances at any time for a fixed price and keep
+     *        them as long as you need them. Spot instances have lower prices, but spot pricing is variable, and while
+     *        in use they can be interrupted (with a two-minute notification). Learn more about Amazon GameLift spot
+     *        instances with at <a
+     *        href="https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-server-credentials.html">
+     *        Set up Access to External Services</a>.
+     * @see FleetType
+     */
+
+    public void setFleetType(String fleetType) {
+        this.fleetType = fleetType;
+    }
+
+    /**
+     * <p>
+     * Indicates whether to use on-demand instances or spot instances for this fleet. If empty, the default is
+     * ON_DEMAND. Both categories of instances use identical hardware and configurations, based on the instance type
+     * selected for this fleet. You can acquire on-demand instances at any time for a fixed price and keep them as long
+     * as you need them. Spot instances have lower prices, but spot pricing is variable, and while in use they can be
+     * interrupted (with a two-minute notification). Learn more about Amazon GameLift spot instances with at <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-server-credentials.html"> Set up
+     * Access to External Services</a>.
+     * </p>
+     * 
+     * @return Indicates whether to use on-demand instances or spot instances for this fleet. If empty, the default is
+     *         ON_DEMAND. Both categories of instances use identical hardware and configurations, based on the instance
+     *         type selected for this fleet. You can acquire on-demand instances at any time for a fixed price and keep
+     *         them as long as you need them. Spot instances have lower prices, but spot pricing is variable, and while
+     *         in use they can be interrupted (with a two-minute notification). Learn more about Amazon GameLift spot
+     *         instances with at <a
+     *         href="https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-server-credentials.html">
+     *         Set up Access to External Services</a>.
+     * @see FleetType
+     */
+
+    public String getFleetType() {
+        return this.fleetType;
+    }
+
+    /**
+     * <p>
+     * Indicates whether to use on-demand instances or spot instances for this fleet. If empty, the default is
+     * ON_DEMAND. Both categories of instances use identical hardware and configurations, based on the instance type
+     * selected for this fleet. You can acquire on-demand instances at any time for a fixed price and keep them as long
+     * as you need them. Spot instances have lower prices, but spot pricing is variable, and while in use they can be
+     * interrupted (with a two-minute notification). Learn more about Amazon GameLift spot instances with at <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-server-credentials.html"> Set up
+     * Access to External Services</a>.
+     * </p>
+     * 
+     * @param fleetType
+     *        Indicates whether to use on-demand instances or spot instances for this fleet. If empty, the default is
+     *        ON_DEMAND. Both categories of instances use identical hardware and configurations, based on the instance
+     *        type selected for this fleet. You can acquire on-demand instances at any time for a fixed price and keep
+     *        them as long as you need them. Spot instances have lower prices, but spot pricing is variable, and while
+     *        in use they can be interrupted (with a two-minute notification). Learn more about Amazon GameLift spot
+     *        instances with at <a
+     *        href="https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-server-credentials.html">
+     *        Set up Access to External Services</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see FleetType
+     */
+
+    public CreateFleetRequest withFleetType(String fleetType) {
+        setFleetType(fleetType);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether to use on-demand instances or spot instances for this fleet. If empty, the default is
+     * ON_DEMAND. Both categories of instances use identical hardware and configurations, based on the instance type
+     * selected for this fleet. You can acquire on-demand instances at any time for a fixed price and keep them as long
+     * as you need them. Spot instances have lower prices, but spot pricing is variable, and while in use they can be
+     * interrupted (with a two-minute notification). Learn more about Amazon GameLift spot instances with at <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-server-credentials.html"> Set up
+     * Access to External Services</a>.
+     * </p>
+     * 
+     * @param fleetType
+     *        Indicates whether to use on-demand instances or spot instances for this fleet. If empty, the default is
+     *        ON_DEMAND. Both categories of instances use identical hardware and configurations, based on the instance
+     *        type selected for this fleet. You can acquire on-demand instances at any time for a fixed price and keep
+     *        them as long as you need them. Spot instances have lower prices, but spot pricing is variable, and while
+     *        in use they can be interrupted (with a two-minute notification). Learn more about Amazon GameLift spot
+     *        instances with at <a
+     *        href="https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-server-credentials.html">
+     *        Set up Access to External Services</a>.
+     * @see FleetType
+     */
+
+    public void setFleetType(FleetType fleetType) {
+        withFleetType(fleetType);
+    }
+
+    /**
+     * <p>
+     * Indicates whether to use on-demand instances or spot instances for this fleet. If empty, the default is
+     * ON_DEMAND. Both categories of instances use identical hardware and configurations, based on the instance type
+     * selected for this fleet. You can acquire on-demand instances at any time for a fixed price and keep them as long
+     * as you need them. Spot instances have lower prices, but spot pricing is variable, and while in use they can be
+     * interrupted (with a two-minute notification). Learn more about Amazon GameLift spot instances with at <a
+     * href="https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-server-credentials.html"> Set up
+     * Access to External Services</a>.
+     * </p>
+     * 
+     * @param fleetType
+     *        Indicates whether to use on-demand instances or spot instances for this fleet. If empty, the default is
+     *        ON_DEMAND. Both categories of instances use identical hardware and configurations, based on the instance
+     *        type selected for this fleet. You can acquire on-demand instances at any time for a fixed price and keep
+     *        them as long as you need them. Spot instances have lower prices, but spot pricing is variable, and while
+     *        in use they can be interrupted (with a two-minute notification). Learn more about Amazon GameLift spot
+     *        instances with at <a
+     *        href="https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-server-credentials.html">
+     *        Set up Access to External Services</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see FleetType
+     */
+
+    public CreateFleetRequest withFleetType(FleetType fleetType) {
+        this.fleetType = fleetType.toString();
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -1144,7 +1430,13 @@ public class CreateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
         if (getResourceCreationLimitPolicy() != null)
             sb.append("ResourceCreationLimitPolicy: ").append(getResourceCreationLimitPolicy()).append(",");
         if (getMetricGroups() != null)
-            sb.append("MetricGroups: ").append(getMetricGroups());
+            sb.append("MetricGroups: ").append(getMetricGroups()).append(",");
+        if (getPeerVpcAwsAccountId() != null)
+            sb.append("PeerVpcAwsAccountId: ").append(getPeerVpcAwsAccountId()).append(",");
+        if (getPeerVpcId() != null)
+            sb.append("PeerVpcId: ").append(getPeerVpcId()).append(",");
+        if (getFleetType() != null)
+            sb.append("FleetType: ").append(getFleetType());
         sb.append("}");
         return sb.toString();
     }
@@ -1208,6 +1500,18 @@ public class CreateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
             return false;
         if (other.getMetricGroups() != null && other.getMetricGroups().equals(this.getMetricGroups()) == false)
             return false;
+        if (other.getPeerVpcAwsAccountId() == null ^ this.getPeerVpcAwsAccountId() == null)
+            return false;
+        if (other.getPeerVpcAwsAccountId() != null && other.getPeerVpcAwsAccountId().equals(this.getPeerVpcAwsAccountId()) == false)
+            return false;
+        if (other.getPeerVpcId() == null ^ this.getPeerVpcId() == null)
+            return false;
+        if (other.getPeerVpcId() != null && other.getPeerVpcId().equals(this.getPeerVpcId()) == false)
+            return false;
+        if (other.getFleetType() == null ^ this.getFleetType() == null)
+            return false;
+        if (other.getFleetType() != null && other.getFleetType().equals(this.getFleetType()) == false)
+            return false;
         return true;
     }
 
@@ -1228,6 +1532,9 @@ public class CreateFleetRequest extends com.amazonaws.AmazonWebServiceRequest im
         hashCode = prime * hashCode + ((getRuntimeConfiguration() == null) ? 0 : getRuntimeConfiguration().hashCode());
         hashCode = prime * hashCode + ((getResourceCreationLimitPolicy() == null) ? 0 : getResourceCreationLimitPolicy().hashCode());
         hashCode = prime * hashCode + ((getMetricGroups() == null) ? 0 : getMetricGroups().hashCode());
+        hashCode = prime * hashCode + ((getPeerVpcAwsAccountId() == null) ? 0 : getPeerVpcAwsAccountId().hashCode());
+        hashCode = prime * hashCode + ((getPeerVpcId() == null) ? 0 : getPeerVpcId().hashCode());
+        hashCode = prime * hashCode + ((getFleetType() == null) ? 0 : getFleetType().hashCode());
         return hashCode;
     }
 

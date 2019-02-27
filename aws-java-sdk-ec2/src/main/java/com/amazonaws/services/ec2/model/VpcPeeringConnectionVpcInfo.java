@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -40,6 +40,12 @@ public class VpcPeeringConnectionVpcInfo implements Serializable, Cloneable {
     private com.amazonaws.internal.SdkInternalList<Ipv6CidrBlock> ipv6CidrBlockSet;
     /**
      * <p>
+     * Information about the IPv4 CIDR blocks for the VPC.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<CidrBlock> cidrBlockSet;
+    /**
+     * <p>
      * The AWS account ID of the VPC owner.
      * </p>
      */
@@ -56,6 +62,12 @@ public class VpcPeeringConnectionVpcInfo implements Serializable, Cloneable {
      * </p>
      */
     private String vpcId;
+    /**
+     * <p>
+     * The region in which the VPC is located.
+     * </p>
+     */
+    private String region;
 
     /**
      * <p>
@@ -167,6 +179,79 @@ public class VpcPeeringConnectionVpcInfo implements Serializable, Cloneable {
 
     public VpcPeeringConnectionVpcInfo withIpv6CidrBlockSet(java.util.Collection<Ipv6CidrBlock> ipv6CidrBlockSet) {
         setIpv6CidrBlockSet(ipv6CidrBlockSet);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Information about the IPv4 CIDR blocks for the VPC.
+     * </p>
+     * 
+     * @return Information about the IPv4 CIDR blocks for the VPC.
+     */
+
+    public java.util.List<CidrBlock> getCidrBlockSet() {
+        if (cidrBlockSet == null) {
+            cidrBlockSet = new com.amazonaws.internal.SdkInternalList<CidrBlock>();
+        }
+        return cidrBlockSet;
+    }
+
+    /**
+     * <p>
+     * Information about the IPv4 CIDR blocks for the VPC.
+     * </p>
+     * 
+     * @param cidrBlockSet
+     *        Information about the IPv4 CIDR blocks for the VPC.
+     */
+
+    public void setCidrBlockSet(java.util.Collection<CidrBlock> cidrBlockSet) {
+        if (cidrBlockSet == null) {
+            this.cidrBlockSet = null;
+            return;
+        }
+
+        this.cidrBlockSet = new com.amazonaws.internal.SdkInternalList<CidrBlock>(cidrBlockSet);
+    }
+
+    /**
+     * <p>
+     * Information about the IPv4 CIDR blocks for the VPC.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setCidrBlockSet(java.util.Collection)} or {@link #withCidrBlockSet(java.util.Collection)} if you want to
+     * override the existing values.
+     * </p>
+     * 
+     * @param cidrBlockSet
+     *        Information about the IPv4 CIDR blocks for the VPC.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public VpcPeeringConnectionVpcInfo withCidrBlockSet(CidrBlock... cidrBlockSet) {
+        if (this.cidrBlockSet == null) {
+            setCidrBlockSet(new com.amazonaws.internal.SdkInternalList<CidrBlock>(cidrBlockSet.length));
+        }
+        for (CidrBlock ele : cidrBlockSet) {
+            this.cidrBlockSet.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Information about the IPv4 CIDR blocks for the VPC.
+     * </p>
+     * 
+     * @param cidrBlockSet
+     *        Information about the IPv4 CIDR blocks for the VPC.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public VpcPeeringConnectionVpcInfo withCidrBlockSet(java.util.Collection<CidrBlock> cidrBlockSet) {
+        setCidrBlockSet(cidrBlockSet);
         return this;
     }
 
@@ -291,7 +376,48 @@ public class VpcPeeringConnectionVpcInfo implements Serializable, Cloneable {
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * <p>
+     * The region in which the VPC is located.
+     * </p>
+     * 
+     * @param region
+     *        The region in which the VPC is located.
+     */
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    /**
+     * <p>
+     * The region in which the VPC is located.
+     * </p>
+     * 
+     * @return The region in which the VPC is located.
+     */
+
+    public String getRegion() {
+        return this.region;
+    }
+
+    /**
+     * <p>
+     * The region in which the VPC is located.
+     * </p>
+     * 
+     * @param region
+     *        The region in which the VPC is located.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public VpcPeeringConnectionVpcInfo withRegion(String region) {
+        setRegion(region);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -305,12 +431,16 @@ public class VpcPeeringConnectionVpcInfo implements Serializable, Cloneable {
             sb.append("CidrBlock: ").append(getCidrBlock()).append(",");
         if (getIpv6CidrBlockSet() != null)
             sb.append("Ipv6CidrBlockSet: ").append(getIpv6CidrBlockSet()).append(",");
+        if (getCidrBlockSet() != null)
+            sb.append("CidrBlockSet: ").append(getCidrBlockSet()).append(",");
         if (getOwnerId() != null)
             sb.append("OwnerId: ").append(getOwnerId()).append(",");
         if (getPeeringOptions() != null)
             sb.append("PeeringOptions: ").append(getPeeringOptions()).append(",");
         if (getVpcId() != null)
-            sb.append("VpcId: ").append(getVpcId());
+            sb.append("VpcId: ").append(getVpcId()).append(",");
+        if (getRegion() != null)
+            sb.append("Region: ").append(getRegion());
         sb.append("}");
         return sb.toString();
     }
@@ -333,6 +463,10 @@ public class VpcPeeringConnectionVpcInfo implements Serializable, Cloneable {
             return false;
         if (other.getIpv6CidrBlockSet() != null && other.getIpv6CidrBlockSet().equals(this.getIpv6CidrBlockSet()) == false)
             return false;
+        if (other.getCidrBlockSet() == null ^ this.getCidrBlockSet() == null)
+            return false;
+        if (other.getCidrBlockSet() != null && other.getCidrBlockSet().equals(this.getCidrBlockSet()) == false)
+            return false;
         if (other.getOwnerId() == null ^ this.getOwnerId() == null)
             return false;
         if (other.getOwnerId() != null && other.getOwnerId().equals(this.getOwnerId()) == false)
@@ -345,6 +479,10 @@ public class VpcPeeringConnectionVpcInfo implements Serializable, Cloneable {
             return false;
         if (other.getVpcId() != null && other.getVpcId().equals(this.getVpcId()) == false)
             return false;
+        if (other.getRegion() == null ^ this.getRegion() == null)
+            return false;
+        if (other.getRegion() != null && other.getRegion().equals(this.getRegion()) == false)
+            return false;
         return true;
     }
 
@@ -355,9 +493,11 @@ public class VpcPeeringConnectionVpcInfo implements Serializable, Cloneable {
 
         hashCode = prime * hashCode + ((getCidrBlock() == null) ? 0 : getCidrBlock().hashCode());
         hashCode = prime * hashCode + ((getIpv6CidrBlockSet() == null) ? 0 : getIpv6CidrBlockSet().hashCode());
+        hashCode = prime * hashCode + ((getCidrBlockSet() == null) ? 0 : getCidrBlockSet().hashCode());
         hashCode = prime * hashCode + ((getOwnerId() == null) ? 0 : getOwnerId().hashCode());
         hashCode = prime * hashCode + ((getPeeringOptions() == null) ? 0 : getPeeringOptions().hashCode());
         hashCode = prime * hashCode + ((getVpcId() == null) ? 0 : getVpcId().hashCode());
+        hashCode = prime * hashCode + ((getRegion() == null) ? 0 : getRegion().hashCode());
         return hashCode;
     }
 

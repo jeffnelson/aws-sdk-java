@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -43,22 +43,28 @@ public class Region implements Serializable, Cloneable, StructuredPojo {
     private String description;
     /**
      * <p>
-     * The display name (e.g., <code>Virginia</code>).
+     * The display name (e.g., <code>Ohio</code>).
      * </p>
      */
     private String displayName;
     /**
      * <p>
-     * The region name (e.g., <code>us-east-1</code>).
+     * The region name (e.g., <code>us-east-2</code>).
      * </p>
      */
     private String name;
     /**
      * <p>
-     * The Availability Zones. Follows the format <code>us-east-1a</code> (case-sensitive).
+     * The Availability Zones. Follows the format <code>us-east-2a</code> (case-sensitive).
      * </p>
      */
     private java.util.List<AvailabilityZone> availabilityZones;
+    /**
+     * <p>
+     * The Availability Zones for databases. Follows the format <code>us-east-2a</code> (case-sensitive).
+     * </p>
+     */
+    private java.util.List<AvailabilityZone> relationalDatabaseAvailabilityZones;
 
     /**
      * <p>
@@ -148,11 +154,11 @@ public class Region implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The display name (e.g., <code>Virginia</code>).
+     * The display name (e.g., <code>Ohio</code>).
      * </p>
      * 
      * @param displayName
-     *        The display name (e.g., <code>Virginia</code>).
+     *        The display name (e.g., <code>Ohio</code>).
      */
 
     public void setDisplayName(String displayName) {
@@ -161,10 +167,10 @@ public class Region implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The display name (e.g., <code>Virginia</code>).
+     * The display name (e.g., <code>Ohio</code>).
      * </p>
      * 
-     * @return The display name (e.g., <code>Virginia</code>).
+     * @return The display name (e.g., <code>Ohio</code>).
      */
 
     public String getDisplayName() {
@@ -173,11 +179,11 @@ public class Region implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The display name (e.g., <code>Virginia</code>).
+     * The display name (e.g., <code>Ohio</code>).
      * </p>
      * 
      * @param displayName
-     *        The display name (e.g., <code>Virginia</code>).
+     *        The display name (e.g., <code>Ohio</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -188,11 +194,11 @@ public class Region implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The region name (e.g., <code>us-east-1</code>).
+     * The region name (e.g., <code>us-east-2</code>).
      * </p>
      * 
      * @param name
-     *        The region name (e.g., <code>us-east-1</code>).
+     *        The region name (e.g., <code>us-east-2</code>).
      * @see RegionName
      */
 
@@ -202,10 +208,10 @@ public class Region implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The region name (e.g., <code>us-east-1</code>).
+     * The region name (e.g., <code>us-east-2</code>).
      * </p>
      * 
-     * @return The region name (e.g., <code>us-east-1</code>).
+     * @return The region name (e.g., <code>us-east-2</code>).
      * @see RegionName
      */
 
@@ -215,11 +221,11 @@ public class Region implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The region name (e.g., <code>us-east-1</code>).
+     * The region name (e.g., <code>us-east-2</code>).
      * </p>
      * 
      * @param name
-     *        The region name (e.g., <code>us-east-1</code>).
+     *        The region name (e.g., <code>us-east-2</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see RegionName
      */
@@ -231,11 +237,11 @@ public class Region implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The region name (e.g., <code>us-east-1</code>).
+     * The region name (e.g., <code>us-east-2</code>).
      * </p>
      * 
      * @param name
-     *        The region name (e.g., <code>us-east-1</code>).
+     *        The region name (e.g., <code>us-east-2</code>).
      * @see RegionName
      */
 
@@ -245,11 +251,11 @@ public class Region implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The region name (e.g., <code>us-east-1</code>).
+     * The region name (e.g., <code>us-east-2</code>).
      * </p>
      * 
      * @param name
-     *        The region name (e.g., <code>us-east-1</code>).
+     *        The region name (e.g., <code>us-east-2</code>).
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see RegionName
      */
@@ -261,10 +267,10 @@ public class Region implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Availability Zones. Follows the format <code>us-east-1a</code> (case-sensitive).
+     * The Availability Zones. Follows the format <code>us-east-2a</code> (case-sensitive).
      * </p>
      * 
-     * @return The Availability Zones. Follows the format <code>us-east-1a</code> (case-sensitive).
+     * @return The Availability Zones. Follows the format <code>us-east-2a</code> (case-sensitive).
      */
 
     public java.util.List<AvailabilityZone> getAvailabilityZones() {
@@ -273,11 +279,11 @@ public class Region implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Availability Zones. Follows the format <code>us-east-1a</code> (case-sensitive).
+     * The Availability Zones. Follows the format <code>us-east-2a</code> (case-sensitive).
      * </p>
      * 
      * @param availabilityZones
-     *        The Availability Zones. Follows the format <code>us-east-1a</code> (case-sensitive).
+     *        The Availability Zones. Follows the format <code>us-east-2a</code> (case-sensitive).
      */
 
     public void setAvailabilityZones(java.util.Collection<AvailabilityZone> availabilityZones) {
@@ -291,7 +297,7 @@ public class Region implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Availability Zones. Follows the format <code>us-east-1a</code> (case-sensitive).
+     * The Availability Zones. Follows the format <code>us-east-2a</code> (case-sensitive).
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -300,7 +306,7 @@ public class Region implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param availabilityZones
-     *        The Availability Zones. Follows the format <code>us-east-1a</code> (case-sensitive).
+     *        The Availability Zones. Follows the format <code>us-east-2a</code> (case-sensitive).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -316,11 +322,11 @@ public class Region implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The Availability Zones. Follows the format <code>us-east-1a</code> (case-sensitive).
+     * The Availability Zones. Follows the format <code>us-east-2a</code> (case-sensitive).
      * </p>
      * 
      * @param availabilityZones
-     *        The Availability Zones. Follows the format <code>us-east-1a</code> (case-sensitive).
+     *        The Availability Zones. Follows the format <code>us-east-2a</code> (case-sensitive).
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -330,7 +336,79 @@ public class Region implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * <p>
+     * The Availability Zones for databases. Follows the format <code>us-east-2a</code> (case-sensitive).
+     * </p>
+     * 
+     * @return The Availability Zones for databases. Follows the format <code>us-east-2a</code> (case-sensitive).
+     */
+
+    public java.util.List<AvailabilityZone> getRelationalDatabaseAvailabilityZones() {
+        return relationalDatabaseAvailabilityZones;
+    }
+
+    /**
+     * <p>
+     * The Availability Zones for databases. Follows the format <code>us-east-2a</code> (case-sensitive).
+     * </p>
+     * 
+     * @param relationalDatabaseAvailabilityZones
+     *        The Availability Zones for databases. Follows the format <code>us-east-2a</code> (case-sensitive).
+     */
+
+    public void setRelationalDatabaseAvailabilityZones(java.util.Collection<AvailabilityZone> relationalDatabaseAvailabilityZones) {
+        if (relationalDatabaseAvailabilityZones == null) {
+            this.relationalDatabaseAvailabilityZones = null;
+            return;
+        }
+
+        this.relationalDatabaseAvailabilityZones = new java.util.ArrayList<AvailabilityZone>(relationalDatabaseAvailabilityZones);
+    }
+
+    /**
+     * <p>
+     * The Availability Zones for databases. Follows the format <code>us-east-2a</code> (case-sensitive).
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setRelationalDatabaseAvailabilityZones(java.util.Collection)} or
+     * {@link #withRelationalDatabaseAvailabilityZones(java.util.Collection)} if you want to override the existing
+     * values.
+     * </p>
+     * 
+     * @param relationalDatabaseAvailabilityZones
+     *        The Availability Zones for databases. Follows the format <code>us-east-2a</code> (case-sensitive).
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Region withRelationalDatabaseAvailabilityZones(AvailabilityZone... relationalDatabaseAvailabilityZones) {
+        if (this.relationalDatabaseAvailabilityZones == null) {
+            setRelationalDatabaseAvailabilityZones(new java.util.ArrayList<AvailabilityZone>(relationalDatabaseAvailabilityZones.length));
+        }
+        for (AvailabilityZone ele : relationalDatabaseAvailabilityZones) {
+            this.relationalDatabaseAvailabilityZones.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * The Availability Zones for databases. Follows the format <code>us-east-2a</code> (case-sensitive).
+     * </p>
+     * 
+     * @param relationalDatabaseAvailabilityZones
+     *        The Availability Zones for databases. Follows the format <code>us-east-2a</code> (case-sensitive).
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Region withRelationalDatabaseAvailabilityZones(java.util.Collection<AvailabilityZone> relationalDatabaseAvailabilityZones) {
+        setRelationalDatabaseAvailabilityZones(relationalDatabaseAvailabilityZones);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -349,7 +427,9 @@ public class Region implements Serializable, Cloneable, StructuredPojo {
         if (getName() != null)
             sb.append("Name: ").append(getName()).append(",");
         if (getAvailabilityZones() != null)
-            sb.append("AvailabilityZones: ").append(getAvailabilityZones());
+            sb.append("AvailabilityZones: ").append(getAvailabilityZones()).append(",");
+        if (getRelationalDatabaseAvailabilityZones() != null)
+            sb.append("RelationalDatabaseAvailabilityZones: ").append(getRelationalDatabaseAvailabilityZones());
         sb.append("}");
         return sb.toString();
     }
@@ -384,6 +464,11 @@ public class Region implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getAvailabilityZones() != null && other.getAvailabilityZones().equals(this.getAvailabilityZones()) == false)
             return false;
+        if (other.getRelationalDatabaseAvailabilityZones() == null ^ this.getRelationalDatabaseAvailabilityZones() == null)
+            return false;
+        if (other.getRelationalDatabaseAvailabilityZones() != null
+                && other.getRelationalDatabaseAvailabilityZones().equals(this.getRelationalDatabaseAvailabilityZones()) == false)
+            return false;
         return true;
     }
 
@@ -397,6 +482,7 @@ public class Region implements Serializable, Cloneable, StructuredPojo {
         hashCode = prime * hashCode + ((getDisplayName() == null) ? 0 : getDisplayName().hashCode());
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getAvailabilityZones() == null) ? 0 : getAvailabilityZones().hashCode());
+        hashCode = prime * hashCode + ((getRelationalDatabaseAvailabilityZones() == null) ? 0 : getRelationalDatabaseAvailabilityZones().hashCode());
         return hashCode;
     }
 

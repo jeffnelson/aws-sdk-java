@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,23 +33,38 @@ public class Input implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Name prefix to use when creating in-application stream. Suppose you specify a prefix "MyInApplicationStream".
-     * Amazon Kinesis Analytics will then create one or more (as per the <code>InputParallelism</code> count you
-     * specified) in-application streams with names "MyInApplicationStream_001", "MyInApplicationStream_002" and so on.
+     * Name prefix to use when creating an in-application stream. Suppose that you specify a prefix
+     * "MyInApplicationStream." Amazon Kinesis Analytics then creates one or more (as per the
+     * <code>InputParallelism</code> count you specified) in-application streams with names "MyInApplicationStream_001,"
+     * "MyInApplicationStream_002," and so on.
      * </p>
      */
     private String namePrefix;
     /**
      * <p>
+     * The <a>InputProcessingConfiguration</a> for the input. An input processor transforms records as they are received
+     * from the stream, before the application's SQL code executes. Currently, the only input processing configuration
+     * available is <a>InputLambdaProcessor</a>.
+     * </p>
+     */
+    private InputProcessingConfiguration inputProcessingConfiguration;
+    /**
+     * <p>
      * If the streaming source is an Amazon Kinesis stream, identifies the stream's Amazon Resource Name (ARN) and an
      * IAM role that enables Amazon Kinesis Analytics to access the stream on your behalf.
+     * </p>
+     * <p>
+     * Note: Either <code>KinesisStreamsInput</code> or <code>KinesisFirehoseInput</code> is required.
      * </p>
      */
     private KinesisStreamsInput kinesisStreamsInput;
     /**
      * <p>
-     * If the streaming source is an Amazon Kinesis Firehose delivery stream, identifies the Firehose delivery stream's
-     * ARN and an IAM role that enables Amazon Kinesis Analytics to access the stream on your behalf.
+     * If the streaming source is an Amazon Kinesis Firehose delivery stream, identifies the delivery stream's ARN and
+     * an IAM role that enables Amazon Kinesis Analytics to access the stream on your behalf.
+     * </p>
+     * <p>
+     * Note: Either <code>KinesisStreamsInput</code> or <code>KinesisFirehoseInput</code> is required.
      * </p>
      */
     private KinesisFirehoseInput kinesisFirehoseInput;
@@ -58,7 +73,7 @@ public class Input implements Serializable, Cloneable, StructuredPojo {
      * Describes the number of in-application streams to create.
      * </p>
      * <p>
-     * Data from your source will be routed to these in-application input streams.
+     * Data from your source is routed to these in-application input streams.
      * </p>
      * <p>
      * (see <a href="http://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-input.html">Configuring
@@ -79,16 +94,17 @@ public class Input implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Name prefix to use when creating in-application stream. Suppose you specify a prefix "MyInApplicationStream".
-     * Amazon Kinesis Analytics will then create one or more (as per the <code>InputParallelism</code> count you
-     * specified) in-application streams with names "MyInApplicationStream_001", "MyInApplicationStream_002" and so on.
+     * Name prefix to use when creating an in-application stream. Suppose that you specify a prefix
+     * "MyInApplicationStream." Amazon Kinesis Analytics then creates one or more (as per the
+     * <code>InputParallelism</code> count you specified) in-application streams with names "MyInApplicationStream_001,"
+     * "MyInApplicationStream_002," and so on.
      * </p>
      * 
      * @param namePrefix
-     *        Name prefix to use when creating in-application stream. Suppose you specify a prefix
-     *        "MyInApplicationStream". Amazon Kinesis Analytics will then create one or more (as per the
+     *        Name prefix to use when creating an in-application stream. Suppose that you specify a prefix
+     *        "MyInApplicationStream." Amazon Kinesis Analytics then creates one or more (as per the
      *        <code>InputParallelism</code> count you specified) in-application streams with names
-     *        "MyInApplicationStream_001", "MyInApplicationStream_002" and so on.
+     *        "MyInApplicationStream_001," "MyInApplicationStream_002," and so on.
      */
 
     public void setNamePrefix(String namePrefix) {
@@ -97,15 +113,16 @@ public class Input implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Name prefix to use when creating in-application stream. Suppose you specify a prefix "MyInApplicationStream".
-     * Amazon Kinesis Analytics will then create one or more (as per the <code>InputParallelism</code> count you
-     * specified) in-application streams with names "MyInApplicationStream_001", "MyInApplicationStream_002" and so on.
+     * Name prefix to use when creating an in-application stream. Suppose that you specify a prefix
+     * "MyInApplicationStream." Amazon Kinesis Analytics then creates one or more (as per the
+     * <code>InputParallelism</code> count you specified) in-application streams with names "MyInApplicationStream_001,"
+     * "MyInApplicationStream_002," and so on.
      * </p>
      * 
-     * @return Name prefix to use when creating in-application stream. Suppose you specify a prefix
-     *         "MyInApplicationStream". Amazon Kinesis Analytics will then create one or more (as per the
+     * @return Name prefix to use when creating an in-application stream. Suppose that you specify a prefix
+     *         "MyInApplicationStream." Amazon Kinesis Analytics then creates one or more (as per the
      *         <code>InputParallelism</code> count you specified) in-application streams with names
-     *         "MyInApplicationStream_001", "MyInApplicationStream_002" and so on.
+     *         "MyInApplicationStream_001," "MyInApplicationStream_002," and so on.
      */
 
     public String getNamePrefix() {
@@ -114,16 +131,17 @@ public class Input implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * Name prefix to use when creating in-application stream. Suppose you specify a prefix "MyInApplicationStream".
-     * Amazon Kinesis Analytics will then create one or more (as per the <code>InputParallelism</code> count you
-     * specified) in-application streams with names "MyInApplicationStream_001", "MyInApplicationStream_002" and so on.
+     * Name prefix to use when creating an in-application stream. Suppose that you specify a prefix
+     * "MyInApplicationStream." Amazon Kinesis Analytics then creates one or more (as per the
+     * <code>InputParallelism</code> count you specified) in-application streams with names "MyInApplicationStream_001,"
+     * "MyInApplicationStream_002," and so on.
      * </p>
      * 
      * @param namePrefix
-     *        Name prefix to use when creating in-application stream. Suppose you specify a prefix
-     *        "MyInApplicationStream". Amazon Kinesis Analytics will then create one or more (as per the
+     *        Name prefix to use when creating an in-application stream. Suppose that you specify a prefix
+     *        "MyInApplicationStream." Amazon Kinesis Analytics then creates one or more (as per the
      *        <code>InputParallelism</code> count you specified) in-application streams with names
-     *        "MyInApplicationStream_001", "MyInApplicationStream_002" and so on.
+     *        "MyInApplicationStream_001," "MyInApplicationStream_002," and so on.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -134,13 +152,70 @@ public class Input implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
+     * The <a>InputProcessingConfiguration</a> for the input. An input processor transforms records as they are received
+     * from the stream, before the application's SQL code executes. Currently, the only input processing configuration
+     * available is <a>InputLambdaProcessor</a>.
+     * </p>
+     * 
+     * @param inputProcessingConfiguration
+     *        The <a>InputProcessingConfiguration</a> for the input. An input processor transforms records as they are
+     *        received from the stream, before the application's SQL code executes. Currently, the only input processing
+     *        configuration available is <a>InputLambdaProcessor</a>.
+     */
+
+    public void setInputProcessingConfiguration(InputProcessingConfiguration inputProcessingConfiguration) {
+        this.inputProcessingConfiguration = inputProcessingConfiguration;
+    }
+
+    /**
+     * <p>
+     * The <a>InputProcessingConfiguration</a> for the input. An input processor transforms records as they are received
+     * from the stream, before the application's SQL code executes. Currently, the only input processing configuration
+     * available is <a>InputLambdaProcessor</a>.
+     * </p>
+     * 
+     * @return The <a>InputProcessingConfiguration</a> for the input. An input processor transforms records as they are
+     *         received from the stream, before the application's SQL code executes. Currently, the only input
+     *         processing configuration available is <a>InputLambdaProcessor</a>.
+     */
+
+    public InputProcessingConfiguration getInputProcessingConfiguration() {
+        return this.inputProcessingConfiguration;
+    }
+
+    /**
+     * <p>
+     * The <a>InputProcessingConfiguration</a> for the input. An input processor transforms records as they are received
+     * from the stream, before the application's SQL code executes. Currently, the only input processing configuration
+     * available is <a>InputLambdaProcessor</a>.
+     * </p>
+     * 
+     * @param inputProcessingConfiguration
+     *        The <a>InputProcessingConfiguration</a> for the input. An input processor transforms records as they are
+     *        received from the stream, before the application's SQL code executes. Currently, the only input processing
+     *        configuration available is <a>InputLambdaProcessor</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Input withInputProcessingConfiguration(InputProcessingConfiguration inputProcessingConfiguration) {
+        setInputProcessingConfiguration(inputProcessingConfiguration);
+        return this;
+    }
+
+    /**
+     * <p>
      * If the streaming source is an Amazon Kinesis stream, identifies the stream's Amazon Resource Name (ARN) and an
      * IAM role that enables Amazon Kinesis Analytics to access the stream on your behalf.
+     * </p>
+     * <p>
+     * Note: Either <code>KinesisStreamsInput</code> or <code>KinesisFirehoseInput</code> is required.
      * </p>
      * 
      * @param kinesisStreamsInput
      *        If the streaming source is an Amazon Kinesis stream, identifies the stream's Amazon Resource Name (ARN)
-     *        and an IAM role that enables Amazon Kinesis Analytics to access the stream on your behalf.
+     *        and an IAM role that enables Amazon Kinesis Analytics to access the stream on your behalf.</p>
+     *        <p>
+     *        Note: Either <code>KinesisStreamsInput</code> or <code>KinesisFirehoseInput</code> is required.
      */
 
     public void setKinesisStreamsInput(KinesisStreamsInput kinesisStreamsInput) {
@@ -152,9 +227,14 @@ public class Input implements Serializable, Cloneable, StructuredPojo {
      * If the streaming source is an Amazon Kinesis stream, identifies the stream's Amazon Resource Name (ARN) and an
      * IAM role that enables Amazon Kinesis Analytics to access the stream on your behalf.
      * </p>
+     * <p>
+     * Note: Either <code>KinesisStreamsInput</code> or <code>KinesisFirehoseInput</code> is required.
+     * </p>
      * 
      * @return If the streaming source is an Amazon Kinesis stream, identifies the stream's Amazon Resource Name (ARN)
-     *         and an IAM role that enables Amazon Kinesis Analytics to access the stream on your behalf.
+     *         and an IAM role that enables Amazon Kinesis Analytics to access the stream on your behalf.</p>
+     *         <p>
+     *         Note: Either <code>KinesisStreamsInput</code> or <code>KinesisFirehoseInput</code> is required.
      */
 
     public KinesisStreamsInput getKinesisStreamsInput() {
@@ -166,10 +246,15 @@ public class Input implements Serializable, Cloneable, StructuredPojo {
      * If the streaming source is an Amazon Kinesis stream, identifies the stream's Amazon Resource Name (ARN) and an
      * IAM role that enables Amazon Kinesis Analytics to access the stream on your behalf.
      * </p>
+     * <p>
+     * Note: Either <code>KinesisStreamsInput</code> or <code>KinesisFirehoseInput</code> is required.
+     * </p>
      * 
      * @param kinesisStreamsInput
      *        If the streaming source is an Amazon Kinesis stream, identifies the stream's Amazon Resource Name (ARN)
-     *        and an IAM role that enables Amazon Kinesis Analytics to access the stream on your behalf.
+     *        and an IAM role that enables Amazon Kinesis Analytics to access the stream on your behalf.</p>
+     *        <p>
+     *        Note: Either <code>KinesisStreamsInput</code> or <code>KinesisFirehoseInput</code> is required.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -180,13 +265,18 @@ public class Input implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * If the streaming source is an Amazon Kinesis Firehose delivery stream, identifies the Firehose delivery stream's
-     * ARN and an IAM role that enables Amazon Kinesis Analytics to access the stream on your behalf.
+     * If the streaming source is an Amazon Kinesis Firehose delivery stream, identifies the delivery stream's ARN and
+     * an IAM role that enables Amazon Kinesis Analytics to access the stream on your behalf.
+     * </p>
+     * <p>
+     * Note: Either <code>KinesisStreamsInput</code> or <code>KinesisFirehoseInput</code> is required.
      * </p>
      * 
      * @param kinesisFirehoseInput
-     *        If the streaming source is an Amazon Kinesis Firehose delivery stream, identifies the Firehose delivery
-     *        stream's ARN and an IAM role that enables Amazon Kinesis Analytics to access the stream on your behalf.
+     *        If the streaming source is an Amazon Kinesis Firehose delivery stream, identifies the delivery stream's
+     *        ARN and an IAM role that enables Amazon Kinesis Analytics to access the stream on your behalf.</p>
+     *        <p>
+     *        Note: Either <code>KinesisStreamsInput</code> or <code>KinesisFirehoseInput</code> is required.
      */
 
     public void setKinesisFirehoseInput(KinesisFirehoseInput kinesisFirehoseInput) {
@@ -195,12 +285,17 @@ public class Input implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * If the streaming source is an Amazon Kinesis Firehose delivery stream, identifies the Firehose delivery stream's
-     * ARN and an IAM role that enables Amazon Kinesis Analytics to access the stream on your behalf.
+     * If the streaming source is an Amazon Kinesis Firehose delivery stream, identifies the delivery stream's ARN and
+     * an IAM role that enables Amazon Kinesis Analytics to access the stream on your behalf.
+     * </p>
+     * <p>
+     * Note: Either <code>KinesisStreamsInput</code> or <code>KinesisFirehoseInput</code> is required.
      * </p>
      * 
-     * @return If the streaming source is an Amazon Kinesis Firehose delivery stream, identifies the Firehose delivery
-     *         stream's ARN and an IAM role that enables Amazon Kinesis Analytics to access the stream on your behalf.
+     * @return If the streaming source is an Amazon Kinesis Firehose delivery stream, identifies the delivery stream's
+     *         ARN and an IAM role that enables Amazon Kinesis Analytics to access the stream on your behalf.</p>
+     *         <p>
+     *         Note: Either <code>KinesisStreamsInput</code> or <code>KinesisFirehoseInput</code> is required.
      */
 
     public KinesisFirehoseInput getKinesisFirehoseInput() {
@@ -209,13 +304,18 @@ public class Input implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * If the streaming source is an Amazon Kinesis Firehose delivery stream, identifies the Firehose delivery stream's
-     * ARN and an IAM role that enables Amazon Kinesis Analytics to access the stream on your behalf.
+     * If the streaming source is an Amazon Kinesis Firehose delivery stream, identifies the delivery stream's ARN and
+     * an IAM role that enables Amazon Kinesis Analytics to access the stream on your behalf.
+     * </p>
+     * <p>
+     * Note: Either <code>KinesisStreamsInput</code> or <code>KinesisFirehoseInput</code> is required.
      * </p>
      * 
      * @param kinesisFirehoseInput
-     *        If the streaming source is an Amazon Kinesis Firehose delivery stream, identifies the Firehose delivery
-     *        stream's ARN and an IAM role that enables Amazon Kinesis Analytics to access the stream on your behalf.
+     *        If the streaming source is an Amazon Kinesis Firehose delivery stream, identifies the delivery stream's
+     *        ARN and an IAM role that enables Amazon Kinesis Analytics to access the stream on your behalf.</p>
+     *        <p>
+     *        Note: Either <code>KinesisStreamsInput</code> or <code>KinesisFirehoseInput</code> is required.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -229,7 +329,7 @@ public class Input implements Serializable, Cloneable, StructuredPojo {
      * Describes the number of in-application streams to create.
      * </p>
      * <p>
-     * Data from your source will be routed to these in-application input streams.
+     * Data from your source is routed to these in-application input streams.
      * </p>
      * <p>
      * (see <a href="http://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-input.html">Configuring
@@ -239,7 +339,7 @@ public class Input implements Serializable, Cloneable, StructuredPojo {
      * @param inputParallelism
      *        Describes the number of in-application streams to create. </p>
      *        <p>
-     *        Data from your source will be routed to these in-application input streams.
+     *        Data from your source is routed to these in-application input streams.
      *        </p>
      *        <p>
      *        (see <a href="http://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-input.html">Configuring
@@ -255,7 +355,7 @@ public class Input implements Serializable, Cloneable, StructuredPojo {
      * Describes the number of in-application streams to create.
      * </p>
      * <p>
-     * Data from your source will be routed to these in-application input streams.
+     * Data from your source is routed to these in-application input streams.
      * </p>
      * <p>
      * (see <a href="http://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-input.html">Configuring
@@ -264,7 +364,7 @@ public class Input implements Serializable, Cloneable, StructuredPojo {
      * 
      * @return Describes the number of in-application streams to create. </p>
      *         <p>
-     *         Data from your source will be routed to these in-application input streams.
+     *         Data from your source is routed to these in-application input streams.
      *         </p>
      *         <p>
      *         (see <a href="http://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-input.html">Configuring
@@ -280,7 +380,7 @@ public class Input implements Serializable, Cloneable, StructuredPojo {
      * Describes the number of in-application streams to create.
      * </p>
      * <p>
-     * Data from your source will be routed to these in-application input streams.
+     * Data from your source is routed to these in-application input streams.
      * </p>
      * <p>
      * (see <a href="http://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-input.html">Configuring
@@ -290,7 +390,7 @@ public class Input implements Serializable, Cloneable, StructuredPojo {
      * @param inputParallelism
      *        Describes the number of in-application streams to create. </p>
      *        <p>
-     *        Data from your source will be routed to these in-application input streams.
+     *        Data from your source is routed to these in-application input streams.
      *        </p>
      *        <p>
      *        (see <a href="http://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-input.html">Configuring
@@ -365,7 +465,8 @@ public class Input implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -377,6 +478,8 @@ public class Input implements Serializable, Cloneable, StructuredPojo {
         sb.append("{");
         if (getNamePrefix() != null)
             sb.append("NamePrefix: ").append(getNamePrefix()).append(",");
+        if (getInputProcessingConfiguration() != null)
+            sb.append("InputProcessingConfiguration: ").append(getInputProcessingConfiguration()).append(",");
         if (getKinesisStreamsInput() != null)
             sb.append("KinesisStreamsInput: ").append(getKinesisStreamsInput()).append(",");
         if (getKinesisFirehoseInput() != null)
@@ -403,6 +506,10 @@ public class Input implements Serializable, Cloneable, StructuredPojo {
             return false;
         if (other.getNamePrefix() != null && other.getNamePrefix().equals(this.getNamePrefix()) == false)
             return false;
+        if (other.getInputProcessingConfiguration() == null ^ this.getInputProcessingConfiguration() == null)
+            return false;
+        if (other.getInputProcessingConfiguration() != null && other.getInputProcessingConfiguration().equals(this.getInputProcessingConfiguration()) == false)
+            return false;
         if (other.getKinesisStreamsInput() == null ^ this.getKinesisStreamsInput() == null)
             return false;
         if (other.getKinesisStreamsInput() != null && other.getKinesisStreamsInput().equals(this.getKinesisStreamsInput()) == false)
@@ -428,6 +535,7 @@ public class Input implements Serializable, Cloneable, StructuredPojo {
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getNamePrefix() == null) ? 0 : getNamePrefix().hashCode());
+        hashCode = prime * hashCode + ((getInputProcessingConfiguration() == null) ? 0 : getInputProcessingConfiguration().hashCode());
         hashCode = prime * hashCode + ((getKinesisStreamsInput() == null) ? 0 : getKinesisStreamsInput().hashCode());
         hashCode = prime * hashCode + ((getKinesisFirehoseInput() == null) ? 0 : getKinesisFirehoseInput().hashCode());
         hashCode = prime * hashCode + ((getInputParallelism() == null) ? 0 : getInputParallelism().hashCode());

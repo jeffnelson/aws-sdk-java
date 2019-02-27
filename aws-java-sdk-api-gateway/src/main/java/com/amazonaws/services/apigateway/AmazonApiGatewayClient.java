@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -37,6 +37,8 @@ import com.amazonaws.protocol.json.*;
 import com.amazonaws.util.AWSRequestMetrics.Field;
 import com.amazonaws.annotation.ThreadSafe;
 import com.amazonaws.client.AwsSyncClientParams;
+import com.amazonaws.client.builder.AdvancedConfig;
+
 import com.amazonaws.services.apigateway.AmazonApiGatewayClientBuilder;
 
 import com.amazonaws.AmazonServiceException;
@@ -50,14 +52,15 @@ import com.amazonaws.services.apigateway.model.transform.*;
  * <p>
  * <fullname>Amazon API Gateway</fullname>
  * <p>
- * Amazon API Gateway helps developers deliver robust, secure, and scalable mobile and web application back ends. Amazon
- * API Gateway allows developers to securely connect mobile and web applications to APIs that run on AWS Lambda, Amazon
- * EC2, or other publicly addressable web services that are hosted outside of AWS.
+ * Amazon API Gateway helps developers deliver robust, secure, and scalable mobile and web application back ends. API
+ * Gateway allows developers to securely connect mobile and web applications to APIs that run on AWS Lambda, Amazon EC2,
+ * or other publicly addressable web services that are hosted outside of AWS.
  * </p>
  */
 @ThreadSafe
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class AmazonApiGatewayClient extends AmazonWebServiceClient implements AmazonApiGateway {
+
     /** Provider for AWS credentials. */
     private final AWSCredentialsProvider awsCredentialsProvider;
 
@@ -69,7 +72,9 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
     /** Client configuration factory providing ClientConfigurations tailored to this client */
     protected static final ClientConfigurationFactory configFactory = new ClientConfigurationFactory();
 
-    private final com.amazonaws.protocol.json.SdkJsonProtocolFactory protocolFactory = new com.amazonaws.protocol.json.SdkJsonProtocolFactory(
+    private final AdvancedConfig advancedConfig;
+
+    private static final com.amazonaws.protocol.json.SdkJsonProtocolFactory protocolFactory = new com.amazonaws.protocol.json.SdkJsonProtocolFactory(
             new JsonClientMetadata()
                     .withProtocolVersion("1.1")
                     .withSupportsCbor(false)
@@ -182,6 +187,7 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
     public AmazonApiGatewayClient(AWSCredentials awsCredentials, ClientConfiguration clientConfiguration) {
         super(clientConfiguration);
         this.awsCredentialsProvider = new StaticCredentialsProvider(awsCredentials);
+        this.advancedConfig = AdvancedConfig.EMPTY;
         init();
     }
 
@@ -247,6 +253,7 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
             RequestMetricCollector requestMetricCollector) {
         super(clientConfiguration, requestMetricCollector);
         this.awsCredentialsProvider = awsCredentialsProvider;
+        this.advancedConfig = AdvancedConfig.EMPTY;
         init();
     }
 
@@ -265,8 +272,23 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Object providing client parameters.
      */
     AmazonApiGatewayClient(AwsSyncClientParams clientParams) {
+        this(clientParams, false);
+    }
+
+    /**
+     * Constructs a new client to invoke service methods on Amazon API Gateway using the specified parameters.
+     *
+     * <p>
+     * All service calls made using this new client object are blocking, and will not return until the service call
+     * completes.
+     *
+     * @param clientParams
+     *        Object providing client parameters.
+     */
+    AmazonApiGatewayClient(AwsSyncClientParams clientParams, boolean endpointDiscoveryEnabled) {
         super(clientParams);
         this.awsCredentialsProvider = clientParams.getCredentialsProvider();
+        this.advancedConfig = clientParams.getAdvancedConfig();
         init();
     }
 
@@ -285,18 +307,25 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      * <p>
      * Create an <a>ApiKey</a> resource.
      * </p>
-     * <div class="seeAlso"><a href="http://docs.aws.amazon.com/cli/latest/reference/apigateway/create-api-key.html">AWS
-     * CLI</a></div>
+     * <div class="seeAlso"><a
+     * href="https://docs.aws.amazon.com/cli/latest/reference/apigateway/create-api-key.html">AWS CLI</a></div>
      * 
      * @param createApiKeyRequest
      *        Request to create an <a>ApiKey</a> resource.
      * @return Result of the CreateApiKey operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @throws LimitExceededException
+     *         The request exceeded the rate limit. Retry after the specified time period.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
      * @sample AmazonApiGateway.CreateApiKey
      */
     @Override
@@ -320,6 +349,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new CreateApiKeyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createApiKeyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateApiKey");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -341,16 +374,22 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      * Adds a new <a>Authorizer</a> resource to an existing <a>RestApi</a> resource.
      * </p>
      * <div class="seeAlso"><a
-     * href="http://docs.aws.amazon.com/cli/latest/reference/apigateway/create-authorizer.html">AWS CLI</a></div>
+     * href="https://docs.aws.amazon.com/cli/latest/reference/apigateway/create-authorizer.html">AWS CLI</a></div>
      * 
      * @param createAuthorizerRequest
      *        Request to add a new <a>Authorizer</a> to an existing <a>RestApi</a> resource.
      * @return Result of the CreateAuthorizer operation returned by the service.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws LimitExceededException
+     *         The request exceeded the rate limit. Retry after the specified time period.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.CreateAuthorizer
      */
     @Override
@@ -374,6 +413,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new CreateAuthorizerRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createAuthorizerRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateAuthorizer");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -396,13 +439,19 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      * </p>
      * 
      * @param createBasePathMappingRequest
-     *        Requests Amazon API Gateway to create a new <a>BasePathMapping</a> resource.
+     *        Requests API Gateway to create a new <a>BasePathMapping</a> resource.
      * @return Result of the CreateBasePathMapping operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.CreateBasePathMapping
      */
     @Override
@@ -426,6 +475,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new CreateBasePathMappingRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createBasePathMappingRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateBasePathMapping");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -449,15 +502,24 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      * </p>
      * 
      * @param createDeploymentRequest
-     *        Requests Amazon API Gateway to create a <a>Deployment</a> resource.
+     *        Requests API Gateway to create a <a>Deployment</a> resource.
      * @return Result of the CreateDeployment operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
      * @throws LimitExceededException
+     *         The request exceeded the rate limit. Retry after the specified time period.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @throws ServiceUnavailableException
+     *         The requested service is not available. For details see the accompanying error message. Retry after the
+     *         specified time period.
      * @sample AmazonApiGateway.CreateDeployment
      */
     @Override
@@ -481,6 +543,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new CreateDeploymentRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createDeploymentRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateDeployment");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -502,11 +568,18 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Creates a new documentation part of a given API.
      * @return Result of the CreateDocumentationPart operation returned by the service.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws LimitExceededException
+     *         The request exceeded the rate limit. Retry after the specified time period.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.CreateDocumentationPart
      */
     @Override
@@ -531,6 +604,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                         .beforeMarshalling(createDocumentationPartRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateDocumentationPart");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -553,11 +630,18 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Creates a new documentation version of a given API.
      * @return Result of the CreateDocumentationVersion operation returned by the service.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws LimitExceededException
+     *         The request exceeded the rate limit. Retry after the specified time period.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.CreateDocumentationVersion
      */
     @Override
@@ -582,6 +666,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                         .beforeMarshalling(createDocumentationVersionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateDocumentationVersion");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -608,9 +696,14 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        A request to create a new domain name.
      * @return Result of the CreateDomainName operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.CreateDomainName
      */
     @Override
@@ -634,6 +727,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new CreateDomainNameRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createDomainNameRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateDomainName");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -659,11 +756,18 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Request to add a new <a>Model</a> to an existing <a>RestApi</a> resource.
      * @return Result of the CreateModel operation returned by the service.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
      * @throws LimitExceededException
+     *         The request exceeded the rate limit. Retry after the specified time period.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.CreateModel
      */
     @Override
@@ -687,6 +791,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new CreateModelRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createModelRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateModel");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -712,10 +820,16 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Creates a <a>RequestValidator</a> of a given <a>RestApi</a>.
      * @return Result of the CreateRequestValidator operation returned by the service.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws LimitExceededException
+     *         The request exceeded the rate limit. Retry after the specified time period.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.CreateRequestValidator
      */
     @Override
@@ -739,6 +853,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new CreateRequestValidatorRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createRequestValidatorRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateRequestValidator");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -762,14 +880,21 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      * </p>
      * 
      * @param createResourceRequest
-     *        Requests Amazon API Gateway to create a <a>Resource</a> resource.
+     *        Requests API Gateway to create a <a>Resource</a> resource.
      * @return Result of the CreateResource operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
      * @throws LimitExceededException
+     *         The request exceeded the rate limit. Retry after the specified time period.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.CreateResource
      */
     @Override
@@ -793,6 +918,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new CreateResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -818,9 +947,14 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        The POST Request to add a new <a>RestApi</a> resource to your collection.
      * @return Result of the CreateRestApi operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws LimitExceededException
+     *         The request exceeded the rate limit. Retry after the specified time period.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.CreateRestApi
      */
     @Override
@@ -844,6 +978,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new CreateRestApiRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createRestApiRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateRestApi");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -866,14 +1004,21 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      * </p>
      * 
      * @param createStageRequest
-     *        Requests Amazon API Gateway to create a <a>Stage</a> resource.
+     *        Requests API Gateway to create a <a>Stage</a> resource.
      * @return Result of the CreateStage operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
      * @throws LimitExceededException
+     *         The request exceeded the rate limit. Retry after the specified time period.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.CreateStage
      */
     @Override
@@ -897,6 +1042,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new CreateStageRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createStageRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateStage");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -924,11 +1073,18 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        well as the associated API stages, specified in the payload.
      * @return Result of the CreateUsagePlan operation returned by the service.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @throws LimitExceededException
+     *         The request exceeded the rate limit. Retry after the specified time period.
      * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @sample AmazonApiGateway.CreateUsagePlan
      */
     @Override
@@ -952,6 +1108,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new CreateUsagePlanRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createUsagePlanRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateUsagePlan");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -977,10 +1137,16 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        The POST request to create a usage plan key for adding an existing API key to a usage plan.
      * @return Result of the CreateUsagePlanKey operation returned by the service.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.CreateUsagePlanKey
      */
     @Override
@@ -1004,12 +1170,78 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new CreateUsagePlanKeyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createUsagePlanKeyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateUsagePlanKey");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
             HttpResponseHandler<AmazonWebServiceResponse<CreateUsagePlanKeyResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateUsagePlanKeyResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a VPC link, under the caller's account in a selected region, in an asynchronous operation that typically
+     * takes 2-4 minutes to complete and become operational. The caller must have permissions to create and update VPC
+     * Endpoint services.
+     * </p>
+     * 
+     * @param createVpcLinkRequest
+     *        Creates a VPC link, under the caller's account in a selected region, in an asynchronous operation that
+     *        typically takes 2-4 minutes to complete and become operational. The caller must have permissions to create
+     *        and update VPC Endpoint services.
+     * @return Result of the CreateVpcLink operation returned by the service.
+     * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
+     * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
+     * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
+     * @sample AmazonApiGateway.CreateVpcLink
+     */
+    @Override
+    public CreateVpcLinkResult createVpcLink(CreateVpcLinkRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateVpcLink(request);
+    }
+
+    @SdkInternalApi
+    final CreateVpcLinkResult executeCreateVpcLink(CreateVpcLinkRequest createVpcLinkRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createVpcLinkRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateVpcLinkRequest> request = null;
+        Response<CreateVpcLinkResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateVpcLinkRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createVpcLinkRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateVpcLink");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateVpcLinkResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new CreateVpcLinkResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -1029,8 +1261,11 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        A request to delete the <a>ApiKey</a> resource.
      * @return Result of the DeleteApiKey operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.DeleteApiKey
      */
     @Override
@@ -1054,6 +1289,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new DeleteApiKeyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteApiKeyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteApiKey");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1075,16 +1314,22 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      * Deletes an existing <a>Authorizer</a> resource.
      * </p>
      * <div class="seeAlso"><a
-     * href="http://docs.aws.amazon.com/cli/latest/reference/apigateway/delete-authorizer.html">AWS CLI</a></div>
+     * href="https://docs.aws.amazon.com/cli/latest/reference/apigateway/delete-authorizer.html">AWS CLI</a></div>
      * 
      * @param deleteAuthorizerRequest
      *        Request to delete an existing <a>Authorizer</a> resource.
      * @return Result of the DeleteAuthorizer operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
      * @sample AmazonApiGateway.DeleteAuthorizer
      */
     @Override
@@ -1108,6 +1353,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new DeleteAuthorizerRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteAuthorizerRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteAuthorizer");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1133,8 +1382,16 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        A request to delete the <a>BasePathMapping</a> resource.
      * @return Result of the DeleteBasePathMapping operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
+     * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
+     * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.DeleteBasePathMapping
      */
     @Override
@@ -1158,6 +1415,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new DeleteBasePathMappingRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteBasePathMappingRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteBasePathMapping");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1184,9 +1445,14 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        A request to delete the <a>ClientCertificate</a> resource.
      * @return Result of the DeleteClientCertificate operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @sample AmazonApiGateway.DeleteClientCertificate
      */
     @Override
@@ -1211,6 +1477,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                         .beforeMarshalling(deleteClientCertificateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteClientCertificate");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1235,12 +1505,17 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      * </p>
      * 
      * @param deleteDeploymentRequest
-     *        Requests Amazon API Gateway to delete a <a>Deployment</a> resource.
+     *        Requests API Gateway to delete a <a>Deployment</a> resource.
      * @return Result of the DeleteDeployment operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.DeleteDeployment
      */
     @Override
@@ -1264,6 +1539,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new DeleteDeploymentRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteDeploymentRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteDeployment");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1285,10 +1564,16 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Deletes an existing documentation part of an API.
      * @return Result of the DeleteDocumentationPart operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @sample AmazonApiGateway.DeleteDocumentationPart
      */
     @Override
@@ -1313,6 +1598,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                         .beforeMarshalling(deleteDocumentationPartRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteDocumentationPart");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1335,10 +1624,16 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Deletes an existing documentation version of an API.
      * @return Result of the DeleteDocumentationVersion operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.DeleteDocumentationVersion
      */
     @Override
@@ -1363,6 +1658,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                         .beforeMarshalling(deleteDocumentationVersionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteDocumentationVersion");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1389,8 +1688,11 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        A request to delete the <a>DomainName</a> resource.
      * @return Result of the DeleteDomainName operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.DeleteDomainName
      */
     @Override
@@ -1414,6 +1716,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new DeleteDomainNameRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteDomainNameRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteDomainName");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1441,10 +1747,16 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        <a>RestApi</a> and resets it with the default settings.
      * @return Result of the DeleteGatewayResponse operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
      * @sample AmazonApiGateway.DeleteGatewayResponse
      */
     @Override
@@ -1468,6 +1780,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new DeleteGatewayResponseRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteGatewayResponseRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteGatewayResponse");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1494,9 +1810,13 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Represents a delete integration request.
      * @return Result of the DeleteIntegration operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
      * @sample AmazonApiGateway.DeleteIntegration
      */
     @Override
@@ -1520,6 +1840,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new DeleteIntegrationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteIntegrationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteIntegration");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1545,10 +1869,16 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Represents a delete integration response request.
      * @return Result of the DeleteIntegrationResponse operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
      * @sample AmazonApiGateway.DeleteIntegrationResponse
      */
     @Override
@@ -1573,6 +1903,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                         .beforeMarshalling(deleteIntegrationResponseRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteIntegrationResponse");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1599,9 +1933,13 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Request to delete an existing <a>Method</a> resource.
      * @return Result of the DeleteMethod operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
      * @sample AmazonApiGateway.DeleteMethod
      */
     @Override
@@ -1625,6 +1963,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new DeleteMethodRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteMethodRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteMethod");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1650,10 +1992,16 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        A request to delete an existing <a>MethodResponse</a> resource.
      * @return Result of the DeleteMethodResponse operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
      * @sample AmazonApiGateway.DeleteMethodResponse
      */
     @Override
@@ -1677,6 +2025,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new DeleteMethodResponseRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteMethodResponseRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteMethodResponse");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1702,10 +2054,16 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Request to delete an existing model in an existing <a>RestApi</a> resource.
      * @return Result of the DeleteModel operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
      * @sample AmazonApiGateway.DeleteModel
      */
     @Override
@@ -1729,6 +2087,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new DeleteModelRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteModelRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteModel");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1754,10 +2116,16 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Deletes a specified <a>RequestValidator</a> of a given <a>RestApi</a>.
      * @return Result of the DeleteRequestValidator operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
      * @sample AmazonApiGateway.DeleteRequestValidator
      */
     @Override
@@ -1781,6 +2149,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new DeleteRequestValidatorRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteRequestValidatorRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteRequestValidator");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1807,10 +2179,16 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Request to delete a <a>Resource</a>.
      * @return Result of the DeleteResource operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.DeleteResource
      */
     @Override
@@ -1834,6 +2212,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new DeleteResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1859,9 +2241,14 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Request to delete the specified API from your collection.
      * @return Result of the DeleteRestApi operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @sample AmazonApiGateway.DeleteRestApi
      */
     @Override
@@ -1885,6 +2272,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new DeleteRestApiRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteRestApiRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteRestApi");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1907,12 +2298,17 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      * </p>
      * 
      * @param deleteStageRequest
-     *        Requests Amazon API Gateway to delete a <a>Stage</a> resource.
+     *        Requests API Gateway to delete a <a>Stage</a> resource.
      * @return Result of the DeleteStage operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @sample AmazonApiGateway.DeleteStage
      */
     @Override
@@ -1936,6 +2332,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new DeleteStageRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteStageRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteStage");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1961,9 +2361,14 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        The DELETE request to delete a usage plan of a given plan Id.
      * @return Result of the DeleteUsagePlan operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @sample AmazonApiGateway.DeleteUsagePlan
      */
     @Override
@@ -1987,6 +2392,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new DeleteUsagePlanRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteUsagePlanRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteUsagePlan");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2013,10 +2422,16 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        plan.
      * @return Result of the DeleteUsagePlanKey operation returned by the service.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.DeleteUsagePlanKey
      */
     @Override
@@ -2040,12 +2455,76 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new DeleteUsagePlanKeyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteUsagePlanKeyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteUsagePlanKey");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
             HttpResponseHandler<AmazonWebServiceResponse<DeleteUsagePlanKeyResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteUsagePlanKeyResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes an existing <a>VpcLink</a> of a specified identifier.
+     * </p>
+     * 
+     * @param deleteVpcLinkRequest
+     *        Deletes an existing <a>VpcLink</a> of a specified identifier.
+     * @return Result of the DeleteVpcLink operation returned by the service.
+     * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
+     * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
+     * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
+     * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
+     * @sample AmazonApiGateway.DeleteVpcLink
+     */
+    @Override
+    public DeleteVpcLinkResult deleteVpcLink(DeleteVpcLinkRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteVpcLink(request);
+    }
+
+    @SdkInternalApi
+    final DeleteVpcLinkResult executeDeleteVpcLink(DeleteVpcLinkRequest deleteVpcLinkRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteVpcLinkRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteVpcLinkRequest> request = null;
+        Response<DeleteVpcLinkResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteVpcLinkRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteVpcLinkRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteVpcLink");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteVpcLinkResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteVpcLinkResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -2065,9 +2544,14 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Request to flush authorizer cache entries on a specified stage.
      * @return Result of the FlushStageAuthorizersCache operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.FlushStageAuthorizersCache
      */
     @Override
@@ -2092,6 +2576,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                         .beforeMarshalling(flushStageAuthorizersCacheRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "FlushStageAuthorizersCache");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2115,12 +2603,17 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      * </p>
      * 
      * @param flushStageCacheRequest
-     *        Requests Amazon API Gateway to flush a stage's cache.
+     *        Requests API Gateway to flush a stage's cache.
      * @return Result of the FlushStageCache operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.FlushStageCache
      */
     @Override
@@ -2144,6 +2637,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new FlushStageCacheRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(flushStageCacheRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "FlushStageCache");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2169,8 +2666,11 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        A request to generate a <a>ClientCertificate</a> resource.
      * @return Result of the GenerateClientCertificate operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @throws LimitExceededException
+     *         The request exceeded the rate limit. Retry after the specified time period.
      * @sample AmazonApiGateway.GenerateClientCertificate
      */
     @Override
@@ -2195,6 +2695,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                         .beforeMarshalling(generateClientCertificateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GenerateClientCertificate");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2218,11 +2722,14 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      * </p>
      * 
      * @param getAccountRequest
-     *        Requests Amazon API Gateway to get information about the current <a>Account</a> resource.
+     *        Requests API Gateway to get information about the current <a>Account</a> resource.
      * @return Result of the GetAccount operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.GetAccount
      */
     @Override
@@ -2246,6 +2753,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new GetAccountRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getAccountRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetAccount");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2271,8 +2782,11 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        A request to get information about the current <a>ApiKey</a> resource.
      * @return Result of the GetApiKey operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.GetApiKey
      */
     @Override
@@ -2296,6 +2810,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new GetApiKeyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getApiKeyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetApiKey");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2321,8 +2839,12 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        A request to get information about the current <a>ApiKeys</a> resource.
      * @return Result of the GetApiKeys operation returned by the service.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.GetApiKeys
      */
     @Override
@@ -2346,6 +2868,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new GetApiKeysRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getApiKeysRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetApiKeys");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2366,15 +2892,18 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      * <p>
      * Describe an existing <a>Authorizer</a> resource.
      * </p>
-     * <div class="seeAlso"><a href="http://docs.aws.amazon.com/cli/latest/reference/apigateway/get-authorizer.html">AWS
-     * CLI</a></div>
+     * <div class="seeAlso"><a
+     * href="https://docs.aws.amazon.com/cli/latest/reference/apigateway/get-authorizer.html">AWS CLI</a></div>
      * 
      * @param getAuthorizerRequest
      *        Request to describe an existing <a>Authorizer</a> resource.
      * @return Result of the GetAuthorizer operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.GetAuthorizer
      */
     @Override
@@ -2398,6 +2927,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new GetAuthorizerRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getAuthorizerRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetAuthorizer");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2419,15 +2952,20 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      * Describe an existing <a>Authorizers</a> resource.
      * </p>
      * <div class="seeAlso"><a
-     * href="http://docs.aws.amazon.com/cli/latest/reference/apigateway/get-authorizers.html">AWS CLI</a></div>
+     * href="https://docs.aws.amazon.com/cli/latest/reference/apigateway/get-authorizers.html">AWS CLI</a></div>
      * 
      * @param getAuthorizersRequest
      *        Request to describe an existing <a>Authorizers</a> resource.
      * @return Result of the GetAuthorizers operation returned by the service.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.GetAuthorizers
      */
     @Override
@@ -2451,6 +2989,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new GetAuthorizersRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getAuthorizersRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetAuthorizers");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2476,8 +3018,11 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Request to describe a <a>BasePathMapping</a> resource.
      * @return Result of the GetBasePathMapping operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.GetBasePathMapping
      */
     @Override
@@ -2501,6 +3046,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new GetBasePathMappingRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getBasePathMappingRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetBasePathMapping");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2526,8 +3075,11 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        A request to get information about a collection of <a>BasePathMapping</a> resources.
      * @return Result of the GetBasePathMappings operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.GetBasePathMappings
      */
     @Override
@@ -2551,6 +3103,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new GetBasePathMappingsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getBasePathMappingsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetBasePathMappings");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2576,8 +3132,11 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        A request to get information about the current <a>ClientCertificate</a> resource.
      * @return Result of the GetClientCertificate operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.GetClientCertificate
      */
     @Override
@@ -2601,6 +3160,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new GetClientCertificateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getClientCertificateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetClientCertificate");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2626,8 +3189,12 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        A request to get information about a collection of <a>ClientCertificate</a> resources.
      * @return Result of the GetClientCertificates operation returned by the service.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.GetClientCertificates
      */
     @Override
@@ -2651,6 +3218,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new GetClientCertificatesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getClientCertificatesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetClientCertificates");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2674,12 +3245,17 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      * </p>
      * 
      * @param getDeploymentRequest
-     *        Requests Amazon API Gateway to get information about a <a>Deployment</a> resource.
+     *        Requests API Gateway to get information about a <a>Deployment</a> resource.
      * @return Result of the GetDeployment operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @throws ServiceUnavailableException
+     *         The requested service is not available. For details see the accompanying error message. Retry after the
+     *         specified time period.
      * @sample AmazonApiGateway.GetDeployment
      */
     @Override
@@ -2703,6 +3279,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new GetDeploymentRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getDeploymentRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetDeployment");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2725,12 +3305,18 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      * </p>
      * 
      * @param getDeploymentsRequest
-     *        Requests Amazon API Gateway to get information about a <a>Deployments</a> collection.
+     *        Requests API Gateway to get information about a <a>Deployments</a> collection.
      * @return Result of the GetDeployments operation returned by the service.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @throws ServiceUnavailableException
+     *         The requested service is not available. For details see the accompanying error message. Retry after the
+     *         specified time period.
      * @sample AmazonApiGateway.GetDeployments
      */
     @Override
@@ -2754,6 +3340,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new GetDeploymentsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getDeploymentsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetDeployments");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2775,8 +3365,11 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Gets a specified documentation part of a given API.
      * @return Result of the GetDocumentationPart operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.GetDocumentationPart
      */
     @Override
@@ -2800,6 +3393,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new GetDocumentationPartRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getDocumentationPartRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetDocumentationPart");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2822,9 +3419,14 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        entities (targets).
      * @return Result of the GetDocumentationParts operation returned by the service.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.GetDocumentationParts
      */
     @Override
@@ -2848,6 +3450,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new GetDocumentationPartsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getDocumentationPartsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetDocumentationParts");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2870,8 +3476,11 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Gets a documentation snapshot of an API.
      * @return Result of the GetDocumentationVersion operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.GetDocumentationVersion
      */
     @Override
@@ -2896,6 +3505,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                         .beforeMarshalling(getDocumentationVersionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetDocumentationVersion");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2918,9 +3531,14 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Gets the documentation versions of an API.
      * @return Result of the GetDocumentationVersions operation returned by the service.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.GetDocumentationVersions
      */
     @Override
@@ -2945,6 +3563,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                         .beforeMarshalling(getDocumentationVersionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetDocumentationVersions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2971,9 +3593,14 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Request to get the name of a <a>DomainName</a> resource.
      * @return Result of the GetDomainName operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws ServiceUnavailableException
+     *         The requested service is not available. For details see the accompanying error message. Retry after the
+     *         specified time period.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.GetDomainName
      */
     @Override
@@ -2997,6 +3624,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new GetDomainNameRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getDomainNameRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetDomainName");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -3022,8 +3653,12 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Request to describe a collection of <a>DomainName</a> resources.
      * @return Result of the GetDomainNames operation returned by the service.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.GetDomainNames
      */
     @Override
@@ -3047,6 +3682,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new GetDomainNamesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getDomainNamesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetDomainNames");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -3072,10 +3711,16 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Request a new export of a <a>RestApi</a> for a particular <a>Stage</a>.
      * @return Result of the GetExport operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.GetExport
      */
     @Override
@@ -3099,6 +3744,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new GetExportRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getExportRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetExport");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -3124,8 +3773,11 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Gets a <a>GatewayResponse</a> of a specified response type on the given <a>RestApi</a>.
      * @return Result of the GetGatewayResponse operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.GetGatewayResponse
      */
     @Override
@@ -3149,6 +3801,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new GetGatewayResponseRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getGatewayResponseRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetGatewayResponse");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -3168,19 +3824,24 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
     /**
      * <p>
      * Gets the <a>GatewayResponses</a> collection on the given <a>RestApi</a>. If an API developer has not added any
-     * definitions for gateway responses, the result will be the Amazon API Gateway-generated default
-     * <a>GatewayResponses</a> collection for the supported response types.
+     * definitions for gateway responses, the result will be the API Gateway-generated default <a>GatewayResponses</a>
+     * collection for the supported response types.
      * </p>
      * 
      * @param getGatewayResponsesRequest
      *        Gets the <a>GatewayResponses</a> collection on the given <a>RestApi</a>. If an API developer has not added
-     *        any definitions for gateway responses, the result will be the Amazon API Gateway-generated default
+     *        any definitions for gateway responses, the result will be the API Gateway-generated default
      *        <a>GatewayResponses</a> collection for the supported response types.
      * @return Result of the GetGatewayResponses operation returned by the service.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.GetGatewayResponses
      */
     @Override
@@ -3204,6 +3865,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new GetGatewayResponsesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getGatewayResponsesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetGatewayResponses");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -3222,15 +3887,18 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
 
     /**
      * <p>
-     * Represents a get integration.
+     * Get the integration settings.
      * </p>
      * 
      * @param getIntegrationRequest
-     *        Represents a get integration request.
+     *        Represents a request to get the integration configuration.
      * @return Result of the GetIntegration operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.GetIntegration
      */
     @Override
@@ -3254,6 +3922,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new GetIntegrationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getIntegrationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetIntegration");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -3279,8 +3951,11 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Represents a get integration response request.
      * @return Result of the GetIntegrationResponse operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.GetIntegrationResponse
      */
     @Override
@@ -3304,6 +3979,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new GetIntegrationResponseRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getIntegrationResponseRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetIntegrationResponse");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -3330,8 +4009,11 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Request to describe an existing <a>Method</a> resource.
      * @return Result of the GetMethod operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.GetMethod
      */
     @Override
@@ -3355,6 +4037,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new GetMethodRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getMethodRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetMethod");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -3380,8 +4066,11 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Request to describe a <a>MethodResponse</a> resource.
      * @return Result of the GetMethodResponse operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.GetMethodResponse
      */
     @Override
@@ -3405,6 +4094,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new GetMethodResponseRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getMethodResponseRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetMethodResponse");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -3430,8 +4123,11 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Request to list information about a model in an existing <a>RestApi</a> resource.
      * @return Result of the GetModel operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.GetModel
      */
     @Override
@@ -3455,6 +4151,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new GetModelRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getModelRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetModel");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -3480,9 +4180,14 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Request to generate a sample mapping template used to transform the payload.
      * @return Result of the GetModelTemplate operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.GetModelTemplate
      */
     @Override
@@ -3506,6 +4211,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new GetModelTemplateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getModelTemplateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetModelTemplate");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -3531,9 +4240,14 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Request to list existing <a>Models</a> defined for a <a>RestApi</a> resource.
      * @return Result of the GetModels operation returned by the service.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.GetModels
      */
     @Override
@@ -3557,6 +4271,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new GetModelsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getModelsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetModels");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -3582,8 +4300,11 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Gets a <a>RequestValidator</a> of a given <a>RestApi</a>.
      * @return Result of the GetRequestValidator operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.GetRequestValidator
      */
     @Override
@@ -3607,6 +4328,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new GetRequestValidatorRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getRequestValidatorRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetRequestValidator");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -3632,9 +4357,14 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Gets the <a>RequestValidators</a> collection of a given <a>RestApi</a>.
      * @return Result of the GetRequestValidators operation returned by the service.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.GetRequestValidators
      */
     @Override
@@ -3658,6 +4388,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new GetRequestValidatorsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getRequestValidatorsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetRequestValidators");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -3683,8 +4417,11 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Request to list information about a resource.
      * @return Result of the GetResource operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.GetResource
      */
     @Override
@@ -3708,6 +4445,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new GetResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -3733,9 +4474,14 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Request to list information about a collection of resources.
      * @return Result of the GetResources operation returned by the service.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.GetResources
      */
     @Override
@@ -3759,6 +4505,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new GetResourcesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getResourcesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetResources");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -3784,8 +4534,11 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        The GET request to list an existing <a>RestApi</a> defined for your collection.
      * @return Result of the GetRestApi operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.GetRestApi
      */
     @Override
@@ -3809,6 +4562,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new GetRestApiRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getRestApiRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetRestApi");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -3834,8 +4591,12 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        The GET request to list existing <a>RestApis</a> defined for your collection.
      * @return Result of the GetRestApis operation returned by the service.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.GetRestApis
      */
     @Override
@@ -3859,6 +4620,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new GetRestApisRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getRestApisRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetRestApis");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -3884,10 +4649,16 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Request a new generated client SDK for a <a>RestApi</a> and <a>Stage</a>.
      * @return Result of the GetSdk operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.GetSdk
      */
     @Override
@@ -3911,6 +4682,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new GetSdkRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getSdkRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetSdk");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -3932,8 +4707,11 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Get an <a>SdkType</a> instance.
      * @return Result of the GetSdkType operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.GetSdkType
      */
     @Override
@@ -3957,6 +4735,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new GetSdkTypeRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getSdkTypeRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetSdkType");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -3978,7 +4760,9 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Get the <a>SdkTypes</a> collection.
      * @return Result of the GetSdkTypes operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.GetSdkTypes
      */
     @Override
@@ -4002,6 +4786,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new GetSdkTypesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getSdkTypesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetSdkTypes");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -4024,11 +4812,14 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      * </p>
      * 
      * @param getStageRequest
-     *        Requests Amazon API Gateway to get information about a <a>Stage</a> resource.
+     *        Requests API Gateway to get information about a <a>Stage</a> resource.
      * @return Result of the GetStage operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.GetStage
      */
     @Override
@@ -4052,6 +4843,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new GetStageRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getStageRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetStage");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -4074,11 +4869,14 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      * </p>
      * 
      * @param getStagesRequest
-     *        Requests Amazon API Gateway to get information about one or more <a>Stage</a> resources.
+     *        Requests API Gateway to get information about one or more <a>Stage</a> resources.
      * @return Result of the GetStages operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.GetStages
      */
     @Override
@@ -4102,12 +4900,78 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new GetStagesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getStagesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetStages");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
             HttpResponseHandler<AmazonWebServiceResponse<GetStagesResult>> responseHandler = protocolFactory.createResponseHandler(new JsonOperationMetadata()
                     .withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetStagesResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets the <a>Tags</a> collection for a given resource.
+     * </p>
+     * 
+     * @param getTagsRequest
+     *        Gets the <a>Tags</a> collection for a given resource.
+     * @return Result of the GetTags operation returned by the service.
+     * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
+     * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
+     * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
+     * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
+     * @throws LimitExceededException
+     *         The request exceeded the rate limit. Retry after the specified time period.
+     * @sample AmazonApiGateway.GetTags
+     */
+    @Override
+    public GetTagsResult getTags(GetTagsRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetTags(request);
+    }
+
+    @SdkInternalApi
+    final GetTagsResult executeGetTags(GetTagsRequest getTagsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getTagsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetTagsRequest> request = null;
+        Response<GetTagsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetTagsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getTagsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetTags");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetTagsResult>> responseHandler = protocolFactory.createResponseHandler(new JsonOperationMetadata()
+                    .withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetTagsResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -4127,9 +4991,14 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        The GET request to get the usage data of a usage plan in a specified time interval.
      * @return Result of the GetUsage operation returned by the service.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.GetUsage
      */
     @Override
@@ -4153,6 +5022,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new GetUsageRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getUsageRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetUsage");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -4178,9 +5051,14 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        The GET request to get a usage plan of a given plan identifier.
      * @return Result of the GetUsagePlan operation returned by the service.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.GetUsagePlan
      */
     @Override
@@ -4204,6 +5082,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new GetUsagePlanRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getUsagePlanRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetUsagePlan");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -4229,9 +5111,14 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        The GET request to get a usage plan key of a given key identifier.
      * @return Result of the GetUsagePlanKey operation returned by the service.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.GetUsagePlanKey
      */
     @Override
@@ -4255,6 +5142,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new GetUsagePlanKeyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getUsagePlanKeyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetUsagePlanKey");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -4280,9 +5171,14 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        The GET request to get all the usage plan keys representing the API keys added to a specified usage plan.
      * @return Result of the GetUsagePlanKeys operation returned by the service.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.GetUsagePlanKeys
      */
     @Override
@@ -4306,6 +5202,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new GetUsagePlanKeysRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getUsagePlanKeysRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetUsagePlanKeys");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -4331,10 +5231,16 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        The GET request to get all the usage plans of the caller's account.
      * @return Result of the GetUsagePlans operation returned by the service.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @sample AmazonApiGateway.GetUsagePlans
      */
     @Override
@@ -4358,12 +5264,131 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new GetUsagePlansRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getUsagePlansRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetUsagePlans");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
             HttpResponseHandler<AmazonWebServiceResponse<GetUsagePlansResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetUsagePlansResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets a specified VPC link under the caller's account in a region.
+     * </p>
+     * 
+     * @param getVpcLinkRequest
+     *        Gets a specified VPC link under the caller's account in a region.
+     * @return Result of the GetVpcLink operation returned by the service.
+     * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
+     * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
+     * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
+     * @sample AmazonApiGateway.GetVpcLink
+     */
+    @Override
+    public GetVpcLinkResult getVpcLink(GetVpcLinkRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetVpcLink(request);
+    }
+
+    @SdkInternalApi
+    final GetVpcLinkResult executeGetVpcLink(GetVpcLinkRequest getVpcLinkRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getVpcLinkRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetVpcLinkRequest> request = null;
+        Response<GetVpcLinkResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetVpcLinkRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getVpcLinkRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetVpcLink");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetVpcLinkResult>> responseHandler = protocolFactory.createResponseHandler(new JsonOperationMetadata()
+                    .withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetVpcLinkResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Gets the <a>VpcLinks</a> collection under the caller's account in a selected region.
+     * </p>
+     * 
+     * @param getVpcLinksRequest
+     *        Gets the <a>VpcLinks</a> collection under the caller's account in a selected region.
+     * @return Result of the GetVpcLinks operation returned by the service.
+     * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
+     * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
+     * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
+     * @sample AmazonApiGateway.GetVpcLinks
+     */
+    @Override
+    public GetVpcLinksResult getVpcLinks(GetVpcLinksRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetVpcLinks(request);
+    }
+
+    @SdkInternalApi
+    final GetVpcLinksResult executeGetVpcLinks(GetVpcLinksRequest getVpcLinksRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getVpcLinksRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetVpcLinksRequest> request = null;
+        Response<GetVpcLinksResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetVpcLinksRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getVpcLinksRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetVpcLinks");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetVpcLinksResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new GetVpcLinksResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -4383,11 +5408,18 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        The POST request to import API keys from an external source, such as a CSV-formatted file.
      * @return Result of the ImportApiKeys operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @throws LimitExceededException
+     *         The request exceeded the rate limit. Retry after the specified time period.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
      * @sample AmazonApiGateway.ImportApiKeys
      */
     @Override
@@ -4411,6 +5443,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new ImportApiKeysRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(importApiKeysRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ImportApiKeys");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -4429,13 +5465,19 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
 
     /**
      * @param importDocumentationPartsRequest
-     *        Import documentation parts from an external (e.g., Swagger) definition file.
+     *        Import documentation parts from an external (e.g., OpenAPI) definition file.
      * @return Result of the ImportDocumentationParts operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws LimitExceededException
+     *         The request exceeded the rate limit. Retry after the specified time period.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.ImportDocumentationParts
      */
     @Override
@@ -4460,6 +5502,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                         .beforeMarshalling(importDocumentationPartsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ImportDocumentationParts");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -4479,17 +5525,23 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
 
     /**
      * <p>
-     * A feature of the Amazon API Gateway control service for creating a new API from an external API definition file.
+     * A feature of the API Gateway control service for creating a new API from an external API definition file.
      * </p>
      * 
      * @param importRestApiRequest
-     *        A POST request to import an API to Amazon API Gateway using an input of an API definition file.
+     *        A POST request to import an API to API Gateway using an input of an API definition file.
      * @return Result of the ImportRestApi operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws LimitExceededException
+     *         The request exceeded the rate limit. Retry after the specified time period.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
      * @sample AmazonApiGateway.ImportRestApi
      */
     @Override
@@ -4513,6 +5565,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new ImportRestApiRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(importRestApiRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ImportRestApi");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -4540,10 +5596,16 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        given <a>RestApi</a>.
      * @return Result of the PutGatewayResponse operation returned by the service.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws LimitExceededException
+     *         The request exceeded the rate limit. Retry after the specified time period.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.PutGatewayResponse
      */
     @Override
@@ -4567,6 +5629,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new PutGatewayResponseRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(putGatewayResponseRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutGatewayResponse");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -4592,10 +5658,16 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Sets up a method's integration.
      * @return Result of the PutIntegration operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.PutIntegration
      */
     @Override
@@ -4619,6 +5691,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new PutIntegrationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(putIntegrationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutIntegration");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -4644,11 +5720,18 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Represents a put integration response request.
      * @return Result of the PutIntegrationResponse operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws LimitExceededException
+     *         The request exceeded the rate limit. Retry after the specified time period.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
      * @sample AmazonApiGateway.PutIntegrationResponse
      */
     @Override
@@ -4672,6 +5755,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new PutIntegrationResponseRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(putIntegrationResponseRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutIntegrationResponse");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -4698,11 +5785,18 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Request to add a method to an existing <a>Resource</a> resource.
      * @return Result of the PutMethod operation returned by the service.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
      * @throws LimitExceededException
+     *         The request exceeded the rate limit. Retry after the specified time period.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.PutMethod
      */
     @Override
@@ -4726,6 +5820,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new PutMethodRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(putMethodRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutMethod");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -4751,11 +5849,18 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Request to add a <a>MethodResponse</a> to an existing <a>Method</a> resource.
      * @return Result of the PutMethodResponse operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
      * @throws LimitExceededException
+     *         The request exceeded the rate limit. Retry after the specified time period.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.PutMethodResponse
      */
     @Override
@@ -4779,6 +5884,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new PutMethodResponseRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(putMethodResponseRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutMethodResponse");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -4797,7 +5906,7 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
 
     /**
      * <p>
-     * A feature of the Amazon API Gateway control service for updating an existing API with an input of external API
+     * A feature of the API Gateway control service for updating an existing API with an input of external API
      * definitions. The update can take the form of merging the supplied definition into the existing API or overwriting
      * the existing API.
      * </p>
@@ -4806,11 +5915,18 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        A PUT request to update an existing API, with external API definitions specified as the request body.
      * @return Result of the PutRestApi operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws LimitExceededException
+     *         The request exceeded the rate limit. Retry after the specified time period.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
      * @sample AmazonApiGateway.PutRestApi
      */
     @Override
@@ -4834,6 +5950,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new PutRestApiRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(putRestApiRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutRestApi");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -4852,20 +5972,89 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
 
     /**
      * <p>
+     * Adds or updates a tag on a given resource.
+     * </p>
+     * 
+     * @param tagResourceRequest
+     *        Adds or updates a tag on a given resource.
+     * @return Result of the TagResource operation returned by the service.
+     * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
+     * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
+     * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
+     * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
+     * @throws LimitExceededException
+     *         The request exceeded the rate limit. Retry after the specified time period.
+     * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
+     * @sample AmazonApiGateway.TagResource
+     */
+    @Override
+    public TagResourceResult tagResource(TagResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeTagResource(request);
+    }
+
+    @SdkInternalApi
+    final TagResourceResult executeTagResource(TagResourceRequest tagResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(tagResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<TagResourceRequest> request = null;
+        Response<TagResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new TagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(tagResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TagResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<TagResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new TagResourceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Simulate the execution of an <a>Authorizer</a> in your <a>RestApi</a> with headers, parameters, and an incoming
      * request body.
      * </p>
      * <div class="seeAlso"> <a
-     * href="http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html">Enable custom
+     * href="https://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html">Enable custom
      * authorizers</a> </div>
      * 
      * @param testInvokeAuthorizerRequest
      *        Make a request to simulate the execution of an <a>Authorizer</a>.
      * @return Result of the TestInvokeAuthorizer operation returned by the service.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.TestInvokeAuthorizer
      */
     @Override
@@ -4889,6 +6078,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new TestInvokeAuthorizerRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(testInvokeAuthorizerRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TestInvokeAuthorizer");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -4915,9 +6108,14 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Make a request to simulate the execution of a <a>Method</a>.
      * @return Result of the TestInvokeMethod operation returned by the service.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.TestInvokeMethod
      */
     @Override
@@ -4941,6 +6139,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new TestInvokeMethodRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(testInvokeMethodRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "TestInvokeMethod");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -4959,16 +6161,83 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
 
     /**
      * <p>
+     * Removes a tag from a given resource.
+     * </p>
+     * 
+     * @param untagResourceRequest
+     *        Removes a tag from a given resource.
+     * @return Result of the UntagResource operation returned by the service.
+     * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
+     * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
+     * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
+     * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
+     * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
+     * @sample AmazonApiGateway.UntagResource
+     */
+    @Override
+    public UntagResourceResult untagResource(UntagResourceRequest request) {
+        request = beforeClientExecution(request);
+        return executeUntagResource(request);
+    }
+
+    @SdkInternalApi
+    final UntagResourceResult executeUntagResource(UntagResourceRequest untagResourceRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(untagResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UntagResourceRequest> request = null;
+        Response<UntagResourceResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UntagResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(untagResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UntagResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UntagResourceResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UntagResourceResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Changes information about the current <a>Account</a> resource.
      * </p>
      * 
      * @param updateAccountRequest
-     *        Requests Amazon API Gateway to change information about the current <a>Account</a> resource.
+     *        Requests API Gateway to change information about the current <a>Account</a> resource.
      * @return Result of the UpdateAccount operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.UpdateAccount
      */
     @Override
@@ -4992,6 +6261,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new UpdateAccountRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateAccountRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateAccount");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -5017,10 +6290,16 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        A request to change information about an <a>ApiKey</a> resource.
      * @return Result of the UpdateApiKey operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
      * @sample AmazonApiGateway.UpdateApiKey
      */
     @Override
@@ -5044,6 +6323,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new UpdateApiKeyRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateApiKeyRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateApiKey");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -5065,15 +6348,20 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      * Updates an existing <a>Authorizer</a> resource.
      * </p>
      * <div class="seeAlso"><a
-     * href="http://docs.aws.amazon.com/cli/latest/reference/apigateway/update-authorizer.html">AWS CLI</a></div>
+     * href="https://docs.aws.amazon.com/cli/latest/reference/apigateway/update-authorizer.html">AWS CLI</a></div>
      * 
      * @param updateAuthorizerRequest
      *        Request to update an existing <a>Authorizer</a> resource.
      * @return Result of the UpdateAuthorizer operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.UpdateAuthorizer
      */
     @Override
@@ -5097,6 +6385,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new UpdateAuthorizerRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateAuthorizerRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateAuthorizer");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -5122,10 +6414,16 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        A request to change information about the <a>BasePathMapping</a> resource.
      * @return Result of the UpdateBasePathMapping operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.UpdateBasePathMapping
      */
     @Override
@@ -5149,6 +6447,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new UpdateBasePathMappingRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateBasePathMappingRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateBasePathMapping");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -5175,9 +6477,14 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        A request to change information about an <a>ClientCertificate</a> resource.
      * @return Result of the UpdateClientCertificate operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @sample AmazonApiGateway.UpdateClientCertificate
      */
     @Override
@@ -5202,6 +6509,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                         .beforeMarshalling(updateClientCertificateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateClientCertificate");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -5225,13 +6536,20 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      * </p>
      * 
      * @param updateDeploymentRequest
-     *        Requests Amazon API Gateway to change information about a <a>Deployment</a> resource.
+     *        Requests API Gateway to change information about a <a>Deployment</a> resource.
      * @return Result of the UpdateDeployment operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @throws ServiceUnavailableException
+     *         The requested service is not available. For details see the accompanying error message. Retry after the
+     *         specified time period.
      * @sample AmazonApiGateway.UpdateDeployment
      */
     @Override
@@ -5255,6 +6573,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new UpdateDeploymentRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateDeploymentRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateDeployment");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -5276,11 +6598,18 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Updates an existing documentation part of a given API.
      * @return Result of the UpdateDocumentationPart operation returned by the service.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
      * @throws LimitExceededException
+     *         The request exceeded the rate limit. Retry after the specified time period.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.UpdateDocumentationPart
      */
     @Override
@@ -5305,6 +6634,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                         .beforeMarshalling(updateDocumentationPartRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateDocumentationPart");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -5327,10 +6660,16 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Updates an existing documentation version of an API.
      * @return Result of the UpdateDocumentationVersion operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.UpdateDocumentationVersion
      */
     @Override
@@ -5355,6 +6694,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                         .beforeMarshalling(updateDocumentationVersionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateDocumentationVersion");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -5381,10 +6724,16 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        A request to change information about the <a>DomainName</a> resource.
      * @return Result of the UpdateDomainName operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.UpdateDomainName
      */
     @Override
@@ -5408,6 +6757,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new UpdateDomainNameRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateDomainNameRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateDomainName");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -5433,9 +6786,14 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Updates a <a>GatewayResponse</a> of a specified response type on the given <a>RestApi</a>.
      * @return Result of the UpdateGatewayResponse operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.UpdateGatewayResponse
      */
     @Override
@@ -5459,6 +6817,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new UpdateGatewayResponseRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateGatewayResponseRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateGatewayResponse");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -5485,10 +6847,16 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Represents an update integration request.
      * @return Result of the UpdateIntegration operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
      * @sample AmazonApiGateway.UpdateIntegration
      */
     @Override
@@ -5512,6 +6880,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new UpdateIntegrationRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateIntegrationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateIntegration");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -5537,10 +6909,16 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Represents an update integration response request.
      * @return Result of the UpdateIntegrationResponse operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.UpdateIntegrationResponse
      */
     @Override
@@ -5565,6 +6943,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                         .beforeMarshalling(updateIntegrationResponseRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateIntegrationResponse");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -5591,10 +6973,16 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Request to update an existing <a>Method</a> resource.
      * @return Result of the UpdateMethod operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.UpdateMethod
      */
     @Override
@@ -5618,6 +7006,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new UpdateMethodRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateMethodRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateMethod");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -5643,11 +7035,18 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        A request to update an existing <a>MethodResponse</a> resource.
      * @return Result of the UpdateMethodResponse operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
      * @throws LimitExceededException
+     *         The request exceeded the rate limit. Retry after the specified time period.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.UpdateMethodResponse
      */
     @Override
@@ -5671,6 +7070,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new UpdateMethodResponseRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateMethodResponseRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateMethodResponse");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -5696,10 +7099,16 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Request to update an existing model in an existing <a>RestApi</a> resource.
      * @return Result of the UpdateModel operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.UpdateModel
      */
     @Override
@@ -5723,6 +7132,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new UpdateModelRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateModelRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateModel");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -5748,9 +7161,14 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Updates a <a>RequestValidator</a> of a given <a>RestApi</a>.
      * @return Result of the UpdateRequestValidator operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.UpdateRequestValidator
      */
     @Override
@@ -5774,6 +7192,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new UpdateRequestValidatorRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateRequestValidatorRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateRequestValidator");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -5800,10 +7222,16 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Request to change information about a <a>Resource</a> resource.
      * @return Result of the UpdateResource operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.UpdateResource
      */
     @Override
@@ -5827,6 +7255,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new UpdateResourceRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateResourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateResource");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -5852,10 +7284,16 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        Request to update an existing <a>RestApi</a> resource in your collection.
      * @return Result of the UpdateRestApi operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.UpdateRestApi
      */
     @Override
@@ -5879,6 +7317,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new UpdateRestApiRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateRestApiRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateRestApi");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -5901,13 +7343,19 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      * </p>
      * 
      * @param updateStageRequest
-     *        Requests Amazon API Gateway to change information about a <a>Stage</a> resource.
+     *        Requests API Gateway to change information about a <a>Stage</a> resource.
      * @return Result of the UpdateStage operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @sample AmazonApiGateway.UpdateStage
      */
     @Override
@@ -5931,6 +7379,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new UpdateStageRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateStageRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateStage");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -5957,9 +7409,14 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        specified API key.
      * @return Result of the UpdateUsage operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @sample AmazonApiGateway.UpdateUsage
      */
     @Override
@@ -5983,6 +7440,10 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new UpdateUsageRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateUsageRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateUsage");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -6008,10 +7469,16 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      *        The PATCH request to update a usage plan of a given plan Id.
      * @return Result of the UpdateUsagePlan operation returned by the service.
      * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
      * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
      * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
      * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
      * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
      * @sample AmazonApiGateway.UpdateUsagePlan
      */
     @Override
@@ -6035,12 +7502,78 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
                 request = new UpdateUsagePlanRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateUsagePlanRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateUsagePlan");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
             HttpResponseHandler<AmazonWebServiceResponse<UpdateUsagePlanResult>> responseHandler = protocolFactory.createResponseHandler(
                     new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UpdateUsagePlanResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates an existing <a>VpcLink</a> of a specified identifier.
+     * </p>
+     * 
+     * @param updateVpcLinkRequest
+     *        Updates an existing <a>VpcLink</a> of a specified identifier.
+     * @return Result of the UpdateVpcLink operation returned by the service.
+     * @throws UnauthorizedException
+     *         The request is denied because the caller has insufficient permissions.
+     * @throws NotFoundException
+     *         The requested resource is not found. Make sure that the request URI is correct.
+     * @throws BadRequestException
+     *         The submitted request is not valid, for example, the input is incomplete or incorrect. See the
+     *         accompanying error message for details.
+     * @throws ConflictException
+     *         The request configuration has conflicts. For details, see the accompanying error message.
+     * @throws TooManyRequestsException
+     *         The request has reached its throttling limit. Retry after the specified time period.
+     * @sample AmazonApiGateway.UpdateVpcLink
+     */
+    @Override
+    public UpdateVpcLinkResult updateVpcLink(UpdateVpcLinkRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateVpcLink(request);
+    }
+
+    @SdkInternalApi
+    final UpdateVpcLinkResult executeUpdateVpcLink(UpdateVpcLinkRequest updateVpcLinkRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateVpcLinkRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateVpcLinkRequest> request = null;
+        Response<UpdateVpcLinkResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateVpcLinkRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateVpcLinkRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "API Gateway");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateVpcLink");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateVpcLinkResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new UpdateVpcLinkResultJsonUnmarshaller());
             response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
@@ -6075,9 +7608,18 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
     private <X, Y extends AmazonWebServiceRequest> Response<X> invoke(Request<Y> request, HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler,
             ExecutionContext executionContext) {
 
+        return invoke(request, responseHandler, executionContext, null, null);
+    }
+
+    /**
+     * Normal invoke with authentication. Credentials are required and may be overriden at the request level.
+     **/
+    private <X, Y extends AmazonWebServiceRequest> Response<X> invoke(Request<Y> request, HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler,
+            ExecutionContext executionContext, URI cachedEndpoint, URI uriFromEndpointTrait) {
+
         executionContext.setCredentialsProvider(CredentialUtils.getCredentialsProvider(request.getOriginalRequest(), awsCredentialsProvider));
 
-        return doInvoke(request, responseHandler, executionContext);
+        return doInvoke(request, responseHandler, executionContext, cachedEndpoint, uriFromEndpointTrait);
     }
 
     /**
@@ -6087,7 +7629,7 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
     private <X, Y extends AmazonWebServiceRequest> Response<X> anonymousInvoke(Request<Y> request,
             HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler, ExecutionContext executionContext) {
 
-        return doInvoke(request, responseHandler, executionContext);
+        return doInvoke(request, responseHandler, executionContext, null, null);
     }
 
     /**
@@ -6095,13 +7637,27 @@ public class AmazonApiGatewayClient extends AmazonWebServiceClient implements Am
      * ExecutionContext beforehand.
      **/
     private <X, Y extends AmazonWebServiceRequest> Response<X> doInvoke(Request<Y> request, HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler,
-            ExecutionContext executionContext) {
-        request.setEndpoint(endpoint);
+            ExecutionContext executionContext, URI discoveredEndpoint, URI uriFromEndpointTrait) {
+
+        if (discoveredEndpoint != null) {
+            request.setEndpoint(discoveredEndpoint);
+            request.getOriginalRequest().getRequestClientOptions().appendUserAgent("endpoint-discovery");
+        } else if (uriFromEndpointTrait != null) {
+            request.setEndpoint(uriFromEndpointTrait);
+        } else {
+            request.setEndpoint(endpoint);
+        }
+
         request.setTimeOffset(timeOffset);
 
         HttpResponseHandler<AmazonServiceException> errorResponseHandler = protocolFactory.createErrorResponseHandler(new JsonErrorResponseMetadata());
 
         return client.execute(request, responseHandler, errorResponseHandler, executionContext);
+    }
+
+    @com.amazonaws.annotation.SdkInternalApi
+    static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
+        return protocolFactory;
     }
 
 }

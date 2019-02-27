@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,10 +28,8 @@ public class GetParametersByPathRequest extends com.amazonaws.AmazonWebServiceRe
     /**
      * <p>
      * The hierarchy for the parameter. Hierarchies start with a forward slash (/) and end with the parameter name. A
-     * hierarchy can have a maximum of five levels. Examples: /Environment/Test/DBString003
-     * </p>
-     * <p>
-     * /Finance/Prod/IAD/OS/WinServ2016/license15
+     * parameter name hierarchy can have a maximum of 15 levels. Here is an example of a hierarchy:
+     * <code>/Finance/Prod/IAD/WinServ2016/license33</code>
      * </p>
      */
     private String path;
@@ -39,12 +37,24 @@ public class GetParametersByPathRequest extends com.amazonaws.AmazonWebServiceRe
      * <p>
      * Retrieve all parameters within a hierarchy.
      * </p>
+     * <important>
+     * <p>
+     * If a user has access to a path, then the user can access all levels of that path. For example, if a user has
+     * permission to access path /a, then the user can also access /a/b. Even if a user has explicitly been denied
+     * access in IAM for parameter /a, they can still call the GetParametersByPath API action recursively and view /a/b.
+     * </p>
+     * </important>
      */
     private Boolean recursive;
     /**
      * <p>
      * Filters to limit the request results.
      * </p>
+     * <note>
+     * <p>
+     * You can't filter using the parameter name.
+     * </p>
+     * </note>
      */
     private com.amazonaws.internal.SdkInternalList<ParameterStringFilter> parameterFilters;
     /**
@@ -70,17 +80,14 @@ public class GetParametersByPathRequest extends com.amazonaws.AmazonWebServiceRe
     /**
      * <p>
      * The hierarchy for the parameter. Hierarchies start with a forward slash (/) and end with the parameter name. A
-     * hierarchy can have a maximum of five levels. Examples: /Environment/Test/DBString003
-     * </p>
-     * <p>
-     * /Finance/Prod/IAD/OS/WinServ2016/license15
+     * parameter name hierarchy can have a maximum of 15 levels. Here is an example of a hierarchy:
+     * <code>/Finance/Prod/IAD/WinServ2016/license33</code>
      * </p>
      * 
      * @param path
      *        The hierarchy for the parameter. Hierarchies start with a forward slash (/) and end with the parameter
-     *        name. A hierarchy can have a maximum of five levels. Examples: /Environment/Test/DBString003</p>
-     *        <p>
-     *        /Finance/Prod/IAD/OS/WinServ2016/license15
+     *        name. A parameter name hierarchy can have a maximum of 15 levels. Here is an example of a hierarchy:
+     *        <code>/Finance/Prod/IAD/WinServ2016/license33</code>
      */
 
     public void setPath(String path) {
@@ -90,16 +97,13 @@ public class GetParametersByPathRequest extends com.amazonaws.AmazonWebServiceRe
     /**
      * <p>
      * The hierarchy for the parameter. Hierarchies start with a forward slash (/) and end with the parameter name. A
-     * hierarchy can have a maximum of five levels. Examples: /Environment/Test/DBString003
-     * </p>
-     * <p>
-     * /Finance/Prod/IAD/OS/WinServ2016/license15
+     * parameter name hierarchy can have a maximum of 15 levels. Here is an example of a hierarchy:
+     * <code>/Finance/Prod/IAD/WinServ2016/license33</code>
      * </p>
      * 
      * @return The hierarchy for the parameter. Hierarchies start with a forward slash (/) and end with the parameter
-     *         name. A hierarchy can have a maximum of five levels. Examples: /Environment/Test/DBString003</p>
-     *         <p>
-     *         /Finance/Prod/IAD/OS/WinServ2016/license15
+     *         name. A parameter name hierarchy can have a maximum of 15 levels. Here is an example of a hierarchy:
+     *         <code>/Finance/Prod/IAD/WinServ2016/license33</code>
      */
 
     public String getPath() {
@@ -109,17 +113,14 @@ public class GetParametersByPathRequest extends com.amazonaws.AmazonWebServiceRe
     /**
      * <p>
      * The hierarchy for the parameter. Hierarchies start with a forward slash (/) and end with the parameter name. A
-     * hierarchy can have a maximum of five levels. Examples: /Environment/Test/DBString003
-     * </p>
-     * <p>
-     * /Finance/Prod/IAD/OS/WinServ2016/license15
+     * parameter name hierarchy can have a maximum of 15 levels. Here is an example of a hierarchy:
+     * <code>/Finance/Prod/IAD/WinServ2016/license33</code>
      * </p>
      * 
      * @param path
      *        The hierarchy for the parameter. Hierarchies start with a forward slash (/) and end with the parameter
-     *        name. A hierarchy can have a maximum of five levels. Examples: /Environment/Test/DBString003</p>
-     *        <p>
-     *        /Finance/Prod/IAD/OS/WinServ2016/license15
+     *        name. A parameter name hierarchy can have a maximum of 15 levels. Here is an example of a hierarchy:
+     *        <code>/Finance/Prod/IAD/WinServ2016/license33</code>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -132,9 +133,22 @@ public class GetParametersByPathRequest extends com.amazonaws.AmazonWebServiceRe
      * <p>
      * Retrieve all parameters within a hierarchy.
      * </p>
+     * <important>
+     * <p>
+     * If a user has access to a path, then the user can access all levels of that path. For example, if a user has
+     * permission to access path /a, then the user can also access /a/b. Even if a user has explicitly been denied
+     * access in IAM for parameter /a, they can still call the GetParametersByPath API action recursively and view /a/b.
+     * </p>
+     * </important>
      * 
      * @param recursive
-     *        Retrieve all parameters within a hierarchy.
+     *        Retrieve all parameters within a hierarchy.</p> <important>
+     *        <p>
+     *        If a user has access to a path, then the user can access all levels of that path. For example, if a user
+     *        has permission to access path /a, then the user can also access /a/b. Even if a user has explicitly been
+     *        denied access in IAM for parameter /a, they can still call the GetParametersByPath API action recursively
+     *        and view /a/b.
+     *        </p>
      */
 
     public void setRecursive(Boolean recursive) {
@@ -145,8 +159,21 @@ public class GetParametersByPathRequest extends com.amazonaws.AmazonWebServiceRe
      * <p>
      * Retrieve all parameters within a hierarchy.
      * </p>
+     * <important>
+     * <p>
+     * If a user has access to a path, then the user can access all levels of that path. For example, if a user has
+     * permission to access path /a, then the user can also access /a/b. Even if a user has explicitly been denied
+     * access in IAM for parameter /a, they can still call the GetParametersByPath API action recursively and view /a/b.
+     * </p>
+     * </important>
      * 
-     * @return Retrieve all parameters within a hierarchy.
+     * @return Retrieve all parameters within a hierarchy.</p> <important>
+     *         <p>
+     *         If a user has access to a path, then the user can access all levels of that path. For example, if a user
+     *         has permission to access path /a, then the user can also access /a/b. Even if a user has explicitly been
+     *         denied access in IAM for parameter /a, they can still call the GetParametersByPath API action recursively
+     *         and view /a/b.
+     *         </p>
      */
 
     public Boolean getRecursive() {
@@ -157,9 +184,22 @@ public class GetParametersByPathRequest extends com.amazonaws.AmazonWebServiceRe
      * <p>
      * Retrieve all parameters within a hierarchy.
      * </p>
+     * <important>
+     * <p>
+     * If a user has access to a path, then the user can access all levels of that path. For example, if a user has
+     * permission to access path /a, then the user can also access /a/b. Even if a user has explicitly been denied
+     * access in IAM for parameter /a, they can still call the GetParametersByPath API action recursively and view /a/b.
+     * </p>
+     * </important>
      * 
      * @param recursive
-     *        Retrieve all parameters within a hierarchy.
+     *        Retrieve all parameters within a hierarchy.</p> <important>
+     *        <p>
+     *        If a user has access to a path, then the user can access all levels of that path. For example, if a user
+     *        has permission to access path /a, then the user can also access /a/b. Even if a user has explicitly been
+     *        denied access in IAM for parameter /a, they can still call the GetParametersByPath API action recursively
+     *        and view /a/b.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -172,8 +212,21 @@ public class GetParametersByPathRequest extends com.amazonaws.AmazonWebServiceRe
      * <p>
      * Retrieve all parameters within a hierarchy.
      * </p>
+     * <important>
+     * <p>
+     * If a user has access to a path, then the user can access all levels of that path. For example, if a user has
+     * permission to access path /a, then the user can also access /a/b. Even if a user has explicitly been denied
+     * access in IAM for parameter /a, they can still call the GetParametersByPath API action recursively and view /a/b.
+     * </p>
+     * </important>
      * 
-     * @return Retrieve all parameters within a hierarchy.
+     * @return Retrieve all parameters within a hierarchy.</p> <important>
+     *         <p>
+     *         If a user has access to a path, then the user can access all levels of that path. For example, if a user
+     *         has permission to access path /a, then the user can also access /a/b. Even if a user has explicitly been
+     *         denied access in IAM for parameter /a, they can still call the GetParametersByPath API action recursively
+     *         and view /a/b.
+     *         </p>
      */
 
     public Boolean isRecursive() {
@@ -184,8 +237,16 @@ public class GetParametersByPathRequest extends com.amazonaws.AmazonWebServiceRe
      * <p>
      * Filters to limit the request results.
      * </p>
+     * <note>
+     * <p>
+     * You can't filter using the parameter name.
+     * </p>
+     * </note>
      * 
-     * @return Filters to limit the request results.
+     * @return Filters to limit the request results.</p> <note>
+     *         <p>
+     *         You can't filter using the parameter name.
+     *         </p>
      */
 
     public java.util.List<ParameterStringFilter> getParameterFilters() {
@@ -199,9 +260,17 @@ public class GetParametersByPathRequest extends com.amazonaws.AmazonWebServiceRe
      * <p>
      * Filters to limit the request results.
      * </p>
+     * <note>
+     * <p>
+     * You can't filter using the parameter name.
+     * </p>
+     * </note>
      * 
      * @param parameterFilters
-     *        Filters to limit the request results.
+     *        Filters to limit the request results.</p> <note>
+     *        <p>
+     *        You can't filter using the parameter name.
+     *        </p>
      */
 
     public void setParameterFilters(java.util.Collection<ParameterStringFilter> parameterFilters) {
@@ -217,6 +286,11 @@ public class GetParametersByPathRequest extends com.amazonaws.AmazonWebServiceRe
      * <p>
      * Filters to limit the request results.
      * </p>
+     * <note>
+     * <p>
+     * You can't filter using the parameter name.
+     * </p>
+     * </note>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
      * {@link #setParameterFilters(java.util.Collection)} or {@link #withParameterFilters(java.util.Collection)} if you
@@ -224,7 +298,10 @@ public class GetParametersByPathRequest extends com.amazonaws.AmazonWebServiceRe
      * </p>
      * 
      * @param parameterFilters
-     *        Filters to limit the request results.
+     *        Filters to limit the request results.</p> <note>
+     *        <p>
+     *        You can't filter using the parameter name.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -242,9 +319,17 @@ public class GetParametersByPathRequest extends com.amazonaws.AmazonWebServiceRe
      * <p>
      * Filters to limit the request results.
      * </p>
+     * <note>
+     * <p>
+     * You can't filter using the parameter name.
+     * </p>
+     * </note>
      * 
      * @param parameterFilters
-     *        Filters to limit the request results.
+     *        Filters to limit the request results.</p> <note>
+     *        <p>
+     *        You can't filter using the parameter name.
+     *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -392,7 +477,8 @@ public class GetParametersByPathRequest extends com.amazonaws.AmazonWebServiceRe
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

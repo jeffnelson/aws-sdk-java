@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -43,6 +43,15 @@ public class RetryUtilsTest {
         ase.setStatusCode(500);
         ase.setErrorCode("InternalFailure");
         assertFalse("InternalFailure error code should be false", RetryUtils.isThrottlingException(ase));
+    }
+
+    @Test
+    public void retriesOnPriorRequestNotCompleteErrorCode() {
+        AmazonServiceException ase = new AmazonServiceException("msg");
+        ase.setStatusCode(500);
+        ase.setErrorCode("PriorRequestNotComplete");
+        assertTrue("PriorRequestNotComplete should be retried", RetryUtils.isRetryableServiceException(ase));
+
     }
 
 }

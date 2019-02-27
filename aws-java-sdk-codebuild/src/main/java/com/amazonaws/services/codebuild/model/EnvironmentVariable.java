@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -40,13 +40,31 @@ public class EnvironmentVariable implements Serializable, Cloneable, StructuredP
      * </p>
      * <important>
      * <p>
-     * We strongly discourage using environment variables to store sensitive values, especially AWS secret key IDs and
-     * secret access keys. Environment variables can be displayed in plain text using tools such as the AWS CodeBuild
-     * console and the AWS Command Line Interface (AWS CLI).
+     * We strongly discourage the use of environment variables to store sensitive values, especially AWS secret key IDs
+     * and secret access keys. Environment variables can be displayed in plain text using the AWS CodeBuild console and
+     * the AWS Command Line Interface (AWS CLI).
      * </p>
      * </important>
      */
     private String value;
+    /**
+     * <p>
+     * The type of environment variable. Valid values include:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>PARAMETER_STORE</code>: An environment variable stored in Amazon EC2 Systems Manager Parameter Store.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>PLAINTEXT</code>: An environment variable in plaintext format.
+     * </p>
+     * </li>
+     * </ul>
+     */
+    private String type;
 
     /**
      * <p>
@@ -94,18 +112,18 @@ public class EnvironmentVariable implements Serializable, Cloneable, StructuredP
      * </p>
      * <important>
      * <p>
-     * We strongly discourage using environment variables to store sensitive values, especially AWS secret key IDs and
-     * secret access keys. Environment variables can be displayed in plain text using tools such as the AWS CodeBuild
-     * console and the AWS Command Line Interface (AWS CLI).
+     * We strongly discourage the use of environment variables to store sensitive values, especially AWS secret key IDs
+     * and secret access keys. Environment variables can be displayed in plain text using the AWS CodeBuild console and
+     * the AWS Command Line Interface (AWS CLI).
      * </p>
      * </important>
      * 
      * @param value
      *        The value of the environment variable.</p> <important>
      *        <p>
-     *        We strongly discourage using environment variables to store sensitive values, especially AWS secret key
-     *        IDs and secret access keys. Environment variables can be displayed in plain text using tools such as the
-     *        AWS CodeBuild console and the AWS Command Line Interface (AWS CLI).
+     *        We strongly discourage the use of environment variables to store sensitive values, especially AWS secret
+     *        key IDs and secret access keys. Environment variables can be displayed in plain text using the AWS
+     *        CodeBuild console and the AWS Command Line Interface (AWS CLI).
      *        </p>
      */
 
@@ -119,17 +137,17 @@ public class EnvironmentVariable implements Serializable, Cloneable, StructuredP
      * </p>
      * <important>
      * <p>
-     * We strongly discourage using environment variables to store sensitive values, especially AWS secret key IDs and
-     * secret access keys. Environment variables can be displayed in plain text using tools such as the AWS CodeBuild
-     * console and the AWS Command Line Interface (AWS CLI).
+     * We strongly discourage the use of environment variables to store sensitive values, especially AWS secret key IDs
+     * and secret access keys. Environment variables can be displayed in plain text using the AWS CodeBuild console and
+     * the AWS Command Line Interface (AWS CLI).
      * </p>
      * </important>
      * 
      * @return The value of the environment variable.</p> <important>
      *         <p>
-     *         We strongly discourage using environment variables to store sensitive values, especially AWS secret key
-     *         IDs and secret access keys. Environment variables can be displayed in plain text using tools such as the
-     *         AWS CodeBuild console and the AWS Command Line Interface (AWS CLI).
+     *         We strongly discourage the use of environment variables to store sensitive values, especially AWS secret
+     *         key IDs and secret access keys. Environment variables can be displayed in plain text using the AWS
+     *         CodeBuild console and the AWS Command Line Interface (AWS CLI).
      *         </p>
      */
 
@@ -143,18 +161,18 @@ public class EnvironmentVariable implements Serializable, Cloneable, StructuredP
      * </p>
      * <important>
      * <p>
-     * We strongly discourage using environment variables to store sensitive values, especially AWS secret key IDs and
-     * secret access keys. Environment variables can be displayed in plain text using tools such as the AWS CodeBuild
-     * console and the AWS Command Line Interface (AWS CLI).
+     * We strongly discourage the use of environment variables to store sensitive values, especially AWS secret key IDs
+     * and secret access keys. Environment variables can be displayed in plain text using the AWS CodeBuild console and
+     * the AWS Command Line Interface (AWS CLI).
      * </p>
      * </important>
      * 
      * @param value
      *        The value of the environment variable.</p> <important>
      *        <p>
-     *        We strongly discourage using environment variables to store sensitive values, especially AWS secret key
-     *        IDs and secret access keys. Environment variables can be displayed in plain text using tools such as the
-     *        AWS CodeBuild console and the AWS Command Line Interface (AWS CLI).
+     *        We strongly discourage the use of environment variables to store sensitive values, especially AWS secret
+     *        key IDs and secret access keys. Environment variables can be displayed in plain text using the AWS
+     *        CodeBuild console and the AWS Command Line Interface (AWS CLI).
      *        </p>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -165,7 +183,163 @@ public class EnvironmentVariable implements Serializable, Cloneable, StructuredP
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * <p>
+     * The type of environment variable. Valid values include:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>PARAMETER_STORE</code>: An environment variable stored in Amazon EC2 Systems Manager Parameter Store.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>PLAINTEXT</code>: An environment variable in plaintext format.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param type
+     *        The type of environment variable. Valid values include:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>PARAMETER_STORE</code>: An environment variable stored in Amazon EC2 Systems Manager Parameter
+     *        Store.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>PLAINTEXT</code>: An environment variable in plaintext format.
+     *        </p>
+     *        </li>
+     * @see EnvironmentVariableType
+     */
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    /**
+     * <p>
+     * The type of environment variable. Valid values include:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>PARAMETER_STORE</code>: An environment variable stored in Amazon EC2 Systems Manager Parameter Store.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>PLAINTEXT</code>: An environment variable in plaintext format.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @return The type of environment variable. Valid values include:</p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <code>PARAMETER_STORE</code>: An environment variable stored in Amazon EC2 Systems Manager Parameter
+     *         Store.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>PLAINTEXT</code>: An environment variable in plaintext format.
+     *         </p>
+     *         </li>
+     * @see EnvironmentVariableType
+     */
+
+    public String getType() {
+        return this.type;
+    }
+
+    /**
+     * <p>
+     * The type of environment variable. Valid values include:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>PARAMETER_STORE</code>: An environment variable stored in Amazon EC2 Systems Manager Parameter Store.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>PLAINTEXT</code>: An environment variable in plaintext format.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param type
+     *        The type of environment variable. Valid values include:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>PARAMETER_STORE</code>: An environment variable stored in Amazon EC2 Systems Manager Parameter
+     *        Store.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>PLAINTEXT</code>: An environment variable in plaintext format.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see EnvironmentVariableType
+     */
+
+    public EnvironmentVariable withType(String type) {
+        setType(type);
+        return this;
+    }
+
+    /**
+     * <p>
+     * The type of environment variable. Valid values include:
+     * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <code>PARAMETER_STORE</code>: An environment variable stored in Amazon EC2 Systems Manager Parameter Store.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>PLAINTEXT</code>: An environment variable in plaintext format.
+     * </p>
+     * </li>
+     * </ul>
+     * 
+     * @param type
+     *        The type of environment variable. Valid values include:</p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <code>PARAMETER_STORE</code>: An environment variable stored in Amazon EC2 Systems Manager Parameter
+     *        Store.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>PLAINTEXT</code>: An environment variable in plaintext format.
+     *        </p>
+     *        </li>
+     * @return Returns a reference to this object so that method calls can be chained together.
+     * @see EnvironmentVariableType
+     */
+
+    public EnvironmentVariable withType(EnvironmentVariableType type) {
+        this.type = type.toString();
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -178,7 +352,9 @@ public class EnvironmentVariable implements Serializable, Cloneable, StructuredP
         if (getName() != null)
             sb.append("Name: ").append(getName()).append(",");
         if (getValue() != null)
-            sb.append("Value: ").append(getValue());
+            sb.append("Value: ").append(getValue()).append(",");
+        if (getType() != null)
+            sb.append("Type: ").append(getType());
         sb.append("}");
         return sb.toString();
     }
@@ -201,6 +377,10 @@ public class EnvironmentVariable implements Serializable, Cloneable, StructuredP
             return false;
         if (other.getValue() != null && other.getValue().equals(this.getValue()) == false)
             return false;
+        if (other.getType() == null ^ this.getType() == null)
+            return false;
+        if (other.getType() != null && other.getType().equals(this.getType()) == false)
+            return false;
         return true;
     }
 
@@ -211,6 +391,7 @@ public class EnvironmentVariable implements Serializable, Cloneable, StructuredP
 
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode());
         hashCode = prime * hashCode + ((getValue() == null) ? 0 : getValue().hashCode());
+        hashCode = prime * hashCode + ((getType() == null) ? 0 : getType().hashCode());
         return hashCode;
     }
 

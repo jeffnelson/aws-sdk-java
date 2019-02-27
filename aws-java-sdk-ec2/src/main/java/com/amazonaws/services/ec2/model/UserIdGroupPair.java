@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -28,6 +28,16 @@ public class UserIdGroupPair implements Serializable, Cloneable {
 
     /**
      * <p>
+     * A description for the security group rule that references this user ID group pair.
+     * </p>
+     * <p>
+     * Constraints: Up to 255 characters in length. Allowed characters are a-z, A-Z, 0-9, spaces, and
+     * ._-:/()#,@[]+=;{}!$*
+     * </p>
+     */
+    private String description;
+    /**
+     * <p>
      * The ID of the security group.
      * </p>
      */
@@ -36,6 +46,10 @@ public class UserIdGroupPair implements Serializable, Cloneable {
      * <p>
      * The name of the security group. In a request, use this parameter for a security group in EC2-Classic or a default
      * VPC only. For a security group in a nondefault VPC, use the security group ID.
+     * </p>
+     * <p>
+     * For a referenced security group in another VPC, this value is not returned if the referenced security group is
+     * deleted.
      * </p>
      */
     private String groupName;
@@ -47,8 +61,11 @@ public class UserIdGroupPair implements Serializable, Cloneable {
     private String peeringStatus;
     /**
      * <p>
-     * The ID of an AWS account. For a referenced security group in another VPC, the account ID of the referenced
-     * security group is returned.
+     * The ID of an AWS account.
+     * </p>
+     * <p>
+     * For a referenced security group in another VPC, the account ID of the referenced security group is returned in
+     * the response. If the referenced security group is deleted, this value is not returned.
      * </p>
      * <p>
      * [EC2-Classic] Required when adding or removing rules that reference a security group in another AWS account.
@@ -67,6 +84,67 @@ public class UserIdGroupPair implements Serializable, Cloneable {
      * </p>
      */
     private String vpcPeeringConnectionId;
+
+    /**
+     * <p>
+     * A description for the security group rule that references this user ID group pair.
+     * </p>
+     * <p>
+     * Constraints: Up to 255 characters in length. Allowed characters are a-z, A-Z, 0-9, spaces, and
+     * ._-:/()#,@[]+=;{}!$*
+     * </p>
+     * 
+     * @param description
+     *        A description for the security group rule that references this user ID group pair.</p>
+     *        <p>
+     *        Constraints: Up to 255 characters in length. Allowed characters are a-z, A-Z, 0-9, spaces, and
+     *        ._-:/()#,@[]+=;{}!$
+     **/
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /**
+     * <p>
+     * A description for the security group rule that references this user ID group pair.
+     * </p>
+     * <p>
+     * Constraints: Up to 255 characters in length. Allowed characters are a-z, A-Z, 0-9, spaces, and
+     * ._-:/()#,@[]+=;{}!$*
+     * </p>
+     * 
+     * @return A description for the security group rule that references this user ID group pair.</p>
+     *         <p>
+     *         Constraints: Up to 255 characters in length. Allowed characters are a-z, A-Z, 0-9, spaces, and
+     *         ._-:/()#,@[]+=;{}!$
+     **/
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    /**
+     * <p>
+     * A description for the security group rule that references this user ID group pair.
+     * </p>
+     * <p>
+     * Constraints: Up to 255 characters in length. Allowed characters are a-z, A-Z, 0-9, spaces, and
+     * ._-:/()#,@[]+=;{}!$*
+     * </p>
+     * 
+     * @param description
+     *        A description for the security group rule that references this user ID group pair.</p>
+     *        <p>
+     *        Constraints: Up to 255 characters in length. Allowed characters are a-z, A-Z, 0-9, spaces, and
+     *        ._-:/()#,@[]+=;{}!$*
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public UserIdGroupPair withDescription(String description) {
+        setDescription(description);
+        return this;
+    }
 
     /**
      * <p>
@@ -113,10 +191,17 @@ public class UserIdGroupPair implements Serializable, Cloneable {
      * The name of the security group. In a request, use this parameter for a security group in EC2-Classic or a default
      * VPC only. For a security group in a nondefault VPC, use the security group ID.
      * </p>
+     * <p>
+     * For a referenced security group in another VPC, this value is not returned if the referenced security group is
+     * deleted.
+     * </p>
      * 
      * @param groupName
      *        The name of the security group. In a request, use this parameter for a security group in EC2-Classic or a
-     *        default VPC only. For a security group in a nondefault VPC, use the security group ID.
+     *        default VPC only. For a security group in a nondefault VPC, use the security group ID. </p>
+     *        <p>
+     *        For a referenced security group in another VPC, this value is not returned if the referenced security
+     *        group is deleted.
      */
 
     public void setGroupName(String groupName) {
@@ -128,9 +213,16 @@ public class UserIdGroupPair implements Serializable, Cloneable {
      * The name of the security group. In a request, use this parameter for a security group in EC2-Classic or a default
      * VPC only. For a security group in a nondefault VPC, use the security group ID.
      * </p>
+     * <p>
+     * For a referenced security group in another VPC, this value is not returned if the referenced security group is
+     * deleted.
+     * </p>
      * 
      * @return The name of the security group. In a request, use this parameter for a security group in EC2-Classic or a
-     *         default VPC only. For a security group in a nondefault VPC, use the security group ID.
+     *         default VPC only. For a security group in a nondefault VPC, use the security group ID. </p>
+     *         <p>
+     *         For a referenced security group in another VPC, this value is not returned if the referenced security
+     *         group is deleted.
      */
 
     public String getGroupName() {
@@ -142,10 +234,17 @@ public class UserIdGroupPair implements Serializable, Cloneable {
      * The name of the security group. In a request, use this parameter for a security group in EC2-Classic or a default
      * VPC only. For a security group in a nondefault VPC, use the security group ID.
      * </p>
+     * <p>
+     * For a referenced security group in another VPC, this value is not returned if the referenced security group is
+     * deleted.
+     * </p>
      * 
      * @param groupName
      *        The name of the security group. In a request, use this parameter for a security group in EC2-Classic or a
-     *        default VPC only. For a security group in a nondefault VPC, use the security group ID.
+     *        default VPC only. For a security group in a nondefault VPC, use the security group ID. </p>
+     *        <p>
+     *        For a referenced security group in another VPC, this value is not returned if the referenced security
+     *        group is deleted.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -196,16 +295,22 @@ public class UserIdGroupPair implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of an AWS account. For a referenced security group in another VPC, the account ID of the referenced
-     * security group is returned.
+     * The ID of an AWS account.
+     * </p>
+     * <p>
+     * For a referenced security group in another VPC, the account ID of the referenced security group is returned in
+     * the response. If the referenced security group is deleted, this value is not returned.
      * </p>
      * <p>
      * [EC2-Classic] Required when adding or removing rules that reference a security group in another AWS account.
      * </p>
      * 
      * @param userId
-     *        The ID of an AWS account. For a referenced security group in another VPC, the account ID of the referenced
-     *        security group is returned.</p>
+     *        The ID of an AWS account.</p>
+     *        <p>
+     *        For a referenced security group in another VPC, the account ID of the referenced security group is
+     *        returned in the response. If the referenced security group is deleted, this value is not returned.
+     *        </p>
      *        <p>
      *        [EC2-Classic] Required when adding or removing rules that reference a security group in another AWS
      *        account.
@@ -217,15 +322,21 @@ public class UserIdGroupPair implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of an AWS account. For a referenced security group in another VPC, the account ID of the referenced
-     * security group is returned.
+     * The ID of an AWS account.
+     * </p>
+     * <p>
+     * For a referenced security group in another VPC, the account ID of the referenced security group is returned in
+     * the response. If the referenced security group is deleted, this value is not returned.
      * </p>
      * <p>
      * [EC2-Classic] Required when adding or removing rules that reference a security group in another AWS account.
      * </p>
      * 
-     * @return The ID of an AWS account. For a referenced security group in another VPC, the account ID of the
-     *         referenced security group is returned.</p>
+     * @return The ID of an AWS account.</p>
+     *         <p>
+     *         For a referenced security group in another VPC, the account ID of the referenced security group is
+     *         returned in the response. If the referenced security group is deleted, this value is not returned.
+     *         </p>
      *         <p>
      *         [EC2-Classic] Required when adding or removing rules that reference a security group in another AWS
      *         account.
@@ -237,16 +348,22 @@ public class UserIdGroupPair implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The ID of an AWS account. For a referenced security group in another VPC, the account ID of the referenced
-     * security group is returned.
+     * The ID of an AWS account.
+     * </p>
+     * <p>
+     * For a referenced security group in another VPC, the account ID of the referenced security group is returned in
+     * the response. If the referenced security group is deleted, this value is not returned.
      * </p>
      * <p>
      * [EC2-Classic] Required when adding or removing rules that reference a security group in another AWS account.
      * </p>
      * 
      * @param userId
-     *        The ID of an AWS account. For a referenced security group in another VPC, the account ID of the referenced
-     *        security group is returned.</p>
+     *        The ID of an AWS account.</p>
+     *        <p>
+     *        For a referenced security group in another VPC, the account ID of the referenced security group is
+     *        returned in the response. If the referenced security group is deleted, this value is not returned.
+     *        </p>
      *        <p>
      *        [EC2-Classic] Required when adding or removing rules that reference a security group in another AWS
      *        account.
@@ -339,7 +456,8 @@ public class UserIdGroupPair implements Serializable, Cloneable {
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -349,6 +467,8 @@ public class UserIdGroupPair implements Serializable, Cloneable {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
+        if (getDescription() != null)
+            sb.append("Description: ").append(getDescription()).append(",");
         if (getGroupId() != null)
             sb.append("GroupId: ").append(getGroupId()).append(",");
         if (getGroupName() != null)
@@ -375,6 +495,10 @@ public class UserIdGroupPair implements Serializable, Cloneable {
         if (obj instanceof UserIdGroupPair == false)
             return false;
         UserIdGroupPair other = (UserIdGroupPair) obj;
+        if (other.getDescription() == null ^ this.getDescription() == null)
+            return false;
+        if (other.getDescription() != null && other.getDescription().equals(this.getDescription()) == false)
+            return false;
         if (other.getGroupId() == null ^ this.getGroupId() == null)
             return false;
         if (other.getGroupId() != null && other.getGroupId().equals(this.getGroupId()) == false)
@@ -407,6 +531,7 @@ public class UserIdGroupPair implements Serializable, Cloneable {
         final int prime = 31;
         int hashCode = 1;
 
+        hashCode = prime * hashCode + ((getDescription() == null) ? 0 : getDescription().hashCode());
         hashCode = prime * hashCode + ((getGroupId() == null) ? 0 : getGroupId().hashCode());
         hashCode = prime * hashCode + ((getGroupName() == null) ? 0 : getGroupName().hashCode());
         hashCode = prime * hashCode + ((getPeeringStatus() == null) ? 0 : getPeeringStatus().hashCode());

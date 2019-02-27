@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -51,6 +51,11 @@ public class MessageResponseJsonUnmarshaller implements Unmarshaller<MessageResp
                 if (context.testExpression("ApplicationId", targetDepth)) {
                     context.nextToken();
                     messageResponse.setApplicationId(context.getUnmarshaller(String.class).unmarshall(context));
+                }
+                if (context.testExpression("EndpointResult", targetDepth)) {
+                    context.nextToken();
+                    messageResponse.setEndpointResult(new MapUnmarshaller<String, EndpointMessageResult>(context.getUnmarshaller(String.class),
+                            EndpointMessageResultJsonUnmarshaller.getInstance()).unmarshall(context));
                 }
                 if (context.testExpression("RequestId", targetDepth)) {
                     context.nextToken();

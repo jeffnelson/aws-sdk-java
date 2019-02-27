@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.AmazonWebServiceRequest;
 
 /**
  * 
- * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2016-05-10/AddFacetToObject" target="_top">AWS
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2017-01-11/AddFacetToObject" target="_top">AWS
  *      API Documentation</a>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -34,7 +34,7 @@ public class AddFacetToObjectRequest extends com.amazonaws.AmazonWebServiceReque
     private String directoryArn;
     /**
      * <p>
-     * Identifiers for the facet that you are adding to the object.
+     * Identifiers for the facet that you are adding to the object. See <a>SchemaFacet</a> for details.
      * </p>
      */
     private SchemaFacet schemaFacet;
@@ -99,11 +99,11 @@ public class AddFacetToObjectRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Identifiers for the facet that you are adding to the object.
+     * Identifiers for the facet that you are adding to the object. See <a>SchemaFacet</a> for details.
      * </p>
      * 
      * @param schemaFacet
-     *        Identifiers for the facet that you are adding to the object.
+     *        Identifiers for the facet that you are adding to the object. See <a>SchemaFacet</a> for details.
      */
 
     public void setSchemaFacet(SchemaFacet schemaFacet) {
@@ -112,10 +112,10 @@ public class AddFacetToObjectRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Identifiers for the facet that you are adding to the object.
+     * Identifiers for the facet that you are adding to the object. See <a>SchemaFacet</a> for details.
      * </p>
      * 
-     * @return Identifiers for the facet that you are adding to the object.
+     * @return Identifiers for the facet that you are adding to the object. See <a>SchemaFacet</a> for details.
      */
 
     public SchemaFacet getSchemaFacet() {
@@ -124,11 +124,11 @@ public class AddFacetToObjectRequest extends com.amazonaws.AmazonWebServiceReque
 
     /**
      * <p>
-     * Identifiers for the facet that you are adding to the object.
+     * Identifiers for the facet that you are adding to the object. See <a>SchemaFacet</a> for details.
      * </p>
      * 
      * @param schemaFacet
-     *        Identifiers for the facet that you are adding to the object.
+     *        Identifiers for the facet that you are adding to the object. See <a>SchemaFacet</a> for details.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -248,7 +248,8 @@ public class AddFacetToObjectRequest extends com.amazonaws.AmazonWebServiceReque
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

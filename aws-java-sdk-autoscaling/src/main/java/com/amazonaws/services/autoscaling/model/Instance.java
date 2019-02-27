@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -40,14 +40,15 @@ public class Instance implements Serializable, Cloneable {
     private String availabilityZone;
     /**
      * <p>
-     * A description of the current lifecycle state. Note that the <code>Quarantined</code> state is not used.
+     * A description of the current lifecycle state. The <code>Quarantined</code> state is not used.
      * </p>
      */
     private String lifecycleState;
     /**
      * <p>
      * The last reported health status of the instance. "Healthy" means that the instance is healthy and should remain
-     * in service. "Unhealthy" means that the instance is unhealthy and Auto Scaling should terminate and replace it.
+     * in service. "Unhealthy" means that the instance is unhealthy and that Amazon EC2 Auto Scaling should terminate
+     * and replace it.
      * </p>
      */
     private String healthStatus;
@@ -59,7 +60,18 @@ public class Instance implements Serializable, Cloneable {
     private String launchConfigurationName;
     /**
      * <p>
-     * Indicates whether the instance is protected from termination by Auto Scaling when scaling in.
+     * The launch template for the instance.
+     * </p>
+     */
+    private LaunchTemplateSpecification launchTemplate;
+    /**
+     * <p>
+     * Indicates whether the instance is protected from termination by Amazon EC2 Auto Scaling when scaling in.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="http://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.html#instance-protection"
+     * >Instance Protection</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
      * </p>
      */
     private Boolean protectedFromScaleIn;
@@ -146,11 +158,11 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A description of the current lifecycle state. Note that the <code>Quarantined</code> state is not used.
+     * A description of the current lifecycle state. The <code>Quarantined</code> state is not used.
      * </p>
      * 
      * @param lifecycleState
-     *        A description of the current lifecycle state. Note that the <code>Quarantined</code> state is not used.
+     *        A description of the current lifecycle state. The <code>Quarantined</code> state is not used.
      * @see LifecycleState
      */
 
@@ -160,10 +172,10 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A description of the current lifecycle state. Note that the <code>Quarantined</code> state is not used.
+     * A description of the current lifecycle state. The <code>Quarantined</code> state is not used.
      * </p>
      * 
-     * @return A description of the current lifecycle state. Note that the <code>Quarantined</code> state is not used.
+     * @return A description of the current lifecycle state. The <code>Quarantined</code> state is not used.
      * @see LifecycleState
      */
 
@@ -173,11 +185,11 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A description of the current lifecycle state. Note that the <code>Quarantined</code> state is not used.
+     * A description of the current lifecycle state. The <code>Quarantined</code> state is not used.
      * </p>
      * 
      * @param lifecycleState
-     *        A description of the current lifecycle state. Note that the <code>Quarantined</code> state is not used.
+     *        A description of the current lifecycle state. The <code>Quarantined</code> state is not used.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see LifecycleState
      */
@@ -189,11 +201,11 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A description of the current lifecycle state. Note that the <code>Quarantined</code> state is not used.
+     * A description of the current lifecycle state. The <code>Quarantined</code> state is not used.
      * </p>
      * 
      * @param lifecycleState
-     *        A description of the current lifecycle state. Note that the <code>Quarantined</code> state is not used.
+     *        A description of the current lifecycle state. The <code>Quarantined</code> state is not used.
      * @see LifecycleState
      */
 
@@ -203,11 +215,11 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A description of the current lifecycle state. Note that the <code>Quarantined</code> state is not used.
+     * A description of the current lifecycle state. The <code>Quarantined</code> state is not used.
      * </p>
      * 
      * @param lifecycleState
-     *        A description of the current lifecycle state. Note that the <code>Quarantined</code> state is not used.
+     *        A description of the current lifecycle state. The <code>Quarantined</code> state is not used.
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see LifecycleState
      */
@@ -220,13 +232,14 @@ public class Instance implements Serializable, Cloneable {
     /**
      * <p>
      * The last reported health status of the instance. "Healthy" means that the instance is healthy and should remain
-     * in service. "Unhealthy" means that the instance is unhealthy and Auto Scaling should terminate and replace it.
+     * in service. "Unhealthy" means that the instance is unhealthy and that Amazon EC2 Auto Scaling should terminate
+     * and replace it.
      * </p>
      * 
      * @param healthStatus
      *        The last reported health status of the instance. "Healthy" means that the instance is healthy and should
-     *        remain in service. "Unhealthy" means that the instance is unhealthy and Auto Scaling should terminate and
-     *        replace it.
+     *        remain in service. "Unhealthy" means that the instance is unhealthy and that Amazon EC2 Auto Scaling
+     *        should terminate and replace it.
      */
 
     public void setHealthStatus(String healthStatus) {
@@ -236,12 +249,13 @@ public class Instance implements Serializable, Cloneable {
     /**
      * <p>
      * The last reported health status of the instance. "Healthy" means that the instance is healthy and should remain
-     * in service. "Unhealthy" means that the instance is unhealthy and Auto Scaling should terminate and replace it.
+     * in service. "Unhealthy" means that the instance is unhealthy and that Amazon EC2 Auto Scaling should terminate
+     * and replace it.
      * </p>
      * 
      * @return The last reported health status of the instance. "Healthy" means that the instance is healthy and should
-     *         remain in service. "Unhealthy" means that the instance is unhealthy and Auto Scaling should terminate and
-     *         replace it.
+     *         remain in service. "Unhealthy" means that the instance is unhealthy and that Amazon EC2 Auto Scaling
+     *         should terminate and replace it.
      */
 
     public String getHealthStatus() {
@@ -251,13 +265,14 @@ public class Instance implements Serializable, Cloneable {
     /**
      * <p>
      * The last reported health status of the instance. "Healthy" means that the instance is healthy and should remain
-     * in service. "Unhealthy" means that the instance is unhealthy and Auto Scaling should terminate and replace it.
+     * in service. "Unhealthy" means that the instance is unhealthy and that Amazon EC2 Auto Scaling should terminate
+     * and replace it.
      * </p>
      * 
      * @param healthStatus
      *        The last reported health status of the instance. "Healthy" means that the instance is healthy and should
-     *        remain in service. "Unhealthy" means that the instance is unhealthy and Auto Scaling should terminate and
-     *        replace it.
+     *        remain in service. "Unhealthy" means that the instance is unhealthy and that Amazon EC2 Auto Scaling
+     *        should terminate and replace it.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -308,11 +323,61 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether the instance is protected from termination by Auto Scaling when scaling in.
+     * The launch template for the instance.
+     * </p>
+     * 
+     * @param launchTemplate
+     *        The launch template for the instance.
+     */
+
+    public void setLaunchTemplate(LaunchTemplateSpecification launchTemplate) {
+        this.launchTemplate = launchTemplate;
+    }
+
+    /**
+     * <p>
+     * The launch template for the instance.
+     * </p>
+     * 
+     * @return The launch template for the instance.
+     */
+
+    public LaunchTemplateSpecification getLaunchTemplate() {
+        return this.launchTemplate;
+    }
+
+    /**
+     * <p>
+     * The launch template for the instance.
+     * </p>
+     * 
+     * @param launchTemplate
+     *        The launch template for the instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Instance withLaunchTemplate(LaunchTemplateSpecification launchTemplate) {
+        setLaunchTemplate(launchTemplate);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether the instance is protected from termination by Amazon EC2 Auto Scaling when scaling in.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="http://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.html#instance-protection"
+     * >Instance Protection</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
      * </p>
      * 
      * @param protectedFromScaleIn
-     *        Indicates whether the instance is protected from termination by Auto Scaling when scaling in.
+     *        Indicates whether the instance is protected from termination by Amazon EC2 Auto Scaling when scaling
+     *        in.</p>
+     *        <p>
+     *        For more information, see <a href=
+     *        "http://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.html#instance-protection"
+     *        >Instance Protection</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
      */
 
     public void setProtectedFromScaleIn(Boolean protectedFromScaleIn) {
@@ -321,10 +386,20 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether the instance is protected from termination by Auto Scaling when scaling in.
+     * Indicates whether the instance is protected from termination by Amazon EC2 Auto Scaling when scaling in.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="http://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.html#instance-protection"
+     * >Instance Protection</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
      * </p>
      * 
-     * @return Indicates whether the instance is protected from termination by Auto Scaling when scaling in.
+     * @return Indicates whether the instance is protected from termination by Amazon EC2 Auto Scaling when scaling
+     *         in.</p>
+     *         <p>
+     *         For more information, see <a href=
+     *         "http://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.html#instance-protection"
+     *         >Instance Protection</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
      */
 
     public Boolean getProtectedFromScaleIn() {
@@ -333,11 +408,21 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether the instance is protected from termination by Auto Scaling when scaling in.
+     * Indicates whether the instance is protected from termination by Amazon EC2 Auto Scaling when scaling in.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="http://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.html#instance-protection"
+     * >Instance Protection</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
      * </p>
      * 
      * @param protectedFromScaleIn
-     *        Indicates whether the instance is protected from termination by Auto Scaling when scaling in.
+     *        Indicates whether the instance is protected from termination by Amazon EC2 Auto Scaling when scaling
+     *        in.</p>
+     *        <p>
+     *        For more information, see <a href=
+     *        "http://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.html#instance-protection"
+     *        >Instance Protection</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -348,10 +433,20 @@ public class Instance implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates whether the instance is protected from termination by Auto Scaling when scaling in.
+     * Indicates whether the instance is protected from termination by Amazon EC2 Auto Scaling when scaling in.
+     * </p>
+     * <p>
+     * For more information, see <a
+     * href="http://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.html#instance-protection"
+     * >Instance Protection</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
      * </p>
      * 
-     * @return Indicates whether the instance is protected from termination by Auto Scaling when scaling in.
+     * @return Indicates whether the instance is protected from termination by Amazon EC2 Auto Scaling when scaling
+     *         in.</p>
+     *         <p>
+     *         For more information, see <a href=
+     *         "http://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.html#instance-protection"
+     *         >Instance Protection</a> in the <i>Amazon EC2 Auto Scaling User Guide</i>.
      */
 
     public Boolean isProtectedFromScaleIn() {
@@ -359,7 +454,8 @@ public class Instance implements Serializable, Cloneable {
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -379,6 +475,8 @@ public class Instance implements Serializable, Cloneable {
             sb.append("HealthStatus: ").append(getHealthStatus()).append(",");
         if (getLaunchConfigurationName() != null)
             sb.append("LaunchConfigurationName: ").append(getLaunchConfigurationName()).append(",");
+        if (getLaunchTemplate() != null)
+            sb.append("LaunchTemplate: ").append(getLaunchTemplate()).append(",");
         if (getProtectedFromScaleIn() != null)
             sb.append("ProtectedFromScaleIn: ").append(getProtectedFromScaleIn());
         sb.append("}");
@@ -415,6 +513,10 @@ public class Instance implements Serializable, Cloneable {
             return false;
         if (other.getLaunchConfigurationName() != null && other.getLaunchConfigurationName().equals(this.getLaunchConfigurationName()) == false)
             return false;
+        if (other.getLaunchTemplate() == null ^ this.getLaunchTemplate() == null)
+            return false;
+        if (other.getLaunchTemplate() != null && other.getLaunchTemplate().equals(this.getLaunchTemplate()) == false)
+            return false;
         if (other.getProtectedFromScaleIn() == null ^ this.getProtectedFromScaleIn() == null)
             return false;
         if (other.getProtectedFromScaleIn() != null && other.getProtectedFromScaleIn().equals(this.getProtectedFromScaleIn()) == false)
@@ -432,6 +534,7 @@ public class Instance implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getLifecycleState() == null) ? 0 : getLifecycleState().hashCode());
         hashCode = prime * hashCode + ((getHealthStatus() == null) ? 0 : getHealthStatus().hashCode());
         hashCode = prime * hashCode + ((getLaunchConfigurationName() == null) ? 0 : getLaunchConfigurationName().hashCode());
+        hashCode = prime * hashCode + ((getLaunchTemplate() == null) ? 0 : getLaunchTemplate().hashCode());
         hashCode = prime * hashCode + ((getProtectedFromScaleIn() == null) ? 0 : getProtectedFromScaleIn().hashCode());
         return hashCode;
     }

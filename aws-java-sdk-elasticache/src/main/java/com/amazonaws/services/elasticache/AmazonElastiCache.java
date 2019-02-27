@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -62,9 +62,10 @@ public interface AmazonElastiCache {
      * from this client's {@link ClientConfiguration} will be used, which by default is HTTPS.
      * <p>
      * For more information on using AWS regions with the AWS SDK for Java, and a complete list of all available
-     * endpoints for all AWS services, see: <a
-     * href="http://developer.amazonwebservices.com/connect/entry.jspa?externalID=3912">
-     * http://developer.amazonwebservices.com/connect/entry.jspa?externalID=3912</a>
+     * endpoints for all AWS services, see: <a href=
+     * "https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/java-dg-region-selection.html#region-selection-choose-endpoint"
+     * > https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/java-dg-region-selection.html#region-selection-
+     * choose-endpoint</a>
      * <p>
      * <b>This method is not threadsafe. An endpoint should be configured when the client is created and before any
      * service requests are made. Changing it afterwards creates inevitable race conditions for any service requests in
@@ -113,16 +114,15 @@ public interface AmazonElastiCache {
      * When you apply tags to your ElastiCache resources, AWS generates a cost allocation report as a comma-separated
      * value (CSV) file with your usage and costs aggregated by your tags. You can apply tags that represent business
      * categories (such as cost centers, application names, or owners) to organize your costs across multiple services.
-     * For more information, see <a
-     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/Tagging.html">Using Cost Allocation Tags in
-     * Amazon ElastiCache</a> in the <i>ElastiCache User Guide</i>.
+     * For more information, see <a href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Tagging.html">Using
+     * Cost Allocation Tags in Amazon ElastiCache</a> in the <i>ElastiCache User Guide</i>.
      * </p>
      * 
      * @param addTagsToResourceRequest
      *        Represents the input of an AddTagsToResource operation.
      * @return Result of the AddTagsToResource operation returned by the service.
      * @throws CacheClusterNotFoundException
-     *         The requested cache cluster ID does not refer to an existing cache cluster.
+     *         The requested cluster ID does not refer to an existing cluster.
      * @throws SnapshotNotFoundException
      *         The requested snapshot name does not refer to an existing snapshot.
      * @throws TagQuotaPerResourceExceededException
@@ -181,8 +181,8 @@ public interface AmazonElastiCache {
      * S3 buckets and copy snapshots to it. To control access to your snapshots, use an IAM policy to control who has
      * the ability to use the <code>CopySnapshot</code> operation. For more information about using IAM to control the
      * use of ElastiCache operations, see <a
-     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/Snapshots.Exporting.html">Exporting
-     * Snapshots</a> and <a href="http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/IAM.html">Authentication
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Snapshots.Exporting.html">Exporting
+     * Snapshots</a> and <a href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/IAM.html">Authentication
      * &amp; Access Control</a>.
      * </p>
      * </important>
@@ -200,7 +200,7 @@ public interface AmazonElastiCache {
      * <p>
      * <b>Solution:</b> Create an Amazon S3 bucket in the same region as your snapshot. For more information, see <a
      * href=
-     * "http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/Snapshots.Exporting.html#Snapshots.Exporting.CreateBucket"
+     * "http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Snapshots.Exporting.html#Snapshots.Exporting.CreateBucket"
      * >Step 1: Create an Amazon S3 Bucket</a> in the ElastiCache User Guide.
      * </p>
      * </li>
@@ -211,7 +211,7 @@ public interface AmazonElastiCache {
      * <p>
      * <b>Solution:</b> Create an Amazon S3 bucket in the same region as your snapshot. For more information, see <a
      * href=
-     * "http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/Snapshots.Exporting.html#Snapshots.Exporting.CreateBucket"
+     * "http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Snapshots.Exporting.html#Snapshots.Exporting.CreateBucket"
      * >Step 1: Create an Amazon S3 Bucket</a> in the ElastiCache User Guide.
      * </p>
      * </li>
@@ -222,7 +222,7 @@ public interface AmazonElastiCache {
      * <p>
      * <b>Solution:</b> Create an Amazon S3 bucket in the same region as your snapshot. For more information, see <a
      * href=
-     * "http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/Snapshots.Exporting.html#Snapshots.Exporting.CreateBucket"
+     * "http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Snapshots.Exporting.html#Snapshots.Exporting.CreateBucket"
      * >Step 1: Create an Amazon S3 Bucket</a> in the ElastiCache User Guide.
      * </p>
      * </li>
@@ -250,7 +250,7 @@ public interface AmazonElastiCache {
      * </p>
      * <p>
      * <b>Solution:</b> Add List and Read permissions on the bucket. For more information, see <a href=
-     * "http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/Snapshots.Exporting.html#Snapshots.Exporting.GrantAccess"
+     * "http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Snapshots.Exporting.html#Snapshots.Exporting.GrantAccess"
      * >Step 2: Grant ElastiCache Access to Your Amazon S3 Bucket</a> in the ElastiCache User Guide.
      * </p>
      * </li>
@@ -260,7 +260,7 @@ public interface AmazonElastiCache {
      * </p>
      * <p>
      * <b>Solution:</b> Add Upload/Delete permissions on the bucket. For more information, see <a href=
-     * "http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/Snapshots.Exporting.html#Snapshots.Exporting.GrantAccess"
+     * "http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Snapshots.Exporting.html#Snapshots.Exporting.GrantAccess"
      * >Step 2: Grant ElastiCache Access to Your Amazon S3 Bucket</a> in the ElastiCache User Guide.
      * </p>
      * </li>
@@ -270,7 +270,7 @@ public interface AmazonElastiCache {
      * </p>
      * <p>
      * <b>Solution:</b> Add View Permissions on the bucket. For more information, see <a href=
-     * "http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/Snapshots.Exporting.html#Snapshots.Exporting.GrantAccess"
+     * "http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Snapshots.Exporting.html#Snapshots.Exporting.GrantAccess"
      * >Step 2: Grant ElastiCache Access to Your Amazon S3 Bucket</a> in the ElastiCache User Guide.
      * </p>
      * </li>
@@ -299,15 +299,12 @@ public interface AmazonElastiCache {
 
     /**
      * <p>
-     * Creates a cache cluster. All nodes in the cache cluster run the same protocol-compliant cache engine software,
-     * either Memcached or Redis.
+     * Creates a cluster. All nodes in the cluster run the same protocol-compliant cache engine software, either
+     * Memcached or Redis.
      * </p>
-     * <important>
      * <p>
-     * Due to current limitations on Redis (cluster mode disabled), this operation or parameter is not supported on
-     * Redis (cluster mode enabled) replication groups.
+     * This operation is not supported for Redis (cluster mode enabled) clusters.
      * </p>
-     * </important>
      * 
      * @param createCacheClusterRequest
      *        Represents the input of a CreateCacheCluster operation.
@@ -317,7 +314,7 @@ public interface AmazonElastiCache {
      * @throws InvalidReplicationGroupStateException
      *         The requested replication group is not in the <code>available</code> state.
      * @throws CacheClusterAlreadyExistsException
-     *         You already have a cache cluster with the given identifier.
+     *         You already have a cluster with the given identifier.
      * @throws InsufficientCacheClusterCapacityException
      *         The requested cache node type is not available in the specified Availability Zone.
      * @throws CacheSecurityGroupNotFoundException
@@ -325,11 +322,10 @@ public interface AmazonElastiCache {
      * @throws CacheSubnetGroupNotFoundException
      *         The requested cache subnet group name does not refer to an existing cache subnet group.
      * @throws ClusterQuotaForCustomerExceededException
-     *         The request cannot be processed because it would exceed the allowed number of cache clusters per
-     *         customer.
+     *         The request cannot be processed because it would exceed the allowed number of clusters per customer.
      * @throws NodeQuotaForClusterExceededException
      *         The request cannot be processed because it would exceed the allowed number of cache nodes in a single
-     *         cache cluster.
+     *         cluster.
      * @throws NodeQuotaForCustomerExceededException
      *         The request cannot be processed because it would exceed the allowed number of cache nodes per customer.
      * @throws CacheParameterGroupNotFoundException
@@ -352,8 +348,8 @@ public interface AmazonElastiCache {
     /**
      * <p>
      * Creates a new Amazon ElastiCache cache parameter group. An ElastiCache cache parameter group is a collection of
-     * parameters and their values that are applied to all of the nodes in any cache cluster or replication group using
-     * the CacheParameterGroup.
+     * parameters and their values that are applied to all of the nodes in any cluster or replication group using the
+     * CacheParameterGroup.
      * </p>
      * <p>
      * A newly created CacheParameterGroup is an exact duplicate of the default parameter group for the
@@ -369,7 +365,7 @@ public interface AmazonElastiCache {
      * </li>
      * <li>
      * <p>
-     * <a href="http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/ParameterGroups.html">Parameters and
+     * <a href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/ParameterGroups.html">Parameters and
      * Parameter Groups</a> in the ElastiCache User Guide.
      * </p>
      * </li>
@@ -396,12 +392,12 @@ public interface AmazonElastiCache {
 
     /**
      * <p>
-     * Creates a new cache security group. Use a cache security group to control access to one or more cache clusters.
+     * Creates a new cache security group. Use a cache security group to control access to one or more clusters.
      * </p>
      * <p>
-     * Cache security groups are only used when you are creating a cache cluster outside of an Amazon Virtual Private
-     * Cloud (Amazon VPC). If you are creating a cache cluster inside of a VPC, use a cache subnet group instead. For
-     * more information, see <a
+     * Cache security groups are only used when you are creating a cluster outside of an Amazon Virtual Private Cloud
+     * (Amazon VPC). If you are creating a cluster inside of a VPC, use a cache subnet group instead. For more
+     * information, see <a
      * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/APIReference/API_CreateCacheSubnetGroup.html"
      * >CreateCacheSubnetGroup</a>.
      * </p>
@@ -454,9 +450,9 @@ public interface AmazonElastiCache {
      * Creates a Redis (cluster mode disabled) or a Redis (cluster mode enabled) replication group.
      * </p>
      * <p>
-     * A Redis (cluster mode disabled) replication group is a collection of cache clusters, where one of the cache
-     * clusters is a read/write primary and the others are read-only replicas. Writes to the primary are asynchronously
-     * propagated to the replicas.
+     * A Redis (cluster mode disabled) replication group is a collection of clusters, where one of the clusters is a
+     * read/write primary and the others are read-only replicas. Writes to the primary are asynchronously propagated to
+     * the replicas.
      * </p>
      * <p>
      * A Redis (cluster mode enabled) replication group is a collection of 1 to 15 node groups (shards). Each node group
@@ -470,8 +466,8 @@ public interface AmazonElastiCache {
      * replication group after it has been created. However, if you need to increase or decrease the number of node
      * groups (console: shards), you can avail yourself of ElastiCache for Redis' enhanced backup and restore. For more
      * information, see <a
-     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/backups-restoring.html">Restoring From a
-     * Backup with Cluster Resizing</a> in the <i>ElastiCache User Guide</i>.
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/backups-restoring.html">Restoring From a Backup
+     * with Cluster Resizing</a> in the <i>ElastiCache User Guide</i>.
      * </p>
      * <note>
      * <p>
@@ -483,9 +479,9 @@ public interface AmazonElastiCache {
      *        Represents the input of a <code>CreateReplicationGroup</code> operation.
      * @return Result of the CreateReplicationGroup operation returned by the service.
      * @throws CacheClusterNotFoundException
-     *         The requested cache cluster ID does not refer to an existing cache cluster.
+     *         The requested cluster ID does not refer to an existing cluster.
      * @throws InvalidCacheClusterStateException
-     *         The requested cache cluster is not in the <code>available</code> state.
+     *         The requested cluster is not in the <code>available</code> state.
      * @throws ReplicationGroupAlreadyExistsException
      *         The specified replication group already exists.
      * @throws InsufficientCacheClusterCapacityException
@@ -495,11 +491,10 @@ public interface AmazonElastiCache {
      * @throws CacheSubnetGroupNotFoundException
      *         The requested cache subnet group name does not refer to an existing cache subnet group.
      * @throws ClusterQuotaForCustomerExceededException
-     *         The request cannot be processed because it would exceed the allowed number of cache clusters per
-     *         customer.
+     *         The request cannot be processed because it would exceed the allowed number of clusters per customer.
      * @throws NodeQuotaForClusterExceededException
      *         The request cannot be processed because it would exceed the allowed number of cache nodes in a single
-     *         cache cluster.
+     *         cluster.
      * @throws NodeQuotaForCustomerExceededException
      *         The request cannot be processed because it would exceed the allowed number of cache nodes per customer.
      * @throws CacheParameterGroupNotFoundException
@@ -510,8 +505,8 @@ public interface AmazonElastiCache {
      *         The request cannot be processed because it would cause the resource to have more than the allowed number
      *         of tags. The maximum number of tags permitted on a resource is 50.
      * @throws NodeGroupsPerReplicationGroupQuotaExceededException
-     *         The request cannot be processed because it would exceed the maximum of 15 node groups (shards) in a
-     *         single replication group.
+     *         The request cannot be processed because it would exceed the maximum allowed number of node groups
+     *         (shards) in a single replication group. The default maximum is 15
      * @throws InvalidParameterValueException
      *         The value for a parameter is invalid.
      * @throws InvalidParameterCombinationException
@@ -524,7 +519,7 @@ public interface AmazonElastiCache {
 
     /**
      * <p>
-     * Creates a copy of an entire cache cluster or replication group at a specific moment in time.
+     * Creates a copy of an entire cluster or replication group at a specific moment in time.
      * </p>
      * <note>
      * <p>
@@ -538,11 +533,11 @@ public interface AmazonElastiCache {
      * @throws SnapshotAlreadyExistsException
      *         You already have a snapshot with the given name.
      * @throws CacheClusterNotFoundException
-     *         The requested cache cluster ID does not refer to an existing cache cluster.
+     *         The requested cluster ID does not refer to an existing cluster.
      * @throws ReplicationGroupNotFoundException
      *         The specified replication group does not exist.
      * @throws InvalidCacheClusterStateException
-     *         The requested cache cluster is not in the <code>available</code> state.
+     *         The requested cluster is not in the <code>available</code> state.
      * @throws InvalidReplicationGroupStateException
      *         The requested replication group is not in the <code>available</code> state.
      * @throws SnapshotQuotaExceededException
@@ -552,12 +547,12 @@ public interface AmazonElastiCache {
      *         <ul>
      *         <li>
      *         <p>
-     *         Creating a snapshot of a Redis cache cluster running on a <code>cache.t1.micro</code> cache node.
+     *         Creating a snapshot of a Redis cluster running on a <code>cache.t1.micro</code> cache node.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         Creating a snapshot of a cache cluster that is running Memcached rather than Redis.
+     *         Creating a snapshot of a cluster that is running Memcached rather than Redis.
      *         </p>
      *         </li>
      *         </ul>
@@ -575,29 +570,65 @@ public interface AmazonElastiCache {
 
     /**
      * <p>
-     * Deletes a previously provisioned cache cluster. <code>DeleteCacheCluster</code> deletes all associated cache
-     * nodes, node endpoints and the cache cluster itself. When you receive a successful response from this operation,
-     * Amazon ElastiCache immediately begins deleting the cache cluster; you cannot cancel or revert this operation.
+     * Dynamically decreases the number of replics in a Redis (cluster mode disabled) replication group or the number of
+     * replica nodes in one or more node groups (shards) of a Redis (cluster mode enabled) replication group. This
+     * operation is performed with no cluster down time.
+     * </p>
+     * 
+     * @param decreaseReplicaCountRequest
+     * @return Result of the DecreaseReplicaCount operation returned by the service.
+     * @throws ReplicationGroupNotFoundException
+     *         The specified replication group does not exist.
+     * @throws InvalidReplicationGroupStateException
+     *         The requested replication group is not in the <code>available</code> state.
+     * @throws InvalidCacheClusterStateException
+     *         The requested cluster is not in the <code>available</code> state.
+     * @throws InvalidVPCNetworkStateException
+     *         The VPC network is in an invalid state.
+     * @throws InsufficientCacheClusterCapacityException
+     *         The requested cache node type is not available in the specified Availability Zone.
+     * @throws ClusterQuotaForCustomerExceededException
+     *         The request cannot be processed because it would exceed the allowed number of clusters per customer.
+     * @throws NodeGroupsPerReplicationGroupQuotaExceededException
+     *         The request cannot be processed because it would exceed the maximum allowed number of node groups
+     *         (shards) in a single replication group. The default maximum is 15
+     * @throws NodeQuotaForCustomerExceededException
+     *         The request cannot be processed because it would exceed the allowed number of cache nodes per customer.
+     * @throws ServiceLinkedRoleNotFoundException
+     *         The specified service linked role (SLR) was not found.
+     * @throws NoOperationException
+     *         The operation was not performed because no changes were required.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @throws InvalidParameterCombinationException
+     *         Two or more incompatible parameters were specified.
+     * @sample AmazonElastiCache.DecreaseReplicaCount
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DecreaseReplicaCount"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ReplicationGroup decreaseReplicaCount(DecreaseReplicaCountRequest decreaseReplicaCountRequest);
+
+    /**
+     * <p>
+     * Deletes a previously provisioned cluster. <code>DeleteCacheCluster</code> deletes all associated cache nodes,
+     * node endpoints and the cluster itself. When you receive a successful response from this operation, Amazon
+     * ElastiCache immediately begins deleting the cluster; you cannot cancel or revert this operation.
      * </p>
      * <p>
-     * This operation cannot be used to delete a cache cluster that is the last read replica of a replication group or
-     * node group (shard) that has Multi-AZ mode enabled or a cache cluster from a Redis (cluster mode enabled)
-     * replication group.
+     * This operation cannot be used to delete a cluster that is the last read replica of a replication group or node
+     * group (shard) that has Multi-AZ mode enabled or a cluster from a Redis (cluster mode enabled) replication group.
      * </p>
-     * <important>
      * <p>
-     * Due to current limitations on Redis (cluster mode disabled), this operation or parameter is not supported on
-     * Redis (cluster mode enabled) replication groups.
+     * This operation is not valid for Redis (cluster mode enabled) clusters.
      * </p>
-     * </important>
      * 
      * @param deleteCacheClusterRequest
      *        Represents the input of a <code>DeleteCacheCluster</code> operation.
      * @return Result of the DeleteCacheCluster operation returned by the service.
      * @throws CacheClusterNotFoundException
-     *         The requested cache cluster ID does not refer to an existing cache cluster.
+     *         The requested cluster ID does not refer to an existing cluster.
      * @throws InvalidCacheClusterStateException
-     *         The requested cache cluster is not in the <code>available</code> state.
+     *         The requested cluster is not in the <code>available</code> state.
      * @throws SnapshotAlreadyExistsException
      *         You already have a snapshot with the given name.
      * @throws SnapshotFeatureNotSupportedException
@@ -605,12 +636,12 @@ public interface AmazonElastiCache {
      *         <ul>
      *         <li>
      *         <p>
-     *         Creating a snapshot of a Redis cache cluster running on a <code>cache.t1.micro</code> cache node.
+     *         Creating a snapshot of a Redis cluster running on a <code>cache.t1.micro</code> cache node.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         Creating a snapshot of a cache cluster that is running Memcached rather than Redis.
+     *         Creating a snapshot of a cluster that is running Memcached rather than Redis.
      *         </p>
      *         </li>
      *         </ul>
@@ -657,7 +688,7 @@ public interface AmazonElastiCache {
      * </p>
      * <note>
      * <p>
-     * You cannot delete a cache security group if it is associated with any cache clusters.
+     * You cannot delete a cache security group if it is associated with any clusters.
      * </p>
      * </note>
      * 
@@ -684,7 +715,7 @@ public interface AmazonElastiCache {
      * </p>
      * <note>
      * <p>
-     * You cannot delete a cache subnet group if it is associated with any cache clusters.
+     * You cannot delete a cache subnet group if it is associated with any clusters.
      * </p>
      * </note>
      * 
@@ -732,12 +763,12 @@ public interface AmazonElastiCache {
      *         <ul>
      *         <li>
      *         <p>
-     *         Creating a snapshot of a Redis cache cluster running on a <code>cache.t1.micro</code> cache node.
+     *         Creating a snapshot of a Redis cluster running on a <code>cache.t1.micro</code> cache node.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         Creating a snapshot of a cache cluster that is running Memcached rather than Redis.
+     *         Creating a snapshot of a cluster that is running Memcached rather than Redis.
      *         </p>
      *         </li>
      *         </ul>
@@ -785,12 +816,12 @@ public interface AmazonElastiCache {
 
     /**
      * <p>
-     * Returns information about all provisioned cache clusters if no cache cluster identifier is specified, or about a
-     * specific cache cluster if a cache cluster identifier is supplied.
+     * Returns information about all provisioned clusters if no cluster identifier is specified, or about a specific
+     * cache cluster if a cluster identifier is supplied.
      * </p>
      * <p>
-     * By default, abbreviated information about the cache clusters is returned. You can use the optional
-     * <i>ShowCacheNodeInfo</i> flag to retrieve detailed information about the cache nodes associated with the cache
+     * By default, abbreviated information about the clusters is returned. You can use the optional
+     * <i>ShowCacheNodeInfo</i> flag to retrieve detailed information about the cache nodes associated with the
      * clusters. These details include the DNS address and port for the cache node endpoint.
      * </p>
      * <p>
@@ -801,20 +832,20 @@ public interface AmazonElastiCache {
      * If the cluster is in the <i>deleting</i> state, only cluster-level information is displayed.
      * </p>
      * <p>
-     * If cache nodes are currently being added to the cache cluster, node endpoint information and creation time for
-     * the additional nodes are not displayed until they are completely provisioned. When the cache cluster state is
+     * If cache nodes are currently being added to the cluster, node endpoint information and creation time for the
+     * additional nodes are not displayed until they are completely provisioned. When the cluster state is
      * <i>available</i>, the cluster is ready for use.
      * </p>
      * <p>
-     * If cache nodes are currently being removed from the cache cluster, no endpoint information for the removed nodes
-     * is displayed.
+     * If cache nodes are currently being removed from the cluster, no endpoint information for the removed nodes is
+     * displayed.
      * </p>
      * 
      * @param describeCacheClustersRequest
      *        Represents the input of a <code>DescribeCacheClusters</code> operation.
      * @return Result of the DescribeCacheClusters operation returned by the service.
      * @throws CacheClusterNotFoundException
-     *         The requested cache cluster ID does not refer to an existing cache cluster.
+     *         The requested cluster ID does not refer to an existing cluster.
      * @throws InvalidParameterValueException
      *         The value for a parameter is invalid.
      * @throws InvalidParameterCombinationException
@@ -973,9 +1004,9 @@ public interface AmazonElastiCache {
 
     /**
      * <p>
-     * Returns events related to cache clusters, cache security groups, and cache parameter groups. You can obtain
-     * events specific to a particular cache cluster, cache security group, or cache parameter group by providing the
-     * name as a parameter.
+     * Returns events related to clusters, cache security groups, and cache parameter groups. You can obtain events
+     * specific to a particular cluster, cache security group, or cache parameter group by providing the name as a
+     * parameter.
      * </p>
      * <p>
      * By default, only the events occurring within the last hour are returned; however, you can retrieve up to 14 days'
@@ -1092,9 +1123,9 @@ public interface AmazonElastiCache {
 
     /**
      * <p>
-     * Returns information about cache cluster or replication group snapshots. By default,
-     * <code>DescribeSnapshots</code> lists all of your snapshots; it can optionally describe a single snapshot, or just
-     * the snapshots associated with a particular cache cluster.
+     * Returns information about cluster or replication group snapshots. By default, <code>DescribeSnapshots</code>
+     * lists all of your snapshots; it can optionally describe a single snapshot, or just the snapshots associated with
+     * a particular cache cluster.
      * </p>
      * <note>
      * <p>
@@ -1106,7 +1137,7 @@ public interface AmazonElastiCache {
      *        Represents the input of a <code>DescribeSnapshotsMessage</code> operation.
      * @return Result of the DescribeSnapshots operation returned by the service.
      * @throws CacheClusterNotFoundException
-     *         The requested cache cluster ID does not refer to an existing cache cluster.
+     *         The requested cluster ID does not refer to an existing cluster.
      * @throws SnapshotNotFoundException
      *         The requested snapshot name does not refer to an existing snapshot.
      * @throws InvalidParameterValueException
@@ -1128,6 +1159,44 @@ public interface AmazonElastiCache {
 
     /**
      * <p>
+     * Dynamically increases the number of replics in a Redis (cluster mode disabled) replication group or the number of
+     * replica nodes in one or more node groups (shards) of a Redis (cluster mode enabled) replication group. This
+     * operation is performed with no cluster down time.
+     * </p>
+     * 
+     * @param increaseReplicaCountRequest
+     * @return Result of the IncreaseReplicaCount operation returned by the service.
+     * @throws ReplicationGroupNotFoundException
+     *         The specified replication group does not exist.
+     * @throws InvalidReplicationGroupStateException
+     *         The requested replication group is not in the <code>available</code> state.
+     * @throws InvalidCacheClusterStateException
+     *         The requested cluster is not in the <code>available</code> state.
+     * @throws InvalidVPCNetworkStateException
+     *         The VPC network is in an invalid state.
+     * @throws InsufficientCacheClusterCapacityException
+     *         The requested cache node type is not available in the specified Availability Zone.
+     * @throws ClusterQuotaForCustomerExceededException
+     *         The request cannot be processed because it would exceed the allowed number of clusters per customer.
+     * @throws NodeGroupsPerReplicationGroupQuotaExceededException
+     *         The request cannot be processed because it would exceed the maximum allowed number of node groups
+     *         (shards) in a single replication group. The default maximum is 15
+     * @throws NodeQuotaForCustomerExceededException
+     *         The request cannot be processed because it would exceed the allowed number of cache nodes per customer.
+     * @throws NoOperationException
+     *         The operation was not performed because no changes were required.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @throws InvalidParameterCombinationException
+     *         Two or more incompatible parameters were specified.
+     * @sample AmazonElastiCache.IncreaseReplicaCount
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/IncreaseReplicaCount"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ReplicationGroup increaseReplicaCount(IncreaseReplicaCountRequest increaseReplicaCountRequest);
+
+    /**
+     * <p>
      * Lists all available node types that you can scale your Redis cluster's or replication group's current node type
      * up to.
      * </p>
@@ -1141,7 +1210,7 @@ public interface AmazonElastiCache {
      *        The input parameters for the <code>ListAllowedNodeTypeModifications</code> operation.
      * @return Result of the ListAllowedNodeTypeModifications operation returned by the service.
      * @throws CacheClusterNotFoundException
-     *         The requested cache cluster ID does not refer to an existing cache cluster.
+     *         The requested cluster ID does not refer to an existing cluster.
      * @throws ReplicationGroupNotFoundException
      *         The specified replication group does not exist.
      * @throws InvalidParameterCombinationException
@@ -1168,16 +1237,18 @@ public interface AmazonElastiCache {
      * and track your AWS costs.
      * </p>
      * <p>
+     * If the cluster is not in the <i>available</i> state, <code>ListTagsForResource</code> returns an error.
+     * </p>
+     * <p>
      * You can have a maximum of 50 cost allocation tags on an ElastiCache resource. For more information, see <a
-     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/BestPractices.html">Using Cost Allocation
-     * Tags in Amazon ElastiCache</a>.
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Tagging.html">Monitoring Costs with Tags</a>.
      * </p>
      * 
      * @param listTagsForResourceRequest
      *        The input parameters for the <code>ListTagsForResource</code> operation.
      * @return Result of the ListTagsForResource operation returned by the service.
      * @throws CacheClusterNotFoundException
-     *         The requested cache cluster ID does not refer to an existing cache cluster.
+     *         The requested cluster ID does not refer to an existing cluster.
      * @throws SnapshotNotFoundException
      *         The requested snapshot name does not refer to an existing snapshot.
      * @throws InvalidARNException
@@ -1190,7 +1261,7 @@ public interface AmazonElastiCache {
 
     /**
      * <p>
-     * Modifies the settings for a cache cluster. You can use this operation to change one or more cluster configuration
+     * Modifies the settings for a cluster. You can use this operation to change one or more cluster configuration
      * parameters by specifying the parameters and the new values.
      * </p>
      * 
@@ -1198,16 +1269,16 @@ public interface AmazonElastiCache {
      *        Represents the input of a <code>ModifyCacheCluster</code> operation.
      * @return Result of the ModifyCacheCluster operation returned by the service.
      * @throws InvalidCacheClusterStateException
-     *         The requested cache cluster is not in the <code>available</code> state.
+     *         The requested cluster is not in the <code>available</code> state.
      * @throws InvalidCacheSecurityGroupStateException
      *         The current state of the cache security group does not allow deletion.
      * @throws InsufficientCacheClusterCapacityException
      *         The requested cache node type is not available in the specified Availability Zone.
      * @throws CacheClusterNotFoundException
-     *         The requested cache cluster ID does not refer to an existing cache cluster.
+     *         The requested cluster ID does not refer to an existing cluster.
      * @throws NodeQuotaForClusterExceededException
      *         The request cannot be processed because it would exceed the allowed number of cache nodes in a single
-     *         cache cluster.
+     *         cluster.
      * @throws NodeQuotaForCustomerExceededException
      *         The request cannot be processed because it would exceed the allowed number of cache nodes per customer.
      * @throws CacheSecurityGroupNotFoundException
@@ -1276,12 +1347,26 @@ public interface AmazonElastiCache {
      * <p>
      * Modifies the settings for a replication group.
      * </p>
-     * <important>
      * <p>
-     * Due to current limitations on Redis (cluster mode disabled), this operation or parameter is not supported on
-     * Redis (cluster mode enabled) replication groups.
+     * For Redis (cluster mode enabled) clusters, this operation cannot be used to change a cluster's node type or
+     * engine version. For more information, see:
      * </p>
-     * </important> <note>
+     * <ul>
+     * <li>
+     * <p>
+     * <a href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/scaling-redis-cluster-mode-enabled.html">
+     * Scaling for Amazon ElastiCache for Redis—Redis (cluster mode enabled)</a> in the ElastiCache User Guide
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href=
+     * "http://docs.aws.amazon.com/AmazonElastiCache/latest/APIReference/API_ModifyReplicationGroupShardConfiguration.html"
+     * >ModifyReplicationGroupShardConfiguration</a> in the ElastiCache API Reference
+     * </p>
+     * </li>
+     * </ul>
+     * <note>
      * <p>
      * This operation is valid for Redis only.
      * </p>
@@ -1295,16 +1380,16 @@ public interface AmazonElastiCache {
      * @throws InvalidReplicationGroupStateException
      *         The requested replication group is not in the <code>available</code> state.
      * @throws InvalidCacheClusterStateException
-     *         The requested cache cluster is not in the <code>available</code> state.
+     *         The requested cluster is not in the <code>available</code> state.
      * @throws InvalidCacheSecurityGroupStateException
      *         The current state of the cache security group does not allow deletion.
      * @throws InsufficientCacheClusterCapacityException
      *         The requested cache node type is not available in the specified Availability Zone.
      * @throws CacheClusterNotFoundException
-     *         The requested cache cluster ID does not refer to an existing cache cluster.
+     *         The requested cluster ID does not refer to an existing cluster.
      * @throws NodeQuotaForClusterExceededException
      *         The request cannot be processed because it would exceed the allowed number of cache nodes in a single
-     *         cache cluster.
+     *         cluster.
      * @throws NodeQuotaForCustomerExceededException
      *         The request cannot be processed because it would exceed the allowed number of cache nodes per customer.
      * @throws CacheSecurityGroupNotFoundException
@@ -1322,6 +1407,41 @@ public interface AmazonElastiCache {
      *      target="_top">AWS API Documentation</a>
      */
     ReplicationGroup modifyReplicationGroup(ModifyReplicationGroupRequest modifyReplicationGroupRequest);
+
+    /**
+     * <p>
+     * Modifies a replication group's shards (node groups) by allowing you to add shards, remove shards, or rebalance
+     * the keyspaces among exisiting shards.
+     * </p>
+     * 
+     * @param modifyReplicationGroupShardConfigurationRequest
+     *        Represents the input for a <code>ModifyReplicationGroupShardConfiguration</code> operation.
+     * @return Result of the ModifyReplicationGroupShardConfiguration operation returned by the service.
+     * @throws ReplicationGroupNotFoundException
+     *         The specified replication group does not exist.
+     * @throws InvalidReplicationGroupStateException
+     *         The requested replication group is not in the <code>available</code> state.
+     * @throws InvalidCacheClusterStateException
+     *         The requested cluster is not in the <code>available</code> state.
+     * @throws InvalidVPCNetworkStateException
+     *         The VPC network is in an invalid state.
+     * @throws InsufficientCacheClusterCapacityException
+     *         The requested cache node type is not available in the specified Availability Zone.
+     * @throws NodeGroupsPerReplicationGroupQuotaExceededException
+     *         The request cannot be processed because it would exceed the maximum allowed number of node groups
+     *         (shards) in a single replication group. The default maximum is 15
+     * @throws NodeQuotaForCustomerExceededException
+     *         The request cannot be processed because it would exceed the allowed number of cache nodes per customer.
+     * @throws InvalidParameterValueException
+     *         The value for a parameter is invalid.
+     * @throws InvalidParameterCombinationException
+     *         Two or more incompatible parameters were specified.
+     * @sample AmazonElastiCache.ModifyReplicationGroupShardConfiguration
+     * @see <a
+     *      href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ModifyReplicationGroupShardConfiguration"
+     *      target="_top">AWS API Documentation</a>
+     */
+    ReplicationGroup modifyReplicationGroupShardConfiguration(ModifyReplicationGroupShardConfigurationRequest modifyReplicationGroupShardConfigurationRequest);
 
     /**
      * <p>
@@ -1349,24 +1469,34 @@ public interface AmazonElastiCache {
 
     /**
      * <p>
-     * Reboots some, or all, of the cache nodes within a provisioned cache cluster. This operation applies any modified
-     * cache parameter groups to the cache cluster. The reboot operation takes place as soon as possible, and results in
-     * a momentary outage to the cache cluster. During the reboot, the cache cluster status is set to REBOOTING.
+     * Reboots some, or all, of the cache nodes within a provisioned cluster. This operation applies any modified cache
+     * parameter groups to the cluster. The reboot operation takes place as soon as possible, and results in a momentary
+     * outage to the cluster. During the reboot, the cluster status is set to REBOOTING.
      * </p>
      * <p>
      * The reboot causes the contents of the cache (for each cache node being rebooted) to be lost.
      * </p>
      * <p>
-     * When the reboot is complete, a cache cluster event is created.
+     * When the reboot is complete, a cluster event is created.
+     * </p>
+     * <p>
+     * Rebooting a cluster is currently supported on Memcached and Redis (cluster mode disabled) clusters. Rebooting is
+     * not supported on Redis (cluster mode enabled) clusters.
+     * </p>
+     * <p>
+     * If you make changes to parameters that require a Redis (cluster mode enabled) cluster reboot for the changes to
+     * be applied, see <a
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.Rebooting.html">Rebooting a Cluster</a>
+     * for an alternate process.
      * </p>
      * 
      * @param rebootCacheClusterRequest
      *        Represents the input of a <code>RebootCacheCluster</code> operation.
      * @return Result of the RebootCacheCluster operation returned by the service.
      * @throws InvalidCacheClusterStateException
-     *         The requested cache cluster is not in the <code>available</code> state.
+     *         The requested cluster is not in the <code>available</code> state.
      * @throws CacheClusterNotFoundException
-     *         The requested cache cluster ID does not refer to an existing cache cluster.
+     *         The requested cluster ID does not refer to an existing cluster.
      * @sample AmazonElastiCache.RebootCacheCluster
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/RebootCacheCluster" target="_top">AWS
      *      API Documentation</a>
@@ -1382,7 +1512,7 @@ public interface AmazonElastiCache {
      *        Represents the input of a <code>RemoveTagsFromResource</code> operation.
      * @return Result of the RemoveTagsFromResource operation returned by the service.
      * @throws CacheClusterNotFoundException
-     *         The requested cache cluster ID does not refer to an existing cache cluster.
+     *         The requested cluster ID does not refer to an existing cluster.
      * @throws SnapshotNotFoundException
      *         The requested snapshot name does not refer to an existing snapshot.
      * @throws InvalidARNException
@@ -1513,7 +1643,7 @@ public interface AmazonElastiCache {
      * <ul>
      * <li>
      * <p>
-     * <a href="http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/ECEvents.Viewing.html">Viewing ElastiCache
+     * <a href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/ECEvents.Viewing.html">Viewing ElastiCache
      * Events</a> in the <i>ElastiCache User Guide</i>
      * </p>
      * </li>
@@ -1529,7 +1659,7 @@ public interface AmazonElastiCache {
      * </ul>
      * <p>
      * Also see, <a
-     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/AutoFailover.html#auto-failover-test">Testing
+     * href="http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/AutoFailover.html#auto-failover-test">Testing
      * Multi-AZ with Automatic Failover</a> in the <i>ElastiCache User Guide</i>.
      * </p>
      * 
@@ -1538,7 +1668,7 @@ public interface AmazonElastiCache {
      * @throws APICallRateForCustomerExceededException
      *         The customer has exceeded the allowed rate of API calls.
      * @throws InvalidCacheClusterStateException
-     *         The requested cache cluster is not in the <code>available</code> state.
+     *         The requested cluster is not in the <code>available</code> state.
      * @throws InvalidReplicationGroupStateException
      *         The requested replication group is not in the <code>available</code> state.
      * @throws NodeGroupNotFoundException
@@ -1547,6 +1677,7 @@ public interface AmazonElastiCache {
      * @throws ReplicationGroupNotFoundException
      *         The specified replication group does not exist.
      * @throws TestFailoverNotAvailableException
+     *         The <code>TestFailover</code> action is not available.
      * @throws InvalidParameterValueException
      *         The value for a parameter is invalid.
      * @throws InvalidParameterCombinationException

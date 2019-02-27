@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * Represents a target tracking scaling policy configuration.
+ * Represents a target tracking scaling policy configuration to use with Application Auto Scaling.
  * </p>
  * 
  * @see <a
@@ -38,22 +38,22 @@ public class TargetTrackingScalingPolicyConfiguration implements Serializable, C
     private Double targetValue;
     /**
      * <p>
-     * A predefined metric.
+     * A predefined metric. You can specify either a predefined metric or a customized metric.
      * </p>
      */
     private PredefinedMetricSpecification predefinedMetricSpecification;
     /**
      * <p>
-     * Reserved for future use.
+     * A customized metric. You can specify either a predefined metric or a customized metric.
      * </p>
      */
     private CustomizedMetricSpecification customizedMetricSpecification;
     /**
      * <p>
-     * The amount of time, in seconds, after a scale out activity completes before another scale out activity can start.
+     * The amount of time, in seconds, after a scale-out activity completes before another scale-out activity can start.
      * </p>
      * <p>
-     * While the cooldown period is in effect, the capacity that has been added by the previous scale out event that
+     * While the cooldown period is in effect, the capacity that has been added by the previous scale-out event that
      * initiated the cooldown is calculated as part of the desired capacity for the next scale out. The intention is to
      * continuously (but not excessively) scale out.
      * </p>
@@ -61,16 +61,25 @@ public class TargetTrackingScalingPolicyConfiguration implements Serializable, C
     private Integer scaleOutCooldown;
     /**
      * <p>
-     * The amount of time, in seconds, after a scale in activity completes before another scale in activity can start.
+     * The amount of time, in seconds, after a scale-in activity completes before another scale in activity can start.
      * </p>
      * <p>
-     * The cooldown period is used to block subsequent scale in requests until it has expired. The intention is to scale
-     * in conservatively to protect your application's availability. However, if another alarm triggers a scale out
+     * The cooldown period is used to block subsequent scale-in requests until it has expired. The intention is to scale
+     * in conservatively to protect your application's availability. However, if another alarm triggers a scale-out
      * policy during the cooldown period after a scale-in, Application Auto Scaling scales out your scalable target
      * immediately.
      * </p>
      */
     private Integer scaleInCooldown;
+    /**
+     * <p>
+     * Indicates whether scale in by the target tracking scaling policy is disabled. If the value is <code>true</code>,
+     * scale in is disabled and the target tracking scaling policy won't remove capacity from the scalable resource.
+     * Otherwise, scale in is enabled and the target tracking scaling policy can remove capacity from the scalable
+     * resource. The default value is <code>false</code>.
+     * </p>
+     */
+    private Boolean disableScaleIn;
 
     /**
      * <p>
@@ -120,11 +129,11 @@ public class TargetTrackingScalingPolicyConfiguration implements Serializable, C
 
     /**
      * <p>
-     * A predefined metric.
+     * A predefined metric. You can specify either a predefined metric or a customized metric.
      * </p>
      * 
      * @param predefinedMetricSpecification
-     *        A predefined metric.
+     *        A predefined metric. You can specify either a predefined metric or a customized metric.
      */
 
     public void setPredefinedMetricSpecification(PredefinedMetricSpecification predefinedMetricSpecification) {
@@ -133,10 +142,10 @@ public class TargetTrackingScalingPolicyConfiguration implements Serializable, C
 
     /**
      * <p>
-     * A predefined metric.
+     * A predefined metric. You can specify either a predefined metric or a customized metric.
      * </p>
      * 
-     * @return A predefined metric.
+     * @return A predefined metric. You can specify either a predefined metric or a customized metric.
      */
 
     public PredefinedMetricSpecification getPredefinedMetricSpecification() {
@@ -145,11 +154,11 @@ public class TargetTrackingScalingPolicyConfiguration implements Serializable, C
 
     /**
      * <p>
-     * A predefined metric.
+     * A predefined metric. You can specify either a predefined metric or a customized metric.
      * </p>
      * 
      * @param predefinedMetricSpecification
-     *        A predefined metric.
+     *        A predefined metric. You can specify either a predefined metric or a customized metric.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -160,11 +169,11 @@ public class TargetTrackingScalingPolicyConfiguration implements Serializable, C
 
     /**
      * <p>
-     * Reserved for future use.
+     * A customized metric. You can specify either a predefined metric or a customized metric.
      * </p>
      * 
      * @param customizedMetricSpecification
-     *        Reserved for future use.
+     *        A customized metric. You can specify either a predefined metric or a customized metric.
      */
 
     public void setCustomizedMetricSpecification(CustomizedMetricSpecification customizedMetricSpecification) {
@@ -173,10 +182,10 @@ public class TargetTrackingScalingPolicyConfiguration implements Serializable, C
 
     /**
      * <p>
-     * Reserved for future use.
+     * A customized metric. You can specify either a predefined metric or a customized metric.
      * </p>
      * 
-     * @return Reserved for future use.
+     * @return A customized metric. You can specify either a predefined metric or a customized metric.
      */
 
     public CustomizedMetricSpecification getCustomizedMetricSpecification() {
@@ -185,11 +194,11 @@ public class TargetTrackingScalingPolicyConfiguration implements Serializable, C
 
     /**
      * <p>
-     * Reserved for future use.
+     * A customized metric. You can specify either a predefined metric or a customized metric.
      * </p>
      * 
      * @param customizedMetricSpecification
-     *        Reserved for future use.
+     *        A customized metric. You can specify either a predefined metric or a customized metric.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -200,19 +209,19 @@ public class TargetTrackingScalingPolicyConfiguration implements Serializable, C
 
     /**
      * <p>
-     * The amount of time, in seconds, after a scale out activity completes before another scale out activity can start.
+     * The amount of time, in seconds, after a scale-out activity completes before another scale-out activity can start.
      * </p>
      * <p>
-     * While the cooldown period is in effect, the capacity that has been added by the previous scale out event that
+     * While the cooldown period is in effect, the capacity that has been added by the previous scale-out event that
      * initiated the cooldown is calculated as part of the desired capacity for the next scale out. The intention is to
      * continuously (but not excessively) scale out.
      * </p>
      * 
      * @param scaleOutCooldown
-     *        The amount of time, in seconds, after a scale out activity completes before another scale out activity can
+     *        The amount of time, in seconds, after a scale-out activity completes before another scale-out activity can
      *        start.</p>
      *        <p>
-     *        While the cooldown period is in effect, the capacity that has been added by the previous scale out event
+     *        While the cooldown period is in effect, the capacity that has been added by the previous scale-out event
      *        that initiated the cooldown is calculated as part of the desired capacity for the next scale out. The
      *        intention is to continuously (but not excessively) scale out.
      */
@@ -223,18 +232,18 @@ public class TargetTrackingScalingPolicyConfiguration implements Serializable, C
 
     /**
      * <p>
-     * The amount of time, in seconds, after a scale out activity completes before another scale out activity can start.
+     * The amount of time, in seconds, after a scale-out activity completes before another scale-out activity can start.
      * </p>
      * <p>
-     * While the cooldown period is in effect, the capacity that has been added by the previous scale out event that
+     * While the cooldown period is in effect, the capacity that has been added by the previous scale-out event that
      * initiated the cooldown is calculated as part of the desired capacity for the next scale out. The intention is to
      * continuously (but not excessively) scale out.
      * </p>
      * 
-     * @return The amount of time, in seconds, after a scale out activity completes before another scale out activity
+     * @return The amount of time, in seconds, after a scale-out activity completes before another scale-out activity
      *         can start.</p>
      *         <p>
-     *         While the cooldown period is in effect, the capacity that has been added by the previous scale out event
+     *         While the cooldown period is in effect, the capacity that has been added by the previous scale-out event
      *         that initiated the cooldown is calculated as part of the desired capacity for the next scale out. The
      *         intention is to continuously (but not excessively) scale out.
      */
@@ -245,19 +254,19 @@ public class TargetTrackingScalingPolicyConfiguration implements Serializable, C
 
     /**
      * <p>
-     * The amount of time, in seconds, after a scale out activity completes before another scale out activity can start.
+     * The amount of time, in seconds, after a scale-out activity completes before another scale-out activity can start.
      * </p>
      * <p>
-     * While the cooldown period is in effect, the capacity that has been added by the previous scale out event that
+     * While the cooldown period is in effect, the capacity that has been added by the previous scale-out event that
      * initiated the cooldown is calculated as part of the desired capacity for the next scale out. The intention is to
      * continuously (but not excessively) scale out.
      * </p>
      * 
      * @param scaleOutCooldown
-     *        The amount of time, in seconds, after a scale out activity completes before another scale out activity can
+     *        The amount of time, in seconds, after a scale-out activity completes before another scale-out activity can
      *        start.</p>
      *        <p>
-     *        While the cooldown period is in effect, the capacity that has been added by the previous scale out event
+     *        While the cooldown period is in effect, the capacity that has been added by the previous scale-out event
      *        that initiated the cooldown is calculated as part of the desired capacity for the next scale out. The
      *        intention is to continuously (but not excessively) scale out.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -270,22 +279,22 @@ public class TargetTrackingScalingPolicyConfiguration implements Serializable, C
 
     /**
      * <p>
-     * The amount of time, in seconds, after a scale in activity completes before another scale in activity can start.
+     * The amount of time, in seconds, after a scale-in activity completes before another scale in activity can start.
      * </p>
      * <p>
-     * The cooldown period is used to block subsequent scale in requests until it has expired. The intention is to scale
-     * in conservatively to protect your application's availability. However, if another alarm triggers a scale out
+     * The cooldown period is used to block subsequent scale-in requests until it has expired. The intention is to scale
+     * in conservatively to protect your application's availability. However, if another alarm triggers a scale-out
      * policy during the cooldown period after a scale-in, Application Auto Scaling scales out your scalable target
      * immediately.
      * </p>
      * 
      * @param scaleInCooldown
-     *        The amount of time, in seconds, after a scale in activity completes before another scale in activity can
+     *        The amount of time, in seconds, after a scale-in activity completes before another scale in activity can
      *        start.</p>
      *        <p>
-     *        The cooldown period is used to block subsequent scale in requests until it has expired. The intention is
+     *        The cooldown period is used to block subsequent scale-in requests until it has expired. The intention is
      *        to scale in conservatively to protect your application's availability. However, if another alarm triggers
-     *        a scale out policy during the cooldown period after a scale-in, Application Auto Scaling scales out your
+     *        a scale-out policy during the cooldown period after a scale-in, Application Auto Scaling scales out your
      *        scalable target immediately.
      */
 
@@ -295,21 +304,21 @@ public class TargetTrackingScalingPolicyConfiguration implements Serializable, C
 
     /**
      * <p>
-     * The amount of time, in seconds, after a scale in activity completes before another scale in activity can start.
+     * The amount of time, in seconds, after a scale-in activity completes before another scale in activity can start.
      * </p>
      * <p>
-     * The cooldown period is used to block subsequent scale in requests until it has expired. The intention is to scale
-     * in conservatively to protect your application's availability. However, if another alarm triggers a scale out
+     * The cooldown period is used to block subsequent scale-in requests until it has expired. The intention is to scale
+     * in conservatively to protect your application's availability. However, if another alarm triggers a scale-out
      * policy during the cooldown period after a scale-in, Application Auto Scaling scales out your scalable target
      * immediately.
      * </p>
      * 
-     * @return The amount of time, in seconds, after a scale in activity completes before another scale in activity can
+     * @return The amount of time, in seconds, after a scale-in activity completes before another scale in activity can
      *         start.</p>
      *         <p>
-     *         The cooldown period is used to block subsequent scale in requests until it has expired. The intention is
+     *         The cooldown period is used to block subsequent scale-in requests until it has expired. The intention is
      *         to scale in conservatively to protect your application's availability. However, if another alarm triggers
-     *         a scale out policy during the cooldown period after a scale-in, Application Auto Scaling scales out your
+     *         a scale-out policy during the cooldown period after a scale-in, Application Auto Scaling scales out your
      *         scalable target immediately.
      */
 
@@ -319,22 +328,22 @@ public class TargetTrackingScalingPolicyConfiguration implements Serializable, C
 
     /**
      * <p>
-     * The amount of time, in seconds, after a scale in activity completes before another scale in activity can start.
+     * The amount of time, in seconds, after a scale-in activity completes before another scale in activity can start.
      * </p>
      * <p>
-     * The cooldown period is used to block subsequent scale in requests until it has expired. The intention is to scale
-     * in conservatively to protect your application's availability. However, if another alarm triggers a scale out
+     * The cooldown period is used to block subsequent scale-in requests until it has expired. The intention is to scale
+     * in conservatively to protect your application's availability. However, if another alarm triggers a scale-out
      * policy during the cooldown period after a scale-in, Application Auto Scaling scales out your scalable target
      * immediately.
      * </p>
      * 
      * @param scaleInCooldown
-     *        The amount of time, in seconds, after a scale in activity completes before another scale in activity can
+     *        The amount of time, in seconds, after a scale-in activity completes before another scale in activity can
      *        start.</p>
      *        <p>
-     *        The cooldown period is used to block subsequent scale in requests until it has expired. The intention is
+     *        The cooldown period is used to block subsequent scale-in requests until it has expired. The intention is
      *        to scale in conservatively to protect your application's availability. However, if another alarm triggers
-     *        a scale out policy during the cooldown period after a scale-in, Application Auto Scaling scales out your
+     *        a scale-out policy during the cooldown period after a scale-in, Application Auto Scaling scales out your
      *        scalable target immediately.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
@@ -345,7 +354,84 @@ public class TargetTrackingScalingPolicyConfiguration implements Serializable, C
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * <p>
+     * Indicates whether scale in by the target tracking scaling policy is disabled. If the value is <code>true</code>,
+     * scale in is disabled and the target tracking scaling policy won't remove capacity from the scalable resource.
+     * Otherwise, scale in is enabled and the target tracking scaling policy can remove capacity from the scalable
+     * resource. The default value is <code>false</code>.
+     * </p>
+     * 
+     * @param disableScaleIn
+     *        Indicates whether scale in by the target tracking scaling policy is disabled. If the value is
+     *        <code>true</code>, scale in is disabled and the target tracking scaling policy won't remove capacity from
+     *        the scalable resource. Otherwise, scale in is enabled and the target tracking scaling policy can remove
+     *        capacity from the scalable resource. The default value is <code>false</code>.
+     */
+
+    public void setDisableScaleIn(Boolean disableScaleIn) {
+        this.disableScaleIn = disableScaleIn;
+    }
+
+    /**
+     * <p>
+     * Indicates whether scale in by the target tracking scaling policy is disabled. If the value is <code>true</code>,
+     * scale in is disabled and the target tracking scaling policy won't remove capacity from the scalable resource.
+     * Otherwise, scale in is enabled and the target tracking scaling policy can remove capacity from the scalable
+     * resource. The default value is <code>false</code>.
+     * </p>
+     * 
+     * @return Indicates whether scale in by the target tracking scaling policy is disabled. If the value is
+     *         <code>true</code>, scale in is disabled and the target tracking scaling policy won't remove capacity from
+     *         the scalable resource. Otherwise, scale in is enabled and the target tracking scaling policy can remove
+     *         capacity from the scalable resource. The default value is <code>false</code>.
+     */
+
+    public Boolean getDisableScaleIn() {
+        return this.disableScaleIn;
+    }
+
+    /**
+     * <p>
+     * Indicates whether scale in by the target tracking scaling policy is disabled. If the value is <code>true</code>,
+     * scale in is disabled and the target tracking scaling policy won't remove capacity from the scalable resource.
+     * Otherwise, scale in is enabled and the target tracking scaling policy can remove capacity from the scalable
+     * resource. The default value is <code>false</code>.
+     * </p>
+     * 
+     * @param disableScaleIn
+     *        Indicates whether scale in by the target tracking scaling policy is disabled. If the value is
+     *        <code>true</code>, scale in is disabled and the target tracking scaling policy won't remove capacity from
+     *        the scalable resource. Otherwise, scale in is enabled and the target tracking scaling policy can remove
+     *        capacity from the scalable resource. The default value is <code>false</code>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public TargetTrackingScalingPolicyConfiguration withDisableScaleIn(Boolean disableScaleIn) {
+        setDisableScaleIn(disableScaleIn);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Indicates whether scale in by the target tracking scaling policy is disabled. If the value is <code>true</code>,
+     * scale in is disabled and the target tracking scaling policy won't remove capacity from the scalable resource.
+     * Otherwise, scale in is enabled and the target tracking scaling policy can remove capacity from the scalable
+     * resource. The default value is <code>false</code>.
+     * </p>
+     * 
+     * @return Indicates whether scale in by the target tracking scaling policy is disabled. If the value is
+     *         <code>true</code>, scale in is disabled and the target tracking scaling policy won't remove capacity from
+     *         the scalable resource. Otherwise, scale in is enabled and the target tracking scaling policy can remove
+     *         capacity from the scalable resource. The default value is <code>false</code>.
+     */
+
+    public Boolean isDisableScaleIn() {
+        return this.disableScaleIn;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -364,7 +450,9 @@ public class TargetTrackingScalingPolicyConfiguration implements Serializable, C
         if (getScaleOutCooldown() != null)
             sb.append("ScaleOutCooldown: ").append(getScaleOutCooldown()).append(",");
         if (getScaleInCooldown() != null)
-            sb.append("ScaleInCooldown: ").append(getScaleInCooldown());
+            sb.append("ScaleInCooldown: ").append(getScaleInCooldown()).append(",");
+        if (getDisableScaleIn() != null)
+            sb.append("DisableScaleIn: ").append(getDisableScaleIn());
         sb.append("}");
         return sb.toString();
     }
@@ -401,6 +489,10 @@ public class TargetTrackingScalingPolicyConfiguration implements Serializable, C
             return false;
         if (other.getScaleInCooldown() != null && other.getScaleInCooldown().equals(this.getScaleInCooldown()) == false)
             return false;
+        if (other.getDisableScaleIn() == null ^ this.getDisableScaleIn() == null)
+            return false;
+        if (other.getDisableScaleIn() != null && other.getDisableScaleIn().equals(this.getDisableScaleIn()) == false)
+            return false;
         return true;
     }
 
@@ -414,6 +506,7 @@ public class TargetTrackingScalingPolicyConfiguration implements Serializable, C
         hashCode = prime * hashCode + ((getCustomizedMetricSpecification() == null) ? 0 : getCustomizedMetricSpecification().hashCode());
         hashCode = prime * hashCode + ((getScaleOutCooldown() == null) ? 0 : getScaleOutCooldown().hashCode());
         hashCode = prime * hashCode + ((getScaleInCooldown() == null) ? 0 : getScaleInCooldown().hashCode());
+        hashCode = prime * hashCode + ((getDisableScaleIn() == null) ? 0 : getDisableScaleIn().hashCode());
         return hashCode;
     }
 

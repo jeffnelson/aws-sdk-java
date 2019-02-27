@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -22,7 +22,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
  * Represents the output of a <code>BatchWrite</code> response operation.
  * </p>
  * 
- * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2016-05-10/BatchWriteOperationResponse"
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2017-01-11/BatchWriteOperationResponse"
  *      target="_top">AWS API Documentation</a>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -70,6 +70,60 @@ public class BatchWriteOperationResponse implements Serializable, Cloneable, Str
      * </p>
      */
     private BatchRemoveFacetFromObjectResponse removeFacetFromObject;
+    /**
+     * <p>
+     * Attaches a policy object to a regular object. An object can have a limited number of attached policies.
+     * </p>
+     */
+    private BatchAttachPolicyResponse attachPolicy;
+    /**
+     * <p>
+     * Detaches a policy from a <a>Directory</a>.
+     * </p>
+     */
+    private BatchDetachPolicyResponse detachPolicy;
+    /**
+     * <p>
+     * Creates an index object. See <a
+     * href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/indexing_search.htm">Indexing and
+     * search</a> for more information.
+     * </p>
+     */
+    private BatchCreateIndexResponse createIndex;
+    /**
+     * <p>
+     * Attaches the specified object to the specified index.
+     * </p>
+     */
+    private BatchAttachToIndexResponse attachToIndex;
+    /**
+     * <p>
+     * Detaches the specified object from the specified index.
+     * </p>
+     */
+    private BatchDetachFromIndexResponse detachFromIndex;
+    /**
+     * <p>
+     * Attaches a typed link to a specified source and target object. For more information, see <a href=
+     * "https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink"
+     * >Typed Links</a>.
+     * </p>
+     */
+    private BatchAttachTypedLinkResponse attachTypedLink;
+    /**
+     * <p>
+     * Detaches a typed link from a specified source and target object. For more information, see <a href=
+     * "https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink"
+     * >Typed Links</a>.
+     * </p>
+     */
+    private BatchDetachTypedLinkResponse detachTypedLink;
+    /**
+     * <p>
+     * Represents the output of a <code>BatchWrite</code> response operation.
+     * </p>
+     */
+    private BatchUpdateLinkAttributesResponse updateLinkAttributes;
 
     /**
      * <p>
@@ -352,7 +406,364 @@ public class BatchWriteOperationResponse implements Serializable, Cloneable, Str
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * <p>
+     * Attaches a policy object to a regular object. An object can have a limited number of attached policies.
+     * </p>
+     * 
+     * @param attachPolicy
+     *        Attaches a policy object to a regular object. An object can have a limited number of attached policies.
+     */
+
+    public void setAttachPolicy(BatchAttachPolicyResponse attachPolicy) {
+        this.attachPolicy = attachPolicy;
+    }
+
+    /**
+     * <p>
+     * Attaches a policy object to a regular object. An object can have a limited number of attached policies.
+     * </p>
+     * 
+     * @return Attaches a policy object to a regular object. An object can have a limited number of attached policies.
+     */
+
+    public BatchAttachPolicyResponse getAttachPolicy() {
+        return this.attachPolicy;
+    }
+
+    /**
+     * <p>
+     * Attaches a policy object to a regular object. An object can have a limited number of attached policies.
+     * </p>
+     * 
+     * @param attachPolicy
+     *        Attaches a policy object to a regular object. An object can have a limited number of attached policies.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public BatchWriteOperationResponse withAttachPolicy(BatchAttachPolicyResponse attachPolicy) {
+        setAttachPolicy(attachPolicy);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Detaches a policy from a <a>Directory</a>.
+     * </p>
+     * 
+     * @param detachPolicy
+     *        Detaches a policy from a <a>Directory</a>.
+     */
+
+    public void setDetachPolicy(BatchDetachPolicyResponse detachPolicy) {
+        this.detachPolicy = detachPolicy;
+    }
+
+    /**
+     * <p>
+     * Detaches a policy from a <a>Directory</a>.
+     * </p>
+     * 
+     * @return Detaches a policy from a <a>Directory</a>.
+     */
+
+    public BatchDetachPolicyResponse getDetachPolicy() {
+        return this.detachPolicy;
+    }
+
+    /**
+     * <p>
+     * Detaches a policy from a <a>Directory</a>.
+     * </p>
+     * 
+     * @param detachPolicy
+     *        Detaches a policy from a <a>Directory</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public BatchWriteOperationResponse withDetachPolicy(BatchDetachPolicyResponse detachPolicy) {
+        setDetachPolicy(detachPolicy);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Creates an index object. See <a
+     * href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/indexing_search.htm">Indexing and
+     * search</a> for more information.
+     * </p>
+     * 
+     * @param createIndex
+     *        Creates an index object. See <a
+     *        href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/indexing_search.htm">Indexing and
+     *        search</a> for more information.
+     */
+
+    public void setCreateIndex(BatchCreateIndexResponse createIndex) {
+        this.createIndex = createIndex;
+    }
+
+    /**
+     * <p>
+     * Creates an index object. See <a
+     * href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/indexing_search.htm">Indexing and
+     * search</a> for more information.
+     * </p>
+     * 
+     * @return Creates an index object. See <a
+     *         href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/indexing_search.htm">Indexing and
+     *         search</a> for more information.
+     */
+
+    public BatchCreateIndexResponse getCreateIndex() {
+        return this.createIndex;
+    }
+
+    /**
+     * <p>
+     * Creates an index object. See <a
+     * href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/indexing_search.htm">Indexing and
+     * search</a> for more information.
+     * </p>
+     * 
+     * @param createIndex
+     *        Creates an index object. See <a
+     *        href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/indexing_search.htm">Indexing and
+     *        search</a> for more information.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public BatchWriteOperationResponse withCreateIndex(BatchCreateIndexResponse createIndex) {
+        setCreateIndex(createIndex);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Attaches the specified object to the specified index.
+     * </p>
+     * 
+     * @param attachToIndex
+     *        Attaches the specified object to the specified index.
+     */
+
+    public void setAttachToIndex(BatchAttachToIndexResponse attachToIndex) {
+        this.attachToIndex = attachToIndex;
+    }
+
+    /**
+     * <p>
+     * Attaches the specified object to the specified index.
+     * </p>
+     * 
+     * @return Attaches the specified object to the specified index.
+     */
+
+    public BatchAttachToIndexResponse getAttachToIndex() {
+        return this.attachToIndex;
+    }
+
+    /**
+     * <p>
+     * Attaches the specified object to the specified index.
+     * </p>
+     * 
+     * @param attachToIndex
+     *        Attaches the specified object to the specified index.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public BatchWriteOperationResponse withAttachToIndex(BatchAttachToIndexResponse attachToIndex) {
+        setAttachToIndex(attachToIndex);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Detaches the specified object from the specified index.
+     * </p>
+     * 
+     * @param detachFromIndex
+     *        Detaches the specified object from the specified index.
+     */
+
+    public void setDetachFromIndex(BatchDetachFromIndexResponse detachFromIndex) {
+        this.detachFromIndex = detachFromIndex;
+    }
+
+    /**
+     * <p>
+     * Detaches the specified object from the specified index.
+     * </p>
+     * 
+     * @return Detaches the specified object from the specified index.
+     */
+
+    public BatchDetachFromIndexResponse getDetachFromIndex() {
+        return this.detachFromIndex;
+    }
+
+    /**
+     * <p>
+     * Detaches the specified object from the specified index.
+     * </p>
+     * 
+     * @param detachFromIndex
+     *        Detaches the specified object from the specified index.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public BatchWriteOperationResponse withDetachFromIndex(BatchDetachFromIndexResponse detachFromIndex) {
+        setDetachFromIndex(detachFromIndex);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Attaches a typed link to a specified source and target object. For more information, see <a href=
+     * "https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink"
+     * >Typed Links</a>.
+     * </p>
+     * 
+     * @param attachTypedLink
+     *        Attaches a typed link to a specified source and target object. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink"
+     *        >Typed Links</a>.
+     */
+
+    public void setAttachTypedLink(BatchAttachTypedLinkResponse attachTypedLink) {
+        this.attachTypedLink = attachTypedLink;
+    }
+
+    /**
+     * <p>
+     * Attaches a typed link to a specified source and target object. For more information, see <a href=
+     * "https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink"
+     * >Typed Links</a>.
+     * </p>
+     * 
+     * @return Attaches a typed link to a specified source and target object. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink"
+     *         >Typed Links</a>.
+     */
+
+    public BatchAttachTypedLinkResponse getAttachTypedLink() {
+        return this.attachTypedLink;
+    }
+
+    /**
+     * <p>
+     * Attaches a typed link to a specified source and target object. For more information, see <a href=
+     * "https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink"
+     * >Typed Links</a>.
+     * </p>
+     * 
+     * @param attachTypedLink
+     *        Attaches a typed link to a specified source and target object. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink"
+     *        >Typed Links</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public BatchWriteOperationResponse withAttachTypedLink(BatchAttachTypedLinkResponse attachTypedLink) {
+        setAttachTypedLink(attachTypedLink);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Detaches a typed link from a specified source and target object. For more information, see <a href=
+     * "https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink"
+     * >Typed Links</a>.
+     * </p>
+     * 
+     * @param detachTypedLink
+     *        Detaches a typed link from a specified source and target object. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink"
+     *        >Typed Links</a>.
+     */
+
+    public void setDetachTypedLink(BatchDetachTypedLinkResponse detachTypedLink) {
+        this.detachTypedLink = detachTypedLink;
+    }
+
+    /**
+     * <p>
+     * Detaches a typed link from a specified source and target object. For more information, see <a href=
+     * "https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink"
+     * >Typed Links</a>.
+     * </p>
+     * 
+     * @return Detaches a typed link from a specified source and target object. For more information, see <a href=
+     *         "https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink"
+     *         >Typed Links</a>.
+     */
+
+    public BatchDetachTypedLinkResponse getDetachTypedLink() {
+        return this.detachTypedLink;
+    }
+
+    /**
+     * <p>
+     * Detaches a typed link from a specified source and target object. For more information, see <a href=
+     * "https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink"
+     * >Typed Links</a>.
+     * </p>
+     * 
+     * @param detachTypedLink
+     *        Detaches a typed link from a specified source and target object. For more information, see <a href=
+     *        "https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink"
+     *        >Typed Links</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public BatchWriteOperationResponse withDetachTypedLink(BatchDetachTypedLinkResponse detachTypedLink) {
+        setDetachTypedLink(detachTypedLink);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Represents the output of a <code>BatchWrite</code> response operation.
+     * </p>
+     * 
+     * @param updateLinkAttributes
+     *        Represents the output of a <code>BatchWrite</code> response operation.
+     */
+
+    public void setUpdateLinkAttributes(BatchUpdateLinkAttributesResponse updateLinkAttributes) {
+        this.updateLinkAttributes = updateLinkAttributes;
+    }
+
+    /**
+     * <p>
+     * Represents the output of a <code>BatchWrite</code> response operation.
+     * </p>
+     * 
+     * @return Represents the output of a <code>BatchWrite</code> response operation.
+     */
+
+    public BatchUpdateLinkAttributesResponse getUpdateLinkAttributes() {
+        return this.updateLinkAttributes;
+    }
+
+    /**
+     * <p>
+     * Represents the output of a <code>BatchWrite</code> response operation.
+     * </p>
+     * 
+     * @param updateLinkAttributes
+     *        Represents the output of a <code>BatchWrite</code> response operation.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public BatchWriteOperationResponse withUpdateLinkAttributes(BatchUpdateLinkAttributesResponse updateLinkAttributes) {
+        setUpdateLinkAttributes(updateLinkAttributes);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -375,7 +786,23 @@ public class BatchWriteOperationResponse implements Serializable, Cloneable, Str
         if (getAddFacetToObject() != null)
             sb.append("AddFacetToObject: ").append(getAddFacetToObject()).append(",");
         if (getRemoveFacetFromObject() != null)
-            sb.append("RemoveFacetFromObject: ").append(getRemoveFacetFromObject());
+            sb.append("RemoveFacetFromObject: ").append(getRemoveFacetFromObject()).append(",");
+        if (getAttachPolicy() != null)
+            sb.append("AttachPolicy: ").append(getAttachPolicy()).append(",");
+        if (getDetachPolicy() != null)
+            sb.append("DetachPolicy: ").append(getDetachPolicy()).append(",");
+        if (getCreateIndex() != null)
+            sb.append("CreateIndex: ").append(getCreateIndex()).append(",");
+        if (getAttachToIndex() != null)
+            sb.append("AttachToIndex: ").append(getAttachToIndex()).append(",");
+        if (getDetachFromIndex() != null)
+            sb.append("DetachFromIndex: ").append(getDetachFromIndex()).append(",");
+        if (getAttachTypedLink() != null)
+            sb.append("AttachTypedLink: ").append(getAttachTypedLink()).append(",");
+        if (getDetachTypedLink() != null)
+            sb.append("DetachTypedLink: ").append(getDetachTypedLink()).append(",");
+        if (getUpdateLinkAttributes() != null)
+            sb.append("UpdateLinkAttributes: ").append(getUpdateLinkAttributes());
         sb.append("}");
         return sb.toString();
     }
@@ -418,6 +845,38 @@ public class BatchWriteOperationResponse implements Serializable, Cloneable, Str
             return false;
         if (other.getRemoveFacetFromObject() != null && other.getRemoveFacetFromObject().equals(this.getRemoveFacetFromObject()) == false)
             return false;
+        if (other.getAttachPolicy() == null ^ this.getAttachPolicy() == null)
+            return false;
+        if (other.getAttachPolicy() != null && other.getAttachPolicy().equals(this.getAttachPolicy()) == false)
+            return false;
+        if (other.getDetachPolicy() == null ^ this.getDetachPolicy() == null)
+            return false;
+        if (other.getDetachPolicy() != null && other.getDetachPolicy().equals(this.getDetachPolicy()) == false)
+            return false;
+        if (other.getCreateIndex() == null ^ this.getCreateIndex() == null)
+            return false;
+        if (other.getCreateIndex() != null && other.getCreateIndex().equals(this.getCreateIndex()) == false)
+            return false;
+        if (other.getAttachToIndex() == null ^ this.getAttachToIndex() == null)
+            return false;
+        if (other.getAttachToIndex() != null && other.getAttachToIndex().equals(this.getAttachToIndex()) == false)
+            return false;
+        if (other.getDetachFromIndex() == null ^ this.getDetachFromIndex() == null)
+            return false;
+        if (other.getDetachFromIndex() != null && other.getDetachFromIndex().equals(this.getDetachFromIndex()) == false)
+            return false;
+        if (other.getAttachTypedLink() == null ^ this.getAttachTypedLink() == null)
+            return false;
+        if (other.getAttachTypedLink() != null && other.getAttachTypedLink().equals(this.getAttachTypedLink()) == false)
+            return false;
+        if (other.getDetachTypedLink() == null ^ this.getDetachTypedLink() == null)
+            return false;
+        if (other.getDetachTypedLink() != null && other.getDetachTypedLink().equals(this.getDetachTypedLink()) == false)
+            return false;
+        if (other.getUpdateLinkAttributes() == null ^ this.getUpdateLinkAttributes() == null)
+            return false;
+        if (other.getUpdateLinkAttributes() != null && other.getUpdateLinkAttributes().equals(this.getUpdateLinkAttributes()) == false)
+            return false;
         return true;
     }
 
@@ -433,6 +892,14 @@ public class BatchWriteOperationResponse implements Serializable, Cloneable, Str
         hashCode = prime * hashCode + ((getDeleteObject() == null) ? 0 : getDeleteObject().hashCode());
         hashCode = prime * hashCode + ((getAddFacetToObject() == null) ? 0 : getAddFacetToObject().hashCode());
         hashCode = prime * hashCode + ((getRemoveFacetFromObject() == null) ? 0 : getRemoveFacetFromObject().hashCode());
+        hashCode = prime * hashCode + ((getAttachPolicy() == null) ? 0 : getAttachPolicy().hashCode());
+        hashCode = prime * hashCode + ((getDetachPolicy() == null) ? 0 : getDetachPolicy().hashCode());
+        hashCode = prime * hashCode + ((getCreateIndex() == null) ? 0 : getCreateIndex().hashCode());
+        hashCode = prime * hashCode + ((getAttachToIndex() == null) ? 0 : getAttachToIndex().hashCode());
+        hashCode = prime * hashCode + ((getDetachFromIndex() == null) ? 0 : getDetachFromIndex().hashCode());
+        hashCode = prime * hashCode + ((getAttachTypedLink() == null) ? 0 : getAttachTypedLink().hashCode());
+        hashCode = prime * hashCode + ((getDetachTypedLink() == null) ? 0 : getDetachTypedLink().hashCode());
+        hashCode = prime * hashCode + ((getUpdateLinkAttributes() == null) ? 0 : getUpdateLinkAttributes().hashCode());
         return hashCode;
     }
 

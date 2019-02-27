@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -38,6 +38,12 @@ public class AvailabilityZone implements Serializable, Cloneable {
      * </p>
      */
     private String subnetId;
+    /**
+     * <p>
+     * [Network Load Balancers] The static IP address.
+     * </p>
+     */
+    private java.util.List<LoadBalancerAddress> loadBalancerAddresses;
 
     /**
      * <p>
@@ -120,7 +126,78 @@ public class AvailabilityZone implements Serializable, Cloneable {
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * <p>
+     * [Network Load Balancers] The static IP address.
+     * </p>
+     * 
+     * @return [Network Load Balancers] The static IP address.
+     */
+
+    public java.util.List<LoadBalancerAddress> getLoadBalancerAddresses() {
+        return loadBalancerAddresses;
+    }
+
+    /**
+     * <p>
+     * [Network Load Balancers] The static IP address.
+     * </p>
+     * 
+     * @param loadBalancerAddresses
+     *        [Network Load Balancers] The static IP address.
+     */
+
+    public void setLoadBalancerAddresses(java.util.Collection<LoadBalancerAddress> loadBalancerAddresses) {
+        if (loadBalancerAddresses == null) {
+            this.loadBalancerAddresses = null;
+            return;
+        }
+
+        this.loadBalancerAddresses = new java.util.ArrayList<LoadBalancerAddress>(loadBalancerAddresses);
+    }
+
+    /**
+     * <p>
+     * [Network Load Balancers] The static IP address.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setLoadBalancerAddresses(java.util.Collection)} or
+     * {@link #withLoadBalancerAddresses(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param loadBalancerAddresses
+     *        [Network Load Balancers] The static IP address.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AvailabilityZone withLoadBalancerAddresses(LoadBalancerAddress... loadBalancerAddresses) {
+        if (this.loadBalancerAddresses == null) {
+            setLoadBalancerAddresses(new java.util.ArrayList<LoadBalancerAddress>(loadBalancerAddresses.length));
+        }
+        for (LoadBalancerAddress ele : loadBalancerAddresses) {
+            this.loadBalancerAddresses.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * [Network Load Balancers] The static IP address.
+     * </p>
+     * 
+     * @param loadBalancerAddresses
+     *        [Network Load Balancers] The static IP address.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public AvailabilityZone withLoadBalancerAddresses(java.util.Collection<LoadBalancerAddress> loadBalancerAddresses) {
+        setLoadBalancerAddresses(loadBalancerAddresses);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -133,7 +210,9 @@ public class AvailabilityZone implements Serializable, Cloneable {
         if (getZoneName() != null)
             sb.append("ZoneName: ").append(getZoneName()).append(",");
         if (getSubnetId() != null)
-            sb.append("SubnetId: ").append(getSubnetId());
+            sb.append("SubnetId: ").append(getSubnetId()).append(",");
+        if (getLoadBalancerAddresses() != null)
+            sb.append("LoadBalancerAddresses: ").append(getLoadBalancerAddresses());
         sb.append("}");
         return sb.toString();
     }
@@ -156,6 +235,10 @@ public class AvailabilityZone implements Serializable, Cloneable {
             return false;
         if (other.getSubnetId() != null && other.getSubnetId().equals(this.getSubnetId()) == false)
             return false;
+        if (other.getLoadBalancerAddresses() == null ^ this.getLoadBalancerAddresses() == null)
+            return false;
+        if (other.getLoadBalancerAddresses() != null && other.getLoadBalancerAddresses().equals(this.getLoadBalancerAddresses()) == false)
+            return false;
         return true;
     }
 
@@ -166,6 +249,7 @@ public class AvailabilityZone implements Serializable, Cloneable {
 
         hashCode = prime * hashCode + ((getZoneName() == null) ? 0 : getZoneName().hashCode());
         hashCode = prime * hashCode + ((getSubnetId() == null) ? 0 : getSubnetId().hashCode());
+        hashCode = prime * hashCode + ((getLoadBalancerAddresses() == null) ? 0 : getLoadBalancerAddresses().hashCode());
         return hashCode;
     }
 

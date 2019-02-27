@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,13 +30,19 @@ public class Commit implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
+     * The full SHA of the specified commit.
+     * </p>
+     */
+    private String commitId;
+    /**
+     * <p>
      * Tree information for the specified commit.
      * </p>
      */
     private String treeId;
     /**
      * <p>
-     * The parent list for the specified commit.
+     * A list of parent commits for the specified commit. Each parent commit ID is the full commit ID.
      * </p>
      */
     private java.util.List<String> parents;
@@ -72,6 +78,46 @@ public class Commit implements Serializable, Cloneable, StructuredPojo {
      * </p>
      */
     private String additionalData;
+
+    /**
+     * <p>
+     * The full SHA of the specified commit.
+     * </p>
+     * 
+     * @param commitId
+     *        The full SHA of the specified commit.
+     */
+
+    public void setCommitId(String commitId) {
+        this.commitId = commitId;
+    }
+
+    /**
+     * <p>
+     * The full SHA of the specified commit.
+     * </p>
+     * 
+     * @return The full SHA of the specified commit.
+     */
+
+    public String getCommitId() {
+        return this.commitId;
+    }
+
+    /**
+     * <p>
+     * The full SHA of the specified commit.
+     * </p>
+     * 
+     * @param commitId
+     *        The full SHA of the specified commit.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Commit withCommitId(String commitId) {
+        setCommitId(commitId);
+        return this;
+    }
 
     /**
      * <p>
@@ -115,10 +161,10 @@ public class Commit implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The parent list for the specified commit.
+     * A list of parent commits for the specified commit. Each parent commit ID is the full commit ID.
      * </p>
      * 
-     * @return The parent list for the specified commit.
+     * @return A list of parent commits for the specified commit. Each parent commit ID is the full commit ID.
      */
 
     public java.util.List<String> getParents() {
@@ -127,11 +173,11 @@ public class Commit implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The parent list for the specified commit.
+     * A list of parent commits for the specified commit. Each parent commit ID is the full commit ID.
      * </p>
      * 
      * @param parents
-     *        The parent list for the specified commit.
+     *        A list of parent commits for the specified commit. Each parent commit ID is the full commit ID.
      */
 
     public void setParents(java.util.Collection<String> parents) {
@@ -145,7 +191,7 @@ public class Commit implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The parent list for the specified commit.
+     * A list of parent commits for the specified commit. Each parent commit ID is the full commit ID.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -154,7 +200,7 @@ public class Commit implements Serializable, Cloneable, StructuredPojo {
      * </p>
      * 
      * @param parents
-     *        The parent list for the specified commit.
+     *        A list of parent commits for the specified commit. Each parent commit ID is the full commit ID.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -170,11 +216,11 @@ public class Commit implements Serializable, Cloneable, StructuredPojo {
 
     /**
      * <p>
-     * The parent list for the specified commit.
+     * A list of parent commits for the specified commit. Each parent commit ID is the full commit ID.
      * </p>
      * 
      * @param parents
-     *        The parent list for the specified commit.
+     *        A list of parent commits for the specified commit. Each parent commit ID is the full commit ID.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -389,7 +435,8 @@ public class Commit implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -399,6 +446,8 @@ public class Commit implements Serializable, Cloneable, StructuredPojo {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
+        if (getCommitId() != null)
+            sb.append("CommitId: ").append(getCommitId()).append(",");
         if (getTreeId() != null)
             sb.append("TreeId: ").append(getTreeId()).append(",");
         if (getParents() != null)
@@ -425,6 +474,10 @@ public class Commit implements Serializable, Cloneable, StructuredPojo {
         if (obj instanceof Commit == false)
             return false;
         Commit other = (Commit) obj;
+        if (other.getCommitId() == null ^ this.getCommitId() == null)
+            return false;
+        if (other.getCommitId() != null && other.getCommitId().equals(this.getCommitId()) == false)
+            return false;
         if (other.getTreeId() == null ^ this.getTreeId() == null)
             return false;
         if (other.getTreeId() != null && other.getTreeId().equals(this.getTreeId()) == false)
@@ -457,6 +510,7 @@ public class Commit implements Serializable, Cloneable, StructuredPojo {
         final int prime = 31;
         int hashCode = 1;
 
+        hashCode = prime * hashCode + ((getCommitId() == null) ? 0 : getCommitId().hashCode());
         hashCode = prime * hashCode + ((getTreeId() == null) ? 0 : getTreeId().hashCode());
         hashCode = prime * hashCode + ((getParents() == null) ? 0 : getParents().hashCode());
         hashCode = prime * hashCode + ((getMessage() == null) ? 0 : getMessage().hashCode());

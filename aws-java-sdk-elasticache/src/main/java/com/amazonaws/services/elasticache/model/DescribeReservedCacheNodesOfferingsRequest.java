@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -44,7 +44,9 @@ public class DescribeReservedCacheNodesOfferingsRequest extends com.amazonaws.Am
      * cache node type.
      * </p>
      * <p>
-     * Valid node types are as follows:
+     * The following node types are supported by ElastiCache. Generally speaking, the current generation types provide
+     * more memory and computational power at lower cost when compared to their equivalent previous generation
+     * counterparts.
      * </p>
      * <ul>
      * <li>
@@ -54,24 +56,48 @@ public class DescribeReservedCacheNodesOfferingsRequest extends com.amazonaws.Am
      * <ul>
      * <li>
      * <p>
-     * Current generation: <code>cache.t2.micro</code>, <code>cache.t2.small</code>, <code>cache.t2.medium</code>,
-     * <code>cache.m3.medium</code>, <code>cache.m3.large</code>, <code>cache.m3.xlarge</code>,
-     * <code>cache.m3.2xlarge</code>, <code>cache.m4.large</code>, <code>cache.m4.xlarge</code>,
-     * <code>cache.m4.2xlarge</code>, <code>cache.m4.4xlarge</code>, <code>cache.m4.10xlarge</code>
+     * Current generation:
+     * </p>
+     * <p>
+     * <b>T2 node types:</b> <code>cache.t2.micro</code>, <code>cache.t2.small</code>, <code>cache.t2.medium</code>
+     * </p>
+     * <p>
+     * <b>M3 node types:</b> <code>cache.m3.medium</code>, <code>cache.m3.large</code>, <code>cache.m3.xlarge</code>,
+     * <code>cache.m3.2xlarge</code>
+     * </p>
+     * <p>
+     * <b>M4 node types:</b> <code>cache.m4.large</code>, <code>cache.m4.xlarge</code>, <code>cache.m4.2xlarge</code>,
+     * <code>cache.m4.4xlarge</code>, <code>cache.m4.10xlarge</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * Previous generation: <code>cache.t1.micro</code>, <code>cache.m1.small</code>, <code>cache.m1.medium</code>,
-     * <code>cache.m1.large</code>, <code>cache.m1.xlarge</code>
+     * Previous generation: (not recommended)
+     * </p>
+     * <p>
+     * <b>T1 node types:</b> <code>cache.t1.micro</code>
+     * </p>
+     * <p>
+     * <b>M1 node types:</b> <code>cache.m1.small</code>, <code>cache.m1.medium</code>, <code>cache.m1.large</code>,
+     * <code>cache.m1.xlarge</code>
      * </p>
      * </li>
      * </ul>
      * </li>
      * <li>
      * <p>
-     * Compute optimized: <code>cache.c1.xlarge</code>
+     * Compute optimized:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Previous generation: (not recommended)
+     * </p>
+     * <p>
+     * <b>C1 node types:</b> <code>cache.c1.xlarge</code>
+     * </p>
+     * </li>
+     * </ul>
      * </li>
      * <li>
      * <p>
@@ -80,13 +106,23 @@ public class DescribeReservedCacheNodesOfferingsRequest extends com.amazonaws.Am
      * <ul>
      * <li>
      * <p>
-     * Current generation: <code>cache.r3.large</code>, <code>cache.r3.xlarge</code>, <code>cache.r3.2xlarge</code>,
+     * Current generation:
+     * </p>
+     * <p>
+     * <b>R3 node types:</b> <code>cache.r3.large</code>, <code>cache.r3.xlarge</code>, <code>cache.r3.2xlarge</code>,
      * <code>cache.r3.4xlarge</code>, <code>cache.r3.8xlarge</code>
+     * </p>
+     * <p>
+     * <b>R4 node types;</b> <code>cache.r4.large</code>, <code>cache.r4.xlarge</code>, <code>cache.r4.2xlarge</code>,
+     * <code>cache.r4.4xlarge</code>, <code>cache.r4.8xlarge</code>, <code>cache.r4.16xlarge</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * Previous generation: <code>cache.m2.xlarge</code>, <code>cache.m2.2xlarge</code>, <code>cache.m2.4xlarge</code>
+     * Previous generation: (not recommended)
+     * </p>
+     * <p>
+     * <b>M2 node types:</b> <code>cache.m2.xlarge</code>, <code>cache.m2.2xlarge</code>, <code>cache.m2.4xlarge</code>
      * </p>
      * </li>
      * </ul>
@@ -103,8 +139,12 @@ public class DescribeReservedCacheNodesOfferingsRequest extends com.amazonaws.Am
      * </li>
      * <li>
      * <p>
-     * Redis backup/restore is not supported for Redis (cluster mode disabled) T1 and T2 instances. Backup/restore is
-     * supported on Redis (cluster mode enabled) T2 instances.
+     * Redis (cluster mode disabled): Redis backup/restore is not supported on T1 and T2 instances.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Redis (cluster mode enabled): Backup/restore is not supported on T1 instances.
      * </p>
      * </li>
      * <li>
@@ -114,14 +154,29 @@ public class DescribeReservedCacheNodesOfferingsRequest extends com.amazonaws.Am
      * </li>
      * </ul>
      * <p>
-     * For a complete listing of node types and specifications, see <a
-     * href="http://aws.amazon.com/elasticache/details">Amazon ElastiCache Product Features and Details</a> and either
-     * <a href=
-     * "http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/CacheParameterGroups.Memcached.html#ParameterGroups.Memcached.NodeSpecific"
-     * >Cache Node Type-Specific Parameters for Memcached</a> or <a href=
-     * "http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/CacheParameterGroups.Redis.html#ParameterGroups.Redis.NodeSpecific"
-     * >Cache Node Type-Specific Parameters for Redis</a>.
+     * For a complete listing of node types and specifications, see:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a href="http://aws.amazon.com/elasticache/details">Amazon ElastiCache Product Features and Details</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href=
+     * "http://docs.aws.amazon.com/AmazonElastiCache/latest/mem-ug/ParameterGroups.Memcached.html#ParameterGroups.Memcached.NodeSpecific"
+     * >Cache Node Type-Specific Parameters for Memcached</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href=
+     * "http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/ParameterGroups.Redis.html#ParameterGroups.Redis.NodeSpecific"
+     * >Cache Node Type-Specific Parameters for Redis</a>
+     * </p>
+     * </li>
+     * </ul>
      */
     private String cacheNodeType;
     /**
@@ -241,7 +296,9 @@ public class DescribeReservedCacheNodesOfferingsRequest extends com.amazonaws.Am
      * cache node type.
      * </p>
      * <p>
-     * Valid node types are as follows:
+     * The following node types are supported by ElastiCache. Generally speaking, the current generation types provide
+     * more memory and computational power at lower cost when compared to their equivalent previous generation
+     * counterparts.
      * </p>
      * <ul>
      * <li>
@@ -251,24 +308,48 @@ public class DescribeReservedCacheNodesOfferingsRequest extends com.amazonaws.Am
      * <ul>
      * <li>
      * <p>
-     * Current generation: <code>cache.t2.micro</code>, <code>cache.t2.small</code>, <code>cache.t2.medium</code>,
-     * <code>cache.m3.medium</code>, <code>cache.m3.large</code>, <code>cache.m3.xlarge</code>,
-     * <code>cache.m3.2xlarge</code>, <code>cache.m4.large</code>, <code>cache.m4.xlarge</code>,
-     * <code>cache.m4.2xlarge</code>, <code>cache.m4.4xlarge</code>, <code>cache.m4.10xlarge</code>
+     * Current generation:
+     * </p>
+     * <p>
+     * <b>T2 node types:</b> <code>cache.t2.micro</code>, <code>cache.t2.small</code>, <code>cache.t2.medium</code>
+     * </p>
+     * <p>
+     * <b>M3 node types:</b> <code>cache.m3.medium</code>, <code>cache.m3.large</code>, <code>cache.m3.xlarge</code>,
+     * <code>cache.m3.2xlarge</code>
+     * </p>
+     * <p>
+     * <b>M4 node types:</b> <code>cache.m4.large</code>, <code>cache.m4.xlarge</code>, <code>cache.m4.2xlarge</code>,
+     * <code>cache.m4.4xlarge</code>, <code>cache.m4.10xlarge</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * Previous generation: <code>cache.t1.micro</code>, <code>cache.m1.small</code>, <code>cache.m1.medium</code>,
-     * <code>cache.m1.large</code>, <code>cache.m1.xlarge</code>
+     * Previous generation: (not recommended)
+     * </p>
+     * <p>
+     * <b>T1 node types:</b> <code>cache.t1.micro</code>
+     * </p>
+     * <p>
+     * <b>M1 node types:</b> <code>cache.m1.small</code>, <code>cache.m1.medium</code>, <code>cache.m1.large</code>,
+     * <code>cache.m1.xlarge</code>
      * </p>
      * </li>
      * </ul>
      * </li>
      * <li>
      * <p>
-     * Compute optimized: <code>cache.c1.xlarge</code>
+     * Compute optimized:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Previous generation: (not recommended)
+     * </p>
+     * <p>
+     * <b>C1 node types:</b> <code>cache.c1.xlarge</code>
+     * </p>
+     * </li>
+     * </ul>
      * </li>
      * <li>
      * <p>
@@ -277,13 +358,23 @@ public class DescribeReservedCacheNodesOfferingsRequest extends com.amazonaws.Am
      * <ul>
      * <li>
      * <p>
-     * Current generation: <code>cache.r3.large</code>, <code>cache.r3.xlarge</code>, <code>cache.r3.2xlarge</code>,
+     * Current generation:
+     * </p>
+     * <p>
+     * <b>R3 node types:</b> <code>cache.r3.large</code>, <code>cache.r3.xlarge</code>, <code>cache.r3.2xlarge</code>,
      * <code>cache.r3.4xlarge</code>, <code>cache.r3.8xlarge</code>
+     * </p>
+     * <p>
+     * <b>R4 node types;</b> <code>cache.r4.large</code>, <code>cache.r4.xlarge</code>, <code>cache.r4.2xlarge</code>,
+     * <code>cache.r4.4xlarge</code>, <code>cache.r4.8xlarge</code>, <code>cache.r4.16xlarge</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * Previous generation: <code>cache.m2.xlarge</code>, <code>cache.m2.2xlarge</code>, <code>cache.m2.4xlarge</code>
+     * Previous generation: (not recommended)
+     * </p>
+     * <p>
+     * <b>M2 node types:</b> <code>cache.m2.xlarge</code>, <code>cache.m2.2xlarge</code>, <code>cache.m2.4xlarge</code>
      * </p>
      * </li>
      * </ul>
@@ -300,8 +391,12 @@ public class DescribeReservedCacheNodesOfferingsRequest extends com.amazonaws.Am
      * </li>
      * <li>
      * <p>
-     * Redis backup/restore is not supported for Redis (cluster mode disabled) T1 and T2 instances. Backup/restore is
-     * supported on Redis (cluster mode enabled) T2 instances.
+     * Redis (cluster mode disabled): Redis backup/restore is not supported on T1 and T2 instances.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Redis (cluster mode enabled): Backup/restore is not supported on T1 instances.
      * </p>
      * </li>
      * <li>
@@ -311,20 +406,37 @@ public class DescribeReservedCacheNodesOfferingsRequest extends com.amazonaws.Am
      * </li>
      * </ul>
      * <p>
-     * For a complete listing of node types and specifications, see <a
-     * href="http://aws.amazon.com/elasticache/details">Amazon ElastiCache Product Features and Details</a> and either
-     * <a href=
-     * "http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/CacheParameterGroups.Memcached.html#ParameterGroups.Memcached.NodeSpecific"
-     * >Cache Node Type-Specific Parameters for Memcached</a> or <a href=
-     * "http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/CacheParameterGroups.Redis.html#ParameterGroups.Redis.NodeSpecific"
-     * >Cache Node Type-Specific Parameters for Redis</a>.
+     * For a complete listing of node types and specifications, see:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a href="http://aws.amazon.com/elasticache/details">Amazon ElastiCache Product Features and Details</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href=
+     * "http://docs.aws.amazon.com/AmazonElastiCache/latest/mem-ug/ParameterGroups.Memcached.html#ParameterGroups.Memcached.NodeSpecific"
+     * >Cache Node Type-Specific Parameters for Memcached</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href=
+     * "http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/ParameterGroups.Redis.html#ParameterGroups.Redis.NodeSpecific"
+     * >Cache Node Type-Specific Parameters for Redis</a>
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param cacheNodeType
      *        The cache node type filter value. Use this parameter to show only the available offerings matching the
      *        specified cache node type.</p>
      *        <p>
-     *        Valid node types are as follows:
+     *        The following node types are supported by ElastiCache. Generally speaking, the current generation types
+     *        provide more memory and computational power at lower cost when compared to their equivalent previous
+     *        generation counterparts.
      *        </p>
      *        <ul>
      *        <li>
@@ -334,23 +446,49 @@ public class DescribeReservedCacheNodesOfferingsRequest extends com.amazonaws.Am
      *        <ul>
      *        <li>
      *        <p>
-     *        Current generation: <code>cache.t2.micro</code>, <code>cache.t2.small</code>, <code>cache.t2.medium</code>, <code>cache.m3.medium</code>, <code>cache.m3.large</code>, <code>cache.m3.xlarge</code>,
-     *        <code>cache.m3.2xlarge</code>, <code>cache.m4.large</code>, <code>cache.m4.xlarge</code>,
+     *        Current generation:
+     *        </p>
+     *        <p>
+     *        <b>T2 node types:</b> <code>cache.t2.micro</code>, <code>cache.t2.small</code>,
+     *        <code>cache.t2.medium</code>
+     *        </p>
+     *        <p>
+     *        <b>M3 node types:</b> <code>cache.m3.medium</code>, <code>cache.m3.large</code>,
+     *        <code>cache.m3.xlarge</code>, <code>cache.m3.2xlarge</code>
+     *        </p>
+     *        <p>
+     *        <b>M4 node types:</b> <code>cache.m4.large</code>, <code>cache.m4.xlarge</code>,
      *        <code>cache.m4.2xlarge</code>, <code>cache.m4.4xlarge</code>, <code>cache.m4.10xlarge</code>
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Previous generation: <code>cache.t1.micro</code>, <code>cache.m1.small</code>,
-     *        <code>cache.m1.medium</code>, <code>cache.m1.large</code>, <code>cache.m1.xlarge</code>
+     *        Previous generation: (not recommended)
+     *        </p>
+     *        <p>
+     *        <b>T1 node types:</b> <code>cache.t1.micro</code>
+     *        </p>
+     *        <p>
+     *        <b>M1 node types:</b> <code>cache.m1.small</code>, <code>cache.m1.medium</code>,
+     *        <code>cache.m1.large</code>, <code>cache.m1.xlarge</code>
      *        </p>
      *        </li>
      *        </ul>
      *        </li>
      *        <li>
      *        <p>
-     *        Compute optimized: <code>cache.c1.xlarge</code>
+     *        Compute optimized:
      *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Previous generation: (not recommended)
+     *        </p>
+     *        <p>
+     *        <b>C1 node types:</b> <code>cache.c1.xlarge</code>
+     *        </p>
+     *        </li>
+     *        </ul>
      *        </li>
      *        <li>
      *        <p>
@@ -359,13 +497,24 @@ public class DescribeReservedCacheNodesOfferingsRequest extends com.amazonaws.Am
      *        <ul>
      *        <li>
      *        <p>
-     *        Current generation: <code>cache.r3.large</code>, <code>cache.r3.xlarge</code>,
+     *        Current generation:
+     *        </p>
+     *        <p>
+     *        <b>R3 node types:</b> <code>cache.r3.large</code>, <code>cache.r3.xlarge</code>,
      *        <code>cache.r3.2xlarge</code>, <code>cache.r3.4xlarge</code>, <code>cache.r3.8xlarge</code>
+     *        </p>
+     *        <p>
+     *        <b>R4 node types;</b> <code>cache.r4.large</code>, <code>cache.r4.xlarge</code>,
+     *        <code>cache.r4.2xlarge</code>, <code>cache.r4.4xlarge</code>, <code>cache.r4.8xlarge</code>,
+     *        <code>cache.r4.16xlarge</code>
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Previous generation: <code>cache.m2.xlarge</code>, <code>cache.m2.2xlarge</code>,
+     *        Previous generation: (not recommended)
+     *        </p>
+     *        <p>
+     *        <b>M2 node types:</b> <code>cache.m2.xlarge</code>, <code>cache.m2.2xlarge</code>,
      *        <code>cache.m2.4xlarge</code>
      *        </p>
      *        </li>
@@ -383,8 +532,12 @@ public class DescribeReservedCacheNodesOfferingsRequest extends com.amazonaws.Am
      *        </li>
      *        <li>
      *        <p>
-     *        Redis backup/restore is not supported for Redis (cluster mode disabled) T1 and T2 instances.
-     *        Backup/restore is supported on Redis (cluster mode enabled) T2 instances.
+     *        Redis (cluster mode disabled): Redis backup/restore is not supported on T1 and T2 instances.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Redis (cluster mode enabled): Backup/restore is not supported on T1 instances.
      *        </p>
      *        </li>
      *        <li>
@@ -394,13 +547,28 @@ public class DescribeReservedCacheNodesOfferingsRequest extends com.amazonaws.Am
      *        </li>
      *        </ul>
      *        <p>
-     *        For a complete listing of node types and specifications, see <a
-     *        href="http://aws.amazon.com/elasticache/details">Amazon ElastiCache Product Features and Details</a> and
-     *        either <a href=
-     *        "http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/CacheParameterGroups.Memcached.html#ParameterGroups.Memcached.NodeSpecific"
-     *        >Cache Node Type-Specific Parameters for Memcached</a> or <a href=
-     *        "http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/CacheParameterGroups.Redis.html#ParameterGroups.Redis.NodeSpecific"
-     *        >Cache Node Type-Specific Parameters for Redis</a>.
+     *        For a complete listing of node types and specifications, see:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <a href="http://aws.amazon.com/elasticache/details">Amazon ElastiCache Product Features and Details</a>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <a href=
+     *        "http://docs.aws.amazon.com/AmazonElastiCache/latest/mem-ug/ParameterGroups.Memcached.html#ParameterGroups.Memcached.NodeSpecific"
+     *        >Cache Node Type-Specific Parameters for Memcached</a>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <a href=
+     *        "http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/ParameterGroups.Redis.html#ParameterGroups.Redis.NodeSpecific"
+     *        >Cache Node Type-Specific Parameters for Redis</a>
+     *        </p>
+     *        </li>
      */
 
     public void setCacheNodeType(String cacheNodeType) {
@@ -413,7 +581,9 @@ public class DescribeReservedCacheNodesOfferingsRequest extends com.amazonaws.Am
      * cache node type.
      * </p>
      * <p>
-     * Valid node types are as follows:
+     * The following node types are supported by ElastiCache. Generally speaking, the current generation types provide
+     * more memory and computational power at lower cost when compared to their equivalent previous generation
+     * counterparts.
      * </p>
      * <ul>
      * <li>
@@ -423,24 +593,48 @@ public class DescribeReservedCacheNodesOfferingsRequest extends com.amazonaws.Am
      * <ul>
      * <li>
      * <p>
-     * Current generation: <code>cache.t2.micro</code>, <code>cache.t2.small</code>, <code>cache.t2.medium</code>,
-     * <code>cache.m3.medium</code>, <code>cache.m3.large</code>, <code>cache.m3.xlarge</code>,
-     * <code>cache.m3.2xlarge</code>, <code>cache.m4.large</code>, <code>cache.m4.xlarge</code>,
-     * <code>cache.m4.2xlarge</code>, <code>cache.m4.4xlarge</code>, <code>cache.m4.10xlarge</code>
+     * Current generation:
+     * </p>
+     * <p>
+     * <b>T2 node types:</b> <code>cache.t2.micro</code>, <code>cache.t2.small</code>, <code>cache.t2.medium</code>
+     * </p>
+     * <p>
+     * <b>M3 node types:</b> <code>cache.m3.medium</code>, <code>cache.m3.large</code>, <code>cache.m3.xlarge</code>,
+     * <code>cache.m3.2xlarge</code>
+     * </p>
+     * <p>
+     * <b>M4 node types:</b> <code>cache.m4.large</code>, <code>cache.m4.xlarge</code>, <code>cache.m4.2xlarge</code>,
+     * <code>cache.m4.4xlarge</code>, <code>cache.m4.10xlarge</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * Previous generation: <code>cache.t1.micro</code>, <code>cache.m1.small</code>, <code>cache.m1.medium</code>,
-     * <code>cache.m1.large</code>, <code>cache.m1.xlarge</code>
+     * Previous generation: (not recommended)
+     * </p>
+     * <p>
+     * <b>T1 node types:</b> <code>cache.t1.micro</code>
+     * </p>
+     * <p>
+     * <b>M1 node types:</b> <code>cache.m1.small</code>, <code>cache.m1.medium</code>, <code>cache.m1.large</code>,
+     * <code>cache.m1.xlarge</code>
      * </p>
      * </li>
      * </ul>
      * </li>
      * <li>
      * <p>
-     * Compute optimized: <code>cache.c1.xlarge</code>
+     * Compute optimized:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Previous generation: (not recommended)
+     * </p>
+     * <p>
+     * <b>C1 node types:</b> <code>cache.c1.xlarge</code>
+     * </p>
+     * </li>
+     * </ul>
      * </li>
      * <li>
      * <p>
@@ -449,13 +643,23 @@ public class DescribeReservedCacheNodesOfferingsRequest extends com.amazonaws.Am
      * <ul>
      * <li>
      * <p>
-     * Current generation: <code>cache.r3.large</code>, <code>cache.r3.xlarge</code>, <code>cache.r3.2xlarge</code>,
+     * Current generation:
+     * </p>
+     * <p>
+     * <b>R3 node types:</b> <code>cache.r3.large</code>, <code>cache.r3.xlarge</code>, <code>cache.r3.2xlarge</code>,
      * <code>cache.r3.4xlarge</code>, <code>cache.r3.8xlarge</code>
+     * </p>
+     * <p>
+     * <b>R4 node types;</b> <code>cache.r4.large</code>, <code>cache.r4.xlarge</code>, <code>cache.r4.2xlarge</code>,
+     * <code>cache.r4.4xlarge</code>, <code>cache.r4.8xlarge</code>, <code>cache.r4.16xlarge</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * Previous generation: <code>cache.m2.xlarge</code>, <code>cache.m2.2xlarge</code>, <code>cache.m2.4xlarge</code>
+     * Previous generation: (not recommended)
+     * </p>
+     * <p>
+     * <b>M2 node types:</b> <code>cache.m2.xlarge</code>, <code>cache.m2.2xlarge</code>, <code>cache.m2.4xlarge</code>
      * </p>
      * </li>
      * </ul>
@@ -472,8 +676,12 @@ public class DescribeReservedCacheNodesOfferingsRequest extends com.amazonaws.Am
      * </li>
      * <li>
      * <p>
-     * Redis backup/restore is not supported for Redis (cluster mode disabled) T1 and T2 instances. Backup/restore is
-     * supported on Redis (cluster mode enabled) T2 instances.
+     * Redis (cluster mode disabled): Redis backup/restore is not supported on T1 and T2 instances.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Redis (cluster mode enabled): Backup/restore is not supported on T1 instances.
      * </p>
      * </li>
      * <li>
@@ -483,19 +691,36 @@ public class DescribeReservedCacheNodesOfferingsRequest extends com.amazonaws.Am
      * </li>
      * </ul>
      * <p>
-     * For a complete listing of node types and specifications, see <a
-     * href="http://aws.amazon.com/elasticache/details">Amazon ElastiCache Product Features and Details</a> and either
-     * <a href=
-     * "http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/CacheParameterGroups.Memcached.html#ParameterGroups.Memcached.NodeSpecific"
-     * >Cache Node Type-Specific Parameters for Memcached</a> or <a href=
-     * "http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/CacheParameterGroups.Redis.html#ParameterGroups.Redis.NodeSpecific"
-     * >Cache Node Type-Specific Parameters for Redis</a>.
+     * For a complete listing of node types and specifications, see:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a href="http://aws.amazon.com/elasticache/details">Amazon ElastiCache Product Features and Details</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href=
+     * "http://docs.aws.amazon.com/AmazonElastiCache/latest/mem-ug/ParameterGroups.Memcached.html#ParameterGroups.Memcached.NodeSpecific"
+     * >Cache Node Type-Specific Parameters for Memcached</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href=
+     * "http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/ParameterGroups.Redis.html#ParameterGroups.Redis.NodeSpecific"
+     * >Cache Node Type-Specific Parameters for Redis</a>
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @return The cache node type filter value. Use this parameter to show only the available offerings matching the
      *         specified cache node type.</p>
      *         <p>
-     *         Valid node types are as follows:
+     *         The following node types are supported by ElastiCache. Generally speaking, the current generation types
+     *         provide more memory and computational power at lower cost when compared to their equivalent previous
+     *         generation counterparts.
      *         </p>
      *         <ul>
      *         <li>
@@ -505,25 +730,49 @@ public class DescribeReservedCacheNodesOfferingsRequest extends com.amazonaws.Am
      *         <ul>
      *         <li>
      *         <p>
-     *         Current generation: <code>cache.t2.micro</code>, <code>cache.t2.small</code>,
-     *         <code>cache.t2.medium</code>, <code>cache.m3.medium</code>, <code>cache.m3.large</code>,
-     *         <code>cache.m3.xlarge</code>, <code>cache.m3.2xlarge</code>, <code>cache.m4.large</code>,
-     *         <code>cache.m4.xlarge</code>, <code>cache.m4.2xlarge</code>, <code>cache.m4.4xlarge</code>,
-     *         <code>cache.m4.10xlarge</code>
+     *         Current generation:
+     *         </p>
+     *         <p>
+     *         <b>T2 node types:</b> <code>cache.t2.micro</code>, <code>cache.t2.small</code>,
+     *         <code>cache.t2.medium</code>
+     *         </p>
+     *         <p>
+     *         <b>M3 node types:</b> <code>cache.m3.medium</code>, <code>cache.m3.large</code>,
+     *         <code>cache.m3.xlarge</code>, <code>cache.m3.2xlarge</code>
+     *         </p>
+     *         <p>
+     *         <b>M4 node types:</b> <code>cache.m4.large</code>, <code>cache.m4.xlarge</code>,
+     *         <code>cache.m4.2xlarge</code>, <code>cache.m4.4xlarge</code>, <code>cache.m4.10xlarge</code>
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         Previous generation: <code>cache.t1.micro</code>, <code>cache.m1.small</code>,
-     *         <code>cache.m1.medium</code>, <code>cache.m1.large</code>, <code>cache.m1.xlarge</code>
+     *         Previous generation: (not recommended)
+     *         </p>
+     *         <p>
+     *         <b>T1 node types:</b> <code>cache.t1.micro</code>
+     *         </p>
+     *         <p>
+     *         <b>M1 node types:</b> <code>cache.m1.small</code>, <code>cache.m1.medium</code>,
+     *         <code>cache.m1.large</code>, <code>cache.m1.xlarge</code>
      *         </p>
      *         </li>
      *         </ul>
      *         </li>
      *         <li>
      *         <p>
-     *         Compute optimized: <code>cache.c1.xlarge</code>
+     *         Compute optimized:
      *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Previous generation: (not recommended)
+     *         </p>
+     *         <p>
+     *         <b>C1 node types:</b> <code>cache.c1.xlarge</code>
+     *         </p>
+     *         </li>
+     *         </ul>
      *         </li>
      *         <li>
      *         <p>
@@ -532,13 +781,24 @@ public class DescribeReservedCacheNodesOfferingsRequest extends com.amazonaws.Am
      *         <ul>
      *         <li>
      *         <p>
-     *         Current generation: <code>cache.r3.large</code>, <code>cache.r3.xlarge</code>,
+     *         Current generation:
+     *         </p>
+     *         <p>
+     *         <b>R3 node types:</b> <code>cache.r3.large</code>, <code>cache.r3.xlarge</code>,
      *         <code>cache.r3.2xlarge</code>, <code>cache.r3.4xlarge</code>, <code>cache.r3.8xlarge</code>
+     *         </p>
+     *         <p>
+     *         <b>R4 node types;</b> <code>cache.r4.large</code>, <code>cache.r4.xlarge</code>,
+     *         <code>cache.r4.2xlarge</code>, <code>cache.r4.4xlarge</code>, <code>cache.r4.8xlarge</code>,
+     *         <code>cache.r4.16xlarge</code>
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         Previous generation: <code>cache.m2.xlarge</code>, <code>cache.m2.2xlarge</code>,
+     *         Previous generation: (not recommended)
+     *         </p>
+     *         <p>
+     *         <b>M2 node types:</b> <code>cache.m2.xlarge</code>, <code>cache.m2.2xlarge</code>,
      *         <code>cache.m2.4xlarge</code>
      *         </p>
      *         </li>
@@ -556,8 +816,12 @@ public class DescribeReservedCacheNodesOfferingsRequest extends com.amazonaws.Am
      *         </li>
      *         <li>
      *         <p>
-     *         Redis backup/restore is not supported for Redis (cluster mode disabled) T1 and T2 instances.
-     *         Backup/restore is supported on Redis (cluster mode enabled) T2 instances.
+     *         Redis (cluster mode disabled): Redis backup/restore is not supported on T1 and T2 instances.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Redis (cluster mode enabled): Backup/restore is not supported on T1 instances.
      *         </p>
      *         </li>
      *         <li>
@@ -567,13 +831,28 @@ public class DescribeReservedCacheNodesOfferingsRequest extends com.amazonaws.Am
      *         </li>
      *         </ul>
      *         <p>
-     *         For a complete listing of node types and specifications, see <a
-     *         href="http://aws.amazon.com/elasticache/details">Amazon ElastiCache Product Features and Details</a> and
-     *         either <a href=
-     *         "http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/CacheParameterGroups.Memcached.html#ParameterGroups.Memcached.NodeSpecific"
-     *         >Cache Node Type-Specific Parameters for Memcached</a> or <a href=
-     *         "http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/CacheParameterGroups.Redis.html#ParameterGroups.Redis.NodeSpecific"
-     *         >Cache Node Type-Specific Parameters for Redis</a>.
+     *         For a complete listing of node types and specifications, see:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <a href="http://aws.amazon.com/elasticache/details">Amazon ElastiCache Product Features and Details</a>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <a href=
+     *         "http://docs.aws.amazon.com/AmazonElastiCache/latest/mem-ug/ParameterGroups.Memcached.html#ParameterGroups.Memcached.NodeSpecific"
+     *         >Cache Node Type-Specific Parameters for Memcached</a>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <a href=
+     *         "http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/ParameterGroups.Redis.html#ParameterGroups.Redis.NodeSpecific"
+     *         >Cache Node Type-Specific Parameters for Redis</a>
+     *         </p>
+     *         </li>
      */
 
     public String getCacheNodeType() {
@@ -586,7 +865,9 @@ public class DescribeReservedCacheNodesOfferingsRequest extends com.amazonaws.Am
      * cache node type.
      * </p>
      * <p>
-     * Valid node types are as follows:
+     * The following node types are supported by ElastiCache. Generally speaking, the current generation types provide
+     * more memory and computational power at lower cost when compared to their equivalent previous generation
+     * counterparts.
      * </p>
      * <ul>
      * <li>
@@ -596,24 +877,48 @@ public class DescribeReservedCacheNodesOfferingsRequest extends com.amazonaws.Am
      * <ul>
      * <li>
      * <p>
-     * Current generation: <code>cache.t2.micro</code>, <code>cache.t2.small</code>, <code>cache.t2.medium</code>,
-     * <code>cache.m3.medium</code>, <code>cache.m3.large</code>, <code>cache.m3.xlarge</code>,
-     * <code>cache.m3.2xlarge</code>, <code>cache.m4.large</code>, <code>cache.m4.xlarge</code>,
-     * <code>cache.m4.2xlarge</code>, <code>cache.m4.4xlarge</code>, <code>cache.m4.10xlarge</code>
+     * Current generation:
+     * </p>
+     * <p>
+     * <b>T2 node types:</b> <code>cache.t2.micro</code>, <code>cache.t2.small</code>, <code>cache.t2.medium</code>
+     * </p>
+     * <p>
+     * <b>M3 node types:</b> <code>cache.m3.medium</code>, <code>cache.m3.large</code>, <code>cache.m3.xlarge</code>,
+     * <code>cache.m3.2xlarge</code>
+     * </p>
+     * <p>
+     * <b>M4 node types:</b> <code>cache.m4.large</code>, <code>cache.m4.xlarge</code>, <code>cache.m4.2xlarge</code>,
+     * <code>cache.m4.4xlarge</code>, <code>cache.m4.10xlarge</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * Previous generation: <code>cache.t1.micro</code>, <code>cache.m1.small</code>, <code>cache.m1.medium</code>,
-     * <code>cache.m1.large</code>, <code>cache.m1.xlarge</code>
+     * Previous generation: (not recommended)
+     * </p>
+     * <p>
+     * <b>T1 node types:</b> <code>cache.t1.micro</code>
+     * </p>
+     * <p>
+     * <b>M1 node types:</b> <code>cache.m1.small</code>, <code>cache.m1.medium</code>, <code>cache.m1.large</code>,
+     * <code>cache.m1.xlarge</code>
      * </p>
      * </li>
      * </ul>
      * </li>
      * <li>
      * <p>
-     * Compute optimized: <code>cache.c1.xlarge</code>
+     * Compute optimized:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Previous generation: (not recommended)
+     * </p>
+     * <p>
+     * <b>C1 node types:</b> <code>cache.c1.xlarge</code>
+     * </p>
+     * </li>
+     * </ul>
      * </li>
      * <li>
      * <p>
@@ -622,13 +927,23 @@ public class DescribeReservedCacheNodesOfferingsRequest extends com.amazonaws.Am
      * <ul>
      * <li>
      * <p>
-     * Current generation: <code>cache.r3.large</code>, <code>cache.r3.xlarge</code>, <code>cache.r3.2xlarge</code>,
+     * Current generation:
+     * </p>
+     * <p>
+     * <b>R3 node types:</b> <code>cache.r3.large</code>, <code>cache.r3.xlarge</code>, <code>cache.r3.2xlarge</code>,
      * <code>cache.r3.4xlarge</code>, <code>cache.r3.8xlarge</code>
+     * </p>
+     * <p>
+     * <b>R4 node types;</b> <code>cache.r4.large</code>, <code>cache.r4.xlarge</code>, <code>cache.r4.2xlarge</code>,
+     * <code>cache.r4.4xlarge</code>, <code>cache.r4.8xlarge</code>, <code>cache.r4.16xlarge</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * Previous generation: <code>cache.m2.xlarge</code>, <code>cache.m2.2xlarge</code>, <code>cache.m2.4xlarge</code>
+     * Previous generation: (not recommended)
+     * </p>
+     * <p>
+     * <b>M2 node types:</b> <code>cache.m2.xlarge</code>, <code>cache.m2.2xlarge</code>, <code>cache.m2.4xlarge</code>
      * </p>
      * </li>
      * </ul>
@@ -645,8 +960,12 @@ public class DescribeReservedCacheNodesOfferingsRequest extends com.amazonaws.Am
      * </li>
      * <li>
      * <p>
-     * Redis backup/restore is not supported for Redis (cluster mode disabled) T1 and T2 instances. Backup/restore is
-     * supported on Redis (cluster mode enabled) T2 instances.
+     * Redis (cluster mode disabled): Redis backup/restore is not supported on T1 and T2 instances.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Redis (cluster mode enabled): Backup/restore is not supported on T1 instances.
      * </p>
      * </li>
      * <li>
@@ -656,20 +975,37 @@ public class DescribeReservedCacheNodesOfferingsRequest extends com.amazonaws.Am
      * </li>
      * </ul>
      * <p>
-     * For a complete listing of node types and specifications, see <a
-     * href="http://aws.amazon.com/elasticache/details">Amazon ElastiCache Product Features and Details</a> and either
-     * <a href=
-     * "http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/CacheParameterGroups.Memcached.html#ParameterGroups.Memcached.NodeSpecific"
-     * >Cache Node Type-Specific Parameters for Memcached</a> or <a href=
-     * "http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/CacheParameterGroups.Redis.html#ParameterGroups.Redis.NodeSpecific"
-     * >Cache Node Type-Specific Parameters for Redis</a>.
+     * For a complete listing of node types and specifications, see:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a href="http://aws.amazon.com/elasticache/details">Amazon ElastiCache Product Features and Details</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href=
+     * "http://docs.aws.amazon.com/AmazonElastiCache/latest/mem-ug/ParameterGroups.Memcached.html#ParameterGroups.Memcached.NodeSpecific"
+     * >Cache Node Type-Specific Parameters for Memcached</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href=
+     * "http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/ParameterGroups.Redis.html#ParameterGroups.Redis.NodeSpecific"
+     * >Cache Node Type-Specific Parameters for Redis</a>
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param cacheNodeType
      *        The cache node type filter value. Use this parameter to show only the available offerings matching the
      *        specified cache node type.</p>
      *        <p>
-     *        Valid node types are as follows:
+     *        The following node types are supported by ElastiCache. Generally speaking, the current generation types
+     *        provide more memory and computational power at lower cost when compared to their equivalent previous
+     *        generation counterparts.
      *        </p>
      *        <ul>
      *        <li>
@@ -679,23 +1015,49 @@ public class DescribeReservedCacheNodesOfferingsRequest extends com.amazonaws.Am
      *        <ul>
      *        <li>
      *        <p>
-     *        Current generation: <code>cache.t2.micro</code>, <code>cache.t2.small</code>, <code>cache.t2.medium</code>, <code>cache.m3.medium</code>, <code>cache.m3.large</code>, <code>cache.m3.xlarge</code>,
-     *        <code>cache.m3.2xlarge</code>, <code>cache.m4.large</code>, <code>cache.m4.xlarge</code>,
+     *        Current generation:
+     *        </p>
+     *        <p>
+     *        <b>T2 node types:</b> <code>cache.t2.micro</code>, <code>cache.t2.small</code>,
+     *        <code>cache.t2.medium</code>
+     *        </p>
+     *        <p>
+     *        <b>M3 node types:</b> <code>cache.m3.medium</code>, <code>cache.m3.large</code>,
+     *        <code>cache.m3.xlarge</code>, <code>cache.m3.2xlarge</code>
+     *        </p>
+     *        <p>
+     *        <b>M4 node types:</b> <code>cache.m4.large</code>, <code>cache.m4.xlarge</code>,
      *        <code>cache.m4.2xlarge</code>, <code>cache.m4.4xlarge</code>, <code>cache.m4.10xlarge</code>
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Previous generation: <code>cache.t1.micro</code>, <code>cache.m1.small</code>,
-     *        <code>cache.m1.medium</code>, <code>cache.m1.large</code>, <code>cache.m1.xlarge</code>
+     *        Previous generation: (not recommended)
+     *        </p>
+     *        <p>
+     *        <b>T1 node types:</b> <code>cache.t1.micro</code>
+     *        </p>
+     *        <p>
+     *        <b>M1 node types:</b> <code>cache.m1.small</code>, <code>cache.m1.medium</code>,
+     *        <code>cache.m1.large</code>, <code>cache.m1.xlarge</code>
      *        </p>
      *        </li>
      *        </ul>
      *        </li>
      *        <li>
      *        <p>
-     *        Compute optimized: <code>cache.c1.xlarge</code>
+     *        Compute optimized:
      *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Previous generation: (not recommended)
+     *        </p>
+     *        <p>
+     *        <b>C1 node types:</b> <code>cache.c1.xlarge</code>
+     *        </p>
+     *        </li>
+     *        </ul>
      *        </li>
      *        <li>
      *        <p>
@@ -704,13 +1066,24 @@ public class DescribeReservedCacheNodesOfferingsRequest extends com.amazonaws.Am
      *        <ul>
      *        <li>
      *        <p>
-     *        Current generation: <code>cache.r3.large</code>, <code>cache.r3.xlarge</code>,
+     *        Current generation:
+     *        </p>
+     *        <p>
+     *        <b>R3 node types:</b> <code>cache.r3.large</code>, <code>cache.r3.xlarge</code>,
      *        <code>cache.r3.2xlarge</code>, <code>cache.r3.4xlarge</code>, <code>cache.r3.8xlarge</code>
+     *        </p>
+     *        <p>
+     *        <b>R4 node types;</b> <code>cache.r4.large</code>, <code>cache.r4.xlarge</code>,
+     *        <code>cache.r4.2xlarge</code>, <code>cache.r4.4xlarge</code>, <code>cache.r4.8xlarge</code>,
+     *        <code>cache.r4.16xlarge</code>
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Previous generation: <code>cache.m2.xlarge</code>, <code>cache.m2.2xlarge</code>,
+     *        Previous generation: (not recommended)
+     *        </p>
+     *        <p>
+     *        <b>M2 node types:</b> <code>cache.m2.xlarge</code>, <code>cache.m2.2xlarge</code>,
      *        <code>cache.m2.4xlarge</code>
      *        </p>
      *        </li>
@@ -728,8 +1101,12 @@ public class DescribeReservedCacheNodesOfferingsRequest extends com.amazonaws.Am
      *        </li>
      *        <li>
      *        <p>
-     *        Redis backup/restore is not supported for Redis (cluster mode disabled) T1 and T2 instances.
-     *        Backup/restore is supported on Redis (cluster mode enabled) T2 instances.
+     *        Redis (cluster mode disabled): Redis backup/restore is not supported on T1 and T2 instances.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Redis (cluster mode enabled): Backup/restore is not supported on T1 instances.
      *        </p>
      *        </li>
      *        <li>
@@ -739,13 +1116,28 @@ public class DescribeReservedCacheNodesOfferingsRequest extends com.amazonaws.Am
      *        </li>
      *        </ul>
      *        <p>
-     *        For a complete listing of node types and specifications, see <a
-     *        href="http://aws.amazon.com/elasticache/details">Amazon ElastiCache Product Features and Details</a> and
-     *        either <a href=
-     *        "http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/CacheParameterGroups.Memcached.html#ParameterGroups.Memcached.NodeSpecific"
-     *        >Cache Node Type-Specific Parameters for Memcached</a> or <a href=
-     *        "http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/CacheParameterGroups.Redis.html#ParameterGroups.Redis.NodeSpecific"
-     *        >Cache Node Type-Specific Parameters for Redis</a>.
+     *        For a complete listing of node types and specifications, see:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <a href="http://aws.amazon.com/elasticache/details">Amazon ElastiCache Product Features and Details</a>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <a href=
+     *        "http://docs.aws.amazon.com/AmazonElastiCache/latest/mem-ug/ParameterGroups.Memcached.html#ParameterGroups.Memcached.NodeSpecific"
+     *        >Cache Node Type-Specific Parameters for Memcached</a>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <a href=
+     *        "http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/ParameterGroups.Redis.html#ParameterGroups.Redis.NodeSpecific"
+     *        >Cache Node Type-Specific Parameters for Redis</a>
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1060,7 +1452,8 @@ public class DescribeReservedCacheNodesOfferingsRequest extends com.amazonaws.Am
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

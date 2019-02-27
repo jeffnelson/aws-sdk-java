@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -17,7 +17,7 @@ import javax.annotation.Generated;
 
 /**
  * <p>
- * Represents a copy of an entire Redis cache cluster as of the time when the snapshot was taken.
+ * Represents a copy of an entire Redis cluster as of the time when the snapshot was taken.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/Snapshot" target="_top">AWS API
@@ -47,7 +47,7 @@ public class Snapshot implements Serializable, Cloneable {
     private String replicationGroupDescription;
     /**
      * <p>
-     * The user-supplied identifier of the source cache cluster.
+     * The user-supplied identifier of the source cluster.
      * </p>
      */
     private String cacheClusterId;
@@ -67,10 +67,12 @@ public class Snapshot implements Serializable, Cloneable {
     private String snapshotSource;
     /**
      * <p>
-     * The name of the compute and memory capacity node type for the source cache cluster.
+     * The name of the compute and memory capacity node type for the source cluster.
      * </p>
      * <p>
-     * Valid node types are as follows:
+     * The following node types are supported by ElastiCache. Generally speaking, the current generation types provide
+     * more memory and computational power at lower cost when compared to their equivalent previous generation
+     * counterparts.
      * </p>
      * <ul>
      * <li>
@@ -80,24 +82,48 @@ public class Snapshot implements Serializable, Cloneable {
      * <ul>
      * <li>
      * <p>
-     * Current generation: <code>cache.t2.micro</code>, <code>cache.t2.small</code>, <code>cache.t2.medium</code>,
-     * <code>cache.m3.medium</code>, <code>cache.m3.large</code>, <code>cache.m3.xlarge</code>,
-     * <code>cache.m3.2xlarge</code>, <code>cache.m4.large</code>, <code>cache.m4.xlarge</code>,
-     * <code>cache.m4.2xlarge</code>, <code>cache.m4.4xlarge</code>, <code>cache.m4.10xlarge</code>
+     * Current generation:
+     * </p>
+     * <p>
+     * <b>T2 node types:</b> <code>cache.t2.micro</code>, <code>cache.t2.small</code>, <code>cache.t2.medium</code>
+     * </p>
+     * <p>
+     * <b>M3 node types:</b> <code>cache.m3.medium</code>, <code>cache.m3.large</code>, <code>cache.m3.xlarge</code>,
+     * <code>cache.m3.2xlarge</code>
+     * </p>
+     * <p>
+     * <b>M4 node types:</b> <code>cache.m4.large</code>, <code>cache.m4.xlarge</code>, <code>cache.m4.2xlarge</code>,
+     * <code>cache.m4.4xlarge</code>, <code>cache.m4.10xlarge</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * Previous generation: <code>cache.t1.micro</code>, <code>cache.m1.small</code>, <code>cache.m1.medium</code>,
-     * <code>cache.m1.large</code>, <code>cache.m1.xlarge</code>
+     * Previous generation: (not recommended)
+     * </p>
+     * <p>
+     * <b>T1 node types:</b> <code>cache.t1.micro</code>
+     * </p>
+     * <p>
+     * <b>M1 node types:</b> <code>cache.m1.small</code>, <code>cache.m1.medium</code>, <code>cache.m1.large</code>,
+     * <code>cache.m1.xlarge</code>
      * </p>
      * </li>
      * </ul>
      * </li>
      * <li>
      * <p>
-     * Compute optimized: <code>cache.c1.xlarge</code>
+     * Compute optimized:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Previous generation: (not recommended)
+     * </p>
+     * <p>
+     * <b>C1 node types:</b> <code>cache.c1.xlarge</code>
+     * </p>
+     * </li>
+     * </ul>
      * </li>
      * <li>
      * <p>
@@ -106,13 +132,23 @@ public class Snapshot implements Serializable, Cloneable {
      * <ul>
      * <li>
      * <p>
-     * Current generation: <code>cache.r3.large</code>, <code>cache.r3.xlarge</code>, <code>cache.r3.2xlarge</code>,
+     * Current generation:
+     * </p>
+     * <p>
+     * <b>R3 node types:</b> <code>cache.r3.large</code>, <code>cache.r3.xlarge</code>, <code>cache.r3.2xlarge</code>,
      * <code>cache.r3.4xlarge</code>, <code>cache.r3.8xlarge</code>
+     * </p>
+     * <p>
+     * <b>R4 node types;</b> <code>cache.r4.large</code>, <code>cache.r4.xlarge</code>, <code>cache.r4.2xlarge</code>,
+     * <code>cache.r4.4xlarge</code>, <code>cache.r4.8xlarge</code>, <code>cache.r4.16xlarge</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * Previous generation: <code>cache.m2.xlarge</code>, <code>cache.m2.2xlarge</code>, <code>cache.m2.4xlarge</code>
+     * Previous generation: (not recommended)
+     * </p>
+     * <p>
+     * <b>M2 node types:</b> <code>cache.m2.xlarge</code>, <code>cache.m2.2xlarge</code>, <code>cache.m2.4xlarge</code>
      * </p>
      * </li>
      * </ul>
@@ -129,8 +165,12 @@ public class Snapshot implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * Redis backup/restore is not supported for Redis (cluster mode disabled) T1 and T2 instances. Backup/restore is
-     * supported on Redis (cluster mode enabled) T2 instances.
+     * Redis (cluster mode disabled): Redis backup/restore is not supported on T1 and T2 instances.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Redis (cluster mode enabled): Backup/restore is not supported on T1 instances.
      * </p>
      * </li>
      * <li>
@@ -140,31 +180,46 @@ public class Snapshot implements Serializable, Cloneable {
      * </li>
      * </ul>
      * <p>
-     * For a complete listing of node types and specifications, see <a
-     * href="http://aws.amazon.com/elasticache/details">Amazon ElastiCache Product Features and Details</a> and either
-     * <a href=
-     * "http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/CacheParameterGroups.Memcached.html#ParameterGroups.Memcached.NodeSpecific"
-     * >Cache Node Type-Specific Parameters for Memcached</a> or <a href=
-     * "http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/CacheParameterGroups.Redis.html#ParameterGroups.Redis.NodeSpecific"
-     * >Cache Node Type-Specific Parameters for Redis</a>.
+     * For a complete listing of node types and specifications, see:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a href="http://aws.amazon.com/elasticache/details">Amazon ElastiCache Product Features and Details</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href=
+     * "http://docs.aws.amazon.com/AmazonElastiCache/latest/mem-ug/ParameterGroups.Memcached.html#ParameterGroups.Memcached.NodeSpecific"
+     * >Cache Node Type-Specific Parameters for Memcached</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href=
+     * "http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/ParameterGroups.Redis.html#ParameterGroups.Redis.NodeSpecific"
+     * >Cache Node Type-Specific Parameters for Redis</a>
+     * </p>
+     * </li>
+     * </ul>
      */
     private String cacheNodeType;
     /**
      * <p>
-     * The name of the cache engine (<code>memcached</code> or <code>redis</code>) used by the source cache cluster.
+     * The name of the cache engine (<code>memcached</code> or <code>redis</code>) used by the source cluster.
      * </p>
      */
     private String engine;
     /**
      * <p>
-     * The version of the cache engine version that is used by the source cache cluster.
+     * The version of the cache engine version that is used by the source cluster.
      * </p>
      */
     private String engineVersion;
     /**
      * <p>
-     * The number of cache nodes in the source cache cluster.
+     * The number of cache nodes in the source cluster.
      * </p>
      * <p>
      * For clusters running Redis, this value must be 1. For clusters running Memcached, this value must be between 1
@@ -174,13 +229,13 @@ public class Snapshot implements Serializable, Cloneable {
     private Integer numCacheNodes;
     /**
      * <p>
-     * The name of the Availability Zone in which the source cache cluster is located.
+     * The name of the Availability Zone in which the source cluster is located.
      * </p>
      */
     private String preferredAvailabilityZone;
     /**
      * <p>
-     * The date and time when the source cache cluster was created.
+     * The date and time when the source cluster was created.
      * </p>
      */
     private java.util.Date cacheClusterCreateTime;
@@ -236,31 +291,31 @@ public class Snapshot implements Serializable, Cloneable {
     private String preferredMaintenanceWindow;
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for the topic used by the source cache cluster for publishing notifications.
+     * The Amazon Resource Name (ARN) for the topic used by the source cluster for publishing notifications.
      * </p>
      */
     private String topicArn;
     /**
      * <p>
-     * The port number used by each cache nodes in the source cache cluster.
+     * The port number used by each cache nodes in the source cluster.
      * </p>
      */
     private Integer port;
     /**
      * <p>
-     * The cache parameter group that is associated with the source cache cluster.
+     * The cache parameter group that is associated with the source cluster.
      * </p>
      */
     private String cacheParameterGroupName;
     /**
      * <p>
-     * The name of the cache subnet group associated with the source cache cluster.
+     * The name of the cache subnet group associated with the source cluster.
      * </p>
      */
     private String cacheSubnetGroupName;
     /**
      * <p>
-     * The Amazon Virtual Private Cloud identifier (VPC ID) of the cache subnet group for the source cache cluster.
+     * The Amazon Virtual Private Cloud identifier (VPC ID) of the cache subnet group for the source cluster.
      * </p>
      */
     private String vpcId;
@@ -275,9 +330,9 @@ public class Snapshot implements Serializable, Cloneable {
      * For an automatic snapshot, the number of days for which ElastiCache retains the snapshot before deleting it.
      * </p>
      * <p>
-     * For manual snapshots, this field reflects the <code>SnapshotRetentionLimit</code> for the source cache cluster
-     * when the snapshot was created. This field is otherwise ignored: Manual snapshots do not expire, and can only be
-     * deleted using the <code>DeleteSnapshot</code> operation.
+     * For manual snapshots, this field reflects the <code>SnapshotRetentionLimit</code> for the source cluster when the
+     * snapshot was created. This field is otherwise ignored: Manual snapshots do not expire, and can only be deleted
+     * using the <code>DeleteSnapshot</code> operation.
      * </p>
      * <p>
      * <b>Important</b> If the value of SnapshotRetentionLimit is set to zero (0), backups are turned off.
@@ -286,7 +341,7 @@ public class Snapshot implements Serializable, Cloneable {
     private Integer snapshotRetentionLimit;
     /**
      * <p>
-     * The daily time range during which ElastiCache takes daily snapshots of the source cache cluster.
+     * The daily time range during which ElastiCache takes daily snapshots of the source cluster.
      * </p>
      */
     private String snapshotWindow;
@@ -299,11 +354,10 @@ public class Snapshot implements Serializable, Cloneable {
     private Integer numNodeGroups;
     /**
      * <p>
-     * Indicates the status of Multi-AZ for the source replication group.
+     * Indicates the status of Multi-AZ with automatic failover for the source Redis replication group.
      * </p>
-     * <note>
      * <p>
-     * ElastiCache Multi-AZ replication groups are not supported on:
+     * Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
      * </p>
      * <ul>
      * <li>
@@ -313,19 +367,20 @@ public class Snapshot implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * Redis (cluster mode disabled):T1 and T2 cache node types.
+     * Redis (cluster mode disabled): T1 and T2 cache node types.
      * </p>
+     * </li>
+     * <li>
      * <p>
      * Redis (cluster mode enabled): T1 node types.
      * </p>
      * </li>
      * </ul>
-     * </note>
      */
     private String automaticFailover;
     /**
      * <p>
-     * A list of the cache nodes in the source cache cluster.
+     * A list of the cache nodes in the source cluster.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<NodeSnapshot> nodeSnapshots;
@@ -458,11 +513,11 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The user-supplied identifier of the source cache cluster.
+     * The user-supplied identifier of the source cluster.
      * </p>
      * 
      * @param cacheClusterId
-     *        The user-supplied identifier of the source cache cluster.
+     *        The user-supplied identifier of the source cluster.
      */
 
     public void setCacheClusterId(String cacheClusterId) {
@@ -471,10 +526,10 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The user-supplied identifier of the source cache cluster.
+     * The user-supplied identifier of the source cluster.
      * </p>
      * 
-     * @return The user-supplied identifier of the source cache cluster.
+     * @return The user-supplied identifier of the source cluster.
      */
 
     public String getCacheClusterId() {
@@ -483,11 +538,11 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The user-supplied identifier of the source cache cluster.
+     * The user-supplied identifier of the source cluster.
      * </p>
      * 
      * @param cacheClusterId
-     *        The user-supplied identifier of the source cache cluster.
+     *        The user-supplied identifier of the source cluster.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -590,10 +645,12 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The name of the compute and memory capacity node type for the source cache cluster.
+     * The name of the compute and memory capacity node type for the source cluster.
      * </p>
      * <p>
-     * Valid node types are as follows:
+     * The following node types are supported by ElastiCache. Generally speaking, the current generation types provide
+     * more memory and computational power at lower cost when compared to their equivalent previous generation
+     * counterparts.
      * </p>
      * <ul>
      * <li>
@@ -603,24 +660,48 @@ public class Snapshot implements Serializable, Cloneable {
      * <ul>
      * <li>
      * <p>
-     * Current generation: <code>cache.t2.micro</code>, <code>cache.t2.small</code>, <code>cache.t2.medium</code>,
-     * <code>cache.m3.medium</code>, <code>cache.m3.large</code>, <code>cache.m3.xlarge</code>,
-     * <code>cache.m3.2xlarge</code>, <code>cache.m4.large</code>, <code>cache.m4.xlarge</code>,
-     * <code>cache.m4.2xlarge</code>, <code>cache.m4.4xlarge</code>, <code>cache.m4.10xlarge</code>
+     * Current generation:
+     * </p>
+     * <p>
+     * <b>T2 node types:</b> <code>cache.t2.micro</code>, <code>cache.t2.small</code>, <code>cache.t2.medium</code>
+     * </p>
+     * <p>
+     * <b>M3 node types:</b> <code>cache.m3.medium</code>, <code>cache.m3.large</code>, <code>cache.m3.xlarge</code>,
+     * <code>cache.m3.2xlarge</code>
+     * </p>
+     * <p>
+     * <b>M4 node types:</b> <code>cache.m4.large</code>, <code>cache.m4.xlarge</code>, <code>cache.m4.2xlarge</code>,
+     * <code>cache.m4.4xlarge</code>, <code>cache.m4.10xlarge</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * Previous generation: <code>cache.t1.micro</code>, <code>cache.m1.small</code>, <code>cache.m1.medium</code>,
-     * <code>cache.m1.large</code>, <code>cache.m1.xlarge</code>
+     * Previous generation: (not recommended)
+     * </p>
+     * <p>
+     * <b>T1 node types:</b> <code>cache.t1.micro</code>
+     * </p>
+     * <p>
+     * <b>M1 node types:</b> <code>cache.m1.small</code>, <code>cache.m1.medium</code>, <code>cache.m1.large</code>,
+     * <code>cache.m1.xlarge</code>
      * </p>
      * </li>
      * </ul>
      * </li>
      * <li>
      * <p>
-     * Compute optimized: <code>cache.c1.xlarge</code>
+     * Compute optimized:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Previous generation: (not recommended)
+     * </p>
+     * <p>
+     * <b>C1 node types:</b> <code>cache.c1.xlarge</code>
+     * </p>
+     * </li>
+     * </ul>
      * </li>
      * <li>
      * <p>
@@ -629,13 +710,23 @@ public class Snapshot implements Serializable, Cloneable {
      * <ul>
      * <li>
      * <p>
-     * Current generation: <code>cache.r3.large</code>, <code>cache.r3.xlarge</code>, <code>cache.r3.2xlarge</code>,
+     * Current generation:
+     * </p>
+     * <p>
+     * <b>R3 node types:</b> <code>cache.r3.large</code>, <code>cache.r3.xlarge</code>, <code>cache.r3.2xlarge</code>,
      * <code>cache.r3.4xlarge</code>, <code>cache.r3.8xlarge</code>
+     * </p>
+     * <p>
+     * <b>R4 node types;</b> <code>cache.r4.large</code>, <code>cache.r4.xlarge</code>, <code>cache.r4.2xlarge</code>,
+     * <code>cache.r4.4xlarge</code>, <code>cache.r4.8xlarge</code>, <code>cache.r4.16xlarge</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * Previous generation: <code>cache.m2.xlarge</code>, <code>cache.m2.2xlarge</code>, <code>cache.m2.4xlarge</code>
+     * Previous generation: (not recommended)
+     * </p>
+     * <p>
+     * <b>M2 node types:</b> <code>cache.m2.xlarge</code>, <code>cache.m2.2xlarge</code>, <code>cache.m2.4xlarge</code>
      * </p>
      * </li>
      * </ul>
@@ -652,8 +743,12 @@ public class Snapshot implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * Redis backup/restore is not supported for Redis (cluster mode disabled) T1 and T2 instances. Backup/restore is
-     * supported on Redis (cluster mode enabled) T2 instances.
+     * Redis (cluster mode disabled): Redis backup/restore is not supported on T1 and T2 instances.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Redis (cluster mode enabled): Backup/restore is not supported on T1 instances.
      * </p>
      * </li>
      * <li>
@@ -663,19 +758,36 @@ public class Snapshot implements Serializable, Cloneable {
      * </li>
      * </ul>
      * <p>
-     * For a complete listing of node types and specifications, see <a
-     * href="http://aws.amazon.com/elasticache/details">Amazon ElastiCache Product Features and Details</a> and either
-     * <a href=
-     * "http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/CacheParameterGroups.Memcached.html#ParameterGroups.Memcached.NodeSpecific"
-     * >Cache Node Type-Specific Parameters for Memcached</a> or <a href=
-     * "http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/CacheParameterGroups.Redis.html#ParameterGroups.Redis.NodeSpecific"
-     * >Cache Node Type-Specific Parameters for Redis</a>.
+     * For a complete listing of node types and specifications, see:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a href="http://aws.amazon.com/elasticache/details">Amazon ElastiCache Product Features and Details</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href=
+     * "http://docs.aws.amazon.com/AmazonElastiCache/latest/mem-ug/ParameterGroups.Memcached.html#ParameterGroups.Memcached.NodeSpecific"
+     * >Cache Node Type-Specific Parameters for Memcached</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href=
+     * "http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/ParameterGroups.Redis.html#ParameterGroups.Redis.NodeSpecific"
+     * >Cache Node Type-Specific Parameters for Redis</a>
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param cacheNodeType
-     *        The name of the compute and memory capacity node type for the source cache cluster.</p>
+     *        The name of the compute and memory capacity node type for the source cluster.</p>
      *        <p>
-     *        Valid node types are as follows:
+     *        The following node types are supported by ElastiCache. Generally speaking, the current generation types
+     *        provide more memory and computational power at lower cost when compared to their equivalent previous
+     *        generation counterparts.
      *        </p>
      *        <ul>
      *        <li>
@@ -685,23 +797,49 @@ public class Snapshot implements Serializable, Cloneable {
      *        <ul>
      *        <li>
      *        <p>
-     *        Current generation: <code>cache.t2.micro</code>, <code>cache.t2.small</code>, <code>cache.t2.medium</code>, <code>cache.m3.medium</code>, <code>cache.m3.large</code>, <code>cache.m3.xlarge</code>,
-     *        <code>cache.m3.2xlarge</code>, <code>cache.m4.large</code>, <code>cache.m4.xlarge</code>,
+     *        Current generation:
+     *        </p>
+     *        <p>
+     *        <b>T2 node types:</b> <code>cache.t2.micro</code>, <code>cache.t2.small</code>,
+     *        <code>cache.t2.medium</code>
+     *        </p>
+     *        <p>
+     *        <b>M3 node types:</b> <code>cache.m3.medium</code>, <code>cache.m3.large</code>,
+     *        <code>cache.m3.xlarge</code>, <code>cache.m3.2xlarge</code>
+     *        </p>
+     *        <p>
+     *        <b>M4 node types:</b> <code>cache.m4.large</code>, <code>cache.m4.xlarge</code>,
      *        <code>cache.m4.2xlarge</code>, <code>cache.m4.4xlarge</code>, <code>cache.m4.10xlarge</code>
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Previous generation: <code>cache.t1.micro</code>, <code>cache.m1.small</code>,
-     *        <code>cache.m1.medium</code>, <code>cache.m1.large</code>, <code>cache.m1.xlarge</code>
+     *        Previous generation: (not recommended)
+     *        </p>
+     *        <p>
+     *        <b>T1 node types:</b> <code>cache.t1.micro</code>
+     *        </p>
+     *        <p>
+     *        <b>M1 node types:</b> <code>cache.m1.small</code>, <code>cache.m1.medium</code>,
+     *        <code>cache.m1.large</code>, <code>cache.m1.xlarge</code>
      *        </p>
      *        </li>
      *        </ul>
      *        </li>
      *        <li>
      *        <p>
-     *        Compute optimized: <code>cache.c1.xlarge</code>
+     *        Compute optimized:
      *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Previous generation: (not recommended)
+     *        </p>
+     *        <p>
+     *        <b>C1 node types:</b> <code>cache.c1.xlarge</code>
+     *        </p>
+     *        </li>
+     *        </ul>
      *        </li>
      *        <li>
      *        <p>
@@ -710,13 +848,24 @@ public class Snapshot implements Serializable, Cloneable {
      *        <ul>
      *        <li>
      *        <p>
-     *        Current generation: <code>cache.r3.large</code>, <code>cache.r3.xlarge</code>,
+     *        Current generation:
+     *        </p>
+     *        <p>
+     *        <b>R3 node types:</b> <code>cache.r3.large</code>, <code>cache.r3.xlarge</code>,
      *        <code>cache.r3.2xlarge</code>, <code>cache.r3.4xlarge</code>, <code>cache.r3.8xlarge</code>
+     *        </p>
+     *        <p>
+     *        <b>R4 node types;</b> <code>cache.r4.large</code>, <code>cache.r4.xlarge</code>,
+     *        <code>cache.r4.2xlarge</code>, <code>cache.r4.4xlarge</code>, <code>cache.r4.8xlarge</code>,
+     *        <code>cache.r4.16xlarge</code>
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Previous generation: <code>cache.m2.xlarge</code>, <code>cache.m2.2xlarge</code>,
+     *        Previous generation: (not recommended)
+     *        </p>
+     *        <p>
+     *        <b>M2 node types:</b> <code>cache.m2.xlarge</code>, <code>cache.m2.2xlarge</code>,
      *        <code>cache.m2.4xlarge</code>
      *        </p>
      *        </li>
@@ -734,8 +883,12 @@ public class Snapshot implements Serializable, Cloneable {
      *        </li>
      *        <li>
      *        <p>
-     *        Redis backup/restore is not supported for Redis (cluster mode disabled) T1 and T2 instances.
-     *        Backup/restore is supported on Redis (cluster mode enabled) T2 instances.
+     *        Redis (cluster mode disabled): Redis backup/restore is not supported on T1 and T2 instances.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Redis (cluster mode enabled): Backup/restore is not supported on T1 instances.
      *        </p>
      *        </li>
      *        <li>
@@ -745,13 +898,28 @@ public class Snapshot implements Serializable, Cloneable {
      *        </li>
      *        </ul>
      *        <p>
-     *        For a complete listing of node types and specifications, see <a
-     *        href="http://aws.amazon.com/elasticache/details">Amazon ElastiCache Product Features and Details</a> and
-     *        either <a href=
-     *        "http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/CacheParameterGroups.Memcached.html#ParameterGroups.Memcached.NodeSpecific"
-     *        >Cache Node Type-Specific Parameters for Memcached</a> or <a href=
-     *        "http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/CacheParameterGroups.Redis.html#ParameterGroups.Redis.NodeSpecific"
-     *        >Cache Node Type-Specific Parameters for Redis</a>.
+     *        For a complete listing of node types and specifications, see:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <a href="http://aws.amazon.com/elasticache/details">Amazon ElastiCache Product Features and Details</a>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <a href=
+     *        "http://docs.aws.amazon.com/AmazonElastiCache/latest/mem-ug/ParameterGroups.Memcached.html#ParameterGroups.Memcached.NodeSpecific"
+     *        >Cache Node Type-Specific Parameters for Memcached</a>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <a href=
+     *        "http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/ParameterGroups.Redis.html#ParameterGroups.Redis.NodeSpecific"
+     *        >Cache Node Type-Specific Parameters for Redis</a>
+     *        </p>
+     *        </li>
      */
 
     public void setCacheNodeType(String cacheNodeType) {
@@ -760,10 +928,12 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The name of the compute and memory capacity node type for the source cache cluster.
+     * The name of the compute and memory capacity node type for the source cluster.
      * </p>
      * <p>
-     * Valid node types are as follows:
+     * The following node types are supported by ElastiCache. Generally speaking, the current generation types provide
+     * more memory and computational power at lower cost when compared to their equivalent previous generation
+     * counterparts.
      * </p>
      * <ul>
      * <li>
@@ -773,24 +943,48 @@ public class Snapshot implements Serializable, Cloneable {
      * <ul>
      * <li>
      * <p>
-     * Current generation: <code>cache.t2.micro</code>, <code>cache.t2.small</code>, <code>cache.t2.medium</code>,
-     * <code>cache.m3.medium</code>, <code>cache.m3.large</code>, <code>cache.m3.xlarge</code>,
-     * <code>cache.m3.2xlarge</code>, <code>cache.m4.large</code>, <code>cache.m4.xlarge</code>,
-     * <code>cache.m4.2xlarge</code>, <code>cache.m4.4xlarge</code>, <code>cache.m4.10xlarge</code>
+     * Current generation:
+     * </p>
+     * <p>
+     * <b>T2 node types:</b> <code>cache.t2.micro</code>, <code>cache.t2.small</code>, <code>cache.t2.medium</code>
+     * </p>
+     * <p>
+     * <b>M3 node types:</b> <code>cache.m3.medium</code>, <code>cache.m3.large</code>, <code>cache.m3.xlarge</code>,
+     * <code>cache.m3.2xlarge</code>
+     * </p>
+     * <p>
+     * <b>M4 node types:</b> <code>cache.m4.large</code>, <code>cache.m4.xlarge</code>, <code>cache.m4.2xlarge</code>,
+     * <code>cache.m4.4xlarge</code>, <code>cache.m4.10xlarge</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * Previous generation: <code>cache.t1.micro</code>, <code>cache.m1.small</code>, <code>cache.m1.medium</code>,
-     * <code>cache.m1.large</code>, <code>cache.m1.xlarge</code>
+     * Previous generation: (not recommended)
+     * </p>
+     * <p>
+     * <b>T1 node types:</b> <code>cache.t1.micro</code>
+     * </p>
+     * <p>
+     * <b>M1 node types:</b> <code>cache.m1.small</code>, <code>cache.m1.medium</code>, <code>cache.m1.large</code>,
+     * <code>cache.m1.xlarge</code>
      * </p>
      * </li>
      * </ul>
      * </li>
      * <li>
      * <p>
-     * Compute optimized: <code>cache.c1.xlarge</code>
+     * Compute optimized:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Previous generation: (not recommended)
+     * </p>
+     * <p>
+     * <b>C1 node types:</b> <code>cache.c1.xlarge</code>
+     * </p>
+     * </li>
+     * </ul>
      * </li>
      * <li>
      * <p>
@@ -799,13 +993,23 @@ public class Snapshot implements Serializable, Cloneable {
      * <ul>
      * <li>
      * <p>
-     * Current generation: <code>cache.r3.large</code>, <code>cache.r3.xlarge</code>, <code>cache.r3.2xlarge</code>,
+     * Current generation:
+     * </p>
+     * <p>
+     * <b>R3 node types:</b> <code>cache.r3.large</code>, <code>cache.r3.xlarge</code>, <code>cache.r3.2xlarge</code>,
      * <code>cache.r3.4xlarge</code>, <code>cache.r3.8xlarge</code>
+     * </p>
+     * <p>
+     * <b>R4 node types;</b> <code>cache.r4.large</code>, <code>cache.r4.xlarge</code>, <code>cache.r4.2xlarge</code>,
+     * <code>cache.r4.4xlarge</code>, <code>cache.r4.8xlarge</code>, <code>cache.r4.16xlarge</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * Previous generation: <code>cache.m2.xlarge</code>, <code>cache.m2.2xlarge</code>, <code>cache.m2.4xlarge</code>
+     * Previous generation: (not recommended)
+     * </p>
+     * <p>
+     * <b>M2 node types:</b> <code>cache.m2.xlarge</code>, <code>cache.m2.2xlarge</code>, <code>cache.m2.4xlarge</code>
      * </p>
      * </li>
      * </ul>
@@ -822,8 +1026,12 @@ public class Snapshot implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * Redis backup/restore is not supported for Redis (cluster mode disabled) T1 and T2 instances. Backup/restore is
-     * supported on Redis (cluster mode enabled) T2 instances.
+     * Redis (cluster mode disabled): Redis backup/restore is not supported on T1 and T2 instances.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Redis (cluster mode enabled): Backup/restore is not supported on T1 instances.
      * </p>
      * </li>
      * <li>
@@ -833,18 +1041,35 @@ public class Snapshot implements Serializable, Cloneable {
      * </li>
      * </ul>
      * <p>
-     * For a complete listing of node types and specifications, see <a
-     * href="http://aws.amazon.com/elasticache/details">Amazon ElastiCache Product Features and Details</a> and either
-     * <a href=
-     * "http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/CacheParameterGroups.Memcached.html#ParameterGroups.Memcached.NodeSpecific"
-     * >Cache Node Type-Specific Parameters for Memcached</a> or <a href=
-     * "http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/CacheParameterGroups.Redis.html#ParameterGroups.Redis.NodeSpecific"
-     * >Cache Node Type-Specific Parameters for Redis</a>.
+     * For a complete listing of node types and specifications, see:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a href="http://aws.amazon.com/elasticache/details">Amazon ElastiCache Product Features and Details</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href=
+     * "http://docs.aws.amazon.com/AmazonElastiCache/latest/mem-ug/ParameterGroups.Memcached.html#ParameterGroups.Memcached.NodeSpecific"
+     * >Cache Node Type-Specific Parameters for Memcached</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href=
+     * "http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/ParameterGroups.Redis.html#ParameterGroups.Redis.NodeSpecific"
+     * >Cache Node Type-Specific Parameters for Redis</a>
+     * </p>
+     * </li>
+     * </ul>
      * 
-     * @return The name of the compute and memory capacity node type for the source cache cluster.</p>
+     * @return The name of the compute and memory capacity node type for the source cluster.</p>
      *         <p>
-     *         Valid node types are as follows:
+     *         The following node types are supported by ElastiCache. Generally speaking, the current generation types
+     *         provide more memory and computational power at lower cost when compared to their equivalent previous
+     *         generation counterparts.
      *         </p>
      *         <ul>
      *         <li>
@@ -854,25 +1079,49 @@ public class Snapshot implements Serializable, Cloneable {
      *         <ul>
      *         <li>
      *         <p>
-     *         Current generation: <code>cache.t2.micro</code>, <code>cache.t2.small</code>,
-     *         <code>cache.t2.medium</code>, <code>cache.m3.medium</code>, <code>cache.m3.large</code>,
-     *         <code>cache.m3.xlarge</code>, <code>cache.m3.2xlarge</code>, <code>cache.m4.large</code>,
-     *         <code>cache.m4.xlarge</code>, <code>cache.m4.2xlarge</code>, <code>cache.m4.4xlarge</code>,
-     *         <code>cache.m4.10xlarge</code>
+     *         Current generation:
+     *         </p>
+     *         <p>
+     *         <b>T2 node types:</b> <code>cache.t2.micro</code>, <code>cache.t2.small</code>,
+     *         <code>cache.t2.medium</code>
+     *         </p>
+     *         <p>
+     *         <b>M3 node types:</b> <code>cache.m3.medium</code>, <code>cache.m3.large</code>,
+     *         <code>cache.m3.xlarge</code>, <code>cache.m3.2xlarge</code>
+     *         </p>
+     *         <p>
+     *         <b>M4 node types:</b> <code>cache.m4.large</code>, <code>cache.m4.xlarge</code>,
+     *         <code>cache.m4.2xlarge</code>, <code>cache.m4.4xlarge</code>, <code>cache.m4.10xlarge</code>
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         Previous generation: <code>cache.t1.micro</code>, <code>cache.m1.small</code>,
-     *         <code>cache.m1.medium</code>, <code>cache.m1.large</code>, <code>cache.m1.xlarge</code>
+     *         Previous generation: (not recommended)
+     *         </p>
+     *         <p>
+     *         <b>T1 node types:</b> <code>cache.t1.micro</code>
+     *         </p>
+     *         <p>
+     *         <b>M1 node types:</b> <code>cache.m1.small</code>, <code>cache.m1.medium</code>,
+     *         <code>cache.m1.large</code>, <code>cache.m1.xlarge</code>
      *         </p>
      *         </li>
      *         </ul>
      *         </li>
      *         <li>
      *         <p>
-     *         Compute optimized: <code>cache.c1.xlarge</code>
+     *         Compute optimized:
      *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         Previous generation: (not recommended)
+     *         </p>
+     *         <p>
+     *         <b>C1 node types:</b> <code>cache.c1.xlarge</code>
+     *         </p>
+     *         </li>
+     *         </ul>
      *         </li>
      *         <li>
      *         <p>
@@ -881,13 +1130,24 @@ public class Snapshot implements Serializable, Cloneable {
      *         <ul>
      *         <li>
      *         <p>
-     *         Current generation: <code>cache.r3.large</code>, <code>cache.r3.xlarge</code>,
+     *         Current generation:
+     *         </p>
+     *         <p>
+     *         <b>R3 node types:</b> <code>cache.r3.large</code>, <code>cache.r3.xlarge</code>,
      *         <code>cache.r3.2xlarge</code>, <code>cache.r3.4xlarge</code>, <code>cache.r3.8xlarge</code>
+     *         </p>
+     *         <p>
+     *         <b>R4 node types;</b> <code>cache.r4.large</code>, <code>cache.r4.xlarge</code>,
+     *         <code>cache.r4.2xlarge</code>, <code>cache.r4.4xlarge</code>, <code>cache.r4.8xlarge</code>,
+     *         <code>cache.r4.16xlarge</code>
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         Previous generation: <code>cache.m2.xlarge</code>, <code>cache.m2.2xlarge</code>,
+     *         Previous generation: (not recommended)
+     *         </p>
+     *         <p>
+     *         <b>M2 node types:</b> <code>cache.m2.xlarge</code>, <code>cache.m2.2xlarge</code>,
      *         <code>cache.m2.4xlarge</code>
      *         </p>
      *         </li>
@@ -905,8 +1165,12 @@ public class Snapshot implements Serializable, Cloneable {
      *         </li>
      *         <li>
      *         <p>
-     *         Redis backup/restore is not supported for Redis (cluster mode disabled) T1 and T2 instances.
-     *         Backup/restore is supported on Redis (cluster mode enabled) T2 instances.
+     *         Redis (cluster mode disabled): Redis backup/restore is not supported on T1 and T2 instances.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Redis (cluster mode enabled): Backup/restore is not supported on T1 instances.
      *         </p>
      *         </li>
      *         <li>
@@ -916,13 +1180,28 @@ public class Snapshot implements Serializable, Cloneable {
      *         </li>
      *         </ul>
      *         <p>
-     *         For a complete listing of node types and specifications, see <a
-     *         href="http://aws.amazon.com/elasticache/details">Amazon ElastiCache Product Features and Details</a> and
-     *         either <a href=
-     *         "http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/CacheParameterGroups.Memcached.html#ParameterGroups.Memcached.NodeSpecific"
-     *         >Cache Node Type-Specific Parameters for Memcached</a> or <a href=
-     *         "http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/CacheParameterGroups.Redis.html#ParameterGroups.Redis.NodeSpecific"
-     *         >Cache Node Type-Specific Parameters for Redis</a>.
+     *         For a complete listing of node types and specifications, see:
+     *         </p>
+     *         <ul>
+     *         <li>
+     *         <p>
+     *         <a href="http://aws.amazon.com/elasticache/details">Amazon ElastiCache Product Features and Details</a>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <a href=
+     *         "http://docs.aws.amazon.com/AmazonElastiCache/latest/mem-ug/ParameterGroups.Memcached.html#ParameterGroups.Memcached.NodeSpecific"
+     *         >Cache Node Type-Specific Parameters for Memcached</a>
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <a href=
+     *         "http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/ParameterGroups.Redis.html#ParameterGroups.Redis.NodeSpecific"
+     *         >Cache Node Type-Specific Parameters for Redis</a>
+     *         </p>
+     *         </li>
      */
 
     public String getCacheNodeType() {
@@ -931,10 +1210,12 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The name of the compute and memory capacity node type for the source cache cluster.
+     * The name of the compute and memory capacity node type for the source cluster.
      * </p>
      * <p>
-     * Valid node types are as follows:
+     * The following node types are supported by ElastiCache. Generally speaking, the current generation types provide
+     * more memory and computational power at lower cost when compared to their equivalent previous generation
+     * counterparts.
      * </p>
      * <ul>
      * <li>
@@ -944,24 +1225,48 @@ public class Snapshot implements Serializable, Cloneable {
      * <ul>
      * <li>
      * <p>
-     * Current generation: <code>cache.t2.micro</code>, <code>cache.t2.small</code>, <code>cache.t2.medium</code>,
-     * <code>cache.m3.medium</code>, <code>cache.m3.large</code>, <code>cache.m3.xlarge</code>,
-     * <code>cache.m3.2xlarge</code>, <code>cache.m4.large</code>, <code>cache.m4.xlarge</code>,
-     * <code>cache.m4.2xlarge</code>, <code>cache.m4.4xlarge</code>, <code>cache.m4.10xlarge</code>
+     * Current generation:
+     * </p>
+     * <p>
+     * <b>T2 node types:</b> <code>cache.t2.micro</code>, <code>cache.t2.small</code>, <code>cache.t2.medium</code>
+     * </p>
+     * <p>
+     * <b>M3 node types:</b> <code>cache.m3.medium</code>, <code>cache.m3.large</code>, <code>cache.m3.xlarge</code>,
+     * <code>cache.m3.2xlarge</code>
+     * </p>
+     * <p>
+     * <b>M4 node types:</b> <code>cache.m4.large</code>, <code>cache.m4.xlarge</code>, <code>cache.m4.2xlarge</code>,
+     * <code>cache.m4.4xlarge</code>, <code>cache.m4.10xlarge</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * Previous generation: <code>cache.t1.micro</code>, <code>cache.m1.small</code>, <code>cache.m1.medium</code>,
-     * <code>cache.m1.large</code>, <code>cache.m1.xlarge</code>
+     * Previous generation: (not recommended)
+     * </p>
+     * <p>
+     * <b>T1 node types:</b> <code>cache.t1.micro</code>
+     * </p>
+     * <p>
+     * <b>M1 node types:</b> <code>cache.m1.small</code>, <code>cache.m1.medium</code>, <code>cache.m1.large</code>,
+     * <code>cache.m1.xlarge</code>
      * </p>
      * </li>
      * </ul>
      * </li>
      * <li>
      * <p>
-     * Compute optimized: <code>cache.c1.xlarge</code>
+     * Compute optimized:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * Previous generation: (not recommended)
+     * </p>
+     * <p>
+     * <b>C1 node types:</b> <code>cache.c1.xlarge</code>
+     * </p>
+     * </li>
+     * </ul>
      * </li>
      * <li>
      * <p>
@@ -970,13 +1275,23 @@ public class Snapshot implements Serializable, Cloneable {
      * <ul>
      * <li>
      * <p>
-     * Current generation: <code>cache.r3.large</code>, <code>cache.r3.xlarge</code>, <code>cache.r3.2xlarge</code>,
+     * Current generation:
+     * </p>
+     * <p>
+     * <b>R3 node types:</b> <code>cache.r3.large</code>, <code>cache.r3.xlarge</code>, <code>cache.r3.2xlarge</code>,
      * <code>cache.r3.4xlarge</code>, <code>cache.r3.8xlarge</code>
+     * </p>
+     * <p>
+     * <b>R4 node types;</b> <code>cache.r4.large</code>, <code>cache.r4.xlarge</code>, <code>cache.r4.2xlarge</code>,
+     * <code>cache.r4.4xlarge</code>, <code>cache.r4.8xlarge</code>, <code>cache.r4.16xlarge</code>
      * </p>
      * </li>
      * <li>
      * <p>
-     * Previous generation: <code>cache.m2.xlarge</code>, <code>cache.m2.2xlarge</code>, <code>cache.m2.4xlarge</code>
+     * Previous generation: (not recommended)
+     * </p>
+     * <p>
+     * <b>M2 node types:</b> <code>cache.m2.xlarge</code>, <code>cache.m2.2xlarge</code>, <code>cache.m2.4xlarge</code>
      * </p>
      * </li>
      * </ul>
@@ -993,8 +1308,12 @@ public class Snapshot implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * Redis backup/restore is not supported for Redis (cluster mode disabled) T1 and T2 instances. Backup/restore is
-     * supported on Redis (cluster mode enabled) T2 instances.
+     * Redis (cluster mode disabled): Redis backup/restore is not supported on T1 and T2 instances.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Redis (cluster mode enabled): Backup/restore is not supported on T1 instances.
      * </p>
      * </li>
      * <li>
@@ -1004,19 +1323,36 @@ public class Snapshot implements Serializable, Cloneable {
      * </li>
      * </ul>
      * <p>
-     * For a complete listing of node types and specifications, see <a
-     * href="http://aws.amazon.com/elasticache/details">Amazon ElastiCache Product Features and Details</a> and either
-     * <a href=
-     * "http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/CacheParameterGroups.Memcached.html#ParameterGroups.Memcached.NodeSpecific"
-     * >Cache Node Type-Specific Parameters for Memcached</a> or <a href=
-     * "http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/CacheParameterGroups.Redis.html#ParameterGroups.Redis.NodeSpecific"
-     * >Cache Node Type-Specific Parameters for Redis</a>.
+     * For a complete listing of node types and specifications, see:
      * </p>
+     * <ul>
+     * <li>
+     * <p>
+     * <a href="http://aws.amazon.com/elasticache/details">Amazon ElastiCache Product Features and Details</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href=
+     * "http://docs.aws.amazon.com/AmazonElastiCache/latest/mem-ug/ParameterGroups.Memcached.html#ParameterGroups.Memcached.NodeSpecific"
+     * >Cache Node Type-Specific Parameters for Memcached</a>
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <a href=
+     * "http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/ParameterGroups.Redis.html#ParameterGroups.Redis.NodeSpecific"
+     * >Cache Node Type-Specific Parameters for Redis</a>
+     * </p>
+     * </li>
+     * </ul>
      * 
      * @param cacheNodeType
-     *        The name of the compute and memory capacity node type for the source cache cluster.</p>
+     *        The name of the compute and memory capacity node type for the source cluster.</p>
      *        <p>
-     *        Valid node types are as follows:
+     *        The following node types are supported by ElastiCache. Generally speaking, the current generation types
+     *        provide more memory and computational power at lower cost when compared to their equivalent previous
+     *        generation counterparts.
      *        </p>
      *        <ul>
      *        <li>
@@ -1026,23 +1362,49 @@ public class Snapshot implements Serializable, Cloneable {
      *        <ul>
      *        <li>
      *        <p>
-     *        Current generation: <code>cache.t2.micro</code>, <code>cache.t2.small</code>, <code>cache.t2.medium</code>, <code>cache.m3.medium</code>, <code>cache.m3.large</code>, <code>cache.m3.xlarge</code>,
-     *        <code>cache.m3.2xlarge</code>, <code>cache.m4.large</code>, <code>cache.m4.xlarge</code>,
+     *        Current generation:
+     *        </p>
+     *        <p>
+     *        <b>T2 node types:</b> <code>cache.t2.micro</code>, <code>cache.t2.small</code>,
+     *        <code>cache.t2.medium</code>
+     *        </p>
+     *        <p>
+     *        <b>M3 node types:</b> <code>cache.m3.medium</code>, <code>cache.m3.large</code>,
+     *        <code>cache.m3.xlarge</code>, <code>cache.m3.2xlarge</code>
+     *        </p>
+     *        <p>
+     *        <b>M4 node types:</b> <code>cache.m4.large</code>, <code>cache.m4.xlarge</code>,
      *        <code>cache.m4.2xlarge</code>, <code>cache.m4.4xlarge</code>, <code>cache.m4.10xlarge</code>
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Previous generation: <code>cache.t1.micro</code>, <code>cache.m1.small</code>,
-     *        <code>cache.m1.medium</code>, <code>cache.m1.large</code>, <code>cache.m1.xlarge</code>
+     *        Previous generation: (not recommended)
+     *        </p>
+     *        <p>
+     *        <b>T1 node types:</b> <code>cache.t1.micro</code>
+     *        </p>
+     *        <p>
+     *        <b>M1 node types:</b> <code>cache.m1.small</code>, <code>cache.m1.medium</code>,
+     *        <code>cache.m1.large</code>, <code>cache.m1.xlarge</code>
      *        </p>
      *        </li>
      *        </ul>
      *        </li>
      *        <li>
      *        <p>
-     *        Compute optimized: <code>cache.c1.xlarge</code>
+     *        Compute optimized:
      *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        Previous generation: (not recommended)
+     *        </p>
+     *        <p>
+     *        <b>C1 node types:</b> <code>cache.c1.xlarge</code>
+     *        </p>
+     *        </li>
+     *        </ul>
      *        </li>
      *        <li>
      *        <p>
@@ -1051,13 +1413,24 @@ public class Snapshot implements Serializable, Cloneable {
      *        <ul>
      *        <li>
      *        <p>
-     *        Current generation: <code>cache.r3.large</code>, <code>cache.r3.xlarge</code>,
+     *        Current generation:
+     *        </p>
+     *        <p>
+     *        <b>R3 node types:</b> <code>cache.r3.large</code>, <code>cache.r3.xlarge</code>,
      *        <code>cache.r3.2xlarge</code>, <code>cache.r3.4xlarge</code>, <code>cache.r3.8xlarge</code>
+     *        </p>
+     *        <p>
+     *        <b>R4 node types;</b> <code>cache.r4.large</code>, <code>cache.r4.xlarge</code>,
+     *        <code>cache.r4.2xlarge</code>, <code>cache.r4.4xlarge</code>, <code>cache.r4.8xlarge</code>,
+     *        <code>cache.r4.16xlarge</code>
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Previous generation: <code>cache.m2.xlarge</code>, <code>cache.m2.2xlarge</code>,
+     *        Previous generation: (not recommended)
+     *        </p>
+     *        <p>
+     *        <b>M2 node types:</b> <code>cache.m2.xlarge</code>, <code>cache.m2.2xlarge</code>,
      *        <code>cache.m2.4xlarge</code>
      *        </p>
      *        </li>
@@ -1075,8 +1448,12 @@ public class Snapshot implements Serializable, Cloneable {
      *        </li>
      *        <li>
      *        <p>
-     *        Redis backup/restore is not supported for Redis (cluster mode disabled) T1 and T2 instances.
-     *        Backup/restore is supported on Redis (cluster mode enabled) T2 instances.
+     *        Redis (cluster mode disabled): Redis backup/restore is not supported on T1 and T2 instances.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Redis (cluster mode enabled): Backup/restore is not supported on T1 instances.
      *        </p>
      *        </li>
      *        <li>
@@ -1086,13 +1463,28 @@ public class Snapshot implements Serializable, Cloneable {
      *        </li>
      *        </ul>
      *        <p>
-     *        For a complete listing of node types and specifications, see <a
-     *        href="http://aws.amazon.com/elasticache/details">Amazon ElastiCache Product Features and Details</a> and
-     *        either <a href=
-     *        "http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/CacheParameterGroups.Memcached.html#ParameterGroups.Memcached.NodeSpecific"
-     *        >Cache Node Type-Specific Parameters for Memcached</a> or <a href=
-     *        "http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/CacheParameterGroups.Redis.html#ParameterGroups.Redis.NodeSpecific"
-     *        >Cache Node Type-Specific Parameters for Redis</a>.
+     *        For a complete listing of node types and specifications, see:
+     *        </p>
+     *        <ul>
+     *        <li>
+     *        <p>
+     *        <a href="http://aws.amazon.com/elasticache/details">Amazon ElastiCache Product Features and Details</a>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <a href=
+     *        "http://docs.aws.amazon.com/AmazonElastiCache/latest/mem-ug/ParameterGroups.Memcached.html#ParameterGroups.Memcached.NodeSpecific"
+     *        >Cache Node Type-Specific Parameters for Memcached</a>
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <a href=
+     *        "http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/ParameterGroups.Redis.html#ParameterGroups.Redis.NodeSpecific"
+     *        >Cache Node Type-Specific Parameters for Redis</a>
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1103,12 +1495,11 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The name of the cache engine (<code>memcached</code> or <code>redis</code>) used by the source cache cluster.
+     * The name of the cache engine (<code>memcached</code> or <code>redis</code>) used by the source cluster.
      * </p>
      * 
      * @param engine
-     *        The name of the cache engine (<code>memcached</code> or <code>redis</code>) used by the source cache
-     *        cluster.
+     *        The name of the cache engine (<code>memcached</code> or <code>redis</code>) used by the source cluster.
      */
 
     public void setEngine(String engine) {
@@ -1117,11 +1508,10 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The name of the cache engine (<code>memcached</code> or <code>redis</code>) used by the source cache cluster.
+     * The name of the cache engine (<code>memcached</code> or <code>redis</code>) used by the source cluster.
      * </p>
      * 
-     * @return The name of the cache engine (<code>memcached</code> or <code>redis</code>) used by the source cache
-     *         cluster.
+     * @return The name of the cache engine (<code>memcached</code> or <code>redis</code>) used by the source cluster.
      */
 
     public String getEngine() {
@@ -1130,12 +1520,11 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The name of the cache engine (<code>memcached</code> or <code>redis</code>) used by the source cache cluster.
+     * The name of the cache engine (<code>memcached</code> or <code>redis</code>) used by the source cluster.
      * </p>
      * 
      * @param engine
-     *        The name of the cache engine (<code>memcached</code> or <code>redis</code>) used by the source cache
-     *        cluster.
+     *        The name of the cache engine (<code>memcached</code> or <code>redis</code>) used by the source cluster.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1146,11 +1535,11 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The version of the cache engine version that is used by the source cache cluster.
+     * The version of the cache engine version that is used by the source cluster.
      * </p>
      * 
      * @param engineVersion
-     *        The version of the cache engine version that is used by the source cache cluster.
+     *        The version of the cache engine version that is used by the source cluster.
      */
 
     public void setEngineVersion(String engineVersion) {
@@ -1159,10 +1548,10 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The version of the cache engine version that is used by the source cache cluster.
+     * The version of the cache engine version that is used by the source cluster.
      * </p>
      * 
-     * @return The version of the cache engine version that is used by the source cache cluster.
+     * @return The version of the cache engine version that is used by the source cluster.
      */
 
     public String getEngineVersion() {
@@ -1171,11 +1560,11 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The version of the cache engine version that is used by the source cache cluster.
+     * The version of the cache engine version that is used by the source cluster.
      * </p>
      * 
      * @param engineVersion
-     *        The version of the cache engine version that is used by the source cache cluster.
+     *        The version of the cache engine version that is used by the source cluster.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1186,7 +1575,7 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of cache nodes in the source cache cluster.
+     * The number of cache nodes in the source cluster.
      * </p>
      * <p>
      * For clusters running Redis, this value must be 1. For clusters running Memcached, this value must be between 1
@@ -1194,7 +1583,7 @@ public class Snapshot implements Serializable, Cloneable {
      * </p>
      * 
      * @param numCacheNodes
-     *        The number of cache nodes in the source cache cluster.</p>
+     *        The number of cache nodes in the source cluster.</p>
      *        <p>
      *        For clusters running Redis, this value must be 1. For clusters running Memcached, this value must be
      *        between 1 and 20.
@@ -1206,14 +1595,14 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of cache nodes in the source cache cluster.
+     * The number of cache nodes in the source cluster.
      * </p>
      * <p>
      * For clusters running Redis, this value must be 1. For clusters running Memcached, this value must be between 1
      * and 20.
      * </p>
      * 
-     * @return The number of cache nodes in the source cache cluster.</p>
+     * @return The number of cache nodes in the source cluster.</p>
      *         <p>
      *         For clusters running Redis, this value must be 1. For clusters running Memcached, this value must be
      *         between 1 and 20.
@@ -1225,7 +1614,7 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The number of cache nodes in the source cache cluster.
+     * The number of cache nodes in the source cluster.
      * </p>
      * <p>
      * For clusters running Redis, this value must be 1. For clusters running Memcached, this value must be between 1
@@ -1233,7 +1622,7 @@ public class Snapshot implements Serializable, Cloneable {
      * </p>
      * 
      * @param numCacheNodes
-     *        The number of cache nodes in the source cache cluster.</p>
+     *        The number of cache nodes in the source cluster.</p>
      *        <p>
      *        For clusters running Redis, this value must be 1. For clusters running Memcached, this value must be
      *        between 1 and 20.
@@ -1247,11 +1636,11 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The name of the Availability Zone in which the source cache cluster is located.
+     * The name of the Availability Zone in which the source cluster is located.
      * </p>
      * 
      * @param preferredAvailabilityZone
-     *        The name of the Availability Zone in which the source cache cluster is located.
+     *        The name of the Availability Zone in which the source cluster is located.
      */
 
     public void setPreferredAvailabilityZone(String preferredAvailabilityZone) {
@@ -1260,10 +1649,10 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The name of the Availability Zone in which the source cache cluster is located.
+     * The name of the Availability Zone in which the source cluster is located.
      * </p>
      * 
-     * @return The name of the Availability Zone in which the source cache cluster is located.
+     * @return The name of the Availability Zone in which the source cluster is located.
      */
 
     public String getPreferredAvailabilityZone() {
@@ -1272,11 +1661,11 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The name of the Availability Zone in which the source cache cluster is located.
+     * The name of the Availability Zone in which the source cluster is located.
      * </p>
      * 
      * @param preferredAvailabilityZone
-     *        The name of the Availability Zone in which the source cache cluster is located.
+     *        The name of the Availability Zone in which the source cluster is located.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1287,11 +1676,11 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The date and time when the source cache cluster was created.
+     * The date and time when the source cluster was created.
      * </p>
      * 
      * @param cacheClusterCreateTime
-     *        The date and time when the source cache cluster was created.
+     *        The date and time when the source cluster was created.
      */
 
     public void setCacheClusterCreateTime(java.util.Date cacheClusterCreateTime) {
@@ -1300,10 +1689,10 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The date and time when the source cache cluster was created.
+     * The date and time when the source cluster was created.
      * </p>
      * 
-     * @return The date and time when the source cache cluster was created.
+     * @return The date and time when the source cluster was created.
      */
 
     public java.util.Date getCacheClusterCreateTime() {
@@ -1312,11 +1701,11 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The date and time when the source cache cluster was created.
+     * The date and time when the source cluster was created.
      * </p>
      * 
      * @param cacheClusterCreateTime
-     *        The date and time when the source cache cluster was created.
+     *        The date and time when the source cluster was created.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1631,12 +2020,11 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for the topic used by the source cache cluster for publishing notifications.
+     * The Amazon Resource Name (ARN) for the topic used by the source cluster for publishing notifications.
      * </p>
      * 
      * @param topicArn
-     *        The Amazon Resource Name (ARN) for the topic used by the source cache cluster for publishing
-     *        notifications.
+     *        The Amazon Resource Name (ARN) for the topic used by the source cluster for publishing notifications.
      */
 
     public void setTopicArn(String topicArn) {
@@ -1645,11 +2033,10 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for the topic used by the source cache cluster for publishing notifications.
+     * The Amazon Resource Name (ARN) for the topic used by the source cluster for publishing notifications.
      * </p>
      * 
-     * @return The Amazon Resource Name (ARN) for the topic used by the source cache cluster for publishing
-     *         notifications.
+     * @return The Amazon Resource Name (ARN) for the topic used by the source cluster for publishing notifications.
      */
 
     public String getTopicArn() {
@@ -1658,12 +2045,11 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Amazon Resource Name (ARN) for the topic used by the source cache cluster for publishing notifications.
+     * The Amazon Resource Name (ARN) for the topic used by the source cluster for publishing notifications.
      * </p>
      * 
      * @param topicArn
-     *        The Amazon Resource Name (ARN) for the topic used by the source cache cluster for publishing
-     *        notifications.
+     *        The Amazon Resource Name (ARN) for the topic used by the source cluster for publishing notifications.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1674,11 +2060,11 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The port number used by each cache nodes in the source cache cluster.
+     * The port number used by each cache nodes in the source cluster.
      * </p>
      * 
      * @param port
-     *        The port number used by each cache nodes in the source cache cluster.
+     *        The port number used by each cache nodes in the source cluster.
      */
 
     public void setPort(Integer port) {
@@ -1687,10 +2073,10 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The port number used by each cache nodes in the source cache cluster.
+     * The port number used by each cache nodes in the source cluster.
      * </p>
      * 
-     * @return The port number used by each cache nodes in the source cache cluster.
+     * @return The port number used by each cache nodes in the source cluster.
      */
 
     public Integer getPort() {
@@ -1699,11 +2085,11 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The port number used by each cache nodes in the source cache cluster.
+     * The port number used by each cache nodes in the source cluster.
      * </p>
      * 
      * @param port
-     *        The port number used by each cache nodes in the source cache cluster.
+     *        The port number used by each cache nodes in the source cluster.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1714,11 +2100,11 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The cache parameter group that is associated with the source cache cluster.
+     * The cache parameter group that is associated with the source cluster.
      * </p>
      * 
      * @param cacheParameterGroupName
-     *        The cache parameter group that is associated with the source cache cluster.
+     *        The cache parameter group that is associated with the source cluster.
      */
 
     public void setCacheParameterGroupName(String cacheParameterGroupName) {
@@ -1727,10 +2113,10 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The cache parameter group that is associated with the source cache cluster.
+     * The cache parameter group that is associated with the source cluster.
      * </p>
      * 
-     * @return The cache parameter group that is associated with the source cache cluster.
+     * @return The cache parameter group that is associated with the source cluster.
      */
 
     public String getCacheParameterGroupName() {
@@ -1739,11 +2125,11 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The cache parameter group that is associated with the source cache cluster.
+     * The cache parameter group that is associated with the source cluster.
      * </p>
      * 
      * @param cacheParameterGroupName
-     *        The cache parameter group that is associated with the source cache cluster.
+     *        The cache parameter group that is associated with the source cluster.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1754,11 +2140,11 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The name of the cache subnet group associated with the source cache cluster.
+     * The name of the cache subnet group associated with the source cluster.
      * </p>
      * 
      * @param cacheSubnetGroupName
-     *        The name of the cache subnet group associated with the source cache cluster.
+     *        The name of the cache subnet group associated with the source cluster.
      */
 
     public void setCacheSubnetGroupName(String cacheSubnetGroupName) {
@@ -1767,10 +2153,10 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The name of the cache subnet group associated with the source cache cluster.
+     * The name of the cache subnet group associated with the source cluster.
      * </p>
      * 
-     * @return The name of the cache subnet group associated with the source cache cluster.
+     * @return The name of the cache subnet group associated with the source cluster.
      */
 
     public String getCacheSubnetGroupName() {
@@ -1779,11 +2165,11 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The name of the cache subnet group associated with the source cache cluster.
+     * The name of the cache subnet group associated with the source cluster.
      * </p>
      * 
      * @param cacheSubnetGroupName
-     *        The name of the cache subnet group associated with the source cache cluster.
+     *        The name of the cache subnet group associated with the source cluster.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1794,12 +2180,11 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Amazon Virtual Private Cloud identifier (VPC ID) of the cache subnet group for the source cache cluster.
+     * The Amazon Virtual Private Cloud identifier (VPC ID) of the cache subnet group for the source cluster.
      * </p>
      * 
      * @param vpcId
-     *        The Amazon Virtual Private Cloud identifier (VPC ID) of the cache subnet group for the source cache
-     *        cluster.
+     *        The Amazon Virtual Private Cloud identifier (VPC ID) of the cache subnet group for the source cluster.
      */
 
     public void setVpcId(String vpcId) {
@@ -1808,11 +2193,10 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Amazon Virtual Private Cloud identifier (VPC ID) of the cache subnet group for the source cache cluster.
+     * The Amazon Virtual Private Cloud identifier (VPC ID) of the cache subnet group for the source cluster.
      * </p>
      * 
-     * @return The Amazon Virtual Private Cloud identifier (VPC ID) of the cache subnet group for the source cache
-     *         cluster.
+     * @return The Amazon Virtual Private Cloud identifier (VPC ID) of the cache subnet group for the source cluster.
      */
 
     public String getVpcId() {
@@ -1821,12 +2205,11 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The Amazon Virtual Private Cloud identifier (VPC ID) of the cache subnet group for the source cache cluster.
+     * The Amazon Virtual Private Cloud identifier (VPC ID) of the cache subnet group for the source cluster.
      * </p>
      * 
      * @param vpcId
-     *        The Amazon Virtual Private Cloud identifier (VPC ID) of the cache subnet group for the source cache
-     *        cluster.
+     *        The Amazon Virtual Private Cloud identifier (VPC ID) of the cache subnet group for the source cluster.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -1892,9 +2275,9 @@ public class Snapshot implements Serializable, Cloneable {
      * For an automatic snapshot, the number of days for which ElastiCache retains the snapshot before deleting it.
      * </p>
      * <p>
-     * For manual snapshots, this field reflects the <code>SnapshotRetentionLimit</code> for the source cache cluster
-     * when the snapshot was created. This field is otherwise ignored: Manual snapshots do not expire, and can only be
-     * deleted using the <code>DeleteSnapshot</code> operation.
+     * For manual snapshots, this field reflects the <code>SnapshotRetentionLimit</code> for the source cluster when the
+     * snapshot was created. This field is otherwise ignored: Manual snapshots do not expire, and can only be deleted
+     * using the <code>DeleteSnapshot</code> operation.
      * </p>
      * <p>
      * <b>Important</b> If the value of SnapshotRetentionLimit is set to zero (0), backups are turned off.
@@ -1904,9 +2287,9 @@ public class Snapshot implements Serializable, Cloneable {
      *        For an automatic snapshot, the number of days for which ElastiCache retains the snapshot before deleting
      *        it.</p>
      *        <p>
-     *        For manual snapshots, this field reflects the <code>SnapshotRetentionLimit</code> for the source cache
-     *        cluster when the snapshot was created. This field is otherwise ignored: Manual snapshots do not expire,
-     *        and can only be deleted using the <code>DeleteSnapshot</code> operation.
+     *        For manual snapshots, this field reflects the <code>SnapshotRetentionLimit</code> for the source cluster
+     *        when the snapshot was created. This field is otherwise ignored: Manual snapshots do not expire, and can
+     *        only be deleted using the <code>DeleteSnapshot</code> operation.
      *        </p>
      *        <p>
      *        <b>Important</b> If the value of SnapshotRetentionLimit is set to zero (0), backups are turned off.
@@ -1921,9 +2304,9 @@ public class Snapshot implements Serializable, Cloneable {
      * For an automatic snapshot, the number of days for which ElastiCache retains the snapshot before deleting it.
      * </p>
      * <p>
-     * For manual snapshots, this field reflects the <code>SnapshotRetentionLimit</code> for the source cache cluster
-     * when the snapshot was created. This field is otherwise ignored: Manual snapshots do not expire, and can only be
-     * deleted using the <code>DeleteSnapshot</code> operation.
+     * For manual snapshots, this field reflects the <code>SnapshotRetentionLimit</code> for the source cluster when the
+     * snapshot was created. This field is otherwise ignored: Manual snapshots do not expire, and can only be deleted
+     * using the <code>DeleteSnapshot</code> operation.
      * </p>
      * <p>
      * <b>Important</b> If the value of SnapshotRetentionLimit is set to zero (0), backups are turned off.
@@ -1932,9 +2315,9 @@ public class Snapshot implements Serializable, Cloneable {
      * @return For an automatic snapshot, the number of days for which ElastiCache retains the snapshot before deleting
      *         it.</p>
      *         <p>
-     *         For manual snapshots, this field reflects the <code>SnapshotRetentionLimit</code> for the source cache
-     *         cluster when the snapshot was created. This field is otherwise ignored: Manual snapshots do not expire,
-     *         and can only be deleted using the <code>DeleteSnapshot</code> operation.
+     *         For manual snapshots, this field reflects the <code>SnapshotRetentionLimit</code> for the source cluster
+     *         when the snapshot was created. This field is otherwise ignored: Manual snapshots do not expire, and can
+     *         only be deleted using the <code>DeleteSnapshot</code> operation.
      *         </p>
      *         <p>
      *         <b>Important</b> If the value of SnapshotRetentionLimit is set to zero (0), backups are turned off.
@@ -1949,9 +2332,9 @@ public class Snapshot implements Serializable, Cloneable {
      * For an automatic snapshot, the number of days for which ElastiCache retains the snapshot before deleting it.
      * </p>
      * <p>
-     * For manual snapshots, this field reflects the <code>SnapshotRetentionLimit</code> for the source cache cluster
-     * when the snapshot was created. This field is otherwise ignored: Manual snapshots do not expire, and can only be
-     * deleted using the <code>DeleteSnapshot</code> operation.
+     * For manual snapshots, this field reflects the <code>SnapshotRetentionLimit</code> for the source cluster when the
+     * snapshot was created. This field is otherwise ignored: Manual snapshots do not expire, and can only be deleted
+     * using the <code>DeleteSnapshot</code> operation.
      * </p>
      * <p>
      * <b>Important</b> If the value of SnapshotRetentionLimit is set to zero (0), backups are turned off.
@@ -1961,9 +2344,9 @@ public class Snapshot implements Serializable, Cloneable {
      *        For an automatic snapshot, the number of days for which ElastiCache retains the snapshot before deleting
      *        it.</p>
      *        <p>
-     *        For manual snapshots, this field reflects the <code>SnapshotRetentionLimit</code> for the source cache
-     *        cluster when the snapshot was created. This field is otherwise ignored: Manual snapshots do not expire,
-     *        and can only be deleted using the <code>DeleteSnapshot</code> operation.
+     *        For manual snapshots, this field reflects the <code>SnapshotRetentionLimit</code> for the source cluster
+     *        when the snapshot was created. This field is otherwise ignored: Manual snapshots do not expire, and can
+     *        only be deleted using the <code>DeleteSnapshot</code> operation.
      *        </p>
      *        <p>
      *        <b>Important</b> If the value of SnapshotRetentionLimit is set to zero (0), backups are turned off.
@@ -1977,11 +2360,11 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The daily time range during which ElastiCache takes daily snapshots of the source cache cluster.
+     * The daily time range during which ElastiCache takes daily snapshots of the source cluster.
      * </p>
      * 
      * @param snapshotWindow
-     *        The daily time range during which ElastiCache takes daily snapshots of the source cache cluster.
+     *        The daily time range during which ElastiCache takes daily snapshots of the source cluster.
      */
 
     public void setSnapshotWindow(String snapshotWindow) {
@@ -1990,10 +2373,10 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The daily time range during which ElastiCache takes daily snapshots of the source cache cluster.
+     * The daily time range during which ElastiCache takes daily snapshots of the source cluster.
      * </p>
      * 
-     * @return The daily time range during which ElastiCache takes daily snapshots of the source cache cluster.
+     * @return The daily time range during which ElastiCache takes daily snapshots of the source cluster.
      */
 
     public String getSnapshotWindow() {
@@ -2002,11 +2385,11 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The daily time range during which ElastiCache takes daily snapshots of the source cache cluster.
+     * The daily time range during which ElastiCache takes daily snapshots of the source cluster.
      * </p>
      * 
      * @param snapshotWindow
-     *        The daily time range during which ElastiCache takes daily snapshots of the source cache cluster.
+     *        The daily time range during which ElastiCache takes daily snapshots of the source cluster.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2063,11 +2446,10 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates the status of Multi-AZ for the source replication group.
+     * Indicates the status of Multi-AZ with automatic failover for the source Redis replication group.
      * </p>
-     * <note>
      * <p>
-     * ElastiCache Multi-AZ replication groups are not supported on:
+     * Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
      * </p>
      * <ul>
      * <li>
@@ -2077,19 +2459,20 @@ public class Snapshot implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * Redis (cluster mode disabled):T1 and T2 cache node types.
+     * Redis (cluster mode disabled): T1 and T2 cache node types.
      * </p>
+     * </li>
+     * <li>
      * <p>
      * Redis (cluster mode enabled): T1 node types.
      * </p>
      * </li>
      * </ul>
-     * </note>
      * 
      * @param automaticFailover
-     *        Indicates the status of Multi-AZ for the source replication group.</p> <note>
+     *        Indicates the status of Multi-AZ with automatic failover for the source Redis replication group.</p>
      *        <p>
-     *        ElastiCache Multi-AZ replication groups are not supported on:
+     *        Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
      *        </p>
      *        <ul>
      *        <li>
@@ -2099,13 +2482,14 @@ public class Snapshot implements Serializable, Cloneable {
      *        </li>
      *        <li>
      *        <p>
-     *        Redis (cluster mode disabled):T1 and T2 cache node types.
+     *        Redis (cluster mode disabled): T1 and T2 cache node types.
      *        </p>
+     *        </li>
+     *        <li>
      *        <p>
      *        Redis (cluster mode enabled): T1 node types.
      *        </p>
      *        </li>
-     *        </ul>
      * @see AutomaticFailoverStatus
      */
 
@@ -2115,11 +2499,10 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates the status of Multi-AZ for the source replication group.
+     * Indicates the status of Multi-AZ with automatic failover for the source Redis replication group.
      * </p>
-     * <note>
      * <p>
-     * ElastiCache Multi-AZ replication groups are not supported on:
+     * Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
      * </p>
      * <ul>
      * <li>
@@ -2129,18 +2512,19 @@ public class Snapshot implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * Redis (cluster mode disabled):T1 and T2 cache node types.
+     * Redis (cluster mode disabled): T1 and T2 cache node types.
      * </p>
+     * </li>
+     * <li>
      * <p>
      * Redis (cluster mode enabled): T1 node types.
      * </p>
      * </li>
      * </ul>
-     * </note>
      * 
-     * @return Indicates the status of Multi-AZ for the source replication group.</p> <note>
+     * @return Indicates the status of Multi-AZ with automatic failover for the source Redis replication group.</p>
      *         <p>
-     *         ElastiCache Multi-AZ replication groups are not supported on:
+     *         Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
      *         </p>
      *         <ul>
      *         <li>
@@ -2150,13 +2534,14 @@ public class Snapshot implements Serializable, Cloneable {
      *         </li>
      *         <li>
      *         <p>
-     *         Redis (cluster mode disabled):T1 and T2 cache node types.
+     *         Redis (cluster mode disabled): T1 and T2 cache node types.
      *         </p>
+     *         </li>
+     *         <li>
      *         <p>
      *         Redis (cluster mode enabled): T1 node types.
      *         </p>
      *         </li>
-     *         </ul>
      * @see AutomaticFailoverStatus
      */
 
@@ -2166,11 +2551,10 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates the status of Multi-AZ for the source replication group.
+     * Indicates the status of Multi-AZ with automatic failover for the source Redis replication group.
      * </p>
-     * <note>
      * <p>
-     * ElastiCache Multi-AZ replication groups are not supported on:
+     * Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
      * </p>
      * <ul>
      * <li>
@@ -2180,19 +2564,20 @@ public class Snapshot implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * Redis (cluster mode disabled):T1 and T2 cache node types.
+     * Redis (cluster mode disabled): T1 and T2 cache node types.
      * </p>
+     * </li>
+     * <li>
      * <p>
      * Redis (cluster mode enabled): T1 node types.
      * </p>
      * </li>
      * </ul>
-     * </note>
      * 
      * @param automaticFailover
-     *        Indicates the status of Multi-AZ for the source replication group.</p> <note>
+     *        Indicates the status of Multi-AZ with automatic failover for the source Redis replication group.</p>
      *        <p>
-     *        ElastiCache Multi-AZ replication groups are not supported on:
+     *        Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
      *        </p>
      *        <ul>
      *        <li>
@@ -2202,13 +2587,14 @@ public class Snapshot implements Serializable, Cloneable {
      *        </li>
      *        <li>
      *        <p>
-     *        Redis (cluster mode disabled):T1 and T2 cache node types.
+     *        Redis (cluster mode disabled): T1 and T2 cache node types.
      *        </p>
+     *        </li>
+     *        <li>
      *        <p>
      *        Redis (cluster mode enabled): T1 node types.
      *        </p>
      *        </li>
-     *        </ul>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see AutomaticFailoverStatus
      */
@@ -2220,11 +2606,10 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates the status of Multi-AZ for the source replication group.
+     * Indicates the status of Multi-AZ with automatic failover for the source Redis replication group.
      * </p>
-     * <note>
      * <p>
-     * ElastiCache Multi-AZ replication groups are not supported on:
+     * Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
      * </p>
      * <ul>
      * <li>
@@ -2234,19 +2619,20 @@ public class Snapshot implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * Redis (cluster mode disabled):T1 and T2 cache node types.
+     * Redis (cluster mode disabled): T1 and T2 cache node types.
      * </p>
+     * </li>
+     * <li>
      * <p>
      * Redis (cluster mode enabled): T1 node types.
      * </p>
      * </li>
      * </ul>
-     * </note>
      * 
      * @param automaticFailover
-     *        Indicates the status of Multi-AZ for the source replication group.</p> <note>
+     *        Indicates the status of Multi-AZ with automatic failover for the source Redis replication group.</p>
      *        <p>
-     *        ElastiCache Multi-AZ replication groups are not supported on:
+     *        Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
      *        </p>
      *        <ul>
      *        <li>
@@ -2256,13 +2642,14 @@ public class Snapshot implements Serializable, Cloneable {
      *        </li>
      *        <li>
      *        <p>
-     *        Redis (cluster mode disabled):T1 and T2 cache node types.
+     *        Redis (cluster mode disabled): T1 and T2 cache node types.
      *        </p>
+     *        </li>
+     *        <li>
      *        <p>
      *        Redis (cluster mode enabled): T1 node types.
      *        </p>
      *        </li>
-     *        </ul>
      * @see AutomaticFailoverStatus
      */
 
@@ -2272,11 +2659,10 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * Indicates the status of Multi-AZ for the source replication group.
+     * Indicates the status of Multi-AZ with automatic failover for the source Redis replication group.
      * </p>
-     * <note>
      * <p>
-     * ElastiCache Multi-AZ replication groups are not supported on:
+     * Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
      * </p>
      * <ul>
      * <li>
@@ -2286,19 +2672,20 @@ public class Snapshot implements Serializable, Cloneable {
      * </li>
      * <li>
      * <p>
-     * Redis (cluster mode disabled):T1 and T2 cache node types.
+     * Redis (cluster mode disabled): T1 and T2 cache node types.
      * </p>
+     * </li>
+     * <li>
      * <p>
      * Redis (cluster mode enabled): T1 node types.
      * </p>
      * </li>
      * </ul>
-     * </note>
      * 
      * @param automaticFailover
-     *        Indicates the status of Multi-AZ for the source replication group.</p> <note>
+     *        Indicates the status of Multi-AZ with automatic failover for the source Redis replication group.</p>
      *        <p>
-     *        ElastiCache Multi-AZ replication groups are not supported on:
+     *        Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:
      *        </p>
      *        <ul>
      *        <li>
@@ -2308,13 +2695,14 @@ public class Snapshot implements Serializable, Cloneable {
      *        </li>
      *        <li>
      *        <p>
-     *        Redis (cluster mode disabled):T1 and T2 cache node types.
+     *        Redis (cluster mode disabled): T1 and T2 cache node types.
      *        </p>
+     *        </li>
+     *        <li>
      *        <p>
      *        Redis (cluster mode enabled): T1 node types.
      *        </p>
      *        </li>
-     *        </ul>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see AutomaticFailoverStatus
      */
@@ -2326,10 +2714,10 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A list of the cache nodes in the source cache cluster.
+     * A list of the cache nodes in the source cluster.
      * </p>
      * 
-     * @return A list of the cache nodes in the source cache cluster.
+     * @return A list of the cache nodes in the source cluster.
      */
 
     public java.util.List<NodeSnapshot> getNodeSnapshots() {
@@ -2341,11 +2729,11 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A list of the cache nodes in the source cache cluster.
+     * A list of the cache nodes in the source cluster.
      * </p>
      * 
      * @param nodeSnapshots
-     *        A list of the cache nodes in the source cache cluster.
+     *        A list of the cache nodes in the source cluster.
      */
 
     public void setNodeSnapshots(java.util.Collection<NodeSnapshot> nodeSnapshots) {
@@ -2359,7 +2747,7 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A list of the cache nodes in the source cache cluster.
+     * A list of the cache nodes in the source cluster.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -2368,7 +2756,7 @@ public class Snapshot implements Serializable, Cloneable {
      * </p>
      * 
      * @param nodeSnapshots
-     *        A list of the cache nodes in the source cache cluster.
+     *        A list of the cache nodes in the source cluster.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2384,11 +2772,11 @@ public class Snapshot implements Serializable, Cloneable {
 
     /**
      * <p>
-     * A list of the cache nodes in the source cache cluster.
+     * A list of the cache nodes in the source cluster.
      * </p>
      * 
      * @param nodeSnapshots
-     *        A list of the cache nodes in the source cache cluster.
+     *        A list of the cache nodes in the source cluster.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -2398,7 +2786,8 @@ public class Snapshot implements Serializable, Cloneable {
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

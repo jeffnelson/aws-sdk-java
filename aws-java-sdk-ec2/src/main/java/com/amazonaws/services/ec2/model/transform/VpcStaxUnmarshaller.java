@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -65,6 +65,11 @@ public class VpcStaxUnmarshaller implements Unmarshaller<Vpc, StaxUnmarshallerCo
                     continue;
                 }
 
+                if (context.testExpression("ownerId", targetDepth)) {
+                    vpc.setOwnerId(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
                 if (context.testExpression("instanceTenancy", targetDepth)) {
                     vpc.setInstanceTenancy(StringStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
@@ -77,6 +82,16 @@ public class VpcStaxUnmarshaller implements Unmarshaller<Vpc, StaxUnmarshallerCo
 
                 if (context.testExpression("ipv6CidrBlockAssociationSet/item", targetDepth)) {
                     vpc.withIpv6CidrBlockAssociationSet(VpcIpv6CidrBlockAssociationStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+
+                if (context.testExpression("cidrBlockAssociationSet", targetDepth)) {
+                    vpc.withCidrBlockAssociationSet(new ArrayList<VpcCidrBlockAssociation>());
+                    continue;
+                }
+
+                if (context.testExpression("cidrBlockAssociationSet/item", targetDepth)) {
+                    vpc.withCidrBlockAssociationSet(VpcCidrBlockAssociationStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
 

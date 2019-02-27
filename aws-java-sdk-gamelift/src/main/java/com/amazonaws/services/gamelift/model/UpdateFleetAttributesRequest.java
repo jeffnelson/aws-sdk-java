@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -54,13 +54,13 @@ public class UpdateFleetAttributesRequest extends com.amazonaws.AmazonWebService
      * <ul>
      * <li>
      * <p>
-     * <b>NoProtection</b> – The game session can be terminated during a scale-down event.
+     * <b>NoProtection</b> -- The game session can be terminated during a scale-down event.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>FullProtection</b> – If the game session is in an <code>ACTIVE</code> status, it cannot be terminated during a
-     * scale-down event.
+     * <b>FullProtection</b> -- If the game session is in an <code>ACTIVE</code> status, it cannot be terminated during
+     * a scale-down event.
      * </p>
      * </li>
      * </ul>
@@ -209,13 +209,13 @@ public class UpdateFleetAttributesRequest extends com.amazonaws.AmazonWebService
      * <ul>
      * <li>
      * <p>
-     * <b>NoProtection</b> – The game session can be terminated during a scale-down event.
+     * <b>NoProtection</b> -- The game session can be terminated during a scale-down event.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>FullProtection</b> – If the game session is in an <code>ACTIVE</code> status, it cannot be terminated during a
-     * scale-down event.
+     * <b>FullProtection</b> -- If the game session is in an <code>ACTIVE</code> status, it cannot be terminated during
+     * a scale-down event.
      * </p>
      * </li>
      * </ul>
@@ -227,12 +227,12 @@ public class UpdateFleetAttributesRequest extends com.amazonaws.AmazonWebService
      *        <ul>
      *        <li>
      *        <p>
-     *        <b>NoProtection</b> – The game session can be terminated during a scale-down event.
+     *        <b>NoProtection</b> -- The game session can be terminated during a scale-down event.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <b>FullProtection</b> – If the game session is in an <code>ACTIVE</code> status, it cannot be terminated
+     *        <b>FullProtection</b> -- If the game session is in an <code>ACTIVE</code> status, it cannot be terminated
      *        during a scale-down event.
      *        </p>
      *        </li>
@@ -251,13 +251,13 @@ public class UpdateFleetAttributesRequest extends com.amazonaws.AmazonWebService
      * <ul>
      * <li>
      * <p>
-     * <b>NoProtection</b> – The game session can be terminated during a scale-down event.
+     * <b>NoProtection</b> -- The game session can be terminated during a scale-down event.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>FullProtection</b> – If the game session is in an <code>ACTIVE</code> status, it cannot be terminated during a
-     * scale-down event.
+     * <b>FullProtection</b> -- If the game session is in an <code>ACTIVE</code> status, it cannot be terminated during
+     * a scale-down event.
      * </p>
      * </li>
      * </ul>
@@ -268,12 +268,12 @@ public class UpdateFleetAttributesRequest extends com.amazonaws.AmazonWebService
      *         <ul>
      *         <li>
      *         <p>
-     *         <b>NoProtection</b> – The game session can be terminated during a scale-down event.
+     *         <b>NoProtection</b> -- The game session can be terminated during a scale-down event.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         <b>FullProtection</b> – If the game session is in an <code>ACTIVE</code> status, it cannot be terminated
+     *         <b>FullProtection</b> -- If the game session is in an <code>ACTIVE</code> status, it cannot be terminated
      *         during a scale-down event.
      *         </p>
      *         </li>
@@ -292,13 +292,13 @@ public class UpdateFleetAttributesRequest extends com.amazonaws.AmazonWebService
      * <ul>
      * <li>
      * <p>
-     * <b>NoProtection</b> – The game session can be terminated during a scale-down event.
+     * <b>NoProtection</b> -- The game session can be terminated during a scale-down event.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>FullProtection</b> – If the game session is in an <code>ACTIVE</code> status, it cannot be terminated during a
-     * scale-down event.
+     * <b>FullProtection</b> -- If the game session is in an <code>ACTIVE</code> status, it cannot be terminated during
+     * a scale-down event.
      * </p>
      * </li>
      * </ul>
@@ -310,12 +310,12 @@ public class UpdateFleetAttributesRequest extends com.amazonaws.AmazonWebService
      *        <ul>
      *        <li>
      *        <p>
-     *        <b>NoProtection</b> – The game session can be terminated during a scale-down event.
+     *        <b>NoProtection</b> -- The game session can be terminated during a scale-down event.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <b>FullProtection</b> – If the game session is in an <code>ACTIVE</code> status, it cannot be terminated
+     *        <b>FullProtection</b> -- If the game session is in an <code>ACTIVE</code> status, it cannot be terminated
      *        during a scale-down event.
      *        </p>
      *        </li>
@@ -336,13 +336,13 @@ public class UpdateFleetAttributesRequest extends com.amazonaws.AmazonWebService
      * <ul>
      * <li>
      * <p>
-     * <b>NoProtection</b> – The game session can be terminated during a scale-down event.
+     * <b>NoProtection</b> -- The game session can be terminated during a scale-down event.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>FullProtection</b> – If the game session is in an <code>ACTIVE</code> status, it cannot be terminated during a
-     * scale-down event.
+     * <b>FullProtection</b> -- If the game session is in an <code>ACTIVE</code> status, it cannot be terminated during
+     * a scale-down event.
      * </p>
      * </li>
      * </ul>
@@ -354,12 +354,12 @@ public class UpdateFleetAttributesRequest extends com.amazonaws.AmazonWebService
      *        <ul>
      *        <li>
      *        <p>
-     *        <b>NoProtection</b> – The game session can be terminated during a scale-down event.
+     *        <b>NoProtection</b> -- The game session can be terminated during a scale-down event.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <b>FullProtection</b> – If the game session is in an <code>ACTIVE</code> status, it cannot be terminated
+     *        <b>FullProtection</b> -- If the game session is in an <code>ACTIVE</code> status, it cannot be terminated
      *        during a scale-down event.
      *        </p>
      *        </li>
@@ -378,13 +378,13 @@ public class UpdateFleetAttributesRequest extends com.amazonaws.AmazonWebService
      * <ul>
      * <li>
      * <p>
-     * <b>NoProtection</b> – The game session can be terminated during a scale-down event.
+     * <b>NoProtection</b> -- The game session can be terminated during a scale-down event.
      * </p>
      * </li>
      * <li>
      * <p>
-     * <b>FullProtection</b> – If the game session is in an <code>ACTIVE</code> status, it cannot be terminated during a
-     * scale-down event.
+     * <b>FullProtection</b> -- If the game session is in an <code>ACTIVE</code> status, it cannot be terminated during
+     * a scale-down event.
      * </p>
      * </li>
      * </ul>
@@ -396,12 +396,12 @@ public class UpdateFleetAttributesRequest extends com.amazonaws.AmazonWebService
      *        <ul>
      *        <li>
      *        <p>
-     *        <b>NoProtection</b> – The game session can be terminated during a scale-down event.
+     *        <b>NoProtection</b> -- The game session can be terminated during a scale-down event.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        <b>FullProtection</b> – If the game session is in an <code>ACTIVE</code> status, it cannot be terminated
+     *        <b>FullProtection</b> -- If the game session is in an <code>ACTIVE</code> status, it cannot be terminated
      *        during a scale-down event.
      *        </p>
      *        </li>
@@ -545,7 +545,8 @@ public class UpdateFleetAttributesRequest extends com.amazonaws.AmazonWebService
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

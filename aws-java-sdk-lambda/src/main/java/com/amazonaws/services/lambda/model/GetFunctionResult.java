@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -16,9 +16,6 @@ import java.io.Serializable;
 import javax.annotation.Generated;
 
 /**
- * <p>
- * This response contains the object for the Lambda function location (see <a>FunctionCodeLocation</a>.
- * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetFunction" target="_top">AWS API
  *      Documentation</a>
@@ -26,18 +23,39 @@ import javax.annotation.Generated;
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class GetFunctionResult extends com.amazonaws.AmazonWebServiceResult<com.amazonaws.ResponseMetadata> implements Serializable, Cloneable {
 
+    /**
+     * <p>
+     * The configuration of the function or version.
+     * </p>
+     */
     private FunctionConfiguration configuration;
-
+    /**
+     * <p>
+     * The deployment package of the function or version.
+     * </p>
+     */
     private FunctionCodeLocation code;
     /**
      * <p>
-     * Returns the list of tags associated with the function.
+     * The function's <a href="https://docs.aws.amazon.com/lambda/latest/dg/tagging.html">tags</a>.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalMap<String, String> tags;
+    /**
+     * <p>
+     * The function's <a href="https://docs.aws.amazon.com/lambda/latest/dg/concurrent-executions.html">reserved
+     * concurrency</a>.
+     * </p>
+     */
+    private Concurrency concurrency;
 
     /**
+     * <p>
+     * The configuration of the function or version.
+     * </p>
+     * 
      * @param configuration
+     *        The configuration of the function or version.
      */
 
     public void setConfiguration(FunctionConfiguration configuration) {
@@ -45,7 +63,11 @@ public class GetFunctionResult extends com.amazonaws.AmazonWebServiceResult<com.
     }
 
     /**
-     * @return
+     * <p>
+     * The configuration of the function or version.
+     * </p>
+     * 
+     * @return The configuration of the function or version.
      */
 
     public FunctionConfiguration getConfiguration() {
@@ -53,7 +75,12 @@ public class GetFunctionResult extends com.amazonaws.AmazonWebServiceResult<com.
     }
 
     /**
+     * <p>
+     * The configuration of the function or version.
+     * </p>
+     * 
      * @param configuration
+     *        The configuration of the function or version.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -63,7 +90,12 @@ public class GetFunctionResult extends com.amazonaws.AmazonWebServiceResult<com.
     }
 
     /**
+     * <p>
+     * The deployment package of the function or version.
+     * </p>
+     * 
      * @param code
+     *        The deployment package of the function or version.
      */
 
     public void setCode(FunctionCodeLocation code) {
@@ -71,7 +103,11 @@ public class GetFunctionResult extends com.amazonaws.AmazonWebServiceResult<com.
     }
 
     /**
-     * @return
+     * <p>
+     * The deployment package of the function or version.
+     * </p>
+     * 
+     * @return The deployment package of the function or version.
      */
 
     public FunctionCodeLocation getCode() {
@@ -79,7 +115,12 @@ public class GetFunctionResult extends com.amazonaws.AmazonWebServiceResult<com.
     }
 
     /**
+     * <p>
+     * The deployment package of the function or version.
+     * </p>
+     * 
      * @param code
+     *        The deployment package of the function or version.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -90,10 +131,10 @@ public class GetFunctionResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * Returns the list of tags associated with the function.
+     * The function's <a href="https://docs.aws.amazon.com/lambda/latest/dg/tagging.html">tags</a>.
      * </p>
      * 
-     * @return Returns the list of tags associated with the function.
+     * @return The function's <a href="https://docs.aws.amazon.com/lambda/latest/dg/tagging.html">tags</a>.
      */
 
     public java.util.Map<String, String> getTags() {
@@ -105,11 +146,11 @@ public class GetFunctionResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * Returns the list of tags associated with the function.
+     * The function's <a href="https://docs.aws.amazon.com/lambda/latest/dg/tagging.html">tags</a>.
      * </p>
      * 
      * @param tags
-     *        Returns the list of tags associated with the function.
+     *        The function's <a href="https://docs.aws.amazon.com/lambda/latest/dg/tagging.html">tags</a>.
      */
 
     public void setTags(java.util.Map<String, String> tags) {
@@ -118,11 +159,11 @@ public class GetFunctionResult extends com.amazonaws.AmazonWebServiceResult<com.
 
     /**
      * <p>
-     * Returns the list of tags associated with the function.
+     * The function's <a href="https://docs.aws.amazon.com/lambda/latest/dg/tagging.html">tags</a>.
      * </p>
      * 
      * @param tags
-     *        Returns the list of tags associated with the function.
+     *        The function's <a href="https://docs.aws.amazon.com/lambda/latest/dg/tagging.html">tags</a>.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -153,7 +194,54 @@ public class GetFunctionResult extends com.amazonaws.AmazonWebServiceResult<com.
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * <p>
+     * The function's <a href="https://docs.aws.amazon.com/lambda/latest/dg/concurrent-executions.html">reserved
+     * concurrency</a>.
+     * </p>
+     * 
+     * @param concurrency
+     *        The function's <a href="https://docs.aws.amazon.com/lambda/latest/dg/concurrent-executions.html">reserved
+     *        concurrency</a>.
+     */
+
+    public void setConcurrency(Concurrency concurrency) {
+        this.concurrency = concurrency;
+    }
+
+    /**
+     * <p>
+     * The function's <a href="https://docs.aws.amazon.com/lambda/latest/dg/concurrent-executions.html">reserved
+     * concurrency</a>.
+     * </p>
+     * 
+     * @return The function's <a href="https://docs.aws.amazon.com/lambda/latest/dg/concurrent-executions.html">reserved
+     *         concurrency</a>.
+     */
+
+    public Concurrency getConcurrency() {
+        return this.concurrency;
+    }
+
+    /**
+     * <p>
+     * The function's <a href="https://docs.aws.amazon.com/lambda/latest/dg/concurrent-executions.html">reserved
+     * concurrency</a>.
+     * </p>
+     * 
+     * @param concurrency
+     *        The function's <a href="https://docs.aws.amazon.com/lambda/latest/dg/concurrent-executions.html">reserved
+     *        concurrency</a>.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public GetFunctionResult withConcurrency(Concurrency concurrency) {
+        setConcurrency(concurrency);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -168,7 +256,9 @@ public class GetFunctionResult extends com.amazonaws.AmazonWebServiceResult<com.
         if (getCode() != null)
             sb.append("Code: ").append(getCode()).append(",");
         if (getTags() != null)
-            sb.append("Tags: ").append(getTags());
+            sb.append("Tags: ").append(getTags()).append(",");
+        if (getConcurrency() != null)
+            sb.append("Concurrency: ").append(getConcurrency());
         sb.append("}");
         return sb.toString();
     }
@@ -195,6 +285,10 @@ public class GetFunctionResult extends com.amazonaws.AmazonWebServiceResult<com.
             return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false)
             return false;
+        if (other.getConcurrency() == null ^ this.getConcurrency() == null)
+            return false;
+        if (other.getConcurrency() != null && other.getConcurrency().equals(this.getConcurrency()) == false)
+            return false;
         return true;
     }
 
@@ -206,6 +300,7 @@ public class GetFunctionResult extends com.amazonaws.AmazonWebServiceResult<com.
         hashCode = prime * hashCode + ((getConfiguration() == null) ? 0 : getConfiguration().hashCode());
         hashCode = prime * hashCode + ((getCode() == null) ? 0 : getCode().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
+        hashCode = prime * hashCode + ((getConcurrency() == null) ? 0 : getConcurrency().hashCode());
         return hashCode;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -37,6 +37,8 @@ import com.amazonaws.protocol.json.*;
 import com.amazonaws.util.AWSRequestMetrics.Field;
 import com.amazonaws.annotation.ThreadSafe;
 import com.amazonaws.client.AwsSyncClientParams;
+import com.amazonaws.client.builder.AdvancedConfig;
+
 import com.amazonaws.services.greengrass.AWSGreengrassClientBuilder;
 
 import com.amazonaws.AmazonServiceException;
@@ -48,14 +50,15 @@ import com.amazonaws.services.greengrass.model.transform.*;
  * Client for accessing AWS Greengrass. All service calls made using this client are blocking, and will not return until
  * the service call completes.
  * <p>
- * AWS Greengrass seamlessly extends AWS onto physical devices so they can act locally on the data they generate, while
- * still using the cloud for management, analytics, and durable storage. AWS Greengrass ensures your devices can respond
- * quickly to local events and operate with intermittent connectivity. AWS Greengrass minimizes the cost of transmitting
- * data to the cloud by allowing you to author AWS Lambda functions that execute locally.
+ * AWS IoT Greengrass seamlessly extends AWS onto physical devices so they can act locally on the data they generate,
+ * while still using the cloud for management, analytics, and durable storage. AWS IoT Greengrass ensures your devices
+ * can respond quickly to local events and operate with intermittent connectivity. AWS IoT Greengrass minimizes the cost
+ * of transmitting data to the cloud by allowing you to author AWS Lambda functions that execute locally.
  */
 @ThreadSafe
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGreengrass {
+
     /** Provider for AWS credentials. */
     private final AWSCredentialsProvider awsCredentialsProvider;
 
@@ -67,7 +70,9 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
     /** Client configuration factory providing ClientConfigurations tailored to this client */
     protected static final ClientConfigurationFactory configFactory = new ClientConfigurationFactory();
 
-    private final com.amazonaws.protocol.json.SdkJsonProtocolFactory protocolFactory = new com.amazonaws.protocol.json.SdkJsonProtocolFactory(
+    private final AdvancedConfig advancedConfig;
+
+    private static final com.amazonaws.protocol.json.SdkJsonProtocolFactory protocolFactory = new com.amazonaws.protocol.json.SdkJsonProtocolFactory(
             new JsonClientMetadata()
                     .withProtocolVersion("1.1")
                     .withSupportsCbor(false)
@@ -96,8 +101,23 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
      *        Object providing client parameters.
      */
     AWSGreengrassClient(AwsSyncClientParams clientParams) {
+        this(clientParams, false);
+    }
+
+    /**
+     * Constructs a new client to invoke service methods on AWS Greengrass using the specified parameters.
+     *
+     * <p>
+     * All service calls made using this new client object are blocking, and will not return until the service call
+     * completes.
+     *
+     * @param clientParams
+     *        Object providing client parameters.
+     */
+    AWSGreengrassClient(AwsSyncClientParams clientParams, boolean endpointDiscoveryEnabled) {
         super(clientParams);
         this.awsCredentialsProvider = clientParams.getCredentialsProvider();
+        this.advancedConfig = clientParams.getAdvancedConfig();
         init();
     }
 
@@ -113,16 +133,15 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
     }
 
     /**
-     * Associates a role with a group. The role will be used by the AWS Greengrass core in order to access AWS cloud
-     * services. The role's permissions will allow Greengrass core Lambda functions to perform actions against the
-     * cloud.
+     * Associates a role with a group. Your Greengrass core will use the role to access AWS cloud services. The role's
+     * permissions should allow Greengrass core Lambda functions to perform actions against the cloud.
      * 
      * @param associateRoleToGroupRequest
      * @return Result of the AssociateRoleToGroup operation returned by the service.
      * @throws BadRequestException
-     *         User Error
+     *         invalid request
      * @throws InternalServerErrorException
-     *         Server Error
+     *         server error
      * @sample AWSGreengrass.AssociateRoleToGroup
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/AssociateRoleToGroup"
      *      target="_top">AWS API Documentation</a>
@@ -148,6 +167,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                 request = new AssociateRoleToGroupRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(associateRoleToGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AssociateRoleToGroup");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -165,16 +188,16 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
     }
 
     /**
-     * Associates a role which is used by AWS Greengrass. AWS Greengrass uses the role to access your Lambda functions
-     * and AWS IoT resources. This is necessary for deployments to succeed. It needs to have minimum permissions in
-     * policy ``AWSGreengrassResourceAccessRolePolicy``
+     * Associates a role with your account. AWS IoT Greengrass will use the role to access your Lambda functions and AWS
+     * IoT resources. This is necessary for deployments to succeed. The role must have at least minimum permissions in
+     * the policy ''AWSGreengrassResourceAccessRolePolicy''.
      * 
      * @param associateServiceRoleToAccountRequest
      * @return Result of the AssociateServiceRoleToAccount operation returned by the service.
      * @throws BadRequestException
-     *         User Error
+     *         invalid request
      * @throws InternalServerErrorException
-     *         Server Error
+     *         server error
      * @sample AWSGreengrass.AssociateServiceRoleToAccount
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/AssociateServiceRoleToAccount"
      *      target="_top">AWS API Documentation</a>
@@ -201,6 +224,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                         .beforeMarshalling(associateServiceRoleToAccountRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AssociateServiceRoleToAccount");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -219,15 +246,124 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
     }
 
     /**
-     * Creates a core definition. You may optionally provide the initial version of the core definition or use
-     * ''CreateCoreDefinitionVersion'' at a later time. AWS Greengrass Groups must each contain exactly 1 AWS Greengrass
-     * Core.
+     * Creates a connector definition. You may provide the initial version of the connector definition now or use
+     * ''CreateConnectorDefinitionVersion'' at a later time.
+     * 
+     * @param createConnectorDefinitionRequest
+     * @return Result of the CreateConnectorDefinition operation returned by the service.
+     * @throws BadRequestException
+     *         invalid request
+     * @sample AWSGreengrass.CreateConnectorDefinition
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateConnectorDefinition"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CreateConnectorDefinitionResult createConnectorDefinition(CreateConnectorDefinitionRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateConnectorDefinition(request);
+    }
+
+    @SdkInternalApi
+    final CreateConnectorDefinitionResult executeCreateConnectorDefinition(CreateConnectorDefinitionRequest createConnectorDefinitionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createConnectorDefinitionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateConnectorDefinitionRequest> request = null;
+        Response<CreateConnectorDefinitionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateConnectorDefinitionRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(createConnectorDefinitionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateConnectorDefinition");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateConnectorDefinitionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new CreateConnectorDefinitionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * Creates a version of a connector definition which has already been defined.
+     * 
+     * @param createConnectorDefinitionVersionRequest
+     * @return Result of the CreateConnectorDefinitionVersion operation returned by the service.
+     * @throws BadRequestException
+     *         invalid request
+     * @sample AWSGreengrass.CreateConnectorDefinitionVersion
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateConnectorDefinitionVersion"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CreateConnectorDefinitionVersionResult createConnectorDefinitionVersion(CreateConnectorDefinitionVersionRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateConnectorDefinitionVersion(request);
+    }
+
+    @SdkInternalApi
+    final CreateConnectorDefinitionVersionResult executeCreateConnectorDefinitionVersion(
+            CreateConnectorDefinitionVersionRequest createConnectorDefinitionVersionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createConnectorDefinitionVersionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateConnectorDefinitionVersionRequest> request = null;
+        Response<CreateConnectorDefinitionVersionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateConnectorDefinitionVersionRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(createConnectorDefinitionVersionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateConnectorDefinitionVersion");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateConnectorDefinitionVersionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new CreateConnectorDefinitionVersionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * Creates a core definition. You may provide the initial version of the core definition now or use
+     * ''CreateCoreDefinitionVersion'' at a later time. Greengrass groups must each contain exactly one Greengrass core.
      * 
      * @param createCoreDefinitionRequest
-     *        Information on the core definition request
+     *        Information needed to create a core definition.
      * @return Result of the CreateCoreDefinition operation returned by the service.
      * @throws BadRequestException
-     *         user error
+     *         invalid request
      * @sample AWSGreengrass.CreateCoreDefinition
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateCoreDefinition"
      *      target="_top">AWS API Documentation</a>
@@ -253,6 +389,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                 request = new CreateCoreDefinitionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createCoreDefinitionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateCoreDefinition");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -270,13 +410,13 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
     }
 
     /**
-     * Creates a version of a core definition that has already been defined. AWS Greengrass Groups must each contain
-     * exactly 1 AWS Greengrass Core.
+     * Creates a version of a core definition that has already been defined. Greengrass groups must each contain exactly
+     * one Greengrass core.
      * 
      * @param createCoreDefinitionVersionRequest
      * @return Result of the CreateCoreDefinitionVersion operation returned by the service.
      * @throws BadRequestException
-     *         user error
+     *         invalid request
      * @sample AWSGreengrass.CreateCoreDefinitionVersion
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateCoreDefinitionVersion"
      *      target="_top">AWS API Documentation</a>
@@ -303,6 +443,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                         .beforeMarshalling(createCoreDefinitionVersionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateCoreDefinitionVersion");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -321,12 +465,13 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
     }
 
     /**
-     * Creates a deployment.
+     * Creates a deployment. ''CreateDeployment'' requests are idempotent with respect to the ''X-Amzn-Client-Token''
+     * token and the request parameters.
      * 
      * @param createDeploymentRequest
      * @return Result of the CreateDeployment operation returned by the service.
      * @throws BadRequestException
-     *         This request was invalid.
+     *         invalid request
      * @sample AWSGreengrass.CreateDeployment
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateDeployment" target="_top">AWS
      *      API Documentation</a>
@@ -352,6 +497,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                 request = new CreateDeploymentRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createDeploymentRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateDeployment");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -369,13 +518,13 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
     }
 
     /**
-     * Creates a device definition. You may optinally provide the initial version of the device definition or use
-     * ``CreateDeviceDefinitionVersion`` at a later time.
+     * Creates a device definition. You may provide the initial version of the device definition now or use
+     * ''CreateDeviceDefinitionVersion'' at a later time.
      * 
      * @param createDeviceDefinitionRequest
      * @return Result of the CreateDeviceDefinition operation returned by the service.
      * @throws BadRequestException
-     *         user error
+     *         invalid request
      * @sample AWSGreengrass.CreateDeviceDefinition
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateDeviceDefinition"
      *      target="_top">AWS API Documentation</a>
@@ -401,6 +550,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                 request = new CreateDeviceDefinitionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createDeviceDefinitionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateDeviceDefinition");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -424,7 +577,7 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
      * @param createDeviceDefinitionVersionRequest
      * @return Result of the CreateDeviceDefinitionVersion operation returned by the service.
      * @throws BadRequestException
-     *         user error
+     *         invalid request
      * @sample AWSGreengrass.CreateDeviceDefinitionVersion
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateDeviceDefinitionVersion"
      *      target="_top">AWS API Documentation</a>
@@ -451,6 +604,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                         .beforeMarshalling(createDeviceDefinitionVersionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateDeviceDefinitionVersion");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -471,12 +628,12 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
     /**
      * Creates a Lambda function definition which contains a list of Lambda functions and their configurations to be
      * used in a group. You can create an initial version of the definition by providing a list of Lambda functions and
-     * their configurations now, or use ``CreateFunctionDefinitionVersion`` later.
+     * their configurations now, or use ''CreateFunctionDefinitionVersion'' later.
      * 
      * @param createFunctionDefinitionRequest
      * @return Result of the CreateFunctionDefinition operation returned by the service.
      * @throws BadRequestException
-     *         user error
+     *         invalid request
      * @sample AWSGreengrass.CreateFunctionDefinition
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateFunctionDefinition"
      *      target="_top">AWS API Documentation</a>
@@ -503,6 +660,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                         .beforeMarshalling(createFunctionDefinitionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateFunctionDefinition");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -521,13 +682,13 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
     }
 
     /**
-     * Create a version of a Lambda function definition that has already been defined.
+     * Creates a version of a Lambda function definition that has already been defined.
      * 
      * @param createFunctionDefinitionVersionRequest
-     *        Function definition version
+     *        Information needed to create a function definition version.
      * @return Result of the CreateFunctionDefinitionVersion operation returned by the service.
      * @throws BadRequestException
-     *         user error
+     *         invalid request
      * @sample AWSGreengrass.CreateFunctionDefinitionVersion
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateFunctionDefinitionVersion"
      *      target="_top">AWS API Documentation</a>
@@ -555,6 +716,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                         .beforeMarshalling(createFunctionDefinitionVersionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateFunctionDefinitionVersion");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -573,13 +738,14 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
     }
 
     /**
-     * Creates a group. You may optionally provide the initial version of the group or use ''CreateGroupVersion'' at a
-     * later time.
+     * Creates a group. You may provide the initial version of the group or use ''CreateGroupVersion'' at a later time.
+     * Tip: You can use the ''gg_group_setup'' package (https://github.com/awslabs/aws-greengrass-group-setup) as a
+     * library or command-line application to create and deploy Greengrass groups.
      * 
      * @param createGroupRequest
      * @return Result of the CreateGroup operation returned by the service.
      * @throws BadRequestException
-     *         user error
+     *         invalid request
      * @sample AWSGreengrass.CreateGroup
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateGroup" target="_top">AWS API
      *      Documentation</a>
@@ -605,6 +771,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                 request = new CreateGroupRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateGroup");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -627,9 +797,9 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
      * @param createGroupCertificateAuthorityRequest
      * @return Result of the CreateGroupCertificateAuthority operation returned by the service.
      * @throws BadRequestException
-     *         This request was invalid.
+     *         invalid request
      * @throws InternalServerErrorException
-     *         The server encountered an unexpected error.
+     *         server error
      * @sample AWSGreengrass.CreateGroupCertificateAuthority
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateGroupCertificateAuthority"
      *      target="_top">AWS API Documentation</a>
@@ -657,6 +827,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                         .beforeMarshalling(createGroupCertificateAuthorityRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateGroupCertificateAuthority");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -680,7 +854,7 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
      * @param createGroupVersionRequest
      * @return Result of the CreateGroupVersion operation returned by the service.
      * @throws BadRequestException
-     *         user error
+     *         invalid request
      * @sample AWSGreengrass.CreateGroupVersion
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateGroupVersion" target="_top">AWS
      *      API Documentation</a>
@@ -706,6 +880,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                 request = new CreateGroupVersionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createGroupVersionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateGroupVersion");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -723,13 +901,13 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
     }
 
     /**
-     * Creates a logger definition. You may optionally provide the initial version of the logger definition or use
-     * ``CreateLoggerDefinitionVersion`` at a later time.
+     * Creates a logger definition. You may provide the initial version of the logger definition now or use
+     * ''CreateLoggerDefinitionVersion'' at a later time.
      * 
      * @param createLoggerDefinitionRequest
      * @return Result of the CreateLoggerDefinition operation returned by the service.
      * @throws BadRequestException
-     *         user error
+     *         invalid request
      * @sample AWSGreengrass.CreateLoggerDefinition
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateLoggerDefinition"
      *      target="_top">AWS API Documentation</a>
@@ -755,6 +933,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                 request = new CreateLoggerDefinitionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createLoggerDefinitionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateLoggerDefinition");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -778,7 +960,7 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
      * @param createLoggerDefinitionVersionRequest
      * @return Result of the CreateLoggerDefinitionVersion operation returned by the service.
      * @throws BadRequestException
-     *         user error
+     *         invalid request
      * @sample AWSGreengrass.CreateLoggerDefinitionVersion
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateLoggerDefinitionVersion"
      *      target="_top">AWS API Documentation</a>
@@ -805,6 +987,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                         .beforeMarshalling(createLoggerDefinitionVersionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateLoggerDefinitionVersion");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -823,13 +1009,181 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
     }
 
     /**
-     * Creates a subscription definition. You may optionally provide the initial version of the subscription definition
-     * or use ``CreateSubscriptionDefinitionVersion`` at a later time.
+     * Creates a resource definition which contains a list of resources to be used in a group. You can create an initial
+     * version of the definition by providing a list of resources now, or use ''CreateResourceDefinitionVersion'' later.
+     * 
+     * @param createResourceDefinitionRequest
+     * @return Result of the CreateResourceDefinition operation returned by the service.
+     * @throws BadRequestException
+     *         invalid request
+     * @sample AWSGreengrass.CreateResourceDefinition
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateResourceDefinition"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CreateResourceDefinitionResult createResourceDefinition(CreateResourceDefinitionRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateResourceDefinition(request);
+    }
+
+    @SdkInternalApi
+    final CreateResourceDefinitionResult executeCreateResourceDefinition(CreateResourceDefinitionRequest createResourceDefinitionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createResourceDefinitionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateResourceDefinitionRequest> request = null;
+        Response<CreateResourceDefinitionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateResourceDefinitionRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(createResourceDefinitionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateResourceDefinition");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateResourceDefinitionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new CreateResourceDefinitionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * Creates a version of a resource definition that has already been defined.
+     * 
+     * @param createResourceDefinitionVersionRequest
+     * @return Result of the CreateResourceDefinitionVersion operation returned by the service.
+     * @throws BadRequestException
+     *         invalid request
+     * @sample AWSGreengrass.CreateResourceDefinitionVersion
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateResourceDefinitionVersion"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CreateResourceDefinitionVersionResult createResourceDefinitionVersion(CreateResourceDefinitionVersionRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateResourceDefinitionVersion(request);
+    }
+
+    @SdkInternalApi
+    final CreateResourceDefinitionVersionResult executeCreateResourceDefinitionVersion(
+            CreateResourceDefinitionVersionRequest createResourceDefinitionVersionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createResourceDefinitionVersionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateResourceDefinitionVersionRequest> request = null;
+        Response<CreateResourceDefinitionVersionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateResourceDefinitionVersionRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(createResourceDefinitionVersionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateResourceDefinitionVersion");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateResourceDefinitionVersionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new CreateResourceDefinitionVersionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * Creates a software update for a core or group of cores (specified as an IoT thing group.) Use this to update the
+     * OTA Agent as well as the Greengrass core software. It makes use of the IoT Jobs feature which provides additional
+     * commands to manage a Greengrass core software update job.
+     * 
+     * @param createSoftwareUpdateJobRequest
+     * @return Result of the CreateSoftwareUpdateJob operation returned by the service.
+     * @throws BadRequestException
+     *         invalid request
+     * @throws InternalServerErrorException
+     *         server error
+     * @sample AWSGreengrass.CreateSoftwareUpdateJob
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateSoftwareUpdateJob"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public CreateSoftwareUpdateJobResult createSoftwareUpdateJob(CreateSoftwareUpdateJobRequest request) {
+        request = beforeClientExecution(request);
+        return executeCreateSoftwareUpdateJob(request);
+    }
+
+    @SdkInternalApi
+    final CreateSoftwareUpdateJobResult executeCreateSoftwareUpdateJob(CreateSoftwareUpdateJobRequest createSoftwareUpdateJobRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(createSoftwareUpdateJobRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateSoftwareUpdateJobRequest> request = null;
+        Response<CreateSoftwareUpdateJobResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateSoftwareUpdateJobRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(createSoftwareUpdateJobRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateSoftwareUpdateJob");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<CreateSoftwareUpdateJobResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new CreateSoftwareUpdateJobResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * Creates a subscription definition. You may provide the initial version of the subscription definition now or use
+     * ''CreateSubscriptionDefinitionVersion'' at a later time.
      * 
      * @param createSubscriptionDefinitionRequest
      * @return Result of the CreateSubscriptionDefinition operation returned by the service.
      * @throws BadRequestException
-     *         user error
+     *         invalid request
      * @sample AWSGreengrass.CreateSubscriptionDefinition
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateSubscriptionDefinition"
      *      target="_top">AWS API Documentation</a>
@@ -856,6 +1210,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                         .beforeMarshalling(createSubscriptionDefinitionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateSubscriptionDefinition");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -879,7 +1237,7 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
      * @param createSubscriptionDefinitionVersionRequest
      * @return Result of the CreateSubscriptionDefinitionVersion operation returned by the service.
      * @throws BadRequestException
-     *         user error
+     *         invalid request
      * @sample AWSGreengrass.CreateSubscriptionDefinitionVersion
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateSubscriptionDefinitionVersion"
      *      target="_top">AWS API Documentation</a>
@@ -907,6 +1265,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                         .beforeMarshalling(createSubscriptionDefinitionVersionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateSubscriptionDefinitionVersion");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -925,12 +1287,66 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
     }
 
     /**
-     * Deletes a core definition. The core definition must not have been used in a deployment.
+     * Deletes a connector definition.
+     * 
+     * @param deleteConnectorDefinitionRequest
+     * @return Result of the DeleteConnectorDefinition operation returned by the service.
+     * @throws BadRequestException
+     *         invalid request
+     * @sample AWSGreengrass.DeleteConnectorDefinition
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/DeleteConnectorDefinition"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeleteConnectorDefinitionResult deleteConnectorDefinition(DeleteConnectorDefinitionRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteConnectorDefinition(request);
+    }
+
+    @SdkInternalApi
+    final DeleteConnectorDefinitionResult executeDeleteConnectorDefinition(DeleteConnectorDefinitionRequest deleteConnectorDefinitionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteConnectorDefinitionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteConnectorDefinitionRequest> request = null;
+        Response<DeleteConnectorDefinitionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteConnectorDefinitionRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(deleteConnectorDefinitionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteConnectorDefinition");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteConnectorDefinitionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DeleteConnectorDefinitionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * Deletes a core definition.
      * 
      * @param deleteCoreDefinitionRequest
      * @return Result of the DeleteCoreDefinition operation returned by the service.
      * @throws BadRequestException
-     *         user error
+     *         invalid request
      * @sample AWSGreengrass.DeleteCoreDefinition
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/DeleteCoreDefinition"
      *      target="_top">AWS API Documentation</a>
@@ -956,6 +1372,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                 request = new DeleteCoreDefinitionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteCoreDefinitionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteCoreDefinition");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -973,12 +1393,12 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
     }
 
     /**
-     * Deletes a device definition. The device definition must not have been used in a deployment.
+     * Deletes a device definition.
      * 
      * @param deleteDeviceDefinitionRequest
      * @return Result of the DeleteDeviceDefinition operation returned by the service.
      * @throws BadRequestException
-     *         user error
+     *         invalid request
      * @sample AWSGreengrass.DeleteDeviceDefinition
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/DeleteDeviceDefinition"
      *      target="_top">AWS API Documentation</a>
@@ -1004,6 +1424,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                 request = new DeleteDeviceDefinitionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteDeviceDefinitionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteDeviceDefinition");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1022,12 +1446,12 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
     }
 
     /**
-     * Deletes a Lambda function definition. The Lambda function definition must not have been used in a deployment.
+     * Deletes a Lambda function definition.
      * 
      * @param deleteFunctionDefinitionRequest
      * @return Result of the DeleteFunctionDefinition operation returned by the service.
      * @throws BadRequestException
-     *         user error
+     *         invalid request
      * @sample AWSGreengrass.DeleteFunctionDefinition
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/DeleteFunctionDefinition"
      *      target="_top">AWS API Documentation</a>
@@ -1054,6 +1478,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                         .beforeMarshalling(deleteFunctionDefinitionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteFunctionDefinition");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1072,12 +1500,12 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
     }
 
     /**
-     * Deletes a group. The group must not have been used in deployment.
+     * Deletes a group.
      * 
      * @param deleteGroupRequest
      * @return Result of the DeleteGroup operation returned by the service.
      * @throws BadRequestException
-     *         user error
+     *         invalid request
      * @sample AWSGreengrass.DeleteGroup
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/DeleteGroup" target="_top">AWS API
      *      Documentation</a>
@@ -1103,6 +1531,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                 request = new DeleteGroupRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteGroup");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1120,12 +1552,12 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
     }
 
     /**
-     * Deletes a logger definition. The logger definition must not have been used in a deployment.
+     * Deletes a logger definition.
      * 
      * @param deleteLoggerDefinitionRequest
      * @return Result of the DeleteLoggerDefinition operation returned by the service.
      * @throws BadRequestException
-     *         user error
+     *         invalid request
      * @sample AWSGreengrass.DeleteLoggerDefinition
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/DeleteLoggerDefinition"
      *      target="_top">AWS API Documentation</a>
@@ -1151,6 +1583,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                 request = new DeleteLoggerDefinitionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteLoggerDefinitionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteLoggerDefinition");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1169,12 +1605,66 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
     }
 
     /**
-     * Deletes a subscription definition. The subscription definition must not have been used in a deployment.
+     * Deletes a resource definition.
+     * 
+     * @param deleteResourceDefinitionRequest
+     * @return Result of the DeleteResourceDefinition operation returned by the service.
+     * @throws BadRequestException
+     *         invalid request
+     * @sample AWSGreengrass.DeleteResourceDefinition
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/DeleteResourceDefinition"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeleteResourceDefinitionResult deleteResourceDefinition(DeleteResourceDefinitionRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteResourceDefinition(request);
+    }
+
+    @SdkInternalApi
+    final DeleteResourceDefinitionResult executeDeleteResourceDefinition(DeleteResourceDefinitionRequest deleteResourceDefinitionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteResourceDefinitionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteResourceDefinitionRequest> request = null;
+        Response<DeleteResourceDefinitionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteResourceDefinitionRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(deleteResourceDefinitionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteResourceDefinition");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteResourceDefinitionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DeleteResourceDefinitionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * Deletes a subscription definition.
      * 
      * @param deleteSubscriptionDefinitionRequest
      * @return Result of the DeleteSubscriptionDefinition operation returned by the service.
      * @throws BadRequestException
-     *         user error
+     *         invalid request
      * @sample AWSGreengrass.DeleteSubscriptionDefinition
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/DeleteSubscriptionDefinition"
      *      target="_top">AWS API Documentation</a>
@@ -1201,6 +1691,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                         .beforeMarshalling(deleteSubscriptionDefinitionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteSubscriptionDefinition");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1224,9 +1718,9 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
      * @param disassociateRoleFromGroupRequest
      * @return Result of the DisassociateRoleFromGroup operation returned by the service.
      * @throws BadRequestException
-     *         User Error
+     *         invalid request
      * @throws InternalServerErrorException
-     *         Server Error
+     *         server error
      * @sample AWSGreengrass.DisassociateRoleFromGroup
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/DisassociateRoleFromGroup"
      *      target="_top">AWS API Documentation</a>
@@ -1253,6 +1747,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                         .beforeMarshalling(disassociateRoleFromGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DisassociateRoleFromGroup");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1271,12 +1769,12 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
     }
 
     /**
-     * Disassociates the service role from the account. Without a service role, deployments will not work.
+     * Disassociates the service role from your account. Without a service role, deployments will not work.
      * 
      * @param disassociateServiceRoleFromAccountRequest
      * @return Result of the DisassociateServiceRoleFromAccount operation returned by the service.
      * @throws InternalServerErrorException
-     *         Server Error
+     *         server error
      * @sample AWSGreengrass.DisassociateServiceRoleFromAccount
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/DisassociateServiceRoleFromAccount"
      *      target="_top">AWS API Documentation</a>
@@ -1304,6 +1802,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                         .beforeMarshalling(disassociateServiceRoleFromAccountRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DisassociateServiceRoleFromAccount");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1327,9 +1829,9 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
      * @param getAssociatedRoleRequest
      * @return Result of the GetAssociatedRole operation returned by the service.
      * @throws BadRequestException
-     *         User Error
+     *         invalid request
      * @throws InternalServerErrorException
-     *         Server Error
+     *         server error
      * @sample AWSGreengrass.GetAssociatedRole
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetAssociatedRole" target="_top">AWS
      *      API Documentation</a>
@@ -1355,6 +1857,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                 request = new GetAssociatedRoleRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getAssociatedRoleRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetAssociatedRole");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1372,14 +1878,68 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
     }
 
     /**
+     * Returns the status of a bulk deployment.
+     * 
+     * @param getBulkDeploymentStatusRequest
+     * @return Result of the GetBulkDeploymentStatus operation returned by the service.
+     * @throws BadRequestException
+     *         invalid request
+     * @sample AWSGreengrass.GetBulkDeploymentStatus
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetBulkDeploymentStatus"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GetBulkDeploymentStatusResult getBulkDeploymentStatus(GetBulkDeploymentStatusRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetBulkDeploymentStatus(request);
+    }
+
+    @SdkInternalApi
+    final GetBulkDeploymentStatusResult executeGetBulkDeploymentStatus(GetBulkDeploymentStatusRequest getBulkDeploymentStatusRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getBulkDeploymentStatusRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetBulkDeploymentStatusRequest> request = null;
+        Response<GetBulkDeploymentStatusResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetBulkDeploymentStatusRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(getBulkDeploymentStatusRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetBulkDeploymentStatus");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetBulkDeploymentStatusResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new GetBulkDeploymentStatusResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
      * Retrieves the connectivity information for a core.
      * 
      * @param getConnectivityInfoRequest
      * @return Result of the GetConnectivityInfo operation returned by the service.
      * @throws BadRequestException
-     *         400 response
+     *         invalid request
      * @throws InternalServerErrorException
-     *         500 response
+     *         server error
      * @sample AWSGreengrass.GetConnectivityInfo
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetConnectivityInfo" target="_top">AWS
      *      API Documentation</a>
@@ -1405,6 +1965,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                 request = new GetConnectivityInfoRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getConnectivityInfoRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetConnectivityInfo");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1422,12 +1986,121 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
     }
 
     /**
+     * Retrieves information about a connector definition.
+     * 
+     * @param getConnectorDefinitionRequest
+     * @return Result of the GetConnectorDefinition operation returned by the service.
+     * @throws BadRequestException
+     *         invalid request
+     * @sample AWSGreengrass.GetConnectorDefinition
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetConnectorDefinition"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GetConnectorDefinitionResult getConnectorDefinition(GetConnectorDefinitionRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetConnectorDefinition(request);
+    }
+
+    @SdkInternalApi
+    final GetConnectorDefinitionResult executeGetConnectorDefinition(GetConnectorDefinitionRequest getConnectorDefinitionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getConnectorDefinitionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetConnectorDefinitionRequest> request = null;
+        Response<GetConnectorDefinitionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetConnectorDefinitionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getConnectorDefinitionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetConnectorDefinition");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetConnectorDefinitionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new GetConnectorDefinitionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * Retrieves information about a connector definition version, including the connectors that the version contains.
+     * Connectors are prebuilt modules that interact with local infrastructure, device protocols, AWS, and other cloud
+     * services.
+     * 
+     * @param getConnectorDefinitionVersionRequest
+     * @return Result of the GetConnectorDefinitionVersion operation returned by the service.
+     * @throws BadRequestException
+     *         invalid request
+     * @sample AWSGreengrass.GetConnectorDefinitionVersion
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetConnectorDefinitionVersion"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GetConnectorDefinitionVersionResult getConnectorDefinitionVersion(GetConnectorDefinitionVersionRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetConnectorDefinitionVersion(request);
+    }
+
+    @SdkInternalApi
+    final GetConnectorDefinitionVersionResult executeGetConnectorDefinitionVersion(GetConnectorDefinitionVersionRequest getConnectorDefinitionVersionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getConnectorDefinitionVersionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetConnectorDefinitionVersionRequest> request = null;
+        Response<GetConnectorDefinitionVersionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetConnectorDefinitionVersionRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(getConnectorDefinitionVersionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetConnectorDefinitionVersion");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetConnectorDefinitionVersionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new GetConnectorDefinitionVersionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
      * Retrieves information about a core definition version.
      * 
      * @param getCoreDefinitionRequest
      * @return Result of the GetCoreDefinition operation returned by the service.
      * @throws BadRequestException
-     *         user error
+     *         invalid request
      * @sample AWSGreengrass.GetCoreDefinition
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetCoreDefinition" target="_top">AWS
      *      API Documentation</a>
@@ -1453,6 +2126,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                 request = new GetCoreDefinitionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getCoreDefinitionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetCoreDefinition");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1475,7 +2152,7 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
      * @param getCoreDefinitionVersionRequest
      * @return Result of the GetCoreDefinitionVersion operation returned by the service.
      * @throws BadRequestException
-     *         user error
+     *         invalid request
      * @sample AWSGreengrass.GetCoreDefinitionVersion
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetCoreDefinitionVersion"
      *      target="_top">AWS API Documentation</a>
@@ -1502,6 +2179,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                         .beforeMarshalling(getCoreDefinitionVersionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetCoreDefinitionVersion");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1525,7 +2206,7 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
      * @param getDeploymentStatusRequest
      * @return Result of the GetDeploymentStatus operation returned by the service.
      * @throws BadRequestException
-     *         This request was invalid.
+     *         invalid request
      * @sample AWSGreengrass.GetDeploymentStatus
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetDeploymentStatus" target="_top">AWS
      *      API Documentation</a>
@@ -1551,6 +2232,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                 request = new GetDeploymentStatusRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getDeploymentStatusRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetDeploymentStatus");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1573,7 +2258,7 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
      * @param getDeviceDefinitionRequest
      * @return Result of the GetDeviceDefinition operation returned by the service.
      * @throws BadRequestException
-     *         user error
+     *         invalid request
      * @sample AWSGreengrass.GetDeviceDefinition
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetDeviceDefinition" target="_top">AWS
      *      API Documentation</a>
@@ -1599,6 +2284,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                 request = new GetDeviceDefinitionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getDeviceDefinitionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetDeviceDefinition");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1621,7 +2310,7 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
      * @param getDeviceDefinitionVersionRequest
      * @return Result of the GetDeviceDefinitionVersion operation returned by the service.
      * @throws BadRequestException
-     *         user error
+     *         invalid request
      * @sample AWSGreengrass.GetDeviceDefinitionVersion
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetDeviceDefinitionVersion"
      *      target="_top">AWS API Documentation</a>
@@ -1648,6 +2337,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                         .beforeMarshalling(getDeviceDefinitionVersionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetDeviceDefinitionVersion");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1666,12 +2359,12 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
     }
 
     /**
-     * Retrieves information about a Lambda function definition, such as its creation time and latest version.
+     * Retrieves information about a Lambda function definition, including its creation time and latest version.
      * 
      * @param getFunctionDefinitionRequest
      * @return Result of the GetFunctionDefinition operation returned by the service.
      * @throws BadRequestException
-     *         user error
+     *         invalid request
      * @sample AWSGreengrass.GetFunctionDefinition
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetFunctionDefinition"
      *      target="_top">AWS API Documentation</a>
@@ -1697,6 +2390,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                 request = new GetFunctionDefinitionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getFunctionDefinitionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetFunctionDefinition");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1715,13 +2412,13 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
     }
 
     /**
-     * Retrieves information about a Lambda function definition version, such as which Lambda functions are included in
-     * the version and their configurations.
+     * Retrieves information about a Lambda function definition version, including which Lambda functions are included
+     * in the version and their configurations.
      * 
      * @param getFunctionDefinitionVersionRequest
      * @return Result of the GetFunctionDefinitionVersion operation returned by the service.
      * @throws BadRequestException
-     *         user error
+     *         invalid request
      * @sample AWSGreengrass.GetFunctionDefinitionVersion
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetFunctionDefinitionVersion"
      *      target="_top">AWS API Documentation</a>
@@ -1748,6 +2445,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                         .beforeMarshalling(getFunctionDefinitionVersionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetFunctionDefinitionVersion");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1771,7 +2472,7 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
      * @param getGroupRequest
      * @return Result of the GetGroup operation returned by the service.
      * @throws BadRequestException
-     *         user error
+     *         invalid request
      * @sample AWSGreengrass.GetGroup
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetGroup" target="_top">AWS API
      *      Documentation</a>
@@ -1797,6 +2498,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                 request = new GetGroupRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetGroup");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1819,9 +2524,9 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
      * @param getGroupCertificateAuthorityRequest
      * @return Result of the GetGroupCertificateAuthority operation returned by the service.
      * @throws BadRequestException
-     *         This request was invalid.
+     *         invalid request
      * @throws InternalServerErrorException
-     *         This request was invalid.
+     *         server error
      * @sample AWSGreengrass.GetGroupCertificateAuthority
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetGroupCertificateAuthority"
      *      target="_top">AWS API Documentation</a>
@@ -1848,6 +2553,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                         .beforeMarshalling(getGroupCertificateAuthorityRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetGroupCertificateAuthority");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1871,9 +2580,9 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
      * @param getGroupCertificateConfigurationRequest
      * @return Result of the GetGroupCertificateConfiguration operation returned by the service.
      * @throws BadRequestException
-     *         This request was invalid.
+     *         invalid request
      * @throws InternalServerErrorException
-     *         This request was invalid.
+     *         server error
      * @sample AWSGreengrass.GetGroupCertificateConfiguration
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetGroupCertificateConfiguration"
      *      target="_top">AWS API Documentation</a>
@@ -1901,6 +2610,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                         .beforeMarshalling(getGroupCertificateConfigurationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetGroupCertificateConfiguration");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1924,7 +2637,7 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
      * @param getGroupVersionRequest
      * @return Result of the GetGroupVersion operation returned by the service.
      * @throws BadRequestException
-     *         user error
+     *         invalid request
      * @sample AWSGreengrass.GetGroupVersion
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetGroupVersion" target="_top">AWS API
      *      Documentation</a>
@@ -1950,6 +2663,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                 request = new GetGroupVersionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getGroupVersionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetGroupVersion");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1972,7 +2689,7 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
      * @param getLoggerDefinitionRequest
      * @return Result of the GetLoggerDefinition operation returned by the service.
      * @throws BadRequestException
-     *         user error
+     *         invalid request
      * @sample AWSGreengrass.GetLoggerDefinition
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetLoggerDefinition" target="_top">AWS
      *      API Documentation</a>
@@ -1998,6 +2715,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                 request = new GetLoggerDefinitionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getLoggerDefinitionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetLoggerDefinition");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2020,7 +2741,7 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
      * @param getLoggerDefinitionVersionRequest
      * @return Result of the GetLoggerDefinitionVersion operation returned by the service.
      * @throws BadRequestException
-     *         user error
+     *         invalid request
      * @sample AWSGreengrass.GetLoggerDefinitionVersion
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetLoggerDefinitionVersion"
      *      target="_top">AWS API Documentation</a>
@@ -2047,6 +2768,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                         .beforeMarshalling(getLoggerDefinitionVersionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetLoggerDefinitionVersion");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2065,12 +2790,119 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
     }
 
     /**
-     * Retrieves the service role that is attached to the account.
+     * Retrieves information about a resource definition, including its creation time and latest version.
+     * 
+     * @param getResourceDefinitionRequest
+     * @return Result of the GetResourceDefinition operation returned by the service.
+     * @throws BadRequestException
+     *         invalid request
+     * @sample AWSGreengrass.GetResourceDefinition
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetResourceDefinition"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GetResourceDefinitionResult getResourceDefinition(GetResourceDefinitionRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetResourceDefinition(request);
+    }
+
+    @SdkInternalApi
+    final GetResourceDefinitionResult executeGetResourceDefinition(GetResourceDefinitionRequest getResourceDefinitionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getResourceDefinitionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetResourceDefinitionRequest> request = null;
+        Response<GetResourceDefinitionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetResourceDefinitionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getResourceDefinitionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetResourceDefinition");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetResourceDefinitionResult>> responseHandler = protocolFactory
+                    .createResponseHandler(new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                            new GetResourceDefinitionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * Retrieves information about a resource definition version, including which resources are included in the version.
+     * 
+     * @param getResourceDefinitionVersionRequest
+     * @return Result of the GetResourceDefinitionVersion operation returned by the service.
+     * @throws BadRequestException
+     *         invalid request
+     * @sample AWSGreengrass.GetResourceDefinitionVersion
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetResourceDefinitionVersion"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public GetResourceDefinitionVersionResult getResourceDefinitionVersion(GetResourceDefinitionVersionRequest request) {
+        request = beforeClientExecution(request);
+        return executeGetResourceDefinitionVersion(request);
+    }
+
+    @SdkInternalApi
+    final GetResourceDefinitionVersionResult executeGetResourceDefinitionVersion(GetResourceDefinitionVersionRequest getResourceDefinitionVersionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(getResourceDefinitionVersionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<GetResourceDefinitionVersionRequest> request = null;
+        Response<GetResourceDefinitionVersionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new GetResourceDefinitionVersionRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(getResourceDefinitionVersionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetResourceDefinitionVersion");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<GetResourceDefinitionVersionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new GetResourceDefinitionVersionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * Retrieves the service role that is attached to your account.
      * 
      * @param getServiceRoleForAccountRequest
      * @return Result of the GetServiceRoleForAccount operation returned by the service.
      * @throws InternalServerErrorException
-     *         Server Error
+     *         server error
      * @sample AWSGreengrass.GetServiceRoleForAccount
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetServiceRoleForAccount"
      *      target="_top">AWS API Documentation</a>
@@ -2097,6 +2929,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                         .beforeMarshalling(getServiceRoleForAccountRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetServiceRoleForAccount");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2120,7 +2956,7 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
      * @param getSubscriptionDefinitionRequest
      * @return Result of the GetSubscriptionDefinition operation returned by the service.
      * @throws BadRequestException
-     *         user error
+     *         invalid request
      * @sample AWSGreengrass.GetSubscriptionDefinition
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetSubscriptionDefinition"
      *      target="_top">AWS API Documentation</a>
@@ -2147,6 +2983,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                         .beforeMarshalling(getSubscriptionDefinitionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetSubscriptionDefinition");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2170,7 +3010,7 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
      * @param getSubscriptionDefinitionVersionRequest
      * @return Result of the GetSubscriptionDefinitionVersion operation returned by the service.
      * @throws BadRequestException
-     *         user error
+     *         invalid request
      * @sample AWSGreengrass.GetSubscriptionDefinitionVersion
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetSubscriptionDefinitionVersion"
      *      target="_top">AWS API Documentation</a>
@@ -2198,6 +3038,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                         .beforeMarshalling(getSubscriptionDefinitionVersionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetSubscriptionDefinitionVersion");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2216,12 +3060,229 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
     }
 
     /**
-     * Lists versions of a core definition.
+     * Gets a paginated list of the deployments that have been started in a bulk deployment operation, and their current
+     * deployment status.
+     * 
+     * @param listBulkDeploymentDetailedReportsRequest
+     * @return Result of the ListBulkDeploymentDetailedReports operation returned by the service.
+     * @throws BadRequestException
+     *         invalid request
+     * @sample AWSGreengrass.ListBulkDeploymentDetailedReports
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListBulkDeploymentDetailedReports"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListBulkDeploymentDetailedReportsResult listBulkDeploymentDetailedReports(ListBulkDeploymentDetailedReportsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListBulkDeploymentDetailedReports(request);
+    }
+
+    @SdkInternalApi
+    final ListBulkDeploymentDetailedReportsResult executeListBulkDeploymentDetailedReports(
+            ListBulkDeploymentDetailedReportsRequest listBulkDeploymentDetailedReportsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listBulkDeploymentDetailedReportsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListBulkDeploymentDetailedReportsRequest> request = null;
+        Response<ListBulkDeploymentDetailedReportsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListBulkDeploymentDetailedReportsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listBulkDeploymentDetailedReportsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListBulkDeploymentDetailedReports");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListBulkDeploymentDetailedReportsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListBulkDeploymentDetailedReportsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * Returns a list of bulk deployments.
+     * 
+     * @param listBulkDeploymentsRequest
+     * @return Result of the ListBulkDeployments operation returned by the service.
+     * @throws BadRequestException
+     *         invalid request
+     * @sample AWSGreengrass.ListBulkDeployments
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListBulkDeployments" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public ListBulkDeploymentsResult listBulkDeployments(ListBulkDeploymentsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListBulkDeployments(request);
+    }
+
+    @SdkInternalApi
+    final ListBulkDeploymentsResult executeListBulkDeployments(ListBulkDeploymentsRequest listBulkDeploymentsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listBulkDeploymentsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListBulkDeploymentsRequest> request = null;
+        Response<ListBulkDeploymentsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListBulkDeploymentsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listBulkDeploymentsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListBulkDeployments");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListBulkDeploymentsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListBulkDeploymentsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * Lists the versions of a connector definition, which are containers for connectors. Connectors run on the
+     * Greengrass core and contain built-in integration with local infrastructure, device protocols, AWS, and other
+     * cloud services.
+     * 
+     * @param listConnectorDefinitionVersionsRequest
+     * @return Result of the ListConnectorDefinitionVersions operation returned by the service.
+     * @throws BadRequestException
+     *         invalid request
+     * @sample AWSGreengrass.ListConnectorDefinitionVersions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListConnectorDefinitionVersions"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListConnectorDefinitionVersionsResult listConnectorDefinitionVersions(ListConnectorDefinitionVersionsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListConnectorDefinitionVersions(request);
+    }
+
+    @SdkInternalApi
+    final ListConnectorDefinitionVersionsResult executeListConnectorDefinitionVersions(
+            ListConnectorDefinitionVersionsRequest listConnectorDefinitionVersionsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listConnectorDefinitionVersionsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListConnectorDefinitionVersionsRequest> request = null;
+        Response<ListConnectorDefinitionVersionsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListConnectorDefinitionVersionsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listConnectorDefinitionVersionsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListConnectorDefinitionVersions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListConnectorDefinitionVersionsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListConnectorDefinitionVersionsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * Retrieves a list of connector definitions.
+     * 
+     * @param listConnectorDefinitionsRequest
+     * @return Result of the ListConnectorDefinitions operation returned by the service.
+     * @sample AWSGreengrass.ListConnectorDefinitions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListConnectorDefinitions"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListConnectorDefinitionsResult listConnectorDefinitions(ListConnectorDefinitionsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListConnectorDefinitions(request);
+    }
+
+    @SdkInternalApi
+    final ListConnectorDefinitionsResult executeListConnectorDefinitions(ListConnectorDefinitionsRequest listConnectorDefinitionsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listConnectorDefinitionsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListConnectorDefinitionsRequest> request = null;
+        Response<ListConnectorDefinitionsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListConnectorDefinitionsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listConnectorDefinitionsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListConnectorDefinitions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListConnectorDefinitionsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListConnectorDefinitionsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * Lists the versions of a core definition.
      * 
      * @param listCoreDefinitionVersionsRequest
      * @return Result of the ListCoreDefinitionVersions operation returned by the service.
      * @throws BadRequestException
-     *         user error
+     *         invalid request
      * @sample AWSGreengrass.ListCoreDefinitionVersions
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListCoreDefinitionVersions"
      *      target="_top">AWS API Documentation</a>
@@ -2248,6 +3309,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                         .beforeMarshalling(listCoreDefinitionVersionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListCoreDefinitionVersions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2295,6 +3360,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                 request = new ListCoreDefinitionsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listCoreDefinitionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListCoreDefinitions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2317,7 +3386,7 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
      * @param listDeploymentsRequest
      * @return Result of the ListDeployments operation returned by the service.
      * @throws BadRequestException
-     *         This request was invalid.
+     *         invalid request
      * @sample AWSGreengrass.ListDeployments
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListDeployments" target="_top">AWS API
      *      Documentation</a>
@@ -2343,6 +3412,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                 request = new ListDeploymentsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listDeploymentsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListDeployments");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2365,7 +3438,7 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
      * @param listDeviceDefinitionVersionsRequest
      * @return Result of the ListDeviceDefinitionVersions operation returned by the service.
      * @throws BadRequestException
-     *         user error
+     *         invalid request
      * @sample AWSGreengrass.ListDeviceDefinitionVersions
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListDeviceDefinitionVersions"
      *      target="_top">AWS API Documentation</a>
@@ -2392,6 +3465,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                         .beforeMarshalling(listDeviceDefinitionVersionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListDeviceDefinitionVersions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2439,6 +3516,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                 request = new ListDeviceDefinitionsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listDeviceDefinitionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListDeviceDefinitions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2462,7 +3543,7 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
      * @param listFunctionDefinitionVersionsRequest
      * @return Result of the ListFunctionDefinitionVersions operation returned by the service.
      * @throws BadRequestException
-     *         user error
+     *         invalid request
      * @sample AWSGreengrass.ListFunctionDefinitionVersions
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListFunctionDefinitionVersions"
      *      target="_top">AWS API Documentation</a>
@@ -2489,6 +3570,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                         .beforeMarshalling(listFunctionDefinitionVersionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListFunctionDefinitionVersions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2537,6 +3622,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                         .beforeMarshalling(listFunctionDefinitionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListFunctionDefinitions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2560,9 +3649,9 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
      * @param listGroupCertificateAuthoritiesRequest
      * @return Result of the ListGroupCertificateAuthorities operation returned by the service.
      * @throws BadRequestException
-     *         This request was invalid.
+     *         invalid request
      * @throws InternalServerErrorException
-     *         This request was invalid.
+     *         server error
      * @sample AWSGreengrass.ListGroupCertificateAuthorities
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListGroupCertificateAuthorities"
      *      target="_top">AWS API Documentation</a>
@@ -2590,6 +3679,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                         .beforeMarshalling(listGroupCertificateAuthoritiesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListGroupCertificateAuthorities");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2608,12 +3701,12 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
     }
 
     /**
-     * List the versions of a group.
+     * Lists the versions of a group.
      * 
      * @param listGroupVersionsRequest
      * @return Result of the ListGroupVersions operation returned by the service.
      * @throws BadRequestException
-     *         user error
+     *         invalid request
      * @sample AWSGreengrass.ListGroupVersions
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListGroupVersions" target="_top">AWS
      *      API Documentation</a>
@@ -2639,6 +3732,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                 request = new ListGroupVersionsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listGroupVersionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListGroupVersions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2685,6 +3782,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                 request = new ListGroupsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listGroupsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListGroups");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2707,7 +3808,7 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
      * @param listLoggerDefinitionVersionsRequest
      * @return Result of the ListLoggerDefinitionVersions operation returned by the service.
      * @throws BadRequestException
-     *         user error
+     *         invalid request
      * @sample AWSGreengrass.ListLoggerDefinitionVersions
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListLoggerDefinitionVersions"
      *      target="_top">AWS API Documentation</a>
@@ -2734,6 +3835,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                         .beforeMarshalling(listLoggerDefinitionVersionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListLoggerDefinitionVersions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2781,6 +3886,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                 request = new ListLoggerDefinitionsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listLoggerDefinitionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListLoggerDefinitions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2799,12 +3908,118 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
     }
 
     /**
+     * Lists the versions of a resource definition.
+     * 
+     * @param listResourceDefinitionVersionsRequest
+     * @return Result of the ListResourceDefinitionVersions operation returned by the service.
+     * @throws BadRequestException
+     *         invalid request
+     * @sample AWSGreengrass.ListResourceDefinitionVersions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListResourceDefinitionVersions"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListResourceDefinitionVersionsResult listResourceDefinitionVersions(ListResourceDefinitionVersionsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListResourceDefinitionVersions(request);
+    }
+
+    @SdkInternalApi
+    final ListResourceDefinitionVersionsResult executeListResourceDefinitionVersions(ListResourceDefinitionVersionsRequest listResourceDefinitionVersionsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listResourceDefinitionVersionsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListResourceDefinitionVersionsRequest> request = null;
+        Response<ListResourceDefinitionVersionsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListResourceDefinitionVersionsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listResourceDefinitionVersionsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListResourceDefinitionVersions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListResourceDefinitionVersionsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListResourceDefinitionVersionsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * Retrieves a list of resource definitions.
+     * 
+     * @param listResourceDefinitionsRequest
+     * @return Result of the ListResourceDefinitions operation returned by the service.
+     * @sample AWSGreengrass.ListResourceDefinitions
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListResourceDefinitions"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public ListResourceDefinitionsResult listResourceDefinitions(ListResourceDefinitionsRequest request) {
+        request = beforeClientExecution(request);
+        return executeListResourceDefinitions(request);
+    }
+
+    @SdkInternalApi
+    final ListResourceDefinitionsResult executeListResourceDefinitions(ListResourceDefinitionsRequest listResourceDefinitionsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listResourceDefinitionsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListResourceDefinitionsRequest> request = null;
+        Response<ListResourceDefinitionsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListResourceDefinitionsRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(listResourceDefinitionsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListResourceDefinitions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListResourceDefinitionsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new ListResourceDefinitionsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
      * Lists the versions of a subscription definition.
      * 
      * @param listSubscriptionDefinitionVersionsRequest
      * @return Result of the ListSubscriptionDefinitionVersions operation returned by the service.
      * @throws BadRequestException
-     *         user error
+     *         invalid request
      * @sample AWSGreengrass.ListSubscriptionDefinitionVersions
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListSubscriptionDefinitionVersions"
      *      target="_top">AWS API Documentation</a>
@@ -2832,6 +4047,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                         .beforeMarshalling(listSubscriptionDefinitionVersionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListSubscriptionDefinitionVersions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2880,6 +4099,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                         .beforeMarshalling(listSubscriptionDefinitionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListSubscriptionDefinitions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2898,16 +4121,178 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
     }
 
     /**
+     * Resets a group's deployments.
+     * 
+     * @param resetDeploymentsRequest
+     *        Information needed to reset deployments.
+     * @return Result of the ResetDeployments operation returned by the service.
+     * @throws BadRequestException
+     *         invalid request
+     * @sample AWSGreengrass.ResetDeployments
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ResetDeployments" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public ResetDeploymentsResult resetDeployments(ResetDeploymentsRequest request) {
+        request = beforeClientExecution(request);
+        return executeResetDeployments(request);
+    }
+
+    @SdkInternalApi
+    final ResetDeploymentsResult executeResetDeployments(ResetDeploymentsRequest resetDeploymentsRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(resetDeploymentsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ResetDeploymentsRequest> request = null;
+        Response<ResetDeploymentsResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ResetDeploymentsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(resetDeploymentsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ResetDeployments");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ResetDeploymentsResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ResetDeploymentsResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * Deploys multiple groups in one operation. This action starts the bulk deployment of a specified set of group
+     * versions. Each group version deployment will be triggered with an adaptive rate that has a fixed upper limit. We
+     * recommend that you include an ''X-Amzn-Client-Token'' token in every ''StartBulkDeployment'' request. These
+     * requests are idempotent with respect to the token and the request parameters.
+     * 
+     * @param startBulkDeploymentRequest
+     * @return Result of the StartBulkDeployment operation returned by the service.
+     * @throws BadRequestException
+     *         invalid request
+     * @sample AWSGreengrass.StartBulkDeployment
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/StartBulkDeployment" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public StartBulkDeploymentResult startBulkDeployment(StartBulkDeploymentRequest request) {
+        request = beforeClientExecution(request);
+        return executeStartBulkDeployment(request);
+    }
+
+    @SdkInternalApi
+    final StartBulkDeploymentResult executeStartBulkDeployment(StartBulkDeploymentRequest startBulkDeploymentRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(startBulkDeploymentRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<StartBulkDeploymentRequest> request = null;
+        Response<StartBulkDeploymentResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new StartBulkDeploymentRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(startBulkDeploymentRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartBulkDeployment");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<StartBulkDeploymentResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new StartBulkDeploymentResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * Stops the execution of a bulk deployment. This action returns a status of ''Stopping'' until the deployment is
+     * stopped. You cannot start a new bulk deployment while a previous deployment is in the ''Stopping'' state. This
+     * action doesn't rollback completed deployments or cancel pending deployments.
+     * 
+     * @param stopBulkDeploymentRequest
+     * @return Result of the StopBulkDeployment operation returned by the service.
+     * @throws BadRequestException
+     *         invalid request
+     * @sample AWSGreengrass.StopBulkDeployment
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/StopBulkDeployment" target="_top">AWS
+     *      API Documentation</a>
+     */
+    @Override
+    public StopBulkDeploymentResult stopBulkDeployment(StopBulkDeploymentRequest request) {
+        request = beforeClientExecution(request);
+        return executeStopBulkDeployment(request);
+    }
+
+    @SdkInternalApi
+    final StopBulkDeploymentResult executeStopBulkDeployment(StopBulkDeploymentRequest stopBulkDeploymentRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(stopBulkDeploymentRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<StopBulkDeploymentRequest> request = null;
+        Response<StopBulkDeploymentResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new StopBulkDeploymentRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(stopBulkDeploymentRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StopBulkDeployment");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<StopBulkDeploymentResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new StopBulkDeploymentResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
      * Updates the connectivity information for the core. Any devices that belong to the group which has this core will
      * receive this information in order to find the location of the core and connect to it.
      * 
      * @param updateConnectivityInfoRequest
-     *        connectivity info request
+     *        Connectivity information.
      * @return Result of the UpdateConnectivityInfo operation returned by the service.
      * @throws BadRequestException
-     *         400 response
+     *         invalid request
      * @throws InternalServerErrorException
-     *         500 response
+     *         server error
      * @sample AWSGreengrass.UpdateConnectivityInfo
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/UpdateConnectivityInfo"
      *      target="_top">AWS API Documentation</a>
@@ -2933,6 +4318,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                 request = new UpdateConnectivityInfoRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateConnectivityInfoRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateConnectivityInfo");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2951,12 +4340,66 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
     }
 
     /**
+     * Updates a connector definition.
+     * 
+     * @param updateConnectorDefinitionRequest
+     * @return Result of the UpdateConnectorDefinition operation returned by the service.
+     * @throws BadRequestException
+     *         invalid request
+     * @sample AWSGreengrass.UpdateConnectorDefinition
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/UpdateConnectorDefinition"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdateConnectorDefinitionResult updateConnectorDefinition(UpdateConnectorDefinitionRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateConnectorDefinition(request);
+    }
+
+    @SdkInternalApi
+    final UpdateConnectorDefinitionResult executeUpdateConnectorDefinition(UpdateConnectorDefinitionRequest updateConnectorDefinitionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateConnectorDefinitionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateConnectorDefinitionRequest> request = null;
+        Response<UpdateConnectorDefinitionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateConnectorDefinitionRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(updateConnectorDefinitionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateConnectorDefinition");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateConnectorDefinitionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new UpdateConnectorDefinitionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
      * Updates a core definition.
      * 
      * @param updateCoreDefinitionRequest
      * @return Result of the UpdateCoreDefinition operation returned by the service.
      * @throws BadRequestException
-     *         user error
+     *         invalid request
      * @sample AWSGreengrass.UpdateCoreDefinition
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/UpdateCoreDefinition"
      *      target="_top">AWS API Documentation</a>
@@ -2982,6 +4425,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                 request = new UpdateCoreDefinitionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateCoreDefinitionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateCoreDefinition");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -3004,7 +4451,7 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
      * @param updateDeviceDefinitionRequest
      * @return Result of the UpdateDeviceDefinition operation returned by the service.
      * @throws BadRequestException
-     *         user error
+     *         invalid request
      * @sample AWSGreengrass.UpdateDeviceDefinition
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/UpdateDeviceDefinition"
      *      target="_top">AWS API Documentation</a>
@@ -3030,6 +4477,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                 request = new UpdateDeviceDefinitionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateDeviceDefinitionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateDeviceDefinition");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -3053,7 +4504,7 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
      * @param updateFunctionDefinitionRequest
      * @return Result of the UpdateFunctionDefinition operation returned by the service.
      * @throws BadRequestException
-     *         user error
+     *         invalid request
      * @sample AWSGreengrass.UpdateFunctionDefinition
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/UpdateFunctionDefinition"
      *      target="_top">AWS API Documentation</a>
@@ -3080,6 +4531,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                         .beforeMarshalling(updateFunctionDefinitionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateFunctionDefinition");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -3103,7 +4558,7 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
      * @param updateGroupRequest
      * @return Result of the UpdateGroup operation returned by the service.
      * @throws BadRequestException
-     *         user error
+     *         invalid request
      * @sample AWSGreengrass.UpdateGroup
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/UpdateGroup" target="_top">AWS API
      *      Documentation</a>
@@ -3129,6 +4584,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                 request = new UpdateGroupRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateGroupRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateGroup");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -3146,14 +4605,14 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
     }
 
     /**
-     * Updates the Cert expiry time for a group.
+     * Updates the Certificate expiry time for a group.
      * 
      * @param updateGroupCertificateConfigurationRequest
      * @return Result of the UpdateGroupCertificateConfiguration operation returned by the service.
      * @throws BadRequestException
-     *         This request was invalid.
+     *         invalid request
      * @throws InternalServerErrorException
-     *         This request was invalid.
+     *         server error
      * @sample AWSGreengrass.UpdateGroupCertificateConfiguration
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/UpdateGroupCertificateConfiguration"
      *      target="_top">AWS API Documentation</a>
@@ -3181,6 +4640,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                         .beforeMarshalling(updateGroupCertificateConfigurationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateGroupCertificateConfiguration");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -3204,7 +4667,7 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
      * @param updateLoggerDefinitionRequest
      * @return Result of the UpdateLoggerDefinition operation returned by the service.
      * @throws BadRequestException
-     *         user error
+     *         invalid request
      * @sample AWSGreengrass.UpdateLoggerDefinition
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/UpdateLoggerDefinition"
      *      target="_top">AWS API Documentation</a>
@@ -3230,6 +4693,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                 request = new UpdateLoggerDefinitionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updateLoggerDefinitionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateLoggerDefinition");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -3248,12 +4715,66 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
     }
 
     /**
+     * Updates a resource definition.
+     * 
+     * @param updateResourceDefinitionRequest
+     * @return Result of the UpdateResourceDefinition operation returned by the service.
+     * @throws BadRequestException
+     *         invalid request
+     * @sample AWSGreengrass.UpdateResourceDefinition
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/UpdateResourceDefinition"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public UpdateResourceDefinitionResult updateResourceDefinition(UpdateResourceDefinitionRequest request) {
+        request = beforeClientExecution(request);
+        return executeUpdateResourceDefinition(request);
+    }
+
+    @SdkInternalApi
+    final UpdateResourceDefinitionResult executeUpdateResourceDefinition(UpdateResourceDefinitionRequest updateResourceDefinitionRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(updateResourceDefinitionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateResourceDefinitionRequest> request = null;
+        Response<UpdateResourceDefinitionResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateResourceDefinitionRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(updateResourceDefinitionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateResourceDefinition");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<UpdateResourceDefinitionResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new UpdateResourceDefinitionResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
      * Updates a subscription definition.
      * 
      * @param updateSubscriptionDefinitionRequest
      * @return Result of the UpdateSubscriptionDefinition operation returned by the service.
      * @throws BadRequestException
-     *         user error
+     *         invalid request
      * @sample AWSGreengrass.UpdateSubscriptionDefinition
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/UpdateSubscriptionDefinition"
      *      target="_top">AWS API Documentation</a>
@@ -3280,6 +4801,10 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
                         .beforeMarshalling(updateSubscriptionDefinitionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "Greengrass");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdateSubscriptionDefinition");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -3321,9 +4846,18 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
     private <X, Y extends AmazonWebServiceRequest> Response<X> invoke(Request<Y> request, HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler,
             ExecutionContext executionContext) {
 
+        return invoke(request, responseHandler, executionContext, null, null);
+    }
+
+    /**
+     * Normal invoke with authentication. Credentials are required and may be overriden at the request level.
+     **/
+    private <X, Y extends AmazonWebServiceRequest> Response<X> invoke(Request<Y> request, HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler,
+            ExecutionContext executionContext, URI cachedEndpoint, URI uriFromEndpointTrait) {
+
         executionContext.setCredentialsProvider(CredentialUtils.getCredentialsProvider(request.getOriginalRequest(), awsCredentialsProvider));
 
-        return doInvoke(request, responseHandler, executionContext);
+        return doInvoke(request, responseHandler, executionContext, cachedEndpoint, uriFromEndpointTrait);
     }
 
     /**
@@ -3333,7 +4867,7 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
     private <X, Y extends AmazonWebServiceRequest> Response<X> anonymousInvoke(Request<Y> request,
             HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler, ExecutionContext executionContext) {
 
-        return doInvoke(request, responseHandler, executionContext);
+        return doInvoke(request, responseHandler, executionContext, null, null);
     }
 
     /**
@@ -3341,13 +4875,27 @@ public class AWSGreengrassClient extends AmazonWebServiceClient implements AWSGr
      * ExecutionContext beforehand.
      **/
     private <X, Y extends AmazonWebServiceRequest> Response<X> doInvoke(Request<Y> request, HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler,
-            ExecutionContext executionContext) {
-        request.setEndpoint(endpoint);
+            ExecutionContext executionContext, URI discoveredEndpoint, URI uriFromEndpointTrait) {
+
+        if (discoveredEndpoint != null) {
+            request.setEndpoint(discoveredEndpoint);
+            request.getOriginalRequest().getRequestClientOptions().appendUserAgent("endpoint-discovery");
+        } else if (uriFromEndpointTrait != null) {
+            request.setEndpoint(uriFromEndpointTrait);
+        } else {
+            request.setEndpoint(endpoint);
+        }
+
         request.setTimeOffset(timeOffset);
 
         HttpResponseHandler<AmazonServiceException> errorResponseHandler = protocolFactory.createErrorResponseHandler(new JsonErrorResponseMetadata());
 
         return client.execute(request, responseHandler, errorResponseHandler, executionContext);
+    }
+
+    @com.amazonaws.annotation.SdkInternalApi
+    static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
+        return protocolFactory;
     }
 
 }

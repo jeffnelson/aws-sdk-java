@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,7 @@ public class Vpc implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The IPv4 CIDR block for the VPC.
+     * The primary IPv4 CIDR block for the VPC.
      * </p>
      */
     private String cidrBlock;
@@ -52,6 +52,12 @@ public class Vpc implements Serializable, Cloneable {
     private String vpcId;
     /**
      * <p>
+     * The ID of the AWS account that owns the VPC.
+     * </p>
+     */
+    private String ownerId;
+    /**
+     * <p>
      * The allowed tenancy of instances launched into the VPC.
      * </p>
      */
@@ -62,6 +68,12 @@ public class Vpc implements Serializable, Cloneable {
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<VpcIpv6CidrBlockAssociation> ipv6CidrBlockAssociationSet;
+    /**
+     * <p>
+     * Information about the IPv4 CIDR blocks associated with the VPC.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<VpcCidrBlockAssociation> cidrBlockAssociationSet;
     /**
      * <p>
      * Indicates whether the VPC is the default VPC.
@@ -77,11 +89,11 @@ public class Vpc implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The IPv4 CIDR block for the VPC.
+     * The primary IPv4 CIDR block for the VPC.
      * </p>
      * 
      * @param cidrBlock
-     *        The IPv4 CIDR block for the VPC.
+     *        The primary IPv4 CIDR block for the VPC.
      */
 
     public void setCidrBlock(String cidrBlock) {
@@ -90,10 +102,10 @@ public class Vpc implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The IPv4 CIDR block for the VPC.
+     * The primary IPv4 CIDR block for the VPC.
      * </p>
      * 
-     * @return The IPv4 CIDR block for the VPC.
+     * @return The primary IPv4 CIDR block for the VPC.
      */
 
     public String getCidrBlock() {
@@ -102,11 +114,11 @@ public class Vpc implements Serializable, Cloneable {
 
     /**
      * <p>
-     * The IPv4 CIDR block for the VPC.
+     * The primary IPv4 CIDR block for the VPC.
      * </p>
      * 
      * @param cidrBlock
-     *        The IPv4 CIDR block for the VPC.
+     *        The primary IPv4 CIDR block for the VPC.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -276,6 +288,46 @@ public class Vpc implements Serializable, Cloneable {
 
     /**
      * <p>
+     * The ID of the AWS account that owns the VPC.
+     * </p>
+     * 
+     * @param ownerId
+     *        The ID of the AWS account that owns the VPC.
+     */
+
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    /**
+     * <p>
+     * The ID of the AWS account that owns the VPC.
+     * </p>
+     * 
+     * @return The ID of the AWS account that owns the VPC.
+     */
+
+    public String getOwnerId() {
+        return this.ownerId;
+    }
+
+    /**
+     * <p>
+     * The ID of the AWS account that owns the VPC.
+     * </p>
+     * 
+     * @param ownerId
+     *        The ID of the AWS account that owns the VPC.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Vpc withOwnerId(String ownerId) {
+        setOwnerId(ownerId);
+        return this;
+    }
+
+    /**
+     * <p>
      * The allowed tenancy of instances launched into the VPC.
      * </p>
      * 
@@ -422,6 +474,79 @@ public class Vpc implements Serializable, Cloneable {
 
     /**
      * <p>
+     * Information about the IPv4 CIDR blocks associated with the VPC.
+     * </p>
+     * 
+     * @return Information about the IPv4 CIDR blocks associated with the VPC.
+     */
+
+    public java.util.List<VpcCidrBlockAssociation> getCidrBlockAssociationSet() {
+        if (cidrBlockAssociationSet == null) {
+            cidrBlockAssociationSet = new com.amazonaws.internal.SdkInternalList<VpcCidrBlockAssociation>();
+        }
+        return cidrBlockAssociationSet;
+    }
+
+    /**
+     * <p>
+     * Information about the IPv4 CIDR blocks associated with the VPC.
+     * </p>
+     * 
+     * @param cidrBlockAssociationSet
+     *        Information about the IPv4 CIDR blocks associated with the VPC.
+     */
+
+    public void setCidrBlockAssociationSet(java.util.Collection<VpcCidrBlockAssociation> cidrBlockAssociationSet) {
+        if (cidrBlockAssociationSet == null) {
+            this.cidrBlockAssociationSet = null;
+            return;
+        }
+
+        this.cidrBlockAssociationSet = new com.amazonaws.internal.SdkInternalList<VpcCidrBlockAssociation>(cidrBlockAssociationSet);
+    }
+
+    /**
+     * <p>
+     * Information about the IPv4 CIDR blocks associated with the VPC.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
+     * {@link #setCidrBlockAssociationSet(java.util.Collection)} or
+     * {@link #withCidrBlockAssociationSet(java.util.Collection)} if you want to override the existing values.
+     * </p>
+     * 
+     * @param cidrBlockAssociationSet
+     *        Information about the IPv4 CIDR blocks associated with the VPC.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Vpc withCidrBlockAssociationSet(VpcCidrBlockAssociation... cidrBlockAssociationSet) {
+        if (this.cidrBlockAssociationSet == null) {
+            setCidrBlockAssociationSet(new com.amazonaws.internal.SdkInternalList<VpcCidrBlockAssociation>(cidrBlockAssociationSet.length));
+        }
+        for (VpcCidrBlockAssociation ele : cidrBlockAssociationSet) {
+            this.cidrBlockAssociationSet.add(ele);
+        }
+        return this;
+    }
+
+    /**
+     * <p>
+     * Information about the IPv4 CIDR blocks associated with the VPC.
+     * </p>
+     * 
+     * @param cidrBlockAssociationSet
+     *        Information about the IPv4 CIDR blocks associated with the VPC.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public Vpc withCidrBlockAssociationSet(java.util.Collection<VpcCidrBlockAssociation> cidrBlockAssociationSet) {
+        setCidrBlockAssociationSet(cidrBlockAssociationSet);
+        return this;
+    }
+
+    /**
+     * <p>
      * Indicates whether the VPC is the default VPC.
      * </p>
      * 
@@ -546,7 +671,8 @@ public class Vpc implements Serializable, Cloneable {
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -564,10 +690,14 @@ public class Vpc implements Serializable, Cloneable {
             sb.append("State: ").append(getState()).append(",");
         if (getVpcId() != null)
             sb.append("VpcId: ").append(getVpcId()).append(",");
+        if (getOwnerId() != null)
+            sb.append("OwnerId: ").append(getOwnerId()).append(",");
         if (getInstanceTenancy() != null)
             sb.append("InstanceTenancy: ").append(getInstanceTenancy()).append(",");
         if (getIpv6CidrBlockAssociationSet() != null)
             sb.append("Ipv6CidrBlockAssociationSet: ").append(getIpv6CidrBlockAssociationSet()).append(",");
+        if (getCidrBlockAssociationSet() != null)
+            sb.append("CidrBlockAssociationSet: ").append(getCidrBlockAssociationSet()).append(",");
         if (getIsDefault() != null)
             sb.append("IsDefault: ").append(getIsDefault()).append(",");
         if (getTags() != null)
@@ -602,6 +732,10 @@ public class Vpc implements Serializable, Cloneable {
             return false;
         if (other.getVpcId() != null && other.getVpcId().equals(this.getVpcId()) == false)
             return false;
+        if (other.getOwnerId() == null ^ this.getOwnerId() == null)
+            return false;
+        if (other.getOwnerId() != null && other.getOwnerId().equals(this.getOwnerId()) == false)
+            return false;
         if (other.getInstanceTenancy() == null ^ this.getInstanceTenancy() == null)
             return false;
         if (other.getInstanceTenancy() != null && other.getInstanceTenancy().equals(this.getInstanceTenancy()) == false)
@@ -609,6 +743,10 @@ public class Vpc implements Serializable, Cloneable {
         if (other.getIpv6CidrBlockAssociationSet() == null ^ this.getIpv6CidrBlockAssociationSet() == null)
             return false;
         if (other.getIpv6CidrBlockAssociationSet() != null && other.getIpv6CidrBlockAssociationSet().equals(this.getIpv6CidrBlockAssociationSet()) == false)
+            return false;
+        if (other.getCidrBlockAssociationSet() == null ^ this.getCidrBlockAssociationSet() == null)
+            return false;
+        if (other.getCidrBlockAssociationSet() != null && other.getCidrBlockAssociationSet().equals(this.getCidrBlockAssociationSet()) == false)
             return false;
         if (other.getIsDefault() == null ^ this.getIsDefault() == null)
             return false;
@@ -630,8 +768,10 @@ public class Vpc implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getDhcpOptionsId() == null) ? 0 : getDhcpOptionsId().hashCode());
         hashCode = prime * hashCode + ((getState() == null) ? 0 : getState().hashCode());
         hashCode = prime * hashCode + ((getVpcId() == null) ? 0 : getVpcId().hashCode());
+        hashCode = prime * hashCode + ((getOwnerId() == null) ? 0 : getOwnerId().hashCode());
         hashCode = prime * hashCode + ((getInstanceTenancy() == null) ? 0 : getInstanceTenancy().hashCode());
         hashCode = prime * hashCode + ((getIpv6CidrBlockAssociationSet() == null) ? 0 : getIpv6CidrBlockAssociationSet().hashCode());
+        hashCode = prime * hashCode + ((getCidrBlockAssociationSet() == null) ? 0 : getCidrBlockAssociationSet().hashCode());
         hashCode = prime * hashCode + ((getIsDefault() == null) ? 0 : getIsDefault().hashCode());
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode());
         return hashCode;

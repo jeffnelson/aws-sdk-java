@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -55,6 +55,8 @@ public enum ElasticBeanstalkActions implements Action {
     DeleteEnvironmentConfiguration("elasticbeanstalk:DeleteEnvironmentConfiguration"),
     /** Action for the DeletePlatformVersion operation. */
     DeletePlatformVersion("elasticbeanstalk:DeletePlatformVersion"),
+    /** Action for the DescribeAccountAttributes operation. */
+    DescribeAccountAttributes("elasticbeanstalk:DescribeAccountAttributes"),
     /** Action for the DescribeApplicationVersions operation. */
     DescribeApplicationVersions("elasticbeanstalk:DescribeApplicationVersions"),
     /** Action for the DescribeApplications operation. */
@@ -83,6 +85,8 @@ public enum ElasticBeanstalkActions implements Action {
     ListAvailableSolutionStacks("elasticbeanstalk:ListAvailableSolutionStacks"),
     /** Action for the ListPlatformVersions operation. */
     ListPlatformVersions("elasticbeanstalk:ListPlatformVersions"),
+    /** Action for the ListTagsForResource operation. */
+    ListTagsForResource("elasticbeanstalk:ListTagsForResource"),
     /** Action for the RebuildEnvironment operation. */
     RebuildEnvironment("elasticbeanstalk:RebuildEnvironment"),
     /** Action for the RequestEnvironmentInfo operation. */
@@ -105,6 +109,8 @@ public enum ElasticBeanstalkActions implements Action {
     UpdateConfigurationTemplate("elasticbeanstalk:UpdateConfigurationTemplate"),
     /** Action for the UpdateEnvironment operation. */
     UpdateEnvironment("elasticbeanstalk:UpdateEnvironment"),
+    /** Action for the UpdateTagsForResource operation. */
+    UpdateTagsForResource("elasticbeanstalk:UpdateTagsForResource"),
     /** Action for the ValidateConfigurationSettings operation. */
     ValidateConfigurationSettings("elasticbeanstalk:ValidateConfigurationSettings"),
 

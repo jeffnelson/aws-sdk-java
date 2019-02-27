@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,6 +27,8 @@ import com.amazonaws.annotation.SdkInternalApi;
 @SdkInternalApi
 public class GroupVersionMarshaller {
 
+    private static final MarshallingInfo<String> CONNECTORDEFINITIONVERSIONARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ConnectorDefinitionVersionArn").build();
     private static final MarshallingInfo<String> COREDEFINITIONVERSIONARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CoreDefinitionVersionArn").build();
     private static final MarshallingInfo<String> DEVICEDEFINITIONVERSIONARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
@@ -35,6 +37,8 @@ public class GroupVersionMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("FunctionDefinitionVersionArn").build();
     private static final MarshallingInfo<String> LOGGERDEFINITIONVERSIONARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("LoggerDefinitionVersionArn").build();
+    private static final MarshallingInfo<String> RESOURCEDEFINITIONVERSIONARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ResourceDefinitionVersionArn").build();
     private static final MarshallingInfo<String> SUBSCRIPTIONDEFINITIONVERSIONARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SubscriptionDefinitionVersionArn").build();
 
@@ -54,10 +58,12 @@ public class GroupVersionMarshaller {
         }
 
         try {
+            protocolMarshaller.marshall(groupVersion.getConnectorDefinitionVersionArn(), CONNECTORDEFINITIONVERSIONARN_BINDING);
             protocolMarshaller.marshall(groupVersion.getCoreDefinitionVersionArn(), COREDEFINITIONVERSIONARN_BINDING);
             protocolMarshaller.marshall(groupVersion.getDeviceDefinitionVersionArn(), DEVICEDEFINITIONVERSIONARN_BINDING);
             protocolMarshaller.marshall(groupVersion.getFunctionDefinitionVersionArn(), FUNCTIONDEFINITIONVERSIONARN_BINDING);
             protocolMarshaller.marshall(groupVersion.getLoggerDefinitionVersionArn(), LOGGERDEFINITIONVERSIONARN_BINDING);
+            protocolMarshaller.marshall(groupVersion.getResourceDefinitionVersionArn(), RESOURCEDEFINITIONVERSIONARN_BINDING);
             protocolMarshaller.marshall(groupVersion.getSubscriptionDefinitionVersionArn(), SUBSCRIPTIONDEFINITIONVERSIONARN_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);

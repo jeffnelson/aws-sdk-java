@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -46,6 +46,12 @@ public class InstanceAssociation implements Serializable, Cloneable, StructuredP
      * </p>
      */
     private String content;
+    /**
+     * <p>
+     * Version information for the association on the instance.
+     * </p>
+     */
+    private String associationVersion;
 
     /**
      * <p>
@@ -168,7 +174,48 @@ public class InstanceAssociation implements Serializable, Cloneable, StructuredP
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * <p>
+     * Version information for the association on the instance.
+     * </p>
+     * 
+     * @param associationVersion
+     *        Version information for the association on the instance.
+     */
+
+    public void setAssociationVersion(String associationVersion) {
+        this.associationVersion = associationVersion;
+    }
+
+    /**
+     * <p>
+     * Version information for the association on the instance.
+     * </p>
+     * 
+     * @return Version information for the association on the instance.
+     */
+
+    public String getAssociationVersion() {
+        return this.associationVersion;
+    }
+
+    /**
+     * <p>
+     * Version information for the association on the instance.
+     * </p>
+     * 
+     * @param associationVersion
+     *        Version information for the association on the instance.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public InstanceAssociation withAssociationVersion(String associationVersion) {
+        setAssociationVersion(associationVersion);
+        return this;
+    }
+
+    /**
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -183,7 +230,9 @@ public class InstanceAssociation implements Serializable, Cloneable, StructuredP
         if (getInstanceId() != null)
             sb.append("InstanceId: ").append(getInstanceId()).append(",");
         if (getContent() != null)
-            sb.append("Content: ").append(getContent());
+            sb.append("Content: ").append(getContent()).append(",");
+        if (getAssociationVersion() != null)
+            sb.append("AssociationVersion: ").append(getAssociationVersion());
         sb.append("}");
         return sb.toString();
     }
@@ -210,6 +259,10 @@ public class InstanceAssociation implements Serializable, Cloneable, StructuredP
             return false;
         if (other.getContent() != null && other.getContent().equals(this.getContent()) == false)
             return false;
+        if (other.getAssociationVersion() == null ^ this.getAssociationVersion() == null)
+            return false;
+        if (other.getAssociationVersion() != null && other.getAssociationVersion().equals(this.getAssociationVersion()) == false)
+            return false;
         return true;
     }
 
@@ -221,6 +274,7 @@ public class InstanceAssociation implements Serializable, Cloneable, StructuredP
         hashCode = prime * hashCode + ((getAssociationId() == null) ? 0 : getAssociationId().hashCode());
         hashCode = prime * hashCode + ((getInstanceId() == null) ? 0 : getInstanceId().hashCode());
         hashCode = prime * hashCode + ((getContent() == null) ? 0 : getContent().hashCode());
+        hashCode = prime * hashCode + ((getAssociationVersion() == null) ? 0 : getAssociationVersion().hashCode());
         return hashCode;
     }
 

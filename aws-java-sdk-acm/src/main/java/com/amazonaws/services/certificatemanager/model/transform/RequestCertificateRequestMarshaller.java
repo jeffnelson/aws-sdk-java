@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -30,12 +30,18 @@ public class RequestCertificateRequestMarshaller {
 
     private static final MarshallingInfo<String> DOMAINNAME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DomainName").build();
+    private static final MarshallingInfo<String> VALIDATIONMETHOD_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("ValidationMethod").build();
     private static final MarshallingInfo<List> SUBJECTALTERNATIVENAMES_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("SubjectAlternativeNames").build();
     private static final MarshallingInfo<String> IDEMPOTENCYTOKEN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("IdempotencyToken").build();
     private static final MarshallingInfo<List> DOMAINVALIDATIONOPTIONS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DomainValidationOptions").build();
+    private static final MarshallingInfo<StructuredPojo> OPTIONS_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Options").build();
+    private static final MarshallingInfo<String> CERTIFICATEAUTHORITYARN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("CertificateAuthorityArn").build();
 
     private static final RequestCertificateRequestMarshaller instance = new RequestCertificateRequestMarshaller();
 
@@ -54,9 +60,12 @@ public class RequestCertificateRequestMarshaller {
 
         try {
             protocolMarshaller.marshall(requestCertificateRequest.getDomainName(), DOMAINNAME_BINDING);
+            protocolMarshaller.marshall(requestCertificateRequest.getValidationMethod(), VALIDATIONMETHOD_BINDING);
             protocolMarshaller.marshall(requestCertificateRequest.getSubjectAlternativeNames(), SUBJECTALTERNATIVENAMES_BINDING);
             protocolMarshaller.marshall(requestCertificateRequest.getIdempotencyToken(), IDEMPOTENCYTOKEN_BINDING);
             protocolMarshaller.marshall(requestCertificateRequest.getDomainValidationOptions(), DOMAINVALIDATIONOPTIONS_BINDING);
+            protocolMarshaller.marshall(requestCertificateRequest.getOptions(), OPTIONS_BINDING);
+            protocolMarshaller.marshall(requestCertificateRequest.getCertificateAuthorityArn(), CERTIFICATEAUTHORITYARN_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

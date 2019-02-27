@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,12 +19,20 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * Send message response.
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/MessageResponse" target="_top">AWS API
+ *      Documentation</a>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class MessageResponse implements Serializable, Cloneable, StructuredPojo {
 
     /** Application id of the message. */
     private String applicationId;
+    /**
+     * A map containing a multi part response for each address, with the endpointId as the key and the result as the
+     * value.
+     */
+    private java.util.Map<String, EndpointMessageResult> endpointResult;
     /** Original request Id for which this message was delivered. */
     private String requestId;
     /**
@@ -64,6 +72,67 @@ public class MessageResponse implements Serializable, Cloneable, StructuredPojo 
 
     public MessageResponse withApplicationId(String applicationId) {
         setApplicationId(applicationId);
+        return this;
+    }
+
+    /**
+     * A map containing a multi part response for each address, with the endpointId as the key and the result as the
+     * value.
+     * 
+     * @return A map containing a multi part response for each address, with the endpointId as the key and the result as
+     *         the value.
+     */
+
+    public java.util.Map<String, EndpointMessageResult> getEndpointResult() {
+        return endpointResult;
+    }
+
+    /**
+     * A map containing a multi part response for each address, with the endpointId as the key and the result as the
+     * value.
+     * 
+     * @param endpointResult
+     *        A map containing a multi part response for each address, with the endpointId as the key and the result as
+     *        the value.
+     */
+
+    public void setEndpointResult(java.util.Map<String, EndpointMessageResult> endpointResult) {
+        this.endpointResult = endpointResult;
+    }
+
+    /**
+     * A map containing a multi part response for each address, with the endpointId as the key and the result as the
+     * value.
+     * 
+     * @param endpointResult
+     *        A map containing a multi part response for each address, with the endpointId as the key and the result as
+     *        the value.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public MessageResponse withEndpointResult(java.util.Map<String, EndpointMessageResult> endpointResult) {
+        setEndpointResult(endpointResult);
+        return this;
+    }
+
+    public MessageResponse addEndpointResultEntry(String key, EndpointMessageResult value) {
+        if (null == this.endpointResult) {
+            this.endpointResult = new java.util.HashMap<String, EndpointMessageResult>();
+        }
+        if (this.endpointResult.containsKey(key))
+            throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
+        this.endpointResult.put(key, value);
+        return this;
+    }
+
+    /**
+     * Removes all the entries added into EndpointResult.
+     *
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public MessageResponse clearEndpointResultEntries() {
+        this.endpointResult = null;
         return this;
     }
 
@@ -163,7 +232,8 @@ public class MessageResponse implements Serializable, Cloneable, StructuredPojo 
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -175,6 +245,8 @@ public class MessageResponse implements Serializable, Cloneable, StructuredPojo 
         sb.append("{");
         if (getApplicationId() != null)
             sb.append("ApplicationId: ").append(getApplicationId()).append(",");
+        if (getEndpointResult() != null)
+            sb.append("EndpointResult: ").append(getEndpointResult()).append(",");
         if (getRequestId() != null)
             sb.append("RequestId: ").append(getRequestId()).append(",");
         if (getResult() != null)
@@ -197,6 +269,10 @@ public class MessageResponse implements Serializable, Cloneable, StructuredPojo 
             return false;
         if (other.getApplicationId() != null && other.getApplicationId().equals(this.getApplicationId()) == false)
             return false;
+        if (other.getEndpointResult() == null ^ this.getEndpointResult() == null)
+            return false;
+        if (other.getEndpointResult() != null && other.getEndpointResult().equals(this.getEndpointResult()) == false)
+            return false;
         if (other.getRequestId() == null ^ this.getRequestId() == null)
             return false;
         if (other.getRequestId() != null && other.getRequestId().equals(this.getRequestId()) == false)
@@ -214,6 +290,7 @@ public class MessageResponse implements Serializable, Cloneable, StructuredPojo 
         int hashCode = 1;
 
         hashCode = prime * hashCode + ((getApplicationId() == null) ? 0 : getApplicationId().hashCode());
+        hashCode = prime * hashCode + ((getEndpointResult() == null) ? 0 : getEndpointResult().hashCode());
         hashCode = prime * hashCode + ((getRequestId() == null) ? 0 : getRequestId().hashCode());
         hashCode = prime * hashCode + ((getResult() == null) ? 0 : getResult().hashCode());
         return hashCode;

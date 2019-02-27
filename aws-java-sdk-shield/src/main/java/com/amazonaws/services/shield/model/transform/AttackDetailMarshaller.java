@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -35,11 +35,13 @@ public class AttackDetailMarshaller {
     private static final MarshallingInfo<List> SUBRESOURCES_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("SubResources").build();
     private static final MarshallingInfo<java.util.Date> STARTTIME_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
-            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("StartTime").build();
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("StartTime").timestampFormat("unixTimestamp").build();
     private static final MarshallingInfo<java.util.Date> ENDTIME_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
-            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("EndTime").build();
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("EndTime").timestampFormat("unixTimestamp").build();
     private static final MarshallingInfo<List> ATTACKCOUNTERS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AttackCounters").build();
+    private static final MarshallingInfo<List> ATTACKPROPERTIES_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AttackProperties").build();
     private static final MarshallingInfo<List> MITIGATIONS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("Mitigations").build();
 
@@ -65,6 +67,7 @@ public class AttackDetailMarshaller {
             protocolMarshaller.marshall(attackDetail.getStartTime(), STARTTIME_BINDING);
             protocolMarshaller.marshall(attackDetail.getEndTime(), ENDTIME_BINDING);
             protocolMarshaller.marshall(attackDetail.getAttackCounters(), ATTACKCOUNTERS_BINDING);
+            protocolMarshaller.marshall(attackDetail.getAttackProperties(), ATTACKPROPERTIES_BINDING);
             protocolMarshaller.marshall(attackDetail.getMitigations(), MITIGATIONS_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);

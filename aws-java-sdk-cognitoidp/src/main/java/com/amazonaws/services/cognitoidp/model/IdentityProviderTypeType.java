@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -20,7 +20,11 @@ import javax.annotation.Generated;
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public enum IdentityProviderTypeType {
 
-    SAML("SAML");
+    SAML("SAML"),
+    Facebook("Facebook"),
+    Google("Google"),
+    LoginWithAmazon("LoginWithAmazon"),
+    OIDC("OIDC");
 
     private String value;
 
@@ -39,6 +43,9 @@ public enum IdentityProviderTypeType {
      * @param value
      *        real value
      * @return IdentityProviderTypeType corresponding to the value
+     *
+     * @throws IllegalArgumentException
+     *         If the specified value does not map to one of the known values in this enum.
      */
     public static IdentityProviderTypeType fromValue(String value) {
         if (value == null || "".equals(value)) {

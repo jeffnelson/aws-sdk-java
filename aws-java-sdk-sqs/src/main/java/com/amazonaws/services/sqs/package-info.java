@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -25,7 +25,7 @@
  * <a href="http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/standard-queues.html">Standard
  * queues</a> are available in all regions. <a
  * href="http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues.html">FIFO queues</a> are
- * available in US West (Oregon) and US East (Ohio).
+ * available in the US East (N. Virginia), US East (Ohio), US West (Oregon), and EU (Ireland) regions.
  * </p>
  * </note>
  * <p>
@@ -60,28 +60,36 @@
  * </li>
  * <li>
  * <p>
- * <i>Amazon SQS Developer Guide</i>
+ * <i>Amazon Simple Queue Service Developer Guide</i>
  * </p>
  * <ul>
  * <li>
  * <p>
- * <a href="http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/MakingRequestsArticle.html">Making
- * API Requests</a>
+ * <a href="http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-making-api-requests.html">
+ * Making API Requests</a>
  * </p>
  * </li>
  * <li>
  * <p>
- * <a href="http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-message-attributes.html">Using
- * Amazon SQS Message Attributes</a>
+ * <a
+ * href="http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-message-attributes.html">Amazon
+ * SQS Message Attributes</a>
  * </p>
  * </li>
  * <li>
  * <p>
- * <a href="http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html">Using
- * Amazon SQS Dead Letter Queues</a>
+ * <a
+ * href="http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html">Amazon
+ * SQS Dead-Letter Queues</a>
  * </p>
  * </li>
  * </ul>
+ * </li>
+ * <li>
+ * <p>
+ * <a href="http://docs.aws.amazon.com/cli/latest/reference/sqs/index.html">Amazon SQS in the <i>AWS CLI Command
+ * Reference</i> </a>
+ * </p>
  * </li>
  * <li>
  * <p>

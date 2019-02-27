@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,20 +19,35 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * Quiet Time
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/QuietTime" target="_top">AWS API
+ *      Documentation</a>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class QuietTime implements Serializable, Cloneable, StructuredPojo {
 
-    /** The default end time for quiet time in ISO 8601 format. */
+    /**
+     * The time at which quiet time should end. The value that you specify has to be in HH:mm format, where HH is the
+     * hour in 24-hour format (with a leading zero, if applicable), and mm is the minutes. For example, use 02:30 to
+     * represent 2:30 AM, or 14:30 to represent 2:30 PM.
+     */
     private String end;
-    /** The default start time for quiet time in ISO 8601 format. */
+    /**
+     * The time at which quiet time should begin. The value that you specify has to be in HH:mm format, where HH is the
+     * hour in 24-hour format (with a leading zero, if applicable), and mm is the minutes. For example, use 02:30 to
+     * represent 2:30 AM, or 14:30 to represent 2:30 PM.
+     */
     private String start;
 
     /**
-     * The default end time for quiet time in ISO 8601 format.
+     * The time at which quiet time should end. The value that you specify has to be in HH:mm format, where HH is the
+     * hour in 24-hour format (with a leading zero, if applicable), and mm is the minutes. For example, use 02:30 to
+     * represent 2:30 AM, or 14:30 to represent 2:30 PM.
      * 
      * @param end
-     *        The default end time for quiet time in ISO 8601 format.
+     *        The time at which quiet time should end. The value that you specify has to be in HH:mm format, where HH is
+     *        the hour in 24-hour format (with a leading zero, if applicable), and mm is the minutes. For example, use
+     *        02:30 to represent 2:30 AM, or 14:30 to represent 2:30 PM.
      */
 
     public void setEnd(String end) {
@@ -40,9 +55,13 @@ public class QuietTime implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * The default end time for quiet time in ISO 8601 format.
+     * The time at which quiet time should end. The value that you specify has to be in HH:mm format, where HH is the
+     * hour in 24-hour format (with a leading zero, if applicable), and mm is the minutes. For example, use 02:30 to
+     * represent 2:30 AM, or 14:30 to represent 2:30 PM.
      * 
-     * @return The default end time for quiet time in ISO 8601 format.
+     * @return The time at which quiet time should end. The value that you specify has to be in HH:mm format, where HH
+     *         is the hour in 24-hour format (with a leading zero, if applicable), and mm is the minutes. For example,
+     *         use 02:30 to represent 2:30 AM, or 14:30 to represent 2:30 PM.
      */
 
     public String getEnd() {
@@ -50,10 +69,14 @@ public class QuietTime implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * The default end time for quiet time in ISO 8601 format.
+     * The time at which quiet time should end. The value that you specify has to be in HH:mm format, where HH is the
+     * hour in 24-hour format (with a leading zero, if applicable), and mm is the minutes. For example, use 02:30 to
+     * represent 2:30 AM, or 14:30 to represent 2:30 PM.
      * 
      * @param end
-     *        The default end time for quiet time in ISO 8601 format.
+     *        The time at which quiet time should end. The value that you specify has to be in HH:mm format, where HH is
+     *        the hour in 24-hour format (with a leading zero, if applicable), and mm is the minutes. For example, use
+     *        02:30 to represent 2:30 AM, or 14:30 to represent 2:30 PM.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -63,10 +86,14 @@ public class QuietTime implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * The default start time for quiet time in ISO 8601 format.
+     * The time at which quiet time should begin. The value that you specify has to be in HH:mm format, where HH is the
+     * hour in 24-hour format (with a leading zero, if applicable), and mm is the minutes. For example, use 02:30 to
+     * represent 2:30 AM, or 14:30 to represent 2:30 PM.
      * 
      * @param start
-     *        The default start time for quiet time in ISO 8601 format.
+     *        The time at which quiet time should begin. The value that you specify has to be in HH:mm format, where HH
+     *        is the hour in 24-hour format (with a leading zero, if applicable), and mm is the minutes. For example,
+     *        use 02:30 to represent 2:30 AM, or 14:30 to represent 2:30 PM.
      */
 
     public void setStart(String start) {
@@ -74,9 +101,13 @@ public class QuietTime implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * The default start time for quiet time in ISO 8601 format.
+     * The time at which quiet time should begin. The value that you specify has to be in HH:mm format, where HH is the
+     * hour in 24-hour format (with a leading zero, if applicable), and mm is the minutes. For example, use 02:30 to
+     * represent 2:30 AM, or 14:30 to represent 2:30 PM.
      * 
-     * @return The default start time for quiet time in ISO 8601 format.
+     * @return The time at which quiet time should begin. The value that you specify has to be in HH:mm format, where HH
+     *         is the hour in 24-hour format (with a leading zero, if applicable), and mm is the minutes. For example,
+     *         use 02:30 to represent 2:30 AM, or 14:30 to represent 2:30 PM.
      */
 
     public String getStart() {
@@ -84,10 +115,14 @@ public class QuietTime implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * The default start time for quiet time in ISO 8601 format.
+     * The time at which quiet time should begin. The value that you specify has to be in HH:mm format, where HH is the
+     * hour in 24-hour format (with a leading zero, if applicable), and mm is the minutes. For example, use 02:30 to
+     * represent 2:30 AM, or 14:30 to represent 2:30 PM.
      * 
      * @param start
-     *        The default start time for quiet time in ISO 8601 format.
+     *        The time at which quiet time should begin. The value that you specify has to be in HH:mm format, where HH
+     *        is the hour in 24-hour format (with a leading zero, if applicable), and mm is the minutes. For example,
+     *        use 02:30 to represent 2:30 AM, or 14:30 to represent 2:30 PM.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -97,7 +132,8 @@ public class QuietTime implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

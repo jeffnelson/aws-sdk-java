@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -33,6 +33,8 @@ public class DescribeAssociationRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("InstanceId").build();
     private static final MarshallingInfo<String> ASSOCIATIONID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AssociationId").build();
+    private static final MarshallingInfo<String> ASSOCIATIONVERSION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AssociationVersion").build();
 
     private static final DescribeAssociationRequestMarshaller instance = new DescribeAssociationRequestMarshaller();
 
@@ -53,6 +55,7 @@ public class DescribeAssociationRequestMarshaller {
             protocolMarshaller.marshall(describeAssociationRequest.getName(), NAME_BINDING);
             protocolMarshaller.marshall(describeAssociationRequest.getInstanceId(), INSTANCEID_BINDING);
             protocolMarshaller.marshall(describeAssociationRequest.getAssociationId(), ASSOCIATIONID_BINDING);
+            protocolMarshaller.marshall(describeAssociationRequest.getAssociationVersion(), ASSOCIATIONVERSION_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

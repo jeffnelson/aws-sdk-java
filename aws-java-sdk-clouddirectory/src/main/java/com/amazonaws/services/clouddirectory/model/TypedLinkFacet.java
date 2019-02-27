@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -23,7 +23,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
  * <a>CreateTypedLinkFacet</a> API.
  * </p>
  * 
- * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2016-05-10/TypedLinkFacet" target="_top">AWS API
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2017-01-11/TypedLinkFacet" target="_top">AWS API
  *      Documentation</a>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -47,7 +47,7 @@ public class TypedLinkFacet implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The set of attributes that distinguish links made from this facet from each other, in the order of significance.
      * Listing typed links can filter on the values of these attributes. See <a>ListOutgoingTypedLinks</a> and
-     * <a>ListIncomingTypeLinks</a> for details.
+     * <a>ListIncomingTypedLinks</a> for details.
      * </p>
      */
     private java.util.List<String> identityAttributeOrder;
@@ -182,12 +182,12 @@ public class TypedLinkFacet implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The set of attributes that distinguish links made from this facet from each other, in the order of significance.
      * Listing typed links can filter on the values of these attributes. See <a>ListOutgoingTypedLinks</a> and
-     * <a>ListIncomingTypeLinks</a> for details.
+     * <a>ListIncomingTypedLinks</a> for details.
      * </p>
      * 
      * @return The set of attributes that distinguish links made from this facet from each other, in the order of
      *         significance. Listing typed links can filter on the values of these attributes. See
-     *         <a>ListOutgoingTypedLinks</a> and <a>ListIncomingTypeLinks</a> for details.
+     *         <a>ListOutgoingTypedLinks</a> and <a>ListIncomingTypedLinks</a> for details.
      */
 
     public java.util.List<String> getIdentityAttributeOrder() {
@@ -198,13 +198,13 @@ public class TypedLinkFacet implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The set of attributes that distinguish links made from this facet from each other, in the order of significance.
      * Listing typed links can filter on the values of these attributes. See <a>ListOutgoingTypedLinks</a> and
-     * <a>ListIncomingTypeLinks</a> for details.
+     * <a>ListIncomingTypedLinks</a> for details.
      * </p>
      * 
      * @param identityAttributeOrder
      *        The set of attributes that distinguish links made from this facet from each other, in the order of
      *        significance. Listing typed links can filter on the values of these attributes. See
-     *        <a>ListOutgoingTypedLinks</a> and <a>ListIncomingTypeLinks</a> for details.
+     *        <a>ListOutgoingTypedLinks</a> and <a>ListIncomingTypedLinks</a> for details.
      */
 
     public void setIdentityAttributeOrder(java.util.Collection<String> identityAttributeOrder) {
@@ -220,7 +220,7 @@ public class TypedLinkFacet implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The set of attributes that distinguish links made from this facet from each other, in the order of significance.
      * Listing typed links can filter on the values of these attributes. See <a>ListOutgoingTypedLinks</a> and
-     * <a>ListIncomingTypeLinks</a> for details.
+     * <a>ListIncomingTypedLinks</a> for details.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -231,7 +231,7 @@ public class TypedLinkFacet implements Serializable, Cloneable, StructuredPojo {
      * @param identityAttributeOrder
      *        The set of attributes that distinguish links made from this facet from each other, in the order of
      *        significance. Listing typed links can filter on the values of these attributes. See
-     *        <a>ListOutgoingTypedLinks</a> and <a>ListIncomingTypeLinks</a> for details.
+     *        <a>ListOutgoingTypedLinks</a> and <a>ListIncomingTypedLinks</a> for details.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -249,13 +249,13 @@ public class TypedLinkFacet implements Serializable, Cloneable, StructuredPojo {
      * <p>
      * The set of attributes that distinguish links made from this facet from each other, in the order of significance.
      * Listing typed links can filter on the values of these attributes. See <a>ListOutgoingTypedLinks</a> and
-     * <a>ListIncomingTypeLinks</a> for details.
+     * <a>ListIncomingTypedLinks</a> for details.
      * </p>
      * 
      * @param identityAttributeOrder
      *        The set of attributes that distinguish links made from this facet from each other, in the order of
      *        significance. Listing typed links can filter on the values of these attributes. See
-     *        <a>ListOutgoingTypedLinks</a> and <a>ListIncomingTypeLinks</a> for details.
+     *        <a>ListOutgoingTypedLinks</a> and <a>ListIncomingTypedLinks</a> for details.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -265,7 +265,8 @@ public class TypedLinkFacet implements Serializable, Cloneable, StructuredPojo {
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

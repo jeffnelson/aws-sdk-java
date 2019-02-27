@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -316,6 +316,39 @@ public class AWSWAFRegionalAsyncClient extends AWSWAFRegionalClient implements A
     }
 
     @Override
+    public java.util.concurrent.Future<CreateGeoMatchSetResult> createGeoMatchSetAsync(CreateGeoMatchSetRequest request) {
+
+        return createGeoMatchSetAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateGeoMatchSetResult> createGeoMatchSetAsync(final CreateGeoMatchSetRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateGeoMatchSetRequest, CreateGeoMatchSetResult> asyncHandler) {
+        final CreateGeoMatchSetRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateGeoMatchSetResult>() {
+            @Override
+            public CreateGeoMatchSetResult call() throws Exception {
+                CreateGeoMatchSetResult result = null;
+
+                try {
+                    result = executeCreateGeoMatchSet(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<CreateIPSetResult> createIPSetAsync(CreateIPSetRequest request) {
 
         return createIPSetAsync(request, null);
@@ -382,6 +415,72 @@ public class AWSWAFRegionalAsyncClient extends AWSWAFRegionalClient implements A
     }
 
     @Override
+    public java.util.concurrent.Future<CreateRegexMatchSetResult> createRegexMatchSetAsync(CreateRegexMatchSetRequest request) {
+
+        return createRegexMatchSetAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateRegexMatchSetResult> createRegexMatchSetAsync(final CreateRegexMatchSetRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateRegexMatchSetRequest, CreateRegexMatchSetResult> asyncHandler) {
+        final CreateRegexMatchSetRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateRegexMatchSetResult>() {
+            @Override
+            public CreateRegexMatchSetResult call() throws Exception {
+                CreateRegexMatchSetResult result = null;
+
+                try {
+                    result = executeCreateRegexMatchSet(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateRegexPatternSetResult> createRegexPatternSetAsync(CreateRegexPatternSetRequest request) {
+
+        return createRegexPatternSetAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateRegexPatternSetResult> createRegexPatternSetAsync(final CreateRegexPatternSetRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateRegexPatternSetRequest, CreateRegexPatternSetResult> asyncHandler) {
+        final CreateRegexPatternSetRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateRegexPatternSetResult>() {
+            @Override
+            public CreateRegexPatternSetResult call() throws Exception {
+                CreateRegexPatternSetResult result = null;
+
+                try {
+                    result = executeCreateRegexPatternSet(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<CreateRuleResult> createRuleAsync(CreateRuleRequest request) {
 
         return createRuleAsync(request, null);
@@ -399,6 +498,39 @@ public class AWSWAFRegionalAsyncClient extends AWSWAFRegionalClient implements A
 
                 try {
                     result = executeCreateRule(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateRuleGroupResult> createRuleGroupAsync(CreateRuleGroupRequest request) {
+
+        return createRuleGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateRuleGroupResult> createRuleGroupAsync(final CreateRuleGroupRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CreateRuleGroupRequest, CreateRuleGroupResult> asyncHandler) {
+        final CreateRuleGroupRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<CreateRuleGroupResult>() {
+            @Override
+            public CreateRuleGroupResult call() throws Exception {
+                CreateRuleGroupResult result = null;
+
+                try {
+                    result = executeCreateRuleGroup(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -580,6 +712,39 @@ public class AWSWAFRegionalAsyncClient extends AWSWAFRegionalClient implements A
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteGeoMatchSetResult> deleteGeoMatchSetAsync(DeleteGeoMatchSetRequest request) {
+
+        return deleteGeoMatchSetAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteGeoMatchSetResult> deleteGeoMatchSetAsync(final DeleteGeoMatchSetRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteGeoMatchSetRequest, DeleteGeoMatchSetResult> asyncHandler) {
+        final DeleteGeoMatchSetRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteGeoMatchSetResult>() {
+            @Override
+            public DeleteGeoMatchSetResult call() throws Exception {
+                DeleteGeoMatchSetResult result = null;
+
+                try {
+                    result = executeDeleteGeoMatchSet(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteIPSetResult> deleteIPSetAsync(DeleteIPSetRequest request) {
 
         return deleteIPSetAsync(request, null);
@@ -597,6 +762,72 @@ public class AWSWAFRegionalAsyncClient extends AWSWAFRegionalClient implements A
 
                 try {
                     result = executeDeleteIPSet(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteLoggingConfigurationResult> deleteLoggingConfigurationAsync(DeleteLoggingConfigurationRequest request) {
+
+        return deleteLoggingConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteLoggingConfigurationResult> deleteLoggingConfigurationAsync(final DeleteLoggingConfigurationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteLoggingConfigurationRequest, DeleteLoggingConfigurationResult> asyncHandler) {
+        final DeleteLoggingConfigurationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteLoggingConfigurationResult>() {
+            @Override
+            public DeleteLoggingConfigurationResult call() throws Exception {
+                DeleteLoggingConfigurationResult result = null;
+
+                try {
+                    result = executeDeleteLoggingConfiguration(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeletePermissionPolicyResult> deletePermissionPolicyAsync(DeletePermissionPolicyRequest request) {
+
+        return deletePermissionPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeletePermissionPolicyResult> deletePermissionPolicyAsync(final DeletePermissionPolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeletePermissionPolicyRequest, DeletePermissionPolicyResult> asyncHandler) {
+        final DeletePermissionPolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeletePermissionPolicyResult>() {
+            @Override
+            public DeletePermissionPolicyResult call() throws Exception {
+                DeletePermissionPolicyResult result = null;
+
+                try {
+                    result = executeDeletePermissionPolicy(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -646,6 +877,72 @@ public class AWSWAFRegionalAsyncClient extends AWSWAFRegionalClient implements A
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteRegexMatchSetResult> deleteRegexMatchSetAsync(DeleteRegexMatchSetRequest request) {
+
+        return deleteRegexMatchSetAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteRegexMatchSetResult> deleteRegexMatchSetAsync(final DeleteRegexMatchSetRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteRegexMatchSetRequest, DeleteRegexMatchSetResult> asyncHandler) {
+        final DeleteRegexMatchSetRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteRegexMatchSetResult>() {
+            @Override
+            public DeleteRegexMatchSetResult call() throws Exception {
+                DeleteRegexMatchSetResult result = null;
+
+                try {
+                    result = executeDeleteRegexMatchSet(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteRegexPatternSetResult> deleteRegexPatternSetAsync(DeleteRegexPatternSetRequest request) {
+
+        return deleteRegexPatternSetAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteRegexPatternSetResult> deleteRegexPatternSetAsync(final DeleteRegexPatternSetRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteRegexPatternSetRequest, DeleteRegexPatternSetResult> asyncHandler) {
+        final DeleteRegexPatternSetRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteRegexPatternSetResult>() {
+            @Override
+            public DeleteRegexPatternSetResult call() throws Exception {
+                DeleteRegexPatternSetResult result = null;
+
+                try {
+                    result = executeDeleteRegexPatternSet(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteRuleResult> deleteRuleAsync(DeleteRuleRequest request) {
 
         return deleteRuleAsync(request, null);
@@ -663,6 +960,39 @@ public class AWSWAFRegionalAsyncClient extends AWSWAFRegionalClient implements A
 
                 try {
                     result = executeDeleteRule(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteRuleGroupResult> deleteRuleGroupAsync(DeleteRuleGroupRequest request) {
+
+        return deleteRuleGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteRuleGroupResult> deleteRuleGroupAsync(final DeleteRuleGroupRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DeleteRuleGroupRequest, DeleteRuleGroupResult> asyncHandler) {
+        final DeleteRuleGroupRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<DeleteRuleGroupResult>() {
+            @Override
+            public DeleteRuleGroupResult call() throws Exception {
+                DeleteRuleGroupResult result = null;
+
+                try {
+                    result = executeDeleteRuleGroup(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -943,6 +1273,39 @@ public class AWSWAFRegionalAsyncClient extends AWSWAFRegionalClient implements A
     }
 
     @Override
+    public java.util.concurrent.Future<GetGeoMatchSetResult> getGeoMatchSetAsync(GetGeoMatchSetRequest request) {
+
+        return getGeoMatchSetAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetGeoMatchSetResult> getGeoMatchSetAsync(final GetGeoMatchSetRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetGeoMatchSetRequest, GetGeoMatchSetResult> asyncHandler) {
+        final GetGeoMatchSetRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetGeoMatchSetResult>() {
+            @Override
+            public GetGeoMatchSetResult call() throws Exception {
+                GetGeoMatchSetResult result = null;
+
+                try {
+                    result = executeGetGeoMatchSet(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<GetIPSetResult> getIPSetAsync(GetIPSetRequest request) {
 
         return getIPSetAsync(request, null);
@@ -960,6 +1323,72 @@ public class AWSWAFRegionalAsyncClient extends AWSWAFRegionalClient implements A
 
                 try {
                     result = executeGetIPSet(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetLoggingConfigurationResult> getLoggingConfigurationAsync(GetLoggingConfigurationRequest request) {
+
+        return getLoggingConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetLoggingConfigurationResult> getLoggingConfigurationAsync(final GetLoggingConfigurationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetLoggingConfigurationRequest, GetLoggingConfigurationResult> asyncHandler) {
+        final GetLoggingConfigurationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetLoggingConfigurationResult>() {
+            @Override
+            public GetLoggingConfigurationResult call() throws Exception {
+                GetLoggingConfigurationResult result = null;
+
+                try {
+                    result = executeGetLoggingConfiguration(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetPermissionPolicyResult> getPermissionPolicyAsync(GetPermissionPolicyRequest request) {
+
+        return getPermissionPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetPermissionPolicyResult> getPermissionPolicyAsync(final GetPermissionPolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetPermissionPolicyRequest, GetPermissionPolicyResult> asyncHandler) {
+        final GetPermissionPolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetPermissionPolicyResult>() {
+            @Override
+            public GetPermissionPolicyResult call() throws Exception {
+                GetPermissionPolicyResult result = null;
+
+                try {
+                    result = executeGetPermissionPolicy(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1042,6 +1471,72 @@ public class AWSWAFRegionalAsyncClient extends AWSWAFRegionalClient implements A
     }
 
     @Override
+    public java.util.concurrent.Future<GetRegexMatchSetResult> getRegexMatchSetAsync(GetRegexMatchSetRequest request) {
+
+        return getRegexMatchSetAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRegexMatchSetResult> getRegexMatchSetAsync(final GetRegexMatchSetRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetRegexMatchSetRequest, GetRegexMatchSetResult> asyncHandler) {
+        final GetRegexMatchSetRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetRegexMatchSetResult>() {
+            @Override
+            public GetRegexMatchSetResult call() throws Exception {
+                GetRegexMatchSetResult result = null;
+
+                try {
+                    result = executeGetRegexMatchSet(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRegexPatternSetResult> getRegexPatternSetAsync(GetRegexPatternSetRequest request) {
+
+        return getRegexPatternSetAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRegexPatternSetResult> getRegexPatternSetAsync(final GetRegexPatternSetRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetRegexPatternSetRequest, GetRegexPatternSetResult> asyncHandler) {
+        final GetRegexPatternSetRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetRegexPatternSetResult>() {
+            @Override
+            public GetRegexPatternSetResult call() throws Exception {
+                GetRegexPatternSetResult result = null;
+
+                try {
+                    result = executeGetRegexPatternSet(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<GetRuleResult> getRuleAsync(GetRuleRequest request) {
 
         return getRuleAsync(request, null);
@@ -1059,6 +1554,39 @@ public class AWSWAFRegionalAsyncClient extends AWSWAFRegionalClient implements A
 
                 try {
                     result = executeGetRule(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRuleGroupResult> getRuleGroupAsync(GetRuleGroupRequest request) {
+
+        return getRuleGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetRuleGroupResult> getRuleGroupAsync(final GetRuleGroupRequest request,
+            final com.amazonaws.handlers.AsyncHandler<GetRuleGroupRequest, GetRuleGroupResult> asyncHandler) {
+        final GetRuleGroupRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<GetRuleGroupResult>() {
+            @Override
+            public GetRuleGroupResult call() throws Exception {
+                GetRuleGroupResult result = null;
+
+                try {
+                    result = executeGetRuleGroup(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1273,6 +1801,40 @@ public class AWSWAFRegionalAsyncClient extends AWSWAFRegionalClient implements A
     }
 
     @Override
+    public java.util.concurrent.Future<ListActivatedRulesInRuleGroupResult> listActivatedRulesInRuleGroupAsync(ListActivatedRulesInRuleGroupRequest request) {
+
+        return listActivatedRulesInRuleGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListActivatedRulesInRuleGroupResult> listActivatedRulesInRuleGroupAsync(
+            final ListActivatedRulesInRuleGroupRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListActivatedRulesInRuleGroupRequest, ListActivatedRulesInRuleGroupResult> asyncHandler) {
+        final ListActivatedRulesInRuleGroupRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListActivatedRulesInRuleGroupResult>() {
+            @Override
+            public ListActivatedRulesInRuleGroupResult call() throws Exception {
+                ListActivatedRulesInRuleGroupResult result = null;
+
+                try {
+                    result = executeListActivatedRulesInRuleGroup(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ListByteMatchSetsResult> listByteMatchSetsAsync(ListByteMatchSetsRequest request) {
 
         return listByteMatchSetsAsync(request, null);
@@ -1290,6 +1852,39 @@ public class AWSWAFRegionalAsyncClient extends AWSWAFRegionalClient implements A
 
                 try {
                     result = executeListByteMatchSets(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListGeoMatchSetsResult> listGeoMatchSetsAsync(ListGeoMatchSetsRequest request) {
+
+        return listGeoMatchSetsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListGeoMatchSetsResult> listGeoMatchSetsAsync(final ListGeoMatchSetsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListGeoMatchSetsRequest, ListGeoMatchSetsResult> asyncHandler) {
+        final ListGeoMatchSetsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListGeoMatchSetsResult>() {
+            @Override
+            public ListGeoMatchSetsResult call() throws Exception {
+                ListGeoMatchSetsResult result = null;
+
+                try {
+                    result = executeListGeoMatchSets(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1339,6 +1934,39 @@ public class AWSWAFRegionalAsyncClient extends AWSWAFRegionalClient implements A
     }
 
     @Override
+    public java.util.concurrent.Future<ListLoggingConfigurationsResult> listLoggingConfigurationsAsync(ListLoggingConfigurationsRequest request) {
+
+        return listLoggingConfigurationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListLoggingConfigurationsResult> listLoggingConfigurationsAsync(final ListLoggingConfigurationsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListLoggingConfigurationsRequest, ListLoggingConfigurationsResult> asyncHandler) {
+        final ListLoggingConfigurationsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListLoggingConfigurationsResult>() {
+            @Override
+            public ListLoggingConfigurationsResult call() throws Exception {
+                ListLoggingConfigurationsResult result = null;
+
+                try {
+                    result = executeListLoggingConfigurations(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ListRateBasedRulesResult> listRateBasedRulesAsync(ListRateBasedRulesRequest request) {
 
         return listRateBasedRulesAsync(request, null);
@@ -1372,6 +2000,72 @@ public class AWSWAFRegionalAsyncClient extends AWSWAFRegionalClient implements A
     }
 
     @Override
+    public java.util.concurrent.Future<ListRegexMatchSetsResult> listRegexMatchSetsAsync(ListRegexMatchSetsRequest request) {
+
+        return listRegexMatchSetsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListRegexMatchSetsResult> listRegexMatchSetsAsync(final ListRegexMatchSetsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListRegexMatchSetsRequest, ListRegexMatchSetsResult> asyncHandler) {
+        final ListRegexMatchSetsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListRegexMatchSetsResult>() {
+            @Override
+            public ListRegexMatchSetsResult call() throws Exception {
+                ListRegexMatchSetsResult result = null;
+
+                try {
+                    result = executeListRegexMatchSets(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListRegexPatternSetsResult> listRegexPatternSetsAsync(ListRegexPatternSetsRequest request) {
+
+        return listRegexPatternSetsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListRegexPatternSetsResult> listRegexPatternSetsAsync(final ListRegexPatternSetsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListRegexPatternSetsRequest, ListRegexPatternSetsResult> asyncHandler) {
+        final ListRegexPatternSetsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListRegexPatternSetsResult>() {
+            @Override
+            public ListRegexPatternSetsResult call() throws Exception {
+                ListRegexPatternSetsResult result = null;
+
+                try {
+                    result = executeListRegexPatternSets(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ListResourcesForWebACLResult> listResourcesForWebACLAsync(ListResourcesForWebACLRequest request) {
 
         return listResourcesForWebACLAsync(request, null);
@@ -1389,6 +2083,39 @@ public class AWSWAFRegionalAsyncClient extends AWSWAFRegionalClient implements A
 
                 try {
                     result = executeListResourcesForWebACL(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListRuleGroupsResult> listRuleGroupsAsync(ListRuleGroupsRequest request) {
+
+        return listRuleGroupsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListRuleGroupsResult> listRuleGroupsAsync(final ListRuleGroupsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListRuleGroupsRequest, ListRuleGroupsResult> asyncHandler) {
+        final ListRuleGroupsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListRuleGroupsResult>() {
+            @Override
+            public ListRuleGroupsResult call() throws Exception {
+                ListRuleGroupsResult result = null;
+
+                try {
+                    result = executeListRuleGroups(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1504,6 +2231,39 @@ public class AWSWAFRegionalAsyncClient extends AWSWAFRegionalClient implements A
     }
 
     @Override
+    public java.util.concurrent.Future<ListSubscribedRuleGroupsResult> listSubscribedRuleGroupsAsync(ListSubscribedRuleGroupsRequest request) {
+
+        return listSubscribedRuleGroupsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListSubscribedRuleGroupsResult> listSubscribedRuleGroupsAsync(final ListSubscribedRuleGroupsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListSubscribedRuleGroupsRequest, ListSubscribedRuleGroupsResult> asyncHandler) {
+        final ListSubscribedRuleGroupsRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<ListSubscribedRuleGroupsResult>() {
+            @Override
+            public ListSubscribedRuleGroupsResult call() throws Exception {
+                ListSubscribedRuleGroupsResult result = null;
+
+                try {
+                    result = executeListSubscribedRuleGroups(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<ListWebACLsResult> listWebACLsAsync(ListWebACLsRequest request) {
 
         return listWebACLsAsync(request, null);
@@ -1570,6 +2330,72 @@ public class AWSWAFRegionalAsyncClient extends AWSWAFRegionalClient implements A
     }
 
     @Override
+    public java.util.concurrent.Future<PutLoggingConfigurationResult> putLoggingConfigurationAsync(PutLoggingConfigurationRequest request) {
+
+        return putLoggingConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutLoggingConfigurationResult> putLoggingConfigurationAsync(final PutLoggingConfigurationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<PutLoggingConfigurationRequest, PutLoggingConfigurationResult> asyncHandler) {
+        final PutLoggingConfigurationRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<PutLoggingConfigurationResult>() {
+            @Override
+            public PutLoggingConfigurationResult call() throws Exception {
+                PutLoggingConfigurationResult result = null;
+
+                try {
+                    result = executePutLoggingConfiguration(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutPermissionPolicyResult> putPermissionPolicyAsync(PutPermissionPolicyRequest request) {
+
+        return putPermissionPolicyAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<PutPermissionPolicyResult> putPermissionPolicyAsync(final PutPermissionPolicyRequest request,
+            final com.amazonaws.handlers.AsyncHandler<PutPermissionPolicyRequest, PutPermissionPolicyResult> asyncHandler) {
+        final PutPermissionPolicyRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<PutPermissionPolicyResult>() {
+            @Override
+            public PutPermissionPolicyResult call() throws Exception {
+                PutPermissionPolicyResult result = null;
+
+                try {
+                    result = executePutPermissionPolicy(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<UpdateByteMatchSetResult> updateByteMatchSetAsync(UpdateByteMatchSetRequest request) {
 
         return updateByteMatchSetAsync(request, null);
@@ -1587,6 +2413,39 @@ public class AWSWAFRegionalAsyncClient extends AWSWAFRegionalClient implements A
 
                 try {
                     result = executeUpdateByteMatchSet(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateGeoMatchSetResult> updateGeoMatchSetAsync(UpdateGeoMatchSetRequest request) {
+
+        return updateGeoMatchSetAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateGeoMatchSetResult> updateGeoMatchSetAsync(final UpdateGeoMatchSetRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateGeoMatchSetRequest, UpdateGeoMatchSetResult> asyncHandler) {
+        final UpdateGeoMatchSetRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateGeoMatchSetResult>() {
+            @Override
+            public UpdateGeoMatchSetResult call() throws Exception {
+                UpdateGeoMatchSetResult result = null;
+
+                try {
+                    result = executeUpdateGeoMatchSet(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);
@@ -1669,6 +2528,72 @@ public class AWSWAFRegionalAsyncClient extends AWSWAFRegionalClient implements A
     }
 
     @Override
+    public java.util.concurrent.Future<UpdateRegexMatchSetResult> updateRegexMatchSetAsync(UpdateRegexMatchSetRequest request) {
+
+        return updateRegexMatchSetAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateRegexMatchSetResult> updateRegexMatchSetAsync(final UpdateRegexMatchSetRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateRegexMatchSetRequest, UpdateRegexMatchSetResult> asyncHandler) {
+        final UpdateRegexMatchSetRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateRegexMatchSetResult>() {
+            @Override
+            public UpdateRegexMatchSetResult call() throws Exception {
+                UpdateRegexMatchSetResult result = null;
+
+                try {
+                    result = executeUpdateRegexMatchSet(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateRegexPatternSetResult> updateRegexPatternSetAsync(UpdateRegexPatternSetRequest request) {
+
+        return updateRegexPatternSetAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateRegexPatternSetResult> updateRegexPatternSetAsync(final UpdateRegexPatternSetRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateRegexPatternSetRequest, UpdateRegexPatternSetResult> asyncHandler) {
+        final UpdateRegexPatternSetRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateRegexPatternSetResult>() {
+            @Override
+            public UpdateRegexPatternSetResult call() throws Exception {
+                UpdateRegexPatternSetResult result = null;
+
+                try {
+                    result = executeUpdateRegexPatternSet(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
     public java.util.concurrent.Future<UpdateRuleResult> updateRuleAsync(UpdateRuleRequest request) {
 
         return updateRuleAsync(request, null);
@@ -1686,6 +2611,39 @@ public class AWSWAFRegionalAsyncClient extends AWSWAFRegionalClient implements A
 
                 try {
                     result = executeUpdateRule(finalRequest);
+                } catch (Exception ex) {
+                    if (asyncHandler != null) {
+                        asyncHandler.onError(ex);
+                    }
+                    throw ex;
+                }
+
+                if (asyncHandler != null) {
+                    asyncHandler.onSuccess(finalRequest, result);
+                }
+                return result;
+            }
+        });
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateRuleGroupResult> updateRuleGroupAsync(UpdateRuleGroupRequest request) {
+
+        return updateRuleGroupAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateRuleGroupResult> updateRuleGroupAsync(final UpdateRuleGroupRequest request,
+            final com.amazonaws.handlers.AsyncHandler<UpdateRuleGroupRequest, UpdateRuleGroupResult> asyncHandler) {
+        final UpdateRuleGroupRequest finalRequest = beforeClientExecution(request);
+
+        return executorService.submit(new java.util.concurrent.Callable<UpdateRuleGroupResult>() {
+            @Override
+            public UpdateRuleGroupResult call() throws Exception {
+                UpdateRuleGroupResult result = null;
+
+                try {
+                    result = executeUpdateRuleGroup(finalRequest);
                 } catch (Exception ex) {
                     if (asyncHandler != null) {
                         asyncHandler.onError(ex);

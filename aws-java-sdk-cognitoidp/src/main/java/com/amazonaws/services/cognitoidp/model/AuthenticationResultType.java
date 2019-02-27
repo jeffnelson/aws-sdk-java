@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,7 +19,7 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * <p>
- * The result type of the authentication result.
+ * The authentication result.
  * </p>
  * 
  * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AuthenticationResultType"
@@ -30,31 +30,31 @@ public class AuthenticationResultType implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * The access token of the authentication result.
+     * The access token.
      * </p>
      */
     private String accessToken;
     /**
      * <p>
-     * The expiration period of the authentication result.
+     * The expiration period of the authentication result in seconds.
      * </p>
      */
     private Integer expiresIn;
     /**
      * <p>
-     * The token type of the authentication result.
+     * The token type.
      * </p>
      */
     private String tokenType;
     /**
      * <p>
-     * The refresh token of the authentication result.
+     * The refresh token.
      * </p>
      */
     private String refreshToken;
     /**
      * <p>
-     * The ID token of the authentication result.
+     * The ID token.
      * </p>
      */
     private String idToken;
@@ -67,11 +67,11 @@ public class AuthenticationResultType implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * The access token of the authentication result.
+     * The access token.
      * </p>
      * 
      * @param accessToken
-     *        The access token of the authentication result.
+     *        The access token.
      */
 
     public void setAccessToken(String accessToken) {
@@ -80,10 +80,10 @@ public class AuthenticationResultType implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * The access token of the authentication result.
+     * The access token.
      * </p>
      * 
-     * @return The access token of the authentication result.
+     * @return The access token.
      */
 
     public String getAccessToken() {
@@ -92,11 +92,11 @@ public class AuthenticationResultType implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * The access token of the authentication result.
+     * The access token.
      * </p>
      * 
      * @param accessToken
-     *        The access token of the authentication result.
+     *        The access token.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -107,11 +107,11 @@ public class AuthenticationResultType implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * The expiration period of the authentication result.
+     * The expiration period of the authentication result in seconds.
      * </p>
      * 
      * @param expiresIn
-     *        The expiration period of the authentication result.
+     *        The expiration period of the authentication result in seconds.
      */
 
     public void setExpiresIn(Integer expiresIn) {
@@ -120,10 +120,10 @@ public class AuthenticationResultType implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * The expiration period of the authentication result.
+     * The expiration period of the authentication result in seconds.
      * </p>
      * 
-     * @return The expiration period of the authentication result.
+     * @return The expiration period of the authentication result in seconds.
      */
 
     public Integer getExpiresIn() {
@@ -132,11 +132,11 @@ public class AuthenticationResultType implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * The expiration period of the authentication result.
+     * The expiration period of the authentication result in seconds.
      * </p>
      * 
      * @param expiresIn
-     *        The expiration period of the authentication result.
+     *        The expiration period of the authentication result in seconds.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -147,11 +147,11 @@ public class AuthenticationResultType implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * The token type of the authentication result.
+     * The token type.
      * </p>
      * 
      * @param tokenType
-     *        The token type of the authentication result.
+     *        The token type.
      */
 
     public void setTokenType(String tokenType) {
@@ -160,10 +160,10 @@ public class AuthenticationResultType implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * The token type of the authentication result.
+     * The token type.
      * </p>
      * 
-     * @return The token type of the authentication result.
+     * @return The token type.
      */
 
     public String getTokenType() {
@@ -172,11 +172,11 @@ public class AuthenticationResultType implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * The token type of the authentication result.
+     * The token type.
      * </p>
      * 
      * @param tokenType
-     *        The token type of the authentication result.
+     *        The token type.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -187,11 +187,11 @@ public class AuthenticationResultType implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * The refresh token of the authentication result.
+     * The refresh token.
      * </p>
      * 
      * @param refreshToken
-     *        The refresh token of the authentication result.
+     *        The refresh token.
      */
 
     public void setRefreshToken(String refreshToken) {
@@ -200,10 +200,10 @@ public class AuthenticationResultType implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * The refresh token of the authentication result.
+     * The refresh token.
      * </p>
      * 
-     * @return The refresh token of the authentication result.
+     * @return The refresh token.
      */
 
     public String getRefreshToken() {
@@ -212,11 +212,11 @@ public class AuthenticationResultType implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * The refresh token of the authentication result.
+     * The refresh token.
      * </p>
      * 
      * @param refreshToken
-     *        The refresh token of the authentication result.
+     *        The refresh token.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -227,11 +227,11 @@ public class AuthenticationResultType implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * The ID token of the authentication result.
+     * The ID token.
      * </p>
      * 
      * @param idToken
-     *        The ID token of the authentication result.
+     *        The ID token.
      */
 
     public void setIdToken(String idToken) {
@@ -240,10 +240,10 @@ public class AuthenticationResultType implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * The ID token of the authentication result.
+     * The ID token.
      * </p>
      * 
-     * @return The ID token of the authentication result.
+     * @return The ID token.
      */
 
     public String getIdToken() {
@@ -252,11 +252,11 @@ public class AuthenticationResultType implements Serializable, Cloneable, Struct
 
     /**
      * <p>
-     * The ID token of the authentication result.
+     * The ID token.
      * </p>
      * 
      * @param idToken
-     *        The ID token of the authentication result.
+     *        The ID token.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -306,7 +306,8 @@ public class AuthenticationResultType implements Serializable, Cloneable, Struct
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -317,15 +318,15 @@ public class AuthenticationResultType implements Serializable, Cloneable, Struct
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getAccessToken() != null)
-            sb.append("AccessToken: ").append(getAccessToken()).append(",");
+            sb.append("AccessToken: ").append("***Sensitive Data Redacted***").append(",");
         if (getExpiresIn() != null)
             sb.append("ExpiresIn: ").append(getExpiresIn()).append(",");
         if (getTokenType() != null)
             sb.append("TokenType: ").append(getTokenType()).append(",");
         if (getRefreshToken() != null)
-            sb.append("RefreshToken: ").append(getRefreshToken()).append(",");
+            sb.append("RefreshToken: ").append("***Sensitive Data Redacted***").append(",");
         if (getIdToken() != null)
-            sb.append("IdToken: ").append(getIdToken()).append(",");
+            sb.append("IdToken: ").append("***Sensitive Data Redacted***").append(",");
         if (getNewDeviceMetadata() != null)
             sb.append("NewDeviceMetadata: ").append(getNewDeviceMetadata());
         sb.append("}");

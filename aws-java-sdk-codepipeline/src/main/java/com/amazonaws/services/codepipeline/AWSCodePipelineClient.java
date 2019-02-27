@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -37,6 +37,8 @@ import com.amazonaws.protocol.json.*;
 import com.amazonaws.util.AWSRequestMetrics.Field;
 import com.amazonaws.annotation.ThreadSafe;
 import com.amazonaws.client.AwsSyncClientParams;
+import com.amazonaws.client.builder.AdvancedConfig;
+
 import com.amazonaws.services.codepipeline.AWSCodePipelineClientBuilder;
 
 import com.amazonaws.AmazonServiceException;
@@ -59,12 +61,11 @@ import com.amazonaws.services.codepipeline.model.transform.*;
  * Guide</a>.
  * </p>
  * <p>
- * You can use the AWS CodePipeline API to work with pipelines, stages, actions, gates, and transitions, as described
- * below.
+ * You can use the AWS CodePipeline API to work with pipelines, stages, actions, and transitions, as described below.
  * </p>
  * <p>
- * <i>Pipelines</i> are models of automated release processes. Each pipeline is uniquely named, and consists of actions,
- * gates, and stages.
+ * <i>Pipelines</i> are models of automated release processes. Each pipeline is uniquely named, and consists of stages,
+ * actions, and transitions.
  * </p>
  * <p>
  * You can work with pipelines by calling:
@@ -82,7 +83,8 @@ import com.amazonaws.services.codepipeline.model.transform.*;
  * </li>
  * <li>
  * <p>
- * <a>GetPipeline</a>, which returns information about a pipeline structure.
+ * <a>GetPipeline</a>, which returns information about the pipeline structure and pipeline metadata, including the
+ * pipeline Amazon Resource Name (ARN).
  * </p>
  * </li>
  * <li>
@@ -102,6 +104,11 @@ import com.amazonaws.services.codepipeline.model.transform.*;
  * </li>
  * <li>
  * <p>
+ * <a>ListPipelineExecutions</a>, which gets a summary of the most recent executions for a pipeline.
+ * </p>
+ * </li>
+ * <li>
+ * <p>
  * <a>StartPipelineExecution</a>, which runs the the most recent revision of an artifact through the pipeline.
  * </p>
  * </li>
@@ -112,13 +119,13 @@ import com.amazonaws.services.codepipeline.model.transform.*;
  * </li>
  * </ul>
  * <p>
- * Pipelines include <i>stages</i>, which are logical groupings of gates and actions. Each stage contains one or more
- * actions that must complete before the next stage begins. A stage will result in success or failure. If a stage fails,
- * then the pipeline stops at that stage and will remain stopped until either a new version of an artifact appears in
- * the source location, or a user takes action to re-run the most recent artifact through the pipeline. You can call
- * <a>GetPipelineState</a>, which displays the status of a pipeline, including the status of stages in the pipeline, or
- * <a>GetPipeline</a>, which returns the entire structure of the pipeline, including the stages of that pipeline. For
- * more information about the structure of stages and actions, also refer to the <a
+ * Pipelines include <i>stages</i>. Each stage contains one or more actions that must complete before the next stage
+ * begins. A stage will result in success or failure. If a stage fails, then the pipeline stops at that stage and will
+ * remain stopped until either a new version of an artifact appears in the source location, or a user takes action to
+ * re-run the most recent artifact through the pipeline. You can call <a>GetPipelineState</a>, which displays the status
+ * of a pipeline, including the status of stages in the pipeline, or <a>GetPipeline</a>, which returns the entire
+ * structure of the pipeline, including the stages of that pipeline. For more information about the structure of stages
+ * and actions, also refer to the <a
  * href="http://docs.aws.amazon.com/codepipeline/latest/userguide/pipeline-structure.html">AWS CodePipeline Pipeline
  * Structure Reference</a>.
  * </p>
@@ -127,8 +134,40 @@ import com.amazonaws.services.codepipeline.model.transform.*;
  * performed within a stage of a pipeline. For example, you can use a source action to import artifacts into a pipeline
  * from a source such as Amazon S3. Like stages, you do not work with actions directly in most cases, but you do define
  * and interact with actions when working with pipeline operations such as <a>CreatePipeline</a> and
- * <a>GetPipelineState</a>.
+ * <a>GetPipelineState</a>. Valid action categories are:
  * </p>
+ * <ul>
+ * <li>
+ * <p>
+ * Source
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * Build
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * Test
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * Deploy
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * Approval
+ * </p>
+ * </li>
+ * <li>
+ * <p>
+ * Invoke
+ * </p>
+ * </li>
+ * </ul>
  * <p>
  * Pipelines also include <i>transitions</i>, which allow the transition of artifacts from one stage to the next in a
  * pipeline after the actions in one stage complete.
@@ -228,6 +267,7 @@ import com.amazonaws.services.codepipeline.model.transform.*;
 @ThreadSafe
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWSCodePipeline {
+
     /** Provider for AWS credentials. */
     private final AWSCredentialsProvider awsCredentialsProvider;
 
@@ -239,7 +279,9 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
     /** Client configuration factory providing ClientConfigurations tailored to this client */
     protected static final ClientConfigurationFactory configFactory = new ClientConfigurationFactory();
 
-    private final com.amazonaws.protocol.json.SdkJsonProtocolFactory protocolFactory = new com.amazonaws.protocol.json.SdkJsonProtocolFactory(
+    private final AdvancedConfig advancedConfig;
+
+    private static final com.amazonaws.protocol.json.SdkJsonProtocolFactory protocolFactory = new com.amazonaws.protocol.json.SdkJsonProtocolFactory(
             new JsonClientMetadata()
                     .withProtocolVersion("1.1")
                     .withSupportsCbor(false)
@@ -253,6 +295,15 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
                     .addErrorMetadata(
                             new JsonErrorShapeMetadata().withErrorCode("PipelineVersionNotFoundException").withModeledClass(
                                     com.amazonaws.services.codepipeline.model.PipelineVersionNotFoundException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidWebhookFilterPatternException").withModeledClass(
+                                    com.amazonaws.services.codepipeline.model.InvalidWebhookFilterPatternException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("InvalidWebhookAuthenticationParametersException").withModeledClass(
+                                    com.amazonaws.services.codepipeline.model.InvalidWebhookAuthenticationParametersException.class))
+                    .addErrorMetadata(
+                            new JsonErrorShapeMetadata().withErrorCode("WebhookNotFoundException").withModeledClass(
+                                    com.amazonaws.services.codepipeline.model.WebhookNotFoundException.class))
                     .addErrorMetadata(
                             new JsonErrorShapeMetadata().withErrorCode("InvalidApprovalTokenException").withModeledClass(
                                     com.amazonaws.services.codepipeline.model.InvalidApprovalTokenException.class))
@@ -398,6 +449,7 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
     public AWSCodePipelineClient(AWSCredentials awsCredentials, ClientConfiguration clientConfiguration) {
         super(clientConfiguration);
         this.awsCredentialsProvider = new StaticCredentialsProvider(awsCredentials);
+        this.advancedConfig = AdvancedConfig.EMPTY;
         init();
     }
 
@@ -463,6 +515,7 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
             RequestMetricCollector requestMetricCollector) {
         super(clientConfiguration, requestMetricCollector);
         this.awsCredentialsProvider = awsCredentialsProvider;
+        this.advancedConfig = AdvancedConfig.EMPTY;
         init();
     }
 
@@ -481,8 +534,23 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
      *        Object providing client parameters.
      */
     AWSCodePipelineClient(AwsSyncClientParams clientParams) {
+        this(clientParams, false);
+    }
+
+    /**
+     * Constructs a new client to invoke service methods on CodePipeline using the specified parameters.
+     *
+     * <p>
+     * All service calls made using this new client object are blocking, and will not return until the service call
+     * completes.
+     *
+     * @param clientParams
+     *        Object providing client parameters.
+     */
+    AWSCodePipelineClient(AwsSyncClientParams clientParams, boolean endpointDiscoveryEnabled) {
         super(clientParams);
         this.awsCredentialsProvider = clientParams.getCredentialsProvider();
+        this.advancedConfig = clientParams.getAdvancedConfig();
         init();
     }
 
@@ -504,7 +572,7 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
      * </p>
      * 
      * @param acknowledgeJobRequest
-     *        Represents the input of an acknowledge job action.
+     *        Represents the input of an AcknowledgeJob action.
      * @return Result of the AcknowledgeJob operation returned by the service.
      * @throws ValidationException
      *         The validation was specified in an invalid format.
@@ -537,6 +605,10 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
                 request = new AcknowledgeJobRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(acknowledgeJobRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodePipeline");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AcknowledgeJob");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -559,7 +631,7 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
      * </p>
      * 
      * @param acknowledgeThirdPartyJobRequest
-     *        Represents the input of an acknowledge third party job action.
+     *        Represents the input of an AcknowledgeThirdPartyJob action.
      * @return Result of the AcknowledgeThirdPartyJob operation returned by the service.
      * @throws ValidationException
      *         The validation was specified in an invalid format.
@@ -595,6 +667,10 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
                         .beforeMarshalling(acknowledgeThirdPartyJobRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodePipeline");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "AcknowledgeThirdPartyJob");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -619,7 +695,7 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
      * </p>
      * 
      * @param createCustomActionTypeRequest
-     *        Represents the input of a create custom action operation.
+     *        Represents the input of a CreateCustomActionType operation.
      * @return Result of the CreateCustomActionType operation returned by the service.
      * @throws ValidationException
      *         The validation was specified in an invalid format.
@@ -650,6 +726,10 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
                 request = new CreateCustomActionTypeRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createCustomActionTypeRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodePipeline");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreateCustomActionType");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -673,7 +753,7 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
      * </p>
      * 
      * @param createPipelineRequest
-     *        Represents the input of a create pipeline action.
+     *        Represents the input of a CreatePipeline action.
      * @return Result of the CreatePipeline operation returned by the service.
      * @throws ValidationException
      *         The validation was specified in an invalid format.
@@ -714,6 +794,10 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
                 request = new CreatePipelineRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(createPipelineRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodePipeline");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "CreatePipeline");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -737,13 +821,15 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
      * </p>
      * <important>
      * <p>
-     * You cannot recreate a custom action after it has been deleted unless you increase the version number of the
-     * action.
+     * To re-create a custom action after it has been deleted you must use a string in the version field that has never
+     * been used before. This string can be an incremented version number, for example. To restore a deleted custom
+     * action, use a JSON file that is identical to the deleted action, including the original string in the version
+     * field.
      * </p>
      * </important>
      * 
      * @param deleteCustomActionTypeRequest
-     *        Represents the input of a delete custom action operation. The custom action will be marked as deleted.
+     *        Represents the input of a DeleteCustomActionType operation. The custom action will be marked as deleted.
      * @return Result of the DeleteCustomActionType operation returned by the service.
      * @throws ValidationException
      *         The validation was specified in an invalid format.
@@ -772,6 +858,10 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
                 request = new DeleteCustomActionTypeRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteCustomActionTypeRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodePipeline");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteCustomActionType");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -795,7 +885,7 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
      * </p>
      * 
      * @param deletePipelineRequest
-     *        Represents the input of a delete pipeline action.
+     *        Represents the input of a DeletePipeline action.
      * @return Result of the DeletePipeline operation returned by the service.
      * @throws ValidationException
      *         The validation was specified in an invalid format.
@@ -824,6 +914,10 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
                 request = new DeletePipelineRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deletePipelineRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodePipeline");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeletePipeline");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -842,11 +936,128 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
 
     /**
      * <p>
+     * Deletes a previously created webhook by name. Deleting the webhook stops AWS CodePipeline from starting a
+     * pipeline every time an external event occurs. The API will return successfully when trying to delete a webhook
+     * that is already deleted. If a deleted webhook is re-created by calling PutWebhook with the same name, it will
+     * have a different URL.
+     * </p>
+     * 
+     * @param deleteWebhookRequest
+     * @return Result of the DeleteWebhook operation returned by the service.
+     * @throws ValidationException
+     *         The validation was specified in an invalid format.
+     * @sample AWSCodePipeline.DeleteWebhook
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/DeleteWebhook" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public DeleteWebhookResult deleteWebhook(DeleteWebhookRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeleteWebhook(request);
+    }
+
+    @SdkInternalApi
+    final DeleteWebhookResult executeDeleteWebhook(DeleteWebhookRequest deleteWebhookRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deleteWebhookRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteWebhookRequest> request = null;
+        Response<DeleteWebhookResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteWebhookRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(deleteWebhookRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodePipeline");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeleteWebhook");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeleteWebhookResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new DeleteWebhookResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Removes the connection between the webhook that was created by CodePipeline and the external tool with events to
+     * be detected. Currently only supported for webhooks that target an action type of GitHub.
+     * </p>
+     * 
+     * @param deregisterWebhookWithThirdPartyRequest
+     * @return Result of the DeregisterWebhookWithThirdParty operation returned by the service.
+     * @throws ValidationException
+     *         The validation was specified in an invalid format.
+     * @throws WebhookNotFoundException
+     *         The specified webhook was entered in an invalid format or cannot be found.
+     * @sample AWSCodePipeline.DeregisterWebhookWithThirdParty
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/DeregisterWebhookWithThirdParty"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public DeregisterWebhookWithThirdPartyResult deregisterWebhookWithThirdParty(DeregisterWebhookWithThirdPartyRequest request) {
+        request = beforeClientExecution(request);
+        return executeDeregisterWebhookWithThirdParty(request);
+    }
+
+    @SdkInternalApi
+    final DeregisterWebhookWithThirdPartyResult executeDeregisterWebhookWithThirdParty(
+            DeregisterWebhookWithThirdPartyRequest deregisterWebhookWithThirdPartyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(deregisterWebhookWithThirdPartyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeregisterWebhookWithThirdPartyRequest> request = null;
+        Response<DeregisterWebhookWithThirdPartyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeregisterWebhookWithThirdPartyRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(deregisterWebhookWithThirdPartyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodePipeline");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DeregisterWebhookWithThirdParty");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<DeregisterWebhookWithThirdPartyResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new DeregisterWebhookWithThirdPartyResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Prevents artifacts in a pipeline from transitioning to the next stage in the pipeline.
      * </p>
      * 
      * @param disableStageTransitionRequest
-     *        Represents the input of a disable stage transition input action.
+     *        Represents the input of a DisableStageTransition action.
      * @return Result of the DisableStageTransition operation returned by the service.
      * @throws ValidationException
      *         The validation was specified in an invalid format.
@@ -879,6 +1090,10 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
                 request = new DisableStageTransitionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(disableStageTransitionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodePipeline");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "DisableStageTransition");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -902,7 +1117,7 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
      * </p>
      * 
      * @param enableStageTransitionRequest
-     *        Represents the input of an enable stage transition action.
+     *        Represents the input of an EnableStageTransition action.
      * @return Result of the EnableStageTransition operation returned by the service.
      * @throws ValidationException
      *         The validation was specified in an invalid format.
@@ -935,6 +1150,10 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
                 request = new EnableStageTransitionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(enableStageTransitionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodePipeline");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "EnableStageTransition");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -965,7 +1184,7 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
      * </important>
      * 
      * @param getJobDetailsRequest
-     *        Represents the input of a get job details action.
+     *        Represents the input of a GetJobDetails action.
      * @return Result of the GetJobDetails operation returned by the service.
      * @throws ValidationException
      *         The validation was specified in an invalid format.
@@ -996,6 +1215,10 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
                 request = new GetJobDetailsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getJobDetailsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodePipeline");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetJobDetails");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1020,7 +1243,7 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
      * </p>
      * 
      * @param getPipelineRequest
-     *        Represents the input of a get pipeline action.
+     *        Represents the input of a GetPipeline action.
      * @return Result of the GetPipeline operation returned by the service.
      * @throws ValidationException
      *         The validation was specified in an invalid format.
@@ -1053,6 +1276,10 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
                 request = new GetPipelineRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getPipelineRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodePipeline");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetPipeline");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1076,7 +1303,7 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
      * </p>
      * 
      * @param getPipelineExecutionRequest
-     *        Represents the input of a get pipeline execution action.
+     *        Represents the input of a GetPipelineExecution action.
      * @return Result of the GetPipelineExecution operation returned by the service.
      * @throws ValidationException
      *         The validation was specified in an invalid format.
@@ -1110,6 +1337,10 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
                 request = new GetPipelineExecutionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getPipelineExecutionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodePipeline");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetPipelineExecution");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1132,7 +1363,7 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
      * </p>
      * 
      * @param getPipelineStateRequest
-     *        Represents the input of a get pipeline state action.
+     *        Represents the input of a GetPipelineState action.
      * @return Result of the GetPipelineState operation returned by the service.
      * @throws ValidationException
      *         The validation was specified in an invalid format.
@@ -1163,6 +1394,10 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
                 request = new GetPipelineStateRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(getPipelineStateRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodePipeline");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetPipelineState");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1192,7 +1427,7 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
      * </important>
      * 
      * @param getThirdPartyJobDetailsRequest
-     *        Represents the input of a get third party job details action.
+     *        Represents the input of a GetThirdPartyJobDetails action.
      * @return Result of the GetThirdPartyJobDetails operation returned by the service.
      * @throws JobNotFoundException
      *         The specified job was specified in an invalid format or cannot be found.
@@ -1228,6 +1463,10 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
                         .beforeMarshalling(getThirdPartyJobDetailsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodePipeline");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "GetThirdPartyJobDetails");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1251,7 +1490,7 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
      * </p>
      * 
      * @param listActionTypesRequest
-     *        Represents the input of a list action types action.
+     *        Represents the input of a ListActionTypes action.
      * @return Result of the ListActionTypes operation returned by the service.
      * @throws ValidationException
      *         The validation was specified in an invalid format.
@@ -1283,6 +1522,10 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
                 request = new ListActionTypesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listActionTypesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodePipeline");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListActionTypes");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1305,7 +1548,7 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
      * </p>
      * 
      * @param listPipelineExecutionsRequest
-     *        Represents the input of a list pipeline executions action.
+     *        Represents the input of a ListPipelineExecutions action.
      * @return Result of the ListPipelineExecutions operation returned by the service.
      * @throws ValidationException
      *         The validation was specified in an invalid format.
@@ -1339,6 +1582,10 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
                 request = new ListPipelineExecutionsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listPipelineExecutionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodePipeline");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListPipelineExecutions");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1362,8 +1609,10 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
      * </p>
      * 
      * @param listPipelinesRequest
-     *        Represents the input of a list pipelines action.
+     *        Represents the input of a ListPipelines action.
      * @return Result of the ListPipelines operation returned by the service.
+     * @throws ValidationException
+     *         The validation was specified in an invalid format.
      * @throws InvalidNextTokenException
      *         The next token was specified in an invalid format. Make sure that the next token you provided is the
      *         token returned by a previous call.
@@ -1392,6 +1641,10 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
                 request = new ListPipelinesRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listPipelinesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodePipeline");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListPipelines");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1410,7 +1663,67 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
 
     /**
      * <p>
-     * Returns information about any jobs for AWS CodePipeline to act upon.
+     * Gets a listing of all the webhooks in this region for this account. The output lists all webhooks and includes
+     * the webhook URL and ARN, as well the configuration for each webhook.
+     * </p>
+     * 
+     * @param listWebhooksRequest
+     * @return Result of the ListWebhooks operation returned by the service.
+     * @throws ValidationException
+     *         The validation was specified in an invalid format.
+     * @throws InvalidNextTokenException
+     *         The next token was specified in an invalid format. Make sure that the next token you provided is the
+     *         token returned by a previous call.
+     * @sample AWSCodePipeline.ListWebhooks
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ListWebhooks" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public ListWebhooksResult listWebhooks(ListWebhooksRequest request) {
+        request = beforeClientExecution(request);
+        return executeListWebhooks(request);
+    }
+
+    @SdkInternalApi
+    final ListWebhooksResult executeListWebhooks(ListWebhooksRequest listWebhooksRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(listWebhooksRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListWebhooksRequest> request = null;
+        Response<ListWebhooksResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListWebhooksRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(listWebhooksRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodePipeline");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "ListWebhooks");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<ListWebhooksResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false), new ListWebhooksResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns information about any jobs for AWS CodePipeline to act upon. PollForJobs is only valid for action types
+     * with "Custom" in the owner field. If the action type contains "AWS" or "ThirdParty" in the owner field, the
+     * PollForJobs action returns an error.
      * </p>
      * <important>
      * <p>
@@ -1421,7 +1734,7 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
      * </important>
      * 
      * @param pollForJobsRequest
-     *        Represents the input of a poll for jobs action.
+     *        Represents the input of a PollForJobs action.
      * @return Result of the PollForJobs operation returned by the service.
      * @throws ValidationException
      *         The validation was specified in an invalid format.
@@ -1452,6 +1765,10 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
                 request = new PollForJobsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(pollForJobsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodePipeline");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PollForJobs");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1480,7 +1797,7 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
      * </important>
      * 
      * @param pollForThirdPartyJobsRequest
-     *        Represents the input of a poll for third party jobs action.
+     *        Represents the input of a PollForThirdPartyJobs action.
      * @return Result of the PollForThirdPartyJobs operation returned by the service.
      * @throws ActionTypeNotFoundException
      *         The specified action type cannot be found.
@@ -1511,6 +1828,10 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
                 request = new PollForThirdPartyJobsRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(pollForThirdPartyJobsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodePipeline");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PollForThirdPartyJobs");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1534,7 +1855,7 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
      * </p>
      * 
      * @param putActionRevisionRequest
-     *        Represents the input of a put action revision action.
+     *        Represents the input of a PutActionRevision action.
      * @return Result of the PutActionRevision operation returned by the service.
      * @throws PipelineNotFoundException
      *         The specified pipeline was specified in an invalid format or cannot be found.
@@ -1569,6 +1890,10 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
                 request = new PutActionRevisionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(putActionRevisionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodePipeline");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutActionRevision");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1592,7 +1917,7 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
      * </p>
      * 
      * @param putApprovalResultRequest
-     *        Represents the input of a put approval result action.
+     *        Represents the input of a PutApprovalResult action.
      * @return Result of the PutApprovalResult operation returned by the service.
      * @throws InvalidApprovalTokenException
      *         The approval request already received a response or has expired.
@@ -1631,6 +1956,10 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
                 request = new PutApprovalResultRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(putApprovalResultRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodePipeline");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutApprovalResult");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1653,7 +1982,7 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
      * </p>
      * 
      * @param putJobFailureResultRequest
-     *        Represents the input of a put job failure result action.
+     *        Represents the input of a PutJobFailureResult action.
      * @return Result of the PutJobFailureResult operation returned by the service.
      * @throws ValidationException
      *         The validation was specified in an invalid format.
@@ -1686,6 +2015,10 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
                 request = new PutJobFailureResultRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(putJobFailureResultRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodePipeline");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutJobFailureResult");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1708,7 +2041,7 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
      * </p>
      * 
      * @param putJobSuccessResultRequest
-     *        Represents the input of a put job success result action.
+     *        Represents the input of a PutJobSuccessResult action.
      * @return Result of the PutJobSuccessResult operation returned by the service.
      * @throws ValidationException
      *         The validation was specified in an invalid format.
@@ -1741,6 +2074,10 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
                 request = new PutJobSuccessResultRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(putJobSuccessResultRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodePipeline");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutJobSuccessResult");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1764,7 +2101,7 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
      * </p>
      * 
      * @param putThirdPartyJobFailureResultRequest
-     *        Represents the input of a third party job failure result action.
+     *        Represents the input of a PutThirdPartyJobFailureResult action.
      * @return Result of the PutThirdPartyJobFailureResult operation returned by the service.
      * @throws ValidationException
      *         The validation was specified in an invalid format.
@@ -1800,6 +2137,10 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
                         .beforeMarshalling(putThirdPartyJobFailureResultRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodePipeline");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutThirdPartyJobFailureResult");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1824,7 +2165,7 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
      * </p>
      * 
      * @param putThirdPartyJobSuccessResultRequest
-     *        Represents the input of a put third party job success result action.
+     *        Represents the input of a PutThirdPartyJobSuccessResult action.
      * @return Result of the PutThirdPartyJobSuccessResult operation returned by the service.
      * @throws ValidationException
      *         The validation was specified in an invalid format.
@@ -1860,6 +2201,10 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
                         .beforeMarshalling(putThirdPartyJobSuccessResultRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodePipeline");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutThirdPartyJobSuccessResult");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1879,11 +2224,136 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
 
     /**
      * <p>
+     * Defines a webhook and returns a unique webhook URL generated by CodePipeline. This URL can be supplied to third
+     * party source hosting providers to call every time there's a code change. When CodePipeline receives a POST
+     * request on this URL, the pipeline defined in the webhook is started as long as the POST request satisfied the
+     * authentication and filtering requirements supplied when defining the webhook. RegisterWebhookWithThirdParty and
+     * DeregisterWebhookWithThirdParty APIs can be used to automatically configure supported third parties to call the
+     * generated webhook URL.
+     * </p>
+     * 
+     * @param putWebhookRequest
+     * @return Result of the PutWebhook operation returned by the service.
+     * @throws ValidationException
+     *         The validation was specified in an invalid format.
+     * @throws LimitExceededException
+     *         The number of pipelines associated with the AWS account has exceeded the limit allowed for the account.
+     * @throws InvalidWebhookFilterPatternException
+     *         The specified event filter rule is in an invalid format.
+     * @throws InvalidWebhookAuthenticationParametersException
+     *         The specified authentication type is in an invalid format.
+     * @throws PipelineNotFoundException
+     *         The specified pipeline was specified in an invalid format or cannot be found.
+     * @sample AWSCodePipeline.PutWebhook
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutWebhook" target="_top">AWS API
+     *      Documentation</a>
+     */
+    @Override
+    public PutWebhookResult putWebhook(PutWebhookRequest request) {
+        request = beforeClientExecution(request);
+        return executePutWebhook(request);
+    }
+
+    @SdkInternalApi
+    final PutWebhookResult executePutWebhook(PutWebhookRequest putWebhookRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(putWebhookRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<PutWebhookRequest> request = null;
+        Response<PutWebhookResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new PutWebhookRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(putWebhookRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodePipeline");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "PutWebhook");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<PutWebhookResult>> responseHandler = protocolFactory.createResponseHandler(new JsonOperationMetadata()
+                    .withPayloadJson(true).withHasStreamingSuccessResponse(false), new PutWebhookResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Configures a connection between the webhook that was created and the external tool with events to be detected.
+     * </p>
+     * 
+     * @param registerWebhookWithThirdPartyRequest
+     * @return Result of the RegisterWebhookWithThirdParty operation returned by the service.
+     * @throws ValidationException
+     *         The validation was specified in an invalid format.
+     * @throws WebhookNotFoundException
+     *         The specified webhook was entered in an invalid format or cannot be found.
+     * @sample AWSCodePipeline.RegisterWebhookWithThirdParty
+     * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/RegisterWebhookWithThirdParty"
+     *      target="_top">AWS API Documentation</a>
+     */
+    @Override
+    public RegisterWebhookWithThirdPartyResult registerWebhookWithThirdParty(RegisterWebhookWithThirdPartyRequest request) {
+        request = beforeClientExecution(request);
+        return executeRegisterWebhookWithThirdParty(request);
+    }
+
+    @SdkInternalApi
+    final RegisterWebhookWithThirdPartyResult executeRegisterWebhookWithThirdParty(RegisterWebhookWithThirdPartyRequest registerWebhookWithThirdPartyRequest) {
+
+        ExecutionContext executionContext = createExecutionContext(registerWebhookWithThirdPartyRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<RegisterWebhookWithThirdPartyRequest> request = null;
+        Response<RegisterWebhookWithThirdPartyResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new RegisterWebhookWithThirdPartyRequestProtocolMarshaller(protocolFactory).marshall(super
+                        .beforeMarshalling(registerWebhookWithThirdPartyRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodePipeline");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RegisterWebhookWithThirdParty");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            HttpResponseHandler<AmazonWebServiceResponse<RegisterWebhookWithThirdPartyResult>> responseHandler = protocolFactory.createResponseHandler(
+                    new JsonOperationMetadata().withPayloadJson(true).withHasStreamingSuccessResponse(false),
+                    new RegisterWebhookWithThirdPartyResultJsonUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
      * Resumes the pipeline execution by retrying the last failed actions in a stage.
      * </p>
      * 
      * @param retryStageExecutionRequest
-     *        Represents the input of a retry stage execution action.
+     *        Represents the input of a RetryStageExecution action.
      * @return Result of the RetryStageExecution operation returned by the service.
      * @throws ValidationException
      *         The validation was specified in an invalid format.
@@ -1923,6 +2393,10 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
                 request = new RetryStageExecutionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(retryStageExecutionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodePipeline");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "RetryStageExecution");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -1946,7 +2420,7 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
      * </p>
      * 
      * @param startPipelineExecutionRequest
-     *        Represents the input of a start pipeline execution action.
+     *        Represents the input of a StartPipelineExecution action.
      * @return Result of the StartPipelineExecution operation returned by the service.
      * @throws ValidationException
      *         The validation was specified in an invalid format.
@@ -1977,6 +2451,10 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
                 request = new StartPipelineExecutionRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(startPipelineExecutionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodePipeline");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "StartPipelineExecution");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2002,7 +2480,7 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
      * </p>
      * 
      * @param updatePipelineRequest
-     *        Represents the input of an update pipeline action.
+     *        Represents the input of an UpdatePipeline action.
      * @return Result of the UpdatePipeline operation returned by the service.
      * @throws ValidationException
      *         The validation was specified in an invalid format.
@@ -2014,6 +2492,8 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
      *         Reserved for future use.
      * @throws InvalidStructureException
      *         The specified structure was specified in an invalid format.
+     * @throws LimitExceededException
+     *         The number of pipelines associated with the AWS account has exceeded the limit allowed for the account.
      * @sample AWSCodePipeline.UpdatePipeline
      * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/UpdatePipeline" target="_top">AWS
      *      API Documentation</a>
@@ -2039,6 +2519,10 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
                 request = new UpdatePipelineRequestProtocolMarshaller(protocolFactory).marshall(super.beforeMarshalling(updatePipelineRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
+                request.addHandlerContext(HandlerContextKey.SIGNING_REGION, getSigningRegion());
+                request.addHandlerContext(HandlerContextKey.SERVICE_ID, "CodePipeline");
+                request.addHandlerContext(HandlerContextKey.OPERATION_NAME, "UpdatePipeline");
+                request.addHandlerContext(HandlerContextKey.ADVANCED_CONFIG, advancedConfig);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
@@ -2079,9 +2563,18 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
     private <X, Y extends AmazonWebServiceRequest> Response<X> invoke(Request<Y> request, HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler,
             ExecutionContext executionContext) {
 
+        return invoke(request, responseHandler, executionContext, null, null);
+    }
+
+    /**
+     * Normal invoke with authentication. Credentials are required and may be overriden at the request level.
+     **/
+    private <X, Y extends AmazonWebServiceRequest> Response<X> invoke(Request<Y> request, HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler,
+            ExecutionContext executionContext, URI cachedEndpoint, URI uriFromEndpointTrait) {
+
         executionContext.setCredentialsProvider(CredentialUtils.getCredentialsProvider(request.getOriginalRequest(), awsCredentialsProvider));
 
-        return doInvoke(request, responseHandler, executionContext);
+        return doInvoke(request, responseHandler, executionContext, cachedEndpoint, uriFromEndpointTrait);
     }
 
     /**
@@ -2091,7 +2584,7 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
     private <X, Y extends AmazonWebServiceRequest> Response<X> anonymousInvoke(Request<Y> request,
             HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler, ExecutionContext executionContext) {
 
-        return doInvoke(request, responseHandler, executionContext);
+        return doInvoke(request, responseHandler, executionContext, null, null);
     }
 
     /**
@@ -2099,13 +2592,27 @@ public class AWSCodePipelineClient extends AmazonWebServiceClient implements AWS
      * ExecutionContext beforehand.
      **/
     private <X, Y extends AmazonWebServiceRequest> Response<X> doInvoke(Request<Y> request, HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler,
-            ExecutionContext executionContext) {
-        request.setEndpoint(endpoint);
+            ExecutionContext executionContext, URI discoveredEndpoint, URI uriFromEndpointTrait) {
+
+        if (discoveredEndpoint != null) {
+            request.setEndpoint(discoveredEndpoint);
+            request.getOriginalRequest().getRequestClientOptions().appendUserAgent("endpoint-discovery");
+        } else if (uriFromEndpointTrait != null) {
+            request.setEndpoint(uriFromEndpointTrait);
+        } else {
+            request.setEndpoint(endpoint);
+        }
+
         request.setTimeOffset(timeOffset);
 
         HttpResponseHandler<AmazonServiceException> errorResponseHandler = protocolFactory.createErrorResponseHandler(new JsonErrorResponseMetadata());
 
         return client.execute(request, responseHandler, errorResponseHandler, executionContext);
+    }
+
+    @com.amazonaws.annotation.SdkInternalApi
+    static com.amazonaws.protocol.json.SdkJsonProtocolFactory getProtocolFactory() {
+        return protocolFactory;
     }
 
 }

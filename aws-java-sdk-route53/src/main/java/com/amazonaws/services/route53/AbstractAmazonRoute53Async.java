@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -88,6 +88,19 @@ public class AbstractAmazonRoute53Async extends AbstractAmazonRoute53 implements
     @Override
     public java.util.concurrent.Future<CreateHostedZoneResult> createHostedZoneAsync(CreateHostedZoneRequest request,
             com.amazonaws.handlers.AsyncHandler<CreateHostedZoneRequest, CreateHostedZoneResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateQueryLoggingConfigResult> createQueryLoggingConfigAsync(CreateQueryLoggingConfigRequest request) {
+
+        return createQueryLoggingConfigAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateQueryLoggingConfigResult> createQueryLoggingConfigAsync(CreateQueryLoggingConfigRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateQueryLoggingConfigRequest, CreateQueryLoggingConfigResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -186,6 +199,19 @@ public class AbstractAmazonRoute53Async extends AbstractAmazonRoute53 implements
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteQueryLoggingConfigResult> deleteQueryLoggingConfigAsync(DeleteQueryLoggingConfigRequest request) {
+
+        return deleteQueryLoggingConfigAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteQueryLoggingConfigResult> deleteQueryLoggingConfigAsync(DeleteQueryLoggingConfigRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteQueryLoggingConfigRequest, DeleteQueryLoggingConfigResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteReusableDelegationSetResult> deleteReusableDelegationSetAsync(DeleteReusableDelegationSetRequest request) {
 
         return deleteReusableDelegationSetAsync(request, null);
@@ -248,6 +274,19 @@ public class AbstractAmazonRoute53Async extends AbstractAmazonRoute53 implements
     @Override
     public java.util.concurrent.Future<DisassociateVPCFromHostedZoneResult> disassociateVPCFromHostedZoneAsync(DisassociateVPCFromHostedZoneRequest request,
             com.amazonaws.handlers.AsyncHandler<DisassociateVPCFromHostedZoneRequest, DisassociateVPCFromHostedZoneResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetAccountLimitResult> getAccountLimitAsync(GetAccountLimitRequest request) {
+
+        return getAccountLimitAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetAccountLimitResult> getAccountLimitAsync(GetAccountLimitRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetAccountLimitRequest, GetAccountLimitResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -464,6 +503,32 @@ public class AbstractAmazonRoute53Async extends AbstractAmazonRoute53 implements
     }
 
     @Override
+    public java.util.concurrent.Future<GetHostedZoneLimitResult> getHostedZoneLimitAsync(GetHostedZoneLimitRequest request) {
+
+        return getHostedZoneLimitAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetHostedZoneLimitResult> getHostedZoneLimitAsync(GetHostedZoneLimitRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetHostedZoneLimitRequest, GetHostedZoneLimitResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetQueryLoggingConfigResult> getQueryLoggingConfigAsync(GetQueryLoggingConfigRequest request) {
+
+        return getQueryLoggingConfigAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetQueryLoggingConfigResult> getQueryLoggingConfigAsync(GetQueryLoggingConfigRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetQueryLoggingConfigRequest, GetQueryLoggingConfigResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<GetReusableDelegationSetResult> getReusableDelegationSetAsync(GetReusableDelegationSetRequest request) {
 
         return getReusableDelegationSetAsync(request, null);
@@ -472,6 +537,19 @@ public class AbstractAmazonRoute53Async extends AbstractAmazonRoute53 implements
     @Override
     public java.util.concurrent.Future<GetReusableDelegationSetResult> getReusableDelegationSetAsync(GetReusableDelegationSetRequest request,
             com.amazonaws.handlers.AsyncHandler<GetReusableDelegationSetRequest, GetReusableDelegationSetResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetReusableDelegationSetLimitResult> getReusableDelegationSetLimitAsync(GetReusableDelegationSetLimitRequest request) {
+
+        return getReusableDelegationSetLimitAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetReusableDelegationSetLimitResult> getReusableDelegationSetLimitAsync(GetReusableDelegationSetLimitRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetReusableDelegationSetLimitRequest, GetReusableDelegationSetLimitResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -681,6 +759,19 @@ public class AbstractAmazonRoute53Async extends AbstractAmazonRoute53 implements
             com.amazonaws.handlers.AsyncHandler<ListHostedZonesByNameRequest, ListHostedZonesByNameResult> asyncHandler) {
 
         return listHostedZonesByNameAsync(new ListHostedZonesByNameRequest(), asyncHandler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListQueryLoggingConfigsResult> listQueryLoggingConfigsAsync(ListQueryLoggingConfigsRequest request) {
+
+        return listQueryLoggingConfigsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListQueryLoggingConfigsResult> listQueryLoggingConfigsAsync(ListQueryLoggingConfigsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListQueryLoggingConfigsRequest, ListQueryLoggingConfigsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
     }
 
     @Override

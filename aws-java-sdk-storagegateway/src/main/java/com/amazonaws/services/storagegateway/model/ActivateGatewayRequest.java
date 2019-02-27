@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -73,6 +73,10 @@ public class ActivateGatewayRequest extends com.amazonaws.AmazonWebServiceReques
      * other activation-related parameters, however, these are merely defaults -- the arguments you pass to the
      * <code>ActivateGateway</code> API call determine the actual configuration of your gateway.
      * </p>
+     * <p>
+     * For more information, see https://docs.aws.amazon.com/storagegateway/latest/userguide/get-activation-key.html in
+     * the Storage Gateway User Guide.
+     * </p>
      */
     private String activationKey;
     /**
@@ -100,14 +104,15 @@ public class ActivateGatewayRequest extends com.amazonaws.AmazonWebServiceReques
      * </p>
      * <p>
      * Valid Values: "us-east-1", "us-east-2", "us-west-1", "us-west-2", "ca-central-1", "eu-west-1", "eu-central-1",
-     * "eu-west-2", "ap-northeast-1", "ap-northeast-2", "ap-southeast-1", "ap-southeast-2", "ap-south-1", "sa-east-1"
+     * "eu-west-2", "eu-west-3", "ap-northeast-1", "ap-northeast-2", "ap-southeast-1", "ap-southeast-2", "ap-south-1",
+     * "sa-east-1"
      * </p>
      */
     private String gatewayRegion;
     /**
      * <p>
      * A value that defines the type of gateway to activate. The type specified is critical to all later functions of
-     * the gateway and cannot be changed after activation. The default value is <code>STORED</code>.
+     * the gateway and cannot be changed after activation. The default value is <code>CACHED</code>.
      * </p>
      * <p>
      * Valid Values: "STORED", "CACHED", "VTL", "FILE_S3"
@@ -141,13 +146,21 @@ public class ActivateGatewayRequest extends com.amazonaws.AmazonWebServiceReques
      * other activation-related parameters, however, these are merely defaults -- the arguments you pass to the
      * <code>ActivateGateway</code> API call determine the actual configuration of your gateway.
      * </p>
+     * <p>
+     * For more information, see https://docs.aws.amazon.com/storagegateway/latest/userguide/get-activation-key.html in
+     * the Storage Gateway User Guide.
+     * </p>
      * 
      * @param activationKey
      *        Your gateway activation key. You can obtain the activation key by sending an HTTP GET request with
      *        redirects enabled to the gateway IP address (port 80). The redirect URL returned in the response provides
      *        you the activation key for your gateway in the query string parameter <code>activationKey</code>. It may
      *        also include other activation-related parameters, however, these are merely defaults -- the arguments you
-     *        pass to the <code>ActivateGateway</code> API call determine the actual configuration of your gateway.
+     *        pass to the <code>ActivateGateway</code> API call determine the actual configuration of your gateway. </p>
+     *        <p>
+     *        For more information, see
+     *        https://docs.aws.amazon.com/storagegateway/latest/userguide/get-activation-key.html in the Storage Gateway
+     *        User Guide.
      */
 
     public void setActivationKey(String activationKey) {
@@ -162,12 +175,21 @@ public class ActivateGatewayRequest extends com.amazonaws.AmazonWebServiceReques
      * other activation-related parameters, however, these are merely defaults -- the arguments you pass to the
      * <code>ActivateGateway</code> API call determine the actual configuration of your gateway.
      * </p>
+     * <p>
+     * For more information, see https://docs.aws.amazon.com/storagegateway/latest/userguide/get-activation-key.html in
+     * the Storage Gateway User Guide.
+     * </p>
      * 
      * @return Your gateway activation key. You can obtain the activation key by sending an HTTP GET request with
      *         redirects enabled to the gateway IP address (port 80). The redirect URL returned in the response provides
      *         you the activation key for your gateway in the query string parameter <code>activationKey</code>. It may
      *         also include other activation-related parameters, however, these are merely defaults -- the arguments you
      *         pass to the <code>ActivateGateway</code> API call determine the actual configuration of your gateway.
+     *         </p>
+     *         <p>
+     *         For more information, see
+     *         https://docs.aws.amazon.com/storagegateway/latest/userguide/get-activation-key.html in the Storage
+     *         Gateway User Guide.
      */
 
     public String getActivationKey() {
@@ -182,13 +204,21 @@ public class ActivateGatewayRequest extends com.amazonaws.AmazonWebServiceReques
      * other activation-related parameters, however, these are merely defaults -- the arguments you pass to the
      * <code>ActivateGateway</code> API call determine the actual configuration of your gateway.
      * </p>
+     * <p>
+     * For more information, see https://docs.aws.amazon.com/storagegateway/latest/userguide/get-activation-key.html in
+     * the Storage Gateway User Guide.
+     * </p>
      * 
      * @param activationKey
      *        Your gateway activation key. You can obtain the activation key by sending an HTTP GET request with
      *        redirects enabled to the gateway IP address (port 80). The redirect URL returned in the response provides
      *        you the activation key for your gateway in the query string parameter <code>activationKey</code>. It may
      *        also include other activation-related parameters, however, these are merely defaults -- the arguments you
-     *        pass to the <code>ActivateGateway</code> API call determine the actual configuration of your gateway.
+     *        pass to the <code>ActivateGateway</code> API call determine the actual configuration of your gateway. </p>
+     *        <p>
+     *        For more information, see
+     *        https://docs.aws.amazon.com/storagegateway/latest/userguide/get-activation-key.html in the Storage Gateway
+     *        User Guide.
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -305,7 +335,8 @@ public class ActivateGatewayRequest extends com.amazonaws.AmazonWebServiceReques
      * </p>
      * <p>
      * Valid Values: "us-east-1", "us-east-2", "us-west-1", "us-west-2", "ca-central-1", "eu-west-1", "eu-central-1",
-     * "eu-west-2", "ap-northeast-1", "ap-northeast-2", "ap-southeast-1", "ap-southeast-2", "ap-south-1", "sa-east-1"
+     * "eu-west-2", "eu-west-3", "ap-northeast-1", "ap-northeast-2", "ap-southeast-1", "ap-southeast-2", "ap-south-1",
+     * "sa-east-1"
      * </p>
      * 
      * @param gatewayRegion
@@ -316,8 +347,8 @@ public class ActivateGatewayRequest extends com.amazonaws.AmazonWebServiceReques
      *        <i>Amazon Web Services Glossary</i>.</p>
      *        <p>
      *        Valid Values: "us-east-1", "us-east-2", "us-west-1", "us-west-2", "ca-central-1", "eu-west-1",
-     *        "eu-central-1", "eu-west-2", "ap-northeast-1", "ap-northeast-2", "ap-southeast-1", "ap-southeast-2",
-     *        "ap-south-1", "sa-east-1"
+     *        "eu-central-1", "eu-west-2", "eu-west-3", "ap-northeast-1", "ap-northeast-2", "ap-southeast-1",
+     *        "ap-southeast-2", "ap-south-1", "sa-east-1"
      */
 
     public void setGatewayRegion(String gatewayRegion) {
@@ -334,7 +365,8 @@ public class ActivateGatewayRequest extends com.amazonaws.AmazonWebServiceReques
      * </p>
      * <p>
      * Valid Values: "us-east-1", "us-east-2", "us-west-1", "us-west-2", "ca-central-1", "eu-west-1", "eu-central-1",
-     * "eu-west-2", "ap-northeast-1", "ap-northeast-2", "ap-southeast-1", "ap-southeast-2", "ap-south-1", "sa-east-1"
+     * "eu-west-2", "eu-west-3", "ap-northeast-1", "ap-northeast-2", "ap-southeast-1", "ap-southeast-2", "ap-south-1",
+     * "sa-east-1"
      * </p>
      * 
      * @return A value that indicates the region where you want to store your data. The gateway region specified must be
@@ -344,8 +376,8 @@ public class ActivateGatewayRequest extends com.amazonaws.AmazonWebServiceReques
      *         <i>Amazon Web Services Glossary</i>.</p>
      *         <p>
      *         Valid Values: "us-east-1", "us-east-2", "us-west-1", "us-west-2", "ca-central-1", "eu-west-1",
-     *         "eu-central-1", "eu-west-2", "ap-northeast-1", "ap-northeast-2", "ap-southeast-1", "ap-southeast-2",
-     *         "ap-south-1", "sa-east-1"
+     *         "eu-central-1", "eu-west-2", "eu-west-3", "ap-northeast-1", "ap-northeast-2", "ap-southeast-1",
+     *         "ap-southeast-2", "ap-south-1", "sa-east-1"
      */
 
     public String getGatewayRegion() {
@@ -362,7 +394,8 @@ public class ActivateGatewayRequest extends com.amazonaws.AmazonWebServiceReques
      * </p>
      * <p>
      * Valid Values: "us-east-1", "us-east-2", "us-west-1", "us-west-2", "ca-central-1", "eu-west-1", "eu-central-1",
-     * "eu-west-2", "ap-northeast-1", "ap-northeast-2", "ap-southeast-1", "ap-southeast-2", "ap-south-1", "sa-east-1"
+     * "eu-west-2", "eu-west-3", "ap-northeast-1", "ap-northeast-2", "ap-southeast-1", "ap-southeast-2", "ap-south-1",
+     * "sa-east-1"
      * </p>
      * 
      * @param gatewayRegion
@@ -373,8 +406,8 @@ public class ActivateGatewayRequest extends com.amazonaws.AmazonWebServiceReques
      *        <i>Amazon Web Services Glossary</i>.</p>
      *        <p>
      *        Valid Values: "us-east-1", "us-east-2", "us-west-1", "us-west-2", "ca-central-1", "eu-west-1",
-     *        "eu-central-1", "eu-west-2", "ap-northeast-1", "ap-northeast-2", "ap-southeast-1", "ap-southeast-2",
-     *        "ap-south-1", "sa-east-1"
+     *        "eu-central-1", "eu-west-2", "eu-west-3", "ap-northeast-1", "ap-northeast-2", "ap-southeast-1",
+     *        "ap-southeast-2", "ap-south-1", "sa-east-1"
      * @return Returns a reference to this object so that method calls can be chained together.
      */
 
@@ -386,7 +419,7 @@ public class ActivateGatewayRequest extends com.amazonaws.AmazonWebServiceReques
     /**
      * <p>
      * A value that defines the type of gateway to activate. The type specified is critical to all later functions of
-     * the gateway and cannot be changed after activation. The default value is <code>STORED</code>.
+     * the gateway and cannot be changed after activation. The default value is <code>CACHED</code>.
      * </p>
      * <p>
      * Valid Values: "STORED", "CACHED", "VTL", "FILE_S3"
@@ -394,7 +427,7 @@ public class ActivateGatewayRequest extends com.amazonaws.AmazonWebServiceReques
      * 
      * @param gatewayType
      *        A value that defines the type of gateway to activate. The type specified is critical to all later
-     *        functions of the gateway and cannot be changed after activation. The default value is <code>STORED</code>.
+     *        functions of the gateway and cannot be changed after activation. The default value is <code>CACHED</code>.
      *        </p>
      *        <p>
      *        Valid Values: "STORED", "CACHED", "VTL", "FILE_S3"
@@ -407,14 +440,14 @@ public class ActivateGatewayRequest extends com.amazonaws.AmazonWebServiceReques
     /**
      * <p>
      * A value that defines the type of gateway to activate. The type specified is critical to all later functions of
-     * the gateway and cannot be changed after activation. The default value is <code>STORED</code>.
+     * the gateway and cannot be changed after activation. The default value is <code>CACHED</code>.
      * </p>
      * <p>
      * Valid Values: "STORED", "CACHED", "VTL", "FILE_S3"
      * </p>
      * 
      * @return A value that defines the type of gateway to activate. The type specified is critical to all later
-     *         functions of the gateway and cannot be changed after activation. The default value is <code>STORED</code>
+     *         functions of the gateway and cannot be changed after activation. The default value is <code>CACHED</code>
      *         . </p>
      *         <p>
      *         Valid Values: "STORED", "CACHED", "VTL", "FILE_S3"
@@ -427,7 +460,7 @@ public class ActivateGatewayRequest extends com.amazonaws.AmazonWebServiceReques
     /**
      * <p>
      * A value that defines the type of gateway to activate. The type specified is critical to all later functions of
-     * the gateway and cannot be changed after activation. The default value is <code>STORED</code>.
+     * the gateway and cannot be changed after activation. The default value is <code>CACHED</code>.
      * </p>
      * <p>
      * Valid Values: "STORED", "CACHED", "VTL", "FILE_S3"
@@ -435,7 +468,7 @@ public class ActivateGatewayRequest extends com.amazonaws.AmazonWebServiceReques
      * 
      * @param gatewayType
      *        A value that defines the type of gateway to activate. The type specified is critical to all later
-     *        functions of the gateway and cannot be changed after activation. The default value is <code>STORED</code>.
+     *        functions of the gateway and cannot be changed after activation. The default value is <code>CACHED</code>.
      *        </p>
      *        <p>
      *        Valid Values: "STORED", "CACHED", "VTL", "FILE_S3"
@@ -558,7 +591,8 @@ public class ActivateGatewayRequest extends com.amazonaws.AmazonWebServiceReques
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

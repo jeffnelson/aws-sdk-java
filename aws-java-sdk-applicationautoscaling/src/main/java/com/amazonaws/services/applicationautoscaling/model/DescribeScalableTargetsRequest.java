@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -27,7 +27,8 @@ public class DescribeScalableTargetsRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The namespace of the AWS service. For more information, see <a
+     * The namespace of the AWS service that provides the resource or <code>custom-resource</code> for a resource
+     * provided by your own application or service. For more information, see <a
      * href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
      * >AWS Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.
      * </p>
@@ -73,6 +74,26 @@ public class DescribeScalableTargetsRequest extends com.amazonaws.AmazonWebServi
      * <p>
      * DynamoDB global secondary index - The resource type is <code>index</code> and the unique identifier is the
      * resource ID. Example: <code>table/my-table/index/my-table-index</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Aurora DB cluster - The resource type is <code>cluster</code> and the unique identifier is the cluster name.
+     * Example: <code>cluster:my-db-cluster</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon SageMaker endpoint variants - The resource type is <code>variant</code> and the unique identifier is the
+     * resource ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Custom resources are not supported with a resource type. This parameter must specify the <code>OutputValue</code>
+     * from the CloudFormation template stack used to access the resources. The unique identifier is defined by the
+     * service provider. More information is available in our <a
+     * href="https://github.com/aws/aws-auto-scaling-custom-resource">GitHub repository</a>.
      * </p>
      * </li>
      * </ul>
@@ -126,12 +147,30 @@ public class DescribeScalableTargetsRequest extends com.amazonaws.AmazonWebServi
      * index.
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * <code>rds:cluster:ReadReplicaCount</code> - The count of Aurora Replicas in an Aurora DB cluster. Available for
+     * Aurora MySQL-compatible edition and Aurora PostgreSQL-compatible edition.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for an Amazon SageMaker model
+     * endpoint variant.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>custom-resource:ResourceType:Property</code> - The scalable dimension for a custom resource provided by
+     * your own application or service.
+     * </p>
+     * </li>
      * </ul>
      */
     private String scalableDimension;
     /**
      * <p>
-     * The maximum number of scalable target results. This value can be between 1 and 50. The default value is 50.
+     * The maximum number of scalable targets. This value can be between 1 and 50. The default value is 50.
      * </p>
      * <p>
      * If this parameter is used, the operation returns up to <code>MaxResults</code> results at a time, along with a
@@ -150,13 +189,15 @@ public class DescribeScalableTargetsRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The namespace of the AWS service. For more information, see <a
+     * The namespace of the AWS service that provides the resource or <code>custom-resource</code> for a resource
+     * provided by your own application or service. For more information, see <a
      * href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
      * >AWS Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.
      * </p>
      * 
      * @param serviceNamespace
-     *        The namespace of the AWS service. For more information, see <a href=
+     *        The namespace of the AWS service that provides the resource or <code>custom-resource</code> for a resource
+     *        provided by your own application or service. For more information, see <a href=
      *        "http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
      *        >AWS Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.
      * @see ServiceNamespace
@@ -168,13 +209,15 @@ public class DescribeScalableTargetsRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The namespace of the AWS service. For more information, see <a
+     * The namespace of the AWS service that provides the resource or <code>custom-resource</code> for a resource
+     * provided by your own application or service. For more information, see <a
      * href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
      * >AWS Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.
      * </p>
      * 
-     * @return The namespace of the AWS service. For more information, see <a
-     *         href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
+     * @return The namespace of the AWS service that provides the resource or <code>custom-resource</code> for a
+     *         resource provided by your own application or service. For more information, see <a href=
+     *         "http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
      *         >AWS Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.
      * @see ServiceNamespace
      */
@@ -185,13 +228,15 @@ public class DescribeScalableTargetsRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The namespace of the AWS service. For more information, see <a
+     * The namespace of the AWS service that provides the resource or <code>custom-resource</code> for a resource
+     * provided by your own application or service. For more information, see <a
      * href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
      * >AWS Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.
      * </p>
      * 
      * @param serviceNamespace
-     *        The namespace of the AWS service. For more information, see <a href=
+     *        The namespace of the AWS service that provides the resource or <code>custom-resource</code> for a resource
+     *        provided by your own application or service. For more information, see <a href=
      *        "http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
      *        >AWS Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -205,13 +250,15 @@ public class DescribeScalableTargetsRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The namespace of the AWS service. For more information, see <a
+     * The namespace of the AWS service that provides the resource or <code>custom-resource</code> for a resource
+     * provided by your own application or service. For more information, see <a
      * href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
      * >AWS Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.
      * </p>
      * 
      * @param serviceNamespace
-     *        The namespace of the AWS service. For more information, see <a href=
+     *        The namespace of the AWS service that provides the resource or <code>custom-resource</code> for a resource
+     *        provided by your own application or service. For more information, see <a href=
      *        "http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
      *        >AWS Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.
      * @see ServiceNamespace
@@ -223,13 +270,15 @@ public class DescribeScalableTargetsRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The namespace of the AWS service. For more information, see <a
+     * The namespace of the AWS service that provides the resource or <code>custom-resource</code> for a resource
+     * provided by your own application or service. For more information, see <a
      * href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
      * >AWS Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.
      * </p>
      * 
      * @param serviceNamespace
-     *        The namespace of the AWS service. For more information, see <a href=
+     *        The namespace of the AWS service that provides the resource or <code>custom-resource</code> for a resource
+     *        provided by your own application or service. For more information, see <a href=
      *        "http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces"
      *        >AWS Service Namespaces</a> in the <i>Amazon Web Services General Reference</i>.
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -283,6 +332,26 @@ public class DescribeScalableTargetsRequest extends com.amazonaws.AmazonWebServi
      * resource ID. Example: <code>table/my-table/index/my-table-index</code>.
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * Aurora DB cluster - The resource type is <code>cluster</code> and the unique identifier is the cluster name.
+     * Example: <code>cluster:my-db-cluster</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon SageMaker endpoint variants - The resource type is <code>variant</code> and the unique identifier is the
+     * resource ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Custom resources are not supported with a resource type. This parameter must specify the <code>OutputValue</code>
+     * from the CloudFormation template stack used to access the resources. The unique identifier is defined by the
+     * service provider. More information is available in our <a
+     * href="https://github.com/aws/aws-auto-scaling-custom-resource">GitHub repository</a>.
+     * </p>
+     * </li>
      * </ul>
      * 
      * @return The identifier of the resource associated with the scalable target. This string consists of the resource
@@ -323,6 +392,26 @@ public class DescribeScalableTargetsRequest extends com.amazonaws.AmazonWebServi
      *         <p>
      *         DynamoDB global secondary index - The resource type is <code>index</code> and the unique identifier is
      *         the resource ID. Example: <code>table/my-table/index/my-table-index</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Aurora DB cluster - The resource type is <code>cluster</code> and the unique identifier is the cluster
+     *         name. Example: <code>cluster:my-db-cluster</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Amazon SageMaker endpoint variants - The resource type is <code>variant</code> and the unique identifier
+     *         is the resource ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         Custom resources are not supported with a resource type. This parameter must specify the
+     *         <code>OutputValue</code> from the CloudFormation template stack used to access the resources. The unique
+     *         identifier is defined by the service provider. More information is available in our <a
+     *         href="https://github.com/aws/aws-auto-scaling-custom-resource">GitHub repository</a>.
      *         </p>
      *         </li>
      */
@@ -373,6 +462,26 @@ public class DescribeScalableTargetsRequest extends com.amazonaws.AmazonWebServi
      * resource ID. Example: <code>table/my-table/index/my-table-index</code>.
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * Aurora DB cluster - The resource type is <code>cluster</code> and the unique identifier is the cluster name.
+     * Example: <code>cluster:my-db-cluster</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon SageMaker endpoint variants - The resource type is <code>variant</code> and the unique identifier is the
+     * resource ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Custom resources are not supported with a resource type. This parameter must specify the <code>OutputValue</code>
+     * from the CloudFormation template stack used to access the resources. The unique identifier is defined by the
+     * service provider. More information is available in our <a
+     * href="https://github.com/aws/aws-auto-scaling-custom-resource">GitHub repository</a>.
+     * </p>
+     * </li>
      * </ul>
      * 
      * @param resourceIds
@@ -413,6 +522,26 @@ public class DescribeScalableTargetsRequest extends com.amazonaws.AmazonWebServi
      *        <p>
      *        DynamoDB global secondary index - The resource type is <code>index</code> and the unique identifier is the
      *        resource ID. Example: <code>table/my-table/index/my-table-index</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Aurora DB cluster - The resource type is <code>cluster</code> and the unique identifier is the cluster
+     *        name. Example: <code>cluster:my-db-cluster</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Amazon SageMaker endpoint variants - The resource type is <code>variant</code> and the unique identifier
+     *        is the resource ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Custom resources are not supported with a resource type. This parameter must specify the
+     *        <code>OutputValue</code> from the CloudFormation template stack used to access the resources. The unique
+     *        identifier is defined by the service provider. More information is available in our <a
+     *        href="https://github.com/aws/aws-auto-scaling-custom-resource">GitHub repository</a>.
      *        </p>
      *        </li>
      */
@@ -468,6 +597,26 @@ public class DescribeScalableTargetsRequest extends com.amazonaws.AmazonWebServi
      * resource ID. Example: <code>table/my-table/index/my-table-index</code>.
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * Aurora DB cluster - The resource type is <code>cluster</code> and the unique identifier is the cluster name.
+     * Example: <code>cluster:my-db-cluster</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon SageMaker endpoint variants - The resource type is <code>variant</code> and the unique identifier is the
+     * resource ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Custom resources are not supported with a resource type. This parameter must specify the <code>OutputValue</code>
+     * from the CloudFormation template stack used to access the resources. The unique identifier is defined by the
+     * service provider. More information is available in our <a
+     * href="https://github.com/aws/aws-auto-scaling-custom-resource">GitHub repository</a>.
+     * </p>
+     * </li>
      * </ul>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if any). Use
@@ -513,6 +662,26 @@ public class DescribeScalableTargetsRequest extends com.amazonaws.AmazonWebServi
      *        <p>
      *        DynamoDB global secondary index - The resource type is <code>index</code> and the unique identifier is the
      *        resource ID. Example: <code>table/my-table/index/my-table-index</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Aurora DB cluster - The resource type is <code>cluster</code> and the unique identifier is the cluster
+     *        name. Example: <code>cluster:my-db-cluster</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Amazon SageMaker endpoint variants - The resource type is <code>variant</code> and the unique identifier
+     *        is the resource ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Custom resources are not supported with a resource type. This parameter must specify the
+     *        <code>OutputValue</code> from the CloudFormation template stack used to access the resources. The unique
+     *        identifier is defined by the service provider. More information is available in our <a
+     *        href="https://github.com/aws/aws-auto-scaling-custom-resource">GitHub repository</a>.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -570,6 +739,26 @@ public class DescribeScalableTargetsRequest extends com.amazonaws.AmazonWebServi
      * resource ID. Example: <code>table/my-table/index/my-table-index</code>.
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * Aurora DB cluster - The resource type is <code>cluster</code> and the unique identifier is the cluster name.
+     * Example: <code>cluster:my-db-cluster</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Amazon SageMaker endpoint variants - The resource type is <code>variant</code> and the unique identifier is the
+     * resource ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * Custom resources are not supported with a resource type. This parameter must specify the <code>OutputValue</code>
+     * from the CloudFormation template stack used to access the resources. The unique identifier is defined by the
+     * service provider. More information is available in our <a
+     * href="https://github.com/aws/aws-auto-scaling-custom-resource">GitHub repository</a>.
+     * </p>
+     * </li>
      * </ul>
      * 
      * @param resourceIds
@@ -610,6 +799,26 @@ public class DescribeScalableTargetsRequest extends com.amazonaws.AmazonWebServi
      *        <p>
      *        DynamoDB global secondary index - The resource type is <code>index</code> and the unique identifier is the
      *        resource ID. Example: <code>table/my-table/index/my-table-index</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Aurora DB cluster - The resource type is <code>cluster</code> and the unique identifier is the cluster
+     *        name. Example: <code>cluster:my-db-cluster</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Amazon SageMaker endpoint variants - The resource type is <code>variant</code> and the unique identifier
+     *        is the resource ID. Example: <code>endpoint/my-end-point/variant/KMeansClustering</code>.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        Custom resources are not supported with a resource type. This parameter must specify the
+     *        <code>OutputValue</code> from the CloudFormation template stack used to access the resources. The unique
+     *        identifier is defined by the service provider. More information is available in our <a
+     *        href="https://github.com/aws/aws-auto-scaling-custom-resource">GitHub repository</a>.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -668,6 +877,24 @@ public class DescribeScalableTargetsRequest extends com.amazonaws.AmazonWebServi
      * index.
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * <code>rds:cluster:ReadReplicaCount</code> - The count of Aurora Replicas in an Aurora DB cluster. Available for
+     * Aurora MySQL-compatible edition and Aurora PostgreSQL-compatible edition.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for an Amazon SageMaker model
+     * endpoint variant.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>custom-resource:ResourceType:Property</code> - The scalable dimension for a custom resource provided by
+     * your own application or service.
+     * </p>
+     * </li>
      * </ul>
      * 
      * @param scalableDimension
@@ -715,6 +942,24 @@ public class DescribeScalableTargetsRequest extends com.amazonaws.AmazonWebServi
      *        <p>
      *        <code>dynamodb:index:WriteCapacityUnits</code> - The provisioned write capacity for a DynamoDB global
      *        secondary index.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>rds:cluster:ReadReplicaCount</code> - The count of Aurora Replicas in an Aurora DB cluster.
+     *        Available for Aurora MySQL-compatible edition and Aurora PostgreSQL-compatible edition.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for an Amazon SageMaker
+     *        model endpoint variant.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>custom-resource:ResourceType:Property</code> - The scalable dimension for a custom resource provided
+     *        by your own application or service.
      *        </p>
      *        </li>
      * @see ScalableDimension
@@ -772,6 +1017,24 @@ public class DescribeScalableTargetsRequest extends com.amazonaws.AmazonWebServi
      * index.
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * <code>rds:cluster:ReadReplicaCount</code> - The count of Aurora Replicas in an Aurora DB cluster. Available for
+     * Aurora MySQL-compatible edition and Aurora PostgreSQL-compatible edition.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for an Amazon SageMaker model
+     * endpoint variant.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>custom-resource:ResourceType:Property</code> - The scalable dimension for a custom resource provided by
+     * your own application or service.
+     * </p>
+     * </li>
      * </ul>
      * 
      * @return The scalable dimension associated with the scalable target. This string consists of the service
@@ -818,6 +1081,24 @@ public class DescribeScalableTargetsRequest extends com.amazonaws.AmazonWebServi
      *         <p>
      *         <code>dynamodb:index:WriteCapacityUnits</code> - The provisioned write capacity for a DynamoDB global
      *         secondary index.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>rds:cluster:ReadReplicaCount</code> - The count of Aurora Replicas in an Aurora DB cluster.
+     *         Available for Aurora MySQL-compatible edition and Aurora PostgreSQL-compatible edition.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for an Amazon SageMaker
+     *         model endpoint variant.
+     *         </p>
+     *         </li>
+     *         <li>
+     *         <p>
+     *         <code>custom-resource:ResourceType:Property</code> - The scalable dimension for a custom resource
+     *         provided by your own application or service.
      *         </p>
      *         </li>
      * @see ScalableDimension
@@ -875,6 +1156,24 @@ public class DescribeScalableTargetsRequest extends com.amazonaws.AmazonWebServi
      * index.
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * <code>rds:cluster:ReadReplicaCount</code> - The count of Aurora Replicas in an Aurora DB cluster. Available for
+     * Aurora MySQL-compatible edition and Aurora PostgreSQL-compatible edition.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for an Amazon SageMaker model
+     * endpoint variant.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>custom-resource:ResourceType:Property</code> - The scalable dimension for a custom resource provided by
+     * your own application or service.
+     * </p>
+     * </li>
      * </ul>
      * 
      * @param scalableDimension
@@ -922,6 +1221,24 @@ public class DescribeScalableTargetsRequest extends com.amazonaws.AmazonWebServi
      *        <p>
      *        <code>dynamodb:index:WriteCapacityUnits</code> - The provisioned write capacity for a DynamoDB global
      *        secondary index.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>rds:cluster:ReadReplicaCount</code> - The count of Aurora Replicas in an Aurora DB cluster.
+     *        Available for Aurora MySQL-compatible edition and Aurora PostgreSQL-compatible edition.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for an Amazon SageMaker
+     *        model endpoint variant.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>custom-resource:ResourceType:Property</code> - The scalable dimension for a custom resource provided
+     *        by your own application or service.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -981,6 +1298,24 @@ public class DescribeScalableTargetsRequest extends com.amazonaws.AmazonWebServi
      * index.
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * <code>rds:cluster:ReadReplicaCount</code> - The count of Aurora Replicas in an Aurora DB cluster. Available for
+     * Aurora MySQL-compatible edition and Aurora PostgreSQL-compatible edition.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for an Amazon SageMaker model
+     * endpoint variant.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>custom-resource:ResourceType:Property</code> - The scalable dimension for a custom resource provided by
+     * your own application or service.
+     * </p>
+     * </li>
      * </ul>
      * 
      * @param scalableDimension
@@ -1028,6 +1363,24 @@ public class DescribeScalableTargetsRequest extends com.amazonaws.AmazonWebServi
      *        <p>
      *        <code>dynamodb:index:WriteCapacityUnits</code> - The provisioned write capacity for a DynamoDB global
      *        secondary index.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>rds:cluster:ReadReplicaCount</code> - The count of Aurora Replicas in an Aurora DB cluster.
+     *        Available for Aurora MySQL-compatible edition and Aurora PostgreSQL-compatible edition.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for an Amazon SageMaker
+     *        model endpoint variant.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>custom-resource:ResourceType:Property</code> - The scalable dimension for a custom resource provided
+     *        by your own application or service.
      *        </p>
      *        </li>
      * @see ScalableDimension
@@ -1085,6 +1438,24 @@ public class DescribeScalableTargetsRequest extends com.amazonaws.AmazonWebServi
      * index.
      * </p>
      * </li>
+     * <li>
+     * <p>
+     * <code>rds:cluster:ReadReplicaCount</code> - The count of Aurora Replicas in an Aurora DB cluster. Available for
+     * Aurora MySQL-compatible edition and Aurora PostgreSQL-compatible edition.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for an Amazon SageMaker model
+     * endpoint variant.
+     * </p>
+     * </li>
+     * <li>
+     * <p>
+     * <code>custom-resource:ResourceType:Property</code> - The scalable dimension for a custom resource provided by
+     * your own application or service.
+     * </p>
+     * </li>
      * </ul>
      * 
      * @param scalableDimension
@@ -1134,6 +1505,24 @@ public class DescribeScalableTargetsRequest extends com.amazonaws.AmazonWebServi
      *        secondary index.
      *        </p>
      *        </li>
+     *        <li>
+     *        <p>
+     *        <code>rds:cluster:ReadReplicaCount</code> - The count of Aurora Replicas in an Aurora DB cluster.
+     *        Available for Aurora MySQL-compatible edition and Aurora PostgreSQL-compatible edition.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>sagemaker:variant:DesiredInstanceCount</code> - The number of EC2 instances for an Amazon SageMaker
+     *        model endpoint variant.
+     *        </p>
+     *        </li>
+     *        <li>
+     *        <p>
+     *        <code>custom-resource:ResourceType:Property</code> - The scalable dimension for a custom resource provided
+     *        by your own application or service.
+     *        </p>
+     *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
      * @see ScalableDimension
      */
@@ -1145,7 +1534,7 @@ public class DescribeScalableTargetsRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The maximum number of scalable target results. This value can be between 1 and 50. The default value is 50.
+     * The maximum number of scalable targets. This value can be between 1 and 50. The default value is 50.
      * </p>
      * <p>
      * If this parameter is used, the operation returns up to <code>MaxResults</code> results at a time, along with a
@@ -1155,8 +1544,7 @@ public class DescribeScalableTargetsRequest extends com.amazonaws.AmazonWebServi
      * </p>
      * 
      * @param maxResults
-     *        The maximum number of scalable target results. This value can be between 1 and 50. The default value is
-     *        50.</p>
+     *        The maximum number of scalable targets. This value can be between 1 and 50. The default value is 50.</p>
      *        <p>
      *        If this parameter is used, the operation returns up to <code>MaxResults</code> results at a time, along
      *        with a <code>NextToken</code> value. To get the next set of results, include the <code>NextToken</code>
@@ -1170,7 +1558,7 @@ public class DescribeScalableTargetsRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The maximum number of scalable target results. This value can be between 1 and 50. The default value is 50.
+     * The maximum number of scalable targets. This value can be between 1 and 50. The default value is 50.
      * </p>
      * <p>
      * If this parameter is used, the operation returns up to <code>MaxResults</code> results at a time, along with a
@@ -1179,8 +1567,7 @@ public class DescribeScalableTargetsRequest extends com.amazonaws.AmazonWebServi
      * <code>NextToken</code> value, if applicable.
      * </p>
      * 
-     * @return The maximum number of scalable target results. This value can be between 1 and 50. The default value is
-     *         50.</p>
+     * @return The maximum number of scalable targets. This value can be between 1 and 50. The default value is 50.</p>
      *         <p>
      *         If this parameter is used, the operation returns up to <code>MaxResults</code> results at a time, along
      *         with a <code>NextToken</code> value. To get the next set of results, include the <code>NextToken</code>
@@ -1194,7 +1581,7 @@ public class DescribeScalableTargetsRequest extends com.amazonaws.AmazonWebServi
 
     /**
      * <p>
-     * The maximum number of scalable target results. This value can be between 1 and 50. The default value is 50.
+     * The maximum number of scalable targets. This value can be between 1 and 50. The default value is 50.
      * </p>
      * <p>
      * If this parameter is used, the operation returns up to <code>MaxResults</code> results at a time, along with a
@@ -1204,8 +1591,7 @@ public class DescribeScalableTargetsRequest extends com.amazonaws.AmazonWebServi
      * </p>
      * 
      * @param maxResults
-     *        The maximum number of scalable target results. This value can be between 1 and 50. The default value is
-     *        50.</p>
+     *        The maximum number of scalable targets. This value can be between 1 and 50. The default value is 50.</p>
      *        <p>
      *        If this parameter is used, the operation returns up to <code>MaxResults</code> results at a time, along
      *        with a <code>NextToken</code> value. To get the next set of results, include the <code>NextToken</code>
@@ -1260,7 +1646,8 @@ public class DescribeScalableTargetsRequest extends com.amazonaws.AmazonWebServi
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *

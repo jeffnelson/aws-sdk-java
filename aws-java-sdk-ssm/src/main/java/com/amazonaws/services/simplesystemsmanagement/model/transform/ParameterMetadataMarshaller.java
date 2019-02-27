@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -34,13 +34,15 @@ public class ParameterMetadataMarshaller {
     private static final MarshallingInfo<String> KEYID_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
             .marshallLocationName("KeyId").build();
     private static final MarshallingInfo<java.util.Date> LASTMODIFIEDDATE_BINDING = MarshallingInfo.builder(MarshallingType.DATE)
-            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("LastModifiedDate").build();
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("LastModifiedDate").timestampFormat("unixTimestamp").build();
     private static final MarshallingInfo<String> LASTMODIFIEDUSER_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("LastModifiedUser").build();
     private static final MarshallingInfo<String> DESCRIPTION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("Description").build();
     private static final MarshallingInfo<String> ALLOWEDPATTERN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("AllowedPattern").build();
+    private static final MarshallingInfo<Long> VERSION_BINDING = MarshallingInfo.builder(MarshallingType.LONG).marshallLocation(MarshallLocation.PAYLOAD)
+            .marshallLocationName("Version").build();
 
     private static final ParameterMetadataMarshaller instance = new ParameterMetadataMarshaller();
 
@@ -65,6 +67,7 @@ public class ParameterMetadataMarshaller {
             protocolMarshaller.marshall(parameterMetadata.getLastModifiedUser(), LASTMODIFIEDUSER_BINDING);
             protocolMarshaller.marshall(parameterMetadata.getDescription(), DESCRIPTION_BINDING);
             protocolMarshaller.marshall(parameterMetadata.getAllowedPattern(), ALLOWEDPATTERN_BINDING);
+            protocolMarshaller.marshall(parameterMetadata.getVersion(), VERSION_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

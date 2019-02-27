@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -42,6 +42,8 @@ public class StartGameSessionPlacementRequestMarshaller {
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("PlayerLatencies").build();
     private static final MarshallingInfo<List> DESIREDPLAYERSESSIONS_BINDING = MarshallingInfo.builder(MarshallingType.LIST)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("DesiredPlayerSessions").build();
+    private static final MarshallingInfo<String> GAMESESSIONDATA_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("GameSessionData").build();
 
     private static final StartGameSessionPlacementRequestMarshaller instance = new StartGameSessionPlacementRequestMarshaller();
 
@@ -66,6 +68,7 @@ public class StartGameSessionPlacementRequestMarshaller {
             protocolMarshaller.marshall(startGameSessionPlacementRequest.getGameSessionName(), GAMESESSIONNAME_BINDING);
             protocolMarshaller.marshall(startGameSessionPlacementRequest.getPlayerLatencies(), PLAYERLATENCIES_BINDING);
             protocolMarshaller.marshall(startGameSessionPlacementRequest.getDesiredPlayerSessions(), DESIREDPLAYERSESSIONS_BINDING);
+            protocolMarshaller.marshall(startGameSessionPlacementRequest.getGameSessionData(), GAMESESSIONDATA_BINDING);
         } catch (Exception e) {
             throw new SdkClientException("Unable to marshall request to JSON: " + e.getMessage(), e);
         }

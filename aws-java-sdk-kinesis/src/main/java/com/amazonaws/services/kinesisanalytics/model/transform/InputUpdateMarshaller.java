@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -31,6 +31,8 @@ public class InputUpdateMarshaller {
             .marshallLocationName("InputId").build();
     private static final MarshallingInfo<String> NAMEPREFIXUPDATE_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("NamePrefixUpdate").build();
+    private static final MarshallingInfo<StructuredPojo> INPUTPROCESSINGCONFIGURATIONUPDATE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
+            .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("InputProcessingConfigurationUpdate").build();
     private static final MarshallingInfo<StructuredPojo> KINESISSTREAMSINPUTUPDATE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
             .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("KinesisStreamsInputUpdate").build();
     private static final MarshallingInfo<StructuredPojo> KINESISFIREHOSEINPUTUPDATE_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
@@ -58,6 +60,7 @@ public class InputUpdateMarshaller {
         try {
             protocolMarshaller.marshall(inputUpdate.getInputId(), INPUTID_BINDING);
             protocolMarshaller.marshall(inputUpdate.getNamePrefixUpdate(), NAMEPREFIXUPDATE_BINDING);
+            protocolMarshaller.marshall(inputUpdate.getInputProcessingConfigurationUpdate(), INPUTPROCESSINGCONFIGURATIONUPDATE_BINDING);
             protocolMarshaller.marshall(inputUpdate.getKinesisStreamsInputUpdate(), KINESISSTREAMSINPUTUPDATE_BINDING);
             protocolMarshaller.marshall(inputUpdate.getKinesisFirehoseInputUpdate(), KINESISFIREHOSEINPUTUPDATE_BINDING);
             protocolMarshaller.marshall(inputUpdate.getInputSchemaUpdate(), INPUTSCHEMAUPDATE_BINDING);

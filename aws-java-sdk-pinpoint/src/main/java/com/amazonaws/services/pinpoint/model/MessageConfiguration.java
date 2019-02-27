@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -19,12 +19,19 @@ import com.amazonaws.protocol.ProtocolMarshaller;
 
 /**
  * Message configuration for a campaign.
+ * 
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/MessageConfiguration" target="_top">AWS API
+ *      Documentation</a>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class MessageConfiguration implements Serializable, Cloneable, StructuredPojo {
 
+    /** The message that the campaign delivers to ADM channels. Overrides the default message. */
+    private Message aDMMessage;
     /** The message that the campaign delivers to APNS channels. Overrides the default message. */
     private Message aPNSMessage;
+    /** The message that the campaign delivers to Baidu channels. Overrides the default message. */
+    private Message baiduMessage;
     /** The default message for all channels. */
     private Message defaultMessage;
     /** The email message configuration. */
@@ -33,6 +40,40 @@ public class MessageConfiguration implements Serializable, Cloneable, Structured
     private Message gCMMessage;
     /** The SMS message configuration. */
     private CampaignSmsMessage sMSMessage;
+
+    /**
+     * The message that the campaign delivers to ADM channels. Overrides the default message.
+     * 
+     * @param aDMMessage
+     *        The message that the campaign delivers to ADM channels. Overrides the default message.
+     */
+
+    public void setADMMessage(Message aDMMessage) {
+        this.aDMMessage = aDMMessage;
+    }
+
+    /**
+     * The message that the campaign delivers to ADM channels. Overrides the default message.
+     * 
+     * @return The message that the campaign delivers to ADM channels. Overrides the default message.
+     */
+
+    public Message getADMMessage() {
+        return this.aDMMessage;
+    }
+
+    /**
+     * The message that the campaign delivers to ADM channels. Overrides the default message.
+     * 
+     * @param aDMMessage
+     *        The message that the campaign delivers to ADM channels. Overrides the default message.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public MessageConfiguration withADMMessage(Message aDMMessage) {
+        setADMMessage(aDMMessage);
+        return this;
+    }
 
     /**
      * The message that the campaign delivers to APNS channels. Overrides the default message.
@@ -65,6 +106,40 @@ public class MessageConfiguration implements Serializable, Cloneable, Structured
 
     public MessageConfiguration withAPNSMessage(Message aPNSMessage) {
         setAPNSMessage(aPNSMessage);
+        return this;
+    }
+
+    /**
+     * The message that the campaign delivers to Baidu channels. Overrides the default message.
+     * 
+     * @param baiduMessage
+     *        The message that the campaign delivers to Baidu channels. Overrides the default message.
+     */
+
+    public void setBaiduMessage(Message baiduMessage) {
+        this.baiduMessage = baiduMessage;
+    }
+
+    /**
+     * The message that the campaign delivers to Baidu channels. Overrides the default message.
+     * 
+     * @return The message that the campaign delivers to Baidu channels. Overrides the default message.
+     */
+
+    public Message getBaiduMessage() {
+        return this.baiduMessage;
+    }
+
+    /**
+     * The message that the campaign delivers to Baidu channels. Overrides the default message.
+     * 
+     * @param baiduMessage
+     *        The message that the campaign delivers to Baidu channels. Overrides the default message.
+     * @return Returns a reference to this object so that method calls can be chained together.
+     */
+
+    public MessageConfiguration withBaiduMessage(Message baiduMessage) {
+        setBaiduMessage(baiduMessage);
         return this;
     }
 
@@ -205,7 +280,8 @@ public class MessageConfiguration implements Serializable, Cloneable, Structured
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
@@ -215,8 +291,12 @@ public class MessageConfiguration implements Serializable, Cloneable, Structured
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
+        if (getADMMessage() != null)
+            sb.append("ADMMessage: ").append(getADMMessage()).append(",");
         if (getAPNSMessage() != null)
             sb.append("APNSMessage: ").append(getAPNSMessage()).append(",");
+        if (getBaiduMessage() != null)
+            sb.append("BaiduMessage: ").append(getBaiduMessage()).append(",");
         if (getDefaultMessage() != null)
             sb.append("DefaultMessage: ").append(getDefaultMessage()).append(",");
         if (getEmailMessage() != null)
@@ -239,9 +319,17 @@ public class MessageConfiguration implements Serializable, Cloneable, Structured
         if (obj instanceof MessageConfiguration == false)
             return false;
         MessageConfiguration other = (MessageConfiguration) obj;
+        if (other.getADMMessage() == null ^ this.getADMMessage() == null)
+            return false;
+        if (other.getADMMessage() != null && other.getADMMessage().equals(this.getADMMessage()) == false)
+            return false;
         if (other.getAPNSMessage() == null ^ this.getAPNSMessage() == null)
             return false;
         if (other.getAPNSMessage() != null && other.getAPNSMessage().equals(this.getAPNSMessage()) == false)
+            return false;
+        if (other.getBaiduMessage() == null ^ this.getBaiduMessage() == null)
+            return false;
+        if (other.getBaiduMessage() != null && other.getBaiduMessage().equals(this.getBaiduMessage()) == false)
             return false;
         if (other.getDefaultMessage() == null ^ this.getDefaultMessage() == null)
             return false;
@@ -267,7 +355,9 @@ public class MessageConfiguration implements Serializable, Cloneable, Structured
         final int prime = 31;
         int hashCode = 1;
 
+        hashCode = prime * hashCode + ((getADMMessage() == null) ? 0 : getADMMessage().hashCode());
         hashCode = prime * hashCode + ((getAPNSMessage() == null) ? 0 : getAPNSMessage().hashCode());
+        hashCode = prime * hashCode + ((getBaiduMessage() == null) ? 0 : getBaiduMessage().hashCode());
         hashCode = prime * hashCode + ((getDefaultMessage() == null) ? 0 : getDefaultMessage().hashCode());
         hashCode = prime * hashCode + ((getEmailMessage() == null) ? 0 : getEmailMessage().hashCode());
         hashCode = prime * hashCode + ((getGCMMessage() == null) ? 0 : getGCMMessage().hashCode());

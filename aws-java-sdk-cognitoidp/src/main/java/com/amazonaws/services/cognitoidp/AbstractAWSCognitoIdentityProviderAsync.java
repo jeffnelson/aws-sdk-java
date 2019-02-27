@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -106,6 +106,19 @@ public class AbstractAWSCognitoIdentityProviderAsync extends AbstractAWSCognitoI
     }
 
     @Override
+    public java.util.concurrent.Future<AdminDisableProviderForUserResult> adminDisableProviderForUserAsync(AdminDisableProviderForUserRequest request) {
+
+        return adminDisableProviderForUserAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AdminDisableProviderForUserResult> adminDisableProviderForUserAsync(AdminDisableProviderForUserRequest request,
+            com.amazonaws.handlers.AsyncHandler<AdminDisableProviderForUserRequest, AdminDisableProviderForUserResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<AdminDisableUserResult> adminDisableUserAsync(AdminDisableUserRequest request) {
 
         return adminDisableUserAsync(request, null);
@@ -184,6 +197,19 @@ public class AbstractAWSCognitoIdentityProviderAsync extends AbstractAWSCognitoI
     }
 
     @Override
+    public java.util.concurrent.Future<AdminLinkProviderForUserResult> adminLinkProviderForUserAsync(AdminLinkProviderForUserRequest request) {
+
+        return adminLinkProviderForUserAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AdminLinkProviderForUserResult> adminLinkProviderForUserAsync(AdminLinkProviderForUserRequest request,
+            com.amazonaws.handlers.AsyncHandler<AdminLinkProviderForUserRequest, AdminLinkProviderForUserResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<AdminListDevicesResult> adminListDevicesAsync(AdminListDevicesRequest request) {
 
         return adminListDevicesAsync(request, null);
@@ -205,6 +231,19 @@ public class AbstractAWSCognitoIdentityProviderAsync extends AbstractAWSCognitoI
     @Override
     public java.util.concurrent.Future<AdminListGroupsForUserResult> adminListGroupsForUserAsync(AdminListGroupsForUserRequest request,
             com.amazonaws.handlers.AsyncHandler<AdminListGroupsForUserRequest, AdminListGroupsForUserResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<AdminListUserAuthEventsResult> adminListUserAuthEventsAsync(AdminListUserAuthEventsRequest request) {
+
+        return adminListUserAuthEventsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AdminListUserAuthEventsResult> adminListUserAuthEventsAsync(AdminListUserAuthEventsRequest request,
+            com.amazonaws.handlers.AsyncHandler<AdminListUserAuthEventsRequest, AdminListUserAuthEventsResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -249,6 +288,19 @@ public class AbstractAWSCognitoIdentityProviderAsync extends AbstractAWSCognitoI
     }
 
     @Override
+    public java.util.concurrent.Future<AdminSetUserMFAPreferenceResult> adminSetUserMFAPreferenceAsync(AdminSetUserMFAPreferenceRequest request) {
+
+        return adminSetUserMFAPreferenceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AdminSetUserMFAPreferenceResult> adminSetUserMFAPreferenceAsync(AdminSetUserMFAPreferenceRequest request,
+            com.amazonaws.handlers.AsyncHandler<AdminSetUserMFAPreferenceRequest, AdminSetUserMFAPreferenceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<AdminSetUserSettingsResult> adminSetUserSettingsAsync(AdminSetUserSettingsRequest request) {
 
         return adminSetUserSettingsAsync(request, null);
@@ -257,6 +309,19 @@ public class AbstractAWSCognitoIdentityProviderAsync extends AbstractAWSCognitoI
     @Override
     public java.util.concurrent.Future<AdminSetUserSettingsResult> adminSetUserSettingsAsync(AdminSetUserSettingsRequest request,
             com.amazonaws.handlers.AsyncHandler<AdminSetUserSettingsRequest, AdminSetUserSettingsResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<AdminUpdateAuthEventFeedbackResult> adminUpdateAuthEventFeedbackAsync(AdminUpdateAuthEventFeedbackRequest request) {
+
+        return adminUpdateAuthEventFeedbackAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AdminUpdateAuthEventFeedbackResult> adminUpdateAuthEventFeedbackAsync(AdminUpdateAuthEventFeedbackRequest request,
+            com.amazonaws.handlers.AsyncHandler<AdminUpdateAuthEventFeedbackRequest, AdminUpdateAuthEventFeedbackResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -296,6 +361,19 @@ public class AbstractAWSCognitoIdentityProviderAsync extends AbstractAWSCognitoI
     @Override
     public java.util.concurrent.Future<AdminUserGlobalSignOutResult> adminUserGlobalSignOutAsync(AdminUserGlobalSignOutRequest request,
             com.amazonaws.handlers.AsyncHandler<AdminUserGlobalSignOutRequest, AdminUserGlobalSignOutResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateSoftwareTokenResult> associateSoftwareTokenAsync(AssociateSoftwareTokenRequest request) {
+
+        return associateSoftwareTokenAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<AssociateSoftwareTokenResult> associateSoftwareTokenAsync(AssociateSoftwareTokenRequest request,
+            com.amazonaws.handlers.AsyncHandler<AssociateSoftwareTokenRequest, AssociateSoftwareTokenResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -379,6 +457,19 @@ public class AbstractAWSCognitoIdentityProviderAsync extends AbstractAWSCognitoI
     }
 
     @Override
+    public java.util.concurrent.Future<CreateResourceServerResult> createResourceServerAsync(CreateResourceServerRequest request) {
+
+        return createResourceServerAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CreateResourceServerResult> createResourceServerAsync(CreateResourceServerRequest request,
+            com.amazonaws.handlers.AsyncHandler<CreateResourceServerRequest, CreateResourceServerResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<CreateUserImportJobResult> createUserImportJobAsync(CreateUserImportJobRequest request) {
 
         return createUserImportJobAsync(request, null);
@@ -457,6 +548,19 @@ public class AbstractAWSCognitoIdentityProviderAsync extends AbstractAWSCognitoI
     }
 
     @Override
+    public java.util.concurrent.Future<DeleteResourceServerResult> deleteResourceServerAsync(DeleteResourceServerRequest request) {
+
+        return deleteResourceServerAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteResourceServerResult> deleteResourceServerAsync(DeleteResourceServerRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteResourceServerRequest, DeleteResourceServerResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<DeleteUserResult> deleteUserAsync(DeleteUserRequest request) {
 
         return deleteUserAsync(request, null);
@@ -530,6 +634,32 @@ public class AbstractAWSCognitoIdentityProviderAsync extends AbstractAWSCognitoI
     @Override
     public java.util.concurrent.Future<DescribeIdentityProviderResult> describeIdentityProviderAsync(DescribeIdentityProviderRequest request,
             com.amazonaws.handlers.AsyncHandler<DescribeIdentityProviderRequest, DescribeIdentityProviderResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeResourceServerResult> describeResourceServerAsync(DescribeResourceServerRequest request) {
+
+        return describeResourceServerAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeResourceServerResult> describeResourceServerAsync(DescribeResourceServerRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeResourceServerRequest, DescribeResourceServerResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeRiskConfigurationResult> describeRiskConfigurationAsync(DescribeRiskConfigurationRequest request) {
+
+        return describeRiskConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeRiskConfigurationResult> describeRiskConfigurationAsync(DescribeRiskConfigurationRequest request,
+            com.amazonaws.handlers.AsyncHandler<DescribeRiskConfigurationRequest, DescribeRiskConfigurationResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -667,6 +797,32 @@ public class AbstractAWSCognitoIdentityProviderAsync extends AbstractAWSCognitoI
     }
 
     @Override
+    public java.util.concurrent.Future<GetSigningCertificateResult> getSigningCertificateAsync(GetSigningCertificateRequest request) {
+
+        return getSigningCertificateAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetSigningCertificateResult> getSigningCertificateAsync(GetSigningCertificateRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetSigningCertificateRequest, GetSigningCertificateResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetUICustomizationResult> getUICustomizationAsync(GetUICustomizationRequest request) {
+
+        return getUICustomizationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetUICustomizationResult> getUICustomizationAsync(GetUICustomizationRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetUICustomizationRequest, GetUICustomizationResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<GetUserResult> getUserAsync(GetUserRequest request) {
 
         return getUserAsync(request, null);
@@ -690,6 +846,19 @@ public class AbstractAWSCognitoIdentityProviderAsync extends AbstractAWSCognitoI
     public java.util.concurrent.Future<GetUserAttributeVerificationCodeResult> getUserAttributeVerificationCodeAsync(
             GetUserAttributeVerificationCodeRequest request,
             com.amazonaws.handlers.AsyncHandler<GetUserAttributeVerificationCodeRequest, GetUserAttributeVerificationCodeResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetUserPoolMfaConfigResult> getUserPoolMfaConfigAsync(GetUserPoolMfaConfigRequest request) {
+
+        return getUserPoolMfaConfigAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<GetUserPoolMfaConfigResult> getUserPoolMfaConfigAsync(GetUserPoolMfaConfigRequest request,
+            com.amazonaws.handlers.AsyncHandler<GetUserPoolMfaConfigRequest, GetUserPoolMfaConfigResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -755,6 +924,19 @@ public class AbstractAWSCognitoIdentityProviderAsync extends AbstractAWSCognitoI
     @Override
     public java.util.concurrent.Future<ListIdentityProvidersResult> listIdentityProvidersAsync(ListIdentityProvidersRequest request,
             com.amazonaws.handlers.AsyncHandler<ListIdentityProvidersRequest, ListIdentityProvidersResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListResourceServersResult> listResourceServersAsync(ListResourceServersRequest request) {
+
+        return listResourceServersAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListResourceServersResult> listResourceServersAsync(ListResourceServersRequest request,
+            com.amazonaws.handlers.AsyncHandler<ListResourceServersRequest, ListResourceServersResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -851,6 +1033,58 @@ public class AbstractAWSCognitoIdentityProviderAsync extends AbstractAWSCognitoI
     }
 
     @Override
+    public java.util.concurrent.Future<SetRiskConfigurationResult> setRiskConfigurationAsync(SetRiskConfigurationRequest request) {
+
+        return setRiskConfigurationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<SetRiskConfigurationResult> setRiskConfigurationAsync(SetRiskConfigurationRequest request,
+            com.amazonaws.handlers.AsyncHandler<SetRiskConfigurationRequest, SetRiskConfigurationResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<SetUICustomizationResult> setUICustomizationAsync(SetUICustomizationRequest request) {
+
+        return setUICustomizationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<SetUICustomizationResult> setUICustomizationAsync(SetUICustomizationRequest request,
+            com.amazonaws.handlers.AsyncHandler<SetUICustomizationRequest, SetUICustomizationResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<SetUserMFAPreferenceResult> setUserMFAPreferenceAsync(SetUserMFAPreferenceRequest request) {
+
+        return setUserMFAPreferenceAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<SetUserMFAPreferenceResult> setUserMFAPreferenceAsync(SetUserMFAPreferenceRequest request,
+            com.amazonaws.handlers.AsyncHandler<SetUserMFAPreferenceRequest, SetUserMFAPreferenceResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<SetUserPoolMfaConfigResult> setUserPoolMfaConfigAsync(SetUserPoolMfaConfigRequest request) {
+
+        return setUserPoolMfaConfigAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<SetUserPoolMfaConfigResult> setUserPoolMfaConfigAsync(SetUserPoolMfaConfigRequest request,
+            com.amazonaws.handlers.AsyncHandler<SetUserPoolMfaConfigRequest, SetUserPoolMfaConfigResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<SetUserSettingsResult> setUserSettingsAsync(SetUserSettingsRequest request) {
 
         return setUserSettingsAsync(request, null);
@@ -903,6 +1137,19 @@ public class AbstractAWSCognitoIdentityProviderAsync extends AbstractAWSCognitoI
     }
 
     @Override
+    public java.util.concurrent.Future<UpdateAuthEventFeedbackResult> updateAuthEventFeedbackAsync(UpdateAuthEventFeedbackRequest request) {
+
+        return updateAuthEventFeedbackAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateAuthEventFeedbackResult> updateAuthEventFeedbackAsync(UpdateAuthEventFeedbackRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateAuthEventFeedbackRequest, UpdateAuthEventFeedbackResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<UpdateDeviceStatusResult> updateDeviceStatusAsync(UpdateDeviceStatusRequest request) {
 
         return updateDeviceStatusAsync(request, null);
@@ -942,6 +1189,19 @@ public class AbstractAWSCognitoIdentityProviderAsync extends AbstractAWSCognitoI
     }
 
     @Override
+    public java.util.concurrent.Future<UpdateResourceServerResult> updateResourceServerAsync(UpdateResourceServerRequest request) {
+
+        return updateResourceServerAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateResourceServerResult> updateResourceServerAsync(UpdateResourceServerRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateResourceServerRequest, UpdateResourceServerResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public java.util.concurrent.Future<UpdateUserAttributesResult> updateUserAttributesAsync(UpdateUserAttributesRequest request) {
 
         return updateUserAttributesAsync(request, null);
@@ -976,6 +1236,32 @@ public class AbstractAWSCognitoIdentityProviderAsync extends AbstractAWSCognitoI
     @Override
     public java.util.concurrent.Future<UpdateUserPoolClientResult> updateUserPoolClientAsync(UpdateUserPoolClientRequest request,
             com.amazonaws.handlers.AsyncHandler<UpdateUserPoolClientRequest, UpdateUserPoolClientResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateUserPoolDomainResult> updateUserPoolDomainAsync(UpdateUserPoolDomainRequest request) {
+
+        return updateUserPoolDomainAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateUserPoolDomainResult> updateUserPoolDomainAsync(UpdateUserPoolDomainRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateUserPoolDomainRequest, UpdateUserPoolDomainResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<VerifySoftwareTokenResult> verifySoftwareTokenAsync(VerifySoftwareTokenRequest request) {
+
+        return verifySoftwareTokenAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<VerifySoftwareTokenResult> verifySoftwareTokenAsync(VerifySoftwareTokenRequest request,
+            com.amazonaws.handlers.AsyncHandler<VerifySoftwareTokenRequest, VerifySoftwareTokenResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }

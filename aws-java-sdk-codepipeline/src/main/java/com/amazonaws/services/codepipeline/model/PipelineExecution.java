@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with
  * the License. A copy of the License is located at
@@ -58,18 +58,18 @@ public class PipelineExecution implements Serializable, Cloneable, StructuredPoj
      * </li>
      * <li>
      * <p>
-     * Succeeded: The pipeline execution completed successfully.
+     * Succeeded: The pipeline execution was completed successfully.
      * </p>
      * </li>
      * <li>
      * <p>
      * Superseded: While this pipeline execution was waiting for the next stage to be completed, a newer pipeline
-     * execution caught up and continued through the pipeline instead.
+     * execution advanced and continued through the pipeline instead.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Failed: The pipeline execution did not complete successfully.
+     * Failed: The pipeline execution was not completed successfully.
      * </p>
      * </li>
      * </ul>
@@ -214,18 +214,18 @@ public class PipelineExecution implements Serializable, Cloneable, StructuredPoj
      * </li>
      * <li>
      * <p>
-     * Succeeded: The pipeline execution completed successfully.
+     * Succeeded: The pipeline execution was completed successfully.
      * </p>
      * </li>
      * <li>
      * <p>
      * Superseded: While this pipeline execution was waiting for the next stage to be completed, a newer pipeline
-     * execution caught up and continued through the pipeline instead.
+     * execution advanced and continued through the pipeline instead.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Failed: The pipeline execution did not complete successfully.
+     * Failed: The pipeline execution was not completed successfully.
      * </p>
      * </li>
      * </ul>
@@ -240,18 +240,18 @@ public class PipelineExecution implements Serializable, Cloneable, StructuredPoj
      *        </li>
      *        <li>
      *        <p>
-     *        Succeeded: The pipeline execution completed successfully.
+     *        Succeeded: The pipeline execution was completed successfully.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        Superseded: While this pipeline execution was waiting for the next stage to be completed, a newer pipeline
-     *        execution caught up and continued through the pipeline instead.
+     *        execution advanced and continued through the pipeline instead.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Failed: The pipeline execution did not complete successfully.
+     *        Failed: The pipeline execution was not completed successfully.
      *        </p>
      *        </li>
      * @see PipelineExecutionStatus
@@ -273,18 +273,18 @@ public class PipelineExecution implements Serializable, Cloneable, StructuredPoj
      * </li>
      * <li>
      * <p>
-     * Succeeded: The pipeline execution completed successfully.
+     * Succeeded: The pipeline execution was completed successfully.
      * </p>
      * </li>
      * <li>
      * <p>
      * Superseded: While this pipeline execution was waiting for the next stage to be completed, a newer pipeline
-     * execution caught up and continued through the pipeline instead.
+     * execution advanced and continued through the pipeline instead.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Failed: The pipeline execution did not complete successfully.
+     * Failed: The pipeline execution was not completed successfully.
      * </p>
      * </li>
      * </ul>
@@ -298,18 +298,18 @@ public class PipelineExecution implements Serializable, Cloneable, StructuredPoj
      *         </li>
      *         <li>
      *         <p>
-     *         Succeeded: The pipeline execution completed successfully.
+     *         Succeeded: The pipeline execution was completed successfully.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
      *         Superseded: While this pipeline execution was waiting for the next stage to be completed, a newer
-     *         pipeline execution caught up and continued through the pipeline instead.
+     *         pipeline execution advanced and continued through the pipeline instead.
      *         </p>
      *         </li>
      *         <li>
      *         <p>
-     *         Failed: The pipeline execution did not complete successfully.
+     *         Failed: The pipeline execution was not completed successfully.
      *         </p>
      *         </li>
      * @see PipelineExecutionStatus
@@ -331,18 +331,18 @@ public class PipelineExecution implements Serializable, Cloneable, StructuredPoj
      * </li>
      * <li>
      * <p>
-     * Succeeded: The pipeline execution completed successfully.
+     * Succeeded: The pipeline execution was completed successfully.
      * </p>
      * </li>
      * <li>
      * <p>
      * Superseded: While this pipeline execution was waiting for the next stage to be completed, a newer pipeline
-     * execution caught up and continued through the pipeline instead.
+     * execution advanced and continued through the pipeline instead.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Failed: The pipeline execution did not complete successfully.
+     * Failed: The pipeline execution was not completed successfully.
      * </p>
      * </li>
      * </ul>
@@ -357,18 +357,18 @@ public class PipelineExecution implements Serializable, Cloneable, StructuredPoj
      *        </li>
      *        <li>
      *        <p>
-     *        Succeeded: The pipeline execution completed successfully.
+     *        Succeeded: The pipeline execution was completed successfully.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        Superseded: While this pipeline execution was waiting for the next stage to be completed, a newer pipeline
-     *        execution caught up and continued through the pipeline instead.
+     *        execution advanced and continued through the pipeline instead.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Failed: The pipeline execution did not complete successfully.
+     *        Failed: The pipeline execution was not completed successfully.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -392,18 +392,18 @@ public class PipelineExecution implements Serializable, Cloneable, StructuredPoj
      * </li>
      * <li>
      * <p>
-     * Succeeded: The pipeline execution completed successfully.
+     * Succeeded: The pipeline execution was completed successfully.
      * </p>
      * </li>
      * <li>
      * <p>
      * Superseded: While this pipeline execution was waiting for the next stage to be completed, a newer pipeline
-     * execution caught up and continued through the pipeline instead.
+     * execution advanced and continued through the pipeline instead.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Failed: The pipeline execution did not complete successfully.
+     * Failed: The pipeline execution was not completed successfully.
      * </p>
      * </li>
      * </ul>
@@ -418,18 +418,18 @@ public class PipelineExecution implements Serializable, Cloneable, StructuredPoj
      *        </li>
      *        <li>
      *        <p>
-     *        Succeeded: The pipeline execution completed successfully.
+     *        Succeeded: The pipeline execution was completed successfully.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        Superseded: While this pipeline execution was waiting for the next stage to be completed, a newer pipeline
-     *        execution caught up and continued through the pipeline instead.
+     *        execution advanced and continued through the pipeline instead.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Failed: The pipeline execution did not complete successfully.
+     *        Failed: The pipeline execution was not completed successfully.
      *        </p>
      *        </li>
      * @see PipelineExecutionStatus
@@ -451,18 +451,18 @@ public class PipelineExecution implements Serializable, Cloneable, StructuredPoj
      * </li>
      * <li>
      * <p>
-     * Succeeded: The pipeline execution completed successfully.
+     * Succeeded: The pipeline execution was completed successfully.
      * </p>
      * </li>
      * <li>
      * <p>
      * Superseded: While this pipeline execution was waiting for the next stage to be completed, a newer pipeline
-     * execution caught up and continued through the pipeline instead.
+     * execution advanced and continued through the pipeline instead.
      * </p>
      * </li>
      * <li>
      * <p>
-     * Failed: The pipeline execution did not complete successfully.
+     * Failed: The pipeline execution was not completed successfully.
      * </p>
      * </li>
      * </ul>
@@ -477,18 +477,18 @@ public class PipelineExecution implements Serializable, Cloneable, StructuredPoj
      *        </li>
      *        <li>
      *        <p>
-     *        Succeeded: The pipeline execution completed successfully.
+     *        Succeeded: The pipeline execution was completed successfully.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
      *        Superseded: While this pipeline execution was waiting for the next stage to be completed, a newer pipeline
-     *        execution caught up and continued through the pipeline instead.
+     *        execution advanced and continued through the pipeline instead.
      *        </p>
      *        </li>
      *        <li>
      *        <p>
-     *        Failed: The pipeline execution did not complete successfully.
+     *        Failed: The pipeline execution was not completed successfully.
      *        </p>
      *        </li>
      * @return Returns a reference to this object so that method calls can be chained together.
@@ -571,7 +571,8 @@ public class PipelineExecution implements Serializable, Cloneable, StructuredPoj
     }
 
     /**
-     * Returns a string representation of this object; useful for testing and debugging.
+     * Returns a string representation of this object. This is useful for testing and debugging. Sensitive data will be
+     * redacted from this string using a placeholder value.
      *
      * @return A string representation of this object.
      *
